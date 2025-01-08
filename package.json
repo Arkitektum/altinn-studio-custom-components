@@ -1,0 +1,23 @@
+{
+    "name": "altinn-studio-custom-components",
+    "version": "1.0.0",
+    "description": "Custom components for Altinn Studio",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack --mode production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Arkitektum/altinn-studio-custom-components.git"
+    },
+    "author": "",
+    "bugs": {
+        "url": "https://github.com/Arkitektum/altinn-studio-custom-components/issues"
+    },
+    "homepage": "https://github.com/Arkitektum/altinn-studio-custom-components#readme",
+    "devDependencies": {
+        "webpack": "^5.97.1",
+        "webpack-cli": "^6.0.1"
+    }
+}
