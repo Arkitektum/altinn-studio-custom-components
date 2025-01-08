@@ -1,5 +1,5 @@
 {
-    "name": "altinn-studio-custom-components",
+    "name": "@arkitektum/altinn-studio-custom-components",
     "version": "1.0.0",
     "description": "Custom components for Altinn Studio",
     "main": "dist/index.js",
