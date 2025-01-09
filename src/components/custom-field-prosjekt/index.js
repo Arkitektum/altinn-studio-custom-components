@@ -1,6 +1,7 @@
-import { objectHasValue, renderFieldElement } from "../../functions/helpers.js";
+import Prosjekt from "../../classes/Prosjekt.js";
+import { getCustomComponentProps, objectHasValue, renderFieldElement } from "../../functions/helpers.js";
 
-customElements.define(
+export default customElements.define(
     "custom-field-prosjekt",
     class extends HTMLElement {
         formatProsjekt(prosjekt) {
@@ -8,19 +9,16 @@ customElements.define(
             const prosjektParts = [prosjekt?.prosjektnavn, prosjektnrString];
             return prosjektParts.filter((prosjektPart) => prosjektPart?.length).join(" ");
         }
-
         connectedCallback() {
-            const hideIfEmpty = this.getAttribute("hideIfEmpty") === "true";
-            const hideTitle = this.getAttribute("hideTitle") === "true";
-            const emptyFieldText = this.getAttribute("emptyFieldText");
-            const formdata = JSON.parse(this.getAttribute("formdata"));
-            const title = !hideTitle && this.getAttribute("text");
-            const prosjekt = { prosjektnavn: formdata.data.prosjektnavn, prosjektnr: formdata.data.prosjektnr };
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const prosjekt = new Prosjekt(data);
             if (hideIfEmpty && !objectHasValue(prosjekt)) {
                 this.style.display = "none";
             } else {
+                const title = !hideTitle && text;
                 const prosjektString = this.formatProsjekt(prosjekt);
-                this.innerHTML = renderFieldElement(title, prosjektString?.length ? prosjektString : emptyFieldText);
+                const value = prosjektString?.length ? prosjektString : emptyFieldText;
+                this.innerHTML = renderFieldElement(title, value, true, styleoverride);
             }
         }
     }

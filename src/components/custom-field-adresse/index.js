@@ -1,6 +1,7 @@
-import { objectHasValue, renderFieldElement } from "../../functions/helpers.js";
+import Adresse from "../../classes/Adresse.js";
+import { getCustomComponentProps, objectHasValue, renderFieldElement } from "../../functions/helpers.js";
 
-customElements.define(
+export default customElements.define(
     "custom-field-adresse",
     class extends HTMLElement {
         formatAdresselinje(adresse) {
@@ -16,18 +17,14 @@ customElements.define(
             const zipCity = this.formatZipCity(adresse);
             return adresseLinje?.length ? `${adresseLinje}\n${zipCity}` : zipCity;
         }
-
         connectedCallback() {
-            const hideIfEmpty = this.getAttribute("hideIfEmpty") === "true";
-            const hideTitle = this.getAttribute("hideTitle") === "true";
-            const emptyFieldText = this.getAttribute("emptyFieldText");
-            const formdata = JSON.parse(this.getAttribute("formdata"));
-            const styleoverride = JSON.parse(this.getAttribute("styleoverride"));
-            const title = !hideTitle && this.getAttribute("text");
-            if (hideIfEmpty && !objectHasValue(formdata.data)) {
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const address = new Adresse(data);
+            const title = !hideTitle && text;
+            if (hideIfEmpty && !objectHasValue(address)) {
                 this.style.display = "none";
             } else {
-                const adresseString = this.formatAdresse(formdata.data);
+                const adresseString = this.formatAdresse(address);
                 this.innerHTML = renderFieldElement(
                     title,
                     adresseString?.length ? adresseString : emptyFieldText,

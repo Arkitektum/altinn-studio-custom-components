@@ -1,19 +1,16 @@
-import { objectHasValue, renderFieldElement } from "../../functions/helpers.js";
+import { getCustomComponentProps, renderFieldElement } from "../../functions/helpers.js";
 
-customElements.define(
+export default customElements.define(
     "custom-field-data",
     class extends HTMLElement {
         connectedCallback() {
-            const hideIfEmpty = this.getAttribute("hideIfEmpty") === "true";
-            const hideTitle = this.getAttribute("hideTitle") === "true";
-            const emptyFieldText = this.getAttribute("emptyFieldText");
-            const formdata = JSON.parse(this.getAttribute("formdata"));
-            const title = !hideTitle && this.getAttribute("text");
-            const value = formdata?.simpleBinding?.length ? formdata.simpleBinding : emptyFieldText;
-            if (hideIfEmpty && !objectHasValue(formdata.simpleBinding)) {
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            if (hideIfEmpty && !data) {
                 this.style.display = "none";
             } else {
-                this.innerHTML = renderFieldElement(title, value);
+                const title = !hideTitle && text;
+                const value = data || emptyFieldText;
+                this.innerHTML = renderFieldElement(title, value, true, styleoverride);
             }
         }
     }

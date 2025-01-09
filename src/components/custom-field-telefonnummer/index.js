@@ -1,27 +1,23 @@
-import { objectHasValue, renderFieldElement } from "../../functions/helpers.js";
+import Telefonnumre from "../../classes/Telefonnumre.js";
+import { getCustomComponentProps, objectHasValue, renderFieldElement } from "../../functions/helpers.js";
 
-customElements.define(
+export default customElements.define(
     "custom-field-telefonnummer",
     class extends HTMLElement {
-        formatPhoneNumbers(kontaktperson) {
-            const phoneNumbers = [kontaktperson.telefonnummer, kontaktperson.mobilnummer];
+        formatPhoneNumbers(telefonnumre) {
+            const phoneNumbers = [telefonnumre.telefonnummer, telefonnumre.mobilnummer];
             return phoneNumbers.filter((nummerLinje) => nummerLinje?.length).join("\n");
         }
-
         connectedCallback() {
-            const hideIfEmpty = this.getAttribute("hideIfEmpty") === "true";
-            const hideTitle = this.getAttribute("hideTitle") === "true";
-            const emptyFieldText = this.getAttribute("emptyFieldText");
-            const formdata = JSON.parse(this.getAttribute("formdata"));
-            const title = !hideTitle && this.getAttribute("text");
-            if (hideIfEmpty && !objectHasValue(formdata.data)) {
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const telefonnumre = new Telefonnumre(data);
+            if (hideIfEmpty && !objectHasValue(telefonnumre)) {
                 this.style.display = "none";
             } else {
-                const phoneNumbersString = this.formatPhoneNumbers(formdata.data);
-                this.innerHTML = renderFieldElement(
-                    title,
-                    phoneNumbersString?.length ? phoneNumbersString : emptyFieldText
-                );
+                const title = !hideTitle && text;
+                const phoneNumbersString = this.formatPhoneNumbers(telefonnumre);
+                const value = phoneNumbersString?.length ? phoneNumbersString : emptyFieldText;
+                this.innerHTML = renderFieldElement(title, value, true, styleoverride);
             }
         }
     }

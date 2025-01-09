@@ -1,6 +1,7 @@
-import { renderFieldElement } from "../../functions/helpers.js";
+import UtfallSvar from "../../classes/UtfallSvar.js";
+import { getCustomComponentProps, renderFieldElement } from "../../functions/helpers.js";
 
-customElements.define(
+export default customElements.define(
     "custom-field-utfall-svar-status",
     class extends HTMLElement {
         getStatusText(utfallSvar) {
@@ -14,11 +15,11 @@ customElements.define(
             }
         }
         connectedCallback() {
-            const hideTitle = this.getAttribute("hideTitle") === "true";
-            const formdata = JSON.parse(this.getAttribute("formdata"));
-            const title = !hideTitle && this.getAttribute("text");
-            const statusText = this.getStatusText(formdata?.data);
-            this.innerHTML = renderFieldElement(title, statusText);
+            const { data, text, hideTitle, styleoverride } = getCustomComponentProps(this);
+            const utfallSvar = new UtfallSvar(data);
+            const title = !hideTitle && text;
+            const statusText = this.getStatusText(utfallSvar);
+            this.innerHTML = renderFieldElement(title, statusText, true, styleoverride);
         }
     }
 );

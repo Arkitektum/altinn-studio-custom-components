@@ -1,6 +1,7 @@
-import { objectHasValue, renderFieldElement } from "../../functions/helpers.js";
+import AnsvarligSoeker from "../../classes/AnsvarligSoeker.js";
+import { getCustomComponentProps, objectHasValue, renderFieldElement } from "../../functions/helpers.js";
 
-customElements.define(
+export default customElements.define(
     "custom-field-ansvarlig-soeker",
     class extends HTMLElement {
         formatName(ansvarligSoeker) {
@@ -10,18 +11,14 @@ customElements.define(
                 : "";
             return name;
         }
-
         connectedCallback() {
-            const hideIfEmpty = this.getAttribute("hideIfEmpty") === "true";
-            const hideTitle = this.getAttribute("hideTitle") === "true";
-            const emptyFieldText = this.getAttribute("emptyFieldText");
-            const formdata = JSON.parse(this.getAttribute("formdata"));
-            const styleoverride = JSON.parse(this.getAttribute("styleoverride"));
-            const title = !hideTitle && this.getAttribute("text");
-            if (hideIfEmpty && !objectHasValue(formdata.data)) {
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const ansvarligSoeker = new AnsvarligSoeker(data);
+            if (hideIfEmpty && !objectHasValue(ansvarligSoeker)) {
                 this.style.display = "none";
             } else {
-                const phoneNumbersString = this.formatName(formdata.data);
+                const title = !hideTitle && text;
+                const phoneNumbersString = this.formatName(ansvarligSoeker);
                 this.innerHTML = renderFieldElement(
                     title,
                     phoneNumbersString?.length ? phoneNumbersString : emptyFieldText,
