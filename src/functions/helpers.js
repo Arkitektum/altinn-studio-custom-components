@@ -69,3 +69,22 @@ export function renderListFieldElement(fieldTitle, listItems, listType) {
     });
     return fieldElement.outerHTML;
 }
+
+function getCustomComponentDataFromFormdata(formdata) {
+    const simpleBinding = objectHasValue(formdata?.simpleBinding) ? formdata.simpleBinding : null;
+    const data = objectHasValue(formdata?.data) ? formdata.data : null;
+    return simpleBinding || data;
+}
+
+export function getCustomComponentProps(customComponent) {
+    const formData = JSON.parse(customComponent.getAttribute("formdata"));
+    const data = getCustomComponentDataFromFormdata(formData);
+    return {
+        data,
+        text: customComponent.getAttribute("text"),
+        hideTitle: customComponent.getAttribute("hideTitle") === "true",
+        hideIfEmpty: customComponent.getAttribute("hideIfEmpty") === "true",
+        emptyFieldText: customComponent.getAttribute("emptyFieldText"),
+        styleoverride: JSON.parse(customComponent.getAttribute("styleoverride"))
+    };
+}
