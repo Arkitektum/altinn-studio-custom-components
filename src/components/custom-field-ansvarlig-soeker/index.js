@@ -1,16 +1,10 @@
 import AnsvarligSoeker from "../../classes/AnsvarligSoeker.js";
 import { getCustomComponentProps, objectHasValue, renderFieldElement } from "../../functions/helpers.js";
+import { formatName } from "./functions.js";
 
 export default customElements.define(
     "custom-field-ansvarlig-soeker",
     class extends HTMLElement {
-        formatName(ansvarligSoeker) {
-            let name = ansvarligSoeker?.navn || "";
-            name += ansvarligSoeker?.organisasjonsnummer?.length
-                ? `\n Organisasjonsnummer: ${ansvarligSoeker.organisasjonsnummer}`
-                : "";
-            return name;
-        }
         connectedCallback() {
             const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
             const ansvarligSoeker = new AnsvarligSoeker(data);
@@ -18,7 +12,7 @@ export default customElements.define(
                 this.style.display = "none";
             } else {
                 const title = !hideTitle && text;
-                const phoneNumbersString = this.formatName(ansvarligSoeker);
+                const phoneNumbersString = formatName(ansvarligSoeker);
                 this.innerHTML = renderFieldElement(
                     title,
                     phoneNumbersString?.length ? phoneNumbersString : emptyFieldText,
