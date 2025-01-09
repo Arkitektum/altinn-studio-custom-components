@@ -1,4 +1,4 @@
-import { objectHasValue, renderFieldElement } from "../functions/helpers.js";
+import { objectHasValue, renderFieldElement } from "../../functions/helpers.js";
 
 customElements.define(
     "custom-field-adresse",
