@@ -21,10 +21,10 @@ export async function getStatusText(utfallSvar, component) {
     };
     validateTexts(texts, fallbackTexts, textKeys, componentId);
     if (utfallSvar?.erUtfallBesvaresSenere) {
-        return texts?.erUtfallBesvaresSenere ? texts?.erUtfallBesvaresSenere : fallbackTexts?.erUtfallBesvaresSenere;
+        return texts?.erUtfallBesvaresSenere ? texts.erUtfallBesvaresSenere : fallbackTexts.erUtfallBesvaresSenere;
     } else if (utfallSvar?.erUtfallBesvart) {
-        return texts?.erUtfallBesvart ? texts?.erUtfallBesvart : fallbackTexts?.erUtfallBesvart;
+        return texts?.erUtfallBesvart ? texts.erUtfallBesvart : fallbackTexts.erUtfallBesvart;
     } else {
-        return texts?.status ? texts?.status : fallbackTexts?.status;
+        return texts?.status ? texts.status : fallbackTexts.status;
     }
 }
