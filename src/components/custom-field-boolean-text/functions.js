@@ -19,9 +19,9 @@ export async function getBooleanText(data, component) {
     };
     validateTexts(texts, fallbackTexts, textKeys, componentId);
     if (data === true || data === "true") {
-        return texts?.trueText ? texts.trueText : fallbackTexts.trueText;
+        return texts?.trueText !== undefined && texts.trueText !== null ? texts.trueText : fallbackTexts.trueText;
     } else if (data === false || data === "false") {
-        return texts?.falseText ? texts.falseText : fallbackTexts.falseText;
+        return texts?.falseText !== undefined && texts.falseText !== null ? texts.falseText : fallbackTexts.falseText;
     } else {
         return texts?.defaultText ? texts.defaultText : fallbackTexts.defaultText;
     }

@@ -91,8 +91,8 @@ export function getCustomComponentProps(customComponent) {
 
 export function validateTexts(texts, fallbackTexts, keys, componentName) {
     keys.forEach((key) => {
-        if (!texts[key]) {
-            if (fallbackTexts[key]) {
+        if (texts[key] === undefined || texts[key] === null) {
+            if (fallbackTexts?.[key] !== undefined && fallbackTexts?.[key] !== null) {
                 console.warn(
                     `Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`
                 );

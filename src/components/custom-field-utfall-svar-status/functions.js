@@ -1,3 +1,5 @@
+import { getAsync, validateTexts } from "../../functions/helpers";
+
 /**
  * Returns the status text based on the provided `utfallSvar` object.
  *
@@ -5,10 +7,8 @@
  * @param {boolean} utfallSvar.erUtfallBesvaresSenere - Indicates if the response will be provided later.
  * @param {boolean} utfallSvar.erUtfallBesvart - Indicates if the response has already been submitted.
  * @param {HTMLElement} component - The component element.
- * @returns {string} The status text corresponding to the provided `utfallSvar` object.
+ * @returns {Promise<string>} A promise that resolves a status text corresponding to the provided `utfallSvar` object.
  */
-
-import { getAsync, validateTexts } from "../../functions/helpers";
 
 export async function getStatusText(utfallSvar, component) {
     const componentId = component.getAttribute("id");
@@ -21,9 +21,13 @@ export async function getStatusText(utfallSvar, component) {
     };
     validateTexts(texts, fallbackTexts, textKeys, componentId);
     if (utfallSvar?.erUtfallBesvaresSenere) {
-        return texts?.erUtfallBesvaresSenere ? texts.erUtfallBesvaresSenere : fallbackTexts.erUtfallBesvaresSenere;
+        return texts?.erUtfallBesvaresSenere !== undefined && texts?.erUtfallBesvaresSenere !== null
+            ? texts.erUtfallBesvaresSenere
+            : fallbackTexts.erUtfallBesvaresSenere;
     } else if (utfallSvar?.erUtfallBesvart) {
-        return texts?.erUtfallBesvart ? texts.erUtfallBesvart : fallbackTexts.erUtfallBesvart;
+        return texts?.erUtfallBesvart !== undefined && texts?.erUtfallBesvart !== null
+            ? texts.erUtfallBesvart
+            : fallbackTexts.erUtfallBesvart;
     } else {
         return texts?.status ? texts.status : fallbackTexts.status;
     }
