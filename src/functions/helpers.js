@@ -88,3 +88,34 @@ export function getCustomComponentProps(customComponent) {
         styleoverride: JSON.parse(customComponent.getAttribute("styleoverride"))
     };
 }
+
+export function validateTexts(texts, fallbackTexts, keys, componentName) {
+    keys.forEach((key) => {
+        if (!texts[key]) {
+            if (fallbackTexts[key]) {
+                console.warn(
+                    `Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`
+                );
+            } else {
+                console.warn(`Missing textResourceBindings.${key} for "${componentName}".`);
+            }
+        }
+    });
+}
+
+export function getAsync(obj, prop) {
+    return new Promise((resolve, reject) => {
+        if (typeof obj[prop] === "undefined") {
+            Object.defineProperty(obj, prop, {
+                set: (value) => {
+                    Object.defineProperty(obj, prop, { value });
+                    resolve(value);
+                },
+                configurable: true,
+                enumerable: true
+            });
+        } else {
+            resolve(obj[prop]);
+        }
+    });
+}
