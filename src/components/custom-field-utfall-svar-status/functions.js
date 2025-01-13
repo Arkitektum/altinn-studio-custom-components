@@ -4,15 +4,27 @@
  * @param {Object} utfallSvar - The object containing the status information.
  * @param {boolean} utfallSvar.erUtfallBesvaresSenere - Indicates if the response will be provided later.
  * @param {boolean} utfallSvar.erUtfallBesvart - Indicates if the response has already been submitted.
+ * @param {HTMLElement} component - The component element.
  * @returns {string} The status text corresponding to the provided `utfallSvar` object.
  */
-export function getStatusText(utfallSvar) {
-    // TODO: Add support for text resources
+
+import { getAsync, validateTexts } from "../../functions/helpers";
+
+export async function getStatusText(utfallSvar, component) {
+    const componentId = component.getAttribute("id");
+    const texts = await getAsync(component, "texts");
+    const textKeys = ["erUtfallBesvaresSenere", "erUtfallBesvart", "status"];
+    const fallbackTexts = {
+        erUtfallBesvaresSenere: "Besvares senere",
+        erUtfallBesvart: "Svar innsendt tidligere",
+        status: "Besvares nå"
+    };
+    validateTexts(texts, fallbackTexts, textKeys, componentId);
     if (utfallSvar?.erUtfallBesvaresSenere) {
-        return "Besvares senere";
+        return texts?.erUtfallBesvaresSenere ? texts?.erUtfallBesvaresSenere : fallbackTexts?.erUtfallBesvaresSenere;
     } else if (utfallSvar?.erUtfallBesvart) {
-        return "Svar innsendt tidligere";
+        return texts?.erUtfallBesvart ? texts?.erUtfallBesvart : fallbackTexts?.erUtfallBesvart;
     } else {
-        return "Besvares nå";
+        return texts?.status ? texts?.status : fallbackTexts?.status;
     }
 }
