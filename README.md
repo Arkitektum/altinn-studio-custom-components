@@ -50,6 +50,7 @@ Legg til script-taggen i head.
 ### Tekstfelt
 
 - [Data](src/components/custom-field-data/)
+- [Boolean text](src/components/custom-field-boolean-text/)
 - [Adresse](src/components/custom-field-adresse/)
 - [Ansvarlig søker](src/components/custom-field-ansvarlig-soeker/)
 - [Kommunens saksnummer](src/components/custom-field-kommunens-saksnummer/)
