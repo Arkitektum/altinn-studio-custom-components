@@ -6,6 +6,7 @@
 | type                                        | string            | The type of the custom field, which is "Custom".                                    |               |
 | tagName                                     | string            | The tag name for the custom field, which is "custom-field-utfall-svar-status".      |               |
 | hideTitle                                   | boolean           | A flag indicating whether the title should be hidden.                               | false         |
+| hideIfEmpty                                 | boolean           | Determines whether the element should be hidden when it contains no content.        | false         |
 | dataModelBindings.data                      | string            | Reference to an [UtfallSvar](../../classes/UtfallSvar.js) object in the data model. |               |
 | textResourceBindings.title                  | string            | The title text resource binding.                                                    |               |
 | textResourceBindings.erUtfallBesvaresSenere | string            | The text resource binding for whether the outcome will be answered later.           |               |
@@ -21,6 +22,7 @@
     "type": "Custom",
     "tagName": "custom-field-utfall-svar-status",
     "hideTitle": true,
+    "hideIfEmpty": false,
     "dataModelBindings": {
         "data": "utfallBesvarelse.utfallSvar"
     },

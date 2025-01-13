@@ -10,7 +10,11 @@ export default customElements.define(
             const utfallSvar = new UtfallSvar(data);
             const title = !hideTitle && text;
             const statusText = await getStatusText(utfallSvar, this);
-            this.innerHTML = renderFieldElement(title, statusText, true, styleoverride);
+            if (hideIfEmpty && !statusText?.length) {
+                this.style.display = "none";
+            } else {
+                this.innerHTML = renderFieldElement(title, statusText, true, styleoverride);
+            }
         }
     }
 );

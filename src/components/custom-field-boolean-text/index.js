@@ -5,10 +5,14 @@ export default customElements.define(
     "custom-field-boolean-text",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data, text, hideTitle, styleoverride } = getCustomComponentProps(this);
+            const { data, text, hideTitle, hideIfEmpty, styleoverride } = getCustomComponentProps(this);
             const title = !hideTitle && text;
             const statusText = await getBooleanText(data, this);
-            this.innerHTML = renderFieldElement(title, statusText, true, styleoverride);
+            if (hideIfEmpty && !statusText?.length) {
+                this.style.display = "none";
+            } else {
+                this.innerHTML = renderFieldElement(title, statusText, true, styleoverride);
+            }
         }
     }
 );
