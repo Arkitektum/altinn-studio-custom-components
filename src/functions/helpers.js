@@ -120,3 +120,7 @@ export function getAsync(obj, prop) {
         }
     });
 }
+
+export function getComponentContainerElement(component) {
+    return component?.parentElement?.parentElement;
+}

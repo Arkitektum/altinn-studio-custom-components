@@ -1,12 +1,13 @@
-import { getCustomComponentProps, renderFieldElement } from "../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../functions/helpers.js";
 
 export default customElements.define(
     "custom-field-data",
     class extends HTMLElement {
         connectedCallback() {
             const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
-            if (hideIfEmpty && !data) {
-                this.style.display = "none";
+            const componentContainerElement = getComponentContainerElement(this);
+            if (hideIfEmpty && !data && !!componentContainerElement) {
+                componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;
                 const value = data || emptyFieldText;

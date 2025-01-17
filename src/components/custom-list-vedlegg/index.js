@@ -1,4 +1,5 @@
 import {
+    getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement,
@@ -12,10 +13,11 @@ export default customElements.define(
     class extends HTMLElement {
         connectedCallback() {
             const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const componentContainerElement = getComponentContainerElement(this);
             const attachmentListItems = getAttachmentListItems(data);
             const title = !hideTitle && text;
-            if (hideIfEmpty && !objectHasValue(attachmentListItems)) {
-                this.style.display = "none";
+            if (hideIfEmpty && !objectHasValue(attachmentListItems) && !!componentContainerElement) {
+                componentContainerElement.style.display = "none";
             } else if (emptyFieldText?.length && !attachmentListItems?.length) {
                 this.innerHTML = renderFieldElement(title, emptyFieldText, true, styleoverride);
             } else {
