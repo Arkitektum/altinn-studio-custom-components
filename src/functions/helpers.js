@@ -1,6 +1,8 @@
 export function objectHasValue(obj) {
     for (let key in obj) {
-        return !!obj?.[key]?.toString().length > 0;
+        if (!!obj?.[key]?.toString().length > 0) {
+            return true;
+        }
     }
     return false;
 }
