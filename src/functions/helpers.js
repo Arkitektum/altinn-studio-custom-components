@@ -14,6 +14,7 @@ function addStyle(element, style) {
 export function renderFieldTitleElement(fieldTitle) {
     const fieldTitleLabelElement = document.createElement("label");
     fieldTitleLabelElement.classList.add("fds-label", "fds-label--md");
+    addStyle(fieldTitleLabelElement, { breakAfter: "avoid" });
     const fieldTitleSpanElement = document.createElement("span");
     fieldTitleSpanElement.innerHTML = fieldTitle;
     fieldTitleLabelElement.appendChild(fieldTitleSpanElement);
