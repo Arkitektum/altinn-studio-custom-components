@@ -1,4 +1,4 @@
-import { getAsync, validateTexts } from "../../functions/helpers";
+import { getComponentTexts, validateTexts } from "../../functions/helpers";
 
 /**
  * Retrieves the appropriate text based on the boolean value of the data.
@@ -10,7 +10,7 @@ import { getAsync, validateTexts } from "../../functions/helpers";
 
 export async function getBooleanText(data, component) {
     const componentId = component.getAttribute("id");
-    const texts = await getAsync(component, "texts");
+    const texts = await getComponentTexts(component);
     const textKeys = ["trueText", "falseText", "defaultText"];
     const fallbackTexts = {
         trueText: "Ja",

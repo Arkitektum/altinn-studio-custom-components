@@ -12,6 +12,15 @@ function addStyle(element, style) {
         element.style[key] = style[key];
     }
 }
+export async function getComponentTexts(component) {
+    let texts = component.getAttribute("texts");
+    if (texts) {
+        return JSON.parse(texts);
+    } else {
+        texts = await getAsync(component, "texts");
+        return texts;
+    }
+}
 
 export function renderFieldTitleElement(fieldTitle) {
     const fieldTitleLabelElement = document.createElement("label");
