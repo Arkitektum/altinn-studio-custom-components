@@ -12,6 +12,13 @@ function addStyle(element, style) {
         element.style[key] = style[key];
     }
 }
+
+function setAttributes(element, attributes) {
+    for (const key in attributes) {
+        element.setAttribute(key, attributes[key]);
+    }
+}
+
 export async function getComponentTexts(component) {
     let texts = component.getAttribute("texts");
     if (texts) {
@@ -20,6 +27,36 @@ export async function getComponentTexts(component) {
         texts = await getAsync(component, "texts");
         return texts;
     }
+}
+
+export function createCustomElement(tagName, props) {
+    const customFieldElement = document.createElement(tagName);
+    const htmlAttributes = {
+        formdata: JSON.stringify({ [typeof props?.data === "object" ? "data" : "simpleBinding"]: props?.data }),
+        text: props?.text?.toString() || "",
+        size: props?.size?.toString() || "",
+        hidetitle: props?.hideTitle?.toString() || "",
+        hideifempty: props?.hideIfEmpty?.toString() || "",
+        emptyfieldtext: props?.emptyFieldText?.toString() || "",
+        styleoverride: JSON.stringify(props?.styleoverride) || "",
+        grid: JSON.stringify(props?.grid) || ""
+    };
+    setAttributes(customFieldElement, htmlAttributes);
+    return customFieldElement;
+}
+
+export function addContainerElement(component) {
+    const containerElement = document.createElement("div");
+    const formContentElement = document.createElement("div");
+
+    formContentElement.appendChild(component);
+    containerElement.appendChild(formContentElement);
+
+    addStyle(containerElement, {
+        padding: "0.75rem 0"
+    });
+
+    return containerElement;
 }
 
 export function renderFieldTitleElement(fieldTitle) {
