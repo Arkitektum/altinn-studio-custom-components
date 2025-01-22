@@ -88,7 +88,7 @@ export function getCustomComponentProps(customComponent) {
         hideTitle: customComponent.getAttribute("hideTitle") === "true",
         hideIfEmpty: customComponent.getAttribute("hideIfEmpty") === "true",
         emptyFieldText: customComponent.getAttribute("emptyFieldText"),
-        styleoverride: JSON.parse(customComponent.getAttribute("styleoverride"))
+        styleoverride: JSON.parse(customComponent.getAttribute("styleoverride") || "{}")
     };
 }
 
