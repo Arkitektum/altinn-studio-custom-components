@@ -1,5 +1,6 @@
 /**
  * Class representing phone numbers.
+ * @class
  */
 export default class Telefonnumre {
     /**

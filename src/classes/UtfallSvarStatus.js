@@ -1,5 +1,6 @@
 /**
  * Class representing an UtfallSvarStatus.
+ * @class
  */
 export default class UtfallSvarStatus {
     /**

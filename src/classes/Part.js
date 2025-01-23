@@ -1,5 +1,6 @@
 /**
  * Class representing a Part.
+ * @class
  */
 export default class Part {
     /**

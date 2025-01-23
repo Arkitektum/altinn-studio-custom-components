@@ -1,10 +1,11 @@
 /**
- * Class representing a Vedleggstype.
+ * Represents a Vedleggstype.
+ * @class
  */
 export default class Vedleggstype {
     /**
-     * Create a Vedleggstype.
-     * @param {Object} props - The properties object.
+     * Creates an instance of Vedleggstype.
+     * @param {Object} props - The properties to initialize the Vedleggstype.
      * @param {string} [props.kodebeskrivelse] - The description of the code.
      */
     constructor(props) {
