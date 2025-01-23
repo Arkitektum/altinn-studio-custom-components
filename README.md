@@ -6,7 +6,11 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 
 ## Komponenter
 
-### Tekstfelt
+### Titler
+
+- [Text](src/components/custom-header-text/) - viser tittel med tekst fra ressurs
+
+### Datafelt
 
 - [Data](src/components/custom-field-data/) - viser et datafelt med label
 - [Boolean text](src/components/custom-field-boolean-text/) - viser et boolsk med gitte tekster for true/false verdier
@@ -21,7 +25,6 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 
 - [Data](src/components/custom-list-data/) - viser en liste med verdier
 - [Vedlegg](src/components/custom-list-vedlegg/) - viser en liste med vedlegg fra datamodellen
-
 
 ### Hvordan ta i bruk altinn-studio-custom-components i en Altinn 3 App
 

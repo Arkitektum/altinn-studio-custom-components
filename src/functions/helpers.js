@@ -7,7 +7,7 @@ export function objectHasValue(obj) {
     return false;
 }
 
-function addStyle(element, style) {
+export function addStyle(element, style) {
     for (let key in style) {
         element.style[key] = style[key];
     }

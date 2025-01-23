@@ -6,6 +6,7 @@ import customFieldKommunensSaksnummer from "./custom-field-kommunens-saksnummer"
 import customFieldProsjekt from "./custom-field-prosjekt";
 import customFieldTelefonnummer from "./custom-field-telefonnummer";
 import customFieldUtfallSvarStatus from "./custom-field-utfall-svar-status";
+import customHeaderText from "./custom-header-text";
 import customListData from "./custom-list-data";
 import customListVedlegg from "./custom-list-vedlegg";
 export {
@@ -17,6 +18,7 @@ export {
     customFieldProsjekt,
     customFieldTelefonnummer,
     customFieldUtfallSvarStatus,
+    customHeaderText,
     customListData,
     customListVedlegg
 };
