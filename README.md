@@ -26,6 +26,10 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 - [Data](src/components/custom-list-data/) - viser en liste med verdier
 - [Vedlegg](src/components/custom-list-vedlegg/) - viser en liste med vedlegg fra datamodellen
 
+### Gruppelister
+
+- [Utfall svar](src/components/custom-grouplist-utfall-svar-type/) - viser liste Utfallsvar-komponentgrupper
+
 ### Hvordan ta i bruk altinn-studio-custom-components i en Altinn 3 App
 
 Installer libman cli som et globalt verktøy (kun nødvendig 1 gang pr maskin)

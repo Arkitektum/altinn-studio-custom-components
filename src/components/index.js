@@ -6,6 +6,10 @@ import customFieldKommunensSaksnummer from "./custom-field-kommunens-saksnummer"
 import customFieldProsjekt from "./custom-field-prosjekt";
 import customFieldTelefonnummer from "./custom-field-telefonnummer";
 import customFieldUtfallSvarStatus from "./custom-field-utfall-svar-status";
+import customGrouplistUtfallSvarType from "./custom-grouplist-utfall-svar-type";
+import customGroupUtfallSvarType from "./custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type";
+import customGrouplistUtfallSvar from "./custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar";
+import customGroupUtfallSvar from "./custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar";
 import customHeaderText from "./custom-header-text";
 import customListData from "./custom-list-data";
 import customListVedlegg from "./custom-list-vedlegg";
@@ -18,6 +22,10 @@ export {
     customFieldProsjekt,
     customFieldTelefonnummer,
     customFieldUtfallSvarStatus,
+    customGrouplistUtfallSvarType,
+    customGroupUtfallSvarType,
+    customGrouplistUtfallSvar,
+    customGroupUtfallSvar,
     customHeaderText,
     customListData,
     customListVedlegg

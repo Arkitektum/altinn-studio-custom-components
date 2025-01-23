@@ -152,7 +152,7 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
     });
 }
 
-export function getAsync(obj, prop) {
+function getAsync(obj, prop) {
     return new Promise((resolve, reject) => {
         if (typeof obj[prop] === "undefined") {
             Object.defineProperty(obj, prop, {
