@@ -39,7 +39,8 @@ export function createCustomElement(tagName, props) {
         hideifempty: props?.hideIfEmpty?.toString() || "",
         emptyfieldtext: props?.emptyFieldText?.toString() || "",
         styleoverride: JSON.stringify(props?.styleoverride) || "",
-        grid: JSON.stringify(props?.grid) || ""
+        grid: JSON.stringify(props?.grid) || "",
+        texts: JSON.stringify(props?.texts) || ""
     };
     setAttributes(customFieldElement, htmlAttributes);
     return customFieldElement;
