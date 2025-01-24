@@ -1,4 +1,4 @@
-import { getCustomComponentProps } from "../../functions/helpers";
+import { addStyle, getCustomComponentProps } from "../../functions/helpers";
 import { renderHeaderElement } from "./functions";
 
 export default customElements.define(
@@ -8,6 +8,11 @@ export default customElements.define(
             const { text, styleoverride } = getCustomComponentProps(this);
             const size = this.getAttribute("size");
             this.innerHTML = renderHeaderElement(text, size, styleoverride);
+            addStyle(this, {
+                display: "block",
+                pageBreakAfter: "avoid",
+                pageBreakInside: "avoid"
+            });
         }
     }
 );
