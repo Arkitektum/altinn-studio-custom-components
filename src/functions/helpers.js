@@ -60,12 +60,14 @@ export function addContainerElement(component) {
     return containerElement;
 }
 
-export function renderFieldTitleElement(fieldTitle) {
+export function renderFieldTitleElement(fieldTitle, inline) {
     const fieldTitleLabelElement = document.createElement("label");
     fieldTitleLabelElement.classList.add("fds-label", "fds-label--md");
-    addStyle(fieldTitleLabelElement, { breakAfter: "avoid" });
+    addStyle(fieldTitleLabelElement, {
+        breakAfter: "avoid"
+    });
     const fieldTitleSpanElement = document.createElement("span");
-    fieldTitleSpanElement.innerHTML = fieldTitle;
+    fieldTitleSpanElement.innerText = `${fieldTitle}${inline ? ":" : ""}`;
     fieldTitleLabelElement.appendChild(fieldTitleSpanElement);
     return fieldTitleLabelElement;
 }
@@ -80,19 +82,27 @@ export function renderFieldValueElement(fieldValue) {
     return fieldValueElement;
 }
 
-export function renderFieldElement(fieldTitle, fieldValue, returnHtml = true, styleoverride) {
+export function renderFieldElement(fieldTitle, fieldValue, options) {
+    options = {
+        returnHtml: true,
+        inline: false,
+        styleoverride: {},
+        ...options
+    };
     const fieldElement = document.createElement("div");
     fieldElement.classList.add("field");
     if (fieldTitle?.length) {
-        fieldElement.appendChild(renderFieldTitleElement(fieldTitle));
+        fieldElement.appendChild(renderFieldTitleElement(fieldTitle, options.inline));
     }
     fieldElement.appendChild(renderFieldValueElement(fieldValue));
     addStyle(fieldElement, {
-        ...styleoverride,
+        ...options.styleoverride,
         display: "flex",
-        flexDirection: "column"
+        alignItems: "baseline",
+        flexDirection: options.inline ? "row" : "column",
+        gap: options.inline ? "0.5rem" : "0"
     });
-    return returnHtml ? fieldElement.outerHTML : fieldElement;
+    return options.returnHtml ? fieldElement.outerHTML : fieldElement;
 }
 
 export function renderListElement(listItems, listType, returnHtml = true) {
@@ -132,6 +142,7 @@ export function getCustomComponentProps(customComponent) {
     return {
         data,
         text: customComponent.getAttribute("text"),
+        inline: customComponent.getAttribute("inline") === "true",
         hideTitle: customComponent.getAttribute("hideTitle") === "true",
         hideIfEmpty: customComponent.getAttribute("hideIfEmpty") === "true",
         emptyFieldText: customComponent.getAttribute("emptyFieldText"),

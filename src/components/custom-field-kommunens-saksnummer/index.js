@@ -1,17 +1,18 @@
-import KommunensSaksnummer from "../../classes/KommunensSaksnummer.js";
+import KommunensSaksnummer from "../../classes/KommunensSaksnummer";
 import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement
-} from "../../functions/helpers.js";
-import { formatKommunensSaksnummer } from "./functions.js";
+} from "../../functions/helpers";
+import { formatKommunensSaksnummer } from "./functions";
 
 export default customElements.define(
     "custom-field-kommunens-saksnummer",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+                getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const kommunensSaksnummer = new KommunensSaksnummer(data);
             if (hideIfEmpty && !objectHasValue(kommunensSaksnummer) && !!componentContainerElement) {
@@ -19,9 +20,14 @@ export default customElements.define(
             } else {
                 const title = !hideTitle && text;
                 const kommunensSaksnummerString = formatKommunensSaksnummer(kommunensSaksnummer);
+                const options = {
+                    inline,
+                    styleoverride
+                };
                 this.innerHTML = renderFieldElement(
                     title,
-                    kommunensSaksnummerString?.length ? kommunensSaksnummerString : emptyFieldText
+                    kommunensSaksnummerString?.length ? kommunensSaksnummerString : emptyFieldText,
+                    options
                 );
             }
         }
