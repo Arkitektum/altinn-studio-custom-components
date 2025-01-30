@@ -8,6 +8,7 @@
 | hideTitle                  | boolean           | A flag indicating whether the title should be hidden.                                                 | false         |
 | hideIfEmpty                | boolean           | Determines whether the element should be hidden when it contains no content.                          | false         |
 | emptyFieldText             | string            | The text to display when the field is empty.                                                          |               |
+| inline                     | boolean           | A flag indicating whether the title and value should be displayed on the same line.                   | false         |
 | dataModelBindings.data     | string            | Reference to an [KommunensSaksnummer](../../classes/KommunensSaksnummer.js) object in the data model. |               |
 | textResourceBindings.title | string            | The title text resource binding.                                                                      |               |
 | styleOverride              | HTMLElement.style | The style override for the custom field.                                                              |               |
@@ -22,6 +23,7 @@
     "hideTitle": true,
     "hideIfEmpty": false,
     "emptyFieldText": "-",
+    "inline": false,
     "dataModelBindings": {
         "data": "kommunensSaksnummer"
     },
