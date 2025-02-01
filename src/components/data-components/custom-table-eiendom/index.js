@@ -47,7 +47,6 @@ export default customElements.define(
             } else {
                 const texts = await getComponentTexts(this);
                 const tableColumns = JSON.parse(this.getAttribute("tableColumns"));
-                console.log({ tableColumns });
                 const title = !hideTitle && text;
                 this.innerHTML = createCustomElement("custom-table", {
                     data: {

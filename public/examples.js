@@ -57,7 +57,6 @@ function handleTestCodeOnClick() {
     testElement.innerHTML = "";
     testElement.appendChild(addContainerElement(element));
 
-    console.log({ code, data, texts });
 }
 
 function initInputElements() {
