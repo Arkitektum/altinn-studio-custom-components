@@ -31,3 +31,10 @@ body {
         font-size: inherit !important;
     }
 }
+
+@page {
+    size: A4 portrait;
+    margin-top: 1cm;
+    margin-left: 1.25cm;
+    margin-right: 1.25cm;
+}
