@@ -184,3 +184,19 @@ function getAsync(obj, prop) {
 export function getComponentContainerElement(component) {
     return component?.parentElement?.parentElement;
 }
+
+function stringifyStyleSheet(stylesheet) {
+    console.log({ stylesheet });
+    return Array.from(stylesheet?.cssRules)
+        .map((rule) => rule.cssText || "")
+        .join("\n");
+}
+
+export const addGlobalStylesheet = (styleElementId, styles) => {
+    if (styles && !document.getElementById(styleElementId)) {
+        const style = document.createElement("style");
+        style.setAttribute("id", styleElementId);
+        style.textContent = stringifyStyleSheet(styles);
+        document.head.appendChild(style);
+    }
+};
