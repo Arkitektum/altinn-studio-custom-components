@@ -17,11 +17,9 @@ import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-sva
 import customHeaderText from "./data-components/custom-header-text/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
+import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
 
-import { addGlobalStylesheet } from "../functions/helpers.js";
-import styles from "../styles/main.css" with { type: "css" };
-
-addGlobalStylesheet("main-styles", styles);
+import "../styles/main.css" with { type: "css" };
 
 export {
     customField,
@@ -42,5 +40,6 @@ export {
     customGroupUtfallSvar,
     customHeaderText,
     customListData,
-    customListVedlegg
+    customListVedlegg,
+    customTableEiendom
 };
