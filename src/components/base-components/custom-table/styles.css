@@ -9,6 +9,12 @@ custom-table {
         border: 1px solid #e7e4e4;
         border-radius: 8px;
         overflow: hidden;
+        & caption {
+            margin: 0;
+            padding: 0;
+            text-align: left;
+            font-family: var(--font-family-default);
+        }
         & td,
         & th {
             padding: 12px;

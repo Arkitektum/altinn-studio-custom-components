@@ -6,13 +6,12 @@ export default customElements.define(
     "custom-table",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const { data, text, hideIfEmpty, emptyFieldText, size, styleoverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (hideIfEmpty && !data && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const title = !hideTitle && text;
-                this.innerHTML = renderTableElement(data, title, emptyFieldText).outerHTML;
+                this.innerHTML = renderTableElement(data, text, size, emptyFieldText).outerHTML;
                 addStyle(this, styleoverride);
             }
         }
