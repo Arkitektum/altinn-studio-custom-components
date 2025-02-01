@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "Roboto Flex";
+    src: url(/src/fonts/RobotoFlex.woff2) format("woff2");
+}
+
+:root {
+    --font-family-default: "Roboto Flex", Arial, sans-serif;
+    --color-text-default: #1c1b1d;
+    --font-size-default: 16px;
+    --font-size-h1: 48px;
+    --font-size-h2: 32px;
+    --font-size-h3: 24px;
+    --line-height-default: 24px;
+}
+
+body {
+    background-color: #fff;
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
+    letter-spacing: normal;
+}
