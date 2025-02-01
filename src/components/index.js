@@ -15,7 +15,15 @@ import customHeaderText from "./custom-header-text/index.js";
 import customList from "./custom-list/index.js";
 import customListData from "./custom-list-data/index.js";
 import customListVedlegg from "./custom-list-vedlegg/index.js";
+
+
+import { addGlobalStylesheet } from "../functions/helpers.js";
+import styles from "../styles/main.css" with { type: 'css' };
+
+addGlobalStylesheet("main-styles", styles);
+
 export {
+    customField,
     customFieldAdresse,
     customFieldPartNavn,
     customFieldBooleanText,
@@ -29,6 +37,7 @@ export {
     customGrouplistUtfallSvar,
     customGroupUtfallSvar,
     customHeaderText,
+    customList,
     customListData,
     customListVedlegg
 };
