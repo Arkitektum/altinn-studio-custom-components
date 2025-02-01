@@ -1,4 +1,9 @@
 export function objectHasValue(obj) {
+    if (typeof obj === "string") {
+        return obj.length > 0;
+    } else if (typeof obj === "number") {
+        return isNaN(obj) === false;
+    }
     for (let key in obj) {
         if (!!obj?.[key]?.toString().length > 0) {
             return true;
@@ -33,10 +38,11 @@ export function createCustomElement(tagName, props) {
     const customFieldElement = document.createElement(tagName);
     const htmlAttributes = {
         formdata: JSON.stringify({ [typeof props?.data === "object" ? "data" : "simpleBinding"]: props?.data }),
-        text: props?.text?.toString() || "",
+        text: props?.text?.toString() || props?.texts?.title?.toString() || "",
         size: props?.size?.toString() || "",
         hidetitle: props?.hideTitle?.toString() || "",
         hideifempty: props?.hideIfEmpty?.toString() || "",
+        inline: props?.inline?.toString() || "",
         emptyfieldtext: props?.emptyFieldText?.toString() || "",
         styleoverride: JSON.stringify(props?.styleoverride) || "",
         grid: JSON.stringify(props?.grid) || "",
@@ -130,7 +136,7 @@ export function renderListFieldElement(fieldTitle, listItems, listType) {
     return fieldElement.outerHTML;
 }
 
-function getCustomComponentDataFromFormdata(formdata) {
+export function getCustomComponentDataFromFormdata(formdata) {
     const simpleBinding = objectHasValue(formdata?.simpleBinding) ? formdata.simpleBinding : null;
     const data = objectHasValue(formdata?.data) ? formdata.data : null;
     return simpleBinding || data;
