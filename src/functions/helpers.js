@@ -39,16 +39,16 @@ export function createCustomElement(tagName, props) {
     const htmlAttributes = {};
     if (hasValue(props?.data)) {
         const propName = typeof props?.data === "object" ? "data" : "simpleBinding";
-        const propValue = typeof props?.data === "number" ? props?.data.toString() : props?.data;
+        const propValue = typeof props?.data === "number" ? props.data.toString() : props?.data;
         htmlAttributes.formdata = JSON.stringify({
             [propName]: propValue
         });
     }
     if (props?.text || props?.texts?.title) {
-        htmlAttributes.text = props?.text.toString() || props?.texts?.title?.toString() || "";
+        htmlAttributes.text = props?.text?.toString() || props?.texts?.title?.toString() || "";
     }
     if (hasValue(props?.size)) {
-        htmlAttributes.size = props?.size.toString() || "";
+        htmlAttributes.size = props?.size?.toString() || "";
     }
     if (props?.hideTitle?.toString() === "true") {
         htmlAttributes.hidetitle = "true";
