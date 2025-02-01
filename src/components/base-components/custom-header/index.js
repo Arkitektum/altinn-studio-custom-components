@@ -6,8 +6,7 @@ export default customElements.define(
     "custom-header",
     class extends HTMLElement {
         connectedCallback() {
-            const { text, styleoverride } = getCustomComponentProps(this);
-            const size = this.getAttribute("size");
+            const { text, styleoverride, size } = getCustomComponentProps(this);
             this.innerHTML = renderHeaderElement(text, size, styleoverride);
             addStyle(this, styleoverride);
         }
