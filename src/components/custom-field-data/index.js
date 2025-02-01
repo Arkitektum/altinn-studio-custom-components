@@ -12,11 +12,15 @@ export default customElements.define(
             } else {
                 const title = !hideTitle && text;
                 const value = data || emptyFieldText;
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: value,
+                    text: title,
+                    hideTitle,
+                    hideIfEmpty,
+                    emptyFieldText,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(title, value, options);
+                }).outerHTML;
             }
         }
     }
