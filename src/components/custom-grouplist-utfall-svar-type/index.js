@@ -4,8 +4,8 @@ import {
     getComponentTexts,
     getCustomComponentProps,
     objectHasValue
-} from "../../functions/helpers";
-import { groupArrayItemsByUtfallType } from "./functions";
+} from "../../functions/helpers.js";
+import { groupArrayItemsByUtfallType } from "./functions.js";
 
 export default customElements.define(
     "custom-grouplist-utfall-svar-type",

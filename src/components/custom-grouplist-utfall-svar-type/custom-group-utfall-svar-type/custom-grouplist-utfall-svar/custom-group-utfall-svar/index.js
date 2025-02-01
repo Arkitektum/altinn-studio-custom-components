@@ -4,14 +4,14 @@ import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue
-} from "../../../../../functions/helpers";
+} from "../../../../../functions/helpers.js";
 import {
     getBeskrivelseElement,
     getKommentarElement,
     getStatusElement,
     getTemaElement,
     getVedleggslisteElement
-} from "./functions";
+} from "./functions.js";
 
 export default customElements.define(
     "custom-group-utfall-svar",

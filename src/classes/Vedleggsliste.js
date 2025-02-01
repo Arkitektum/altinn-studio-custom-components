@@ -1,4 +1,4 @@
-import Vedlegg from "./Vedlegg";
+import Vedlegg from "./Vedlegg.js";
 
 /**
  * Represents a list of attachments (Vedlegg).

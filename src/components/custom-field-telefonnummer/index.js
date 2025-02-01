@@ -1,11 +1,11 @@
-import Telefonnumre from "../../classes/Telefonnumre";
+import Telefonnumre from "../../classes/Telefonnumre.js";
 import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement
-} from "../../functions/helpers";
-import { formatPhoneNumbers } from "./functions";
+} from "../../functions/helpers.js";
+import { formatPhoneNumbers } from "./functions.js";
 
 export default customElements.define(
     "custom-field-telefonnummer",

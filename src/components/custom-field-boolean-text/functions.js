@@ -1,4 +1,4 @@
-import { getComponentTexts, validateTexts } from "../../functions/helpers";
+import { getComponentTexts, validateTexts } from "../../functions/helpers.js";
 
 /**
  * Retrieves the appropriate text based on the boolean value of the data.

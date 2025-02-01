@@ -1,4 +1,4 @@
-import UtfallSvar from "../../classes/UtfallSvar";
+import UtfallSvar from "../../classes/UtfallSvar.js";
 
 /**
  * Groups an array of items by the `utfallType.kodverdi` property.

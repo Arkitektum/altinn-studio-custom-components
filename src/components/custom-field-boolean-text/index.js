@@ -1,5 +1,5 @@
-import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../functions/helpers";
-import { getBooleanText } from "./functions";
+import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../functions/helpers.js";
+import { getBooleanText } from "./functions.js";
 
 export default customElements.define(
     "custom-field-boolean-text",

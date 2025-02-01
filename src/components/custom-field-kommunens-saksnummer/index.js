@@ -1,11 +1,11 @@
-import KommunensSaksnummer from "../../classes/KommunensSaksnummer";
+import KommunensSaksnummer from "../../classes/KommunensSaksnummer.js";
 import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement
-} from "../../functions/helpers";
-import { formatKommunensSaksnummer } from "./functions";
+} from "../../functions/helpers.js";
+import { formatKommunensSaksnummer } from "./functions.js";
 
 export default customElements.define(
     "custom-field-kommunens-saksnummer",

@@ -1,4 +1,4 @@
-import { getComponentTexts, validateTexts } from "../../functions/helpers";
+import { getComponentTexts, validateTexts } from "../../functions/helpers.js";
 
 /**
  * Returns the status text based on the provided `utfallSvarStatus` object.

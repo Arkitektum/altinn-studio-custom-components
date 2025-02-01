@@ -3,7 +3,7 @@ import {
     createCustomElement,
     getCustomComponentProps,
     objectHasValue
-} from "../../../functions/helpers";
+} from "../../../functions/helpers.js";
 
 export default customElements.define(
     "custom-group-utfall-svar-type",

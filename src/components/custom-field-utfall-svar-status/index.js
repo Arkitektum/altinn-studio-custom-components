@@ -1,6 +1,6 @@
-import UtfallSvarStatus from "../../classes/UtfallSvarStatus";
-import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../functions/helpers";
-import { getStatusText } from "./functions";
+import UtfallSvarStatus from "../../classes/UtfallSvarStatus.js";
+import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../functions/helpers.js";
+import { getStatusText } from "./functions.js";
 
 export default customElements.define(
     "custom-field-utfall-svar-status",

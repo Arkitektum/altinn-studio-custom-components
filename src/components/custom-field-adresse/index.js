@@ -1,11 +1,11 @@
-import Adresse from "../../classes/Adresse";
+import Adresse from "../../classes/Adresse.js";
 import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement
-} from "../../functions/helpers";
-import { formatAdresse } from "./functions";
+} from "../../functions/helpers.js";
+import { formatAdresse } from "./functions.js";
 
 export default customElements.define(
     "custom-field-adresse",

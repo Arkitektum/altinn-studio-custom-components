@@ -1,4 +1,4 @@
-import Vedleggstype from "./Vedleggstype";
+import Vedleggstype from "./Vedleggstype.js";
 
 /**
  * Represents a Vedlegg (attachment).

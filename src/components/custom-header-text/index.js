@@ -1,5 +1,5 @@
-import { addStyle, getCustomComponentProps } from "../../functions/helpers";
-import { renderHeaderElement } from "./functions";
+import { addStyle, getCustomComponentProps } from "../../functions/helpers.js";
+import { renderHeaderElement } from "./functions.js";
 
 export default customElements.define(
     "custom-header-text",

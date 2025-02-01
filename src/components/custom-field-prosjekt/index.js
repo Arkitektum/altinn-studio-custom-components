@@ -1,11 +1,11 @@
-import Prosjekt from "../../classes/Prosjekt";
+import Prosjekt from "../../classes/Prosjekt.js";
 import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement
-} from "../../functions/helpers";
-import { formatProsjekt } from "./functions";
+} from "../../functions/helpers.js";
+import { formatProsjekt } from "./functions.js";
 
 export default customElements.define(
     "custom-field-prosjekt",

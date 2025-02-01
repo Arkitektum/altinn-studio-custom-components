@@ -4,7 +4,7 @@ import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue
-} from "../../../../functions/helpers";
+} from "../../../../functions/helpers.js";
 
 export default customElements.define(
     "custom-grouplist-utfall-svar",

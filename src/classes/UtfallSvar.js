@@ -1,6 +1,6 @@
-import UtfallSvarTema from "./UtfallSvarTema";
-import UtfallType from "./UtfallType";
-import Vedleggsliste from "./Vedleggsliste";
+import UtfallSvarTema from "./UtfallSvarTema.js";
+import UtfallType from "./UtfallType.js";
+import Vedleggsliste from "./Vedleggsliste.js";
 
 export default class UtfallSvar {
     constructor(props) {

@@ -1,11 +1,11 @@
-import Part from "../../classes/Part";
+import Part from "../../classes/Part.js";
 import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
     renderFieldElement
-} from "../../functions/helpers";
-import { formatName } from "./functions";
+} from "../../functions/helpers.js";
+import { formatName } from "./functions.js";
 
 export default customElements.define(
     "custom-field-part-navn",

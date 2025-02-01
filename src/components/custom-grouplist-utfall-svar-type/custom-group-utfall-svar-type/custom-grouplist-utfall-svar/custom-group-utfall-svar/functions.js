@@ -1,4 +1,4 @@
-import { addContainerElement, createCustomElement } from "../../../../../functions/helpers";
+import { addContainerElement, createCustomElement } from "../../../../../functions/helpers.js";
 
 /**
  * Creates a custom element for the 'beskrivelse' field and wraps it in a container element.

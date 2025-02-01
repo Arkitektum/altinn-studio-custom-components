@@ -1,4 +1,4 @@
-import Vedlegg from "../../classes/Vedlegg";
+import Vedlegg from "../../classes/Vedlegg.js";
 
 function getAttachmentDescription(vedlegg) {
     return vedlegg?.vedleggstype?.kodebeskrivelse;

@@ -1,4 +1,4 @@
-import { addStyle } from "../../functions/helpers";
+import { addStyle } from "../../functions/helpers.js";
 
 const defaultHeaderSize = "h2";
 

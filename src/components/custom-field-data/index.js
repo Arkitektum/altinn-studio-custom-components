@@ -1,4 +1,4 @@
-import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../functions/helpers";
+import { createCustomElement, getComponentContainerElement, getCustomComponentProps } from "../../functions/helpers.js";
 
 export default customElements.define(
     "custom-field-data",
