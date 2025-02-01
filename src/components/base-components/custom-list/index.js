@@ -1,10 +1,5 @@
-import {
-    addStyle,
-    getCustomComponentProps,
-    renderListElement,
-    renderListFieldElement
-} from "../../../functions/helpers.js";
-
+import { addStyle, getCustomComponentProps } from "../../../functions/helpers.js";
+import { renderListElement, renderListFieldElement } from "./functions.js";
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(

@@ -1,8 +1,5 @@
-import {
-    getComponentContainerElement,
-    getCustomComponentProps,
-    renderFieldElement
-} from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
+import { renderFieldElement } from "./functions.js";
 
 import "./styles.css" with { type: "css" };
 

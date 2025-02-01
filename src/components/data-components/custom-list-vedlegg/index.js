@@ -2,8 +2,7 @@ import {
     createCustomElement,
     getComponentContainerElement,
     getCustomComponentProps,
-    hasValue,
-    renderFieldElement
+    hasValue
 } from "../../../functions/helpers.js";
 import { getAttachmentListItems } from "./functions.js";
 

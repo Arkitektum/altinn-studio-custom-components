@@ -4,6 +4,10 @@ custom-list {
     font-weight: var(--font-weight-default);
     color: var(--color-text-default);
     line-height: var(--line-height-default);
+    & .field {
+        display: flex;
+        flex-direction: column;
+    }
     ul {
         padding-inline-start: 1em;
     }

@@ -4,9 +4,24 @@ custom-field {
     font-weight: var(--font-weight-default);
     color: var(--color-text-default);
     line-height: var(--line-height-default);
-    & label {
-        font-weight: bold;
-        page-break-after: avoid;
-        page-break-inside: avoid;
+    & .field {
+        display: flex;
+        align-items: baseline;
+        &.inline {
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+        &:not(.inline) {
+            flex-direction: column;
+            gap: 0;
+        }
+        & label {
+            font-weight: bold;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
+        & span {
+            white-space: pre-line;
+        }
     }
 }
