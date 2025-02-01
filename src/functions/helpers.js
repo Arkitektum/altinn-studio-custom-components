@@ -192,7 +192,6 @@ export function getComponentContainerElement(component) {
 }
 
 function stringifyStyleSheet(stylesheet) {
-    console.log({ stylesheet });
     return Array.from(stylesheet?.cssRules)
         .map((rule) => rule.cssText || "")
         .join("\n");
