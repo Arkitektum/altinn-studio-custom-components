@@ -71,6 +71,9 @@ export function createCustomElement(tagName, props) {
     if (hasValue(props?.texts)) {
         htmlAttributes.texts = JSON.stringify(props?.texts) || "";
     }
+    if (hasValue(props?.tableColumns)) {
+        htmlAttributes.tablecolumns = JSON.stringify(props?.tableColumns) || "";
+    }
 
     setAttributes(customFieldElement, htmlAttributes);
     return customFieldElement;

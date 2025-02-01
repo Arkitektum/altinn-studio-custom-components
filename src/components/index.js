@@ -1,6 +1,7 @@
 import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
+import customTable from "./base-components/custom-table/index.js";
 import customFieldAdresse from "./data-components/custom-field-adresse/index.js";
 import customFieldPartNavn from "./data-components/custom-field-part-navn/index.js";
 import customFieldBooleanText from "./data-components/custom-field-boolean-text/index.js";
@@ -26,6 +27,7 @@ export {
     customField,
     customHeader,
     customList,
+    customTable,
     customFieldAdresse,
     customFieldPartNavn,
     customFieldBooleanText,
