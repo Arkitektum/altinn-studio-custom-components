@@ -7,6 +7,11 @@ custom-list {
     & .field {
         display: flex;
         flex-direction: column;
+        & label {
+            font-weight: bold;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
     }
     ul {
         padding-inline-start: 1em;

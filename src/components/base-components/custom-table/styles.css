@@ -4,20 +4,34 @@ custom-table {
     font-weight: var(--font-weight-default);
     color: var(--color-text-default);
     line-height: var(--line-height-default);
-    table {
+    & table {
         border-spacing: 0;
-        border: 1px solid #e8e0e8;
+        border: 1px solid #e7e4e4;
         border-radius: 8px;
         overflow: hidden;
-        td,
-        th {
+        & td,
+        & th {
             padding: 12px;
-            border-bottom: 1px solid #dadce0;
         }
-        th {
-            text-align: left;
-            font-weight: 500;
-            background-color: #f8f1f6;
+        & thead {
+            & th {
+                text-align: left;
+                font-weight: 500;
+                background-color: var(--background-muted);
+                border-bottom: 1px solid #dddada;
+            }
+        }
+        & tbody {
+            & tr {
+                &:nth-child(even) {
+                    background-color: #fefcfc;
+                }
+            }
+            & tr:not(:last-of-type) {
+                & td {
+                    border-bottom: 1px solid #dddada;
+                }
+            }
         }
     }
 }

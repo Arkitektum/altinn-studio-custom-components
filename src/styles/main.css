@@ -6,6 +6,7 @@
 :root {
     --font-family-default: "Roboto Flex", Arial, sans-serif;
     --color-text-default: #1c1b1d;
+    --background-muted: #f7f4f4;
     --font-size-default: 16px;
     --font-size-h1: 48px;
     --font-size-h2: 32px;
