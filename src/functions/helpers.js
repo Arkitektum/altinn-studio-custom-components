@@ -223,12 +223,3 @@ function stringifyStyleSheet(stylesheet) {
         .map((rule) => rule.cssText || "")
         .join("\n");
 }
-
-export const addGlobalStylesheet = (styleElementId, styles) => {
-    if (styles && !document.getElementById(styleElementId)) {
-        const style = document.createElement("style");
-        style.setAttribute("id", styleElementId);
-        style.textContent = stringifyStyleSheet(styles);
-        document.head.appendChild(style);
-    }
-};

@@ -1,17 +1,15 @@
 import {
-    addGlobalStylesheet,
     getComponentContainerElement,
     getCustomComponentProps,
     renderFieldElement
 } from "../../../functions/helpers.js";
 
-import styles from "./styles.css" with { type: "css" };
+import "./styles.css" with { type: "css" };
 
 export default customElements.define(
     "custom-field",
     class extends HTMLElement {
         connectedCallback() {
-            addGlobalStylesheet(`${this.tagName}-styles`, styles);
             const { data, text, hideIfEmpty, inline, styleoverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (hideIfEmpty && !data && !!componentContainerElement) {
