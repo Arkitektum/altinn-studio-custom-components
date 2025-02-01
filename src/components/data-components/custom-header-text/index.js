@@ -1,5 +1,4 @@
-import { addStyle, getCustomComponentProps } from "../../../functions/helpers.js";
-import { renderHeaderElement } from "./functions.js";
+import { createCustomElement, getCustomComponentProps } from "../../../functions/helpers.js";
 
 export default customElements.define(
     "custom-header-text",
@@ -7,12 +6,11 @@ export default customElements.define(
         connectedCallback() {
             const { text, styleoverride } = getCustomComponentProps(this);
             const size = this.getAttribute("size");
-            this.innerHTML = renderHeaderElement(text, size, styleoverride);
-            addStyle(this, {
-                display: "block",
-                pageBreakAfter: "avoid",
-                pageBreakInside: "avoid"
-            });
+            this.innerHTML = createCustomElement("custom-header", {
+                text,
+                size,
+                styleoverride
+            }).outerHTML;
         }
     }
 );
