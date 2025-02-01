@@ -1,5 +1,5 @@
 import { addStyle, getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
-import { renderTableElement } from "./functions.js";
+import { renderHeaderElement, renderTableElement } from "./functions.js";
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(
@@ -11,7 +11,13 @@ export default customElements.define(
             if (hideIfEmpty && !data && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                this.innerHTML = renderTableElement(data, text, size, emptyFieldText).outerHTML;
+                const headerElement = renderHeaderElement(text, size);
+                const tableElement = renderTableElement(data, emptyFieldText);
+                this.innerHTML = "";
+                if (headerElement) {
+                    this.appendChild(headerElement);
+                }
+                this.appendChild(tableElement);
                 addStyle(this, styleoverride);
             }
         }

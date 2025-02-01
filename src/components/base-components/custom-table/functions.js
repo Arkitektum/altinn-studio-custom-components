@@ -27,19 +27,20 @@ function getTableCellElement(tableCell) {
     return td;
 }
 
-export function renderTableElement(data, text, size, emptyFieldText) {
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tr = document.createElement("tr");
+export function renderHeaderElement(text, size) {
     if (text) {
-        const captionElement = document.createElement("caption");
-        const headerElement = createCustomElement("custom-header", {
+        return createCustomElement("custom-header", {
             text,
             size
         });
-        captionElement.appendChild(headerElement);
-        table.appendChild(captionElement);
     }
+}
+
+export function renderTableElement(data, emptyFieldText) {
+    const table = document.createElement("table");
+    const thead = document.createElement("thead");
+    const tr = document.createElement("tr");
+
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
         data.tableHeaders.forEach((tableHeader) => {
             tr.appendChild(getTableHeaderElement(tableHeader));
