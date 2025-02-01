@@ -1,0 +1,12 @@
+custom-field {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
+    & label {
+        font-weight: bold;
+        break-after: avoid;
+    }
+    span {
+    }
+}
