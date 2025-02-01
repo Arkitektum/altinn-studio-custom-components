@@ -217,9 +217,3 @@ function getAsync(obj, prop) {
 export function getComponentContainerElement(component) {
     return component?.parentElement?.parentElement;
 }
-
-function stringifyStyleSheet(stylesheet) {
-    return Array.from(stylesheet?.cssRules)
-        .map((rule) => rule.cssText || "")
-        .join("\n");
-}
