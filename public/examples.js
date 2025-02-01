@@ -44,6 +44,7 @@ function handleTestCodeOnClick() {
 
     //const simpleBinding = code.dataModelBindings?.simpleBinding;
     const simpleBinding = code.dataModelBindings?.data;
+    const tableColumns = code.tableColumns;
     const data = getValueFromDataModelBinding(simpleBinding);
 
     let texts = {};
@@ -52,11 +53,10 @@ function handleTestCodeOnClick() {
     });
 
     const tagName = code.tagName;
-    const element = createCustomElement(tagName, { data, texts });
+    const element = createCustomElement(tagName, { data, texts, tableColumns });
     const testElement = document.getElementById("test-element");
     testElement.innerHTML = "";
     testElement.appendChild(addContainerElement(element));
-
 }
 
 function initInputElements() {
