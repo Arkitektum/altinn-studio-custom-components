@@ -1,4 +1,9 @@
 custom-list {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    font-weight: var(--font-weight-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
     ul {
         padding-inline-start: 1em;
     }

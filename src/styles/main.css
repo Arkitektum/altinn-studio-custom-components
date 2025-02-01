@@ -11,6 +11,7 @@
     --font-size-h2: 32px;
     --font-size-h3: 24px;
     --font-size-h4: 20px;
+    --font-weight-default: 400;
     --line-height-default: 24px;
 }
 
@@ -23,4 +24,10 @@ body {
     color: var(--color-text-default);
     line-height: var(--line-height-default);
     letter-spacing: normal;
+}
+
+@media print {
+    html {
+        font-size: inherit !important;
+    }
 }

@@ -1,4 +1,9 @@
 custom-table {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    font-weight: var(--font-weight-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
     table {
         border-spacing: 0;
         border: 1px solid #e8e0e8;

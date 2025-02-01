@@ -1,19 +1,24 @@
 custom-header {
     font-family: var(--font-family-default);
+    font-weight: var(--font-weight-default);
     color: var(--color-text-default);
     display: block;
     page-break-after: avoid;
     page-break-inside: avoid;
     & h1 {
         font-size: var(--font-size-h1);
+        font-weight: var(--font-weight-default);
     }
     & h2 {
         font-size: var(--font-size-h2);
+        font-weight: var(--font-weight-default);
     }
     & h3 {
         font-size: var(--font-size-h3);
+        font-weight: var(--font-weight-default);
     }
     & h4 {
         font-size: var(--font-size-h4);
+        font-weight: var(--font-weight-default);
     }
 }
