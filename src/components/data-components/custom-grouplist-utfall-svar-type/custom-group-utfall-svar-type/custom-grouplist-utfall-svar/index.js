@@ -3,7 +3,7 @@ import {
     createCustomElement,
     getComponentContainerElement,
     getCustomComponentProps,
-    objectHasValue
+    hasValue
 } from "../../../../../functions/helpers.js";
 
 export default customElements.define(
@@ -13,7 +13,7 @@ export default customElements.define(
             const { data, hideIfEmpty } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const texts = JSON.parse(this.getAttribute("texts"));
-            if (hideIfEmpty && !objectHasValue(data) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(data) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 for (const utfallSvar of data) {

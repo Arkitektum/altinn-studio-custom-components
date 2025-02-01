@@ -1,5 +1,10 @@
 import Adresse from "../../../classes/Adresse.js";
-import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getComponentContainerElement,
+    getCustomComponentProps,
+    hasValue
+} from "../../../functions/helpers.js";
 import { formatAdresse } from "./functions.js";
 
 export default customElements.define(
@@ -10,7 +15,7 @@ export default customElements.define(
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const address = new Adresse(data);
-            if (hideIfEmpty && !objectHasValue(address) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(address) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;

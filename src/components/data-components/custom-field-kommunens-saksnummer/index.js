@@ -1,9 +1,9 @@
 import KommunensSaksnummer from "../../../classes/KommunensSaksnummer.js";
 import {
+    createCustomElement,
     getComponentContainerElement,
     getCustomComponentProps,
-    objectHasValue,
-    renderFieldElement
+    hasValue
 } from "../../../functions/helpers.js";
 import { formatKommunensSaksnummer } from "./functions.js";
 
@@ -15,7 +15,7 @@ export default customElements.define(
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const kommunensSaksnummer = new KommunensSaksnummer(data);
-            if (hideIfEmpty && !objectHasValue(kommunensSaksnummer) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(kommunensSaksnummer) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;

@@ -1,5 +1,10 @@
 import Prosjekt from "../../../classes/Prosjekt.js";
-import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getComponentContainerElement,
+    getCustomComponentProps,
+    hasValue
+} from "../../../functions/helpers.js";
 import { formatProsjekt } from "./functions.js";
 
 export default customElements.define(
@@ -10,7 +15,7 @@ export default customElements.define(
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const prosjekt = new Prosjekt(data);
-            if (hideIfEmpty && !objectHasValue(prosjekt) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(prosjekt) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;

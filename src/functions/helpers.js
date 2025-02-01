@@ -1,4 +1,4 @@
-export function objectHasValue(obj) {
+export function hasValue(obj) {
     if (typeof obj === "string") {
         return obj.length > 0;
     } else if (typeof obj === "number") {
@@ -137,8 +137,8 @@ export function renderListFieldElement(fieldTitle, listItems, listType) {
 }
 
 export function getCustomComponentDataFromFormdata(formdata) {
-    const simpleBinding = objectHasValue(formdata?.simpleBinding) ? formdata.simpleBinding : null;
-    const data = objectHasValue(formdata?.data) ? formdata.data : null;
+    const simpleBinding = hasValue(formdata?.simpleBinding) ? formdata.simpleBinding : null;
+    const data = hasValue(formdata?.data) ? formdata.data : null;
     return simpleBinding || data;
 }
 

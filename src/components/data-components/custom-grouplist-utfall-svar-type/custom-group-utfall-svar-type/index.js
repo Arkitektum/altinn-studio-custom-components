@@ -2,7 +2,7 @@ import {
     addContainerElement,
     createCustomElement,
     getCustomComponentProps,
-    objectHasValue
+    hasValue
 } from "../../../../functions/helpers.js";
 
 export default customElements.define(
@@ -11,7 +11,7 @@ export default customElements.define(
         async connectedCallback() {
             const { data, text } = getCustomComponentProps(this);
             const texts = JSON.parse(this.getAttribute("texts"));
-            if (objectHasValue(data)) {
+            if (hasValue(data)) {
                 const headerElement = addContainerElement(
                     createCustomElement("custom-header-text", {
                         text,

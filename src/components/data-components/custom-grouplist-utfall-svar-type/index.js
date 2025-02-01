@@ -3,7 +3,7 @@ import {
     getComponentContainerElement,
     getComponentTexts,
     getCustomComponentProps,
-    objectHasValue
+    hasValue
 } from "../../../functions/helpers.js";
 import { groupArrayItemsByUtfallType } from "./functions.js";
 
@@ -15,7 +15,7 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             const texts = await getComponentTexts(this);
             const dataGroupedByUtfallType = groupArrayItemsByUtfallType(data);
-            if (!objectHasValue(data) && !!componentContainerElement) {
+            if (!hasValue(data) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 for (const utfallType of Object.keys(dataGroupedByUtfallType)) {

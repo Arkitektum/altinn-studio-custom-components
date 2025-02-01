@@ -1,5 +1,10 @@
 import Telefonnumre from "../../../classes/Telefonnumre.js";
-import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getComponentContainerElement,
+    getCustomComponentProps,
+    hasValue
+} from "../../../functions/helpers.js";
 import { formatPhoneNumbers } from "./functions.js";
 
 export default customElements.define(
@@ -10,7 +15,7 @@ export default customElements.define(
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const telefonnumre = new Telefonnumre(data);
-            if (hideIfEmpty && !objectHasValue(telefonnumre) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(telefonnumre) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;

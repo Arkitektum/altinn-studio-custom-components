@@ -1,4 +1,9 @@
-import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getComponentContainerElement,
+    getCustomComponentProps,
+    hasValue
+} from "../../../functions/helpers.js";
 import { getListItemsFromKey } from "./functions.js";
 
 export default customElements.define(
@@ -10,7 +15,7 @@ export default customElements.define(
             const itemKey = this.getAttribute("itemKey");
             const listItems = itemKey?.length ? getListItemsFromKey(data, itemKey) : data;
             const title = !hideTitle && text;
-            if (hideIfEmpty && !objectHasValue(listItems) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(listItems) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else if (emptyFieldText?.length && !listItems?.length) {
                 this.innerHTML = createCustomElement("custom-field", {

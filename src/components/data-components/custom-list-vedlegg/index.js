@@ -2,7 +2,7 @@ import {
     createCustomElement,
     getComponentContainerElement,
     getCustomComponentProps,
-    objectHasValue,
+    hasValue,
     renderFieldElement
 } from "../../../functions/helpers.js";
 import { getAttachmentListItems } from "./functions.js";
@@ -15,7 +15,7 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             const attachmentListItems = getAttachmentListItems(data);
             const title = !hideTitle && text;
-            if (hideIfEmpty && !objectHasValue(attachmentListItems) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(attachmentListItems) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else if (emptyFieldText?.length && !attachmentListItems?.length) {
                 this.innerHTML = createCustomElement("custom-field", {

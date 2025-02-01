@@ -1,4 +1,8 @@
-import { getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getComponentContainerElement,
+    getCustomComponentProps
+} from "../../../functions/helpers.js";
 import { getBooleanText } from "./functions.js";
 
 export default customElements.define(
