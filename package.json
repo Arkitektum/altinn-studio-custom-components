@@ -24,6 +24,7 @@
     "homepage": "https://github.com/Arkitektum/altinn-studio-custom-components#readme",
     "devDependencies": {
         "css-loader": "^7.1.2",
+        "prettier": "3.4.2",
         "style-loader": "^4.0.0",
         "webpack": "^5.97.1",
         "webpack-cli": "^6.0.1",
