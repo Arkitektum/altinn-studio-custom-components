@@ -36,18 +36,40 @@ export async function getComponentTexts(component) {
 
 export function createCustomElement(tagName, props) {
     const customFieldElement = document.createElement(tagName);
-    const htmlAttributes = {
-        formdata: JSON.stringify({ [typeof props?.data === "object" ? "data" : "simpleBinding"]: props?.data }),
-        text: props?.text?.toString() || props?.texts?.title?.toString() || "",
-        size: props?.size?.toString() || "",
-        hidetitle: props?.hideTitle?.toString() || "",
-        hideifempty: props?.hideIfEmpty?.toString() || "",
-        inline: props?.inline?.toString() || "",
-        emptyfieldtext: props?.emptyFieldText?.toString() || "",
-        styleoverride: JSON.stringify(props?.styleoverride) || "",
-        grid: JSON.stringify(props?.grid) || "",
-        texts: JSON.stringify(props?.texts) || ""
-    };
+    const htmlAttributes = {};
+    if (hasValue(props?.data)) {
+        htmlAttributes.formdata = JSON.stringify({
+            [typeof props?.data === "object" ? "data" : "simpleBinding"]: props?.data
+        });
+    }
+    if (props?.text || props?.texts?.title) {
+        htmlAttributes.text = props?.text.toString() || props?.texts?.title?.toString() || "";
+    }
+    if (hasValue(props?.size)) {
+        htmlAttributes.size = props?.size.toString() || "";
+    }
+    if (props?.hideTitle?.toString() === "true") {
+        htmlAttributes.hidetitle = "true";
+    }
+    if (props?.hideIfEmpty?.toString() === "true") {
+        htmlAttributes.hideifempty = "true";
+    }
+    if (props?.inline?.toString() === "true") {
+        htmlAttributes.inline = "true";
+    }
+    if (hasValue(props?.emptyFieldText)) {
+        htmlAttributes.emptyfieldtext = props?.emptyFieldText.toString() || "";
+    }
+    if (hasValue(props?.styleoverride)) {
+        htmlAttributes.styleoverride = JSON.stringify(props?.styleoverride) || "";
+    }
+    if (hasValue(props?.grid)) {
+        htmlAttributes.grid = JSON.stringify(props?.grid) || "";
+    }
+    if (hasValue(props?.texts)) {
+        htmlAttributes.texts = JSON.stringify(props?.texts) || "";
+    }
+
     setAttributes(customFieldElement, htmlAttributes);
     return customFieldElement;
 }
