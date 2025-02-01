@@ -147,3 +147,14 @@ function getAsync(obj, prop) {
 export function getComponentContainerElement(component) {
     return component?.parentElement?.parentElement;
 }
+
+export function getValueFromDataKey(data, dataKey) {
+    if (!dataKey) {
+        return;
+    }
+    const path = dataKey?.split(/\.|\[|\]/).filter(Boolean);
+    for (let i = 0; i < path.length; i++) {
+        data = data[path[i]];
+    }
+    return data;
+}
