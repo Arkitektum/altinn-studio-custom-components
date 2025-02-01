@@ -1,11 +1,4 @@
-import {
-    getComponentContainerElement,
-    getCustomComponentProps,
-    objectHasValue,
-    renderFieldElement,
-    renderListElement,
-    renderListFieldElement
-} from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
 import { getListItemsFromKey } from "./functions.js";
 
 export default customElements.define(
@@ -26,9 +19,11 @@ export default customElements.define(
                     styleoverride
                 }).outerHTML;
             } else {
-                this.innerHTML = title?.length
-                    ? renderListFieldElement(title, listItems)
-                    : renderListElement(listItems);
+                this.innerHTML = createCustomElement("custom-list", {
+                    data: listItems,
+                    text: title,
+                    styleoverride
+                }).outerHTML;
             }
         }
     }

@@ -1,10 +1,5 @@
 import Adresse from "../../../classes/Adresse.js";
-import {
-    getComponentContainerElement,
-    getCustomComponentProps,
-    objectHasValue,
-    renderFieldElement
-} from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
 import { formatAdresse } from "./functions.js";
 
 export default customElements.define(
@@ -20,15 +15,12 @@ export default customElements.define(
             } else {
                 const title = !hideTitle && text;
                 const adresseString = formatAdresse(address);
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: adresseString?.length ? adresseString : emptyFieldText,
+                    text: title,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(
-                    title,
-                    adresseString?.length ? adresseString : emptyFieldText,
-                    options
-                );
+                }).outerHTML;
             }
         }
     }

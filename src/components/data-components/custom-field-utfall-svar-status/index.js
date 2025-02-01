@@ -1,5 +1,5 @@
 import UtfallSvarStatus from "../../../classes/UtfallSvarStatus.js";
-import { getComponentContainerElement, getCustomComponentProps, renderFieldElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
 import { getStatusText } from "./functions.js";
 
 export default customElements.define(
@@ -14,11 +14,12 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: statusText,
+                    text: title,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(title, statusText, options);
+                }).outerHTML;
             }
         }
     }

@@ -20,15 +20,12 @@ export default customElements.define(
             } else {
                 const title = !hideTitle && text;
                 const kommunensSaksnummerString = formatKommunensSaksnummer(kommunensSaksnummer);
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: kommunensSaksnummerString?.length ? kommunensSaksnummerString : emptyFieldText,
+                    text: title,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(
-                    title,
-                    kommunensSaksnummerString?.length ? kommunensSaksnummerString : emptyFieldText,
-                    options
-                );
+                }).outerHTML;
             }
         }
     }

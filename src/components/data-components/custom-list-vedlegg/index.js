@@ -3,9 +3,7 @@ import {
     getComponentContainerElement,
     getCustomComponentProps,
     objectHasValue,
-    renderFieldElement,
-    renderListElement,
-    renderListFieldElement
+    renderFieldElement
 } from "../../../functions/helpers.js";
 import { getAttachmentListItems } from "./functions.js";
 
@@ -20,11 +18,12 @@ export default customElements.define(
             if (hideIfEmpty && !objectHasValue(attachmentListItems) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else if (emptyFieldText?.length && !attachmentListItems?.length) {
-                this.innerHTML = renderFieldElement(title, emptyFieldText, true, styleoverride);
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: emptyFieldText,
+                    text: title,
+                    styleoverride
+                }).outerHTML;
             } else {
-           /*     this.innerHTML = title?.length
-                    ? renderListFieldElement(title, attachmentListItems)
-                    : renderListElement(attachmentListItems);*/
                 this.innerHTML = createCustomElement("custom-list", {
                     data: attachmentListItems,
                     text: title,

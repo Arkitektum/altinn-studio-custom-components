@@ -1,10 +1,5 @@
 import Prosjekt from "../../../classes/Prosjekt.js";
-import {
-    getComponentContainerElement,
-    getCustomComponentProps,
-    objectHasValue,
-    renderFieldElement
-} from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
 import { formatProsjekt } from "./functions.js";
 
 export default customElements.define(
@@ -21,11 +16,12 @@ export default customElements.define(
                 const title = !hideTitle && text;
                 const prosjektString = formatProsjekt(prosjekt);
                 const value = prosjektString?.length ? prosjektString : emptyFieldText;
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: value,
+                    text: title,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(title, value, options);
+                }).outerHTML;
             }
         }
     }

@@ -1,10 +1,6 @@
-import {
-    getComponentContainerElement,
-    getCustomComponentProps,
-    objectHasValue,
-    renderFieldElement
-} from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
 import { formatName } from "./functions.js";
+import Part from "../../../classes/Part.js";
 
 export default customElements.define(
     "custom-field-part-navn",
@@ -20,11 +16,12 @@ export default customElements.define(
                 const title = !hideTitle && text;
                 const hideOrgNr = this.getAttribute("hideOrgNr") === "true";
                 const name = formatName(part, hideOrgNr);
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: name?.length ? name : emptyFieldText,
+                    text: title,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(title, name?.length ? name : emptyFieldText, options);
+                }).outerHTML;
             }
         }
     }

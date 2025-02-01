@@ -1,10 +1,5 @@
 import Telefonnumre from "../../../classes/Telefonnumre.js";
-import {
-    getComponentContainerElement,
-    getCustomComponentProps,
-    objectHasValue,
-    renderFieldElement
-} from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps, objectHasValue } from "../../../functions/helpers.js";
 import { formatPhoneNumbers } from "./functions.js";
 
 export default customElements.define(
@@ -21,11 +16,12 @@ export default customElements.define(
                 const title = !hideTitle && text;
                 const phoneNumbersString = formatPhoneNumbers(telefonnumre);
                 const value = phoneNumbersString?.length ? phoneNumbersString : emptyFieldText;
-                const options = {
+                this.innerHTML = createCustomElement("custom-field", {
+                    data: value,
+                    text: title,
                     inline,
                     styleoverride
-                };
-                this.innerHTML = renderFieldElement(title, value, options);
+                }).outerHTML;
             }
         }
     }
