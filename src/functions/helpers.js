@@ -38,8 +38,10 @@ export function createCustomElement(tagName, props) {
     const customFieldElement = document.createElement(tagName);
     const htmlAttributes = {};
     if (hasValue(props?.data)) {
+        const propName = typeof props?.data === "object" ? "data" : "simpleBinding";
+        const propValue = typeof props?.data === "number" ? props?.data.toString() : props?.data;
         htmlAttributes.formdata = JSON.stringify({
-            [typeof props?.data === "object" ? "data" : "simpleBinding"]: props?.data
+            [propName]: propValue
         });
     }
     if (props?.text || props?.texts?.title) {
