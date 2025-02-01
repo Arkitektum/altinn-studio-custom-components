@@ -15,6 +15,8 @@
 }
 
 body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
     background-color: #fff;
     font-family: var(--font-family-default);
     font-size: var(--font-size-default);
