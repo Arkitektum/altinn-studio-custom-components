@@ -27,6 +27,9 @@ body {
     color: var(--color-text-default);
     line-height: var(--line-height-default);
     letter-spacing: normal;
+    /*
+        This CSS rule sets the default color and font-family for all text elements outside a custom component.
+    */
     & p,
     & h1,
     & h2,
@@ -41,18 +44,36 @@ body {
     }
 }
 
+/*
+ * 
+ * This CSS rule overrides altinn-app-frontend font-size.
+ * The value in altinn-app-frontend is set to 10px !important.
+ */
 @media print {
     html {
         font-size: inherit !important;
     }
 }
 
+/*
+ *
+ * This CSS rule defines the page size and margins for printing.
+ * - The page size is set to A4 in portrait orientation.
+ * - The top margin is set to 1cm.
+ * - The left and right margins are set to 1.25cm.
+ * - The bottom margin gets inhertied from altinn-app-frontend.
+ */
 @page {
     size: A4 portrait;
     margin-top: 1cm;
     margin-left: 1.25cm;
     margin-right: 1.25cm;
 }
+
+/*
+ *
+ * This CSS rule overrides altinn-app-frontend styles for logo size
+ */
 
 #pdfView {
     & > div:first-of-type {
