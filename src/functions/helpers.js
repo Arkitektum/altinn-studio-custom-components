@@ -151,7 +151,7 @@ export function getComponentContainerElement(component) {
 
 export function getValueFromDataKey(data, dataKey) {
     if (!dataKey) {
-        return;
+        return data;
     }
     const path = dataKey?.split(/\.|\[|\]/).filter(Boolean);
     for (let i = 0; i < path.length; i++) {
