@@ -1,0 +1,15 @@
+custom-divider {
+    hr {
+        background-color: var(--color-divider-default);
+        border: none;
+        height: 1px;
+        margin: 20px 0;
+        page-break-before: avoid;
+        &::before {
+            content: "";
+            display: block;
+            height: 50px;
+            margin-top: -50px;
+        }
+    }
+}

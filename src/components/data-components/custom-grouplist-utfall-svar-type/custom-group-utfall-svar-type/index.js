@@ -12,22 +12,18 @@ export default customElements.define(
             const { data, text } = getCustomComponentProps(this);
             const texts = JSON.parse(this.getAttribute("texts"));
             if (hasValue(data)) {
-                const headerElement = addContainerElement(
-                    createCustomElement("custom-header-text", {
-                        text,
-                        size: "h2"
-                    })
-                );
+                const headerElement = createCustomElement("custom-header-text", {
+                    text,
+                    size: "h2"
+                });
                 this.appendChild(headerElement);
-                const utfallSvarListElement = addContainerElement(
-                    await createCustomElement(
-                        "custom-grouplist-utfall-svar",
-                        {
-                            data,
-                            texts
-                        },
-                        false
-                    )
+                const utfallSvarListElement = await createCustomElement(
+                    "custom-grouplist-utfall-svar",
+                    {
+                        data,
+                        texts
+                    },
+                    false
                 );
                 this.appendChild(utfallSvarListElement);
             }

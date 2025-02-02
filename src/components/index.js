@@ -1,3 +1,4 @@
+import customDivider from "./base-components/custom-divider/index.js";
 import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
@@ -23,6 +24,7 @@ import customTableEiendom from "./data-components/custom-table-eiendom/index.js"
 import "../styles/main.css" with { type: "css" };
 
 export {
+    customDivider,
     customField,
     customHeader,
     customList,

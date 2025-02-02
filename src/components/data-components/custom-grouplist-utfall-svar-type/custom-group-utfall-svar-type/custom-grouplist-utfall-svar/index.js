@@ -23,24 +23,9 @@ export default customElements.define(
                         texts
                     });
                     this.appendChild(utfallSvarElement);
-
-                    const isLastElement = utfallSvar === data[data.length - 1];
-                    if (!isLastElement) {
-                        const dividerElement = document.createElement("hr");
-                        addStyle(dividerElement, {
-                            height: "2px",
-                            border: "none",
-                            backgroundColor: "#68707C",
-                            margin: "0"
-                        });
-                        this.appendChild(dividerElement);
-                    }
+                    const dividerElement = createCustomElement("custom-divider");
+                    this.appendChild(dividerElement);
                 }
-                addStyle(this, {
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "1.5rem"
-                });
             }
         }
     }
