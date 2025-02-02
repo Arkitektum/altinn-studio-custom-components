@@ -10,6 +10,7 @@ custom-table {
         border-radius: 8px;
         overflow: hidden;
         width: 100%;
+        margin: 0.75rem 0px;
         & td,
         & th {
             padding: 12px;
