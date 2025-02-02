@@ -1,0 +1,56 @@
+body.developer-tools {
+    box-sizing: border-box;
+    & * {
+        box-sizing: border-box;
+    }
+    background-color: #eee;
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    .data-input {
+        max-width: 1000px;
+        padding: 1em;
+        margin: auto;
+        margin-top: 1em;
+
+        button {
+            margin-top: 1em;
+            width: 100%;
+            padding: 12px;
+            text-transform: uppercase;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            &:hover {
+                background-color: #45a049;
+            }
+        }
+    }
+    label {
+        display: block;
+        margin-top: 1em;
+    }
+    textarea {
+        width: 100%;
+        height: 10em;
+        resize: vertical;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        padding: 0.5em;
+    }
+    .page {
+        margin: 1cm auto;
+        background: #fff;
+        box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
+        color: #000;
+        width: 21cm;
+        min-height: 29.7cm;
+        padding-left: 1.25cm;
+        padding-top: 1cm;
+        padding-right: 1.25cm;
+        padding-bottom: 1cm;
+    }
+}

@@ -1,8 +1,14 @@
 import {
     addContainerElement,
     createCustomElement,
-    getCustomComponentDataFromFormdata
+    getCustomComponentDataFromFormdata,
+    getCustomComponentProps,
+    getValueFromDataKey
 } from "../src/functions/helpers.js";
+
+function removeTrailingOrLeadingComma(value) {
+    return value.replace(/(^,)|(,$)/g, "");
+}
 
 function addValueToLocalStorage(key, value) {
     localStorage.setItem(key, value);
@@ -13,23 +19,11 @@ function getValueFromLocalStorage(key) {
 }
 
 function getDataModel() {
-    return JSON.parse(getValueFromLocalStorage("dataModel"));
+    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModel")));
 }
 
 function getTextResources() {
-    return JSON.parse(getValueFromLocalStorage("textResources"));
-}
-
-function getValueFromDataModelBinding(binding) {
-    if (!binding) {
-        return;
-    }
-    const path = binding?.split(/\.|\[|\]/).filter(Boolean);
-    let value = getDataModel();
-    for (let i = 0; i < path.length; i++) {
-        value = value[path[i]];
-    }
-    return value;
+    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("textResources")));
 }
 
 function getValueFromTextResourceBinding(binding) {
@@ -38,23 +32,46 @@ function getValueFromTextResourceBinding(binding) {
     return textResource?.value;
 }
 
-function handleTestCodeOnClick() {
-    const codeInputElement = document.getElementById("code-input");
-    const code = JSON.parse(codeInputElement.value);
+function getDataForComponent(component) {
+    const dataModel = getDataModel();
+    const simpleBinding = getCustomComponentDataFromFormdata(component?.dataModelBindings);
+    const data = getValueFromDataKey(dataModel, simpleBinding);
+    return data;
+}
 
-    //const simpleBinding = code.dataModelBindings?.simpleBinding;
-    const simpleBinding = code.dataModelBindings?.data;
-    const tableColumns = code.tableColumns;
-    const data = getValueFromDataModelBinding(simpleBinding);
-
+function getTextsForComponent(component) {
     let texts = {};
-    Object.keys(code.textResourceBindings).forEach((key) => {
-        texts[key] = getValueFromTextResourceBinding(code.textResourceBindings[key]);
+    Object.keys(component?.textResourceBindings).forEach((key) => {
+        const textResourceBinding = component.textResourceBindings[key];
+        texts[key] = getValueFromTextResourceBinding(textResourceBinding);
     });
+    return texts;
+}
 
-    const tagName = code.tagName;
-    const element = createCustomElement(tagName, { data, texts, tableColumns });
-    const testElement = document.getElementById("test-element");
+function getComponent() {
+    const codeInputElement = document.getElementById("code-input");
+    const component = JSON.parse(removeTrailingOrLeadingComma(codeInputElement.value));
+    return component;
+}
+
+function handleTestCodeOnClick() {
+    const component = getComponent();
+    const data = getDataForComponent(component);
+    const texts = getTextsForComponent(component);
+    const { tagName, hideTitle, hideIfEmpty, emptyFieldText, itemKey, tableColumns, size, styleOverride } = component;
+    const element = createCustomElement(tagName, {
+        data,
+        texts,
+        tagName,
+        hideTitle,
+        hideIfEmpty,
+        emptyFieldText,
+        itemKey,
+        tableColumns,
+        size,
+        styleOverride
+    });
+    const testElement = document.getElementById("code-results");
     testElement.innerHTML = "";
     testElement.appendChild(addContainerElement(element));
 }
