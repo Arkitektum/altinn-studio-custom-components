@@ -10,6 +10,10 @@ export function getTableHeaders(tableColumns, texts) {
 }
 
 export function getTableRows(tableColumns, data) {
+    const isSingleItem = !Array.isArray(data);
+    if (isSingleItem) {
+        data = [data];
+    }
     return data.map((row) => {
         const tr = [];
         tableColumns.forEach((column) => {
