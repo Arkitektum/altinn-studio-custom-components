@@ -5,23 +5,34 @@ custom-field {
     color: var(--color-text-default);
     line-height: var(--line-height-default);
     & .field {
-        display: flex;
-        align-items: baseline;
         &.inline {
+            display: flex;
+            align-items: baseline;
             flex-direction: row;
             gap: 0.5rem;
         }
-        &:not(.inline) {
-            flex-direction: column;
-            gap: 0;
-        }
         & label {
             font-weight: bold;
+            display: block;
             page-break-after: avoid;
             page-break-inside: avoid;
+            &::after {
+                content: "";
+                display: block;
+                height: 50px;
+                margin-bottom: -50px;
+            }
         }
         & span {
             white-space: pre-line;
+            display: block;
+        }
+        &:not(.inline) {
+            & span {
+                &.has-title {
+                    page-break-before: avoid;
+                }
+            }
         }
     }
 }

@@ -20,6 +20,10 @@ export function renderListFieldElement(fieldTitle, listItems, listType) {
     if (fieldTitle?.length) {
         fieldElement.appendChild(renderFieldTitleElement(fieldTitle));
     }
-    fieldElement.appendChild(renderListElement(listItems, listType, false));
+    const listElement = renderListElement(listItems, listType, false);
+    if (fieldTitle?.length) {
+        listElement.classList.add("has-title");
+    }
+    fieldElement.appendChild(listElement);
     return fieldElement.outerHTML;
 }

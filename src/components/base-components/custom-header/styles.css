@@ -5,6 +5,21 @@ custom-header {
     display: block;
     page-break-after: avoid;
     page-break-inside: avoid;
+    &::after {
+        content: "";
+        display: block;
+        height: 150px;
+        margin-bottom: -150px;
+    }
+    & h1,
+    & h2,
+    & h3,
+    & h4 {
+        page-break-after: avoid;
+        display: inline-block;
+        margin-block-start: 1em;
+        margin-block-end: 0.2em;
+    }
     & h1 {
         font-size: var(--font-size-h1);
         font-weight: var(--font-weight-default);

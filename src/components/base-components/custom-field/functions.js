@@ -27,7 +27,11 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
     if (options?.inline) {
         fieldElement.classList.add("inline");
     }
-    fieldElement.appendChild(renderFieldValueElement(fieldValue));
+    const fieldValueElement = renderFieldValueElement(fieldValue);
+    if (fieldTitle?.length) {
+        fieldValueElement.classList.add("has-title");
+    }
+    fieldElement.appendChild(fieldValueElement);
     addStyle(fieldElement, {
         ...options.styleoverride
     });

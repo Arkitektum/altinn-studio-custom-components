@@ -5,15 +5,25 @@ custom-list {
     color: var(--color-text-default);
     line-height: var(--line-height-default);
     & .field {
-        display: flex;
-        flex-direction: column;
         & label {
             font-weight: bold;
+            display: block;
             page-break-after: avoid;
             page-break-inside: avoid;
+            &::after {
+                content: "";
+                display: block;
+                height: 50px;
+                margin-bottom: -50px;
+            }
         }
     }
     ul {
         padding-inline-start: 1em;
+        margin-block: 0;
+        display: block;
+        &.has-title {
+            page-break-before: avoid;
+        }
     }
 }

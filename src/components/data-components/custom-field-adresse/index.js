@@ -6,6 +6,7 @@ import {
     hasValue
 } from "../../../functions/helpers.js";
 import { formatAdresse } from "./functions.js";
+import "./styles.css" with { type: "css" };
 
 export default customElements.define(
     "custom-field-adresse",
