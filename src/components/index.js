@@ -18,8 +18,7 @@ import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-sva
 import customHeaderText from "./data-components/custom-header-text/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
-import customTableDelsoeknad from "./data-components/custom-table-delsoeknad/index.js";
-import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
+import customTableData from "./data-components/custom-table-data/index.js";
 
 import "../styles/main.css" with { type: "css" };
 
@@ -44,6 +43,5 @@ export {
     customHeaderText,
     customListData,
     customListVedlegg,
-    customTableDelsoeknad,
-    customTableEiendom
+    customTableData
 };

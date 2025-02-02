@@ -7,10 +7,11 @@ import {
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 
 export default customElements.define(
-    "custom-table-eiendom",
+    "custom-table-data",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, size, styleoverride } =
+                getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (hideIfEmpty && !data && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
@@ -24,6 +25,7 @@ export default customElements.define(
                         tableRows: getTableRows(tableColumns, data)
                     },
                     text: title,
+                    size,
                     emptyFieldText,
                     styleoverride
                 }).outerHTML;
