@@ -26,6 +26,18 @@ body {
     color: var(--color-text-default);
     line-height: var(--line-height-default);
     letter-spacing: normal;
+    & p,
+    & h1,
+    & h2,
+    & h3,
+    & h4,
+    & h5,
+    & h6 {
+        color: var(--color-text-default);
+        &[class^="fds-"] {
+            font-family: var(--font-family-default);
+        }
+    }
 }
 
 @media print {
@@ -39,4 +51,17 @@ body {
     margin-top: 1cm;
     margin-left: 1.25cm;
     margin-right: 1.25cm;
+}
+
+#pdfView {
+    & > div:first-of-type {
+        margin-bottom: -50px;
+        & h1 {
+            margin-top: -40px;
+        }
+        & img {
+            width: 85px;
+            height: auto;
+        }
+    }
 }
