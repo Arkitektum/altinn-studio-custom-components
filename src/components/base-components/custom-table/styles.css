@@ -21,6 +21,7 @@ custom-table {
                 font-weight: 500;
                 background-color: var(--background-muted);
                 border-bottom: 1px solid #dddada;
+                line-height: var(--line-height-table-header);
             }
         }
         & tbody {
