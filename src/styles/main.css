@@ -9,12 +9,13 @@
     --background-muted: #f7f4f4;
     --color-divider-default: #cdcaca;
     --font-size-default: 16px;
-    --font-size-h1: 48px;
-    --font-size-h2: 32px;
-    --font-size-h3: 24px;
-    --font-size-h4: 20px;
+    --font-size-h1: 42px;
+    --font-size-h2: 30px;
+    --font-size-h3: 23px;
+    --font-size-h4: 19px;
     --font-weight-default: 400;
     --line-height-default: 24px;
+    --line-height-table-header: 20px;
 }
 
 body {
@@ -55,9 +56,9 @@ body {
 
 #pdfView {
     & > div:first-of-type {
-        margin-bottom: -50px;
+        margin-bottom: -55px;
         & h1 {
-            margin-top: -40px;
+            margin-top: -50px;
         }
         & img {
             width: 85px;
