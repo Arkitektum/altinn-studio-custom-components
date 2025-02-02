@@ -36,7 +36,9 @@ export async function getComponentTexts(component) {
 
 export function createCustomElement(tagName, props) {
     const customFieldElement = document.createElement(tagName);
-    const htmlAttributes = {};
+    const htmlAttributes = {
+        isChildComponent: "true"
+    };
     if (hasValue(props?.data)) {
         const propName = typeof props?.data === "object" ? "data" : "simpleBinding";
         const propValue = typeof props?.data === "number" ? props.data.toString() : props?.data;
@@ -110,7 +112,8 @@ export function getCustomComponentProps(customComponent) {
         size: customComponent.getAttribute("size"),
         hideIfEmpty: customComponent.getAttribute("hideIfEmpty") === "true",
         emptyFieldText: customComponent.getAttribute("emptyFieldText"),
-        styleoverride: JSON.parse(customComponent.getAttribute("styleoverride") || "{}")
+        styleoverride: JSON.parse(customComponent.getAttribute("styleoverride") || "{}"),
+        isChildComponent: customComponent.getAttribute("isChildComponent") === "true"
     };
 }
 
