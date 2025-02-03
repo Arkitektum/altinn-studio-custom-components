@@ -59,13 +59,13 @@ body {
  *
  * This CSS rule defines the page size and margins for printing.
  * - The page size is set to A4 in portrait orientation.
- * - The top margin is set to 1cm.
+ * - The top and bottom margin is set to 1cm.
  * - The left and right margins are set to 1.25cm.
- * - The bottom margin gets inhertied from altinn-app-frontend.
  */
 @page {
     size: A4 portrait;
     margin-top: 1cm;
+    margin-bottom: 1cm;
     margin-left: 1.25cm;
     margin-right: 1.25cm;
 }
