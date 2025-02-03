@@ -1,5 +1,4 @@
 import {
-    addStyle,
     createCustomElement,
     getComponentContainerElement,
     getCustomComponentProps,
@@ -35,12 +34,6 @@ export default customElements.define(
                 containerElement.appendChild(getKommentarElement(data, texts));
                 containerElement.appendChild(getVedleggslisteElement(data, texts));
                 this.appendChild(containerElement);
-                addStyle(this, {
-                    display: "flex",
-                    flexFlow: "wrap",
-                    justifyContent: "start",
-                    alignItems: "flex-start"
-                });
             }
         }
     }
