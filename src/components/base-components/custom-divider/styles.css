@@ -1,9 +1,12 @@
 custom-divider {
-    hr {
+    page-break-before: avoid;
+    display: block;
+    & hr {
         background-color: var(--color-divider-default);
         border: none;
         height: 1px;
         margin: 20px 0;
+        display: block;
         page-break-before: avoid;
         &::before {
             content: "";
