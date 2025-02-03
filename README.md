@@ -30,6 +30,10 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 
 - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) - viser liste Utfallsvar-komponentgrupper
 
+### Tabeller
+
+- [Data](src/components/data-components/custom-table-data/) - viser en tabell med verdier
+
 ### Hvordan ta i bruk altinn-studio-custom-components i en Altinn 3 App
 
 Installer libman cli som et globalt verktøy (kun nødvendig 1 gang pr maskin)
