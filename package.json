@@ -1,6 +1,6 @@
 {
     "name": "@arkitektum/altinn-studio-custom-components",
-    "version": "4.0.2",
+    "version": "4.0.3",
     "description": "Custom components for Altinn Studio",
     "main": "dist/main.js",
     "module": "dist/main.js",
