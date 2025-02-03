@@ -8,27 +8,27 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 
 ### Titler
 
-- [Text](src/components/custom-header-text/) - viser tittel med tekst fra ressurs
+- [Text](src/components/data-components/custom-header-text/) - viser tittel med tekst fra ressurs
 
 ### Datafelt
 
-- [Data](src/components/custom-field-data/) - viser et datafelt med label
-- [Boolean text](src/components/custom-field-boolean-text/) - viser et boolsk med gitte tekster for true/false verdier
-- [Adresse](src/components/custom-field-adresse/) - viser et komplett adresseobjekt
-- [Part-navn](src/components/custom-field-part-navn/) - viser parts navn med evt organisasjonsnummer
-- [Kommunens saksnummer](src/components/custom-field-kommunens-saksnummer/) - viser et kommunalt saksnummer sammensatt av saksår og sekvensnummer.
-- [Prosjekt](src/components/custom-field-prosjekt/) - viser prosjektnummer sammensatt av nummer og navn
-- [Telefonnummer](src/components/custom-field-telefonnummer/) - viser alle telefonnummer som er angitt på et parts-objekt
-- [Utfallbesvarelse](src/components/custom-field-utfall-svar-status/) - viser status basert på Utfallsvar-objektet
+- [Data](src/components/data-components/custom-field-data/) - viser et datafelt med label
+- [Boolean text](src/components/data-components/custom-field-boolean-text/) - viser et boolsk med gitte tekster for true/false verdier
+- [Adresse](src/components/data-components/custom-field-adresse/) - viser et komplett adresseobjekt
+- [Part-navn](src/components/data-components/custom-field-part-navn/) - viser parts navn med evt organisasjonsnummer
+- [Kommunens saksnummer](src/components/data-components/custom-field-kommunens-saksnummer/) - viser et kommunalt saksnummer sammensatt av saksår og sekvensnummer.
+- [Prosjekt](src/components/data-components/custom-field-prosjekt/) - viser prosjektnummer sammensatt av nummer og navn
+- [Telefonnummer](src/components/data-components/custom-field-telefonnummer/) - viser alle telefonnummer som er angitt på et parts-objekt
+- [Utfallbesvarelse](src/components/data-components/custom-field-utfall-svar-status/) - viser status basert på Utfallsvar-objektet
 
 ### Lister
 
-- [Data](src/components/custom-list-data/) - viser en liste med verdier
-- [Vedlegg](src/components/custom-list-vedlegg/) - viser en liste med vedlegg fra datamodellen
+- [Data](src/components/data-components/custom-list-data/) - viser en liste med verdier
+- [Vedlegg](src/components/data-components/custom-list-vedlegg/) - viser en liste med vedlegg fra datamodellen
 
 ### Gruppelister
 
-- [Utfall svar](src/components/custom-grouplist-utfall-svar-type/) - viser liste Utfallsvar-komponentgrupper
+- [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) - viser liste Utfallsvar-komponentgrupper
 
 ### Hvordan ta i bruk altinn-studio-custom-components i en Altinn 3 App
 
