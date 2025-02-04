@@ -38,24 +38,24 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 
 Installer libman cli som et globalt verktøy (kun nødvendig 1 gang pr maskin)
 
-```dotnet tool install -g Microsoft.Web.LibraryManager.Cli```
+`dotnet tool install -g Microsoft.Web.LibraryManager.Cli`
 
-Initialiser __libman.json__ og bruk unpkg.com som default kilde
+Initialiser **libman.json** og bruk unpkg.com som default kilde
 
 ```bash
 C:\dev\src\dibk\ig-v3\App> libman init
 DefaultProvider [cdnjs]: unpkg
 ```
 
-Installer pakken til __wwwroot/components__
+Installer pakken til **wwwroot/ftpb-components**
 
 ```bash
-C:\dev\src\dibk\ig-v3\App> libman install @arkitektum/altinn-studio-custom-components@1.5.1 -d wwwroot/components
+C:\dev\src\dibk\ig-v3\App> libman install @arkitektum/altinn-studio-custom-components@1.5.1 -d wwwroot/ftpb-components
 
-wwwroot/components/dist/main.js written to disk
-wwwroot/components/package.json written to disk
-wwwroot/components/README.md written to disk
-Installed library "@arkitektum/altinn-studio-custom-components@1.5.1" to "wwwroot/components"
+wwwroot/ftpb-components/dist/main.js written to disk
+wwwroot/ftpb-components/package.json written to disk
+wwwroot/ftpb-components/README.md written to disk
+Installed library "@arkitektum/altinn-studio-custom-components@1.5.1" to "wwwroot/ftpb-components"
 ```
 
 Legg til libman i byggeprosessen i dotnet-prosjektet
@@ -70,9 +70,16 @@ Kjør bygging på vanlig måte
 C:\dev\src\dibk\ig-v3\App> dotnet build
 ```
 
-Legg til referanse i __views/Home/index.cshtml__. Legg til script-taggen i head.
+Legg til referanse i **views/Home/index.cshtml**. Legg til link-taggen i head og script-taggen nederst i body. Pass på å bytt ut starten av stien **/dibk/ig-v3** med reel sti for appen.
 
 ```html
 <!-- Custom components -->
-<script type="module" src="/dibk/ig-v3/components/dist/main.js"></script>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/dibk/ig-v3/ftpb-components/dist/main.css" />
+    </head>
+    <body>
+        <script type="module" src="/dibk/ig-v3/ftpb-components/dist/main.js"></script>
+    </body>
+</html>
 ```
