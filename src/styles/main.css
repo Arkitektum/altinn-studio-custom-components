@@ -28,9 +28,20 @@ body {
     line-height: var(--line-height-default);
     letter-spacing: normal;
     /*
-        This CSS rule sets the default color and font-family for all text elements outside a custom component.
+        This CSS rule sets the default color and font-family for all paragraph elements outside a custom component.
     */
-    & p,
+    & p {
+        font-family: var(--font-family-default);
+        font-size: var(--font-size-default);
+        color: var(--color-text-default);
+        line-height: var(--line-height-default);
+        &[class^="fds-"] {
+            font-family: var(--font-family-default);
+        }
+    }
+    /*
+        This CSS rule sets the default color and font-family for all header elements outside a custom component.
+    */
     & h1,
     & h2,
     & h3,
