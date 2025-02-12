@@ -38,8 +38,42 @@ body {
     & h5,
     & h6 {
         color: var(--color-text-default);
+        page-break-after: avoid;
+        display: inline-block;
+        margin-block-start: 1em;
+        margin-block-end: 0;
+        line-height: 1.1em;
         &[class^="fds-"] {
             font-family: var(--font-family-default);
+        }
+    }
+    & h2 {
+        font-size: var(--font-size-h2);
+        font-weight: var(--font-weight-default);
+    }
+    & h3 {
+        font-size: var(--font-size-h3);
+        font-weight: var(--font-weight-default);
+    }
+    & h4 {
+        font-size: var(--font-size-h4);
+        font-weight: var(--font-weight-default);
+    }
+    & div[data-componenttype="AttachmentList"] ul {
+        margin-top: 0.3em;
+        & li {
+            margin-bottom: 0;
+            & span,
+            & a,
+            & [class^="fds-"] {
+                color: var(--color-text-default);
+                font-family: var(--font-family-default);
+                font-weight: var(--font-weight-default);
+                line-height: var(--line-height-default);
+                font-size: 1.1rem;
+                cursor: default;
+                pointer-events: none;
+            }
         }
     }
 }
