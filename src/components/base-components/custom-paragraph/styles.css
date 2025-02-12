@@ -1,0 +1,11 @@
+custom-paragraph {
+    display: block;
+    & p {
+        font-family: var(--font-family-default);
+        font-weight: var(--font-weight-default);
+        font-size: var(--font-size-default);
+        line-height: var(--line-height-default);
+        color: var(--color-text-default);
+        margin-block: 0;
+    }
+}

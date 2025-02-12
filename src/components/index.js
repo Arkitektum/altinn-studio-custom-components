@@ -2,6 +2,7 @@ import customDivider from "./base-components/custom-divider/index.js";
 import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
+import customParagraph from "./base-components/custom-paragraph/index.js";
 import customTable from "./base-components/custom-table/index.js";
 import customFieldAdresse from "./data-components/custom-field-adresse/index.js";
 import customFieldPartNavn from "./data-components/custom-field-part-navn/index.js";
@@ -18,6 +19,7 @@ import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-sva
 import customHeaderText from "./data-components/custom-header-text/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
+import customParagraphText from "./data-components/custom-paragraph-text/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 
 import "../styles/main.css" with { type: "css" };
@@ -27,6 +29,7 @@ export {
     customField,
     customHeader,
     customList,
+    customParagraph,
     customTable,
     customFieldAdresse,
     customFieldPartNavn,
@@ -43,5 +46,6 @@ export {
     customHeaderText,
     customListData,
     customListVedlegg,
+    customParagraphText,
     customTableData
 };
