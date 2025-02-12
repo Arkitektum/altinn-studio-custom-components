@@ -7,7 +7,7 @@ export default customElements.define(
     class extends HTMLElement {
         connectedCallback() {
             const { text, styleoverride, size } = getCustomComponentProps(this);
-            this.innerHTML = renderHeaderElement(text, size, styleoverride);
+            this.innerHTML = renderHeaderElement(text, size);
             addStyle(this, styleoverride);
         }
     }
