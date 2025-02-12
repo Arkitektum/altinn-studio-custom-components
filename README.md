@@ -10,6 +10,10 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 
 - [Text](src/components/data-components/custom-header-text/) - viser tittel med tekst fra ressurs
 
+### Paragraf
+
+- [Text](src/components/data-components/custom-paragraph-text/) - viser paragraf med tekst fra ressurs
+
 ### Datafelt
 
 - [Data](src/components/data-components/custom-field-data/) - viser et datafelt med label
