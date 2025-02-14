@@ -121,14 +121,26 @@ body {
  */
 
 #pdfView {
-    & > div:first-of-type {
-        margin-bottom: -55px;
+    /* For PDFs without logo */
+    & > h1:first-of-type {
+        min-height: 68px;
+    }
+    /* For PDFs with logo */
+    & > div[data-testid="pdf-logo"] {
+        min-height: 68px;
+        margin-bottom: 0;
+        display: block;
         & h1 {
-            margin-top: -50px;
+            margin-top: 0;
         }
         & img {
-            width: 85px;
-            height: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        &::after {
+            content: "";
+            display: block;
         }
     }
 }
