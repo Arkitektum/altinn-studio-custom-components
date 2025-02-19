@@ -10,22 +10,23 @@ export default customElements.define(
     "custom-list-data",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } = getCustomComponentProps(this);
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } =
+                getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const itemKey = this.getAttribute("itemKey");
-            const listItems = itemKey?.length ? getListItemsFromKey(data, itemKey) : data;
+            const listItems = itemKey?.length ? getListItemsFromKey(formData?.data, itemKey) : formData?.data;
             const title = !hideTitle && text;
             if (hideIfEmpty && !hasValue(listItems) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else if (emptyFieldText?.length && !listItems?.length) {
                 this.innerHTML = createCustomElement("custom-field", {
-                    data: emptyFieldText,
+                    formData: { simpleBinding: emptyFieldText },
                     text: title,
                     styleoverride
                 }).outerHTML;
             } else {
                 this.innerHTML = createCustomElement("custom-list", {
-                    data: listItems,
+                    formData: { data: listItems },
                     text: title,
                     styleoverride
                 }).outerHTML;

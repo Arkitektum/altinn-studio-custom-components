@@ -11,10 +11,10 @@ export default customElements.define(
     "custom-field-prosjekt",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const prosjekt = new Prosjekt(data);
+            const prosjekt = new Prosjekt(formData?.data);
             if (hideIfEmpty && !hasValue(prosjekt) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
@@ -22,7 +22,7 @@ export default customElements.define(
                 const prosjektString = formatProsjekt(prosjekt);
                 const value = prosjektString?.length ? prosjektString : emptyFieldText;
                 this.innerHTML = createCustomElement("custom-field", {
-                    data: value,
+                    formData: { simpleBinding: value },
                     text: title,
                     inline,
                     styleoverride

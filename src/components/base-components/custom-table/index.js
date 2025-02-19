@@ -6,13 +6,13 @@ export default customElements.define(
     "custom-table",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data, text, hideIfEmpty, emptyFieldText, size, styleoverride } = getCustomComponentProps(this);
+            const { formData, text, hideIfEmpty, emptyFieldText, size, styleoverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (hideIfEmpty && !data && !!componentContainerElement) {
+            if (hideIfEmpty && !formData?.data && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const headerElement = renderHeaderElement(text, size);
-                const tableElement = renderTableElement(data, emptyFieldText);
+                const tableElement = renderTableElement(formData?.data, emptyFieldText);
                 this.innerHTML = "";
                 if (headerElement) {
                     this.appendChild(headerElement);

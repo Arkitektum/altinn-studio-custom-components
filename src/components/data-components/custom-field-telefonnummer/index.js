@@ -11,10 +11,10 @@ export default customElements.define(
     "custom-field-telefonnummer",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const telefonnumre = new Telefonnumre(data);
+            const telefonnumre = new Telefonnumre(formData?.data);
             if (hideIfEmpty && !hasValue(telefonnumre) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
@@ -22,7 +22,7 @@ export default customElements.define(
                 const phoneNumbersString = formatPhoneNumbers(telefonnumre);
                 const value = phoneNumbersString?.length ? phoneNumbersString : emptyFieldText;
                 this.innerHTML = createCustomElement("custom-field", {
-                    data: value,
+                    formData: { simpleBinding: value },
                     text: title,
                     inline,
                     styleoverride

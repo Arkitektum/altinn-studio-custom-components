@@ -10,7 +10,7 @@ import { addContainerElement, createCustomElement } from "../../../../../../func
 export function getBeskrivelseElement(data) {
     return addContainerElement(
         createCustomElement("custom-field-data", {
-            data: data?.beskrivelse,
+            formData: { simpleBinding: data?.beskrivelse },
             hideIfEmpty: true
         })
     );
@@ -27,7 +27,7 @@ export function getBeskrivelseElement(data) {
 export function getStatusElement(data, texts) {
     return addContainerElement(
         createCustomElement("custom-field-utfall-svar-status", {
-            data,
+            formData: { data },
             texts,
             text: texts?.["status.title"]
         })
@@ -44,7 +44,7 @@ export function getStatusElement(data, texts) {
 export function getTemaElement(data, texts) {
     return addContainerElement(
         createCustomElement("custom-field-data", {
-            data: data?.tema?.kodebeskrivelse,
+            formData: { simpleBinding: data?.tema?.kodebeskrivelse },
             text: texts?.["tema.kodebeskrivelse.title"],
             hideIfEmpty: true
         })
@@ -61,7 +61,7 @@ export function getTemaElement(data, texts) {
 export function getKommentarElement(data, texts) {
     return addContainerElement(
         createCustomElement("custom-field-data", {
-            data: data?.kommentar,
+            formData: { simpleBinding: data?.kommentar },
             text: texts?.["kommentar.title"],
             hideIfEmpty: false,
             emptyFieldText: "-"
@@ -80,7 +80,7 @@ export function getKommentarElement(data, texts) {
 export function getVedleggslisteElement(data, texts) {
     return addContainerElement(
         createCustomElement("custom-list-vedlegg", {
-            data: data?.vedleggsliste?.vedlegg,
+            formData: { data: data?.vedleggsliste?.vedlegg },
             text: texts?.["vedleggsliste.vedlegg.title"],
             hideIfEmpty: true
         })

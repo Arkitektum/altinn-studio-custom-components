@@ -9,7 +9,7 @@ import { getComponentTexts, validateTexts } from "../../../functions/helpers.js"
  */
 
 export async function getBooleanText(data, component) {
-    const componentId = component.getAttribute("id");
+    const componentName = component.getAttribute("id") || "custom-field-boolean-text";
     const texts = await getComponentTexts(component);
     const textKeys = ["trueText", "falseText", "defaultText"];
     const fallbackTexts = {
@@ -17,7 +17,7 @@ export async function getBooleanText(data, component) {
         falseText: "Nei",
         defaultText: ""
     };
-    validateTexts(texts, fallbackTexts, textKeys, componentId);
+    validateTexts(texts, fallbackTexts, textKeys, componentName);
     if (data === true || data === "true") {
         return texts?.trueText !== undefined && texts.trueText !== null ? texts.trueText : fallbackTexts.trueText;
     } else if (data === false || data === "false") {

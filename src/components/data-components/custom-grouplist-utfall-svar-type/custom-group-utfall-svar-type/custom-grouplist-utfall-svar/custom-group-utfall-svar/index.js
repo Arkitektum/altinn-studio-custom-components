@@ -16,9 +16,10 @@ export default customElements.define(
     "custom-group-utfall-svar",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data } = getCustomComponentProps(this);
+            const { formData } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const texts = JSON.parse(this.getAttribute("texts"));
+            const data = formData?.data;
             if (!hasValue(data) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {

@@ -6,8 +6,10 @@ export default customElements.define(
     "custom-list",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, text, styleoverride } = getCustomComponentProps(this);
-            this.innerHTML = text?.length ? renderListFieldElement(text, data) : renderListElement(data);
+            const { formData, text, styleoverride } = getCustomComponentProps(this);
+            this.innerHTML = text?.length
+                ? renderListFieldElement(text, formData?.data)
+                : renderListElement(formData?.data);
             addStyle(this, styleoverride);
         }
     }

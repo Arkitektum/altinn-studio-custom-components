@@ -44,7 +44,7 @@ function getTableRowElement(tableRow) {
 function getTableCellElement(tableCell) {
     const td = document.createElement("td");
     td.innerHTML = createCustomElement(tableCell.tagName, {
-        data: tableCell.data,
+        formData: tableCell.formData,
         text: tableCell.text,
         hideTitle: true,
         emptyFieldText: tableCell.emptyFieldText,

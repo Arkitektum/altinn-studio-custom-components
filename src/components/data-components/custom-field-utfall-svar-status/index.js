@@ -10,16 +10,16 @@ export default customElements.define(
     "custom-field-utfall-svar-status",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data, text, hideTitle, hideIfEmpty, inline, styleoverride } = getCustomComponentProps(this);
+            const { formData, text, hideTitle, hideIfEmpty, inline, styleoverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const utfallSvarStatus = new UtfallSvarStatus(data);
+            const utfallSvarStatus = new UtfallSvarStatus(formData?.data);
             const statusText = await getStatusText(utfallSvarStatus, this);
             if (hideIfEmpty && !statusText?.length && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const title = !hideTitle && text;
                 this.innerHTML = createCustomElement("custom-field", {
-                    data: statusText,
+                    formData: { simpleBinding: statusText },
                     text: title,
                     inline,
                     styleoverride

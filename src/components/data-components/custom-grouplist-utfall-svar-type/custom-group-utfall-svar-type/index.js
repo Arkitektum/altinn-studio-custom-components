@@ -9,9 +9,9 @@ export default customElements.define(
     "custom-group-utfall-svar-type",
     class extends HTMLElement {
         async connectedCallback() {
-            const { data, text } = getCustomComponentProps(this);
+            const { formData, text } = getCustomComponentProps(this);
             const texts = JSON.parse(this.getAttribute("texts"));
-            if (hasValue(data)) {
+            if (hasValue(formData?.data)) {
                 const headerElement = createCustomElement("custom-header-text", {
                     text,
                     size: "h2"
@@ -20,7 +20,7 @@ export default customElements.define(
                 const utfallSvarListElement = await createCustomElement(
                     "custom-grouplist-utfall-svar",
                     {
-                        data,
+                        formData,
                         texts
                     },
                     false

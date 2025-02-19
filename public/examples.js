@@ -1,10 +1,4 @@
-import {
-    addContainerElement,
-    createCustomElement,
-    getCustomComponentDataFromFormdata,
-    getCustomComponentProps,
-    getValueFromDataKey
-} from "../src/functions/helpers.js";
+import { addContainerElement, createCustomElement, getValueFromDataKey } from "../src/functions/helpers.js";
 
 function removeTrailingOrLeadingComma(value) {
     return value.replace(/(^,)|(,$)/g, "");
@@ -34,17 +28,25 @@ function getValueFromTextResourceBinding(binding) {
 
 function getDataForComponent(component) {
     const dataModel = getDataModel();
-    const simpleBinding = getCustomComponentDataFromFormdata(component?.dataModelBindings);
-    const data = getValueFromDataKey(dataModel, simpleBinding);
+    const data = {};
+    component?.dataModelBindings &&
+        Object.keys(component?.dataModelBindings).forEach((key) => {
+            const dataModelBinding = component.dataModelBindings[key];
+            const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
+            data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding;
+        });
     return data;
 }
 
 function getTextsForComponent(component) {
     let texts = {};
-    Object.keys(component?.textResourceBindings).forEach((key) => {
-        const textResourceBinding = component.textResourceBindings[key];
-        texts[key] = getValueFromTextResourceBinding(textResourceBinding);
-    });
+    const textResourceBindings = component?.textResourceBindings;
+    const textResourcesBindingsKeys = textResourceBindings && Object.keys(textResourceBindings);
+    textResourcesBindingsKeys?.length &&
+        textResourcesBindingsKeys.forEach((key) => {
+            const textResourceBinding = component.textResourceBindings[key];
+            texts[key] = getValueFromTextResourceBinding(textResourceBinding);
+        });
     return texts;
 }
 
@@ -58,9 +60,11 @@ function handleTestCodeOnClick() {
     const component = getComponent();
     const data = getDataForComponent(component);
     const texts = getTextsForComponent(component);
-    const { tagName, hideTitle, hideIfEmpty, emptyFieldText, itemKey, tableColumns, size, styleOverride } = component;
+    const { id, tagName, hideTitle, hideIfEmpty, emptyFieldText, itemKey, tableColumns, size, styleOverride } =
+        component;
     const element = createCustomElement(tagName, {
-        data,
+        id,
+        formData: data,
         texts,
         tagName,
         hideTitle,

@@ -10,15 +10,15 @@ export default customElements.define(
     "custom-grouplist-utfall-svar",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, hideIfEmpty } = getCustomComponentProps(this);
+            const { formData, hideIfEmpty } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const texts = JSON.parse(this.getAttribute("texts"));
-            if (hideIfEmpty && !hasValue(data) && !!componentContainerElement) {
+            if (hideIfEmpty && !hasValue(formData?.data) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                for (const utfallSvar of data) {
+                for (const utfallSvar of formData.data) {
                     const utfallSvarElement = createCustomElement("custom-group-utfall-svar", {
-                        data: utfallSvar,
+                        formData: {data: utfallSvar},
                         hideIfEmpty: true,
                         texts
                     });

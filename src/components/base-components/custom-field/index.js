@@ -7,16 +7,17 @@ export default customElements.define(
     "custom-field",
     class extends HTMLElement {
         connectedCallback() {
-            const { data, text, hideIfEmpty, inline, styleoverride } = getCustomComponentProps(this);
+            const { formData, text, hideIfEmpty, inline, styleoverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (hideIfEmpty && !data && !!componentContainerElement) {
+            const value = formData?.simpleBinding;
+            if (hideIfEmpty && !value && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const options = {
                     inline,
                     styleoverride
                 };
-                this.innerHTML = renderFieldElement(text, data, options);
+                this.innerHTML = renderFieldElement(text, value, options);
             }
         }
     }

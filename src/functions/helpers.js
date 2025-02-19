@@ -39,13 +39,22 @@ export function createCustomElement(tagName, props) {
     const htmlAttributes = {
         isChildComponent: "true"
     };
-    if (hasValue(props?.data)) {
-        const propName = typeof props?.data === "object" ? "data" : "simpleBinding";
-        const propValue = typeof props?.data === "number" ? props.data.toString() : props?.data;
-        htmlAttributes.formdata = JSON.stringify({
-            [propName]: propValue
-        });
+    if (hasValue(props?.formData)) {
+        if (typeof props?.formData === "string") {
+            const formData = props?.formData;
+            htmlAttributes.formdata = JSON.stringify(formData);
+        } else if (typeof props?.formData === "number") {
+            const formData = props?.formData.toString();
+            htmlAttributes.formdata = JSON.stringify(formData);
+        } else if (typeof props?.formData === "object") {
+            const formData = {};
+            Object.keys(props.formData).forEach((key) => {
+                formData[key] = props.formData[key];
+            });
+            htmlAttributes.formdata = JSON.stringify(formData);
+        }
     }
+
     if (props?.text || props?.texts?.title) {
         htmlAttributes.text = props?.text?.toString() || props?.texts?.title?.toString() || "";
     }
@@ -76,6 +85,12 @@ export function createCustomElement(tagName, props) {
     if (hasValue(props?.tableColumns)) {
         htmlAttributes.tablecolumns = JSON.stringify(props?.tableColumns) || "";
     }
+    if (hasValue(props?.itemKey)) {
+        htmlAttributes.itemKey = props?.itemKey || "";
+    }
+    if (hasValue(props?.id)) {
+        htmlAttributes.id = props?.id || "";
+    }
 
     setAttributes(customFieldElement, htmlAttributes);
     return customFieldElement;
@@ -95,17 +110,10 @@ export function addContainerElement(component) {
     return containerElement;
 }
 
-export function getCustomComponentDataFromFormdata(formdata) {
-    const simpleBinding = hasValue(formdata?.simpleBinding) ? formdata.simpleBinding : null;
-    const data = hasValue(formdata?.data) ? formdata.data : null;
-    return simpleBinding || data;
-}
-
 export function getCustomComponentProps(customComponent) {
     const formData = JSON.parse(customComponent.getAttribute("formdata"));
-    const data = getCustomComponentDataFromFormdata(formData);
     return {
-        data,
+        formData,
         text: customComponent.getAttribute("text"),
         inline: customComponent.getAttribute("inline") === "true",
         hideTitle: customComponent.getAttribute("hideTitle") === "true",
