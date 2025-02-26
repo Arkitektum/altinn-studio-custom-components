@@ -85,11 +85,17 @@ export function createCustomElement(tagName, props) {
     if (hasValue(props?.tableColumns)) {
         htmlAttributes.tablecolumns = JSON.stringify(props?.tableColumns) || "";
     }
+    if (hasValue(props?.textResources)) {
+        htmlAttributes.textResources = JSON.stringify(props?.textResources) || "";
+    }
     if (hasValue(props?.itemKey)) {
         htmlAttributes.itemKey = props?.itemKey || "";
     }
     if (hasValue(props?.id)) {
         htmlAttributes.id = props?.id || "";
+    }
+    if (hasValue(props?.feedbackType)) {
+        htmlAttributes.feedbackType = props?.feedbackType || "";
     }
 
     setAttributes(customFieldElement, htmlAttributes);
@@ -139,11 +145,17 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
     });
 }
 
-function getAsync(obj, prop) {
+function getAsync(obj, prop, timeout = 200) {
+    console.log("getAsync", { obj, prop });
     return new Promise((resolve, reject) => {
+        const timer = setTimeout(() => {
+            reject(new Error(`Timeout: ${prop} was not set within ${timeout}ms`));
+        }, timeout);
+
         if (typeof obj[prop] === "undefined") {
             Object.defineProperty(obj, prop, {
                 set: (value) => {
+                    clearTimeout(timer);
                     Object.defineProperty(obj, prop, { value });
                     resolve(value);
                 },
@@ -151,6 +163,7 @@ function getAsync(obj, prop) {
                 enumerable: true
             });
         } else {
+            clearTimeout(timer);
             resolve(obj[prop]);
         }
     });
