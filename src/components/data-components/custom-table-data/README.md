@@ -108,5 +108,3 @@
     }
 }
 ```
-
-data, text, hideTitle, hideIfEmpty, emptyFieldText, size, styleoverride, tableColumns
