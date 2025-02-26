@@ -1,0 +1,23 @@
+custom-feedback {
+    display: block;
+    & p {
+        font-family: var(--font-family-default);
+        font-weight: var(--font-weight-default);
+        font-size: var(--font-size-default);
+        line-height: var(--line-height-default);
+        color: var(--color-text-default);
+        margin-block: 0;
+        &.error {
+            color: var(--color-error-default);
+        }
+        &.success {
+            color: var(--color-success-default);
+        }
+        &.warning {
+            color: var(--color-warning-default);
+        }
+        &.info {
+            color: var(--color-info-default);
+        }
+    }
+}
