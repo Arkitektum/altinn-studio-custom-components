@@ -73,8 +73,8 @@ export function createCustomElement(tagName, props) {
     if (hasValue(props?.emptyFieldText)) {
         htmlAttributes.emptyfieldtext = props?.emptyFieldText.toString() || "";
     }
-    if (hasValue(props?.styleoverride)) {
-        htmlAttributes.styleoverride = JSON.stringify(props?.styleoverride) || "";
+    if (hasValue(props?.styleOverride)) {
+        htmlAttributes.styleOverride = JSON.stringify(props?.styleOverride) || "";
     }
     if (hasValue(props?.grid)) {
         htmlAttributes.grid = JSON.stringify(props?.grid) || "";
@@ -120,7 +120,7 @@ export function getCustomComponentProps(customComponent) {
         size: customComponent.getAttribute("size"),
         hideIfEmpty: customComponent.getAttribute("hideIfEmpty") === "true",
         emptyFieldText: customComponent.getAttribute("emptyFieldText"),
-        styleoverride: JSON.parse(customComponent.getAttribute("styleoverride") || "{}"),
+        styleOverride: JSON.parse(customComponent.getAttribute("styleOverride") || "{}"),
         isChildComponent: customComponent.getAttribute("isChildComponent") === "true"
     };
 }

@@ -6,7 +6,7 @@ export default customElements.define(
     "custom-table",
     class extends HTMLElement {
         async connectedCallback() {
-            const { formData, text, hideIfEmpty, emptyFieldText, size, styleoverride } = getCustomComponentProps(this);
+            const { formData, text, hideIfEmpty, emptyFieldText, size, styleOverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (hideIfEmpty && !formData?.data && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
@@ -18,7 +18,7 @@ export default customElements.define(
                     this.appendChild(headerElement);
                 }
                 this.appendChild(tableElement);
-                addStyle(this, styleoverride);
+                addStyle(this, styleOverride);
             }
         }
     }

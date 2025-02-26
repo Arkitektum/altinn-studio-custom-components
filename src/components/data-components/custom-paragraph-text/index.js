@@ -7,10 +7,10 @@ export default customElements.define(
     "custom-paragraph-text",
     class extends HTMLElement {
         connectedCallback() {
-            const { text, styleoverride } = getCustomComponentProps(this);
+            const { text, styleOverride } = getCustomComponentProps(this);
             this.innerHTML = createCustomElement("custom-paragraph", {
                 text,
-                styleoverride
+                styleOverride
             }).outerHTML;
         }
     }

@@ -10,7 +10,7 @@ export default customElements.define(
     "custom-table-data",
     class extends HTMLElement {
         async connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, size, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, size, styleOverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (hideIfEmpty && !formData?.data && !!componentContainerElement) {
@@ -29,7 +29,7 @@ export default customElements.define(
                     text: title,
                     size,
                     emptyFieldText,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }

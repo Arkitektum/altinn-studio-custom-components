@@ -9,7 +9,7 @@ export default customElements.define(
     "custom-header-text",
     class extends HTMLElement {
         connectedCallback() {
-            const { text, styleoverride, size, isChildComponent } = getCustomComponentProps(this);
+            const { text, styleOverride, size, isChildComponent } = getCustomComponentProps(this);
             if (!isChildComponent) {
                 const containerElement = getComponentContainerElement(this);
                 addStyle(containerElement, {
@@ -19,7 +19,7 @@ export default customElements.define(
             this.innerHTML = createCustomElement("custom-header", {
                 text,
                 size,
-                styleoverride
+                styleOverride
             }).outerHTML;
         }
     }

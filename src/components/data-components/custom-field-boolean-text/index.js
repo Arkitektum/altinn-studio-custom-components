@@ -9,7 +9,7 @@ export default customElements.define(
     "custom-field-boolean-text",
     class extends HTMLElement {
         async connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, inline, styleoverride } = getCustomComponentProps(this);
+            const { formData, text, hideTitle, hideIfEmpty, inline, styleOverride } = getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const statusText = await getBooleanText(formData?.simpleBinding, this);
             if (hideIfEmpty && !statusText?.length && !!componentContainerElement) {
@@ -20,7 +20,7 @@ export default customElements.define(
                     formData: { simpleBinding: statusText },
                     text: title,
                     inline,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }

@@ -33,14 +33,14 @@ function renderFieldValueElement(fieldValue) {
  * @param {Object} [options] - Optional settings for rendering the field element.
  * @param {boolean} [options.returnHtml=true] - Whether to return the element as HTML string.
  * @param {boolean} [options.inline=false] - Whether to render the field inline.
- * @param {Object} [options.styleoverride={}] - Custom styles to apply to the field element.
+ * @param {Object} [options.styleOverride={}] - Custom styles to apply to the field element.
  * @returns {HTMLElement|string} The rendered field element or its HTML string representation.
  */
 export function renderFieldElement(fieldTitle, fieldValue, options) {
     options = {
         returnHtml: true,
         inline: false,
-        styleoverride: {},
+        styleOverride: {},
         ...options
     };
     const fieldElement = document.createElement("div");
@@ -57,7 +57,7 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
     }
     fieldElement.appendChild(fieldValueElement);
     addStyle(fieldElement, {
-        ...options.styleoverride
+        ...options.styleOverride
     });
     return options.returnHtml ? fieldElement.outerHTML : fieldElement;
 }

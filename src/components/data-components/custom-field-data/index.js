@@ -8,7 +8,7 @@ export default customElements.define(
     "custom-field-data",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleOverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (hideIfEmpty && !formData?.simpleBinding && !!componentContainerElement) {
@@ -23,7 +23,7 @@ export default customElements.define(
                     hideIfEmpty,
                     emptyFieldText,
                     inline,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }

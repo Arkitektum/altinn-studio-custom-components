@@ -11,7 +11,7 @@ export default customElements.define(
     "custom-field-kommunens-saksnummer",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleOverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const kommunensSaksnummer = new KommunensSaksnummer(formData?.data);
@@ -26,7 +26,7 @@ export default customElements.define(
                     },
                     text: title,
                     inline,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }

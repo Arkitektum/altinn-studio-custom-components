@@ -10,7 +10,7 @@ export default customElements.define(
     "custom-list-data",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, styleOverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const itemKey = this.getAttribute("itemKey");
@@ -22,13 +22,13 @@ export default customElements.define(
                 this.innerHTML = createCustomElement("custom-field", {
                     formData: { simpleBinding: emptyFieldText },
                     text: title,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             } else {
                 this.innerHTML = createCustomElement("custom-list", {
                     formData: { data: listItems },
                     text: title,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }

@@ -12,7 +12,7 @@ export default customElements.define(
     "custom-field-adresse",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleOverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const address = new Adresse(formData?.data);
@@ -25,7 +25,7 @@ export default customElements.define(
                     formData: { simpleBinding: adresseString?.length ? adresseString : emptyFieldText },
                     text: title,
                     inline,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }

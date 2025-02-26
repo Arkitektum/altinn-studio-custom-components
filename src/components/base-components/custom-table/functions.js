@@ -38,7 +38,7 @@ function getTableRowElement(tableRow) {
  * @param {Object} tableCell.data - The data to be passed to the custom element.
  * @param {string} tableCell.text - The text content to be included in the custom element.
  * @param {string} tableCell.emptyFieldText - The text to display if the field is empty.
- * @param {Object} tableCell.styleoverride - The style overrides to apply to the custom element.
+ * @param {Object} tableCell.styleOverride - The style overrides to apply to the custom element.
  * @returns {HTMLTableCellElement} The created table cell element containing the custom element.
  */
 function getTableCellElement(tableCell) {
@@ -48,7 +48,7 @@ function getTableCellElement(tableCell) {
         text: tableCell.text,
         hideTitle: true,
         emptyFieldText: tableCell.emptyFieldText,
-        styleoverride: tableCell.styleoverride
+        styleOverride: tableCell.styleOverride
     }).outerHTML;
     return td;
 }

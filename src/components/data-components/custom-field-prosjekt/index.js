@@ -11,7 +11,7 @@ export default customElements.define(
     "custom-field-prosjekt",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleoverride } =
+            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleOverride } =
                 getCustomComponentProps(this);
             const componentContainerElement = getComponentContainerElement(this);
             const prosjekt = new Prosjekt(formData?.data);
@@ -25,7 +25,7 @@ export default customElements.define(
                     formData: { simpleBinding: value },
                     text: title,
                     inline,
-                    styleoverride
+                    styleOverride
                 }).outerHTML;
             }
         }
