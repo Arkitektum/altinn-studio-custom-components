@@ -1,4 +1,4 @@
-import { addStyle, getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
+import { getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
 import { renderHeaderElement, renderTableElement } from "./functions.js";
 import "./styles.css" with { type: "css" };
 
@@ -12,13 +12,12 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const headerElement = renderHeaderElement(text, size);
-                const tableElement = renderTableElement(formData?.data, emptyFieldText);
+                const tableElement = renderTableElement(formData?.data, emptyFieldText, styleOverride);
                 this.innerHTML = "";
                 if (headerElement) {
                     this.appendChild(headerElement);
                 }
                 this.appendChild(tableElement);
-                addStyle(this, styleOverride);
             }
         }
     }

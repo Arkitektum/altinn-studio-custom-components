@@ -78,7 +78,7 @@ export function renderHeaderElement(text, size) {
  * @param {string} [emptyFieldText] - The text to display if there are no table headers or rows.
  * @returns {HTMLTableElement} The rendered table element.
  */
-export function renderTableElement(data, emptyFieldText) {
+export function renderTableElement(data, emptyFieldText, styleOverride) {
     const table = document.createElement("table");
     const thead = document.createElement("thead");
     const tr = document.createElement("tr");
@@ -101,6 +101,8 @@ export function renderTableElement(data, emptyFieldText) {
         tr.appendChild(td);
         table.appendChild(tr);
     }
+
+    addStyle(table, styleOverride);
 
     return table;
 }
