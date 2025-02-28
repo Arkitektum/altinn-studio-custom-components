@@ -1,9 +1,13 @@
 import customDivider from "./base-components/custom-divider/index.js";
+import customFeedback from "./base-components/custom-feedback/index.js";
 import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
 import customParagraph from "./base-components/custom-paragraph/index.js";
 import customTable from "./base-components/custom-table/index.js";
+import customFeedbackData from "./data-components/custom-feedback-data/index.js";
+import customFeedbacklistData from "./data-components/custom-feedbacklist-data/index.js";
+import customFeedbacklistValidationMessages from "./data-components/custom-feedbacklist-validation-messages/index.js";
 import customFieldAdresse from "./data-components/custom-field-adresse/index.js";
 import customFieldPartNavn from "./data-components/custom-field-part-navn/index.js";
 import customFieldBooleanText from "./data-components/custom-field-boolean-text/index.js";
@@ -23,15 +27,21 @@ import customParagraphText from "./data-components/custom-paragraph-text/index.j
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 
+import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.js";
+
 import "../styles/main.css" with { type: "css" };
 
 export {
     customDivider,
+    customFeedback,
     customField,
     customHeader,
     customList,
     customParagraph,
     customTable,
+    customFeedbackData,
+    customFeedbacklistData,
+    customFeedbacklistValidationMessages,
     customFieldAdresse,
     customFieldPartNavn,
     customFieldBooleanText,
@@ -49,5 +59,6 @@ export {
     customListVedlegg,
     customParagraphText,
     customSubheaderText,
-    customTableData
+    customTableData,
+    gjennomfoeringsplan
 };
