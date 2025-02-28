@@ -1,0 +1,8 @@
+custom-feedbacklist-validation-messages {
+    @media screen {
+        display: block;
+    }
+    @media print {
+        display: none;
+    }
+}
