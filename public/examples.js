@@ -73,7 +73,8 @@ function handleTestCodeOnClick() {
         itemKey,
         tableColumns,
         size,
-        styleOverride
+        styleOverride,
+        textResources: getTextResources(),
     });
     const testElement = document.getElementById("code-results");
     testElement.innerHTML = "";
