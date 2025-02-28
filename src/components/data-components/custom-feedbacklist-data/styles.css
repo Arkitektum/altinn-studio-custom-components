@@ -1,0 +1,74 @@
+custom-feedbacklist-data {
+    @media screen {
+        display: block;
+    }
+    @media print {
+        display: none;
+    }
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    font-weight: var(--font-weight-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
+    & details.feedback-details {
+        margin: 0.75rem 0px;
+        border-radius: 6px;
+        overflow: hidden;
+        & summary {
+            cursor: pointer;
+            padding: 8px 16px;
+            transition: var(--background-transition-default);
+        }
+        & .feedback-list {
+            & .feedback-list-item {
+                padding: 8px 16px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.075);
+                border-top: 1px solid rgba(255, 255, 255, 0.075);
+                border-block-style: inset;
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+        &.error {
+            background-color: var(--color-error-muted);
+            & summary {
+                background-color: var(--color-error-default);
+                color: white;
+                &:hover {
+                    background-color: var(--color-error-light);
+                }
+            }
+        }
+        &.warning {
+            background-color: var(--color-warning-muted);
+            & summary {
+                background-color: var(--color-warning-default);
+                color: white;
+                &:hover {
+                    background-color: var(--color-warning-light);
+                }
+            }
+        }
+        &.info {
+            background-color: var(--color-info-muted);
+            & summary {
+                background-color: var(--color-info-default);
+                color: white;
+                &:hover {
+                    background-color: var(--color-info-light);
+                }
+            }
+        }
+        &.success {
+            background-color: var(--color-success-muted);
+            & summary {
+                background-color: var(--color-success-default);
+                color: white;
+                &:hover {
+                    background-color: var(--color-success-light);
+                }
+            }
+        }
+    }
+}
