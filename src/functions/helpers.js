@@ -146,7 +146,6 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
 }
 
 function getAsync(obj, prop, timeout = 200) {
-    console.log("getAsync", { obj, prop });
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
             reject(new Error(`Timeout: ${prop} was not set within ${timeout}ms`));
