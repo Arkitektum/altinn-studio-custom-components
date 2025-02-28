@@ -12,12 +12,15 @@
     --color-error-light: #ef5350;
     --color-error-default: #d32f2f;
     --color-error-dark: #c62828;
+    --color-warning-muted: #ff980030;
     --color-warning-light: #ff9800;
     --color-warning-default: #ed6c02;
     --color-warning-dark: #e65100;
+    --color-success-muted: #4caf5030;
     --color-success-light: #4caf50;
     --color-success-default: #2e7d32;
     --color-success-dark: #1b5e20;
+    --color-info-muted: #03a9f430;
     --color-info-light: #03a9f4;
     --color-info-default: #0288d1;
     --color-info-dark: #01579b;
@@ -29,7 +32,7 @@
     --font-weight-default: 400;
     --line-height-default: 24px;
     --line-height-table-header: 20px;
-    --background-transition-default: background-color 150ms
+    --background-transition-default: background-color 150ms;
 }
 
 body {
