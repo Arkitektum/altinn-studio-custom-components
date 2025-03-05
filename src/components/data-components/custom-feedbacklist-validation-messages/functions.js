@@ -1,5 +1,12 @@
 import { createCustomElement } from "../../../functions/helpers.js";
 
+/**
+ * Returns a title string based on the feedback type and count.
+ *
+ * @param {string} feedbackType - The type of feedback (e.g., "error", "warning", "info").
+ * @param {number} feedbackCount - The number of feedback messages.
+ * @returns {string} The formatted title string including the feedback type and count.
+ */
 function getTitleForFeedbackType(feedbackType, feedbackCount) {
     switch (feedbackType) {
         case "error":
@@ -13,6 +20,13 @@ function getTitleForFeedbackType(feedbackType, feedbackCount) {
     }
 }
 
+/**
+ * Renders a container element with validation messages.
+ *
+ * @param {Object} validationMessages - An object containing validation messages categorized by feedback type.
+ * @param {Array} validationMessages.feedbackType - An array of validation messages for a specific feedback type.
+ * @returns {string} The outer HTML of the validation messages container element.
+ */
 export function renderValidationMessagesElement(validationMessages) {
     const validationMessagesContainer = document.createElement("div");
     validationMessagesContainer.classList.add("validation-messages-container");
