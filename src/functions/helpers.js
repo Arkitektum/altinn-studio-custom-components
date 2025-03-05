@@ -169,7 +169,8 @@ function getAsync(obj, prop, timeout = 200) {
 }
 
 export function getComponentContainerElement(component) {
-    return component?.parentElement?.parentElement;
+    const isChildComponent = component.getAttribute("isChildComponent") === "true";
+    return isChildComponent ? component : component?.parentElement?.parentElement;
 }
 
 export function getValueFromDataKey(data, dataKey) {
