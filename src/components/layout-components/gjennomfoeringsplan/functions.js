@@ -40,7 +40,7 @@ function getEiendomTableTexts(textResources) {
 export function renderGjenomfoeringsplanNummer(gjennomfoeringsplan, textResources) {
     return createCustomElement("custom-field-data", {
         formData: { simpleBinding: gjennomfoeringsplan?.versjon },
-        text: getTextResourceFromResourceBinding(textResources, "resource.metadata.gjennomfoeringsplanNummer.title"),
+        text: getTextResourceFromResourceBinding(textResources, "resource.gjennomfoeringsplan.versjon.title"),
         emptyFieldText: "(gjennomfoeringsplanNummer mangler)"
     });
 }
