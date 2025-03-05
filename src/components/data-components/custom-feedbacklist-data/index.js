@@ -1,5 +1,5 @@
 import { getComponentContainerElement, getCustomComponentProps, hasValue } from "../../../functions/helpers.js";
-import { renderFeedbackListElement } from "./functions.js";
+import { getFeedbackType, renderFeedbackListElement } from "./functions.js";
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(
@@ -7,7 +7,7 @@ export default customElements.define(
     class extends HTMLElement {
         connectedCallback() {
             const { formData, text, styleOverride } = getCustomComponentProps(this);
-            const feedbackType = this.getAttribute("feedbackType");
+            const feedbackType = getFeedbackType(this);
             const componentContainerElement = getComponentContainerElement(this);
             const listItems = formData?.data;
             const title = text || "Feedback";
