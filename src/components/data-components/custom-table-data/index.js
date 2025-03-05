@@ -1,10 +1,10 @@
 import {
-    createCustomElement,
     getComponentContainerElement,
     getComponentTexts,
     getCustomComponentProps
 } from "../../../functions/helpers.js";
-import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
+import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
+import { renderFeedbackListElement, renderTableElement } from "./functions.js";
 
 export default customElements.define(
     "custom-table-data",
@@ -19,18 +19,22 @@ export default customElements.define(
                 const texts = await getComponentTexts(this);
                 const tableColumns = JSON.parse(this.getAttribute("tableColumns"));
                 const title = !hideTitle && text;
-                this.innerHTML = createCustomElement("custom-table", {
-                    formData: {
-                        data: {
-                            tableHeaders: getTableHeaders(tableColumns, texts),
-                            tableRows: getTableRows(tableColumns, formData?.data)
-                        }
-                    },
-                    text: title,
+                const validationMessages = validateTableHeadersTextResourceBindings(tableColumns, texts);
+                const hasMessages = hasValidationMessages(validationMessages);
+                const feebackListElement = hasMessages && renderFeedbackListElement(validationMessages);
+                const tableElement = renderTableElement(
+                    tableColumns,
+                    formData,
+                    texts,
+                    title,
                     size,
                     emptyFieldText,
                     styleOverride
-                }).outerHTML;
+                );
+                this.appendChild(tableElement);
+                if (feebackListElement) {
+                    this.appendChild(feebackListElement);
+                }
             }
         }
     }
