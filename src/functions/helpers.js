@@ -12,6 +12,11 @@ export function hasValue(obj) {
     return false;
 }
 
+function isValidTagName(tagName) {
+    const validTagNames = ["div", "span", "p", "a", "ul", "li", "table", "tr", "td", "th", "input", "button", "form", "label", "select", "option", "textarea"];
+    return validTagNames.includes(tagName);
+}
+
 export function addStyle(element, style) {
     for (let key in style) {
         element.style[key] = style[key];
@@ -35,6 +40,9 @@ export async function getComponentTexts(component) {
 }
 
 export function createCustomElement(tagName, props) {
+    if (!isValidTagName(tagName)) {
+        throw new Error("Invalid tag name");
+    }
     const customFieldElement = document.createElement(tagName);
     const htmlAttributes = {
         isChildComponent: "true"
