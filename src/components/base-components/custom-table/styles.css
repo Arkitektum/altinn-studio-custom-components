@@ -11,12 +11,23 @@ custom-table {
         overflow: hidden;
         width: 100%;
         margin: 0.75rem 0px;
+        & tr {
+            page-break-inside: avoid;
+        }
         & td,
         & th {
             padding: 8px 12px;
+            page-break-inside: avoid;
+            &::after {
+                content: "";
+                display: block;
+                height: 30px;
+                margin-bottom: -30px;
+            }
         }
         & thead {
             & th {
+                page-break-after: avoid;
                 text-align: left;
                 font-weight: 500;
                 background-color: var(--background-muted);
