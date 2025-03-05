@@ -1,5 +1,12 @@
 import ValidationMessages from "../classes/system-classes/ValidationMessages.js";
 
+export function hasValidationMessages(validationMessages) {
+    return (
+        !!validationMessages &&
+        Object.values(validationMessages).some((validationMessage) => validationMessage.length > 0)
+    );
+}
+
 export function hasMissingTextResources(
     textResources,
     textResourceBindings,
@@ -16,5 +23,20 @@ export function hasMissingTextResources(
             }
         }
     }
+    return validationMessages;
+}
+
+export function validateTableHeadersTextResourceBindings(
+    tableColumns,
+    textResources,
+    validationMessages = new ValidationMessages()
+) {
+    tableColumns.forEach((column) => {
+        if (textResources[column.titleResourceKey] === undefined) {
+            validationMessages.error.push(`Missing text resource with id: "${column.titleResourceKey}"`);
+        } else if (textResources[column.titleResourceKey] === "") {
+            validationMessages.info.push(`Empty text resource with id: "${column.titleResourceKey}"`);
+        }
+    });
     return validationMessages;
 }
