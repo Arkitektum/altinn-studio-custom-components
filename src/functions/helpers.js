@@ -1,3 +1,5 @@
+import customElementTagNames from "../constants/customElementTagNames.js";
+
 export function hasValue(obj) {
     if (typeof obj === "string") {
         return obj.length > 0;
@@ -13,7 +15,7 @@ export function hasValue(obj) {
 }
 
 function isValidTagName(tagName) {
-    const validTagNames = ["div", "span", "p", "a", "ul", "li", "table", "tr", "td", "th", "input", "button", "form", "label", "select", "option", "textarea"];
+    const validTagNames = customElementTagNames;
     return validTagNames.includes(tagName);
 }
 
