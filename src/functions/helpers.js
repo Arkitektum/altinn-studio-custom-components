@@ -1,3 +1,5 @@
+import customElementTagNames from "../constants/customElementTagNames.js";
+
 export function hasValue(obj) {
     if (typeof obj === "string") {
         return obj.length > 0;
@@ -10,6 +12,11 @@ export function hasValue(obj) {
         }
     }
     return false;
+}
+
+function isValidTagName(tagName) {
+    const validTagNames = customElementTagNames;
+    return validTagNames.includes(tagName);
 }
 
 export function addStyle(element, style) {
@@ -35,6 +42,9 @@ export async function getComponentTexts(component) {
 }
 
 export function createCustomElement(tagName, props) {
+    if (!isValidTagName(tagName)) {
+        throw new Error("Invalid tag name");
+    }
     const customFieldElement = document.createElement(tagName);
     const htmlAttributes = {
         isChildComponent: "true"
