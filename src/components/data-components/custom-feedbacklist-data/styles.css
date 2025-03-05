@@ -70,5 +70,28 @@ custom-feedbacklist-data {
                 }
             }
         }
+        &.default {
+            border: 1px solid var(--color-default-dark);
+            background-color: var(--color-default-muted);
+            & summary {
+                background-color: var(--color-default-default);
+                color: var(--color-text-default);
+                &:hover {
+                    background-color: var(--color-default-light);
+                }
+            }
+            & .feedback-list {
+                & .feedback-list-item {
+                    border-bottom: 1px solid var(--color-border-default);
+                    border-top: none;
+                    &:nth-child(odd) {
+                        background-color: #fff;
+                    }
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
     }
 }

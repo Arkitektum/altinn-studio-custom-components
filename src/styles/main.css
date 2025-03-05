@@ -8,6 +8,7 @@
     --color-text-default: #1c1b1d;
     --background-muted: #f7f4f4;
     --color-divider-default: #cdcaca;
+    --color-border-default: #dddada;
     --color-error-muted: #ef535030;
     --color-error-light: #ef5350;
     --color-error-default: #d32f2f;
@@ -24,6 +25,10 @@
     --color-info-light: #03a9f4;
     --color-info-default: #0288d1;
     --color-info-dark: #01579b;
+    --color-default-muted: #fefcfc;
+    --color-default-light: #f9f7f7;
+    --color-default-default: #f7f4f4;
+    --color-default-dark: #e7e4e4;
     --font-size-default: 16px;
     --font-size-h1: 42px;
     --font-size-h2: 30px;
