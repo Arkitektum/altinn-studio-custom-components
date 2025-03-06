@@ -1,5 +1,11 @@
 import { addStyle, createCustomElement } from "../../../functions/helpers.js";
 
+/**
+ * Retrieves the feedback type from a component's attribute.
+ *
+ * @param {HTMLElement} component - The component from which to get the feedback type.
+ * @returns {string} - The feedback type if it is valid, otherwise "default".
+ */
 export function getFeedbackType(component) {
     const validFeedbackTypes = ["error", "warning", "success", "info", "default"];
     const feedbackType = component.getAttribute("feedbackType");
