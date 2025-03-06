@@ -6,11 +6,11 @@ export default customElements.define(
     "custom-feedback",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, hideIfEmpty, styleOverride } = getCustomComponentProps(this);
+            const { formData, styleOverride } = getCustomComponentProps(this);
             const feedbackType = this.getAttribute("feedbackType");
             const componentContainerElement = getComponentContainerElement(this);
             const value = formData?.simpleBinding;
-            if (hideIfEmpty && !value && !!componentContainerElement) {
+            if (!value && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 this.innerHTML = renderFeedbackElement(value, feedbackType, styleOverride);
