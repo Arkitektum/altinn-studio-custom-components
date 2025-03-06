@@ -28,11 +28,14 @@ Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt elle
 - [Prosjekt](src/components/data-components/custom-field-prosjekt/) - viser prosjektnummer sammensatt av nummer og navn
 - [Telefonnummer](src/components/data-components/custom-field-telefonnummer/) - viser alle telefonnummer som er angitt på et parts-objekt
 - [Utfallbesvarelse](src/components/data-components/custom-field-utfall-svar-status/) - viser status basert på Utfallsvar-objektet
+- [Feedback](src/components/data-components/custom-feedback-data/) - viser tilbakemelding i skjema
 
 ### Lister
 
 - [Data](src/components/data-components/custom-list-data/) - viser en liste med verdier
 - [Vedlegg](src/components/data-components/custom-list-vedlegg/) - viser en liste med vedlegg fra datamodellen
+- [Feedback](src/components/data-components/custom-feedbacklist-data/) - viser liste med tilbakemeldinger i skjema
+- [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) - viser lister med valideringsmeldinger i skjema
 
 ### Gruppelister
 
