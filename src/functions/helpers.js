@@ -41,6 +41,15 @@ export async function getComponentTexts(component) {
     }
 }
 
+export function createCustomElement(tagName, htmlAttributes) {
+    if (!isValidTagName(tagName)) {
+        throw new Error("Invalid tag name");
+    }
+    const customFieldElement = document.createElement(tagName);
+    setAttributes(customFieldElement, htmlAttributes);
+    return customFieldElement;
+}
+/*
 export function createCustomElement(tagName, props) {
     if (!isValidTagName(tagName)) {
         throw new Error("Invalid tag name");
@@ -110,7 +119,7 @@ export function createCustomElement(tagName, props) {
 
     setAttributes(customFieldElement, htmlAttributes);
     return customFieldElement;
-}
+}*/
 
 export function addContainerElement(component) {
     const containerElement = document.createElement("div");

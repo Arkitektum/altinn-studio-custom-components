@@ -1,32 +1,23 @@
-import {
-    createCustomElement,
-    getComponentContainerElement,
-    getCustomComponentProps,
-    hasValue
-} from "../../../functions/helpers.js";
+import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 
 export default customElements.define(
     "custom-field-data",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, inline, styleOverride } =
-                getCustomComponentProps(this);
+            const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-
-            if (hideIfEmpty && !formData?.simpleBinding && !!componentContainerElement) {
+            if (component?.hideIfEmpty && !component?.formData?.simpleBinding && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const title = !hideTitle && text;
-                const value = hasValue(formData?.simpleBinding) ? formData?.simpleBinding : emptyFieldText;
-                this.innerHTML = createCustomElement("custom-field", {
-                    formData: { simpleBinding: value },
-                    text: title,
-                    hideTitle,
-                    hideIfEmpty,
-                    emptyFieldText,
-                    inline,
-                    styleOverride
-                }).outerHTML;
+                component.setFormData({
+                    simpleBinding: hasValue(component?.formData?.simpleBinding)
+                        ? component?.formData?.simpleBinding
+                        : component?.emptyFieldText
+                });
+                const htmlAttributes = new CustomElementHtmlAttributes(component);
+                this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }
         }
     }

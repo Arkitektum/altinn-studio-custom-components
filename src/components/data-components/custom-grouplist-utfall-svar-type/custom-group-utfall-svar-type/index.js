@@ -1,29 +1,26 @@
-import {
-    addContainerElement,
-    createCustomElement,
-    getCustomComponentProps,
-    hasValue
-} from "../../../../functions/helpers.js";
+import CustomComponent from "../../../../classes/system-classes/CustomComponent.js";
+import CustomElementHtmlAttributes from "../../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { createCustomElement, hasValue } from "../../../../functions/helpers.js";
 
 export default customElements.define(
     "custom-group-utfall-svar-type",
     class extends HTMLElement {
         async connectedCallback() {
-            const { formData, text } = getCustomComponentProps(this);
-            const texts = JSON.parse(this.getAttribute("texts"));
-            if (hasValue(formData?.data)) {
-                const headerElement = createCustomElement("custom-header-text", {
-                    text,
+            const component = new CustomComponent(this);
+            if (hasValue(component?.formData?.data)) {
+                const headerHtmlAttributes = new CustomElementHtmlAttributes({
+                    text: component?.text,
                     size: "h2"
                 });
+                const headerElement = createCustomElement("custom-header-text", headerHtmlAttributes);
                 this.appendChild(headerElement);
+                const utfallSvarHtmlAttributes = new CustomElementHtmlAttributes({
+                    formData: component?.formData,
+                    texts: component?.texts
+                });
                 const utfallSvarListElement = await createCustomElement(
                     "custom-grouplist-utfall-svar",
-                    {
-                        formData,
-                        texts
-                    },
-                    false
+                    utfallSvarHtmlAttributes
                 );
                 this.appendChild(utfallSvarListElement);
             }

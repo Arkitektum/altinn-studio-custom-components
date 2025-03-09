@@ -1,3 +1,4 @@
+import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
@@ -33,11 +34,12 @@ export function renderValidationMessagesElement(validationMessages) {
     Object.keys(validationMessages).forEach((feedbackType) => {
         const validationMessagesWithFeedbackType = validationMessages[feedbackType];
         if (validationMessagesWithFeedbackType?.length) {
-            const feedbackListElement = createCustomElement("custom-feedbacklist-data", {
+            const htmlAttributes = new CustomElementHtmlAttributes({
                 formData: { data: validationMessages[feedbackType] },
                 text: getTitleForFeedbackType(feedbackType, validationMessagesWithFeedbackType.length),
                 feedbackType
             });
+            const feedbackListElement = createCustomElement("custom-feedbacklist-data", htmlAttributes);
             validationMessagesContainer.appendChild(feedbackListElement);
         }
     });

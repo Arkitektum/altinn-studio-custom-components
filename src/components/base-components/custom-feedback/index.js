@@ -1,4 +1,5 @@
-import { getComponentContainerElement, getCustomComponentProps } from "../../../functions/helpers.js";
+import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { renderFeedbackElement } from "./functions.js";
 import "./styles.css" with { type: "css" };
 
@@ -6,14 +7,13 @@ export default customElements.define(
     "custom-feedback",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, styleOverride } = getCustomComponentProps(this);
-            const feedbackType = this.getAttribute("feedbackType");
+            const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const value = formData?.simpleBinding;
+            const value = component?.formData?.simpleBinding;
             if (!value && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                this.innerHTML = renderFeedbackElement(value, feedbackType, styleOverride);
+                this.innerHTML = renderFeedbackElement(value, component?.feedbackType, component?.styleOverride);
             }
         }
     }

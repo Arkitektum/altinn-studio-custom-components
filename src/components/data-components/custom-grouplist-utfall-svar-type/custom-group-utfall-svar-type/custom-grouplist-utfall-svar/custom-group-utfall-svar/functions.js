@@ -1,3 +1,4 @@
+import CustomElementHtmlAttributes from "../../../../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { addContainerElement, createCustomElement } from "../../../../../../functions/helpers.js";
 
 /**
@@ -8,12 +9,11 @@ import { addContainerElement, createCustomElement } from "../../../../../../func
  * @returns {HTMLElement} The container element wrapping the custom field element.
  */
 export function getBeskrivelseElement(data) {
-    return addContainerElement(
-        createCustomElement("custom-field-data", {
-            formData: { simpleBinding: data?.beskrivelse },
-            hideIfEmpty: true
-        })
-    );
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: data?.beskrivelse },
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
 /**
@@ -25,13 +25,12 @@ export function getBeskrivelseElement(data) {
  * @returns {HTMLElement} The container element with the custom status element inside.
  */
 export function getStatusElement(data, texts) {
-    return addContainerElement(
-        createCustomElement("custom-field-utfall-svar-status", {
-            formData: { data },
-            texts,
-            text: texts?.["status.title"]
-        })
-    );
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data },
+        texts,
+        text: texts?.["status.title"]
+    });
+    return addContainerElement(createCustomElement("custom-field-utfall-svar-status", htmlAttributes));
 }
 
 /**
@@ -42,13 +41,12 @@ export function getStatusElement(data, texts) {
  * @returns {HTMLElement} - The custom element wrapped in a container element.
  */
 export function getTemaElement(data, texts) {
-    return addContainerElement(
-        createCustomElement("custom-field-data", {
-            formData: { simpleBinding: data?.tema?.kodebeskrivelse },
-            text: texts?.["tema.kodebeskrivelse.title"],
-            hideIfEmpty: true
-        })
-    );
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: data?.tema?.kodebeskrivelse },
+        text: texts?.["tema.kodebeskrivelse.title"],
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
 /**
@@ -59,14 +57,13 @@ export function getTemaElement(data, texts) {
  * @returns {HTMLElement} The container element wrapping the custom field data element.
  */
 export function getKommentarElement(data, texts) {
-    return addContainerElement(
-        createCustomElement("custom-field-data", {
-            formData: { simpleBinding: data?.kommentar },
-            text: texts?.["kommentar.title"],
-            hideIfEmpty: false,
-            emptyFieldText: "-"
-        })
-    );
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: data?.kommentar },
+        text: texts?.["kommentar.title"],
+        hideIfEmpty: false,
+        emptyFieldText: "-"
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
 /**
@@ -78,11 +75,10 @@ export function getKommentarElement(data, texts) {
  * @returns {HTMLElement} The custom list element for the attachment list.
  */
 export function getVedleggslisteElement(data, texts) {
-    return addContainerElement(
-        createCustomElement("custom-list-vedlegg", {
-            formData: { data: data?.vedleggsliste?.vedlegg },
-            text: texts?.["vedleggsliste.vedlegg.title"],
-            hideIfEmpty: true
-        })
-    );
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data: data?.vedleggsliste?.vedlegg },
+        text: texts?.["vedleggsliste.vedlegg.title"],
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-list-vedlegg", htmlAttributes));
 }

@@ -1,8 +1,5 @@
-import {
-    getComponentContainerElement,
-    getComponentTexts,
-    getCustomComponentProps
-} from "../../../functions/helpers.js";
+import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import { getComponentContainerElement, getComponentTexts } from "../../../functions/helpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
 import { renderFeedbackListElement, renderTableElement } from "./functions.js";
 
@@ -10,27 +7,20 @@ export default customElements.define(
     "custom-table-data",
     class extends HTMLElement {
         async connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, size, styleOverride } =
-                getCustomComponentProps(this);
+            const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (hideIfEmpty && !formData?.data && !!componentContainerElement) {
+            if (component?.hideIfEmpty && !component?.formData?.data && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const texts = await getComponentTexts(this);
-                const tableColumns = JSON.parse(this.getAttribute("tableColumns"));
-                const title = !hideTitle && text;
-                const validationMessages = validateTableHeadersTextResourceBindings(tableColumns, texts);
+                component.setTexts(texts);
+                const validationMessages = validateTableHeadersTextResourceBindings(
+                    component?.tableColumns,
+                    component?.texts
+                );
                 const hasMessages = hasValidationMessages(validationMessages);
                 const feebackListElement = hasMessages && renderFeedbackListElement(validationMessages);
-                const tableElement = renderTableElement(
-                    tableColumns,
-                    formData,
-                    texts,
-                    title,
-                    size,
-                    emptyFieldText,
-                    styleOverride
-                );
+                const tableElement = renderTableElement(component);
                 this.appendChild(tableElement);
                 if (feebackListElement) {
                     this.appendChild(feebackListElement);

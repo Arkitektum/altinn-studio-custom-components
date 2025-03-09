@@ -1,16 +1,5 @@
+import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { addStyle, createCustomElement } from "../../../functions/helpers.js";
-
-/**
- * Retrieves the feedback type from a component's attribute.
- *
- * @param {HTMLElement} component - The component from which to get the feedback type.
- * @returns {string} - The feedback type if it is valid, otherwise "default".
- */
-export function getFeedbackType(component) {
-    const validFeedbackTypes = ["error", "warning", "success", "info", "default"];
-    const feedbackType = component.getAttribute("feedbackType");
-    return validFeedbackTypes.includes(feedbackType) ? feedbackType : "default";
-}
 
 /**
  * Renders a feedback list element with the given title, feedback messages, feedback type, and optional style override.
@@ -39,12 +28,11 @@ export function renderFeedbackListElement(title, feedbackMessages, feedbackType,
     feedbackMessages.forEach((message) => {
         const feedbackListItemElement = document.createElement("div");
         feedbackListItemElement.classList.add("feedback-list-item");
-        feedbackListItemElement.appendChild(
-            createCustomElement("custom-feedback-data", {
-                formData: { simpleBinding: message },
-                feedbackType: "default"
-            })
-        );
+        const htmlAttributes = new CustomElementHtmlAttributes({
+            formData: { simpleBinding: message },
+            feedbackType: "default"
+        });
+        feedbackListItemElement.appendChild(createCustomElement("custom-feedback-data", htmlAttributes));
         feedbackListElement.appendChild(feedbackListItemElement);
     });
 

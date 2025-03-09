@@ -1,3 +1,4 @@
+import CustomElementHtmlAttributes from "../src/classes/system-classes/CustomElementHtmlAttributes.js";
 import { addContainerElement, createCustomElement, getValueFromDataKey } from "../src/functions/helpers.js";
 
 function removeTrailingOrLeadingComma(value) {
@@ -60,22 +61,13 @@ function handleTestCodeOnClick() {
     const component = getComponent();
     const data = getDataForComponent(component);
     const texts = getTextsForComponent(component);
-    const { id, tagName, hideTitle, hideIfEmpty, emptyFieldText, itemKey, tableColumns, size, styleOverride } =
-        component;
-    const element = createCustomElement(tagName, {
-        id,
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        ...component,
         formData: data,
         texts,
-        tagName,
-        hideTitle,
-        hideIfEmpty,
-        emptyFieldText,
-        itemKey,
-        tableColumns,
-        size,
-        styleOverride,
-        textResources: getTextResources(),
+        textResources: getTextResources()
     });
+    const element = createCustomElement(component?.tagName, htmlAttributes);
     const testElement = document.getElementById("code-results");
     testElement.innerHTML = "";
     testElement.appendChild(addContainerElement(element));

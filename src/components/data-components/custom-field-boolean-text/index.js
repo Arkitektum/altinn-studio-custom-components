@@ -1,27 +1,21 @@
-import {
-    createCustomElement,
-    getComponentContainerElement,
-    getCustomComponentProps
-} from "../../../functions/helpers.js";
+import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 import { getBooleanText } from "./functions.js";
 
 export default customElements.define(
     "custom-field-boolean-text",
     class extends HTMLElement {
         async connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, inline, styleOverride } = getCustomComponentProps(this);
+            const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const statusText = await getBooleanText(formData?.simpleBinding, this);
-            if (hideIfEmpty && !statusText?.length && !!componentContainerElement) {
+            const statusText = await getBooleanText(component?.formData?.simpleBinding, this);
+            if (component?.hideIfEmpty && !statusText?.length && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const title = !hideTitle && text;
-                this.innerHTML = createCustomElement("custom-field", {
-                    formData: { simpleBinding: statusText },
-                    text: title,
-                    inline,
-                    styleOverride
-                }).outerHTML;
+                component.setFormData({ simpleBinding: statusText });
+                const htmlAttributes = new CustomElementHtmlAttributes(component);
+                this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }
         }
     }

@@ -1,3 +1,4 @@
+import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { addStyle, createCustomElement } from "../../../functions/helpers.js";
 
 /**
@@ -43,13 +44,15 @@ function getTableRowElement(tableRow) {
  */
 function getTableCellElement(tableCell) {
     const td = document.createElement("td");
-    td.innerHTML = createCustomElement(tableCell.tagName, {
+    const htmlAttributes = new CustomElementHtmlAttributes({
         formData: tableCell.formData,
         text: tableCell.text,
         hideTitle: true,
+        hideOrgNr: tableCell.hideOrgNr,
         emptyFieldText: tableCell.emptyFieldText,
         styleOverride: tableCell.styleOverride
-    }).outerHTML;
+    });
+    td.innerHTML = createCustomElement(tableCell.tagName, htmlAttributes).outerHTML;
     return td;
 }
 
@@ -61,11 +64,12 @@ function getTableCellElement(tableCell) {
  * @returns {HTMLElement|undefined} The created custom header element or undefined if no text is provided.
  */
 export function renderHeaderElement(text, size) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text,
+        size
+    });
     if (text) {
-        return createCustomElement("custom-header", {
-            text,
-            size
-        });
+        return createCustomElement("custom-header", htmlAttributes);
     }
 }
 

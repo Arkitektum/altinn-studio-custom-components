@@ -1,34 +1,25 @@
-import {
-    createCustomElement,
-    getComponentContainerElement,
-    getCustomComponentProps,
-    hasValue
-} from "../../../functions/helpers.js";
+import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 import { getAttachmentListItems } from "./functions.js";
 
 export default customElements.define(
     "custom-list-vedlegg",
     class extends HTMLElement {
         connectedCallback() {
-            const { formData, text, hideTitle, hideIfEmpty, emptyFieldText, styleOverride } =
-                getCustomComponentProps(this);
+            const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const attachmentListItems = getAttachmentListItems(formData?.data);
-            const title = !hideTitle && text;
-            if (hideIfEmpty && !hasValue(attachmentListItems) && !!componentContainerElement) {
+            const attachmentListItems = getAttachmentListItems(component?.formData?.data);
+            if (component?.hideIfEmpty && !hasValue(attachmentListItems) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
-            } else if (emptyFieldText?.length && !attachmentListItems?.length) {
-                this.innerHTML = createCustomElement("custom-field", {
-                    formData: { simpleBinding: emptyFieldText },
-                    text: title,
-                    styleOverride
-                }).outerHTML;
+            } else if (component?.emptyFieldText?.length && !attachmentListItems?.length) {
+                component.setFormData({ simpleBinding: component?.emptyFieldText });
+                const htmlAttributes = new CustomElementHtmlAttributes(component);
+                this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             } else {
-                this.innerHTML = createCustomElement("custom-list", {
-                    formData: { data: attachmentListItems },
-                    text: title,
-                    styleOverride
-                }).outerHTML;
+                component.setFormData({ data: attachmentListItems });
+                const htmlAttributes = new CustomElementHtmlAttributes(component);
+                this.innerHTML = createCustomElement("custom-list", htmlAttributes).outerHTML;
             }
         }
     }
