@@ -49,77 +49,6 @@ export function createCustomElement(tagName, htmlAttributes) {
     setAttributes(customFieldElement, htmlAttributes);
     return customFieldElement;
 }
-/*
-export function createCustomElement(tagName, props) {
-    if (!isValidTagName(tagName)) {
-        throw new Error("Invalid tag name");
-    }
-    const customFieldElement = document.createElement(tagName);
-    const htmlAttributes = {
-        isChildComponent: "true"
-    };
-    if (hasValue(props?.formData)) {
-        if (typeof props?.formData === "string") {
-            const formData = props?.formData;
-            htmlAttributes.formdata = JSON.stringify(formData);
-        } else if (typeof props?.formData === "number") {
-            const formData = props?.formData.toString();
-            htmlAttributes.formdata = JSON.stringify(formData);
-        } else if (typeof props?.formData === "object") {
-            const formData = {};
-            Object.keys(props.formData).forEach((key) => {
-                formData[key] = props.formData[key];
-            });
-            htmlAttributes.formdata = JSON.stringify(formData);
-        }
-    }
-
-    if (props?.text || props?.texts?.title) {
-        htmlAttributes.text = props?.text?.toString() || props?.texts?.title?.toString() || "";
-    }
-    if (hasValue(props?.size)) {
-        htmlAttributes.size = props?.size?.toString() || "";
-    }
-    if (props?.hideTitle?.toString() === "true") {
-        htmlAttributes.hidetitle = "true";
-    }
-    if (props?.hideIfEmpty?.toString() === "true") {
-        htmlAttributes.hideifempty = "true";
-    }
-    if (props?.inline?.toString() === "true") {
-        htmlAttributes.inline = "true";
-    }
-    if (hasValue(props?.emptyFieldText)) {
-        htmlAttributes.emptyfieldtext = props?.emptyFieldText.toString() || "";
-    }
-    if (hasValue(props?.styleOverride)) {
-        htmlAttributes.styleOverride = JSON.stringify(props?.styleOverride) || "";
-    }
-    if (hasValue(props?.grid)) {
-        htmlAttributes.grid = JSON.stringify(props?.grid) || "";
-    }
-    if (hasValue(props?.texts)) {
-        htmlAttributes.texts = JSON.stringify(props?.texts) || "";
-    }
-    if (hasValue(props?.tableColumns)) {
-        htmlAttributes.tablecolumns = JSON.stringify(props?.tableColumns) || "";
-    }
-    if (hasValue(props?.textResources)) {
-        htmlAttributes.textResources = JSON.stringify(props?.textResources) || "";
-    }
-    if (hasValue(props?.itemKey)) {
-        htmlAttributes.itemKey = props?.itemKey || "";
-    }
-    if (hasValue(props?.id)) {
-        htmlAttributes.id = props?.id || "";
-    }
-    if (hasValue(props?.feedbackType)) {
-        htmlAttributes.feedbackType = props?.feedbackType || "";
-    }
-
-    setAttributes(customFieldElement, htmlAttributes);
-    return customFieldElement;
-}*/
 
 export function addContainerElement(component) {
     const containerElement = document.createElement("div");
@@ -133,21 +62,6 @@ export function addContainerElement(component) {
     });
 
     return containerElement;
-}
-
-export function getCustomComponentProps(customComponent) {
-    const formData = JSON.parse(customComponent.getAttribute("formdata"));
-    return {
-        formData,
-        text: customComponent.getAttribute("text"),
-        inline: customComponent.getAttribute("inline") === "true",
-        hideTitle: customComponent.getAttribute("hideTitle") === "true",
-        size: customComponent.getAttribute("size"),
-        hideIfEmpty: customComponent.getAttribute("hideIfEmpty") === "true",
-        emptyFieldText: customComponent.getAttribute("emptyFieldText"),
-        styleOverride: JSON.parse(customComponent.getAttribute("styleOverride") || "{}"),
-        isChildComponent: customComponent.getAttribute("isChildComponent") === "true"
-    };
 }
 
 export function validateTexts(texts, fallbackTexts, keys, componentName) {
