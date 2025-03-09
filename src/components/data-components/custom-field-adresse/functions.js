@@ -1,4 +1,4 @@
-import Adresse from "../../../classes/Adresse.js";
+import Adresse from "../../../classes/data-classes/Adresse.js";
 
 function formatAdresselinje(adresse) {
     const adresseLinjer = [adresse.adresselinje1, adresse.adresselinje2, adresse.adresselinje3];

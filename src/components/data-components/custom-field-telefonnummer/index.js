@@ -1,6 +1,6 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import Telefonnumre from "../../../classes/Telefonnumre.js";
+import Telefonnumre from "../../../classes/data-classes/Telefonnumre.js";
 import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 import { formatPhoneNumbers } from "./functions.js";
 

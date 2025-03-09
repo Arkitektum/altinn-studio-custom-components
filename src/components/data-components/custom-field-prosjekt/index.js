@@ -1,4 +1,4 @@
-import Prosjekt from "../../../classes/Prosjekt.js";
+import Prosjekt from "../../../classes/data-classes/Prosjekt.js";
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";

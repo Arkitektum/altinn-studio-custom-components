@@ -1,6 +1,6 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import UtfallSvarStatus from "../../../classes/UtfallSvarStatus.js";
+import UtfallSvarStatus from "../../../classes/data-classes/UtfallSvarStatus.js";
 import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 import { getStatusText } from "./functions.js";
 

@@ -1,4 +1,4 @@
-import KommunensSaksnummer from "../../../classes/KommunensSaksnummer.js";
+import KommunensSaksnummer from "../../../classes/data-classes/KommunensSaksnummer.js";
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";

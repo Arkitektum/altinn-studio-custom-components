@@ -1,6 +1,6 @@
-import EiendomByggested from "../EiendomByggested.js";
-import KommunensSaksnummer from "../KommunensSaksnummer.js";
-import Metadata from "../Metadata.js";
+import EiendomByggested from "../data-classes/EiendomByggested.js";
+import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
+import Metadata from "../data-classes/Metadata.js";
 
 export default class Gjennomfoeringsplan {
     constructor(props) {
