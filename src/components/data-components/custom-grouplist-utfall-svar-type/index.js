@@ -19,7 +19,7 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const texts = await getComponentTexts(this);
-                component.setText(texts);
+                component.setTexts(texts);
                 for (const utfallType of Object.keys(dataGroupedByUtfallType)) {
                     component.setFormData({ data: dataGroupedByUtfallType[utfallType] });
                     component.setText(texts[`${utfallType?.toLowerCase()}.header`]);

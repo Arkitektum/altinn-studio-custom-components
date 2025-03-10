@@ -15,7 +15,7 @@ export default customElements.define(
         async connectedCallback() {
             const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const texts = JSON.parse(this.getAttribute("texts"));
+            const texts = component?.texts;
             const data = component?.formData?.data;
             if (!hasValue(data) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
