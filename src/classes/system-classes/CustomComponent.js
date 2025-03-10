@@ -16,6 +16,7 @@ export default class CustomComponent {
         const feedbackType = this.getFeedbackType(element);
         const itemKey = this.getItemKey(element);
         const hideOrgNr = this.getHideOrgNr(element);
+        const format = this.getFormatFromElement(element);
         if (formData) {
             this.formData = formData;
         }
@@ -57,6 +58,9 @@ export default class CustomComponent {
         }
         if (hideOrgNr) {
             this.hideOrgNr = hideOrgNr;
+        }
+        if (format) {
+            this.format = format;
         }
     }
 
@@ -123,6 +127,11 @@ export default class CustomComponent {
 
     getHideOrgNr(element) {
         return element?.getAttribute("hideOrgNr") === "true";
+    }
+
+    getFormatFromElement(element) {
+        const format = element?.getAttribute("format");
+        return hasValue(format) && format;
     }
 
     setFormData(formData) {

@@ -19,6 +19,7 @@ export default class CustomElementHtmlAttributes {
         const id = this.getIdAttributeFromProps(props);
         const feedbackType = this.getFeedbackTypeAttributeFromProps(props);
         const hideOrgNr = this.getHideOrgNr(props);
+        const format = this.getFormatAttributeFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = "true";
         }
@@ -69,6 +70,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (hideOrgNr) {
             this.hideOrgNr = hideOrgNr;
+        }
+        if (format) {
+            this.format = format;
         }
     }
 
@@ -156,5 +160,9 @@ export default class CustomElementHtmlAttributes {
 
     getHideOrgNr(props) {
         return props?.hideOrgNr?.toString() === "true" && "true";
+    }
+
+    getFormatAttributeFromProps(props) {
+        return hasValue(props?.format) && props?.format.toString();
     }
 }
