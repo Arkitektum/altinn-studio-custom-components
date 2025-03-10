@@ -1,6 +1,7 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+import { getFormDataValue } from "./function.js";
 
 export default customElements.define(
     "custom-field-data",
@@ -12,9 +13,7 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 component.setFormData({
-                    simpleBinding: hasValue(component?.formData?.simpleBinding)
-                        ? component?.formData?.simpleBinding
-                        : component?.emptyFieldText
+                    simpleBinding: getFormDataValue(component)
                 });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;

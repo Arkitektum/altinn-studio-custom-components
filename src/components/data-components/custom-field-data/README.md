@@ -8,6 +8,7 @@
 | hideTitle                       | boolean           | A flag indicating whether the title should be hidden.                               | false         |
 | hideIfEmpty                     | boolean           | Determines whether the element should be hidden when it contains no content.        | false         |
 | emptyFieldText                  | string            | The text to display when the field is empty.                                        |               |
+| format                          | string            | The format of the data value, e.g., "date", "time", etc.                            |               |
 | inline                          | boolean           | A flag indicating whether the title and value should be displayed on the same line. | false         |
 | dataModelBindings.simpleBinding | string            | Reference to a string, number og boolean value in the data model.                   |               |
 | textResourceBindings.title      | string            | The title text resource binding.                                                    |               |
@@ -24,6 +25,7 @@
     "hideIfEmpty": false,
     "emptyFieldText": "-",
     "inline": false,
+    "format": "date",
     "dataModelBindings": {
         "simpleBinding": "soeknadGjelder.delsoeknadsnummer"
     },
