@@ -44,14 +44,7 @@ function getTableRowElement(tableRow) {
  */
 function getTableCellElement(tableCell) {
     const td = document.createElement("td");
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: tableCell.formData,
-        text: tableCell.text,
-        hideTitle: true,
-        hideOrgNr: tableCell.hideOrgNr,
-        emptyFieldText: tableCell.emptyFieldText,
-        styleOverride: tableCell.styleOverride
-    });
+    const htmlAttributes = new CustomElementHtmlAttributes(tableCell);
     td.innerHTML = createCustomElement(tableCell.tagName, htmlAttributes).outerHTML;
     return td;
 }
