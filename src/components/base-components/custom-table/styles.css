@@ -38,7 +38,7 @@ custom-table {
         & tbody {
             & tr {
                 &:nth-child(even) {
-                    background-color: var(--color-default-light);
+                    background-color: var(--color-default-muted);
                 }
             }
             & tr:not(:last-of-type) {
