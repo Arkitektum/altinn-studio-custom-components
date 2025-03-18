@@ -31,6 +31,9 @@ import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.j
 
 import "../styles/main.css" with { type: "css" };
 
+import initCustomComponents from "../functions/init.js";
+initCustomComponents();
+
 export {
     customDivider,
     customFeedback,
