@@ -191,7 +191,6 @@ function initInputElements() {
         addDataModel();
     };
 
-    renderDataModelElements();
 
     codeInputElement.onchange = function () {
         addValueToLocalStorage("code", codeInputElement.value);
@@ -199,10 +198,15 @@ function initInputElements() {
 
     textResourcesInputElement.onchange = function () {
         addValueToLocalStorage("textResources", textResourcesInputElement.value);
+        window.textResources = JSON.parse(textResourcesInputElement.value);
     };
 
     codeInputElement.value = getValueFromLocalStorage("code") || "";
     textResourcesInputElement.value = getValueFromLocalStorage("textResources") || "";
+    window.textResources = JSON.parse(textResourcesInputElement.value);
+
+    renderDataModelElements();
+
 }
 
 window.onload = function () {
