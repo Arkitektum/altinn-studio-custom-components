@@ -199,3 +199,32 @@ export function getValueFromDataKey(data, dataKey) {
     }
     return data;
 }
+
+/**
+ * Retrieves the value of a text resource based on a given resource binding.
+ *
+ * @param {Object} textResources - The object containing text resources.
+ * @param {Array} textResources.resources - An array of text resource objects.
+ * @param {string} textResources.resources[].id - The unique identifier of a text resource.
+ * @param {string} textResources.resources[].value - The value of the text resource.
+ * @param {string} resourceBinding - The ID of the resource to retrieve.
+ * @returns {string|undefined} The value of the text resource if found, otherwise undefined.
+ */
+export function getTextResourceFromResourceBinding(textResources, resourceBinding) {
+    return textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
+}
+
+/**
+ * Extracts text resources based on the provided resource bindings.
+ *
+ * @param {Object} textResources - An object containing all available text resources.
+ * @param {Object} resourceBindings - An object where keys represent resource names and values are bindings to specific text resources.
+ * @returns {Object} An object where keys are the same as in `resourceBindings` and values are the corresponding text resources.
+ */
+export function getTextResourcesFromResourceBindings(textResources, resourceBindings) {
+    const texts = {};
+    for (const key in resourceBindings) {
+        texts[key] = getTextResourceFromResourceBinding(textResources, resourceBindings[key]);
+    }
+    return texts;
+}
