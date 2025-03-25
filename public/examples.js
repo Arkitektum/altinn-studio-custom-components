@@ -13,8 +13,8 @@ function getValueFromLocalStorage(key) {
     return localStorage.getItem(key);
 }
 
-function getDataModel() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModel")));
+function getDataModels() {
+    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModels")));
 }
 
 function getTextResources() {
@@ -28,13 +28,22 @@ function getValueFromTextResourceBinding(binding) {
 }
 
 function getDataForComponent(component) {
-    const dataModel = getDataModel();
+    const dataModels = getDataModels();
     const data = {};
     component?.dataModelBindings &&
         Object.keys(component?.dataModelBindings).forEach((key) => {
             const dataModelBinding = component.dataModelBindings[key];
-            const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
-            data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding;
+            if (typeof dataModelBinding === "string") {
+                const index = 0;
+                const dataModel = dataModels[index]?.data;
+                const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
+                data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding;
+            } else if (typeof dataModelBinding === "object") {
+                const index = dataModels.findIndex((dataModel) => dataModel.dataType === dataModelBinding.dataType);
+                const dataModel = dataModels[index]?.data;
+                const dataModelData = getValueFromDataKey(dataModel, dataModelBinding.field);
+                data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding.data;
+            }
         });
     return data;
 }
@@ -73,23 +82,126 @@ function handleTestCodeOnClick() {
     testElement.appendChild(addContainerElement(element));
 }
 
+function getDataModelSummaryText(dataModel, index) {
+    const dataModelType = index === 0 ? `${dataModel.dataType} (default)` : dataModel.dataType;
+    return `Data model ${index + 1} - ${dataModelType}`;
+}
+
+function handleDataModelTypeOnChange(index) {
+    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+    const dataModelTypeInputElement = document.getElementById(`data-model-type-input-${index}`);
+    dataModels[index].dataType = dataModelTypeInputElement.value;
+    addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
+    renderDataModelElements();
+}
+
+function handleDataModelDataOnChange(index) {
+    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+    const dataModelDataInputElement = document.getElementById(`data-model-data-input-${index}`);
+    dataModels[index].data = JSON.parse(dataModelDataInputElement.value);
+    addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
+    renderDataModelElements();
+}
+
+function handleDataModelSummaryOnClick(index, dataModelElement) {
+    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+    if (dataModels[index]?.expanded !== undefined) {
+        dataModels[index].expanded = !dataModels[index].expanded;
+        addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
+        dataModelElement.open = dataModels[index].expanded;
+        renderDataModelElements();
+    }
+}
+
+function renderDataModelElements() {
+    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+    const dataModelContainerElement = document.getElementById("data-models-container");
+    dataModelContainerElement.innerHTML = "";
+    dataModels.forEach((dataModel, index) => {
+        const dataModelElement = document.createElement("details");
+        dataModelElement.id = `data-model-summary-${index}`;
+        const dataModelSummaryElement = document.createElement("summary");
+        dataModelSummaryElement.innerHTML = getDataModelSummaryText(dataModel, index);
+        dataModelSummaryElement.onclick = function () {
+            handleDataModelSummaryOnClick(index, dataModelElement);
+        };
+        dataModelElement.open = dataModel.expanded;
+
+        const dataModelRemoveButtonElement = document.createElement("button");
+        dataModelRemoveButtonElement.classList.add("summary-button", "remove-button");
+        dataModelRemoveButtonElement.innerHTML = "Remove";
+        dataModelRemoveButtonElement.onclick = function () {
+            const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+            dataModels.splice(index, 1);
+            addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
+            renderDataModelElements();
+        };
+        dataModelSummaryElement.appendChild(dataModelRemoveButtonElement);
+
+        dataModelElement.appendChild(dataModelSummaryElement);
+
+        const dataModelFormElement = document.createElement("div");
+        dataModelFormElement.classList.add("data-model-form");
+
+        const dataModelTypeLabelElement = document.createElement("label");
+        dataModelTypeLabelElement.innerHTML = "Data type";
+        dataModelTypeLabelElement.setAttribute("for", `data-model-type-input-${index}`);
+        dataModelFormElement.appendChild(dataModelTypeLabelElement);
+
+        const dataModelTypeInputElement = document.createElement("input");
+        dataModelTypeInputElement.id = `data-model-type-input-${index}`;
+        dataModelTypeInputElement.value = dataModel.dataType;
+        dataModelTypeInputElement.onchange = function () {
+            handleDataModelTypeOnChange(index);
+        };
+        dataModelFormElement.appendChild(dataModelTypeInputElement);
+
+        const dataModelDataLabelElement = document.createElement("label");
+        dataModelDataLabelElement.innerHTML = "Data";
+        dataModelDataLabelElement.setAttribute("for", `data-model-data-input-${index}`);
+        dataModelFormElement.appendChild(dataModelDataLabelElement);
+
+        const dataModelDataInputElement = document.createElement("textarea");
+        dataModelDataInputElement.id = `data-model-data-input-${index}`;
+        dataModelDataInputElement.value = JSON.stringify(dataModel.data, null, 2);
+        dataModelDataInputElement.onchange = function () {
+            handleDataModelDataOnChange(index);
+        };
+        dataModelFormElement.appendChild(dataModelDataInputElement);
+
+        dataModelElement.appendChild(dataModelFormElement);
+
+        dataModelContainerElement.appendChild(dataModelElement);
+    });
+}
+
+function addDataModel() {
+    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+    dataModels.push({ data: "", dataType: "", expanded: true });
+    addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
+    renderDataModelElements();
+}
+
 function initInputElements() {
     const codeInputElement = document.getElementById("code-input");
-    const dataModelInputElement = document.getElementById("data-model-input");
     const textResourcesInputElement = document.getElementById("text-resources-input");
+    const addDataModelButtonElement = document.getElementById("add-data-model-button");
+
+    addDataModelButtonElement.onclick = function () {
+        addDataModel();
+    };
+
+    renderDataModelElements();
 
     codeInputElement.onchange = function () {
         addValueToLocalStorage("code", codeInputElement.value);
     };
-    dataModelInputElement.onchange = function () {
-        addValueToLocalStorage("dataModel", dataModelInputElement.value);
-    };
+
     textResourcesInputElement.onchange = function () {
         addValueToLocalStorage("textResources", textResourcesInputElement.value);
     };
 
     codeInputElement.value = getValueFromLocalStorage("code") || "";
-    dataModelInputElement.value = getValueFromLocalStorage("dataModel") || "";
     textResourcesInputElement.value = getValueFromLocalStorage("textResources") || "";
 }
 

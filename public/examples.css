@@ -16,7 +16,7 @@
             margin: auto;
             margin-top: 1em;
 
-            & button {
+            & button:not(.summary-button) {
                 margin-top: 1em;
                 width: 100%;
                 padding: 12px;
@@ -30,7 +30,42 @@
                     background-color: #45a049;
                 }
             }
+            & details {
+                margin-top: 1em;
+                background-color: #f9f9f9;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+
+                & summary {
+                    cursor: pointer;
+                    padding: 0.5em;
+
+                    &:hover {
+                        background-color: #f0f0f0;
+                    }
+
+                    & button.summary-button {
+                        float: right;
+                        padding: 0.5em;
+                        text-transform: uppercase;
+                        color: white;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 4px;
+                        &.remove-button {
+                            background-color: #f44336;
+                            &:hover {
+                                background-color: #d32f2f;
+                            }
+                        }
+                    }
+                }
+                & .data-model-form {
+                    padding: 0.5em 1.5em;
+                }
+            }
         }
+
         & label {
             display: block;
             margin-top: 1em;
