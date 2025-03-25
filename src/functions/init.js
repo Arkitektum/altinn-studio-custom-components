@@ -1,14 +1,20 @@
+import { hasValue } from "./helpers.js";
+
 /**
- * Initializes custom components by fetching user profile and text resources based on the user's language preference.
- *
- * This function adds an event listener to the window's "load" event, which performs the following steps:
- * 1. Extracts the organization and application identifiers from the URL.
- * 2. Constructs the API URL to fetch the user's profile data.
- * 3. Fetches the user's profile data and determines the user's language preference.
- * 4. Constructs the API URL to fetch text resources for the selected language.
- * 5. Fetches the text resources and stores them in the global `window` object.
- *
- * @returns {void}
+ * Initializes custom components by setting up event listeners and fetching necessary data.
+ * 
+ * This function is triggered on the `window`'s `load` event. It performs the following:
+ * - Extracts the organization (`org`) and application (`app`) identifiers from the URL.
+ * - Fetches the user's profile data to determine their language preference.
+ * - Fetches text resources for the user's selected language or falls back to a default language if necessary.
+ * - Stores the selected language and text resources in the `window` object for global access.
+ * 
+ * @async
+ * @function initCustomComponents
+ * @throws {Error} Logs errors to the console if:
+ * - The origin, organization, or application cannot be determined from the URL.
+ * - The user's language preference cannot be determined.
+ * - Text resources for both the selected and fallback languages cannot be retrieved.
  */
 export default function initCustomComponents() {
     window.addEventListener("load", async () => {
@@ -29,14 +35,23 @@ export default function initCustomComponents() {
         }
 
         const selectedLanguage = userProfileData?.profileSettingPreference?.language;
+        const fallbackLanguage = "nb";
         window.selectedLanguage = selectedLanguage;
         const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${selectedLanguage}`;
         const textResourcesData = await fetch(textResourcesApiUrl).then((response) => response.json());
-        if (!textResourcesData?.length) {
+        if (!hasValue(textResourcesData)) {
             console.error("Could not retrieve text resources for the selected language.");
-            return;
+            const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
+            const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) =>
+                response.json()
+            );
+            window.textResources = fallbackTextResourcesData;
+            if (!hasValue(fallbackTextResourcesData)) {
+                console.error("Could not retrieve text resources for the fallback language.");
+                return;
+            }
+        } else {
+            window.textResources = textResourcesData;
         }
-
-        window.textResources = textResourcesData;
     });
 }
