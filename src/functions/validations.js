@@ -33,9 +33,9 @@ export function validateTableHeadersTextResourceBindings(
 ) {
     tableColumns.forEach((column) => {
         if (textResources[column.titleResourceKey] === undefined) {
-            validationMessages.error.push(`Missing text resource with id: "${column.titleResourceKey}"`);
+            validationMessages.error.push(`Missing text resource binding with id: "${column.titleResourceKey}"`);
         } else if (textResources[column.titleResourceKey] === "") {
-            validationMessages.info.push(`Empty text resource with id: "${column.titleResourceKey}"`);
+            validationMessages.info.push(`Empty text resource binding with id: "${column.titleResourceKey}"`);
         }
     });
     return validationMessages;
