@@ -42,10 +42,40 @@ export function renderMetadataFtbId(dispensasjon, textResources, textResourceBin
     return createCustomElement("custom-field-data", htmlAttributes);
 }
 
-export function renderFeedbackListElement(validationMessages) {
+export function renderKommunensSaksnummer(dispensasjon, textResources, textResourceBindings) {
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: { data: validationMessages }
+        formData: { data: dispensasjon?.kommunensSaksnummer },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.kommunensSaksnummer?.title),
+        hideIfEmpty: true,
+        grid: {
+            xs: 6
+        }
     });
-    const feedbackListElement = createCustomElement("custom-feedbacklist-validation-messages", htmlAttributes);
-    return feedbackListElement;
+    return createCustomElement("custom-field-kommunens-saksnummer", htmlAttributes);
+}
+
+export function renderSoeknadenGjelderHeader(textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadenGjelderHeader?.title),
+        size: "h2"
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+export function renderEiendomTable(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data: dispensasjon?.eiendomByggested?.eiendom },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.eiendomByggested?.title),
+        hideIfEmpty: true
+    });
+    return createCustomElement("custom-table-eiendom", htmlAttributes);
+}
+
+export function renderTiltakshaverTable(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data: dispensasjon?.tiltakshaver },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.tiltakshaver?.title),
+        hideIfEmpty: true
+    });
+    return createCustomElement("custom-table-tiltakshaver", htmlAttributes);
 }
