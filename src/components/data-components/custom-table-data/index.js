@@ -1,7 +1,8 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { getComponentContainerElement, getComponentTexts } from "../../../functions/helpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
-import { renderFeedbackListElement, renderTableElement } from "./functions.js";
+import { renderTableElement } from "./functions.js";
 
 export default customElements.define(
     "custom-table-data",

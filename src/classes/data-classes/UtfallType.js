@@ -1,5 +1,5 @@
 /**
- * Represents an UtfallType.
+ * Class representing an UtfallType.
  * @class
  */
 export default class UtfallType {

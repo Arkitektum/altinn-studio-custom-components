@@ -1,5 +1,10 @@
 import Gjennomfoeringsplan from "../../../classes/layout-classes/Gjennomfoeringsplan.js";
-import { createCustomElement, hasValue } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getTextResourceFromResourceBinding,
+    getTextResourcesFromResourceBindings,
+    hasValue
+} from "../../../functions/helpers.js";
 
 export function getGjennomfoeringsplanData(component) {
     const formData = JSON.parse(component.getAttribute("formdata"));
@@ -9,18 +14,6 @@ export function getGjennomfoeringsplanData(component) {
         metadata: hasValue(formData?.metadata) ? formData.metadata : null,
         versjon: formData?.versjon ? formData.versjon : null
     });
-}
-
-function getTextResourceFromResourceBinding(textResources, resourceBinding) {
-    return textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
-}
-
-function getTextResourcesFromResourceBindings(textResources, resourceBindings) {
-    const texts = {};
-    for (const key in resourceBindings) {
-        texts[key] = getTextResourceFromResourceBinding(textResources, resourceBindings[key]);
-    }
-    return texts;
 }
 
 function getEiendomTableTexts(textResources) {
@@ -133,11 +126,4 @@ export function renderEiendomTable(eiendom, textResources) {
             tableLayout: "fixed"
         }
     });
-}
-
-export function renderFeedbackListElement(validationMessages) {
-    const feedbackListElement = createCustomElement("custom-feedbacklist-validation-messages", {
-        formData: { data: validationMessages }
-    });
-    return feedbackListElement;
 }

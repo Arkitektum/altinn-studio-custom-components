@@ -12,9 +12,3 @@ export function renderTableElement(component) {
     const htmlAttributes = new CustomElementHtmlAttributes(component);
     return createCustomElement("custom-table", htmlAttributes);
 }
-
-export function renderFeedbackListElement(validationMessages) {
-    const htmlAttributes = new CustomElementHtmlAttributes({ formData: { data: validationMessages } });
-    const feedbackListElement = createCustomElement("custom-feedbacklist-validation-messages", htmlAttributes);
-    return feedbackListElement;
-}

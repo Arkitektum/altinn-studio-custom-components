@@ -1,7 +1,7 @@
 import Vedlegg from "./Vedlegg.js";
 
 /**
- * Represents a list of attachments (Vedlegg).
+ * Class representing a list of attachments (Vedlegg).
  * @class
  */
 export default class Vedleggsliste {

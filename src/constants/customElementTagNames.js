@@ -27,5 +27,7 @@ export default [
     "custom-paragraph-text",
     "custom-subheader-text",
     "custom-table-data",
-    "gjennomfoeringsplan"
+    "custom-table-eiendom",
+    "custom-dispensasjon",
+    "custom-gjennomfoeringsplan"
 ];

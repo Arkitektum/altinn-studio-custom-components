@@ -1,5 +1,5 @@
 /**
- * Represents a Vedleggstype.
+ * Class representing a Vedleggstype.
  * @class
  */
 export default class Vedleggstype {

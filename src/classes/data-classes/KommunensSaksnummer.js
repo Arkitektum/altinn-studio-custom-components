@@ -1,5 +1,5 @@
 /**
- * Represents a KommunensSaksnummer.
+ * Class representing a KommunensSaksnummer.
  * @class
  */
 export default class KommunensSaksnummer {
