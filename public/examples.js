@@ -98,7 +98,7 @@ function handleDataModelTypeOnChange(index) {
 function handleDataModelDataOnChange(index) {
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
     const dataModelDataInputElement = document.getElementById(`data-model-data-input-${index}`);
-    dataModels[index].data = JSON.parse(dataModelDataInputElement.value);
+    dataModels[index].data = JSON.parse(removeTrailingOrLeadingComma(dataModelDataInputElement.value));
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
     renderDataModelElements();
 }
@@ -175,6 +175,10 @@ function renderDataModelElements() {
     });
 }
 
+function beautifyJson(json) {
+    return JSON.stringify(JSON.parse(removeTrailingOrLeadingComma(json)), null, 2);
+}
+
 function addDataModel() {
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
     dataModels.push({ data: "", dataType: "", expanded: true });
@@ -191,12 +195,13 @@ function initInputElements() {
         addDataModel();
     };
 
-
     codeInputElement.onchange = function () {
+        codeInputElement.value = beautifyJson(codeInputElement.value);
         addValueToLocalStorage("code", codeInputElement.value);
     };
 
     textResourcesInputElement.onchange = function () {
+        textResourcesInputElement.value = beautifyJson(textResourcesInputElement.value);
         addValueToLocalStorage("textResources", textResourcesInputElement.value);
         window.textResources = JSON.parse(textResourcesInputElement.value);
     };
@@ -206,7 +211,6 @@ function initInputElements() {
     window.textResources = JSON.parse(textResourcesInputElement.value);
 
     renderDataModelElements();
-
 }
 
 window.onload = function () {
