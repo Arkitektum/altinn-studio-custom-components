@@ -28,6 +28,7 @@ export default [
     "custom-subheader-text",
     "custom-table-data",
     "custom-table-eiendom",
+    "custom-table-tiltakshaver",
     "custom-dispensasjon",
     "custom-gjennomfoeringsplan"
 ];

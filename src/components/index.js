@@ -27,6 +27,7 @@ import customParagraphText from "./data-components/custom-paragraph-text/index.j
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
+import customTableTiltakshaver from "./data-components/custom-table-tiltakshaver/index.js";
 
 import dispensasjon from "./layout-components/dispensasjon/index.js";
 import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.js";
@@ -66,6 +67,7 @@ export {
     customSubheaderText,
     customTableData,
     customTableEiendom,
+    customTableTiltakshaver,
     dispensasjon,
     gjennomfoeringsplan
 };
