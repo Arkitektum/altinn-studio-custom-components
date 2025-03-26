@@ -1,5 +1,10 @@
 import Gjennomfoeringsplan from "../../../classes/layout-classes/Gjennomfoeringsplan.js";
-import { createCustomElement, getTextResourceFromResourceBinding, getTextResourcesFromResourceBindings, hasValue } from "../../../functions/helpers.js";
+import {
+    createCustomElement,
+    getTextResourceFromResourceBinding,
+    getTextResourcesFromResourceBindings,
+    hasValue
+} from "../../../functions/helpers.js";
 
 export function getGjennomfoeringsplanData(component) {
     const formData = JSON.parse(component.getAttribute("formdata"));
@@ -10,8 +15,6 @@ export function getGjennomfoeringsplanData(component) {
         versjon: formData?.versjon ? formData.versjon : null
     });
 }
-
-
 
 function getEiendomTableTexts(textResources) {
     const textResourceBindings = {
@@ -123,11 +126,4 @@ export function renderEiendomTable(eiendom, textResources) {
             tableLayout: "fixed"
         }
     });
-}
-
-export function renderFeedbackListElement(validationMessages) {
-    const feedbackListElement = createCustomElement("custom-feedbacklist-validation-messages", {
-        formData: { data: validationMessages }
-    });
-    return feedbackListElement;
 }

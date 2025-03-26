@@ -1,11 +1,7 @@
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
-import {
-    getGjennomfoeringsplanData,
-    renderEiendomTable,
-    renderFeedbackListElement,
-    renderGjenomfoeringsplanNummer
-} from "./functions.js";
+import { getGjennomfoeringsplanData, renderEiendomTable, renderGjenomfoeringsplanNummer } from "./functions.js";
 import textResourceBindings from "./textResourceBindings.js";
 
 export default customElements.define(
