@@ -1,5 +1,5 @@
 /**
- * Represents an address.
+ * Class representing an address.
  * @class
  */
 export default class Adresse {

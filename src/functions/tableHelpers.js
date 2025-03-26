@@ -1,6 +1,17 @@
 import CustomElementHtmlAttributes from "../classes/system-classes/CustomElementHtmlAttributes.js";
 import { createCustomElement, getTextResourcesFromResourceBindings, getValueFromDataKey } from "./helpers.js";
 
+/**
+ * Generates an array of table header objects based on the provided table columns and text resources.
+ *
+ * @param {Array<Object>} tableColumns - An array of column definitions for the table. Each column object should have:
+ *   - `titleResourceKey` {string}: The key used to look up the text for the column header.
+ *   - `props` {Object}: Additional properties for the column header.
+ * @param {Object} texts - An object containing text resources, where keys are resource keys and values are the corresponding text strings.
+ * @returns {Array<Object>} An array of table header objects, where each object contains:
+ *   - `text` {string}: The localized text for the column header.
+ *   - `props` {Object}: The additional properties for the column header.
+ */
 export function getTableHeaders(tableColumns, texts) {
     return tableColumns.map((column) => {
         return {
@@ -10,6 +21,15 @@ export function getTableHeaders(tableColumns, texts) {
     });
 }
 
+/**
+ * Generates table rows based on the provided table columns and data.
+ *
+ * @param {Array<Object>} tableColumns - An array of column definitions. Each column should have a `dataKey` property
+ *                                        to specify the key in the data object and may include additional `props` and `tagName`.
+ * @param {Array<Object>|Object} data - The data to populate the table rows. Can be a single object or an array of objects.
+ * @returns {Array<Array<Object>>} An array of table rows, where each row is an array of cell objects. Each cell object
+ *                                 includes properties from the column definition, a `formData` object, and other metadata.
+ */
 export function getTableRows(tableColumns, data) {
     const isSingleItem = !Array.isArray(data);
     if (isSingleItem) {

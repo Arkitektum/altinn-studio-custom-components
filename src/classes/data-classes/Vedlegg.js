@@ -1,7 +1,7 @@
 import Vedleggstype from "./Vedleggstype.js";
 
 /**
- * Represents a Vedlegg (attachment).
+ * Class representing a Vedlegg (attachment).
  * @class
  */
 export default class Vedlegg {

@@ -1,5 +1,5 @@
 /**
- * Represents a project.
+ * Class representing a project.
  * @class
  */
 export default class Prosjekt {
