@@ -7,6 +7,11 @@ on:
   release:
     types: [created]
 
+permissions:
+  contents: read  # To read the code and trigger workflows.
+  packages: write  # To publish to NPM.
+  id-token: write  # For token-based authentication.
+
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
