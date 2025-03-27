@@ -96,22 +96,57 @@ export function createCustomElement(tagName, htmlAttributes) {
 }
 
 /**
- * Adds a container element with a specified component inside it.
+ * Creates a container element with a nested form content element, applies styles,
+ * and appends the provided component to the form content element.
  *
- * @param {HTMLElement} component - The component to be added inside the container element.
- * @returns {HTMLElement} The container element with the component inside it.
+ * @param {HTMLElement} component - The component to be added inside the container.
+ * @param {boolean} flex - A flag indicating whether to apply flex-based styles.
+ * @returns {HTMLElement} The container element with the nested component.
  */
-export function addContainerElement(component) {
+export function addContainerElement(component, flex) {
     const containerElement = document.createElement("div");
     const formContentElement = document.createElement("div");
-
     formContentElement.appendChild(component);
     containerElement.appendChild(formContentElement);
 
+    const flexStyle = hasValue(flex)
+        ? {
+              flexGrow: "0",
+              maxWidth: "50%",
+              flexBasis: "50%",
+          }
+        : {
+              flexBasis: "100%",
+              maxWidth: "100%",
+          };
+
     addStyle(containerElement, {
-        padding: "0.75rem 0"
+        ...flexStyle,
+        padding: "0.75rem 0",
     });
 
+    return containerElement;
+}
+
+/**
+ * Creates and returns a layout container element with predefined styles.
+ *
+ * The container element is a `div` with the following styles applied:
+ * - `display: "flex"`
+ * - `flexFlow: "wrap"`
+ * - `justifyContent: "start"`
+ * - `alignItems: "flex-start"`
+ *
+ * @returns {HTMLDivElement} The styled container element.
+ */
+export function renderLayoutContainerElement() {
+    const containerElement = document.createElement("div");
+    addStyle(containerElement, {
+        display: "flex",
+        flexFlow: "wrap",
+        justifyContent: "start",
+        alignItems: "flex-start",
+    });
     return containerElement;
 }
 
@@ -127,12 +162,17 @@ export function addContainerElement(component) {
 export function validateTexts(texts, fallbackTexts, keys, componentName) {
     keys.forEach((key) => {
         if (texts[key] === undefined || texts[key] === null) {
-            if (fallbackTexts?.[key] !== undefined && fallbackTexts?.[key] !== null) {
+            if (
+                fallbackTexts?.[key] !== undefined &&
+                fallbackTexts?.[key] !== null
+            ) {
                 console.warn(
                     `Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`
                 );
             } else {
-                console.warn(`Missing textResourceBindings.${key} for "${componentName}".`);
+                console.warn(
+                    `Missing textResourceBindings.${key} for "${componentName}".`
+                );
             }
         }
     });
@@ -150,7 +190,9 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
 function getAsync(obj, prop, timeout = 200) {
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
-            reject(new Error(`Timeout: ${prop} was not set within ${timeout}ms`));
+            reject(
+                new Error(`Timeout: ${prop} was not set within ${timeout}ms`)
+            );
         }, timeout);
 
         if (typeof obj[prop] === "undefined") {
@@ -161,7 +203,7 @@ function getAsync(obj, prop, timeout = 200) {
                     resolve(value);
                 },
                 configurable: true,
-                enumerable: true
+                enumerable: true,
             });
         } else {
             clearTimeout(timer);
@@ -177,8 +219,11 @@ function getAsync(obj, prop, timeout = 200) {
  * @returns {HTMLElement | null} - The container element if found, otherwise null.
  */
 export function getComponentContainerElement(component) {
-    const isChildComponent = component.getAttribute("isChildComponent") === "true";
-    return isChildComponent ? component : component?.parentElement?.parentElement;
+    const isChildComponent =
+        component.getAttribute("isChildComponent") === "true";
+    return isChildComponent
+        ? component
+        : component?.parentElement?.parentElement;
 }
 
 /**
@@ -210,8 +255,13 @@ export function getValueFromDataKey(data, dataKey) {
  * @param {string} resourceBinding - The ID of the resource to retrieve.
  * @returns {string|undefined} The value of the text resource if found, otherwise undefined.
  */
-export function getTextResourceFromResourceBinding(textResources, resourceBinding) {
-    return textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
+export function getTextResourceFromResourceBinding(
+    textResources,
+    resourceBinding
+) {
+    return textResources?.resources?.find(
+        (resource) => resource.id === resourceBinding
+    )?.value;
 }
 
 /**
@@ -221,10 +271,16 @@ export function getTextResourceFromResourceBinding(textResources, resourceBindin
  * @param {Object} resourceBindings - An object where keys represent resource names and values are bindings to specific text resources.
  * @returns {Object} An object where keys are the same as in `resourceBindings` and values are the corresponding text resources.
  */
-export function getTextResourcesFromResourceBindings(textResources, resourceBindings) {
+export function getTextResourcesFromResourceBindings(
+    textResources,
+    resourceBindings
+) {
     const texts = {};
     for (const key in resourceBindings) {
-        texts[key] = getTextResourceFromResourceBinding(textResources, resourceBindings[key]);
+        texts[key] = getTextResourceFromResourceBinding(
+            textResources,
+            resourceBindings[key]
+        );
     }
     return texts;
 }
