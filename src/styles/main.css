@@ -30,11 +30,12 @@
     --color-default-default: #f7f4f4;
     --color-default-dark: #e7e4e4;
     --font-size-default: 16px;
-    --font-size-h1: 42px;
-    --font-size-h2: 30px;
-    --font-size-h3: 23px;
-    --font-size-h4: 19px;
+    --font-size-h1: 34px;
+    --font-size-h2: 28px;
+    --font-size-h3: 22px;
+    --font-size-h4: 18px;
     --font-weight-default: 400;
+    --font-weight-semibold: 500;
     --line-height-default: 24px;
     --line-height-heading: 1.1em;
     --line-height-table-header: 20px;
@@ -164,6 +165,10 @@ body {
             font-family: var(--font-family-default);
         }
     }
+    & h1 {
+        font-size: var(--font-size-h1);
+        font-weight: var(--font-weight-semibold);
+    }
     & h2 {
         font-size: var(--font-size-h2);
         font-weight: var(--font-weight-default);
@@ -174,7 +179,7 @@ body {
     }
     & h4 {
         font-size: var(--font-size-h4);
-        font-weight: var(--font-weight-default);
+        font-weight: var(--font-weight-semibold);
     }
     & div[data-componenttype="AttachmentList"] ul {
         margin-top: 0.3em;

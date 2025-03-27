@@ -3,6 +3,7 @@ custom-header {
     font-weight: var(--font-weight-default);
     color: var(--color-text-default);
     display: block;
+    width: 100%;
     page-break-after: avoid;
     page-break-inside: avoid;
     &::after {
@@ -23,7 +24,7 @@ custom-header {
     }
     & h1 {
         font-size: var(--font-size-h1);
-        font-weight: var(--font-weight-default);
+        font-weight: var(--font-weight-semibold);
     }
     & h2 {
         font-size: var(--font-size-h2);
@@ -35,6 +36,6 @@ custom-header {
     }
     & h4 {
         font-size: var(--font-size-h4);
-        font-weight: var(--font-weight-default);
+        font-weight: var(--font-weight-semibold);
     }
 }
