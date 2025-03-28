@@ -113,16 +113,16 @@ export function addContainerElement(component, flex) {
         ? {
               flexGrow: "0",
               maxWidth: "50%",
-              flexBasis: "50%",
+              flexBasis: "50%"
           }
         : {
               flexBasis: "100%",
-              maxWidth: "100%",
+              maxWidth: "100%"
           };
 
     addStyle(containerElement, {
         ...flexStyle,
-        padding: "0.75rem 0",
+        padding: "0.75rem 0"
     });
 
     return containerElement;
@@ -145,7 +145,7 @@ export function renderLayoutContainerElement() {
         display: "flex",
         flexFlow: "wrap",
         justifyContent: "start",
-        alignItems: "flex-start",
+        alignItems: "flex-start"
     });
     return containerElement;
 }
@@ -162,18 +162,27 @@ export function renderLayoutContainerElement() {
 export function validateTexts(texts, fallbackTexts, keys, componentName) {
     keys.forEach((key) => {
         if (texts[key] === undefined || texts[key] === null) {
-            if (
-                fallbackTexts?.[key] !== undefined &&
-                fallbackTexts?.[key] !== null
-            ) {
-                console.warn(
-                    `Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`
-                );
+            if (fallbackTexts?.[key] !== undefined && fallbackTexts?.[key] !== null) {
+                console.warn(`Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`);
             } else {
-                console.warn(
-                    `Missing textResourceBindings.${key} for "${componentName}".`
-                );
+                console.warn(`Missing textResourceBindings.${key} for "${componentName}".`);
             }
+        }
+    });
+}
+
+/**
+ * Validates the provided form data against the specified data keys.
+ * Logs a warning if any key in `dataKeys` is missing or has a value of `undefined` or `null` in the `data`.
+ *
+ * @param {Object} data - The form data object to validate.
+ * @param {string[]} dataKeys - An array of keys to check in the form data.
+ * @param {string} componentName - The name of the component for context in warning messages.
+ */
+export function validateFormData(data, dataKeys, componentName) {
+    dataKeys.forEach((key) => {
+        if (data[key] === undefined || data[key] === null) {
+            console.warn(`Missing dataModelBindings.${key} for "${componentName}".`);
         }
     });
 }
@@ -190,9 +199,7 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
 function getAsync(obj, prop, timeout = 200) {
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
-            reject(
-                new Error(`Timeout: ${prop} was not set within ${timeout}ms`)
-            );
+            reject(new Error(`Timeout: ${prop} was not set within ${timeout}ms`));
         }, timeout);
 
         if (typeof obj[prop] === "undefined") {
@@ -203,7 +210,7 @@ function getAsync(obj, prop, timeout = 200) {
                     resolve(value);
                 },
                 configurable: true,
-                enumerable: true,
+                enumerable: true
             });
         } else {
             clearTimeout(timer);
@@ -219,11 +226,8 @@ function getAsync(obj, prop, timeout = 200) {
  * @returns {HTMLElement | null} - The container element if found, otherwise null.
  */
 export function getComponentContainerElement(component) {
-    const isChildComponent =
-        component.getAttribute("isChildComponent") === "true";
-    return isChildComponent
-        ? component
-        : component?.parentElement?.parentElement;
+    const isChildComponent = component.getAttribute("isChildComponent") === "true";
+    return isChildComponent ? component : component?.parentElement?.parentElement;
 }
 
 /**
@@ -255,13 +259,8 @@ export function getValueFromDataKey(data, dataKey) {
  * @param {string} resourceBinding - The ID of the resource to retrieve.
  * @returns {string|undefined} The value of the text resource if found, otherwise undefined.
  */
-export function getTextResourceFromResourceBinding(
-    textResources,
-    resourceBinding
-) {
-    return textResources?.resources?.find(
-        (resource) => resource.id === resourceBinding
-    )?.value;
+export function getTextResourceFromResourceBinding(textResources, resourceBinding) {
+    return textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
 }
 
 /**
@@ -271,16 +270,10 @@ export function getTextResourceFromResourceBinding(
  * @param {Object} resourceBindings - An object where keys represent resource names and values are bindings to specific text resources.
  * @returns {Object} An object where keys are the same as in `resourceBindings` and values are the corresponding text resources.
  */
-export function getTextResourcesFromResourceBindings(
-    textResources,
-    resourceBindings
-) {
+export function getTextResourcesFromResourceBindings(textResources, resourceBindings) {
     const texts = {};
     for (const key in resourceBindings) {
-        texts[key] = getTextResourceFromResourceBinding(
-            textResources,
-            resourceBindings[key]
-        );
+        texts[key] = getTextResourceFromResourceBinding(textResources, resourceBindings[key]);
     }
     return texts;
 }
