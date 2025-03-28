@@ -20,9 +20,7 @@ Rendered HTML
 
 ```html
 <div class="field" style="display: flex; flex-direction: column;">
-    <span class="fds-paragraph fds-paragraph--md" style="white-space: pre-line;">
-        HUSNES OG OPPDAL Organisasjonsnummer: 910598023
-    </span>
+    <span class="fds-paragraph fds-paragraph--md" style="white-space: pre-line;">HUSNES OG OPPDAL Organisasjonsnummer: 910598023</span>
 </div>
 ```
 

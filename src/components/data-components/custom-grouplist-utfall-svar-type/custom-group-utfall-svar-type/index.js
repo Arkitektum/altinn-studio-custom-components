@@ -18,10 +18,7 @@ export default customElements.define(
                     formData: component?.formData,
                     texts: component?.texts
                 });
-                const utfallSvarListElement = await createCustomElement(
-                    "custom-grouplist-utfall-svar",
-                    utfallSvarHtmlAttributes
-                );
+                const utfallSvarListElement = await createCustomElement("custom-grouplist-utfall-svar", utfallSvarHtmlAttributes);
                 this.appendChild(utfallSvarListElement);
             }
         }

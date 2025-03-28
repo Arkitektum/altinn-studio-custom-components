@@ -9,13 +9,10 @@
  */
 export function formatName(part, hideOrgNr) {
     let name = part?.navn || "";
-    
-    if (hideOrgNr) 
-        return name;
-    
-    name += part?.organisasjonsnummer?.length
-        ? `\nOrganisasjonsnummer: ${part.organisasjonsnummer}`
-        : "";
-    
+
+    if (hideOrgNr) return name;
+
+    name += part?.organisasjonsnummer?.length ? `\nOrganisasjonsnummer: ${part.organisasjonsnummer}` : "";
+
     return name;
 }

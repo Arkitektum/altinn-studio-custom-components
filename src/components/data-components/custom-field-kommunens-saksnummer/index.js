@@ -16,9 +16,7 @@ export default customElements.define(
             } else {
                 const kommunensSaksnummerString = formatKommunensSaksnummer(kommunensSaksnummer);
                 component.setFormData({
-                    simpleBinding: kommunensSaksnummerString?.length
-                        ? kommunensSaksnummerString
-                        : component?.emptyFieldText
+                    simpleBinding: kommunensSaksnummerString?.length ? kommunensSaksnummerString : component?.emptyFieldText
                 });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;

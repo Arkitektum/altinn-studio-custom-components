@@ -39,8 +39,7 @@ export function getTableRows(tableColumns, data) {
         const tr = [];
         tableColumns.forEach((column) => {
             const cellData = getValueFromDataKey(row, column.dataKey);
-            const formDataProperty =
-                typeof cellData === "string" || typeof cellData === "number" ? "simpleBinding" : "data";
+            const formDataProperty = typeof cellData === "string" || typeof cellData === "number" ? "simpleBinding" : "data";
             const formData = { [formDataProperty]: cellData };
             tr.push({ ...column.props, formData, hideTitle: true, tagName: column.tagName });
         });

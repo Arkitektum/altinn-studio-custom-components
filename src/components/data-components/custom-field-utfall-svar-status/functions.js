@@ -25,9 +25,7 @@ export async function getStatusText(utfallSvarStatus, component) {
             ? texts.erUtfallBesvaresSenere
             : fallbackTexts.erUtfallBesvaresSenere;
     } else if (utfallSvarStatus?.erUtfallBesvart) {
-        return texts?.erUtfallBesvart !== undefined && texts?.erUtfallBesvart !== null
-            ? texts.erUtfallBesvart
-            : fallbackTexts.erUtfallBesvart;
+        return texts?.erUtfallBesvart !== undefined && texts?.erUtfallBesvart !== null ? texts.erUtfallBesvart : fallbackTexts.erUtfallBesvart;
     } else {
         return texts?.status ? texts.status : fallbackTexts.status;
     }

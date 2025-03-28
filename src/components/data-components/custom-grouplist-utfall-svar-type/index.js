@@ -1,11 +1,6 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import {
-    createCustomElement,
-    getComponentContainerElement,
-    getComponentTexts,
-    hasValue
-} from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, getComponentTexts, hasValue } from "../../../functions/helpers.js";
 import { groupArrayItemsByUtfallType } from "./functions.js";
 
 export default customElements.define(
@@ -24,10 +19,7 @@ export default customElements.define(
                     component.setFormData({ data: dataGroupedByUtfallType[utfallType] });
                     component.setText(texts[`${utfallType?.toLowerCase()}.header`]);
                     const htmlAttributes = new CustomElementHtmlAttributes(component);
-                    const utfallTypeElement = await createCustomElement(
-                        "custom-group-utfall-svar-type",
-                        htmlAttributes
-                    );
+                    const utfallTypeElement = await createCustomElement("custom-group-utfall-svar-type", htmlAttributes);
                     this.appendChild(utfallTypeElement);
                 }
             }

@@ -15,14 +15,8 @@ export default customElements.define(
             if (!hasValue(gjennomfoeringsplan) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const gjennomfoeringsplanNummerElement = renderGjenomfoeringsplanNummer(
-                    gjennomfoeringsplan,
-                    textResources
-                );
-                const eiendomTableElement = renderEiendomTable(
-                    gjennomfoeringsplan?.eiendomByggested?.eiendom,
-                    textResources
-                );
+                const gjennomfoeringsplanNummerElement = renderGjenomfoeringsplanNummer(gjennomfoeringsplan, textResources);
+                const eiendomTableElement = renderEiendomTable(gjennomfoeringsplan?.eiendomByggested?.eiendom, textResources);
                 const feebackListElement = renderFeedbackListElement(validationMessages);
                 this.appendChild(gjennomfoeringsplanNummerElement);
                 this.appendChild(eiendomTableElement);

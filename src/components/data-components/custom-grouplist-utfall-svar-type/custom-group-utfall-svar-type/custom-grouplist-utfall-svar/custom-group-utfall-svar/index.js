@@ -1,13 +1,7 @@
 import CustomComponent from "../../../../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { createCustomElement, getComponentContainerElement, hasValue } from "../../../../../../functions/helpers.js";
-import {
-    getBeskrivelseElement,
-    getKommentarElement,
-    getStatusElement,
-    getTemaElement,
-    getVedleggslisteElement
-} from "./functions.js";
+import { getBeskrivelseElement, getKommentarElement, getStatusElement, getTemaElement, getVedleggslisteElement } from "./functions.js";
 
 export default customElements.define(
     "custom-group-utfall-svar",

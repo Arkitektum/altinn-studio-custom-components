@@ -14,12 +14,7 @@ export default customElements.define(
             if (!hasValue(feedbackMessages) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                this.innerHTML = renderFeedbackListElement(
-                    title,
-                    feedbackMessages,
-                    component?.feedbackType,
-                    component?.styleOverride
-                );
+                this.innerHTML = renderFeedbackListElement(title, feedbackMessages, component?.feedbackType, component?.styleOverride);
             }
         }
     }

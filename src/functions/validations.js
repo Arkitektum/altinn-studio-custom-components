@@ -7,10 +7,7 @@ import ValidationMessages from "../classes/system-classes/ValidationMessages.js"
  * @returns {boolean} Returns `true` if there are any validation messages with a length greater than 0, otherwise `false`.
  */
 export function hasValidationMessages(validationMessages) {
-    return (
-        !!validationMessages &&
-        Object.values(validationMessages).some((validationMessage) => validationMessage.length > 0)
-    );
+    return !!validationMessages && Object.values(validationMessages).some((validationMessage) => validationMessage.length > 0);
 }
 
 /**
@@ -25,11 +22,7 @@ export function hasValidationMessages(validationMessages) {
  * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional instance of ValidationMessages to store validation results.
  * @returns {ValidationMessages} The updated ValidationMessages instance containing error and info messages.
  */
-export function hasMissingTextResources(
-    textResources,
-    textResourceBindings,
-    validationMessages = new ValidationMessages()
-) {
+export function hasMissingTextResources(textResources, textResourceBindings, validationMessages = new ValidationMessages()) {
     for (const componentName in textResourceBindings) {
         for (const textResourceKey in textResourceBindings[componentName]) {
             const key = textResourceBindings[componentName][textResourceKey];
@@ -52,11 +45,7 @@ export function hasMissingTextResources(
  * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional instance of ValidationMessages to collect validation errors and info.
  * @returns {ValidationMessages} The updated ValidationMessages instance containing any validation errors or info messages.
  */
-export function validateTableHeadersTextResourceBindings(
-    tableColumns,
-    textResources,
-    validationMessages = new ValidationMessages()
-) {
+export function validateTableHeadersTextResourceBindings(tableColumns, textResources, validationMessages = new ValidationMessages()) {
     tableColumns.forEach((column) => {
         if (textResources[column.titleResourceKey] === undefined) {
             validationMessages.error.push(`Missing text resource binding with id: "${column.titleResourceKey}"`);

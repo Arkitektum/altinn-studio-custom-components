@@ -2,13 +2,13 @@ import { hasValue } from "./helpers.js";
 
 /**
  * Initializes custom components by setting up event listeners and fetching necessary data.
- * 
+ *
  * This function is triggered on the `window`'s `load` event. It performs the following:
  * - Extracts the organization (`org`) and application (`app`) identifiers from the URL.
  * - Fetches the user's profile data to determine their language preference.
  * - Fetches text resources for the user's selected language or falls back to a default language if necessary.
  * - Stores the selected language and text resources in the `window` object for global access.
- * 
+ *
  * @async
  * @function initCustomComponents
  * @throws {Error} Logs errors to the console if:
@@ -42,9 +42,7 @@ export default function initCustomComponents() {
         if (!hasValue(textResourcesData)) {
             console.error("Could not retrieve text resources for the selected language.");
             const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
-            const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) =>
-                response.json()
-            );
+            const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) => response.json());
             window.textResources = fallbackTextResourcesData;
             if (!hasValue(fallbackTextResourcesData)) {
                 console.error("Could not retrieve text resources for the fallback language.");
