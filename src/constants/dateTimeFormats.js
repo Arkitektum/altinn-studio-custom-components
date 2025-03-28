@@ -1,3 +1,5 @@
+export const availableDateTimeLanguages = ["default"];
+
 export const dateTimeFormat = {
     dateTime: {
         default: {
