@@ -10,6 +10,7 @@ import customFeedbacklistData from "./data-components/custom-feedbacklist-data/i
 import customFeedbacklistValidationMessages from "./data-components/custom-feedbacklist-validation-messages/index.js";
 import customFieldAdresse from "./data-components/custom-field-adresse/index.js";
 import customFieldPartNavn from "./data-components/custom-field-part-navn/index.js";
+import customFieldBooleanData from "./data-components/custom-field-boolean-data/index.js";
 import customFieldBooleanText from "./data-components/custom-field-boolean-text/index.js";
 import customFieldData from "./data-components/custom-field-data/index.js";
 import customFieldKommunensSaksnummer from "./data-components/custom-field-kommunens-saksnummer/index.js";
@@ -50,6 +51,7 @@ export {
     customFeedbacklistValidationMessages,
     customFieldAdresse,
     customFieldPartNavn,
+    customFieldBooleanData,
     customFieldBooleanText,
     customFieldData,
     customFieldKommunensSaksnummer,

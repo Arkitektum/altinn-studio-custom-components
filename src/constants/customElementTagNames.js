@@ -10,6 +10,7 @@ export default [
     "custom-feedbacklist-data",
     "custom-feedbacklist-validation-messages",
     "custom-field-adresse",
+    "custom-field-boolean-data",
     "custom-field-boolean-text",
     "custom-field-data",
     "custom-field-kommunens-saksnummer",
