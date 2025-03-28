@@ -11,4 +11,10 @@ export default {
     soeknadenGjelderHeader: {
         title: "resource.soeknadenGjelder.header"
     },
+    tiltakshaverAdresse: {
+        title: "resource.tiltakshaver.adresse.title"
+    },
+    dispensasjonBeskrivelseBeskrivelse: {
+        title: "resource.dispensasjonBeskrivelse.beskrivelse.title"
+    }
 };
