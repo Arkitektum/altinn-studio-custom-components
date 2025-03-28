@@ -1,6 +1,7 @@
 import Begrunnelse from "../data-classes/Begrunnelse.js";
 import DispensasjonBeskrivelse from "../data-classes/DispensasjonBeskrivelse.js";
 import DispensasjonFra from "../data-classes/DispensasjonFra.js";
+import DispensasjonPlanBestemmelse from "../data-classes/DispensasjonPlanBestemmelse.js";
 import EiendomByggested from "../data-classes/EiendomByggested.js";
 import Kode from "../data-classes/Kode.js";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";

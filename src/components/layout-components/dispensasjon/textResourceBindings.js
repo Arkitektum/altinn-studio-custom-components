@@ -16,5 +16,8 @@ export default {
     },
     dispensasjonBeskrivelseBeskrivelse: {
         title: "resource.dispensasjonBeskrivelse.beskrivelse.title"
+    },
+    dispensasjonPlanBestemmelseNavn: {
+        title: "resource.dispensasjonFra.dispensasjonPlanBestemmelse.navn.title"
     }
 };

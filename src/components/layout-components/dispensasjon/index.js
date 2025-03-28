@@ -6,6 +6,7 @@ import {
     getDispensasjon,
     renderDispansasjonHeader,
     renderDispensasjonBeskrivelse,
+    renderDispensasjonPlanBestemmelseNavn,
     renderDispensasjonReferanse,
     renderEiendomTable,
     renderInngangsbeskrivelse,
@@ -43,6 +44,11 @@ export default customElements.define(
                 const dispensasjonHeader2Element = renderDispansasjonHeader(dispensasjon, "h2");
                 const inngangsbeskrivelseElement = renderInngangsbeskrivelse(dispensasjon);
                 const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(dispensasjon, textResources, textResourceBindings);
+                const dispensasjonPlanBestemmelseNavnElement = renderDispensasjonPlanBestemmelseNavn(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
 
                 layoutContainerElement.appendChild(dispensasjonHeaderElement);
                 layoutContainerElement.appendChild(dispensasjonsreferanseElement);
@@ -55,6 +61,7 @@ export default customElements.define(
                 layoutContainerElement.appendChild(dispensasjonHeader2Element);
                 layoutContainerElement.appendChild(inngangsbeskrivelseElement);
                 layoutContainerElement.appendChild(dispensasjonBeskrivelseElement);
+                layoutContainerElement.appendChild(dispensasjonPlanBestemmelseNavnElement);
                 layoutContainerElement.appendChild(renderFeedbackListElement(validationMessages));
 
                 this.appendChild(layoutContainerElement);

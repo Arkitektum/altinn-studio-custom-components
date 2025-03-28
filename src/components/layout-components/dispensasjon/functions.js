@@ -230,3 +230,22 @@ export function renderDispensasjonBeskrivelse(dispensasjon, textResources, textR
     });
     return createCustomElement("custom-field-data", htmlAttributes);
 }
+
+/**
+ * Renders the name of the dispensasjon plan bestemmelse as a custom field data element.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data to render.
+ * @param {Object[]} textResources - Array of text resources used for localization.
+ * @param {Object} textResourceBindings - Object containing bindings for text resources.
+ * @param {Object} textResourceBindings.dispensasjonPlanBestemmelseNavn - Binding for the dispensasjon plan bestemmelse navn.
+ * @param {string} textResourceBindings.dispensasjonPlanBestemmelseNavn.title - Title binding for the text resource.
+ * @returns {HTMLElement} A custom field data element with the specified attributes.
+ */
+export function renderDispensasjonPlanBestemmelseNavn(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.dispensasjonFra?.dispensasjonPlanBestemmelse?.navn },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.dispensasjonPlanBestemmelseNavn?.title),
+        hideIfEmpty: true
+    });
+    return createCustomElement("custom-field-data", htmlAttributes);
+}
