@@ -13,6 +13,10 @@ function getValueFromLocalStorage(key) {
     return localStorage.getItem(key);
 }
 
+function getLayoutCode() {
+    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("code")));
+}
+
 function getDataModels() {
     return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModels")));
 }
@@ -60,14 +64,8 @@ function getTextsForComponent(component) {
     return texts;
 }
 
-function getComponent() {
-    const codeInputElement = document.getElementById("code-input");
-    const component = JSON.parse(removeTrailingOrLeadingComma(codeInputElement.value));
-    return component;
-}
-
-function handleTestCodeOnClick() {
-    const component = getComponent();
+function renderResults() {
+    const component = getLayoutCode();
     const data = getDataForComponent(component);
     const texts = getTextsForComponent(component);
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -83,8 +81,8 @@ function handleTestCodeOnClick() {
 }
 
 function getDataModelSummaryText(dataModel, index) {
-    const dataModelType = index === 0 ? `${dataModel.dataType} (default)` : dataModel.dataType;
-    return `Data model ${index + 1} - ${dataModelType}`;
+    const dataModelType = index === 0 ? `default - ${dataModel.dataType}` : `${index + 1} - ${dataModel.dataType}`;
+    return dataModelType;
 }
 
 function handleDataModelTypeOnChange(index) {
@@ -92,87 +90,127 @@ function handleDataModelTypeOnChange(index) {
     const dataModelTypeInputElement = document.getElementById(`data-model-type-input-${index}`);
     dataModels[index].dataType = dataModelTypeInputElement.value;
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-    renderDataModelElements();
 }
 
 function handleDataModelDataOnChange(index) {
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
-    const dataModelDataInputElement = document.getElementById(`data-model-data-input-${index}`);
+    const dataModelDataInputElement = document.getElementById("code-input");
     dataModels[index].data = JSON.parse(removeTrailingOrLeadingComma(dataModelDataInputElement.value));
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-    renderDataModelElements();
 }
 
-function handleDataModelSummaryOnClick(index, dataModelElement) {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
-    if (dataModels[index]?.expanded !== undefined) {
-        dataModels[index].expanded = !dataModels[index].expanded;
-        addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-        dataModelElement.open = dataModels[index].expanded;
-        renderDataModelElements();
-    }
+function renderSidebar() {
+    const sidebarElement = document.getElementById("sidebar");
+    sidebarElement.innerHTML = "";
+
+    const fileListElement = document.createElement("ul");
+    fileListElement.id = "file-list";
+    fileListElement.classList.add("file-list");
+
+    // Layout code
+    const layoutCodeListElement = document.createElement("li");
+    const layoutCodeButtonElement = document.createElement("button");
+    layoutCodeButtonElement.innerHTML = "Layout code";
+    layoutCodeButtonElement.onclick = function () {
+        const codeInputElement = getCodeInputElementForLayoutCode();
+        updateDataInputElement(codeInputElement);
+    };
+    layoutCodeListElement.appendChild(layoutCodeButtonElement);
+    fileListElement.appendChild(layoutCodeListElement);
+
+    // Text resources code
+    const textResourcesCodeListElement = document.createElement("li");
+    const textResourcesCodeButtonElement = document.createElement("button");
+    textResourcesCodeButtonElement.innerHTML = "Text resources";
+    textResourcesCodeButtonElement.onclick = function () {
+        const codeInputElement = getCodeInputElementForTextResources();
+        updateDataInputElement(codeInputElement);
+    };
+    textResourcesCodeListElement.appendChild(textResourcesCodeButtonElement);
+    fileListElement.appendChild(textResourcesCodeListElement);
+
+    sidebarElement.appendChild(fileListElement);
+
+    sidebarElement.appendChild(getDataModelListElements());
+
+    const addDataModelButtonElement = document.createElement("button");
+    addDataModelButtonElement.id = "add-data-model-button";
+    addDataModelButtonElement.innerHTML = "Add Data Model";
+    addDataModelButtonElement.classList.add("add-button");
+    addDataModelButtonElement.onclick = function () {
+        addDataModel();
+        renderSidebar();
+    };
+    sidebarElement.appendChild(addDataModelButtonElement);
 }
 
-function renderDataModelElements() {
+function getDataModelListElements() {
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
-    const dataModelContainerElement = document.getElementById("data-models-container");
-    dataModelContainerElement.innerHTML = "";
+    const dataModelListElement = document.createElement("ul");
+    dataModelListElement.id = "data-model-list";
+    dataModelListElement.classList.add("data-model-list");
     dataModels.forEach((dataModel, index) => {
-        const dataModelElement = document.createElement("details");
-        dataModelElement.id = `data-model-summary-${index}`;
-        const dataModelSummaryElement = document.createElement("summary");
-        dataModelSummaryElement.innerHTML = getDataModelSummaryText(dataModel, index);
-        dataModelSummaryElement.onclick = function () {
-            handleDataModelSummaryOnClick(index, dataModelElement);
-        };
-        dataModelElement.open = dataModel.expanded;
+        const dataModelListItemElement = document.createElement("li");
 
-        const dataModelRemoveButtonElement = document.createElement("button");
-        dataModelRemoveButtonElement.classList.add("summary-button", "remove-button");
-        dataModelRemoveButtonElement.innerHTML = "Remove";
-        dataModelRemoveButtonElement.onclick = function () {
+        const buttonsContainerElement = document.createElement("div");
+        buttonsContainerElement.classList.add("buttons-container");
+
+        const typeInputElement = document.createElement("input");
+        typeInputElement.classList.add("type-input");
+        typeInputElement.setAttribute("placeholder", "Data type");
+        typeInputElement.id = `data-model-type-input-${index}`;
+        typeInputElement.value = dataModel.dataType;
+        typeInputElement.onchange = function () {
+            handleDataModelTypeOnChange(index);
+            renderSidebar();
+            renderResults();
+        };
+        typeInputElement.onblur = function () {
+            dataModelListItemElement.classList.remove("editable");
+        };
+
+        const dataModelListItemButtonElement = document.createElement("button");
+        dataModelListItemButtonElement.innerHTML = getDataModelSummaryText(dataModel, index);
+        dataModelListItemButtonElement.onclick = function () {
+            const codeInputElement = getCodeInputElementForDataModel(index);
+            updateDataInputElement(codeInputElement);
+        };
+
+        // Option buttons
+        const optionButtonsContainerElement = document.createElement("div");
+        optionButtonsContainerElement.classList.add("option-buttons-container");
+
+        // Option button for edit data model type
+        const dataModelListItemEditNameButtonElement = document.createElement("button");
+        dataModelListItemEditNameButtonElement.classList.add("edit-type-button");
+        dataModelListItemEditNameButtonElement.innerHTML = "Type";
+        dataModelListItemEditNameButtonElement.onclick = function () {
+            dataModelListItemElement.classList.add("editable");
+            typeInputElement.focus();
+        };
+        optionButtonsContainerElement.appendChild(dataModelListItemEditNameButtonElement);
+
+        // Option button for remove data model
+        const dataModelListItemRemoveButtonElement = document.createElement("button");
+        dataModelListItemRemoveButtonElement.classList.add("remove-button");
+        dataModelListItemRemoveButtonElement.innerHTML = "Remove";
+        dataModelListItemRemoveButtonElement.onclick = function () {
             const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
             dataModels.splice(index, 1);
             addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-            renderDataModelElements();
+            renderSidebar();
+            renderResults();
         };
-        dataModelSummaryElement.appendChild(dataModelRemoveButtonElement);
+        optionButtonsContainerElement.appendChild(dataModelListItemRemoveButtonElement);
 
-        dataModelElement.appendChild(dataModelSummaryElement);
+        buttonsContainerElement.appendChild(dataModelListItemButtonElement);
+        buttonsContainerElement.appendChild(optionButtonsContainerElement);
 
-        const dataModelFormElement = document.createElement("div");
-        dataModelFormElement.classList.add("data-model-form");
-
-        const dataModelTypeLabelElement = document.createElement("label");
-        dataModelTypeLabelElement.innerHTML = "Data type";
-        dataModelTypeLabelElement.setAttribute("for", `data-model-type-input-${index}`);
-        dataModelFormElement.appendChild(dataModelTypeLabelElement);
-
-        const dataModelTypeInputElement = document.createElement("input");
-        dataModelTypeInputElement.id = `data-model-type-input-${index}`;
-        dataModelTypeInputElement.value = dataModel.dataType;
-        dataModelTypeInputElement.onchange = function () {
-            handleDataModelTypeOnChange(index);
-        };
-        dataModelFormElement.appendChild(dataModelTypeInputElement);
-
-        const dataModelDataLabelElement = document.createElement("label");
-        dataModelDataLabelElement.innerHTML = "Data";
-        dataModelDataLabelElement.setAttribute("for", `data-model-data-input-${index}`);
-        dataModelFormElement.appendChild(dataModelDataLabelElement);
-
-        const dataModelDataInputElement = document.createElement("textarea");
-        dataModelDataInputElement.id = `data-model-data-input-${index}`;
-        dataModelDataInputElement.value = JSON.stringify(dataModel.data, null, 2);
-        dataModelDataInputElement.onchange = function () {
-            handleDataModelDataOnChange(index);
-        };
-        dataModelFormElement.appendChild(dataModelDataInputElement);
-
-        dataModelElement.appendChild(dataModelFormElement);
-
-        dataModelContainerElement.appendChild(dataModelElement);
+        dataModelListItemElement.appendChild(buttonsContainerElement);
+        dataModelListItemElement.appendChild(typeInputElement);
+        dataModelListElement.appendChild(dataModelListItemElement);
     });
+    return dataModelListElement;
 }
 
 function beautifyJson(json) {
@@ -183,39 +221,54 @@ function addDataModel() {
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
     dataModels.push({ data: "", dataType: "", expanded: true });
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-    renderDataModelElements();
 }
 
-function initInputElements() {
-    const codeInputElement = document.getElementById("code-input");
-    const textResourcesInputElement = document.getElementById("text-resources-input");
-    const addDataModelButtonElement = document.getElementById("add-data-model-button");
-
-    addDataModelButtonElement.onclick = function () {
-        addDataModel();
+function getCodeInputElementForDataModel(dataModelIndex) {
+    const codeInputElement = document.createElement("textarea");
+    codeInputElement.id = "code-input";
+    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
+    const dataModel = dataModels[dataModelIndex];
+    codeInputElement.value = JSON.stringify(dataModel.data, null, 2);
+    codeInputElement.onchange = function () {
+        handleDataModelDataOnChange(dataModelIndex);
+        renderResults();
     };
+    return codeInputElement;
+}
 
+function getCodeInputElementForLayoutCode() {
+    const codeInputElement = document.createElement("textarea");
+    codeInputElement.id = "code-input";
+    codeInputElement.value = getValueFromLocalStorage("code") || "";
     codeInputElement.onchange = function () {
         codeInputElement.value = beautifyJson(codeInputElement.value);
         addValueToLocalStorage("code", codeInputElement.value);
+        renderResults();
     };
+    return codeInputElement;
+}
 
-    textResourcesInputElement.onchange = function () {
-        textResourcesInputElement.value = beautifyJson(textResourcesInputElement.value);
-        addValueToLocalStorage("textResources", textResourcesInputElement.value);
-        window.textResources = JSON.parse(textResourcesInputElement.value);
+function getCodeInputElementForTextResources() {
+    const codeInputElement = document.createElement("textarea");
+    codeInputElement.id = "code-input";
+    codeInputElement.value = getValueFromLocalStorage("textResources") || "";
+    codeInputElement.onchange = function () {
+        codeInputElement.value = beautifyJson(codeInputElement.value);
+        addValueToLocalStorage("textResources", codeInputElement.value);
+        window.textResources = JSON.parse(codeInputElement.value);
+        renderResults();
     };
+    return codeInputElement;
+}
 
-    codeInputElement.value = getValueFromLocalStorage("code") || "";
-    textResourcesInputElement.value = getValueFromLocalStorage("textResources") || "";
-    window.textResources = JSON.parse(textResourcesInputElement.value);
-
-    renderDataModelElements();
+function updateDataInputElement(inputElement) {
+    const dataInputElement = document.getElementById("data-input");
+    dataInputElement.innerHTML = "";
+    dataInputElement.appendChild(inputElement);
 }
 
 window.onload = function () {
-    const testCodeButtonElement = document.getElementById("test-code-button");
-    testCodeButtonElement.onclick = handleTestCodeOnClick;
-
-    initInputElements();
+    window.textResources = JSON.parse(getValueFromLocalStorage("textResources") || "");
+    renderSidebar();
+    renderResults();
 };

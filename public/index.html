@@ -11,18 +11,14 @@
         <link rel="stylesheet" type="text/css" href="examples.css" />
     </head>
     <body class="developer-tools">
-        <section class="data-input">
-            <div id="data-models-container"></div>
-            <button id="add-data-model-button">Add data model</button>
-
-            <label for="text-resources-input">Text resources</label>
-            <textarea id="text-resources-input"></textarea>
-            <label for="code-input">Layout component</label>
-            <textarea id="code-input"></textarea>
-            <button id="test-code-button">Generate web component</button>
+        <aside id="sidebar" class="sidebar"></aside>
+        <section id="data-input" class="data-input">
+            <textarea></textarea>
         </section>
-        <div class="page">
-            <div id="code-results"></div>
-        </div>
+        <section class="page-container">
+            <div class="page">
+                <div id="code-results"></div>
+            </div>
+        </section>
     </body>
 </html>
