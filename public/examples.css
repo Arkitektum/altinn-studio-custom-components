@@ -94,19 +94,19 @@
                     }
                     & .buttons-container {
                         & button {
-                            width: 180px;
+                            width: 194px;
                             text-overflow: ellipsis;
                             white-space: nowrap;
                             overflow: hidden;
                         }
                         & .option-buttons-container {
-                            width: 150px;
+                            width: 132px;
                             display: inline-block;
                             & button {
                                 width: auto;
                                 background-color: #303234;
                                 border-radius: 4px;
-                                margin: 0 5px;
+                                margin: 0 3px;
                                 padding: 5px 10px;
                                 &:hover {
                                     background-color: #393b3d;
@@ -117,13 +117,13 @@
                 }
             }
             & .add-button {
-                width: calc(100% - 24px);
+                width: calc(100% - 16px);
                 background-color: #303234;
                 color: #fff;
                 border: none;
                 cursor: pointer;
                 padding: 10px 0;
-                margin: 12px;
+                margin: 12px 8px;
                 text-align: center;
                 text-transform: uppercase;
                 font-size: 16px;
