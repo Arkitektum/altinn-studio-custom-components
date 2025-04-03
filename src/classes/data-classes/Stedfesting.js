@@ -1,3 +1,4 @@
+import Kode from "./Kode.js";
 import Posisjon from "./Posisjon.js";
 /**
  * Class representing a Stedfesting.
@@ -10,8 +11,10 @@ export default class Stedfesting {
      *
      * @param {Object} props - The properties to initialize the class with.
      * @param {Object} [props.posisjon] - The position data to create a `Posisjon` instance.
+     * @param {Object} [props.vertikalnivaa] - The vertical level, wrapped in a Kode instance if provided.
      */
     constructor(props) {
         this.posisjon = props?.posisjon && new Posisjon(props.posisjon);
+        this.vertikalnivaa = props?.vertikalnivaa && new Kode(props.vertikalnivaa);
     }
 }
