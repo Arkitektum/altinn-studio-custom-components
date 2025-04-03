@@ -10,7 +10,8 @@ import {
     getComponentContainerElement,
     getValueFromDataKey,
     getTextResourceFromResourceBinding,
-    getTextResourcesFromResourceBindings
+    getTextResourcesFromResourceBindings,
+    appendChildren
 } from "./helpers";
 
 // Ensure jsdom environment is used for DOM-related tests
@@ -143,6 +144,38 @@ describe("helpers.js", () => {
             const textResources = { resources: [{ id: "key1", value: "value1" }] };
             const resourceBindings = { key1: "key1" };
             expect(getTextResourcesFromResourceBindings(textResources, resourceBindings)).toEqual({ key1: "value1" });
+        });
+
+        describe("appendChildren", () => {
+            it("should append HTMLElement children to the parent element", () => {
+                const parent = document.createElement("div");
+                const child1 = document.createElement("span");
+                const child2 = document.createElement("p");
+
+                appendChildren(parent, [child1, child2]);
+
+                expect(parent.children.length).toBe(2);
+                expect(parent.children[0]).toBe(child1);
+                expect(parent.children[1]).toBe(child2);
+            });
+
+            it("should append string children to the parent's innerHTML", () => {
+                const parent = document.createElement("div");
+
+                appendChildren(parent, ["<span>Child 1</span>", "<p>Child 2</p>"]);
+
+                expect(parent.innerHTML).toBe("<span>Child 1</span><p>Child 2</p>");
+            });
+
+            it("should ignore falsy children", () => {
+                const parent = document.createElement("div");
+                const child1 = document.createElement("span");
+
+                appendChildren(parent, [child1, null, undefined, false, ""]);
+
+                expect(parent.children.length).toBe(1);
+                expect(parent.children[0]).toBe(child1);
+            });
         });
     });
 });
