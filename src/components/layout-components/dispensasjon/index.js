@@ -7,7 +7,7 @@ import {
     renderBestemmelserType,
     renderDispansasjonHeader,
     renderDispensasjonBeskrivelse,
-    renderDispensasjonFraHeaderHeader,
+    renderDispensasjonFraHeader,
     renderDispensasjonPlanBestemmelseNavn,
     renderDispensasjonReferanse,
     renderEiendomTable,
@@ -15,10 +15,16 @@ import {
     renderKommunensSaksnummer,
     renderMetadataFtbId,
     renderNasjonalArealplanIdPlanIdentifikasjon,
+    renderOensketVarighet,
     renderPlanBestemmelseNummerering,
     renderSoeknadenGjelderHeader,
+    renderStedfestingHeader,
+    renderStedfestingPosisjonKoordinater,
+    renderStedfestingPosisjonKoordinatsystem,
+    renderStedfestingVertikalnivaa,
     renderTiltakshaverAdresse,
-    renderTiltakshaverTable
+    renderTiltakshaverTable,
+    renderVarighetHeader
 } from "./renderers.js";
 import textResourceBindings from "./textResourceBindings.js";
 
@@ -47,7 +53,7 @@ export default customElements.define(
                 const dispensasjonHeader2Element = renderDispansasjonHeader(dispensasjon, "h2");
                 const inngangsbeskrivelseElement = renderInngangsbeskrivelse(dispensasjon);
                 const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(dispensasjon, textResources, textResourceBindings);
-                const dispensasjonFraHeaderElement = renderDispensasjonFraHeaderHeader(textResources, textResourceBindings);
+                const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(textResources, textResourceBindings);
                 const dispensasjonPlanBestemmelseNavnElement = renderDispensasjonPlanBestemmelseNavn(
                     dispensasjon,
                     textResources,
@@ -60,6 +66,16 @@ export default customElements.define(
                 );
                 const bestemmelserTypeElement = renderBestemmelserType(dispensasjon, textResources, textResourceBindings);
                 const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(dispensasjon, textResources, textResourceBindings);
+                const stedfestingHeaderElement = renderStedfestingHeader(textResources, textResourceBindings, "h2");
+                const stedfestingPosisjonKoordinatsystemElement = renderStedfestingPosisjonKoordinatsystem(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
+                const stedfestingPosisjonKoordinaterElement = renderStedfestingPosisjonKoordinater(dispensasjon, textResources, textResourceBindings);
+                const stedfestingVertikalnivaaElement = renderStedfestingVertikalnivaa(dispensasjon, textResources, textResourceBindings);
+                const varighetHeaderElement = renderVarighetHeader(textResources, textResourceBindings);
+                const varighetOenskesVarigDispensasjonElement = renderOensketVarighet(dispensasjon, textResources, textResourceBindings);
                 const validationFeedbackListElement = renderFeedbackListElement(validationMessages);
 
                 // Intro
@@ -91,6 +107,17 @@ export default customElements.define(
                 } else {
                     appendChildren(layoutContainerElement, [dispensasjonFraHeaderElement, bestemmelserTypeElement]);
                 }
+
+                // Stedfesting
+                appendChildren(layoutContainerElement, [
+                    stedfestingHeaderElement,
+                    stedfestingPosisjonKoordinatsystemElement,
+                    stedfestingPosisjonKoordinaterElement,
+                    stedfestingVertikalnivaaElement
+                ]);
+
+                // Varighet
+                appendChildren(layoutContainerElement, [varighetHeaderElement, varighetOenskesVarigDispensasjonElement]);
 
                 // Append the validation feedback list element if there are validation messages
                 appendChildren(layoutContainerElement, [validationFeedbackListElement]);

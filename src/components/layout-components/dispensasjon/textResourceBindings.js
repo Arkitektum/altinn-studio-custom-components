@@ -31,5 +31,26 @@ export default {
     },
     planBestemmelseNummerering: {
         title: "resource.dispensasjonFra.dispensasjonPlanBestemmelse.planbestemmelse.nummerering.title"
+    },
+    stedfestingHeader: {
+        title: "resource.stedfesting.header"
+    },
+    stedfestingPosisjonKoordinatsystem: {
+        title: "resource.stedfesting.posisjon.koordinatsystem.title"
+    },
+    stedfestingPosisjonKoordinater: {
+        title: "resource.stedfesting.posisjon.koordinater.title"
+    },
+    stedfestingVertikalnivaa: {
+        title: "resource.stedfesting.vertikalnivaa.title"
+    },
+    varighetHeader: {
+        title: "resource.varighet.header"
+    },
+    varighetOenskesVarigDispensasjon: {
+        trueText: "resource.varighet.oenskesVarigDispensasjon.true.title"
+    },
+    varighetOensketVarighetTil: {
+        title: "resource.varighet.oensketVarighetTil.title"
     }
 };

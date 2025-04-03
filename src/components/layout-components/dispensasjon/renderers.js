@@ -248,7 +248,7 @@ export function renderDispensasjonPlanBestemmelseNavn(dispensasjon, textResource
  * @param {string} textResourceBindings.dispensasjonFraHeader.title - The key for the title text resource.
  * @returns {HTMLElement} A custom header element with the specified attributes and content.
  */
-export function renderDispensasjonFraHeaderHeader(textResources, textResourceBindings) {
+export function renderDispensasjonFraHeader(textResources, textResourceBindings) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.dispensasjonFraHeader?.title),
         size: "h2"
@@ -317,4 +317,125 @@ export function renderPlanBestemmelseNummerering(dispensasjon, textResources, te
         hideIfEmpty: true
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom header element for "Stedfesting" with the specified text and attributes.
+ *
+ * @param {Object} textResources - The collection of text resources used for localization.
+ * @param {Object} textResourceBindings - The bindings for text resources, containing keys for specific text elements.
+ * @param {Object} textResourceBindings.stedfestingHeader - The specific binding for the "Stedfesting" header.
+ * @param {string} textResourceBindings.stedfestingHeader.title - The key for the title text resource of the header.
+ * @returns {HTMLElement} A custom header element with the specified attributes and localized text.
+ */
+export function renderStedfestingHeader(textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.stedfestingHeader?.title),
+        size: "h2"
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+/**
+ * Renders the "Stedfesting Posisjon Koordinatsystem" component for a dispensasjon.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object[]} textResources - An array of text resources used for localization.
+ * @param {Object} textResourceBindings - An object containing bindings for text resources.
+ * @param {Object} textResourceBindings.stedfestingPosisjonKoordinatsystem - The text resource binding for the "Stedfesting Posisjon Koordinatsystem" title.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container element.
+ */
+export function renderStedfestingPosisjonKoordinatsystem(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.stedfesting?.posisjon?.koordinatsystem?.kodebeskrivelse },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.stedfestingPosisjonKoordinatsystem?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom field for displaying position coordinates related to a dispensation.
+ *
+ * @param {Object} dispensasjon - The dispensation object containing data to render.
+ * @param {Object} textResources - The collection of text resources for localization.
+ * @param {Object} textResourceBindings - The bindings for text resources specific to this component.
+ * @param {Object} textResourceBindings.stedfestingPosisjonKoordinater - The text resource binding for the title.
+ * @param {string} textResourceBindings.stedfestingPosisjonKoordinater.title - The key for the title text resource.
+ * @returns {HTMLElement} A container element wrapping the custom field data element.
+ */
+export function renderStedfestingPosisjonKoordinater(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.stedfesting?.posisjon?.koordinater },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.stedfestingPosisjonKoordinater?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders the vertical level ("vertikalnivaa") of the location ("stedfesting") for a dispensation.
+ *
+ * @param {Object} dispensasjon - The dispensation object containing data to render.
+ * @param {Object[]} textResources - Array of text resources used for localization.
+ * @param {Object} textResourceBindings - Object containing bindings for text resources.
+ * @param {Object} textResourceBindings.stedfestingVertikalnivaa - Binding for the vertical level text resource.
+ * @param {string} textResourceBindings.stedfestingVertikalnivaa.title - Title binding for the vertical level text resource.
+ * @returns {HTMLElement} A container element wrapping the custom field data element.
+ */
+export function renderStedfestingVertikalnivaa(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.stedfesting?.vertikalnivaa?.kodebeskrivelse },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.stedfestingVertikalnivaa?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom header element for "Varighet" using the provided text resources and bindings.
+ *
+ * @param {Object} textResources - The collection of text resources available for rendering.
+ * @param {Object} textResourceBindings - The bindings for text resources, containing keys for specific text elements.
+ * @param {Object} textResourceBindings.varighetHeader - The binding for the "Varighet" header.
+ * @param {string} textResourceBindings.varighetHeader.title - The key for the title text resource of the "Varighet" header.
+ * @returns {HTMLElement} A custom header element with the specified attributes and text.
+ */
+export function renderVarighetHeader(textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.varighetHeader?.title),
+        size: "h2"
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+/**
+ * Renders the desired duration of a dispensation based on its properties.
+ *
+ * @param {Object} dispensasjon - The dispensation object containing duration details.
+ * @param {Object} textResources - The text resources used for localization.
+ * @param {Object} textResourceBindings - The bindings for text resources.
+ * @param {Object} textResourceBindings.varighetOenskesVarigDispensasjon - Text resource bindings for permanent dispensation.
+ * @param {string} textResourceBindings.varighetOenskesVarigDispensasjon.trueText - Text to display when permanent dispensation is desired.
+ * @param {Object} textResourceBindings.varighetOensketVarighetTil - Text resource bindings for the desired end date.
+ * @param {string} textResourceBindings.varighetOensketVarighetTil.title - Title text for the desired end date.
+ * @returns {HTMLElement|null} A container element with the rendered content, or null if no valid data is provided.
+ */
+export function renderOensketVarighet(dispensasjon, textResources, textResourceBindings) {
+    const oenskesVarigDispensasjon = dispensasjon?.varighet?.oenskesVarigDispensasjon;
+    if (oenskesVarigDispensasjon) {
+        const htmlAttributes = new CustomElementHtmlAttributes({
+            text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.varighetOenskesVarigDispensasjon?.trueText)
+        });
+        return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
+    } else if (hasValue(dispensasjon?.varighet?.oensketVarighetTil)) {
+        const htmlAttributes = new CustomElementHtmlAttributes({
+            formData: { simpleBinding: dispensasjon?.varighet?.oensketVarighetTil },
+            text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.varighetOensketVarighetTil?.title),
+            format: "date"
+        });
+        return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+    } else {
+        return null;
+    }
 }
