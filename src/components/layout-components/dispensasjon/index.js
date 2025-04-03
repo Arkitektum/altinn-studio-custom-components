@@ -1,21 +1,25 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { getComponentContainerElement, hasValue, renderLayoutContainerElement } from "../../../functions/helpers.js";
+import { appendChildren, getComponentContainerElement, hasValue, renderLayoutContainerElement } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
+import { dispensasjonIsPlanBestemmelseType, getDispensasjon } from "./functions.js";
 import {
-    getDispensasjon,
+    renderBestemmelserType,
     renderDispansasjonHeader,
     renderDispensasjonBeskrivelse,
+    renderDispensasjonFraHeaderHeader,
     renderDispensasjonPlanBestemmelseNavn,
     renderDispensasjonReferanse,
     renderEiendomTable,
     renderInngangsbeskrivelse,
     renderKommunensSaksnummer,
     renderMetadataFtbId,
+    renderNasjonalArealplanIdPlanIdentifikasjon,
+    renderPlanBestemmelseNummerering,
     renderSoeknadenGjelderHeader,
     renderTiltakshaverAdresse,
     renderTiltakshaverTable
-} from "./functions.js";
+} from "./renderers.js";
 import textResourceBindings from "./textResourceBindings.js";
 
 export default customElements.define(
@@ -28,7 +32,6 @@ export default customElements.define(
             const textResources = window.textResources;
 
             const validationMessages = hasMissingTextResources(textResources, textResourceBindings);
-            console.log(dispensasjon);
             if (!hasValue(dispensasjon) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
@@ -44,25 +47,53 @@ export default customElements.define(
                 const dispensasjonHeader2Element = renderDispansasjonHeader(dispensasjon, "h2");
                 const inngangsbeskrivelseElement = renderInngangsbeskrivelse(dispensasjon);
                 const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(dispensasjon, textResources, textResourceBindings);
+                const dispensasjonFraHeaderElement = renderDispensasjonFraHeaderHeader(textResources, textResourceBindings);
                 const dispensasjonPlanBestemmelseNavnElement = renderDispensasjonPlanBestemmelseNavn(
                     dispensasjon,
                     textResources,
                     textResourceBindings
                 );
+                const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
+                const bestemmelserTypeElement = renderBestemmelserType(dispensasjon, textResources, textResourceBindings);
+                const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(dispensasjon, textResources, textResourceBindings);
+                const validationFeedbackListElement = renderFeedbackListElement(validationMessages);
 
-                layoutContainerElement.appendChild(dispensasjonHeaderElement);
-                layoutContainerElement.appendChild(dispensasjonsreferanseElement);
-                layoutContainerElement.appendChild(metadataFtbIdElement);
-                layoutContainerElement.appendChild(kommunensSaksnummerElement);
-                layoutContainerElement.appendChild(soeknadenGjelderHeaderElement);
-                layoutContainerElement.appendChild(eiendomTableElement);
-                layoutContainerElement.appendChild(tiltakshaverTableElement);
-                layoutContainerElement.appendChild(tiltakshaverAdresseElement);
-                layoutContainerElement.appendChild(dispensasjonHeader2Element);
-                layoutContainerElement.appendChild(inngangsbeskrivelseElement);
-                layoutContainerElement.appendChild(dispensasjonBeskrivelseElement);
-                layoutContainerElement.appendChild(dispensasjonPlanBestemmelseNavnElement);
-                layoutContainerElement.appendChild(renderFeedbackListElement(validationMessages));
+                // Intro
+                appendChildren(layoutContainerElement, [
+                    dispensasjonHeaderElement,
+                    dispensasjonsreferanseElement,
+                    metadataFtbIdElement,
+                    kommunensSaksnummerElement
+                ]);
+
+                // Soeknaden gjelder
+                appendChildren(layoutContainerElement, [soeknadenGjelderHeaderElement, eiendomTableElement]);
+
+                // Soeker
+                appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);
+
+                // Dispensasjonsbeskrivelse
+                appendChildren(layoutContainerElement, [dispensasjonHeader2Element, inngangsbeskrivelseElement, dispensasjonBeskrivelseElement]);
+
+                // Dispensasjon fra
+                if (dispensasjonIsPlanBestemmelseType(dispensasjon)) {
+                    appendChildren(layoutContainerElement, [
+                        dispensasjonFraHeaderElement,
+                        dispensasjonPlanBestemmelseNavnElement,
+                        nasjonalArealplanIdPlanIdentifikasjonElement,
+                        bestemmelserTypeElement,
+                        planBestemmelseNummereringElement
+                    ]);
+                } else {
+                    appendChildren(layoutContainerElement, [dispensasjonFraHeaderElement, bestemmelserTypeElement]);
+                }
+
+                // Append the validation feedback list element if there are validation messages
+                appendChildren(layoutContainerElement, [validationFeedbackListElement]);
 
                 this.appendChild(layoutContainerElement);
             }
