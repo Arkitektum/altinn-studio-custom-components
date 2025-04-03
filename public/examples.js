@@ -81,7 +81,8 @@ function renderResults() {
 }
 
 function getDataModelSummaryText(dataModel, index) {
-    const dataModelType = index === 0 ? `default - ${dataModel.dataType}` : `${index + 1} - ${dataModel.dataType}`;
+    const dataTypeName = dataModel.dataType?.length > 0 ? dataModel.dataType : `Data model ${index + 1}`;
+    const dataModelType = index === 0 ? `[main] ${dataModel.dataType}` : dataTypeName;
     return dataModelType;
 }
 
