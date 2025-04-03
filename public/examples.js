@@ -229,6 +229,9 @@ function getDataModelListElements() {
         dataModelListItemRemoveButtonElement.classList.add("remove-button");
         dataModelListItemRemoveButtonElement.innerHTML = "Remove";
         dataModelListItemRemoveButtonElement.onclick = function () {
+            if (!confirm("Are you sure you want to remove this data model? This action cannot be undone.")) {
+                return;
+            }
             const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
             dataModels.splice(index, 1);
             addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
