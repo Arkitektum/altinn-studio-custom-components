@@ -118,8 +118,6 @@ function setActiveSidebarElement(itemId) {
     }
 
     const activeItem = document.getElementById(itemId);
-    console.log({itemId});
-    console.log("activeItem", activeItem);
     if (activeItem) {
         activeItem.classList.add("active");
     }
