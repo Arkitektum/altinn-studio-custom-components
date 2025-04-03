@@ -99,6 +99,32 @@ function handleDataModelDataOnChange(index) {
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
 }
 
+function setActiveSidebarElement(itemId) {
+    const fileListElement = document.getElementById("file-list");
+    const dataModelListElement = document.getElementById("data-model-list");
+
+    if (fileListElement) {
+        const fileListItems = fileListElement.querySelectorAll("li");
+        fileListItems.forEach((item) => {
+            item.classList.remove("active");
+        });
+    }
+
+    if (dataModelListElement) {
+        const dataModelListItems = dataModelListElement.querySelectorAll("li");
+        dataModelListItems.forEach((item) => {
+            item.classList.remove("active");
+        });
+    }
+
+    const activeItem = document.getElementById(itemId);
+    console.log({itemId});
+    console.log("activeItem", activeItem);
+    if (activeItem) {
+        activeItem.classList.add("active");
+    }
+}
+
 function renderSidebar() {
     const sidebarElement = document.getElementById("sidebar");
     sidebarElement.innerHTML = "";
@@ -108,23 +134,29 @@ function renderSidebar() {
     fileListElement.classList.add("file-list");
 
     // Layout code
+    const layoutCodeItemId = "layout-code";
     const layoutCodeListElement = document.createElement("li");
+    layoutCodeListElement.id = layoutCodeItemId;
     const layoutCodeButtonElement = document.createElement("button");
     layoutCodeButtonElement.innerHTML = "Layout code";
     layoutCodeButtonElement.onclick = function () {
         const codeInputElement = getCodeInputElementForLayoutCode();
         updateDataInputElement(codeInputElement);
+        setActiveSidebarElement(layoutCodeItemId);
     };
     layoutCodeListElement.appendChild(layoutCodeButtonElement);
     fileListElement.appendChild(layoutCodeListElement);
 
     // Text resources code
+    const textResourcesItemId = "text-resources-code";
     const textResourcesCodeListElement = document.createElement("li");
+    textResourcesCodeListElement.id = textResourcesItemId;
     const textResourcesCodeButtonElement = document.createElement("button");
     textResourcesCodeButtonElement.innerHTML = "Text resources";
     textResourcesCodeButtonElement.onclick = function () {
         const codeInputElement = getCodeInputElementForTextResources();
         updateDataInputElement(codeInputElement);
+        setActiveSidebarElement(textResourcesItemId);
     };
     textResourcesCodeListElement.appendChild(textResourcesCodeButtonElement);
     fileListElement.appendChild(textResourcesCodeListElement);
@@ -150,7 +182,9 @@ function getDataModelListElements() {
     dataModelListElement.id = "data-model-list";
     dataModelListElement.classList.add("data-model-list");
     dataModels.forEach((dataModel, index) => {
+        const itemId = `data-model-list-item-${index}`;
         const dataModelListItemElement = document.createElement("li");
+        dataModelListItemElement.id = itemId;
 
         const buttonsContainerElement = document.createElement("div");
         buttonsContainerElement.classList.add("buttons-container");
@@ -174,6 +208,7 @@ function getDataModelListElements() {
         dataModelListItemButtonElement.onclick = function () {
             const codeInputElement = getCodeInputElementForDataModel(index);
             updateDataInputElement(codeInputElement);
+            setActiveSidebarElement(itemId);
         };
 
         // Option buttons

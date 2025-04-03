@@ -1,3 +1,14 @@
+@font-face {
+    font-family: "Roboto Flex";
+    src: url(/fonts/RobotoFlex.woff2) format("woff2");
+}
+
+:root {
+    --background-transition-default: background-color 150ms;
+    --font-family-default: "Roboto Flex", Arial, sans-serif;
+    --color-text-default: #1c1b1d;
+}
+
 & * {
     box-sizing: border-box;
 }
@@ -7,12 +18,14 @@
         box-sizing: border-box;
         background-color: #eee;
         font-family: Arial, sans-serif;
-        color: #333;
+        font-family: var(--font-family-default);
+        color: var(--color-text-default);
         margin: 0;
         padding: 0;
         font-size: 16px;
         line-height: 1.5;
         display: flex;
+        letter-spacing: normal;
         & aside.sidebar {
             flex-basis: 330px;
             min-width: 330px;
@@ -37,10 +50,17 @@
                     font-size: 18px;
                     background: none;
                     border-bottom: 1px solid #202224;
+                    transition: var(--background-transition-default);
+                    cursor: pointer;
                     &:hover {
                         background-color: rgba(255, 255, 255, 0.1);
                     }
-
+                    &.active {
+                        background-color: rgba(40, 143, 255, 0.7);
+                        &:hover {
+                            background-color: rgba(61, 155, 255, 0.75);
+                        }
+                    }
                     & .type-input {
                         display: none;
                     }
@@ -52,7 +72,7 @@
                             font-size: 16px;
                             border: none;
                             color: #fff;
-                            background-color: rgba(255, 255, 255, 0.1);
+                            background-color: #202224;
                             outline: 1px solid rgba(255, 255, 255, 0.75);
                         }
                         & .buttons-container {
@@ -69,6 +89,8 @@
                         padding: 12px 14px;
                         font-size: 14px;
                         display: inline-block;
+                        transition: var(--background-transition-default);
+                        font-family: var(--font-family-default);
                     }
                     & .buttons-container {
                         & button {
@@ -106,6 +128,8 @@
                 text-transform: uppercase;
                 font-size: 16px;
                 border-radius: 4px;
+                font-family: var(--font-family-default);
+                transition: var(--background-transition-default);
                 &:hover {
                     background-color: #393b3d;
                 }
