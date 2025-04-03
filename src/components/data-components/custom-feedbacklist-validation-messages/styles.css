@@ -1,6 +1,7 @@
 custom-feedbacklist-validation-messages {
     @media screen {
         display: block;
+        width: 100%;
     }
     @media print {
         display: none;
