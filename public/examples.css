@@ -17,7 +17,6 @@
     body.developer-tools {
         box-sizing: border-box;
         background-color: #eee;
-        font-family: Arial, sans-serif;
         font-family: var(--font-family-default);
         color: var(--color-text-default);
         margin: 0;
@@ -146,7 +145,7 @@
                 height: 100vh;
                 resize: none;
                 padding: 0.75em;
-                overflow: scroll;
+                overflow: auto;
                 white-space: nowrap;
                 font-family: monospace;
                 background-color: #1e1e1e;
@@ -161,7 +160,7 @@
             flex-basis: 830px;
             min-width: 830px;
             height: 100vh;
-            overflow: scroll;
+            overflow: auto;
         }
         & .page {
             margin: 0.5cm auto;
