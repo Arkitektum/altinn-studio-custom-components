@@ -439,3 +439,173 @@ export function renderOensketVarighet(dispensasjon, textResources, textResourceB
         return null;
     }
 }
+
+/**
+ * Renders a custom header element for the "begrunnelseHeader" section.
+ *
+ * @param {Object} textResources - The collection of text resources available for rendering.
+ * @param {Object} textResourceBindings - The bindings that map to specific text resources.
+ * @param {Object} textResourceBindings.begrunnelseHeader - The specific binding for the "begrunnelseHeader" section.
+ * @param {string} textResourceBindings.begrunnelseHeader.title - The key for the title text resource.
+ * @returns {HTMLElement} A custom header element with the specified attributes.
+ */
+export function renderBegrunnelseHeader(textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseHeader?.title),
+        size: "h2"
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+/**
+ * Renders the "Begrunnelse Hensyn Bak Bestemmelsen" custom field data element.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object} textResources - The collection of text resources used for localization.
+ * @param {Object} textResourceBindings - The bindings for text resources specific to this renderer.
+ * @param {Object} textResourceBindings.begrunnelseHensynBakBestemmelsen - The specific text resource binding for the title.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container element.
+ */
+export function renderBegrunnelseHensynBakBestemmelsen(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.begrunnelse?.hensynBakBestemmelsen },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseHensynBakBestemmelsen?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom field data element for the "Begrunnelse Vurdering Hensyn Bak Bestemmelsen".
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object} textResources - The text resources object used for retrieving localized text.
+ * @param {Object} textResourceBindings - The bindings object for text resource keys.
+ * @param {Object} textResourceBindings.begrunnelseVurderingHensynBakBestemmelsen - The specific binding for the title text resource.
+ * @returns {HTMLElement} A container element wrapping the custom field data element.
+ */
+export function renderBegrunnelseVurderingHensynBakBestemmelsen(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.begrunnelse?.vurderingHensynBakBestemmelsen },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseVurderingHensynBakBestemmelsen?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom field data element for the "Begrunnelse Vurdering Hensyn Overordnet" section.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object[]} textResources - Array of text resources used for localization.
+ * @param {Object} textResourceBindings - Object containing bindings for text resources.
+ * @param {Object} textResourceBindings.begrunnelseVurderingHensynOverordnet - Binding for the "Begrunnelse Vurdering Hensyn Overordnet" text resource.
+ * @param {string} textResourceBindings.begrunnelseVurderingHensynOverordnet.title - Title binding for the text resource.
+ * @returns {HTMLElement} A container element wrapping the custom field data element.
+ */
+export function renderBegrunnelseVurderingHensynOverordnet(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.begrunnelse?.vurderingHensynOverordnet },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseVurderingHensynOverordnet?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders the "Begrunnelse Fordeler" section for a dispensasjon.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object[]} textResources - An array of text resources used for localization.
+ * @param {Object} textResourceBindings - An object containing bindings for text resources.
+ * @param {Object} textResourceBindings.begrunnelseFordeler - Bindings for the "Begrunnelse Fordeler" section.
+ * @param {string} textResourceBindings.begrunnelseFordeler.title - The resource binding key for the title text.
+ * @returns {HTMLElement} A container element with the rendered "Begrunnelse Fordeler" content.
+ */
+export function renderBegrunnelseFordeler(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data: dispensasjon?.begrunnelse?.fordeler?.effekt },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseFordeler?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
+}
+
+/**
+ * Renders the "Begrunnelse Ulemper" section for a dispensasjon.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data.
+ * @param {Object[]} textResources - Array of text resources used for localization.
+ * @param {Object} textResourceBindings - Object containing bindings for text resources.
+ * @param {Object} textResourceBindings.begrunnelseUlemper - Bindings specific to "Begrunnelse Ulemper".
+ * @param {string} textResourceBindings.begrunnelseUlemper.title - The title binding for "Begrunnelse Ulemper".
+ * @returns {HTMLElement} A container element with the rendered "Begrunnelse Ulemper" content.
+ */
+export function renderBegrunnelseUlemper(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data: dispensasjon?.begrunnelse?.ulemper?.effekt },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseUlemper?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
+}
+
+/**
+ * Renders the "Samlet Begrunnelse" (combined justification) for a dispensasjon.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data to render.
+ * @param {Object[]} textResources - Array of text resources used for localization.
+ * @param {Object} textResourceBindings - Object containing bindings for text resources.
+ * @param {Object} textResourceBindings.begrunnelseSamletBegrunnelse - Binding for the "Samlet Begrunnelse" text resource.
+ * @param {string} textResourceBindings.begrunnelseSamletBegrunnelse.title - The title binding for the "Samlet Begrunnelse".
+ * @returns {HTMLElement} A container element wrapping the custom field data element.
+ */
+export function renderBegrunnelseSamletBegrunnelse(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.begrunnelse?.samletBegrunnelse },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.begrunnelseSamletBegrunnelse?.title),
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom header element with text for general terms in Norwegian, Swedish, and Danish.
+ *
+ * @param {Object} textResources - The collection of text resources available for rendering.
+ * @param {Object} textResourceBindings - The bindings for text resources, containing keys for specific text elements.
+ * @param {Object} textResourceBindings.generelleVilkaarNorskSvenskDansk - The binding for general terms in Norwegian, Swedish, and Danish.
+ * @param {string} textResourceBindings.generelleVilkaarNorskSvenskDansk.title - The key for the title text resource.
+ * @returns {HTMLElement} A custom header element with the specified text and attributes.
+ */
+export function renderGenerelleVilkaarNorskSvenskDanskHeader(textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.generelleVilkaarNorskSvenskDansk?.title),
+        size: "h2"
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+/**
+ * Renders a custom boolean text field for "Generelle Vilkår" in Norwegian, Swedish, and Danish.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object[]} textResources - Array of text resources used for localization.
+ * @param {Object} textResourceBindings - Object containing bindings for text resources.
+ * @param {Object} textResourceBindings.generelleVilkaarNorskSvenskDansk - Bindings for the "Generelle Vilkår" text resources.
+ * @param {string} textResourceBindings.generelleVilkaarNorskSvenskDansk.trueText - The text to display when the value is true.
+ *
+ * @returns {HTMLElement} A container element wrapping the custom boolean text field.
+ */
+export function renderGenerelleVilkaarNorskSvenskDansk(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { simpleBinding: dispensasjon?.generelleVilkaar?.norskSvenskDansk },
+        texts: {
+            trueText: getTextResourceFromResourceBinding(textResources, textResourceBindings?.generelleVilkaarNorskSvenskDansk?.trueText),
+            falseText: "",
+            defaultText: ""
+        },
+        hideIfEmpty: true
+    });
+    return addContainerElement(createCustomElement("custom-field-boolean-text", htmlAttributes));
+}

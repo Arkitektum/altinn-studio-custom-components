@@ -4,6 +4,13 @@ import { appendChildren, getComponentContainerElement, hasValue, renderLayoutCon
 import { hasMissingTextResources } from "../../../functions/validations.js";
 import { dispensasjonIsPlanBestemmelseType, getDispensasjon } from "./functions.js";
 import {
+    renderBegrunnelseFordeler,
+    renderBegrunnelseHeader,
+    renderBegrunnelseHensynBakBestemmelsen,
+    renderBegrunnelseSamletBegrunnelse,
+    renderBegrunnelseUlemper,
+    renderBegrunnelseVurderingHensynBakBestemmelsen,
+    renderBegrunnelseVurderingHensynOverordnet,
     renderBestemmelserType,
     renderDispansasjonHeader,
     renderDispensasjonBeskrivelse,
@@ -11,6 +18,8 @@ import {
     renderDispensasjonPlanBestemmelseNavn,
     renderDispensasjonReferanse,
     renderEiendomTable,
+    renderGenerelleVilkaarNorskSvenskDansk,
+    renderGenerelleVilkaarNorskSvenskDanskHeader,
     renderInngangsbeskrivelse,
     renderKommunensSaksnummer,
     renderMetadataFtbId,
@@ -76,6 +85,35 @@ export default customElements.define(
                 const stedfestingVertikalnivaaElement = renderStedfestingVertikalnivaa(dispensasjon, textResources, textResourceBindings);
                 const varighetHeaderElement = renderVarighetHeader(textResources, textResourceBindings);
                 const varighetOenskesVarigDispensasjonElement = renderOensketVarighet(dispensasjon, textResources, textResourceBindings);
+                const begrunnelseHeaderElement = renderBegrunnelseHeader(textResources, textResourceBindings);
+                const begrunnelseHensynBakBestemmelsenElement = renderBegrunnelseHensynBakBestemmelsen(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
+                const begrunnelseVurderingHensynBakBestemmelsenElement = renderBegrunnelseVurderingHensynBakBestemmelsen(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
+                const begrunnelseVurderingHensynOverordnetElement = renderBegrunnelseVurderingHensynOverordnet(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
+                const begrunnelseFordelerElement = renderBegrunnelseFordeler(dispensasjon, textResources, textResourceBindings);
+                const begrunnelseUlemperElement = renderBegrunnelseUlemper(dispensasjon, textResources, textResourceBindings);
+                const begrunnelseSamletBegrunnelseElement = renderBegrunnelseSamletBegrunnelse(dispensasjon, textResources, textResourceBindings);
+                const generelleVilkaarNorskSvenskDanskHeaderElement = renderGenerelleVilkaarNorskSvenskDanskHeader(
+                    textResources,
+                    textResourceBindings
+                );
+                const renderedGenerelleVilkaarNorskSvenskDanskElement = renderGenerelleVilkaarNorskSvenskDansk(
+                    dispensasjon,
+                    textResources,
+                    textResourceBindings
+                );
+
                 const validationFeedbackListElement = renderFeedbackListElement(validationMessages);
 
                 // Intro
@@ -118,6 +156,23 @@ export default customElements.define(
 
                 // Varighet
                 appendChildren(layoutContainerElement, [varighetHeaderElement, varighetOenskesVarigDispensasjonElement]);
+
+                // Begrunnelse
+                appendChildren(layoutContainerElement, [
+                    begrunnelseHeaderElement,
+                    begrunnelseHensynBakBestemmelsenElement,
+                    begrunnelseVurderingHensynBakBestemmelsenElement,
+                    begrunnelseVurderingHensynOverordnetElement,
+                    begrunnelseFordelerElement,
+                    begrunnelseUlemperElement,
+                    begrunnelseSamletBegrunnelseElement
+                ]);
+
+                // Erklaering
+                appendChildren(layoutContainerElement, [
+                    generelleVilkaarNorskSvenskDanskHeaderElement,
+                    renderedGenerelleVilkaarNorskSvenskDanskElement
+                ]);
 
                 // Append the validation feedback list element if there are validation messages
                 appendChildren(layoutContainerElement, [validationFeedbackListElement]);

@@ -52,5 +52,30 @@ export default {
     },
     varighetOensketVarighetTil: {
         title: "resource.varighet.oensketVarighetTil.title"
+    },
+    begrunnelseHeader: {
+        title: "resource.begrunnelse.header"
+    },
+    begrunnelseHensynBakBestemmelsen: {
+        title: "resource.begrunnelse.hensynBakBestemmelsen.title"
+    },
+    begrunnelseVurderingHensynBakBestemmelsen: {
+        title: "resource.begrunnelse.vurderingHensynBakBestemmelsen.title"
+    },
+    begrunnelseVurderingHensynOverordnet: {
+        title: "resource.begrunnelse.vurderingHensynOverordnet.title"
+    },
+    begrunnelseFordeler: {
+        title: "resource.begrunnelse.fordeler.title"
+    },
+    begrunnelseUlemper: {
+        title: "resource.begrunnelse.ulemper.title"
+    },
+    begrunnelseSamletBegrunnelse: {
+        title: "resource.begrunnelse.samletBegrunnelse.title"
+    },
+    generelleVilkaarNorskSvenskDansk: {
+        title: "resource.generelleVilkaar.norskSvenskDansk.header",
+        trueText: "resource.generelleVilkaar.norskSvenskDansk.true.title"
     }
 };
