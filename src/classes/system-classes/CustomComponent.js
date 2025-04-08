@@ -1,4 +1,5 @@
 // Global functions
+import { isValidHeaderSize } from "../../functions/dataFormatHelpers.js";
 import { hasValue } from "../../functions/helpers.js";
 
 /**
@@ -143,15 +144,14 @@ export default class CustomComponent {
     }
 
     /**
-     * Retrieves the "size" attribute value from the given element.
+     * Retrieves the size attribute of a given element and validates it.
      *
-     * @param {HTMLElement} element - The HTML element from which to retrieve the "size" attribute.
-     * @returns {string|boolean} The value of the "size" attribute if it exists and is valid,
-     *                           otherwise `false`.
+     * @param {HTMLElement} element - The HTML element from which to retrieve the size attribute.
+     * @returns {string|undefined} The validated size as a lowercase string, or undefined if invalid or not present.
      */
     getSize(element) {
         const size = element?.getAttribute("size");
-        return hasValue(size) && size;
+        return isValidHeaderSize(size) ? size?.toString().toLowerCase() : undefined;
     }
 
     /**

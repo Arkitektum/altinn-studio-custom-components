@@ -1,3 +1,6 @@
+// Global functions
+import { isValidHeaderSize } from "../../../functions/dataFormatHelpers";
+
 /**
  * Renders a header element with the specified text, size, and optional style overrides.
  *
@@ -7,7 +10,7 @@
  */
 export function renderHeaderElement(text, size) {
     const defaultHeaderSize = "h2";
-    const headerElement = document.createElement(size || defaultHeaderSize);
+    const headerElement = document.createElement(isValidHeaderSize(size) ? size : defaultHeaderSize);
     headerElement.innerHTML = text;
     return headerElement.outerHTML;
 }

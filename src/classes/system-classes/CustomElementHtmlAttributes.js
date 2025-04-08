@@ -1,4 +1,5 @@
-// Globale functions
+// Global functions
+import { isValidHeaderSize } from "../../functions/dataFormatHelpers.js";
 import { hasValue } from "../../functions/helpers.js";
 
 /**
@@ -146,19 +147,18 @@ export default class CustomElementHtmlAttributes {
      */
     getTextAttributeFromProps(props) {
         const textAttribute = props?.text?.toString() || props?.texts?.title?.toString() || "";
-        return !props?.hideTitle && textAttribute;
+        return !props?.hideTitle ? textAttribute : "";
     }
 
     /**
-     * Retrieves the 'size' attribute from the provided props object.
-     * If the 'size' property exists and has a value, it converts it to a string and returns it.
+     * If the size is valid, it returns the size as a string; otherwise, it returns undefined.
      *
-     * @param {Object} props - The props object containing the 'size' attribute.
-     * @param {number|string} [props.size] - The size value to be retrieved and converted to a string.
-     * @returns {string|undefined} The string representation of the 'size' attribute, or undefined if not present or invalid.
+     * @param {Object} props - The properties object containing the size attribute.
+     * @param {string|number} [props.size] - The size value to validate and convert.
+     * @returns {string|undefined} The size as a string if valid, otherwise undefined.
      */
     getSizeAttributeFromProps(props) {
-        return hasValue(props?.size) && props?.size?.toString();
+        return isValidHeaderSize(props?.size) ? props?.size?.toString().toLowerCase() : undefined;
     }
 
     /**
@@ -320,7 +320,7 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|undefined} Returns the string "true" if the "hideOrgNr" property is strictly equal to "true", otherwise undefined.
      */
     getHideOrgNr(props) {
-        return props?.hideOrgNr?.toString() === "true" && "true";
+        return props?.hideOrgNr?.toString() === "true" ? "true" : undefined;
     }
 
     /**
