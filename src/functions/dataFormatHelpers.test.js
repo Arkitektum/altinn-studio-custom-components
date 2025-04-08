@@ -1,4 +1,11 @@
-import { formatDate, formatDateTime, getAvailableDateTimeLanguageOrDefault, isValidDateString, isValidHeaderSize } from "./dataFormatHelpers";
+import {
+    formatDate,
+    formatDateTime,
+    formatTime,
+    getAvailableDateTimeLanguageOrDefault,
+    isValidDateString,
+    isValidHeaderSize
+} from "./dataFormatHelpers";
 
 jest.mock("../constants/dateTimeFormats", () => ({
     availableDateTimeLanguages: ["default"],
@@ -147,6 +154,36 @@ describe("formatDateTime", () => {
         const formatted = formatDateTime(dateTime, "unsupported-lang");
         expect(formatted).toBe("01.10.2023, 15:30:00");
     });
+
+    it("should handle a valid ISO dateTime string with a time zone offset", () => {
+        const dateTime = "2023-10-01T15:30:00+02:00";
+        const formatted = formatDateTime(dateTime, "no-NO");
+        expect(formatted).toBe("01.10.2023, 15:30:00");
+    });
+
+    it("should handle a valid ISO dateTime string without time", () => {
+        const dateTime = "2023-10-01";
+        const formatted = formatDateTime(dateTime, "no-NO");
+        expect(formatted).toBe("01.10.2023, 00:00:00");
+    });
+
+    it("should return an error message for an empty string", () => {
+        const dateTime = "";
+        const formatted = formatDateTime(dateTime, "no-NO");
+        expect(formatted).toBe("Ugyldig datoformat");
+    });
+
+    it("should return an error message for a null value", () => {
+        const dateTime = null;
+        const formatted = formatDateTime(dateTime, "no-NO");
+        expect(formatted).toBe("Ugyldig datoformat");
+    });
+
+    it("should return an error message for an undefined value", () => {
+        const dateTime = undefined;
+        const formatted = formatDateTime(dateTime, "no-NO");
+        expect(formatted).toBe("Ugyldig datoformat");
+    });
 });
 
 describe("formatDate", () => {
@@ -183,6 +220,52 @@ describe("formatDate", () => {
         const date = "2023-10-01T15:30:00+02:00";
         const formatted = formatDate(date, "no-NO");
         expect(formatted).toBe("01.10.2023");
+    });
+});
+
+describe("formatTime", () => {
+    it("should format time in the specified language", () => {
+        const time = "15:30:00";
+        const formatted = formatTime(time, "no-NO");
+        expect(formatted).toBe("15:30:00");
+    });
+
+    it("should format time using the default locale if language is not specified", () => {
+        const time = "15:30:00";
+        const formatted = formatTime(time);
+        expect(formatted).toBe("15:30:00");
+    });
+
+    it("should handle invalid time input gracefully", () => {
+        const time = "invalid-time";
+        expect(() => formatTime(time, "en")).toThrow();
+    });
+
+    it("should fall back to default locale if the specified language is not supported", () => {
+        const time = "15:30:00";
+        const formatted = formatTime(time, "unsupported-lang");
+        expect(formatted).toBe("15:30:00");
+    });
+
+    it("should format a valid ISO time string with a time zone offset", () => {
+        const time = "2023-10-01T15:30:00+02:00";
+        const formatted = formatTime(time, "no-NO");
+        expect(formatted).toBe("15:30:00");
+    });
+
+    it("should return an error for an empty string", () => {
+        const time = "";
+        expect(() => formatTime(time, "no-NO")).toThrow();
+    });
+
+    it("should return an error for a null value", () => {
+        const time = null;
+        expect(() => formatTime(time, "no-NO")).toThrow();
+    });
+
+    it("should return an error for an undefined value", () => {
+        const time = undefined;
+        expect(() => formatTime(time, "no-NO")).toThrow();
     });
 });
 
