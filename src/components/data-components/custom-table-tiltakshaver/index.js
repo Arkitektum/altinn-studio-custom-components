@@ -4,6 +4,7 @@ import { getComponentContainerElement, hasValue } from "../../../functions/helpe
 import { hasMissingTextResources } from "../../../functions/validations.js";
 import { getPart, renderTiltakshaverTable } from "./functions.js";
 import textResourceBindings from "./textResourceBindings.js";
+import "./styles.css" with { type: "css" };
 
 export default customElements.define(
     "custom-table-tiltakshaver",
