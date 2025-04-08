@@ -1,8 +1,15 @@
+// Classes
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+
+// Global functions
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { getComponentContainerElement, getComponentTexts } from "../../../functions/helpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
-import { renderTableElement } from "./functions.js";
+
+// Local functions
+import { renderTableElement } from "./renderers.js";
+
+// Stylesheet
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(
@@ -16,10 +23,7 @@ export default customElements.define(
             } else {
                 const texts = await getComponentTexts(this);
                 component.setTexts(texts);
-                const validationMessages = validateTableHeadersTextResourceBindings(
-                    component?.tableColumns,
-                    component?.texts
-                );
+                const validationMessages = validateTableHeadersTextResourceBindings(component?.tableColumns, component?.texts);
                 const hasMessages = hasValidationMessages(validationMessages);
                 const feebackListElement = hasMessages && renderFeedbackListElement(validationMessages);
                 const tableElement = renderTableElement(component);

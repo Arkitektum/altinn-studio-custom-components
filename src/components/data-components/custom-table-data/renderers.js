@@ -1,4 +1,7 @@
+// Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { createCustomElement } from "../../../functions/helpers.js";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 

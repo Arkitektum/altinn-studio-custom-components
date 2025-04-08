@@ -1,6 +1,11 @@
+// Classes
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { addStyle, createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+
+// Stylesheet
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(

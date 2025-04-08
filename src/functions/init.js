@@ -1,3 +1,4 @@
+// Global functions
 import { hasValue } from "./helpers.js";
 
 /**

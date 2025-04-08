@@ -1,4 +1,7 @@
+// Classes
 import Dispensasjon from "../../../classes/layout-classes/Dispensasjon.js";
+
+// Global functions
 import { hasValue } from "../../../functions/helpers.js";
 
 /**

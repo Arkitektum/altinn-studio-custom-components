@@ -1,3 +1,4 @@
+// Constants
 import customElementTagNames from "../constants/customElementTagNames.js";
 
 /**

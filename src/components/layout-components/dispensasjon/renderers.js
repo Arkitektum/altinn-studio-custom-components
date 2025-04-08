@@ -1,5 +1,10 @@
+// Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { addContainerElement, createCustomElement, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+
+// Local functions
 import { dispensasjonIsPlanBestemmelseType } from "./functions.js";
 
 /**

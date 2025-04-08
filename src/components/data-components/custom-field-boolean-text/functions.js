@@ -1,3 +1,4 @@
+// Global functions
 import { getComponentTexts, validateTexts } from "../../../functions/helpers.js";
 
 /**

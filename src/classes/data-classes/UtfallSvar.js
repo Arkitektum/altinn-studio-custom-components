@@ -1,6 +1,8 @@
+// Classes
 import Kode from "./Kode.js";
 import UtfallType from "./UtfallType.js";
 import Vedleggsliste from "./Vedleggsliste.js";
+
 /**
  * Class representing UtfallSvar.
  * @class

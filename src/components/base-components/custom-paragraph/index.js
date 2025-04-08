@@ -1,6 +1,13 @@
+// Classes
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+
+// Global functions
 import { addStyle } from "../../../functions/helpers.js";
-import { renderParagraphElement } from "./functions.js";
+
+// Local functions
+import { renderParagraphElement } from "./renderers.js";
+
+// Stylesheet
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(

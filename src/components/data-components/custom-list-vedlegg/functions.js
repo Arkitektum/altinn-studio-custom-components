@@ -1,3 +1,4 @@
+// Classes
 import Vedlegg from "../../../classes/data-classes/Vedlegg.js";
 
 /**

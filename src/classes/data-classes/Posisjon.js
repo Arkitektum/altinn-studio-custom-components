@@ -1,4 +1,6 @@
+// Classes
 import Kode from "./Kode.js";
+
 /**
  * Class representing a Posisjon.
  * @class

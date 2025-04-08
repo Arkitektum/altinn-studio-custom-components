@@ -1,3 +1,4 @@
+// Base components
 import customDivider from "./base-components/custom-divider/index.js";
 import customFeedback from "./base-components/custom-feedback/index.js";
 import customField from "./base-components/custom-field/index.js";
@@ -5,6 +6,8 @@ import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
 import customParagraph from "./base-components/custom-paragraph/index.js";
 import customTable from "./base-components/custom-table/index.js";
+
+// Data components
 import customFeedbackData from "./data-components/custom-feedback-data/index.js";
 import customFeedbacklistData from "./data-components/custom-feedbacklist-data/index.js";
 import customFeedbacklistValidationMessages from "./data-components/custom-feedbacklist-validation-messages/index.js";
@@ -30,12 +33,16 @@ import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
 import customTableTiltakshaver from "./data-components/custom-table-tiltakshaver/index.js";
 
+// Layout components
 import dispensasjon from "./layout-components/dispensasjon/index.js";
 import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.js";
 
+// Global functions
+import initCustomComponents from "../functions/init.js";
+
+// Stylesheet
 import "../styles/main.css" with { type: "css" };
 
-import initCustomComponents from "../functions/init.js";
 initCustomComponents();
 
 export {

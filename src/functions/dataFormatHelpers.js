@@ -1,3 +1,4 @@
+// Constants
 import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.js";
 
 /**

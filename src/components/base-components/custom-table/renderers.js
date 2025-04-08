@@ -1,4 +1,7 @@
+// Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { addStyle, createCustomElement } from "../../../functions/helpers.js";
 
 /**
@@ -10,7 +13,7 @@ import { addStyle, createCustomElement } from "../../../functions/helpers.js";
  * @param {Object} [tableHeader.props.styleOverride] - CSS styles to apply to the table header.
  * @returns {HTMLElement} The created table header (th) element.
  */
-function getTableHeaderElement(tableHeader) {
+function renderTableHeaderElement(tableHeader) {
     const th = document.createElement("th");
     th.textContent = tableHeader.text;
     addStyle(th, tableHeader?.props?.styleOverride);
@@ -23,10 +26,10 @@ function getTableHeaderElement(tableHeader) {
  * @param {Array} tableRow - An array of table cell data to be converted into `<td>` elements.
  * @returns {HTMLTableRowElement} The created table row element with appended table cell elements.
  */
-function getTableRowElement(tableRow) {
+function renderTableRowElement(tableRow) {
     const tr = document.createElement("tr");
     tableRow.forEach((tableCell) => {
-        tr.appendChild(getTableCellElement(tableCell));
+        tr.appendChild(renderTableCellElement(tableCell));
     });
     return tr;
 }
@@ -42,7 +45,7 @@ function getTableRowElement(tableRow) {
  * @param {Object} tableCell.styleOverride - The style overrides to apply to the custom element.
  * @returns {HTMLTableCellElement} The created table cell element containing the custom element.
  */
-function getTableCellElement(tableCell) {
+function renderTableCellElement(tableCell) {
     const td = document.createElement("td");
     const htmlAttributes = new CustomElementHtmlAttributes(tableCell);
     td.innerHTML = createCustomElement(tableCell.tagName, htmlAttributes).outerHTML;
@@ -82,13 +85,13 @@ export function renderTableElement(data, emptyFieldText, styleOverride) {
 
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
         data.tableHeaders.forEach((tableHeader) => {
-            tr.appendChild(getTableHeaderElement(tableHeader));
+            tr.appendChild(renderTableHeaderElement(tableHeader));
         });
         thead.appendChild(tr);
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         data.tableRows.forEach((tableRow) => {
-            tbody.appendChild(getTableRowElement(tableRow));
+            tbody.appendChild(renderTableRowElement(tableRow));
         });
         table.appendChild(tbody);
     } else if (emptyFieldText) {

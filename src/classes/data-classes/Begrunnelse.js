@@ -1,5 +1,7 @@
+// Classes
 import Fordeler from "./Fordeler.js";
 import Ulemper from "./Ulemper.js";
+
 /**
  * Class representing a Begrunnelse.
  * @class

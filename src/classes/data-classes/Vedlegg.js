@@ -1,3 +1,4 @@
+// Classes
 import Kode from "./Kode.js";
 
 /**

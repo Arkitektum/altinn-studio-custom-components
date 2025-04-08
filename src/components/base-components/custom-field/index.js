@@ -1,6 +1,13 @@
+// Classes
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+
+// Global functions
 import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { renderFieldElement } from "./functions.js";
+
+// Local functions
+import { renderFieldElement } from "./renderers.js";
+
+// Stylesheet
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(

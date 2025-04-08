@@ -1,4 +1,6 @@
+// Classes
 import Eiendom from "./Eiendom.js";
+
 /**
  * Class representing an EiendomByggested.
  * @class

@@ -1,3 +1,4 @@
+// Global functions
 import { formatString } from "../../../functions/dataFormatHelpers.js";
 import { hasValue } from "../../../functions/helpers.js";
 

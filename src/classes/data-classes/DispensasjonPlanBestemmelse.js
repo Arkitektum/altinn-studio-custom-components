@@ -1,3 +1,4 @@
+// Classes
 import NasjonalArealplanId from "./NasjonalArealplanId.js";
 import Planbestemmelse from "./Planbestemmelse.js";
 

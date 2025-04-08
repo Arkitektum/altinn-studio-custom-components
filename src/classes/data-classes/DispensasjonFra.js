@@ -1,5 +1,7 @@
+// Classes
 import DispensasjonPlanBestemmelse from "./DispensasjonPlanBestemmelse.js";
 import Kode from "./Kode.js";
+
 /**
  * Class representing a DispensasjonFra.
  * @class

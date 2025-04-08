@@ -1,5 +1,7 @@
+// Classes
 import Kode from "./Kode.js";
 import Posisjon from "./Posisjon.js";
+
 /**
  * Class representing a Stedfesting.
  * @class

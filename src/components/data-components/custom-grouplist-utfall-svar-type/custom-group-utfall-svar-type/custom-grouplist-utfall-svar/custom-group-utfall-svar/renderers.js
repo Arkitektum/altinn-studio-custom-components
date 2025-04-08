@@ -1,4 +1,7 @@
+// Classes
 import CustomElementHtmlAttributes from "../../../../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { addContainerElement, createCustomElement } from "../../../../../../functions/helpers.js";
 
 /**
@@ -8,7 +11,7 @@ import { addContainerElement, createCustomElement } from "../../../../../../func
  * @param {string} [data.beskrivelse] - The description text to be displayed.
  * @returns {HTMLElement} The container element wrapping the custom field element.
  */
-export function getBeskrivelseElement(data) {
+export function renderBeskrivelseElement(data) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { simpleBinding: data?.beskrivelse },
         hideIfEmpty: true
@@ -24,7 +27,7 @@ export function getBeskrivelseElement(data) {
  * @param {string} texts.status.title - The title text for the status.
  * @returns {HTMLElement} The container element with the custom status element inside.
  */
-export function getStatusElement(data, texts) {
+export function renderStatusElement(data, texts) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { data },
         texts,
@@ -40,7 +43,7 @@ export function getStatusElement(data, texts) {
  * @param {Object} texts - The texts object containing title descriptions.
  * @returns {HTMLElement} - The custom element wrapped in a container element.
  */
-export function getTemaElement(data, texts) {
+export function renderTemaElement(data, texts) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { simpleBinding: data?.tema?.kodebeskrivelse },
         text: texts?.["tema.kodebeskrivelse.title"],
@@ -56,7 +59,7 @@ export function getTemaElement(data, texts) {
  * @param {Object} texts - The texts object containing the title for the "kommentar" field.
  * @returns {HTMLElement} The container element wrapping the custom field data element.
  */
-export function getKommentarElement(data, texts) {
+export function renderKommentarElement(data, texts) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { simpleBinding: data?.kommentar },
         text: texts?.["kommentar.title"],
@@ -74,7 +77,7 @@ export function getKommentarElement(data, texts) {
  * @param {Object} texts["vedleggsliste.vedlegg.title"] - The title text for the attachment list.
  * @returns {HTMLElement} The custom list element for the attachment list.
  */
-export function getVedleggslisteElement(data, texts) {
+export function renderVedleggslisteElement(data, texts) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { data: data?.vedleggsliste?.vedlegg },
         text: texts?.["vedleggsliste.vedlegg.title"],

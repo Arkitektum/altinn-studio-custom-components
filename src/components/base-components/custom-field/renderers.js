@@ -1,3 +1,4 @@
+// Global functions
 import { addStyle } from "../../../functions/helpers.js";
 
 /**

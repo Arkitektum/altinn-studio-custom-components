@@ -1,7 +1,12 @@
+// Classes
 import CustomComponent from "../../../../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { createCustomElement, getComponentContainerElement, hasValue } from "../../../../../../functions/helpers.js";
-import { getBeskrivelseElement, getKommentarElement, getStatusElement, getTemaElement, getVedleggslisteElement } from "./functions.js";
+
+// Local functions
+import { renderBeskrivelseElement, renderKommentarElement, renderStatusElement, renderTemaElement, renderVedleggslisteElement } from "./renderers.js";
 
 export default customElements.define(
     "custom-group-utfall-svar",
@@ -21,11 +26,11 @@ export default customElements.define(
                 });
                 const headerElement = createCustomElement("custom-header-text", headerHtmlAttributes);
                 containerElement.appendChild(headerElement);
-                containerElement.appendChild(getBeskrivelseElement(data, texts));
-                containerElement.appendChild(getStatusElement(data, texts));
-                containerElement.appendChild(getTemaElement(data, texts));
-                containerElement.appendChild(getKommentarElement(data, texts));
-                containerElement.appendChild(getVedleggslisteElement(data, texts));
+                containerElement.appendChild(renderBeskrivelseElement(data, texts));
+                containerElement.appendChild(renderStatusElement(data, texts));
+                containerElement.appendChild(renderTemaElement(data, texts));
+                containerElement.appendChild(renderKommentarElement(data, texts));
+                containerElement.appendChild(renderVedleggslisteElement(data, texts));
                 this.appendChild(containerElement);
             }
         }

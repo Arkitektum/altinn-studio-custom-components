@@ -1,3 +1,4 @@
+// Global functions
 import { validateFormData } from "../../../functions/helpers.js";
 
 /**

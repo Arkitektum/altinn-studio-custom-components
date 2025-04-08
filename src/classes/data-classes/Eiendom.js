@@ -1,5 +1,7 @@
+// Classes
 import Adresse from "./Adresse.js";
 import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon.js";
+
 /**
  * Class representing an Eiendom.
  * @class

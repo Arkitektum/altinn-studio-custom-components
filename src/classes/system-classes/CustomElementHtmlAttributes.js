@@ -1,4 +1,6 @@
+// Globale functions
 import { hasValue } from "../../functions/helpers.js";
+
 /**
  * Class representing CustomElementHtmlAttributes.
  * @class

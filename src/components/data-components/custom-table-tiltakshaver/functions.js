@@ -1,6 +1,8 @@
+// Classes
 import Part from "../../../classes/data-classes/Part.js";
+
+// Global functions
 import { hasValue } from "../../../functions/helpers.js";
-import { getPartTableElement } from "../../../functions/tableHelpers.js";
 
 /**
  * Retrieves a Part instance from the given component if it contains valid form data.
@@ -12,17 +14,4 @@ import { getPartTableElement } from "../../../functions/tableHelpers.js";
  */
 export function getPart(component) {
     return hasValue(component?.formData?.data) && new Part(component.formData.data);
-}
-
-/**
- * Renders a table for "tiltakshaver" using the provided part, text resources, and text resource bindings.
- *
- * @param {Object} part - The part object containing data to be rendered in the table.
- * @param {Object} textResources - An object containing text resources for localization.
- * @param {Object} [textResourceBindings] - An optional object containing specific text resource bindings.
- * @param {string} [textResourceBindings.tiltakshaver] - The text resource binding for "tiltakshaver".
- * @returns {HTMLElement} - The HTML element representing the rendered table.
- */
-export function renderTiltakshaverTable(part, textResources, textResourceBindings) {
-    return getPartTableElement(part, textResources, textResourceBindings?.tiltakshaver);
 }

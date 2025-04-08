@@ -1,3 +1,4 @@
+// Classes
 import Adresse from "./Adresse.js";
 import Telefonnumre from "./Telefonnumre.js";
 

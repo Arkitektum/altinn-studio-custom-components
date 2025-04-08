@@ -1,8 +1,15 @@
+// Classes
 import Adresse from "../../../classes/data-classes/Adresse.js";
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+
+// Global functions
 import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+
+// Local functions
 import { formatAdresse } from "./functions.js";
+
+// Stylesheet
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(

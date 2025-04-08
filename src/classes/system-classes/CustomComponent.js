@@ -1,4 +1,6 @@
+// Global functions
 import { hasValue } from "../../functions/helpers.js";
+
 /**
  * Class representing a CustomComponent.
  * @class

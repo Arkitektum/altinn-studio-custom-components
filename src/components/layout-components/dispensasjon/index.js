@@ -1,7 +1,12 @@
+// Classes
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+
+// Global functions
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { appendChildren, getComponentContainerElement, hasValue, renderLayoutContainerElement } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
+
+// Local functions
 import { dispensasjonIsPlanBestemmelseType, getDispensasjon } from "./functions.js";
 import {
     renderBegrunnelseFordeler,
