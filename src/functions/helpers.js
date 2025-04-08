@@ -16,6 +16,8 @@ export function hasValue(obj) {
         return obj.length > 0;
     } else if (typeof obj === "number") {
         return isNaN(obj) === false;
+    } else if (typeof obj === "boolean") {
+        return obj === true;
     }
     for (let key in obj) {
         if (!!obj?.[key]?.toString().length > 0) {
