@@ -74,7 +74,11 @@ function setAttributes(element, attributes) {
 export async function getComponentTexts(component) {
     let texts = component.getAttribute("texts");
     if (texts) {
-        return JSON.parse(texts);
+        try {
+            return JSON.parse(texts);
+        } catch (error) {
+            throw new Error("Invalid JSON");
+        }
     } else {
         texts = await getAsync(component, "texts");
         return texts;
@@ -125,7 +129,7 @@ export function addContainerElement(component, flex) {
 
     addStyle(containerElement, {
         ...flexStyle,
-        padding: "0.75rem 0"
+        padding: "0.75rem 0px"
     });
 
     return containerElement;
@@ -199,7 +203,7 @@ export function validateFormData(data, dataKeys, componentName) {
  * @returns {Promise<any>} A promise that resolves with the value of the property once it is set, or rejects if the timeout is reached.
  * @throws {Error} If the timeout is reached before the property is set.
  */
-function getAsync(obj, prop, timeout = 200) {
+export function getAsync(obj, prop, timeout = 200) {
     return new Promise((resolve, reject) => {
         const timer = setTimeout(() => {
             reject(new Error(`Timeout: ${prop} was not set within ${timeout}ms`));
@@ -223,14 +227,22 @@ function getAsync(obj, prop, timeout = 200) {
 }
 
 /**
- * Retrieves the container element of a given component.
+ * Retrieves the container element for a given component.
  *
- * @param {HTMLElement} component - The component for which to find the container element.
- * @returns {HTMLElement | null} - The container element if found, otherwise null.
+ * @param {HTMLElement} component - The component element for which to find the container.
+ * @returns {HTMLElement | null} - The container element if found, or null if no container exists.
+ *                                 If the component is marked as a child component, it returns the component itself.
  */
 export function getComponentContainerElement(component) {
     const isChildComponent = component.getAttribute("isChildComponent") === "true";
-    return isChildComponent ? component : component?.parentElement?.parentElement;
+    const grandParentElement = component?.parentElement?.parentElement;
+    if (isChildComponent) {
+        return component;
+    } else if (!!grandParentElement) {
+        return grandParentElement;
+    } else {
+        return null;
+    }
 }
 
 /**
@@ -245,11 +257,14 @@ export function getValueFromDataKey(data, dataKey) {
     if (!dataKey) {
         return data;
     }
-    const path = dataKey?.split(/\.|\[|\]/).filter(Boolean);
-    for (let i = 0; i < path.length; i++) {
-        data = data[path[i]];
+    if (data == null) {
+        return undefined;
     }
-    return data;
+    if (/(\.\.|^\.)/.test(dataKey)) {
+        return undefined; // Invalid dataKey
+    }
+    const keys = dataKey.split(/\.|\[|\]/).filter(Boolean);
+    return keys.reduce((acc, key) => acc && acc[key], data);
 }
 
 /**

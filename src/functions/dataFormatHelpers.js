@@ -43,7 +43,13 @@ export function formatDateTime(dateTime, language = "default") {
     }
     language = getAvailableDateTimeLanguageOrDefault(language);
 
-    const locale = dateTimeLocale.dateTime[language] || dateTimeLocale.dateTime.default;
+    const dateTimeHasTime = dateTime.includes("T");
+    if (!dateTimeHasTime) {
+        dateTime = dateTime + "T00:00:00"; // Append time if not present
+    }
+
+    const locale = dateTimeLocale.dateTime[language];
+
     const options = dateTimeFormat.dateTime[locale] || dateTimeFormat.dateTime.default;
     return new Intl.DateTimeFormat(locale, options).format(new Date(dateTime));
 }
@@ -60,7 +66,7 @@ export function formatDate(date, language = "default") {
         throw new Error("Invalid date input");
     }
     language = getAvailableDateTimeLanguageOrDefault(language);
-    const locale = dateTimeLocale.date[language] || dateTimeLocale.date.default;
+    const locale = dateTimeLocale.date[language];
     const options = dateTimeFormat.date[locale] || dateTimeFormat.date.default;
     return new Intl.DateTimeFormat(locale, options).format(new Date(date));
 }
@@ -73,7 +79,26 @@ export function formatDate(date, language = "default") {
  * @returns {string} - The formatted time string.
  */
 export function formatTime(time, language = "default") {
-    const locale = dateTimeLocale.time[language] || dateTimeLocale.time.default;
+    const timeHasDate = time.includes("T");
+    if (!timeHasDate) {
+        time = "1970-01-01T" + time; // Append date if not present
+    }
+    if (!isValidDateString(time)) {
+        throw new Error("Invalid time input");
+    }
+    // Check if the time string is valid
+    const timeParts = time.split("T");
+    if (timeParts.length !== 2 || timeParts[1].split(":").length < 2) {
+        throw new Error("Invalid time format");
+    }
+    // Check if the time string is a valid date
+    const date = new Date(time);
+    if (isNaN(date.getTime())) {
+        throw new Error("Invalid time input");
+    }
+    // Format the time string
+    language = getAvailableDateTimeLanguageOrDefault(language);
+    const locale = dateTimeLocale.time[language];
     const options = dateTimeFormat.time[locale] || dateTimeFormat.time.default;
     return new Intl.DateTimeFormat(locale, options).format(new Date(time));
 }
