@@ -1,4 +1,4 @@
-import { formatDate, formatDateTime, getAvailableDateTimeLanguageOrDefault, isValidDateString } from "./dataFormatHelpers";
+import { formatDate, formatDateTime, getAvailableDateTimeLanguageOrDefault, isValidDateString, isValidHeaderSize } from "./dataFormatHelpers";
 
 jest.mock("../constants/dateTimeFormats", () => ({
     availableDateTimeLanguages: ["default"],
@@ -183,5 +183,49 @@ describe("formatDate", () => {
         const date = "2023-10-01T15:30:00+02:00";
         const formatted = formatDate(date, "no-NO");
         expect(formatted).toBe("01.10.2023");
+    });
+});
+
+describe("isValidHeaderSize", () => {
+    it("should return true for a valid header size", () => {
+        const validSize = "h3";
+        jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
+        const result = isValidHeaderSize(validSize);
+        expect(result).toBe(true);
+    });
+
+    it("should return false for an invalid header size", () => {
+        const invalidSize = "extra-large";
+        jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
+        const result = isValidHeaderSize(invalidSize);
+        expect(result).toBe(false);
+    });
+
+    it("should return false for an empty string", () => {
+        const emptySize = "";
+        jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
+        const result = isValidHeaderSize(emptySize);
+        expect(result).toBe(false);
+    });
+
+    it("should return false for a null value", () => {
+        const nullSize = null;
+        jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
+        const result = isValidHeaderSize(nullSize);
+        expect(result).toBe(false);
+    });
+
+    it("should return false for an undefined value", () => {
+        const undefinedSize = undefined;
+        jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
+        const result = isValidHeaderSize(undefinedSize);
+        expect(result).toBe(false);
+    });
+
+    it("should be case-insensitive when validating header size", () => {
+        const validSize = "H2";
+        jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
+        const result = isValidHeaderSize(validSize);
+        expect(result).toBe(true);
     });
 });
