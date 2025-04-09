@@ -1,6 +1,7 @@
 import {
     formatDate,
     formatDateTime,
+    formatString,
     formatTime,
     getAvailableDateTimeLanguageOrDefault,
     isValidDateString,
@@ -267,6 +268,31 @@ describe("formatTime", () => {
         const time = undefined;
         expect(() => formatTime(time, "no-NO")).toThrow();
     });
+
+    it("should throw an error for a number", () => {
+        const time = 15; // Pass a number instead of a string
+        expect(() => formatTime(time, "no-NO")).toThrow();
+    });
+
+    it("should throw an error for a number", () => {
+        const time = 15; // Pass a number instead of a string
+        expect(() => formatTime(time, "no-NO")).toThrow();
+    });
+
+    it("should append a default date if the time string does not include a date", () => {
+        const time = "15:30:00";
+        const formatted = formatTime(time, "no-NO");
+        expect(formatted).toBe("15:30:00");
+    });
+
+    if (
+        ("should handle a valid time string without seconds",
+        () => {
+            const time = "15:30";
+            const formatted = formatTime(time, "no-NO");
+            expect(formatted).toBe("15:30:00");
+        })
+    );
 });
 
 describe("isValidHeaderSize", () => {
@@ -310,5 +336,77 @@ describe("isValidHeaderSize", () => {
         jest.mock("../constants/validSizeValues", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
         const result = isValidHeaderSize(validSize);
         expect(result).toBe(true);
+    });
+});
+
+describe("formatString", () => {
+    it("should format a string as dateTime when format is 'dateTime'", () => {
+        const input = "2023-10-01T15:30:00";
+        const formatted = formatString(input, "dateTime", "no-NO");
+        expect(formatted).toBe("01.10.2023, 15:30:00");
+    });
+
+    it("should format a string as date when format is 'date'", () => {
+        const input = "2023-10-01";
+        const formatted = formatString(input, "date", "no-NO");
+        expect(formatted).toBe("01.10.2023");
+    });
+
+    it("should format a string as time when format is 'time'", () => {
+        const input = "15:30:00";
+        const formatted = formatString(input, "time", "no-NO");
+        expect(formatted).toBe("15:30:00");
+    });
+
+    it("should return the original string if format is not recognized", () => {
+        const input = "2023-10-01T15:30:00";
+        const formatted = formatString(input, "unknown-format", "no-NO");
+        expect(formatted).toBe(input);
+    });
+
+    it("should handle invalid dateTime input gracefully", () => {
+        const input = "invalid-date";
+        const formatted = formatString(input, "dateTime", "no-NO");
+        expect(formatted).toBe("Ugyldig datoformat");
+    });
+
+    it("should throw an error for invalid date input when format is 'date'", () => {
+        const input = "invalid-date";
+        expect(() => formatString(input, "date", "no-NO")).toThrow();
+    });
+
+    it("should throw an error for invalid time input when format is 'time'", () => {
+        const input = "invalid-time";
+        expect(() => formatString(input, "time", "no-NO")).toThrow();
+    });
+
+    it("should use the default language if no language is specified", () => {
+        const input = "2023-10-01T15:30:00";
+        const formatted = formatString(input, "dateTime");
+        expect(formatted).toBe("01.10.2023, 15:30:00");
+    });
+
+    it("should fall back to default locale if the specified language is not supported", () => {
+        const input = "2023-10-01T15:30:00";
+        const formatted = formatString(input, "dateTime", "unsupported-lang");
+        expect(formatted).toBe("01.10.2023, 15:30:00");
+    });
+
+    it("should handle a valid ISO date string without time when format is 'dateTime'", () => {
+        const input = "2023-10-01";
+        const formatted = formatString(input, "dateTime", "no-NO");
+        expect(formatted).toBe("01.10.2023, 00:00:00");
+    });
+
+    it("should handle a valid ISO date string without time when format is 'date'", () => {
+        const input = "2023-10-01";
+        const formatted = formatString(input, "date", "no-NO");
+        expect(formatted).toBe("01.10.2023");
+    });
+
+    it("should append a default date if the time string does not include a date when format is 'time'", () => {
+        const input = "15:30:00";
+        const formatted = formatString(input, "time", "no-NO");
+        expect(formatted).toBe("15:30:00");
     });
 });
