@@ -1,5 +1,5 @@
 // Global functions
-import { isValidHeaderSize } from "../../../functions/dataFormatHelpers";
+import { isValidHeaderSize } from "../../../functions/dataFormatHelpers.js";
 
 /**
  * Renders a header element with the specified text, size, and optional style overrides.
