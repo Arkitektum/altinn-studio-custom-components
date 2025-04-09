@@ -56,91 +56,93 @@ body {
     /*
         This CSS rule sets the default color and font-family for all paragraph elements outside a custom component.
     */
-    & p {
-        font-family: var(--font-family-default);
-        font-size: var(--font-size-default);
-        color: var(--color-text-default);
-        line-height: var(--line-height-default);
-        &[class^="fds-"] {
+    & main {
+        & p {
             font-family: var(--font-family-default);
-        }
-    }
-    & .fds-label {
-        font-family: var(--font-family-default);
-        font-size: var(--font-size-h2);
-        font-weight: var(--font-weight-default);
-        color: var(--color-text-default);
-        margin-block-start: var(--margin-block-start-heading);
-        margin-block-end: var(--margin-block-end-heading);
-        line-height: var(--line-height-heading);
-        page-break-after: avoid;
-        page-break-inside: avoid;
-    }
-    & .fds-table {
-        border-spacing: 0;
-        border: 1px solid var(--color-default-dark);
-        border-radius: 6px;
-        overflow: hidden;
-        width: 100%;
-        & tr {
-            page-break-inside: avoid;
-        }
-        & td,
-        & th {
-            padding: 8px 12px;
-            page-break-inside: avoid;
-            &::after {
-                content: "";
-                display: block;
-                height: 30px;
-                margin-bottom: -30px;
-            }
-        }
-        & thead {
-            & th {
+            font-size: var(--font-size-default);
+            color: var(--color-text-default);
+            line-height: var(--line-height-default);
+            &[class^="fds-"] {
                 font-family: var(--font-family-default);
-                font-size: var(--font-size-default);
-                page-break-after: avoid;
-                text-align: left;
-                font-weight: 500;
-                background-color: var(--color-default-default);
-                border-bottom: 1px solid var(--color-border-default);
-                line-height: var(--line-height-table-header);
-                &:first-of-type {
-                    border-top-left-radius: 5px;
-                }
-                &:last-of-type {
-                    border-top-right-radius: 5px;
-                }
             }
         }
-        & tbody {
+        & .fds-label {
+            font-family: var(--font-family-default);
+            font-size: var(--font-size-h2);
+            font-weight: var(--font-weight-default);
+            color: var(--color-text-default);
+            margin-block-start: var(--margin-block-start-heading);
+            margin-block-end: var(--margin-block-end-heading);
+            line-height: var(--line-height-heading);
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
+        & .fds-table {
+            border-spacing: 0;
+            border: 1px solid var(--color-default-dark);
+            border-radius: 6px;
+            overflow: hidden;
+            width: 100%;
             & tr {
-                &:nth-child(even) {
-                    background-color: var(--color-default-muted);
+                page-break-inside: avoid;
+            }
+            & td,
+            & th {
+                padding: 8px 12px;
+                page-break-inside: avoid;
+                &::after {
+                    content: "";
+                    display: block;
+                    height: 30px;
+                    margin-bottom: -30px;
                 }
-                &:not(:last-of-type) {
-                    & td {
-                        border-bottom: 1px solid var(--color-border-default);
-                    }
-                }
-                &:last-of-type {
-                    & td {
-                        border-bottom: none;
-                        &:first-of-type {
-                            border-bottom-left-radius: 5px;
-                        }
-                        &:last-of-type {
-                            border-bottom-right-radius: 5px;
-                        }
-                    }
-                }
-                & td {
+            }
+            & thead {
+                & th {
                     font-family: var(--font-family-default);
                     font-size: var(--font-size-default);
-                    font-weight: var(--font-weight-default);
-                    color: var(--color-text-default);
-                    line-height: var(--line-height-default);
+                    page-break-after: avoid;
+                    text-align: left;
+                    font-weight: 500;
+                    background-color: var(--color-default-default);
+                    border-bottom: 1px solid var(--color-border-default);
+                    line-height: var(--line-height-table-header);
+                    &:first-of-type {
+                        border-top-left-radius: 5px;
+                    }
+                    &:last-of-type {
+                        border-top-right-radius: 5px;
+                    }
+                }
+            }
+            & tbody {
+                & tr {
+                    &:nth-child(even) {
+                        background-color: var(--color-default-muted);
+                    }
+                    &:not(:last-of-type) {
+                        & td {
+                            border-bottom: 1px solid var(--color-border-default);
+                        }
+                    }
+                    &:last-of-type {
+                        & td {
+                            border-bottom: none;
+                            &:first-of-type {
+                                border-bottom-left-radius: 5px;
+                            }
+                            &:last-of-type {
+                                border-bottom-right-radius: 5px;
+                            }
+                        }
+                    }
+                    & td {
+                        font-family: var(--font-family-default);
+                        font-size: var(--font-size-default);
+                        font-weight: var(--font-weight-default);
+                        color: var(--color-text-default);
+                        line-height: var(--line-height-default);
+                    }
                 }
             }
         }
