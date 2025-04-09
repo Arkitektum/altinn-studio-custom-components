@@ -86,16 +86,7 @@ export function formatTime(time, language = "default") {
     if (!isValidDateString(time)) {
         throw new Error("Invalid time input");
     }
-    // Check if the time string is valid
-    const timeParts = time.split("T");
-    if (timeParts.length !== 2 || timeParts[1].split(":").length < 2) {
-        throw new Error("Invalid time format");
-    }
-    // Check if the time string is a valid date
-    const date = new Date(time);
-    if (isNaN(date.getTime())) {
-        throw new Error("Invalid time input");
-    }
+
     // Format the time string
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.time[language];
