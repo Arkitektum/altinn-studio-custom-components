@@ -28,7 +28,7 @@ function getTextResources() {
 function getValueFromTextResourceBinding(binding) {
     const textResources = getTextResources();
     const textResource = textResources.resources.find((resource) => resource.id === binding);
-    return textResource?.value;
+    return textResource?.value !== undefined ? textResource?.value : binding;
 }
 
 function getDataForComponent(component) {
