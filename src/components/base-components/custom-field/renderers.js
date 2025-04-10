@@ -22,7 +22,7 @@ function renderFieldTitleElement(fieldTitle, inline) {
  */
 function renderFieldValueElement(fieldValue) {
     const fieldValueElement = document.createElement("span");
-    fieldValueElement.innerHTML = fieldValue;
+    fieldValueElement.innerHTML = fieldValue || "";
     return fieldValueElement;
 }
 
