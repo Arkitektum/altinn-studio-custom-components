@@ -86,6 +86,19 @@ export async function getComponentTexts(component) {
 }
 
 /**
+ * Retrieves the text for an empty field from the given component.
+ *
+ * @param {Object} component - The component object containing text properties.
+ * @param {Object} [component.texts] - An optional object containing text definitions.
+ * @param {string} [component.texts.emptyFieldText] - The text to display for an empty field.
+ * @returns {string} The empty field text if defined, otherwise an empty string.
+ */
+export function getEmptyFieldText(component) {
+    const emptyFieldText = component?.texts?.emptyFieldText;
+    return emptyFieldText || "";
+}
+
+/**
  * Creates a custom HTML element with the specified tag name and attributes.
  *
  * @param {string} tagName - The name of the HTML tag to create.

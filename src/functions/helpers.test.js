@@ -12,7 +12,8 @@ import {
     getTextResourceFromResourceBinding,
     getTextResourcesFromResourceBindings,
     appendChildren,
-    getAsync
+    getAsync,
+    getEmptyFieldText
 } from "./helpers";
 
 // Ensure jsdom environment is used for DOM-related tests
@@ -553,6 +554,28 @@ describe("helpers.js", () => {
                 obj.otherProp = "value";
             }, 100);
             await expect(promise).rejects.toThrow("Timeout: testProp was not set within 200ms");
+        });
+    });
+
+    describe("getEmptyFieldText", () => {
+        it("should return the emptyFieldText if it is defined", () => {
+            const component = { texts: { emptyFieldText: "This field is required" } };
+            expect(getEmptyFieldText(component)).toBe("This field is required");
+        });
+
+        it("should return an empty string if emptyFieldText is not defined", () => {
+            const component = { texts: {} };
+            expect(getEmptyFieldText(component)).toBe("");
+        });
+
+        it("should return an empty string if texts is not defined", () => {
+            const component = {};
+            expect(getEmptyFieldText(component)).toBe("");
+        });
+
+        it("should return an empty string if the component is null or undefined", () => {
+            expect(getEmptyFieldText(null)).toBe("");
+            expect(getEmptyFieldText(undefined)).toBe("");
         });
     });
 });
