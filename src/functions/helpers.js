@@ -4,20 +4,32 @@ import customElementTagNames from "../constants/customElementTagNames.js";
 /**
  * Checks if the given object has a value.
  *
- * For strings, it checks if the length is greater than 0.
- * For numbers, it checks if the number is not NaN.
- * For other objects, it checks if any property has a non-empty string value.
+ * @param {any} obj - The object to check for a value.
+ * @returns {boolean} Returns `true` if the object has a value, otherwise `false`.
  *
- * @param {string|number|object} obj - The object to check for a value.
- * @returns {boolean} - Returns true if the object has a value, otherwise false.
+ * The function evaluates the following cases:
+ * - `undefined` or `null`: Returns `false`.
+ * - `string`: Returns `true` if the string has a length greater than 0.
+ * - `number`: Returns `true` if the number is not NaN.
+ * - `boolean`: Returns `true` if the value is `true`.
+ * - `array`: Returns `true` if the array has a length greater than 0.
+ * - `object`: Returns `true` if at least one property has a non-empty string value.
  */
 export function hasValue(obj) {
+    if (obj === undefined || obj === null) {
+        return false;
+    }
     if (typeof obj === "string") {
         return obj.length > 0;
-    } else if (typeof obj === "number") {
+    }
+    if (typeof obj === "number") {
         return isNaN(obj) === false;
-    } else if (typeof obj === "boolean") {
+    }
+    if (typeof obj === "boolean") {
         return obj === true;
+    }
+    if (Array.isArray(obj)) {
+        return obj.length > 0;
     }
     for (let key in obj) {
         if (!!obj?.[key]?.toString().length > 0) {
