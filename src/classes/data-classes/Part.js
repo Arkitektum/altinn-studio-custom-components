@@ -1,7 +1,8 @@
 // Classes
-import { hasValue } from "../../functions/helpers.js";
 import Adresse from "./Adresse.js";
-import Telefonnumre from "./Telefonnumre.js";
+
+// Global functions
+import { hasValue } from "../../functions/helpers.js";
 
 /**
  * Class representing a Part.
@@ -9,29 +10,28 @@ import Telefonnumre from "./Telefonnumre.js";
  */
 export default class Part {
     /**
-     * Creates an instance of the Part class.
+     * Constructs a new instance of the Part class.
      *
      * @param {Object} props - The properties to initialize the Part instance.
      * @param {string} [props.navn] - The name of the part.
-     * @param {string} [props.organisasjonsnummer] - The organization number of the part.
-     * @param {Object} [props.adresse] - The address of the part, used to create an instance of the Adresse class.
-     * @param {string} [props.telefonnummer] - The landline phone number of the part.
-     * @param {string} [props.mobilnummer] - The mobile phone number of the part.
-     * @param {string} [props.epost] - The email address of the part.
+     * @param {string} [props.organisasjonsnummer] - The organization number.
+     * @param {string} [props.epost] - The email address.
+     * @param {Object} [props.adresse] - The address object.
+     * @param {string} [props.telefonnummer] - The landline phone number.
+     * @param {string} [props.mobilnummer] - The mobile phone number.
      */
+
     constructor(props) {
         const adresse = this.getAdresse(props);
-        const telefonnumre = this.getTelefonnumre(props);
 
         this.navn = props?.navn;
         this.organisasjonsnummer = props?.organisasjonsnummer;
         this.epost = props?.epost;
+        this.telefonnummer = props?.telefonnummer;
+        this.mobilnummer = props?.mobilnummer;
 
         if (adresse) {
             this.adresse = adresse;
-        }
-        if (telefonnumre) {
-            this.telefonnumre = telefonnumre;
         }
     }
 
@@ -45,21 +45,6 @@ export default class Part {
     getAdresse(props) {
         if (hasValue(props?.adresse)) {
             return new Adresse(props.adresse);
-        }
-        return undefined;
-    }
-
-    /**
-     * Retrieves an instance of the Telefonnumre class if either telefonnummer or mobilnummer exists in the provided properties.
-     *
-     * @param {Object} props - The properties object containing potential phone number data.
-     * @param {string} [props.telefonnummer] - The landline phone number, if available.
-     * @param {string} [props.mobilnummer] - The mobile phone number, if available.
-     * @returns {Telefonnumre|undefined} An instance of Telefonnumre if valid data is provided, otherwise undefined.
-     */
-    getTelefonnumre(props) {
-        if (hasValue(props?.telefonnummer) || hasValue(props?.mobilnummer)) {
-            return new Telefonnumre(props);
         }
         return undefined;
     }
