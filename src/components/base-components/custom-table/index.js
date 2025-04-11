@@ -20,7 +20,7 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const headerElement = renderHeaderElement(component?.text, component?.size);
-                const tableElement = renderTableElement(component?.formData?.data, component?.emptyFieldText, component?.styleOverride);
+                const tableElement = renderTableElement(component);
                 this.innerHTML = "";
                 if (headerElement) {
                     this.appendChild(headerElement);

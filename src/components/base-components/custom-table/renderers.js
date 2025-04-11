@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { addStyle, createCustomElement } from "../../../functions/helpers.js";
+import { addStyle, createCustomElement, getEmptyFieldText } from "../../../functions/helpers.js";
 
 /**
  * Creates a table header (th) element with the specified text and style.
@@ -70,15 +70,21 @@ export function renderHeaderElement(text, size) {
 }
 
 /**
- * Renders a table element based on the provided data.
+ * Renders a table element based on the provided component's data and style overrides.
  *
- * @param {Object} data - The data to be used for rendering the table.
- * @param {Array} data.tableHeaders - An array of table header objects.
- * @param {Array} data.tableRows - An array of table row objects.
- * @param {string} [emptyFieldText] - The text to display if there are no table headers or rows.
+ * @param {Object} component - The component object containing data and style information.
+ * @param {Object} [component.formData] - The form data associated with the component.
+ * @param {Object} [component.formData.data] - The data used to populate the table.
+ * @param {Array<string>} [component.formData.data.tableHeaders] - An array of table header strings.
+ * @param {Array<Array<string>>} [component.formData.data.tableRows] - An array of table row data, where each row is an array of strings.
+ * @param {string} [component.styleOverride] - Optional CSS style overrides for the table.
+ *
  * @returns {HTMLTableElement} The rendered table element.
  */
-export function renderTableElement(data, emptyFieldText, styleOverride) {
+export function renderTableElement(component) {
+    const data = component?.formData?.data;
+    const styleOverride = component?.styleOverride;
+
     const table = document.createElement("table");
     const thead = document.createElement("thead");
     const tr = document.createElement("tr");
@@ -94,12 +100,15 @@ export function renderTableElement(data, emptyFieldText, styleOverride) {
             tbody.appendChild(renderTableRowElement(tableRow));
         });
         table.appendChild(tbody);
-    } else if (emptyFieldText) {
-        const tr = document.createElement("tr");
-        const td = document.createElement("td");
-        td.textContent = emptyFieldText;
-        tr.appendChild(td);
-        table.appendChild(tr);
+    } else {
+        const emptyFieldText = getEmptyFieldText(component);
+        if (emptyFieldText?.length) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+            td.textContent = emptyFieldText;
+            tr.appendChild(td);
+            table.appendChild(tr);
+        }
     }
 
     addStyle(table, styleOverride);

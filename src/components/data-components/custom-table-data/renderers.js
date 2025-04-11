@@ -20,7 +20,7 @@ export function renderTableElement(component) {
     component.setFormData({
         data: {
             tableHeaders: getTableHeaders(component?.tableColumns, component?.texts),
-            tableRows: getTableRows(component?.tableColumns, component?.formData?.data)
+            tableRows: getTableRows(component?.tableColumns, component?.texts, component?.formData?.data)
         }
     });
     const htmlAttributes = new CustomElementHtmlAttributes(component);
