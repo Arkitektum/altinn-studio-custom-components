@@ -14,5 +14,5 @@ import { hasValue } from "../../../functions/helpers.js";
  *                                   otherwise returns false.
  */
 export function getEiendomList(component) {
-    return hasValue(component?.formData?.data) && component?.formData?.data?.length && component.formData.data.map((eiendom) => new Eiendom(eiendom));
+    return hasValue(component?.formData?.data) ? component.formData.data.map((eiendom) => new Eiendom(eiendom)) : undefined;
 }
