@@ -4,7 +4,7 @@ import CustomComponent from "../../../classes/system-classes/CustomComponent.js"
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
 import { formatName } from "./functions.js";
@@ -20,7 +20,8 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const name = formatName(part, component?.hideOrgNr);
-                component.setFormData({ simpleBinding: name?.length ? name : component?.emptyFieldText });
+                const emptyFieldText = getEmptyFieldText(component);
+                component.setFormData({ simpleBinding: name?.length ? name : emptyFieldText });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }

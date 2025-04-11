@@ -3,7 +3,7 @@ import CustomComponent from "../../../classes/system-classes/CustomComponent.js"
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
 import { getAttachmentListItems } from "./functions.js";
@@ -15,10 +15,11 @@ export default customElements.define(
             const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             const attachmentListItems = getAttachmentListItems(component?.formData?.data);
+            const emptyFieldText = getEmptyFieldText(component);
             if (component?.hideIfEmpty && !hasValue(attachmentListItems) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
-            } else if (component?.emptyFieldText?.length && !attachmentListItems?.length) {
-                component.setFormData({ simpleBinding: component?.emptyFieldText });
+            } else if (emptyFieldText?.length && !attachmentListItems?.length) {
+                component.setFormData({ simpleBinding: emptyFieldText });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             } else {

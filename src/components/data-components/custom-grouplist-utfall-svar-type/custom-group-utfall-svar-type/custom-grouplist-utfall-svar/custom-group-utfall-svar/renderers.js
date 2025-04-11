@@ -64,7 +64,9 @@ export function renderKommentarElement(data, texts) {
         formData: { simpleBinding: data?.kommentar },
         text: texts?.["kommentar.title"],
         hideIfEmpty: false,
-        emptyFieldText: "-"
+        texts: {
+            emptyFieldText: "-"
+        }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }

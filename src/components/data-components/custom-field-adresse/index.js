@@ -4,7 +4,7 @@ import CustomComponent from "../../../classes/system-classes/CustomComponent.js"
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
 import { formatAdresse } from "./functions.js";
@@ -23,9 +23,16 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const adresseString = formatAdresse(address);
+                const emptyFieldText = getEmptyFieldText(component);
                 component.setFormData({
-                    simpleBinding: adresseString?.length ? adresseString : component?.emptyFieldText
+                    simpleBinding: adresseString?.length ? adresseString : emptyFieldText
                 });
+                if (emptyFieldText) {
+                    component.setTexts({
+                        ...component?.texts,
+                        emptyFieldText: emptyFieldText
+                    });
+                }
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }

@@ -1,6 +1,6 @@
 // Global functions
 import { formatString } from "../../../functions/dataFormatHelpers.js";
-import { hasValue } from "../../../functions/helpers.js";
+import { getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
 
 /**
  * Retrieves the form data value from the given component.
@@ -19,5 +19,5 @@ export function getFormDataValue(component) {
         }
         return component?.formData?.simpleBinding;
     }
-    return component?.emptyFieldText;
+    return getEmptyFieldText(component);
 }

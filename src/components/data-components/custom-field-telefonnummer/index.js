@@ -4,7 +4,7 @@ import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomE
 import Telefonnumre from "../../../classes/data-classes/Telefonnumre.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
 import { formatPhoneNumbers } from "./functions.js";
@@ -20,7 +20,8 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const phoneNumbersString = formatPhoneNumbers(telefonnumre);
-                const value = phoneNumbersString?.length ? phoneNumbersString : component?.emptyFieldText;
+                const emptyFieldText = getEmptyFieldText(component);
+                const value = phoneNumbersString?.length ? phoneNumbersString : emptyFieldText;
                 component.setFormData({ simpleBinding: value });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
