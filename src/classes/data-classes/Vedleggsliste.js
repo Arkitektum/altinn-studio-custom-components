@@ -12,10 +12,10 @@ export default class Vedleggsliste {
      * @param {Array} props.vedlegg - The array of vedlegg items.
      */
     constructor(props) {
-        this.vedlegg =
-            props?.vedlegg &&
-            props.vedlegg.map((vedleggItem) => {
-                return new Vedlegg(vedleggItem);
-            });
+        this.vedlegg = props?.vedlegg
+            ? props.vedlegg.map((vedleggItem) => {
+                  return new Vedlegg(vedleggItem);
+              })
+            : undefined;
     }
 }
