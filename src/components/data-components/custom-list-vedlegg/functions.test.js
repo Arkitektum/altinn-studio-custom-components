@@ -40,8 +40,13 @@ describe("getAttachmentListItems", () => {
         expect(result).toEqual([]);
     });
 
-    it("should return undefined if attachments is not an array", () => {
+    it("should return an empty array if attachments is not an array", () => {
+        const result = getAttachmentListItems("not an array");
+        expect(result).toEqual([]);
+    });
+
+    it("should return an empty array if attachments is null", () => {
         const result = getAttachmentListItems(null);
-        expect(result).toBeUndefined();
+        expect(result).toEqual([]);
     });
 });

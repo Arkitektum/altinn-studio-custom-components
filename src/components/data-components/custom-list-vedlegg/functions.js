@@ -25,23 +25,19 @@ function getAttachmentFileName(vedlegg) {
 }
 
 /**
- * Generates a list of attachment descriptions and filenames based on the provided attachments array.
+ * Generates a list of formatted attachment descriptions and filenames.
  *
- * @param {Array} attachments - An array of attachment objects. Each object is expected to contain
- *                              the necessary data to create a `Vedlegg` instance.
- * @returns {Array<string>|undefined} A list of formatted attachment strings in the format
- *                                    "description (filename)", or just "description" or "filename"
- *                                    if one of them is missing. Returns an empty array if the input
- *                                    is not an array or is empty. Returns `undefined` if the input
- *                                    is falsy.
+ * @param {Array} attachments - An array of attachment objects to process.
+ * @returns {Array<string>} A list of formatted strings representing the attachments.
+ * Each string includes the attachment description and/or filename, if available.
+ * If the input is not an array or is falsy, an empty array is returned.
  */
 export function getAttachmentListItems(attachments) {
-    if (!attachments) {
-        return undefined;
-    }
-    if (!Array.isArray(attachments)) {
+    if (!attachments || !Array.isArray(attachments)) {
+        // If attachments is not an array or is falsy, return an empty array
         return [];
     }
+
     return attachments?.length
         ? attachments
               .map((attachment) => {
