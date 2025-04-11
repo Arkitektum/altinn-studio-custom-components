@@ -1,6 +1,9 @@
 // Classes
 import UtfallSvar from "../../../classes/data-classes/UtfallSvar.js";
 
+// Global functions
+import { hasValue } from "../../../functions/helpers.js";
+
 /**
  * Groups an array of items by the `utfallType.kodverdi` property.
  *
@@ -8,12 +11,17 @@ import UtfallSvar from "../../../classes/data-classes/UtfallSvar.js";
  * @returns {Object} An object where each key is a unique `utfallType.kodverdi` and the value is an array of `UtfallSvar` instances.
  */
 export function groupArrayItemsByUtfallType(array) {
-    return array.reduce((acc, obj) => {
-        const key = obj?.utfallType?.kodeverdi;
-        if (!acc[key]) {
-            acc[key] = [];
-        }
-        acc[key].push(new UtfallSvar(obj));
-        return acc;
-    }, {});
+    return hasValue(array)
+        ? array.reduce((acc, obj) => {
+              const key = obj?.utfallType?.kodeverdi;
+              if (!key?.length) {
+                  return acc;
+              }
+              if (!acc[key]) {
+                  acc[key] = [];
+              }
+              acc[key].push(new UtfallSvar(obj));
+              return acc;
+          }, {})
+        : {};
 }
