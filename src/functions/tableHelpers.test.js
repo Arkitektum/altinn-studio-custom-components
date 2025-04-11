@@ -27,92 +27,120 @@ describe("tableHelpers", () => {
     });
 
     describe("getTableRows", () => {
-        it("should generate table rows with data populated from the provided data and columns", () => {
+        it("should generate table rows with the correct component properties for multiple data rows", () => {
             const tableColumns = [
-                { dataKey: "name", tagName: "custom-field-name", props: { styleOverride: { width: "150px" } } },
-                { dataKey: "email", tagName: "custom-field-email", props: { styleOverride: { width: "200px" } } }
-            ];
-            const texts = {};
-            const data = [
-                { name: "John Doe", email: "john.doe@example.com" },
-                { name: "Jane Smith", email: "jane.smith@example.com" }
-            ];
-
-            getValueFromDataKey.mockImplementation((row, key) => row[key]);
-            hasValue.mockImplementation((value) => value !== undefined && value !== null);
-
-            const result = getTableRows(tableColumns, texts, data);
-
-            expect(result).toEqual([
-                [
-                    { tagName: "custom-field-name", formData: { simpleBinding: "John Doe" }, hideTitle: true, styleOverride: { width: "150px" } },
-                    {
-                        tagName: "custom-field-email",
-                        formData: { simpleBinding: "john.doe@example.com" },
-                        hideTitle: true,
-                        styleOverride: { width: "200px" }
-                    }
-                ],
-                [
-                    { tagName: "custom-field-name", formData: { simpleBinding: "Jane Smith" }, hideTitle: true, styleOverride: { width: "150px" } },
-                    {
-                        tagName: "custom-field-email",
-                        formData: { simpleBinding: "jane.smith@example.com" },
-                        hideTitle: true,
-                        styleOverride: { width: "200px" }
-                    }
-                ]
-            ]);
-        });
-
-        it("should handle empty fields using emptyFieldTextResourceKey", () => {
-            const tableColumns = [
-                { dataKey: "name", tagName: "custom-field-name", props: {}, emptyFieldTextResourceKey: "emptyName" },
-                { dataKey: "email", tagName: "custom-field-email", props: {}, emptyFieldTextResourceKey: "emptyEmail" }
+                {
+                    dataKey: "name",
+                    emptyFieldTextResourceKey: "emptyName",
+                    props: { styleOverride: { width: "150px" } },
+                    tagName: "custom-field-name"
+                },
+                {
+                    dataKey: "email",
+                    emptyFieldTextResourceKey: "emptyEmail",
+                    props: { styleOverride: { width: "200px" } },
+                    tagName: "custom-field-email"
+                }
             ];
             const texts = {
                 emptyName: "No Name",
                 emptyEmail: "No Email"
             };
-            const data = [{ name: null, email: undefined }];
+            const data = [
+                { name: "John Doe", email: "john.doe@example.com" },
+                { name: "Jane Smith", email: "" }
+            ];
 
             getValueFromDataKey.mockImplementation((row, key) => row[key]);
-            hasValue.mockImplementation((value) => value !== undefined && value !== null);
+            hasValue.mockImplementation((value) => value !== undefined && value !== null && value !== "");
 
             const result = getTableRows(tableColumns, texts, data);
 
             expect(result).toEqual([
                 [
-                    { tagName: "custom-field-name", formData: { simpleBinding: "No Name" }, hideTitle: true },
-                    { tagName: "custom-field-email", formData: { simpleBinding: "No Email" }, hideTitle: true }
+                    {
+                        formData: { simpleBinding: "John Doe" },
+                        hideTitle: true,
+                        tagName: "custom-field-name",
+                        styleOverride: { width: "150px" },
+                        texts: { emptyFieldText: "No Name" }
+                    },
+                    {
+                        formData: { simpleBinding: "john.doe@example.com" },
+                        hideTitle: true,
+                        tagName: "custom-field-email",
+                        styleOverride: { width: "200px" },
+                        texts: { emptyFieldText: "No Email" }
+                    }
+                ],
+                [
+                    {
+                        formData: { simpleBinding: "Jane Smith" },
+                        hideTitle: true,
+                        tagName: "custom-field-name",
+                        styleOverride: { width: "150px" },
+                        texts: { emptyFieldText: "No Name" }
+                    },
+                    {
+                        formData: { simpleBinding: "" },
+                        hideTitle: true,
+                        tagName: "custom-field-email",
+                        styleOverride: { width: "200px" },
+                        texts: { emptyFieldText: "No Email" }
+                    }
                 ]
             ]);
         });
 
-        it("should handle single object data input", () => {
+        it("should handle a single data object and generate the correct table row", () => {
             const tableColumns = [
-                { dataKey: "name", tagName: "custom-field-name", props: { styleOverride: { width: "150px" } } },
-                { dataKey: "email", tagName: "custom-field-email", props: { styleOverride: { width: "200px" } } }
+                {
+                    dataKey: "name",
+                    emptyFieldTextResourceKey: "emptyName",
+                    props: { styleOverride: { width: "150px" } },
+                    tagName: "custom-field-name"
+                }
             ];
-            const texts = {};
-            const data = { name: "John Doe", email: "john.doe@example.com" };
+            const texts = {
+                emptyName: "No Name"
+            };
+            const data = { name: "" };
 
             getValueFromDataKey.mockImplementation((row, key) => row[key]);
-            hasValue.mockImplementation((value) => value !== undefined && value !== null);
+            hasValue.mockImplementation((value) => value !== undefined && value !== null && value !== "");
 
             const result = getTableRows(tableColumns, texts, data);
 
             expect(result).toEqual([
                 [
-                    { tagName: "custom-field-name", formData: { simpleBinding: "John Doe" }, hideTitle: true, styleOverride: { width: "150px" } },
                     {
-                        tagName: "custom-field-email",
-                        formData: { simpleBinding: "john.doe@example.com" },
+                        formData: { simpleBinding: "" },
                         hideTitle: true,
-                        styleOverride: { width: "200px" }
+                        tagName: "custom-field-name",
+                        styleOverride: { width: "150px" },
+                        texts: { emptyFieldText: "No Name" }
                     }
                 ]
             ]);
+        });
+
+        it("should handle empty data and return an empty array", () => {
+            const tableColumns = [
+                {
+                    dataKey: "name",
+                    emptyFieldTextResourceKey: "emptyName",
+                    props: { styleOverride: { width: "150px" } },
+                    tagName: "custom-field-name"
+                }
+            ];
+            const texts = {
+                emptyName: "No Name"
+            };
+            const data = [];
+
+            const result = getTableRows(tableColumns, texts, data);
+
+            expect(result).toEqual([]);
         });
     });
 

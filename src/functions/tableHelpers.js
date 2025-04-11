@@ -27,10 +27,10 @@ export function getTableHeaders(tableColumns, texts) {
 /**
  * Generates table rows based on the provided table columns, texts, and data.
  *
- * @param {Array} tableColumns - An array of column definitions. Each column should include `dataKey`, `props`, `tagName`, and optionally `emptyFieldTextResourceKey`.
- * @param {Object} texts - An object containing text resources, where keys are resource keys and values are the corresponding text strings.
- * @param {Array|Object} data - The data to populate the table rows. Can be an array of objects or a single object.
- * @returns {Array} An array of table rows, where each row is an array of cell objects. Each cell object contains properties such as `formData`, `hideTitle`, and `tagName`.
+ * @param {Array<Object>} tableColumns - An array of column definitions for the table. Each column should include a `dataKey` and optional `emptyFieldTextResourceKey` and `props`.
+ * @param {Object} texts - An object containing text resources, where keys are resource keys and values are the corresponding text.
+ * @param {Array<Object>|Object} data - The data to populate the table rows. Can be a single object or an array of objects.
+ * @returns {Array<Array<Object>>} An array of table rows, where each row is an array of component properties for the columns.
  */
 export function getTableRows(tableColumns, texts, data) {
     const isSingleItem = !Array.isArray(data);
@@ -41,16 +41,14 @@ export function getTableRows(tableColumns, texts, data) {
         const tr = [];
         tableColumns.forEach((column) => {
             const cellData = getValueFromDataKey(row, column.dataKey);
-            if (hasValue(cellData)) {
-                const formDataProperty = typeof cellData === "string" || typeof cellData === "number" ? "simpleBinding" : "data";
-                const formData = { [formDataProperty]: cellData };
-                tr.push({ ...column.props, formData, hideTitle: true, tagName: column.tagName });
-            } else if (hasValue(column?.emptyFieldTextResourceKey)) {
-                const formDataProperty = "simpleBinding";
-                const emptyFieldText = texts[column.emptyFieldTextResourceKey];
-                const formData = { [formDataProperty]: emptyFieldText };
-                tr.push({ ...column.props, formData, hideTitle: true, tagName: column.tagName });
+            const formDataProperty = typeof cellData === "string" || typeof cellData === "number" ? "simpleBinding" : "data";
+            const formData = { [formDataProperty]: cellData };
+            const emptyFieldText = texts[column.emptyFieldTextResourceKey];
+            const componentProps = { ...column.props, formData, hideTitle: true, tagName: column.tagName };
+            if (hasValue(emptyFieldText)) {
+                componentProps.texts = { emptyFieldText };
             }
+            tr.push(componentProps);
         });
         return tr;
     });
