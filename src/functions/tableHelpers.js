@@ -55,10 +55,10 @@ export function getTableRows(tableColumns, texts, data) {
 }
 
 /**
- * Generates a custom table element for a given part with specified text resources and bindings.
+ * Generates a custom table element for a given part using specified text resources and bindings.
  *
  * @param {Object} part - The data object representing the part to be displayed in the table.
- * @param {Array} textResources - An array of text resources used for localization.
+ * @param {Object[]} textResources - An array of text resource objects used for localization.
  * @param {Object} textResourceBindingsForPart - An object containing text resource bindings specific to the part.
  * @returns {HTMLElement} A custom table element populated with the provided data and configurations.
  */
@@ -66,9 +66,9 @@ export function getPartTableElement(part, textResources, textResourceBindingsFor
     const tableColumns = [
         {
             titleResourceKey: "col-1",
+            emptyFieldTextResourceKey: "emptyFieldText-default",
             tagName: "custom-field-part-navn",
             props: {
-                emptyFieldText: "-",
                 styleOverride: {
                     width: "250px"
                 }
@@ -76,9 +76,9 @@ export function getPartTableElement(part, textResources, textResourceBindingsFor
         },
         {
             titleResourceKey: "col-2",
+            emptyFieldTextResourceKey: "emptyFieldText-default",
             tagName: "custom-field-telefonnummer",
             props: {
-                emptyFieldText: "-",
                 styleOverride: {
                     width: "120px"
                 }
@@ -86,10 +86,10 @@ export function getPartTableElement(part, textResources, textResourceBindingsFor
         },
         {
             titleResourceKey: "col-3",
+            emptyFieldTextResourceKey: "emptyFieldText-default",
             tagName: "custom-field-data",
             dataKey: "epost",
             props: {
-                emptyFieldText: "-",
                 styleOverride: {
                     width: "260px"
                 }
