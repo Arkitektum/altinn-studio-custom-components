@@ -2,7 +2,7 @@
 import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 
 // Global functions
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
 import { renderFieldElement } from "./renderers.js";
@@ -17,7 +17,7 @@ export default customElements.define(
             const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             const value = component?.formData?.simpleBinding;
-            if (component?.hideIfEmpty && !value && !!componentContainerElement) {
+            if (component?.hideIfEmpty && hasValue(value) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const options = {

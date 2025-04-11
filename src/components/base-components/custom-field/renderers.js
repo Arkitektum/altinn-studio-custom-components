@@ -1,5 +1,5 @@
 // Global functions
-import { addStyle } from "../../../functions/helpers.js";
+import { addStyle, hasValue } from "../../../functions/helpers.js";
 
 /**
  * Renders a field title element as a label.
@@ -22,7 +22,7 @@ function renderFieldTitleElement(fieldTitle, inline) {
  */
 function renderFieldValueElement(fieldValue) {
     const fieldValueElement = document.createElement("span");
-    fieldValueElement.innerHTML = fieldValue || "";
+    fieldValueElement.innerHTML = hasValue(fieldValue) ? fieldValue : "";
     return fieldValueElement;
 }
 
