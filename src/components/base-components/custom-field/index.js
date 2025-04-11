@@ -17,7 +17,7 @@ export default customElements.define(
             const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             const value = component?.formData?.simpleBinding;
-            if (component?.hideIfEmpty && hasValue(value) && !!componentContainerElement) {
+            if (component?.hideIfEmpty && !hasValue(value) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const options = {
