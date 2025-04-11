@@ -25,28 +25,38 @@ function getAttachmentFileName(vedlegg) {
 }
 
 /**
- * Generates a list of attachment descriptions and filenames.
+ * Generates a list of attachment descriptions and filenames based on the provided attachments array.
  *
- * @param {Array} attachments - The list of attachment objects.
- * @returns {Array} A list of formatted attachment descriptions and filenames.
+ * @param {Array} attachments - An array of attachment objects. Each object is expected to contain
+ *                              the necessary data to create a `Vedlegg` instance.
+ * @returns {Array<string>|undefined} A list of formatted attachment strings in the format
+ *                                    "description (filename)", or just "description" or "filename"
+ *                                    if one of them is missing. Returns an empty array if the input
+ *                                    is not an array or is empty. Returns `undefined` if the input
+ *                                    is falsy.
  */
 export function getAttachmentListItems(attachments) {
-    return (
-        attachments?.length &&
-        attachments
-            .map((attachment) => {
-                const vedlegg = new Vedlegg(attachment);
-                const attachmentDescription = getAttachmentDescription(vedlegg);
-                const attachmentFileName = getAttachmentFileName(vedlegg);
-                if (attachmentDescription?.length && attachmentFileName?.length) {
-                    return `${attachmentDescription} (${attachmentFileName})`;
-                } else if (attachmentDescription?.length) {
-                    return attachmentDescription;
-                } else if (attachmentFileName?.length) {
-                    return attachmentFileName;
-                }
-                return null;
-            })
-            .filter((attachmentListItem) => attachmentListItem)
-    );
+    if (!attachments) {
+        return undefined;
+    }
+    if (!Array.isArray(attachments)) {
+        return [];
+    }
+    return attachments?.length
+        ? attachments
+              .map((attachment) => {
+                  const vedlegg = new Vedlegg(attachment);
+                  const attachmentDescription = getAttachmentDescription(vedlegg);
+                  const attachmentFileName = getAttachmentFileName(vedlegg);
+                  if (attachmentDescription?.length && attachmentFileName?.length) {
+                      return `${attachmentDescription} (${attachmentFileName})`;
+                  } else if (attachmentDescription?.length) {
+                      return attachmentDescription;
+                  } else if (attachmentFileName?.length) {
+                      return attachmentFileName;
+                  }
+                  return null;
+              })
+              .filter((attachmentListItem) => attachmentListItem)
+        : [];
 }
