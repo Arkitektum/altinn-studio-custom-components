@@ -26,9 +26,9 @@ export default class UtfallSvar {
         this.erUtfallBesvaresSenere = props?.erUtfallBesvaresSenere;
         this.erUtfallBesvart = props?.erUtfallBesvart;
         this.kommentar = props?.kommentar;
-        this.tema = props?.tema && new Kode(props.tema);
+        this.tema = props?.tema ? new Kode(props.tema) : undefined;
         this.tittel = props?.tittel;
-        this.utfallType = props?.utfallType && new UtfallType(props.utfallType);
-        this.vedleggsliste = props?.vedleggsliste && new Vedleggsliste(props.vedleggsliste);
+        this.utfallType = props?.utfallType ? new UtfallType(props.utfallType) : undefined;
+        this.vedleggsliste = props?.vedleggsliste ? new Vedleggsliste(props.vedleggsliste) : undefined;
     }
 }
