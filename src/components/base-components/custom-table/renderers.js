@@ -35,15 +35,12 @@ function renderTableRowElement(tableRow) {
 }
 
 /**
- * Creates a table cell (td) element and populates it with a custom element.
+ * Renders a table cell element by creating a `<td>` element,
+ * applying custom HTML attributes, and embedding a custom element inside it.
  *
- * @param {Object} tableCell - The table cell configuration object.
- * @param {string} tableCell.tagName - The tag name of the custom element to create.
- * @param {Object} tableCell.data - The data to be passed to the custom element.
- * @param {string} tableCell.text - The text content to be included in the custom element.
- * @param {string} tableCell.emptyFieldText - The text to display if the field is empty.
- * @param {Object} tableCell.styleOverride - The style overrides to apply to the custom element.
- * @returns {HTMLTableCellElement} The created table cell element containing the custom element.
+ * @param {Object} tableCell - The table cell data used to create the element.
+ * @param {string} tableCell.tagName - The tag name of the custom element to be created.
+ * @returns {HTMLTableCellElement} The rendered `<td>` element containing the custom element.
  */
 function renderTableCellElement(tableCell) {
     const td = document.createElement("td");
