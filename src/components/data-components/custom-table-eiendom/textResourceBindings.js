@@ -9,6 +9,6 @@ export default {
         "col-6": "resource.eiendomByggested.eiendom.bolignummer.title",
         "col-7": "resource.eiendomByggested.eiendom.bygningsnummer.title",
         "emptyFieldText-col-1": "resource.eiendomByggested.eiendom.adresse.emptyFieldText",
-        "emptyFieldText-default": "-"
+        "emptyFieldText-default": "resource.emptyFieldText.default"
     }
 };
