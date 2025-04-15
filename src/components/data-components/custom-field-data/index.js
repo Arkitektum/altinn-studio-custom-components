@@ -6,7 +6,7 @@ import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomE
 import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { getFormDataValue } from "./function.js";
+import { getFormDataValue } from "./functions.js";
 
 export default customElements.define(
     "custom-field-data",
