@@ -8,6 +8,6 @@
  * @returns {string} The formatted kommunensSaksnummer string.
  */
 export function formatKommunensSaksnummer(kommunensSaksnummer) {
-    const kommunensSaksnummerParts = [kommunensSaksnummer?.saksaar.toString(), kommunensSaksnummer?.sakssekvensnummer.toString()];
+    const kommunensSaksnummerParts = [kommunensSaksnummer?.saksaar?.toString(), kommunensSaksnummer?.sakssekvensnummer?.toString()];
     return kommunensSaksnummerParts.filter((kommunensSaksnummerPart) => kommunensSaksnummerPart?.length).join("/");
 }
