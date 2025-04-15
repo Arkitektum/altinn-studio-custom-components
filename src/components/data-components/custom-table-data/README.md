@@ -7,7 +7,6 @@
 | tagName                                       | string            | The tag name for the custom field, which is "custom-table-data".                       |               |
 | hideTitle                                     | boolean           | A flag indicating whether the title should be hidden.                                  | false         |
 | hideIfEmpty                                   | boolean           | Determines whether the element should be hidden when it contains no content.           | false         |
-| emptyFieldText                                | string            | The text to display when the field is empty.                                           |               |
 | size                                          | string            | The size of the header text (e.g., "h2", "h3", "h4").                                  | "h2"          |
 | dataModelBindings.data                        | string            | Reference to an array or object in the data model containing values for the table      |               |
 | tableColumns                                  | array             | An array of column definitions for the table.                                          |               |
@@ -17,6 +16,7 @@
 | tableColumns[index].tagName                   | string            | The tag name for the custom component in the table cell.                               |               |
 | tableColumns[index].props                     | object            | Additional properties for the custom component in the table cell.                      |               |
 | textResourceBindings.title                    | string            | The title text resource binding.                                                       |               |
+| textResourceBindings.emptyFieldText           | string            | The resource binding for the text to display when the field is empty.                  |               |
 | styleOverride                                 | HTMLElement.style | The style override for the custom field.                                               |               |
 
 ## Example
@@ -28,7 +28,6 @@
     "tagName": "custom-table-data",
     "hideTitle": true,
     "hideIfEmpty": false,
-    "emptyFieldText": "Eiendom mangler",
     "size": "h2",
     "dataModelBindings": {
         "data": "eiendomByggested.eiendom"
@@ -91,7 +90,8 @@
         "col-5": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
         "col-6": "resource.eiendomByggested.eiendom.bolignummer.title",
         "col-7": "resource.eiendomByggested.eiendom.bygningsnummer.title",
-        "emptyFieldText-address": "resource.eiendomByggested.eiendom.emptyFieldText",
+        "emptyFieldText": "resource.eiendomByggested.eiendom.emptyFieldText",
+        "emptyFieldText-address": "resource.eiendomByggested.eiendom.adresse.emptyFieldText",
         "emptyFieldText-default": "-"
     },
     "styleOverride": {

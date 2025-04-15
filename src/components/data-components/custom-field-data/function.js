@@ -9,7 +9,7 @@ import { getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
  * @param {Object} component.formData - The form data object.
  * @param {string} component.formData.simpleBinding - The simple binding value of the form data.
  * @param {string} [component.format] - The optional format string to format the simple binding value.
- * @param {string} [component.emptyFieldText] - The text to return if the form data value is not present.
+ * @param {string} [component.texts.emptyFieldText] - The text to return if the form data value is not present.
  * @returns {string} - The formatted form data value, the simple binding value, or the empty field text.
  */
 export function getFormDataValue(component) {
