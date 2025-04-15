@@ -1,18 +1,22 @@
 /**
- * Formats the name and organizational number (optional) of the part.
+ * Formats the name of a part and optionally includes the organization number.
  *
- * @param {Object} part - The responsible part object.
+ * @param {Object} part - The part object containing the name and organization number.
  * @param {string} part.navn - The name of the part.
- * @param {string} part.organisasjonsnummer - The organizational number of the part.
- * @param {boolean} hideOrgNr - don't append organization number if set to true
- * @returns {string} The formatted name and organizational number.
+ * @param {string} [part.organisasjonsnummer] - The organization number of the part.
+ * @param {boolean} hideOrgNr - Flag to determine whether to hide the organization number.
+ * @returns {string} The formatted name, optionally including the organization number.
  */
 export function formatName(part, hideOrgNr) {
-    let name = part?.navn || "";
+    if (!part?.navn) {
+        return "";
+    }
 
-    if (hideOrgNr) return name;
+    let result = part.navn;
 
-    name += part?.organisasjonsnummer?.length ? `\nOrganisasjonsnummer: ${part.organisasjonsnummer}` : "";
+    if (!hideOrgNr && part.organisasjonsnummer) {
+        result += `\nOrganisasjonsnummer: ${part.organisasjonsnummer}`;
+    }
 
-    return name;
+    return result;
 }
