@@ -17,7 +17,7 @@ import { validateFormData } from "../../../functions/helpers.js";
  * @throws {Error} If the form data validation fails.
  */
 export function getBooleanData(component) {
-    const componentName = component?.id || "custom-field-boolean-text";
+    const componentName = component?.id?.length && typeof component?.id === "string" ? component.id : "custom-field-boolean-text";
     const condition = component?.formData?.simpleBinding;
     const data = {
         trueData: component?.formData?.trueData.toString(),
