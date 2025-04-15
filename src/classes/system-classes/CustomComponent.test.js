@@ -50,9 +50,9 @@ describe("CustomComponent", () => {
     });
 
     it("should initialize with valid emptyFieldText", () => {
-        mockElement.setAttribute("emptyFieldText", "Empty Field");
         const component = new CustomComponent(mockElement);
-        expect(component.emptyFieldText).toBe("Empty Field");
+        component.setTexts({ emptyFieldText: "Empty Field" });
+        expect(component.texts).toEqual({ emptyFieldText: "Empty Field" });
     });
 
     it("should initialize with valid styleOverride", () => {

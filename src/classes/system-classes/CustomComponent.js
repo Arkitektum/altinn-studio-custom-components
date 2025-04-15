@@ -18,7 +18,6 @@ export default class CustomComponent {
      * @property {boolean} [hideTitle] - Indicates whether the title should be hidden.
      * @property {string} [size] - The size of the component.
      * @property {boolean} [hideIfEmpty] - Indicates whether the component should be hidden if empty.
-     * @property {string} [emptyFieldText] - The text to display when the field is empty.
      * @property {Object} [styleOverride] - Custom styles to override the default styles.
      * @property {boolean} [isChildComponent] - Indicates whether the component is a child component.
      * @property {Array} [tableColumns] - The table columns configuration for the component.
@@ -35,7 +34,6 @@ export default class CustomComponent {
         const hideTitle = this.getHideTitle(element);
         const size = this.getSize(element);
         const hideIfEmpty = this.getHideIfEmpty(element);
-        const emptyFieldText = this.getEmptyFieldText(element);
         const styleOverride = this.getStyleOverride(element);
         const isChildComponent = this.getIsChildComponent(element);
         const tableColumns = this.getTableColumns(element);
@@ -63,9 +61,6 @@ export default class CustomComponent {
         }
         if (hideIfEmpty) {
             this.hideIfEmpty = hideIfEmpty;
-        }
-        if (emptyFieldText) {
-            this.emptyFieldText = emptyFieldText;
         }
         if (styleOverride) {
             this.styleOverride = styleOverride;
@@ -162,18 +157,6 @@ export default class CustomComponent {
      */
     getHideIfEmpty(element) {
         return element?.getAttribute("hideIfEmpty") === "true";
-    }
-
-    /**
-     * Retrieves the value of the "emptyFieldText" attribute from the given element.
-     *
-     * @param {HTMLElement} element - The HTML element from which to retrieve the "emptyFieldText" attribute.
-     * @returns {string|boolean} The value of the "emptyFieldText" attribute if it exists and is valid,
-     *                           otherwise returns `false`.
-     */
-    getEmptyFieldText(element) {
-        const emptyFieldText = element?.getAttribute("emptyFieldText");
-        return hasValue(emptyFieldText) && emptyFieldText;
     }
 
     /**

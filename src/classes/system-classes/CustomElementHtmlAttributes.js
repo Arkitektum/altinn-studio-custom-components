@@ -18,7 +18,6 @@ export default class CustomElementHtmlAttributes {
      * @param {boolean} [props.hideTitle] - Determines if the title should be hidden.
      * @param {boolean} [props.hideIfEmpty] - Determines if the component should be hidden when empty.
      * @param {boolean} [props.inline] - Indicates if the component should be displayed inline.
-     * @param {string} [props.emptyFieldText] - The text to display when the field is empty.
      * @param {Object} [props.styleOverride] - Custom styles to override default styles.
      * @param {Object} [props.grid] - Grid configuration for the component.
      * @param {Array} [props.texts] - An array of text elements associated with the component.
@@ -38,7 +37,6 @@ export default class CustomElementHtmlAttributes {
         const hideTitle = this.getHideTitleAttributeFromProps(props);
         const hideIfEmpty = this.getHideIfEmptyAttributeFromProps(props);
         const inline = this.getInlineAttributeFromProps(props);
-        const emptyFieldText = this.getEmptyFieldTextAttributeFromProps(props);
         const styleOverride = this.getStyleOverrideAttributeFromProps(props);
         const grid = this.getGridAttributeFromProps(props);
         const texts = this.getTextsAttributeFromProps(props);
@@ -69,9 +67,6 @@ export default class CustomElementHtmlAttributes {
         }
         if (inline) {
             this.inline = inline;
-        }
-        if (emptyFieldText) {
-            this.emptyFieldText = emptyFieldText;
         }
         if (styleOverride) {
             this.styleOverride = styleOverride;
@@ -196,19 +191,6 @@ export default class CustomElementHtmlAttributes {
      */
     getInlineAttributeFromProps(props) {
         return props?.inline?.toString() === "true" && "true";
-    }
-
-    /**
-     * Retrieves the `emptyFieldText` attribute from the provided props.
-     * If the `emptyFieldText` property exists and has a value, it is converted to a string and returned.
-     * Otherwise, the function returns `undefined`.
-     *
-     * @param {Object} props - The properties object to extract the attribute from.
-     * @param {string|number|boolean|null|undefined} props.emptyFieldText - The value of the `emptyFieldText` property.
-     * @returns {string|undefined} The `emptyFieldText` value as a string, or `undefined` if it is not present or has no value.
-     */
-    getEmptyFieldTextAttributeFromProps(props) {
-        return hasValue(props?.emptyFieldText) && props?.emptyFieldText.toString();
     }
 
     /**

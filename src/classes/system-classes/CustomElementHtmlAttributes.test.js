@@ -10,7 +10,6 @@ describe("CustomElementHtmlAttributes", () => {
                 hideTitle: false,
                 hideIfEmpty: false,
                 inline: true,
-                emptyFieldText: "Empty Field",
                 styleOverride: { color: "red" },
                 grid: { xs: 6 },
                 texts: { title: "Title" },
@@ -31,7 +30,6 @@ describe("CustomElementHtmlAttributes", () => {
             expect(instance.hideTitle).toBeUndefined();
             expect(instance.hideIfEmpty).toBeUndefined();
             expect(instance.inline).toBe("true");
-            expect(instance.emptyFieldText).toBe(props.emptyFieldText);
             expect(instance.styleOverride).toBe(JSON.stringify(props.styleOverride));
             expect(instance.grid).toBe(JSON.stringify(props.grid));
             expect(instance.texts).toBe(JSON.stringify(props.texts));
@@ -198,9 +196,9 @@ describe("CustomElementHtmlAttributes", () => {
         });
 
         it("should set emptyFieldText correctly when provided", () => {
-            const props = { emptyFieldText: "Empty Field" };
+            const props = { texts: { emptyFieldText: "Empty Field" } };
             const instance = new CustomElementHtmlAttributes(props);
-            expect(instance.emptyFieldText).toBe(props.emptyFieldText);
+            expect(instance.texts).toBe(JSON.stringify(props.texts));
         });
 
         it("should set styleOverride correctly when provided", () => {
