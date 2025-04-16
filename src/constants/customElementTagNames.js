@@ -12,6 +12,7 @@ export default [
     "custom-field-adresse",
     "custom-field-boolean-data",
     "custom-field-boolean-text",
+    "custom-field-count-data",
     "custom-field-data",
     "custom-field-kommunens-saksnummer",
     "custom-field-part-navn",

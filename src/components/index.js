@@ -15,6 +15,7 @@ import customFieldAdresse from "./data-components/custom-field-adresse/index.js"
 import customFieldPartNavn from "./data-components/custom-field-part-navn/index.js";
 import customFieldBooleanData from "./data-components/custom-field-boolean-data/index.js";
 import customFieldBooleanText from "./data-components/custom-field-boolean-text/index.js";
+import customFieldCountData from "./data-components/custom-field-count-data/index.js";
 import customFieldData from "./data-components/custom-field-data/index.js";
 import customFieldKommunensSaksnummer from "./data-components/custom-field-kommunens-saksnummer/index.js";
 import customFieldProsjekt from "./data-components/custom-field-prosjekt/index.js";
@@ -60,6 +61,7 @@ export {
     customFieldPartNavn,
     customFieldBooleanData,
     customFieldBooleanText,
+    customFieldCountData,
     customFieldData,
     customFieldKommunensSaksnummer,
     customFieldProsjekt,
