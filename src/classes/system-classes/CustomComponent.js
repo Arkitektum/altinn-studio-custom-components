@@ -25,6 +25,7 @@ export default class CustomComponent {
      * @property {string} [itemKey] - The unique key for the component item.
      * @property {boolean} [hideOrgNr] - Indicates whether the organization number should be hidden.
      * @property {string} [format] - The format of the component.
+     * @property {boolean} [showRowNumbers] - Indicates whether to show row numbers in the component.
      */
     constructor(element) {
         const formData = this.getFormDataFromElement(element);
@@ -41,6 +42,7 @@ export default class CustomComponent {
         const itemKey = this.getItemKey(element);
         const hideOrgNr = this.getHideOrgNr(element);
         const format = this.getFormat(element);
+        const showRowNumbers = this.getShowRowNumbers(element);
         if (formData) {
             this.formData = formData;
         }
@@ -82,6 +84,9 @@ export default class CustomComponent {
         }
         if (format) {
             this.format = format;
+        }
+        if (showRowNumbers) {
+            this.showRowNumbers = showRowNumbers;
         }
     }
 
@@ -234,6 +239,15 @@ export default class CustomComponent {
     getFormat(element) {
         const format = element?.getAttribute("format");
         return hasValue(format) && format;
+    }
+
+    /**
+     * Determines whether the "showRowNumbers" attribute is set to "true" on the element.
+     *
+     * @returns {boolean} True if the "showRowNumbers" attribute is "true", otherwise false.
+     */
+    getShowRowNumbers(element) {
+        return element?.getAttribute("showRowNumbers") === "true";
     }
 
     /**

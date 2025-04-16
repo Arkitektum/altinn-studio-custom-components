@@ -28,6 +28,7 @@ export default class CustomElementHtmlAttributes {
      * @param {string} [props.feedbackType] - The type of feedback associated with the component.
      * @param {boolean} [props.hideOrgNr] - Determines if the organization number should be hidden.
      * @param {string} [props.format] - The format attribute of the component.
+     * @param {boolean} [props.showRowNumbers] - Indicates if row numbers should be shown.
      */
     constructor(props) {
         const isChildComponent = true;
@@ -47,6 +48,7 @@ export default class CustomElementHtmlAttributes {
         const feedbackType = this.getFeedbackTypeAttributeFromProps(props);
         const hideOrgNr = this.getHideOrgNr(props);
         const format = this.getFormatAttributeFromProps(props);
+        const showRowNumbers = this.getShowRowNumbersAttributeFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = "true";
         }
@@ -97,6 +99,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (format) {
             this.format = format;
+        }
+        if (showRowNumbers) {
+            this.showRowNumbers = showRowNumbers;
         }
     }
 
@@ -314,5 +319,18 @@ export default class CustomElementHtmlAttributes {
      */
     getFormatAttributeFromProps(props) {
         return hasValue(props?.format) && props?.format.toString();
+    }
+
+    /**
+     * Retrieves the "showRowNumbers" attribute from the provided props.
+     * Converts the value to a string and checks if it equals "true".
+     * Returns "true" if the condition is met, otherwise returns undefined.
+     *
+     * @param {Object} props - The properties object containing the "showRowNumbers" attribute.
+     * @param {boolean|string} [props.showRowNumbers] - The value of the "showRowNumbers" attribute.
+     * @returns {string|undefined} - Returns "true" if the "showRowNumbers" attribute is strictly equal to "true" as a string, otherwise undefined.
+     */
+    getShowRowNumbersAttributeFromProps(props) {
+        return props?.showRowNumbers?.toString() === "true" && "true";
     }
 }
