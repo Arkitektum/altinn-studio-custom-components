@@ -14,7 +14,8 @@ import {
     appendChildren,
     getAsync,
     getEmptyFieldText,
-    isNumberLargerThanZero
+    isNumberLargerThanZero,
+    getRowNumberTitle
 } from "./helpers";
 
 // Ensure jsdom environment is used for DOM-related tests
@@ -604,6 +605,28 @@ describe("helpers.js", () => {
         it("should return an empty string if the component is null or undefined", () => {
             expect(getEmptyFieldText(null)).toBe("");
             expect(getEmptyFieldText(undefined)).toBe("");
+        });
+    });
+
+    describe("getRowNumberTitle", () => {
+        it("should return the rowNumberTitle if it is defined", () => {
+            const component = { texts: { rowNumberTitle: "Row 1" } };
+            expect(getRowNumberTitle(component)).toBe("Row 1");
+        });
+
+        it("should return '#' if rowNumberTitle is not defined", () => {
+            const component = { texts: {} };
+            expect(getRowNumberTitle(component)).toBe("#");
+        });
+
+        it("should return '#' if texts is not defined", () => {
+            const component = {};
+            expect(getRowNumberTitle(component)).toBe("#");
+        });
+
+        it("should return '#' if the component is null or undefined", () => {
+            expect(getRowNumberTitle(null)).toBe("#");
+            expect(getRowNumberTitle(undefined)).toBe("#");
         });
     });
 });

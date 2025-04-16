@@ -121,6 +121,19 @@ export function getEmptyFieldText(component) {
 }
 
 /**
+ * Retrieves the row number title from a given component object.
+ *
+ * @param {Object} component - The component object containing text properties.
+ * @param {Object} [component.texts] - An optional object containing text-related properties.
+ * @param {string} [component.texts.rowNumberTitle] - The specific title for the row number.
+ * @returns {string} The row number title if defined, otherwise the default value "#".
+ */
+export function getRowNumberTitle(component) {
+    const rowNumberTitle = component?.texts?.rowNumberTitle;
+    return rowNumberTitle || "#";
+}
+
+/**
  * Creates a custom HTML element with the specified tag name and attributes.
  *
  * @param {string} tagName - The name of the HTML tag to create.
