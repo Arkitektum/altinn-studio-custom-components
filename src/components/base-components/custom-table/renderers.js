@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { addStyle, createCustomElement, getEmptyFieldText } from "../../../functions/helpers.js";
+import { addStyle, createCustomElement, getEmptyFieldText, getRowNumberTitle } from "../../../functions/helpers.js";
 
 /**
  * Creates a table header (th) element with the specified text and style.
@@ -87,13 +87,33 @@ export function renderTableElement(component) {
     const tr = document.createElement("tr");
 
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
+        // Render table headers
+        // Add a custom field for the row number title
+        if (component?.showRowNumbers) {
+            const th = document.createElement("th");
+            th.textContent = getRowNumberTitle(component);
+            tr.appendChild(th);
+        }
+        // Render table header elements
         data.tableHeaders.forEach((tableHeader) => {
             tr.appendChild(renderTableHeaderElement(tableHeader));
         });
         thead.appendChild(tr);
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
+        // Render table rows
         data.tableRows.forEach((tableRow) => {
+            if (component?.showRowNumbers) {
+                // Add a custom field for the row number
+                const rowNumberElement = {
+                    tagName: "custom-field-data",
+                    hideTitle: true,
+                    formData: {
+                        simpleBinding: data.tableRows.indexOf(tableRow) + 1
+                    }
+                };
+                tableRow.unshift(rowNumberElement);
+            }
             tbody.appendChild(renderTableRowElement(tableRow));
         });
         table.appendChild(tbody);
