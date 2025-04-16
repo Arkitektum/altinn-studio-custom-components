@@ -1,19 +1,19 @@
-# Boolean text (field)
+# Boolean data (field)
 
-| Property                         | Type              | Description                                                                         | Default value |
-| :------------------------------- | :---------------- | :---------------------------------------------------------------------------------- | :------------ |
-| id                               | string            | The unique identifier for the custom field.                                         |               |
-| type                             | string            | The type of the custom field, which is "Custom".                                    |               |
-| tagName                          | string            | The tag name for the custom field, which is "custom-field-boolean-text".            |               |
-| hideTitle                        | boolean           | A flag indicating whether the title should be hidden.                               | false         |
-| hideIfEmpty                      | boolean           | Determines whether the element should be hidden when it contains no content.        | false         |
-| inline                           | boolean           | A flag indicating whether the title and value should be displayed on the same line. | false         |
-| dataModelBindings.simpleBinding  | boolean           | Reference to a boolean value in the data model.                                     |               |
-| textResourceBindings.title       | string            | The title text resource binding.                                                    |               |
-| textResourceBindings.trueText    | string            | The text resource binding to display when the value is true.                        |               |
-| textResourceBindings.falseText   | string            | The text resource binding to display when the value is false.                       |               |
-| textResourceBindings.defaultText | string            | The text resource binding to display when no value is set.                          |               |
-| styleOverride                    | HTMLElement.style | The style override for the custom field.                                            |               |
+| Property                        | Type              | Description                                                                         | Default value |
+| :------------------------------ | :---------------- | :---------------------------------------------------------------------------------- | :------------ |
+| id                              | string            | The unique identifier for the custom field.                                         |               |
+| type                            | string            | The type of the custom field, which is "Custom".                                    |               |
+| tagName                         | string            | The tag name for the custom field, which is "custom-field-boolean-data".            |               |
+| hideTitle                       | boolean           | A flag indicating whether the title should be hidden.                               | false         |
+| hideIfEmpty                     | boolean           | Determines whether the element should be hidden when it contains no content.        | false         |
+| inline                          | boolean           | A flag indicating whether the title and value should be displayed on the same line. | false         |
+| dataModelBindings.simpleBinding | boolean           | Reference to a boolean value in the data model.                                     |               |
+| dataModelBindings.trueData      | boolean           | Reference to the data model value when the field is set to true.                    |               |
+| dataModelBindings.falseData     | boolean           | Reference to the data model value when the field is set to false.                   |               |
+| dataModelBindings.defaultData   | boolean           | Reference to the default data model value when no specific value is set.            |               |
+| textResourceBindings.title      | string            | The title text resource binding.                                                    |               |
+| styleOverride                   | HTMLElement.style | The style override for the custom field.                                            |               |
 
 ## Example
 
@@ -21,18 +21,18 @@
 {
     "id": "soeknadGjelder-gjelderHeleTiltaket",
     "type": "Custom",
-    "tagName": "custom-field-boolean-text",
-    "hideTitle": true,
+    "tagName": "custom-field-boolean-data",
+    "hideTitle": false,
     "hideIfEmpty": false,
     "inline": false,
     "dataModelBindings": {
-        "simpleBinding": "soeknadGjelder.gjelderHeleTiltaket"
+        "simpleBinding": "condition",
+        "trueData": "dispensasjon?.dispensasjonBeskrivelse?.annenInngangsbeskrivelse",
+        "falseData": "dispensasjon?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse",
+        "defaultData": "dispensasjon?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse"
     },
     "textResourceBindings": {
-        "title": "resource.eiendomByggested.eiendom.bygningsnummer.title",
-        "trueText": "resource.soeknadGjelder.gjelderHeleTiltaket.true.title",
-        "falseText": "resource.soeknadGjelder.gjelderHeleTiltaket.false.title",
-        "defaultText": "resource.soeknadGjelder.gjelderHeleTiltaket.default.title"
+        "title": "resource.eiendomByggested.eiendom.bygningsnummer.title"
     }
-},
+}
 ```
