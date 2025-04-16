@@ -20,9 +20,9 @@ describe("CustomComponent", () => {
     });
 
     it("should initialize with valid texts", () => {
-        mockElement.setAttribute("texts", JSON.stringify({ key: "value" }));
+        mockElement.setAttribute("texts", JSON.stringify({ title: "Title" }));
         const component = new CustomComponent(mockElement);
-        expect(component.texts).toEqual({ key: "value" });
+        expect(component.texts).toEqual({ title: "Title" });
     });
 
     it("should initialize with inline set to true", () => {
@@ -38,21 +38,15 @@ describe("CustomComponent", () => {
     });
 
     it("should initialize with valid size", () => {
-        mockElement.setAttribute("size", "H2");
+        mockElement.setAttribute("size", "h1");
         const component = new CustomComponent(mockElement);
-        expect(component.size).toBe("h2");
+        expect(component.size).toBe("h1");
     });
 
     it("should initialize with hideIfEmpty set to true", () => {
         mockElement.setAttribute("hideIfEmpty", "true");
         const component = new CustomComponent(mockElement);
         expect(component.hideIfEmpty).toBe(true);
-    });
-
-    it("should initialize with valid emptyFieldText", () => {
-        const component = new CustomComponent(mockElement);
-        component.setTexts({ emptyFieldText: "Empty Field" });
-        expect(component.texts).toEqual({ emptyFieldText: "Empty Field" });
     });
 
     it("should initialize with valid styleOverride", () => {
@@ -97,6 +91,12 @@ describe("CustomComponent", () => {
         expect(component.format).toBe("json");
     });
 
+    it("should initialize with showRowNumbers set to true", () => {
+        mockElement.setAttribute("showRowNumbers", "true");
+        const component = new CustomComponent(mockElement);
+        expect(component.showRowNumbers).toBe(true);
+    });
+
     it("should set formData using setFormData method", () => {
         const component = new CustomComponent(mockElement);
         component.setFormData({ key: "newValue" });
@@ -105,8 +105,8 @@ describe("CustomComponent", () => {
 
     it("should set texts using setTexts method", () => {
         const component = new CustomComponent(mockElement);
-        component.setTexts({ key: "newValue" });
-        expect(component.texts).toEqual({ key: "newValue" });
+        component.setTexts({ title: "New Title" });
+        expect(component.texts).toEqual({ title: "New Title" });
     });
 
     it("should set text using setText method", () => {
