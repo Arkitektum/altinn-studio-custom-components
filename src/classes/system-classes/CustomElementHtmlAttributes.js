@@ -171,7 +171,7 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|undefined} - Returns "true" if the "hideTitle" property is strictly equal to "true" as a string; otherwise, undefined.
      */
     getHideTitleAttributeFromProps(props) {
-        return props?.hideTitle?.toString() === "true" && "true";
+        return props?.hideTitle?.toString() === "true" ? "true" : undefined;
     }
 
     /**
@@ -182,7 +182,7 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|boolean} - Returns the string "true" if the "hideIfEmpty" property is strictly equal to the string "true", otherwise returns `false`.
      */
     getHideIfEmptyAttributeFromProps(props) {
-        return props?.hideIfEmpty?.toString() === "true" && "true";
+        return props?.hideIfEmpty?.toString() === "true" ? "true" : undefined;
     }
 
     /**
@@ -195,7 +195,7 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|undefined} - Returns "true" if the "inline" property is strictly equal to "true" as a string; otherwise, undefined.
      */
     getInlineAttributeFromProps(props) {
-        return props?.inline?.toString() === "true" && "true";
+        return props?.inline?.toString() === "true" ? "true" : undefined;
     }
 
     /**
@@ -206,7 +206,7 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|undefined} A JSON string representation of the styleOverride object if it exists and has a value, otherwise undefined.
      */
     getStyleOverrideAttributeFromProps(props) {
-        return hasValue(props?.styleOverride) && JSON.stringify(props?.styleOverride);
+        return hasValue(props?.styleOverride) ? JSON.stringify(props?.styleOverride) : undefined;
     }
 
     /**
@@ -318,7 +318,7 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|undefined} - The string representation of the 'format' attribute if it exists and has a value; otherwise, undefined.
      */
     getFormatAttributeFromProps(props) {
-        return hasValue(props?.format) && props?.format.toString();
+        return hasValue(props?.format) && props?.format?.toString();
     }
 
     /**
@@ -331,6 +331,6 @@ export default class CustomElementHtmlAttributes {
      * @returns {string|undefined} - Returns "true" if the "showRowNumbers" attribute is strictly equal to "true" as a string, otherwise undefined.
      */
     getShowRowNumbersAttributeFromProps(props) {
-        return props?.showRowNumbers?.toString() === "true" && "true";
+        return props?.showRowNumbers?.toString() === "true" ? "true" : undefined;
     }
 }
