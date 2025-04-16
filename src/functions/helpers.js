@@ -40,6 +40,16 @@ export function hasValue(obj) {
 }
 
 /**
+ * Checks if the given value is a number and larger than zero.
+ *
+ * @param {any} value - The value to check.
+ * @returns {boolean} Returns `true` if the value is a number and greater than zero, otherwise `false`.
+ */
+export function isNumberLargerThanZero(value) {
+    return typeof value === "number" && value > 0;
+}
+
+/**
  * Checks if the provided tag name is valid.
  *
  * @param {string} tagName - The tag name to validate.

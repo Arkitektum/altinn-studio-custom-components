@@ -13,7 +13,8 @@ import {
     getTextResourcesFromResourceBindings,
     appendChildren,
     getAsync,
-    getEmptyFieldText
+    getEmptyFieldText,
+    isNumberLargerThanZero
 } from "./helpers";
 
 // Ensure jsdom environment is used for DOM-related tests
@@ -49,6 +50,33 @@ describe("helpers.js", () => {
 
         it("should return false for empty objects", () => {
             expect(hasValue({})).toBe(false);
+        });
+    });
+
+    describe("isNumberLargerThanZero", () => {
+        it("should return true for numbers larger than zero", () => {
+            expect(isNumberLargerThanZero(1)).toBe(true);
+            expect(isNumberLargerThanZero(100)).toBe(true);
+            expect(isNumberLargerThanZero(0.1)).toBe(true);
+        });
+
+        it("should return false for numbers less than or equal to zero", () => {
+            expect(isNumberLargerThanZero(0)).toBe(false);
+            expect(isNumberLargerThanZero(-1)).toBe(false);
+            expect(isNumberLargerThanZero(-100)).toBe(false);
+        });
+
+        it("should return false for non-number values", () => {
+            expect(isNumberLargerThanZero("1")).toBe(false);
+            expect(isNumberLargerThanZero(null)).toBe(false);
+            expect(isNumberLargerThanZero(undefined)).toBe(false);
+            expect(isNumberLargerThanZero({})).toBe(false);
+            expect(isNumberLargerThanZero([])).toBe(false);
+            expect(isNumberLargerThanZero(true)).toBe(false);
+        });
+
+        it("should return false for NaN", () => {
+            expect(isNumberLargerThanZero(NaN)).toBe(false);
         });
     });
 
