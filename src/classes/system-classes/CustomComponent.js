@@ -40,7 +40,7 @@ export default class CustomComponent {
         const feedbackType = this.getFeedbackType(element);
         const itemKey = this.getItemKey(element);
         const hideOrgNr = this.getHideOrgNr(element);
-        const format = this.getFormatFromElement(element);
+        const format = this.getFormat(element);
         if (formData) {
             this.formData = formData;
         }
@@ -231,7 +231,7 @@ export default class CustomComponent {
      * @returns {string|boolean} The value of the "format" attribute if it exists and is valid,
      *                           otherwise returns `false`.
      */
-    getFormatFromElement(element) {
+    getFormat(element) {
         const format = element?.getAttribute("format");
         return hasValue(format) && format;
     }
