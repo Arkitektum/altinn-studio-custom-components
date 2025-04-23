@@ -6,5 +6,5 @@
  * @returns {Array<*>} An array of values corresponding to the specified key from each object in the list.
  */
 export function getListItemsFromKey(items, itemKey) {
-    return items.map((item) => item?.[itemKey]);
+    return Array.isArray(items) && items.length ? items.map((item) => item?.[itemKey]) : [];
 }
