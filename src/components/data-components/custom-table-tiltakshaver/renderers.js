@@ -8,8 +8,9 @@ import { getPartTableElement } from "../../../functions/tableHelpers.js";
  * @param {Object} textResources - An object containing text resources for localization.
  * @param {Object} [textResourceBindings] - An optional object containing specific text resource bindings.
  * @param {string} [textResourceBindings.tiltakshaver] - The text resource binding for "tiltakshaver".
+ * @param {string} [size="h3"] - The size of the table header (default is "h3").
  * @returns {HTMLElement} - The HTML element representing the rendered table.
  */
-export function renderTiltakshaverTable(part, textResources, textResourceBindings) {
-    return getPartTableElement(part, textResources, textResourceBindings?.tiltakshaver);
+export function renderTiltakshaverTable(part, textResources, textResourceBindings, size = "h3") {
+    return getPartTableElement(part, textResources, textResourceBindings?.tiltakshaver, size);
 }

@@ -26,7 +26,7 @@ export default customElements.define(
             if (component?.hideIfEmpty && !hasValue(part) && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const eiendomTableElement = renderTiltakshaverTable(part, textResources, textResourceBindings);
+                const eiendomTableElement = renderTiltakshaverTable(part, textResources, textResourceBindings, component?.size);
                 this.appendChild(eiendomTableElement);
                 this.appendChild(renderFeedbackListElement(validationMessages));
             }

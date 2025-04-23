@@ -60,9 +60,10 @@ export function getTableRows(tableColumns, texts, data) {
  * @param {Object} part - The data object representing the part to be displayed in the table.
  * @param {Object[]} textResources - An array of text resource objects used for localization.
  * @param {Object} textResourceBindingsForPart - An object containing text resource bindings specific to the part.
+ * @param {string} [size="h3"] - The size of the table header (default is "h3").
  * @returns {HTMLElement} A custom table element populated with the provided data and configurations.
  */
-export function getPartTableElement(part, textResources, textResourceBindingsForPart) {
+export function getPartTableElement(part, textResources, textResourceBindingsForPart, size = "h3") {
     const tableColumns = [
         {
             titleResourceKey: "col-1",
@@ -99,7 +100,7 @@ export function getPartTableElement(part, textResources, textResourceBindingsFor
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { data: part },
         texts: getTextResourcesFromResourceBindings(textResources, textResourceBindingsForPart),
-        size: "h3",
+        size,
         hideIfEmpty: true,
         tableColumns
     });
