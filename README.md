@@ -1,96 +1,145 @@
 # altinn-studio-custom-components
 
-Denne pakken inneholder [Altinn 3 custom komponenter](https://docs.altinn.studio/nb/altinn-studio/reference/ux/components/custom/). Les mer om [web components for Altinn 3](https://github.com/Altinn/altinn-studio/issues/8681).
+This repository provides a collection of reusable custom components designed for Altinn Studio, enabling standardized presentation of various data types in digital public services.
 
-Her finner du gjenbrukbare komponenter som kan vise f.eks. et adresseobjekt eller et parts navn på en standard måte slik som Direktoratet for Byggkvalitet ønsker i Fellestjenester BYGG-plattformen.
+---
 
-## Komponenter
+## 📦 Installation
 
-### Titler
+To integrate these components into your Altinn Studio application, follow these steps:
 
-- [Text](src/components/data-components/custom-header-text/) - viser tittel med tekst fra ressurs
+1. Install the package via npm:
 
-### Undertitler
+   ```bash
+   npm install @arkitektum/altinn-studio-custom-components@2.0.0
+   ```
 
-- [Text](src/components/data-components/custom-subheader-text) - viser undertittel med tekst fra ressurs
+2. Add the following configuration to your `/App/App.csproj` file to ensure proper installation and asset copying during build:
 
-### Paragraf
+   ```xml
+   <Target Name="NpmInstall" Inputs="package.json" Outputs="node_modules/.install-stamp">
+     <Exec Command="npm ci"      Condition="'$(RestorePackagesWithLockFile)' == 'true'" />
+     <Exec Command="npm install" Condition="'$(RestorePackagesWithLockFile)' != 'true'" />
+     <Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
+   </Target>
 
-- [Text](src/components/data-components/custom-paragraph-text/) - viser paragraf med tekst fra ressurs
+   <ItemGroup>
+     <MyAssets Include="node_modules/@arkitektum/altinn-studio-custom-components/**/*.*" />
+   </ItemGroup>
 
-### Datafelt
+   <Target Name="CopyAssetsToWwwroot" DependsOnTargets="NpmInstall" AfterTargets="Build">
+     <Message Text="Copying assets to wwwroot..." Importance="High" />
+     <MakeDir Directories="wwwroot/altinn-studio-custom-components" />
+     <Copy
+       SourceFiles="@(MyAssets)"
+       DestinationFolder="wwwroot/altinn-studio-custom-components"
+       SkipUnchangedFiles="true" />
+   </Target>
+   ```
 
-- [Data](src/components/data-components/custom-field-data/) - viser et datafelt med label
-- [Boolean text](src/components/data-components/custom-field-boolean-text/) - viser et boolsk med gitte tekster for true/false verdier
-- [Adresse](src/components/data-components/custom-field-adresse/) - viser et komplett adresseobjekt
-- [Part-navn](src/components/data-components/custom-field-part-navn/) - viser parts navn med evt organisasjonsnummer
-- [Kommunens saksnummer](src/components/data-components/custom-field-kommunens-saksnummer/) - viser et kommunalt saksnummer sammensatt av saksår og sekvensnummer.
-- [Prosjekt](src/components/data-components/custom-field-prosjekt/) - viser prosjektnummer sammensatt av nummer og navn
-- [Telefonnummer](src/components/data-components/custom-field-telefonnummer/) - viser alle telefonnummer som er angitt på et parts-objekt
-- [Utfallbesvarelse](src/components/data-components/custom-field-utfall-svar-status/) - viser status basert på Utfallsvar-objektet
-- [Feedback](src/components/data-components/custom-feedback-data/) - viser tilbakemelding i skjema
+3. Add the following configuration to your `/views/Home/index.cshtml` file:
 
-### Lister
+   ```html
+   <html>
+     <head>
+       <link rel="stylesheet" type="text/css" href="/dibk/ig-v3/ftpb-components/dist/main.css">
+     </head>
+     <body>
+       <script type="module" src="/dibk/ig-v3/ftpb-components/dist/main.js"></script>
+     </body>
+   </html>
+   ```
 
-- [Data](src/components/data-components/custom-list-data/) - viser en liste med verdier
-- [Vedlegg](src/components/data-components/custom-list-vedlegg/) - viser en liste med vedlegg fra datamodellen
-- [Feedback](src/components/data-components/custom-feedbacklist-data/) - viser liste med tilbakemeldinger i skjema
-- [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) - viser lister med valideringsmeldinger i skjema
+This will handle the installation of the necessary npm packages and copy the assets to the `wwwroot/altinn-studio-custom-components` directory during the build process.
 
-### Gruppelister
+---
 
-- [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) - viser liste Utfallsvar-komponentgrupper
+## 🧩 Available Components
 
-### Tabeller
+These components are tailored to display specific data types consistently across Altinn Studio applications:
 
-- [Data](src/components/data-components/custom-table-data/) - viser en tabell med verdier
+- **Typography**
+  - [Header](src/components/data-components/custom-header-text/) – Displays a title with text from a resource.
+  - [Subheader](src/components/data-components/custom-subheader-text) – Displays a title with text from a resource.
+  - [Paragraph](src/components/data-components/custom-paragraph-text/) – Displays a paragraph with text from a resource.
+- **Fields**
+  - [Data](src/components/data-components/custom-field-data/) – Displays a data field with a label.
+  - [Boolean Data](src/components/data-components/custom-field-boolean-data/) – Displays different data model values based on a boolean value.
+  - [Boolean Text](src/components/data-components/custom-field-boolean-text/) – Displays different text resources based on a boolean value.
+  - [Feedback](src/components/data-components/custom-feedback-data/) – Displays a single feedback message.
+  - [Adresse](src/components/data-components/custom-field-adresse/) – Displays a complete address object
+  - [Part-navn](src/components/data-components/custom-field-part-navn/) – Displays a part's name, optionally with an organization number.
+  - [Kommunens saksnummer](src/components/data-components/custom-field-kommunens-saksnummer/) – Displays a municipal case number composed of the case year and sequence number.
+  - [Prosjekt](src/components/data-components/custom-field-prosjekt/) – Displays a project number composed of a number and name.
+  - [Telefonnummer](src/components/data-components/custom-field-telefonnummer/) – Displays all phone numbers associated with a part object.
+  - [Utfallbesvarelse](src/components/data-components/custom-field-utfall-svar-status/) – Displays the status based on the 'Utfallbesvarelse' object.
+- **Lists**
+  - [Data](src/components/data-components/custom-list-data/) – Displays a list of values from an array.
+  - [Vedlegg](src/components/data-components/custom-list-vedlegg/) – Displays a list of attachments.
+  - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
+  - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
+- **Group listes**
+  - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of 'Utfallsvar' component groups.
+- **Tables**
+  - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
 
-### Hvordan ta i bruk altinn-studio-custom-components i en Altinn 3 App
+These components adhere to the standards set by the Norwegian Building Authority (Direktoratet for Byggkvalitet) within the Fellestjenester BYGG platform.
 
-Installer libman cli som et globalt verktøy (kun nødvendig 1 gang pr maskin)
+---
 
-`dotnet tool install -g Microsoft.Web.LibraryManager.Cli`
+## 🧪 Development & Testing
 
-Initialiser **libman.json** og bruk unpkg.com som default kilde
+To set up a local development environment for testing these components:
+
+### Run development environment
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/Arkitektum/altinn-studio-custom-components.git
+   ```
+
+2. Navigate into the project directory:
+
+   ```bash
+   cd altinn-studio-custom-components
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   yarn install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   yarn start
+   ```
+
+   This will launch a local server where you can preview and test the components in isolation.
+
+### Run unit tests
+
+To ensure everything is working as expected, run the tests:
 
 ```bash
-C:\dev\src\dibk\ig-v3\App> libman init
-DefaultProvider [cdnjs]: unpkg
+yarn test
 ```
 
-Installer pakken til **wwwroot/ftpb-components**
+This will execute the test suite and help validate that the components behave as intended.
 
-```bash
-C:\dev\src\dibk\ig-v3\App> libman install @arkitektum/altinn-studio-custom-components@1.5.1 -d wwwroot/ftpb-components
+---
 
-wwwroot/ftpb-components/dist/main.js written to disk
-wwwroot/ftpb-components/package.json written to disk
-wwwroot/ftpb-components/README.md written to disk
-Installed library "@arkitektum/altinn-studio-custom-components@1.5.1" to "wwwroot/ftpb-components"
-```
+## 🔗 Resources
 
-Legg til libman i byggeprosessen i dotnet-prosjektet
+- [Altinn Studio Documentation](https://docs.altinn.studio/)
+- [Altinn Studio GitHub Repository](https://github.com/Altinn/altinn-studio)
+- [Altinn Studio Customm Component Documentation](https://docs.altinn.studio/altinn-studio/reference/ux/components/custom/)
+- [POC: Use of third party components in apps](https://github.com/Altinn/altinn-studio/issues/8681)
 
-```bash
-C:\dev\src\dibk\ig-v3\App> dotnet add package Microsoft.Web.LibraryManager.Build
-```
+---
 
-Kjør bygging på vanlig måte
+## 📝 Changelog
 
-```bash
-C:\dev\src\dibk\ig-v3\App> dotnet build
-```
-
-Legg til referanse i **views/Home/index.cshtml**. Legg til link-taggen i head og script-taggen nederst i body. Pass på å bytt ut starten av stien **/dibk/ig-v3** med reel sti for appen.
-
-```html
-<!-- Custom components -->
-<html>
-    <head>
-        <link rel="stylesheet" type="text/css" href="/dibk/ig-v3/ftpb-components/dist/main.css" />
-    </head>
-    <body>
-        <script type="module" src="/dibk/ig-v3/ftpb-components/dist/main.js"></script>
-    </body>
-</html>
-```
+The [changelog](https://github.com/Arkitektum/altinn-studio-custom-components/releases) is regularly updated to reflect what's changed in each new release.
