@@ -8,13 +8,19 @@ This repository provides a collection of reusable custom components designed for
 
 To integrate these components into your Altinn Studio application, follow these steps:
 
-1. Install the package via npm:
+1. Init NPM:
 
    ```bash
-   npm install @arkitektum/altinn-studio-custom-components@2.0.0
+   npm init -y
    ```
 
-2. Add the following configuration to your `/App/App.csproj` file to ensure proper installation and asset copying during build:
+2. Install the package via npm:
+
+   ```bash
+   npm install @arkitektum/altinn-studio-custom-components --save
+   ```
+
+3. Add the following configuration to your `/App/App.csproj` file to ensure proper installation and asset copying during build:
 
    ```xml
    <Target Name="NpmInstall" Inputs="package.json" Outputs="node_modules/.install-stamp">
@@ -37,15 +43,17 @@ To integrate these components into your Altinn Studio application, follow these 
    </Target>
    ```
 
-3. Add the following configuration to your `/views/Home/index.cshtml` file:
+4. Add the following configuration to your `/views/Home/index.cshtml` file:
+
+   Make sure you replace `[APP NAME]` with the actual app name
 
    ```html
    <html>
      <head>
-       <link rel="stylesheet" type="text/css" href="/dibk/ig-v3/ftpb-components/dist/main.css">
+       <link rel="stylesheet" type="text/css" href="/dibk/[APP NAME]/altinn-studio-custom-components/main.css">
      </head>
      <body>
-       <script type="module" src="/dibk/ig-v3/ftpb-components/dist/main.js"></script>
+       <script type="module" src="/dibk/[APP NAME]/altinn-studio-custom-components/main.js"></script>
      </body>
    </html>
    ```
