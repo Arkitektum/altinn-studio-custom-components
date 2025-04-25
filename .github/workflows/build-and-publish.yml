@@ -41,21 +41,28 @@ jobs:
 
       - name: Build project
         run: yarn build
-        if: ${{ success() }}
 
       - name: Publish to npm
-        if: ${{ success() }}
-        run: npm publish
+        run: |
+          if [ -n "${{ secrets.PUBLISH_NPM_TOKEN }}" ]; then
+            npm publish
+          else
+            echo "PUBLISH_NPM_TOKEN is not set, skipping NPM publish."
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
 
       - name: Configure npm to publish to GitHub Packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-          echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
 
       - name: Publish to GitHub Packages
-        if: ${{ success() }}
-        run: npm publish --registry https://npm.pkg.github.com
+        run: |
+          if [ -n "${{ secrets.GITHUB_TOKEN }}" ]; then
+            npm publish --registry https://npm.pkg.github.com
+          else
+            echo "GITHUB_TOKEN is not set, skipping GitHub Packages publish."
+          fi
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
