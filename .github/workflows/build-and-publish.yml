@@ -55,12 +55,12 @@ jobs:
       - name: Configure npm to publish to GitHub Packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
-          echo "registry=https://npm.pkg.github.com" >> ~/.npmrc
+          echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com" >> ~/.npmrc
 
       - name: Publish to GitHub Packages
         run: |
           if [ -n "${{ secrets.GITHUB_TOKEN }}" ]; then
-            npm publish --registry https://npm.pkg.github.com
+            npm publish --registry https://npm.pkg.github.com --access public
           else
             echo "GITHUB_TOKEN is not set, skipping GitHub Packages publish."
           fi
