@@ -58,7 +58,7 @@ jobs:
           node-version: '22'
           registry-url: https://npm.pkg.github.com/
           always-auth: true
-          scope: "@arkitektum"   # 👈 use the exact casing as in package.json
+          scope: "@${{ github.repository_owner }}"
           token: ${{ secrets.GITHUB_TOKEN }}
 
       # Publish to GitHub Packages
