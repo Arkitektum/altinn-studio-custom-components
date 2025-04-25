@@ -38,5 +38,8 @@
         "webpack-cli": "^6.0.1",
         "webpack-dev-server": "^5.2.0"
     },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
     "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
