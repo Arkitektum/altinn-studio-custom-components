@@ -7,6 +7,8 @@ import {
     isValidDateString,
     isValidHeaderSize
 } from "./dataFormatHelpers";
+import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
 
 jest.mock("../constants/dateTimeFormats", () => ({
     availableDateTimeLanguages: ["default"],
@@ -158,7 +160,12 @@ describe("formatDateTime", () => {
 
     it("should handle a valid ISO dateTime string with a time zone offset", () => {
         const dateTime = "2023-10-01T15:30:00+02:00";
-        const formatted = formatDateTime(dateTime, "no-NO");
+
+        // Convert to the Oslo time zone
+        const timeZone = "Europe/Oslo"; // Use a specific timezone
+        const zonedDate = toZonedTime(dateTime, timeZone).toISOString();
+
+        const formatted = formatDateTime(zonedDate, "no-NO");
         expect(formatted).toBe("01.10.2023, 15:30:00");
     });
 
@@ -250,7 +257,12 @@ describe("formatTime", () => {
 
     it("should format a valid ISO time string with a time zone offset", () => {
         const time = "2023-10-01T15:30:00+02:00";
-        const formatted = formatTime(time, "no-NO");
+
+        // Convert to the Oslo time zone
+        const timeZone = "Europe/Oslo"; // Use a specific timezone
+        const zonedTime = toZonedTime(time, timeZone).toISOString();
+
+        const formatted = formatTime(zonedTime, "no-NO");
         expect(formatted).toBe("15:30:00");
     });
 
