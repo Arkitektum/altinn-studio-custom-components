@@ -43,7 +43,7 @@ jobs:
         run: yarn build
 
       - name: Publish to npm
-        if: success() && secrets.PUBLISH_NPM_TOKEN != ''
+        if: ${{ success() && secrets.PUBLISH_NPM_TOKEN }}
         run: yarn npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
@@ -54,7 +54,7 @@ jobs:
           echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com" >> ~/.npmrc
 
       - name: Publish to GitHub Packages
-        if: success() && secrets.GITHUB_TOKEN != ''
+        if: ${{ success() && secrets.GITHUB_TOKEN }}
         run: yarn npm publish --registry https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
