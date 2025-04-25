@@ -59,7 +59,7 @@ jobs:
           registry-url: https://npm.pkg.github.com/
           always-auth: true
           scope: "@arkitektum"   # 👈 use the exact casing as in package.json
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}  # <- your PAT here
 
       # Publish to GitHub Packages
       - name: Publish to GitHub Packages
