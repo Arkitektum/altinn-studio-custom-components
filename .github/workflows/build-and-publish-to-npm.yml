@@ -51,16 +51,3 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
 
-      # Setup for GitHub Packages
-      - name: Setup Node.js for GitHub Packages
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          registry-url: https://npm.pkg.github.com/
-          always-auth: true
-          scope: "@arkitektum"   # 👈 use the exact casing as in package.json
-          token: ${{ secrets.PUBLISH_GITHUB_TOKEN }}  # <- your PAT here
-
-      # Publish to GitHub Packages
-      - name: Publish to GitHub Packages
-        run: npm publish --registry=https://npm.pkg.github.com/
