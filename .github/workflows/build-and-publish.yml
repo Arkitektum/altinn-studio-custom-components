@@ -45,7 +45,7 @@ jobs:
 
       - name: Publish to npm
         if: ${{ success() }}
-        run: yarn npm publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
 
@@ -56,6 +56,6 @@ jobs:
 
       - name: Publish to GitHub Packages
         if: ${{ success() }}
-        run: yarn npm publish --registry https://npm.pkg.github.com
+        run: npm publish --registry https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
