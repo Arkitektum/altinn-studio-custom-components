@@ -40,10 +40,12 @@ jobs:
         run: yarn test
 
       - name: Build project
+        if: ${{ success() }}
         run: yarn build
 
       # Publish to npm
       - name: Publish to npm
+        if: ${{ success() }}
         run: |
           echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
           echo "@${{ github.repository_owner }}:registry=https://registry.npmjs.org/" >> ~/.npmrc

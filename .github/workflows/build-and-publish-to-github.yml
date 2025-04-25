@@ -21,7 +21,9 @@ jobs:
             registry-url: https://npm.pkg.github.com/
             scope: "@arkitektum"   # 👈 use the exact casing as in package.json
         - run: yarn install
+        - run: yarn test
         - run: yarn build
         - run: npm publish
+          if: ${{ success() }} # Only run if all previous steps succeeded
           env:
             NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
