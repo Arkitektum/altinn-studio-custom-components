@@ -52,17 +52,14 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
 
-      - name: Configure npm to publish to GitHub Packages
+      - name: Configure npm for GitHub Packages
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PUBLISH_GITHUB_TOKEN }}" > ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
           echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com" >> ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub Packages
-        run: |
-          if [ -n "${{ secrets.PUBLISH_GITHUB_TOKEN }}" ]; then
-            npm publish --registry https://npm.pkg.github.com --access public
-          else
-            echo "PUBLISH_GITHUB_TOKEN is not set, skipping GitHub Packages publish."
-          fi
+        run: npm publish --registry https://npm.pkg.github.com --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
