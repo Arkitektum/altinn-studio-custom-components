@@ -42,6 +42,7 @@ jobs:
       - name: Build project
         run: yarn build
 
+      # Publish to npm
       - name: Publish to npm
         run: |
           echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
@@ -50,29 +51,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
 
-      - name: Debug .npmrc and registry
-        run: |
-          echo "--- .npmrc ---"
-          cat ~/.npmrc
-          echo "--- npm registry ---"
-          npm config get registry
+      # Setup for GitHub Packages
+      - name: Setup Node.js for GitHub Packages
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://npm.pkg.github.com/
+          always-auth: true
+          scope: "@${{ github.repository_owner }}"
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Clear .npmrc before setting up for GitHub Packages
-        run: rm -f ~/.npmrc
-
-      - name: Configure npm for GitHub Packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
-          echo "@${{ github.repository_owner }}:registry=https://npm.pkg.github.com/" >> ~/.npmrc
-          echo "--- .npmrc (after config for GitHub Packages) ---" # debug line
-          cat ~/.npmrc  # Output to ensure that GitHub registry is set
-          npm config get registry  # Check registry
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      # Publish to GitHub Packages
       - name: Publish to GitHub Packages
-        run: |
-          echo "--- Publishing to GitHub Packages ---"
-          npm publish --registry=https://npm.pkg.github.com/  # Ensure registry is explicitly set
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish --registry=https://npm.pkg.github.com/
