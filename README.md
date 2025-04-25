@@ -58,6 +58,14 @@ To integrate these components into your Altinn Studio application, follow these 
    </html>
    ```
 
+5. Add npm to `Dockerfile`
+
+   ```dockerfile
+   WORKDIR /App
+
+   RUN apk add --no-cache npm
+   ```
+
 This will handle the installation of the necessary npm packages and copy the assets to the `wwwroot/altinn-studio-custom-components` directory during the build process.
 
 ---
@@ -86,11 +94,12 @@ These components are tailored to display specific data types consistently across
   - [Vedlegg](src/components/data-components/custom-list-vedlegg/) – Displays a list of attachments.
   - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
   - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
-- **Group listes**
+- **Group lists**
   - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of [`Utfallsvar`](src/classes/data-classes/UtfallSvar.js) component groups.
 - **Tables**
   - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
   - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
+  - [Tiltakshaver](src/components/data-components/custom-table-tiltakshaver/) – Displays table with data from an array with [`Part`](src/classes/data-classes/Part.js) objects for `tiltakshaver`.
 
 These components adhere to the standards set by the Norwegian Building Authority (Direktoratet for Byggkvalitet) within the Fellestjenester BYGG platform.
 
