@@ -87,9 +87,10 @@ These components are tailored to display specific data types consistently across
   - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
   - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
 - **Group listes**
-  - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of 'Utfallsvar' component groups.
+  - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of [`Utfallsvar`](src/classes/data-classes/UtfallSvar.js) component groups.
 - **Tables**
   - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
+  - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
 
 These components adhere to the standards set by the Norwegian Building Authority (Direktoratet for Byggkvalitet) within the Fellestjenester BYGG platform.
 
