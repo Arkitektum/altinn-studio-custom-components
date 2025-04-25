@@ -45,6 +45,7 @@ jobs:
       - name: Publish to npm
         run: |
           if [ -n "${{ secrets.PUBLISH_NPM_TOKEN }}" ]; then
+            echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > ~/.npmrc
             npm publish
           else
             echo "PUBLISH_NPM_TOKEN is not set, skipping NPM publish."
