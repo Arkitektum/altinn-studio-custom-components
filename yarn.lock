@@ -37,15 +37,15 @@ __metadata:
   linkType: soft
 
 "@asamuzakjp/css-color@npm:^3.1.2":
-  version: 3.1.4
-  resolution: "@asamuzakjp/css-color@npm:3.1.4"
+  version: 3.1.5
+  resolution: "@asamuzakjp/css-color@npm:3.1.5"
   dependencies:
     "@csstools/css-calc": "npm:^2.1.3"
     "@csstools/css-color-parser": "npm:^3.0.9"
     "@csstools/css-parser-algorithms": "npm:^3.0.4"
     "@csstools/css-tokenizer": "npm:^3.0.3"
     lru-cache: "npm:^10.4.3"
-  checksum: 10c0/e511c0be9872e26399a3d6a117cb81d6ced52db1b6e5562a36d3d32cfbd491dba9dbbc6fa6487d7dd79470baebb151a416c10cdb759306ae50a800995674eb2a
+  checksum: 10c0/040ede3b4fea5a40e619ffd43400c8e1f21a9fb387ca4bffcf51931a447477a462209e4929b95265c5346b0c5226911c61330025da17cb6ba98ed25736e823b9
   languageName: node
   linkType: hard
 
@@ -2040,11 +2040,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*":
-  version: 22.15.2
-  resolution: "@types/node@npm:22.15.2"
+  version: 22.15.3
+  resolution: "@types/node@npm:22.15.3"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/39da31d5fc63b14fabd217bb8a921c4a7fc3d99f233440209f9fc2d5d736e8773f7efc65223e2fd0e8db8390b0baab9c0cd2e951c2ece8b237f07313ab3cf295
+  checksum: 10c0/2879f012d1aeba0bfdb5fed80d165f4f2cb3d1f2e1f98a24b18d4a211b4ace7d64bf2622784c78355982ffc1081ba79d0934efc2fb8353913e5871a63609661f
   languageName: node
   linkType: hard
 
@@ -3597,9 +3597,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.73":
-  version: 1.5.142
-  resolution: "electron-to-chromium@npm:1.5.142"
-  checksum: 10c0/05bc0c695a4b7c6fac499700199bfd90d767eea352e67171f005920a225e42fa08dc62ba0d31523fcd2e9b49e25aab133f82270e784888fb5c3c032f6607cdeb
+  version: 1.5.144
+  resolution: "electron-to-chromium@npm:1.5.144"
+  checksum: 10c0/c0e2be98de5b7c002fa647f6f0ba9a09cccc4c8d4ce967ff2e44e0c7c69b87cb98ef7bd46e4d0d2f93e2e9a7d9c64c7cedb8e525ac1a560cb71b492148ca6c35
   languageName: node
   linkType: hard
 
