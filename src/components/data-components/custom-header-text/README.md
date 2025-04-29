@@ -13,12 +13,12 @@
 
 ```json
 {
-    "id": "soeknadenGjelder-header",
+    "id": "soeknadGjelder-header",
     "type": "Custom",
     "tagName": "custom-header-text",
     "size": "h2",
     "textResourceBindings": {
-        "title": "resource.soeknadenGjelder.header"
+        "title": "resource.soeknadGjelder.header"
     },
     "styleOverride": {
         "color": "#FF00FF"

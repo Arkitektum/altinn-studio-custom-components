@@ -31,7 +31,9 @@ import {
     renderNasjonalArealplanIdPlanIdentifikasjon,
     renderOensketVarighet,
     renderPlanBestemmelseNummerering,
-    renderSoeknadenGjelderHeader,
+    renderSoeknadGjelderHeader,
+    renderSoeknadGjelderTypeHeader,
+    renderSoeknadGjelderTypeKode,
     renderStedfestingHeader,
     renderStedfestingPosisjonKoordinater,
     renderStedfestingPosisjonKoordinatsystem,
@@ -60,8 +62,10 @@ export default customElements.define(
                 const dispensasjonsreferanseElement = renderDispensasjonReferanse(dispensasjon, textResources, textResourceBindings);
                 const metadataFtbIdElement = renderMetadataFtbId(dispensasjon, textResources, textResourceBindings);
                 const kommunensSaksnummerElement = renderKommunensSaksnummer(dispensasjon, textResources, textResourceBindings);
-                const soeknadenGjelderHeaderElement = renderSoeknadenGjelderHeader(textResources, textResourceBindings);
+                const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(textResources, textResourceBindings);
                 const eiendomTableElement = renderEiendomTable(dispensasjon, textResources, textResourceBindings);
+                const soeknadGjelderTypeHeaderElement = renderSoeknadGjelderTypeHeader(textResources, textResourceBindings);
+                const soeknadGjelderTypeKodeElement = renderSoeknadGjelderTypeKode(dispensasjon, textResources, textResourceBindings);
                 const tiltakshaverTableElement = renderTiltakshaverTable(dispensasjon, textResources, textResourceBindings);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(dispensasjon, textResources, textResourceBindings);
                 const dispensasjonHeader2Element = renderDispansasjonHeader(dispensasjon, "h2");
@@ -129,8 +133,13 @@ export default customElements.define(
                     kommunensSaksnummerElement
                 ]);
 
-                // Soeknaden gjelder
-                appendChildren(layoutContainerElement, [soeknadenGjelderHeaderElement, eiendomTableElement]);
+                // Soeknad gjelder
+                appendChildren(layoutContainerElement, [
+                    soeknadGjelderHeaderElement,
+                    eiendomTableElement,
+                    soeknadGjelderTypeHeaderElement,
+                    soeknadGjelderTypeKodeElement
+                ]);
 
                 // Soeker
                 appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);
