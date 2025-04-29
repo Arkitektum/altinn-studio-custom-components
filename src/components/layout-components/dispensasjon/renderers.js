@@ -94,17 +94,17 @@ export function renderKommunensSaksnummer(dispensasjon, textResources, textResou
 }
 
 /**
- * Renders a custom header element for "Søknaden gjelder" with the specified text and attributes.
+ * Renders a custom header element for "Søknad gjelder" with the specified text and attributes.
  *
  * @param {Object} textResources - The collection of text resources used for localization.
  * @param {Object} textResourceBindings - The bindings for text resources, containing keys for specific text elements.
- * @param {Object} textResourceBindings.soeknadenGjelderHeader - The specific binding for the "Søknaden Gjelder" header.
- * @param {string} textResourceBindings.soeknadenGjelderHeader.title - The key for the title text resource.
+ * @param {Object} textResourceBindings.soeknadGjelderHeader - The specific binding for the "Søknad Gjelder" header.
+ * @param {string} textResourceBindings.soeknadGjelderHeader.title - The key for the title text resource.
  * @returns {HTMLElement} A custom header element with the specified attributes and localized text.
  */
-export function renderSoeknadenGjelderHeader(textResources, textResourceBindings) {
+export function renderSoeknadGjelderHeader(textResources, textResourceBindings) {
     const htmlAttributes = new CustomElementHtmlAttributes({
-        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadenGjelderHeader?.title),
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadGjelderHeader?.title),
         size: "h2"
     });
     return createCustomElement("custom-header-text", htmlAttributes);

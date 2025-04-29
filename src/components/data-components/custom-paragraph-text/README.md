@@ -12,11 +12,11 @@
 
 ```json
 {
-    "id": "soeknadenGjelder-description",
+    "id": "soeknadGjelder-description",
     "type": "Custom",
     "tagName": "custom-paragraph-text",
     "textResourceBindings": {
-        "title": "resource.soeknadenGjelder.description"
+        "title": "resource.soeknadGjelder.description"
     },
     "styleOverride": {
         "color": "#FF00FF"

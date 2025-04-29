@@ -31,7 +31,7 @@ import {
     renderNasjonalArealplanIdPlanIdentifikasjon,
     renderOensketVarighet,
     renderPlanBestemmelseNummerering,
-    renderSoeknadenGjelderHeader,
+    renderSoeknadGjelderHeader,
     renderStedfestingHeader,
     renderStedfestingPosisjonKoordinater,
     renderStedfestingPosisjonKoordinatsystem,
@@ -60,7 +60,7 @@ export default customElements.define(
                 const dispensasjonsreferanseElement = renderDispensasjonReferanse(dispensasjon, textResources, textResourceBindings);
                 const metadataFtbIdElement = renderMetadataFtbId(dispensasjon, textResources, textResourceBindings);
                 const kommunensSaksnummerElement = renderKommunensSaksnummer(dispensasjon, textResources, textResourceBindings);
-                const soeknadenGjelderHeaderElement = renderSoeknadenGjelderHeader(textResources, textResourceBindings);
+                const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(textResources, textResourceBindings);
                 const eiendomTableElement = renderEiendomTable(dispensasjon, textResources, textResourceBindings);
                 const tiltakshaverTableElement = renderTiltakshaverTable(dispensasjon, textResources, textResourceBindings);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(dispensasjon, textResources, textResourceBindings);
@@ -129,8 +129,8 @@ export default customElements.define(
                     kommunensSaksnummerElement
                 ]);
 
-                // Soeknaden gjelder
-                appendChildren(layoutContainerElement, [soeknadenGjelderHeaderElement, eiendomTableElement]);
+                // Soeknad gjelder
+                appendChildren(layoutContainerElement, [soeknadGjelderHeaderElement, eiendomTableElement]);
 
                 // Soeker
                 appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);

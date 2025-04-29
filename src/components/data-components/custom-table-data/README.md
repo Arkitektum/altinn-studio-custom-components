@@ -82,7 +82,7 @@
         }
     ],
     "textResourceBindings": {
-        "title": "resource.soeknadenGjelder.header",
+        "title": "resource.soeknadGjelder.header",
         "col-1": "resource.eiendomByggested.eiendom.adresse.title",
         "col-2": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
         "col-3": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",

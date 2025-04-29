@@ -8,8 +8,8 @@ export default {
     kommunensSaksnummer: {
         title: "resource.kommunensSaksnummer.title"
     },
-    soeknadenGjelderHeader: {
-        title: "resource.soeknadenGjelder.header"
+    soeknadGjelderHeader: {
+        title: "resource.soeknadGjelder.header"
     },
     tiltakshaverAdresse: {
         title: "resource.tiltakshaver.adresse.title"
