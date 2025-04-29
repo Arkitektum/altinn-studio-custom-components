@@ -7,6 +7,7 @@ import Kode from "../data-classes/Kode.js";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
 import Metadata from "../data-classes/Metadata.js";
 import Part from "../data-classes/Part.js";
+import SoeknadGjelder from "../data-classes/SoeknadGjelder.js";
 import Stedfesting from "../data-classes/Stedfesting.js";
 import Varighet from "../data-classes/Varighet.js";
 
@@ -39,6 +40,7 @@ export default class Dispensasjon {
         this.kommunensSaksnummer = props?.kommunensSaksnummer && new KommunensSaksnummer(props.kommunensSaksnummer);
         this.metadata = props?.metadata && new Metadata(props.metadata);
         this.eiendomByggested = props?.eiendomByggested && new EiendomByggested(props.eiendomByggested);
+        this.soeknadGjelder = props?.soeknadGjelder && new SoeknadGjelder(props.soeknadGjelder);
         this.tiltakshaver = props?.tiltakshaver && new Part(props.tiltakshaver);
         this.dispensasjonFra = props?.dispensasjonFra && new DispensasjonFra(props.dispensasjonFra);
         this.stedfesting = props?.stedfesting && new Stedfesting(props.stedfesting);
