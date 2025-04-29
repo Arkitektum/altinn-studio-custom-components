@@ -11,6 +11,12 @@ export default {
     soeknadGjelderHeader: {
         title: "resource.soeknadGjelder.header"
     },
+    soeknadGjelderTypeHeader: {
+        title: "resource.soeknadGjelder.type.header"
+    },
+    soeknadGjelderTypeKode: {
+        title: "resource.soeknadGjelder.type.kode.title"
+    },
     tiltakshaverAdresse: {
         title: "resource.tiltakshaver.adresse.title"
     },

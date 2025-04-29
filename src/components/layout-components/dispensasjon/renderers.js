@@ -132,6 +132,52 @@ export function renderEiendomTable(dispensasjon, textResources, textResourceBind
 }
 
 /**
+ * Renders a custom header element for the "Søknad Gjelder Type" section if the provided
+ * `dispensasjon` object contains a valid type code.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing the application data.
+ * @param {Object} dispensasjon.soeknadGjelder - The object representing the application details.
+ * @param {Object} dispensasjon.soeknadGjelder.type - The type object within the application details.
+ * @param {string} dispensasjon.soeknadGjelder.type.kode - The type code to check for validity.
+ * @param {Array} textResources - An array of text resources used for localization.
+ * @param {Object} textResourceBindings - An object containing bindings for text resources.
+ * @param {Object} textResourceBindings.soeknadGjelderTypeHeader - The binding for the header text resource.
+ * @param {string} textResourceBindings.soeknadGjelderTypeHeader.title - The key for the header title text resource.
+ * @returns {HTMLElement|null} A custom header element if the type code is valid, otherwise `null`.
+ */
+export function renderSoeknadGjelderTypeHeader(dispensasjon, textResources, textResourceBindings) {
+    const hasValue = dispensasjon?.soeknadGjelder?.type?.kode?.length > 0;
+    if (!hasValue) {
+        return null;
+    }
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadGjelderTypeHeader?.title),
+        size: "h3"
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+/**
+ * Renders the "Søknad Gjelder Type Kode" component for a dispensasjon.
+ *
+ * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
+ * @param {Object} textResources - The text resources used for localization.
+ * @param {Object} textResourceBindings - The bindings for text resources.
+ * @param {Object} textResourceBindings.soeknadGjelderTypeKode - The specific binding for "Søknad Gjelder Type Kode".
+ * @param {string} textResourceBindings.soeknadGjelderTypeKode.title - The title binding for the "Søknad Gjelder Type Kode".
+ * @returns {HTMLElement} The rendered custom element wrapped in a container element.
+ */
+export function renderSoeknadGjelderTypeKode(dispensasjon, textResources, textResourceBindings) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        formData: { data: dispensasjon?.soeknadGjelder?.type?.kode },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadGjelderTypeKode?.title),
+        hideIfEmpty: true,
+        itemKey: "kodebeskrivelse"
+    });
+    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
+}
+
+/**
  * Renders a custom table component for displaying "tiltakshaver" information.
  *
  * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
