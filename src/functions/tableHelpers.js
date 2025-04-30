@@ -68,33 +68,18 @@ export function getPartTableElement(part, textResources, textResourceBindingsFor
         {
             titleResourceKey: "col-1",
             emptyFieldTextResourceKey: "emptyFieldText-default",
-            tagName: "custom-field-part-navn",
-            props: {
-                styleOverride: {
-                    width: "250px"
-                }
-            }
+            tagName: "custom-field-part-navn"
         },
         {
             titleResourceKey: "col-2",
             emptyFieldTextResourceKey: "emptyFieldText-default",
-            tagName: "custom-field-telefonnummer",
-            props: {
-                styleOverride: {
-                    width: "120px"
-                }
-            }
+            tagName: "custom-field-telefonnummer"
         },
         {
             titleResourceKey: "col-3",
             emptyFieldTextResourceKey: "emptyFieldText-default",
             tagName: "custom-field-data",
-            dataKey: "epost",
-            props: {
-                styleOverride: {
-                    width: "260px"
-                }
-            }
+            dataKey: "epost"
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
