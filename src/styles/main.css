@@ -68,7 +68,7 @@ body {
         }
         & .fds-label {
             font-family: var(--font-family-default);
-            font-size: var(--font-size-h2);
+            font-size: var(--font-size-h3);
             font-weight: var(--font-weight-default);
             color: var(--color-text-default);
             margin-block-start: var(--margin-block-start-heading);
@@ -210,6 +210,19 @@ body {
 @media print {
     html {
         font-size: inherit !important;
+        & body {
+            & .fds-label {
+                font-family: var(--font-family-default);
+                font-size: var(--font-size-h3);
+                font-weight: var(--font-weight-default);
+                color: var(--color-text-default);
+                margin-block-start: var(--margin-block-start-heading);
+                margin-block-end: var(--margin-block-end-heading);
+                line-height: var(--line-height-heading);
+                page-break-after: avoid;
+                page-break-inside: avoid;
+            }
+        }
     }
 }
 
