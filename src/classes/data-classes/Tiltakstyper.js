@@ -5,14 +5,14 @@ import Kode from "./Kode.js";
 import { hasValue } from "../../functions/helpers.js";
 
 /**
- * Class representing SoeknadGjelder.
- * This class is used to handle the "SoeknadGjelder" data structure,
+ * Class representing Tiltakstyper.
+ * This class is used to handle the "Tiltakstyper" data structure,
  * extracting and processing type information from the provided properties.
  * @class
  */
-export default class SoeknadGjelder {
+export default class Tiltakstyper {
     /**
-     * Creates an instance of SoeknadGjelder.
+     * Creates an instance of Tiltakstyper.
      * @param {Object} props - The properties object.
      * @param {Object} [props.type] - The type object containing type information.
      * @param {Array} [props.type.kode] - An array of type codes.

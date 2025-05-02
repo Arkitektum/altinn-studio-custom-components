@@ -1,11 +1,11 @@
-import SoeknadGjelder from "./SoeknadGjelder";
+import Tiltakstyper from "./Tiltakstyper";
 import Kode from "./Kode";
 import { hasValue } from "../../functions/helpers";
 
 jest.mock("./Kode");
 jest.mock("../../functions/helpers");
 
-describe("SoeknadGjelder", () => {
+describe("Tiltakstyper", () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
@@ -16,7 +16,7 @@ describe("SoeknadGjelder", () => {
             hasValue.mockReturnValue(true);
             Kode.mockImplementation((item) => ({ value: item }));
 
-            const instance = new SoeknadGjelder(mockProps);
+            const instance = new Tiltakstyper(mockProps);
 
             expect(instance.type).toEqual({
                 kode: [{ value: "code1" }, { value: "code2" }]
@@ -24,7 +24,7 @@ describe("SoeknadGjelder", () => {
         });
 
         it("should not initialize type when props are not provided", () => {
-            const instance = new SoeknadGjelder();
+            const instance = new Tiltakstyper();
 
             expect(instance.type).toBeUndefined();
         });
@@ -36,7 +36,7 @@ describe("SoeknadGjelder", () => {
             hasValue.mockReturnValue(true);
             Kode.mockImplementation((item) => ({ value: item }));
 
-            const instance = new SoeknadGjelder();
+            const instance = new Tiltakstyper();
             const result = instance.getTypeFromProps(mockProps);
 
             expect(result).toEqual({
@@ -48,7 +48,7 @@ describe("SoeknadGjelder", () => {
             const mockProps = { type: null };
             hasValue.mockReturnValue(false);
 
-            const instance = new SoeknadGjelder();
+            const instance = new Tiltakstyper();
             const result = instance.getTypeFromProps(mockProps);
 
             expect(result).toBeNull();
@@ -60,7 +60,7 @@ describe("SoeknadGjelder", () => {
             const mockType = { kode: ["code1", "code2"] };
             Kode.mockImplementation((item) => ({ value: item }));
 
-            const instance = new SoeknadGjelder();
+            const instance = new Tiltakstyper();
             const result = instance.getKodeFromType(mockType);
 
             expect(result).toEqual([{ value: "code1" }, { value: "code2" }]);
@@ -72,7 +72,7 @@ describe("SoeknadGjelder", () => {
         it("should return null when type.kode is invalid", () => {
             const mockType = { kode: null };
 
-            const instance = new SoeknadGjelder();
+            const instance = new Tiltakstyper();
             const result = instance.getKodeFromType(mockType);
 
             expect(result).toBeNull();
@@ -81,7 +81,7 @@ describe("SoeknadGjelder", () => {
         it("should return null when type.kode is an empty array", () => {
             const mockType = { kode: [] };
 
-            const instance = new SoeknadGjelder();
+            const instance = new Tiltakstyper();
             const result = instance.getKodeFromType(mockType);
 
             expect(result).toBeNull();

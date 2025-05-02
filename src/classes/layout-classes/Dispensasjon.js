@@ -7,8 +7,8 @@ import Kode from "../data-classes/Kode.js";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
 import Metadata from "../data-classes/Metadata.js";
 import Part from "../data-classes/Part.js";
-import SoeknadGjelder from "../data-classes/SoeknadGjelder.js";
 import Stedfesting from "../data-classes/Stedfesting.js";
+import Tiltakstyper from "../data-classes/Tiltakstyper.js";
 import Varighet from "../data-classes/Varighet.js";
 
 /**
@@ -26,6 +26,7 @@ export default class Dispensasjon {
      * @param {KommunensSaksnummer} [props.kommunensSaksnummer] - The municipality's case number.
      * @param {Metadata} [props.metadata] - Metadata associated with the dispensasjon.
      * @param {EiendomByggested} [props.eiendomByggested] - The property or construction site information.
+     * @param {Tiltakstyper} [props.tiltakstyper] - The types of measures involved.
      * @param {Part} [props.tiltakshaver] - The party responsible for the tiltak (measure).
      * @param {DispensasjonFra} [props.dispensasjonFra] - Information about what the dispensasjon is from.
      * @param {Stedfesting} [props.stedfesting] - Geographical location information.
@@ -40,7 +41,7 @@ export default class Dispensasjon {
         this.kommunensSaksnummer = props?.kommunensSaksnummer && new KommunensSaksnummer(props.kommunensSaksnummer);
         this.metadata = props?.metadata && new Metadata(props.metadata);
         this.eiendomByggested = props?.eiendomByggested && new EiendomByggested(props.eiendomByggested);
-        this.soeknadGjelder = props?.soeknadGjelder && new SoeknadGjelder(props.soeknadGjelder);
+        this.tiltakstyper = props?.tiltakstyper && new Tiltakstyper(props.tiltakstyper);
         this.tiltakshaver = props?.tiltakshaver && new Part(props.tiltakshaver);
         this.dispensasjonFra = props?.dispensasjonFra && new DispensasjonFra(props.dispensasjonFra);
         this.stedfesting = props?.stedfesting && new Stedfesting(props.stedfesting);

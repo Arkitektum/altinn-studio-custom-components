@@ -32,14 +32,14 @@ import {
     renderOensketVarighet,
     renderPlanBestemmelseNummerering,
     renderSoeknadGjelderHeader,
-    renderSoeknadGjelderTypeHeader,
-    renderSoeknadGjelderTypeKode,
     renderStedfestingHeader,
     renderStedfestingPosisjonKoordinater,
     renderStedfestingPosisjonKoordinatsystem,
     renderStedfestingVertikalnivaa,
     renderTiltakshaverAdresse,
     renderTiltakshaverTable,
+    renderTiltakstyperTypeHeader,
+    renderTiltakstyperTypeKode,
     renderVarighetHeader
 } from "./renderers.js";
 import textResourceBindings from "./textResourceBindings.js";
@@ -64,8 +64,8 @@ export default customElements.define(
                 const kommunensSaksnummerElement = renderKommunensSaksnummer(dispensasjon, textResources, textResourceBindings);
                 const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(textResources, textResourceBindings);
                 const eiendomTableElement = renderEiendomTable(dispensasjon, textResources, textResourceBindings);
-                const soeknadGjelderTypeHeaderElement = renderSoeknadGjelderTypeHeader(textResources, textResourceBindings);
-                const soeknadGjelderTypeKodeElement = renderSoeknadGjelderTypeKode(dispensasjon, textResources, textResourceBindings);
+                const tiltakstyperTypeHeaderElement = renderTiltakstyperTypeHeader(textResources, textResourceBindings);
+                const tiltakstyperTypeKodeElement = renderTiltakstyperTypeKode(dispensasjon, textResources, textResourceBindings);
                 const tiltakshaverTableElement = renderTiltakshaverTable(dispensasjon, textResources, textResourceBindings);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(dispensasjon, textResources, textResourceBindings);
                 const dispensasjonHeader2Element = renderDispansasjonHeader(dispensasjon, "h2");
@@ -137,8 +137,8 @@ export default customElements.define(
                 appendChildren(layoutContainerElement, [
                     soeknadGjelderHeaderElement,
                     eiendomTableElement,
-                    soeknadGjelderTypeHeaderElement,
-                    soeknadGjelderTypeKodeElement
+                    tiltakstyperTypeHeaderElement,
+                    tiltakstyperTypeKodeElement
                 ]);
 
                 // Soeker
