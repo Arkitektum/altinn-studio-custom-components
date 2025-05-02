@@ -132,45 +132,42 @@ export function renderEiendomTable(dispensasjon, textResources, textResourceBind
 }
 
 /**
- * Renders a custom header element for the "Søknad Gjelder Type" section if the provided
- * `dispensasjon` object contains a valid type code.
+ * Renders a header for the "tiltakstyper type" section if the provided `dispensasjon` object contains a valid value.
  *
- * @param {Object} dispensasjon - The dispensasjon object containing the application data.
- * @param {Object} dispensasjon.soeknadGjelder - The object representing the application details.
- * @param {Object} dispensasjon.soeknadGjelder.type - The type object within the application details.
- * @param {string} dispensasjon.soeknadGjelder.type.kode - The type code to check for validity.
+ * @param {Object} dispensasjon - The object containing data about the dispensasjon.
+ * @param {Object} dispensasjon.tiltakstyper - The tiltakstyper object within the dispensasjon.
+ * @param {Object} dispensasjon.tiltakstyper.type - The type object within tiltakstyper.
+ * @param {string} dispensasjon.tiltakstyper.type.kode - The code representing the type.
  * @param {Array} textResources - An array of text resources used for localization.
  * @param {Object} textResourceBindings - An object containing bindings for text resources.
- * @param {Object} textResourceBindings.soeknadGjelderTypeHeader - The binding for the header text resource.
- * @param {string} textResourceBindings.soeknadGjelderTypeHeader.title - The key for the header title text resource.
- * @returns {HTMLElement|null} A custom header element if the type code is valid, otherwise `null`.
+ * @param {Object} textResourceBindings.tiltakstyperTypeHeader - The binding for the tiltakstyper type header.
+ * @param {string} textResourceBindings.tiltakstyperTypeHeader.title - The title binding for the header.
+ * @returns {HTMLElement|null} A custom header element if the value exists, otherwise null.
  */
-export function renderSoeknadGjelderTypeHeader(dispensasjon, textResources, textResourceBindings) {
-    const hasValue = dispensasjon?.soeknadGjelder?.type?.kode?.length > 0;
+export function renderTiltakstyperTypeHeader(dispensasjon, textResources, textResourceBindings) {
+    const hasValue = dispensasjon?.tiltakstyper?.type?.kode?.length > 0;
     if (!hasValue) {
         return null;
     }
     const htmlAttributes = new CustomElementHtmlAttributes({
-        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadGjelderTypeHeader?.title),
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.tiltakstyperTypeHeader?.title),
         size: "h3"
     });
     return createCustomElement("custom-header-text", htmlAttributes);
 }
 
 /**
- * Renders the "Søknad Gjelder Type Kode" component for a dispensasjon.
+ * Renders a custom list data element for the "Tiltakstyper Type Kode" field.
  *
- * @param {Object} dispensasjon - The dispensasjon object containing data for rendering.
- * @param {Object} textResources - The text resources used for localization.
- * @param {Object} textResourceBindings - The bindings for text resources.
- * @param {Object} textResourceBindings.soeknadGjelderTypeKode - The specific binding for "Søknad Gjelder Type Kode".
- * @param {string} textResourceBindings.soeknadGjelderTypeKode.title - The title binding for the "Søknad Gjelder Type Kode".
- * @returns {HTMLElement} The rendered custom element wrapped in a container element.
+ * @param {Object} dispensasjon - The dispensasjon object containing data to render.
+ * @param {Object} textResources - The text resources object used for localization.
+ * @param {Object} textResourceBindings - The bindings for text resources to retrieve specific text.
+ * @returns {HTMLElement} - A container element wrapping the custom list data element.
  */
-export function renderSoeknadGjelderTypeKode(dispensasjon, textResources, textResourceBindings) {
+export function renderTiltakstyperTypeKode(dispensasjon, textResources, textResourceBindings) {
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: { data: dispensasjon?.soeknadGjelder?.type?.kode },
-        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.soeknadGjelderTypeKode?.title),
+        formData: { data: dispensasjon?.tiltakstyper?.type?.kode },
+        text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.tiltakstyperTypeKode?.title),
         hideIfEmpty: true,
         itemKey: "kodebeskrivelse"
     });
