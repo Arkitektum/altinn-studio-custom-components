@@ -114,6 +114,7 @@ export default customElements.define(
                 const begrunnelseUlemperElement = renderBegrunnelseUlemper(dispensasjon, textResources, textResourceBindings);
                 const begrunnelseSamletBegrunnelseElement = renderBegrunnelseSamletBegrunnelse(dispensasjon, textResources, textResourceBindings);
                 const generelleVilkaarNorskSvenskDanskHeaderElement = renderGenerelleVilkaarNorskSvenskDanskHeader(
+                    dispensasjon,
                     textResources,
                     textResourceBindings
                 );

@@ -618,15 +618,21 @@ export function renderBegrunnelseSamletBegrunnelse(dispensasjon, textResources, 
 }
 
 /**
- * Renders a custom header element with text for general terms in Norwegian, Swedish, and Danish.
+ * Renders a custom header element with text for "generelle vilkår".
  *
+ * @param {Object} dispensasjon - The dispensasjon object containing conditions.
  * @param {Object} textResources - The collection of text resources available for rendering.
  * @param {Object} textResourceBindings - The bindings for text resources, containing keys for specific text elements.
- * @param {Object} textResourceBindings.generelleVilkaarNorskSvenskDansk - The binding for general terms in Norwegian, Swedish, and Danish.
+ * @param {Object} textResourceBindings.generelleVilkaarNorskSvenskDansk - The binding for "generelle vilkår" text resources.
  * @param {string} textResourceBindings.generelleVilkaarNorskSvenskDansk.title - The key for the title text resource.
- * @returns {HTMLElement} A custom header element with the specified text and attributes.
+ * @returns {HTMLElement|null} A custom header element if the condition is met, otherwise null.
  */
-export function renderGenerelleVilkaarNorskSvenskDanskHeader(textResources, textResourceBindings) {
+
+export function renderGenerelleVilkaarNorskSvenskDanskHeader(dispensasjon, textResources, textResourceBindings) {
+    const condition = dispensasjon?.generelleVilkaar?.norskSvenskDansk;
+    if (!condition) {
+        return null;
+    }
     const htmlAttributes = new CustomElementHtmlAttributes({
         text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.generelleVilkaarNorskSvenskDansk?.title),
         size: "h2"
