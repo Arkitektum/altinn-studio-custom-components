@@ -84,7 +84,7 @@ export default customElements.define(
                 );
                 const bestemmelserTypeElement = renderBestemmelserType(dispensasjon, textResources, textResourceBindings);
                 const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(dispensasjon, textResources, textResourceBindings);
-                const stedfestingHeaderElement = renderStedfestingHeader(textResources, textResourceBindings, "h2");
+                const stedfestingHeaderElement = renderStedfestingHeader(textResources, textResourceBindings);
                 const stedfestingPosisjonKoordinatsystemElement = renderStedfestingPosisjonKoordinatsystem(
                     dispensasjon,
                     textResources,
@@ -114,6 +114,7 @@ export default customElements.define(
                 const begrunnelseUlemperElement = renderBegrunnelseUlemper(dispensasjon, textResources, textResourceBindings);
                 const begrunnelseSamletBegrunnelseElement = renderBegrunnelseSamletBegrunnelse(dispensasjon, textResources, textResourceBindings);
                 const generelleVilkaarNorskSvenskDanskHeaderElement = renderGenerelleVilkaarNorskSvenskDanskHeader(
+                    dispensasjon,
                     textResources,
                     textResourceBindings
                 );
