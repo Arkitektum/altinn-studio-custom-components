@@ -6,7 +6,7 @@ import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomE
 import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { getBooleanData } from "./functions.js";
+import { getBooleanData, getFormDataValue } from "./functions.js";
 
 export default customElements.define(
     "custom-field-boolean-data",
@@ -18,7 +18,9 @@ export default customElements.define(
             if (component?.hideIfEmpty && !resultData?.length && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                component.setFormData({ simpleBinding: resultData });
+                component.setFormData({
+                    simpleBinding: getFormDataValue(component, resultData)
+                });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }
