@@ -43,10 +43,10 @@ function getDataForComponent(component) {
                 const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
                 data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding;
             } else if (typeof dataModelBinding === "object") {
-                const index = dataModels.findIndex((dataModel) => dataModel.dataType === dataModelBinding.dataType);
+                const index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataModelBinding?.dataType);
                 const dataModel = dataModels[index]?.data;
-                const dataModelData = getValueFromDataKey(dataModel, dataModelBinding.field);
-                data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding.data;
+                const dataModelData = getValueFromDataKey(dataModel, dataModelBinding?.field);
+                data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding?.data;
             }
         });
     return data;
