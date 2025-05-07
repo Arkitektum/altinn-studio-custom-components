@@ -1,5 +1,5 @@
 // Global functions
-import { validateFormData } from "../../../functions/helpers.js";
+import { getEmptyFieldText, hasValue, validateFormData } from "../../../functions/helpers.js";
 
 /**
  * Retrieves boolean data based on the component's form data and condition.
@@ -20,9 +20,9 @@ export function getBooleanData(component) {
     const componentName = component?.id?.length && typeof component?.id === "string" ? component.id : "custom-field-boolean-text";
     const condition = component?.formData?.simpleBinding;
     const data = {
-        trueData: component?.formData?.trueData.toString(),
-        falseData: component?.formData?.falseData.toString(),
-        defaultData: component?.formData?.defaultData.toString()
+        trueData: component?.formData?.trueData !== undefined && component.formData.trueData.toString(),
+        falseData: component?.formData?.falseData !== undefined && component.formData.falseData.toString(),
+        defaultData: component?.formData?.defaultData !== undefined && component.formData.defaultData.toString()
     };
     const dataKeys = ["trueData", "falseData", "defaultData"];
     validateFormData(data, dataKeys, componentName);
@@ -33,4 +33,18 @@ export function getBooleanData(component) {
     } else {
         return data?.defaultData ? data.defaultData : "";
     }
+}
+
+/**
+ * Retrieves the form data value for a given component.
+ *
+ * @param {Object} component - The component object for which the form data value is being retrieved.
+ * @param {*} resultData - The data value to check and potentially return.
+ * @returns {*} - Returns the `resultData` if it has a value; otherwise, returns the empty field text for the component.
+ */
+export function getFormDataValue(component, resultData) {
+    if (hasValue(resultData)) {
+        return resultData;
+    }
+    return getEmptyFieldText(component);
 }
