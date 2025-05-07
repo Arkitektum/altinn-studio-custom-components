@@ -17,8 +17,6 @@ describe("DispensasjonBeskrivelse", () => {
         };
         const instance = new DispensasjonBeskrivelse(props);
 
-        console.log(instance);
-
         expect(instance.dispensasjonTittel).toBeInstanceOf(Kode);
         expect(instance.dispensasjonTittel.kodebeskrivelse).toBe("Title description");
 
