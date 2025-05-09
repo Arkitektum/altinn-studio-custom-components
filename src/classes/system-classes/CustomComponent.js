@@ -106,13 +106,13 @@ export default class CustomComponent {
     }
 
     /**
-     * Retrieves the tag name from a given DOM element's "tagName" attribute.
+     * Retrieves the tag name of a given HTML element.
      *
-     * @param {Element} element - The DOM element from which to retrieve the tag name.
-     * @returns {string|false} The tag name if it exists and is valid; otherwise, `false`.
+     * @param {HTMLElement} element - The HTML element from which to extract the tag name.
+     * @returns {string|boolean} The tag name in lowercase if it exists and is valid, otherwise `false`.
      */
     getTagNameFromElement(element) {
-        const tagName = element?.getAttribute("tagName");
+        const tagName = element?.getAttribute("tagName") || element?.tagName?.toLowerCase();
         return hasValue(tagName) && tagName;
     }
 
