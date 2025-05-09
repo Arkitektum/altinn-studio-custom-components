@@ -33,6 +33,7 @@ export default class CustomElementHtmlAttributes {
     constructor(props) {
         const isChildComponent = true;
         const formData = this.getFormDataAttributeFromProps(props);
+        const tagName = this.getTagNameAttributeFromProps(props);
         const text = this.getTextAttributeFromProps(props);
         const size = this.getSizeAttributeFromProps(props);
         const hideTitle = this.getHideTitleAttributeFromProps(props);
@@ -54,6 +55,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (formData) {
             this.formData = formData;
+        }
+        if (tagName) {
+            this.tagName = tagName;
         }
         if (text) {
             this.text = text;
@@ -131,6 +135,17 @@ export default class CustomElementHtmlAttributes {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Retrieves the `tagName` attribute from the provided props object.
+     *
+     * @param {Object} props - The props object containing attributes.
+     * @param {string} [props.tagName] - The tagName attribute to retrieve.
+     * @returns {string|undefined} The `tagName` as a string if it exists, otherwise `undefined`.
+     */
+    getTagNameAttributeFromProps(props) {
+        return props?.tagName ? props?.tagName.toString() : undefined;
     }
 
     /**

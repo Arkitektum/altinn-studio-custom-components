@@ -29,6 +29,7 @@ export default class CustomComponent {
      */
     constructor(element) {
         const formData = this.getFormDataFromElement(element);
+        const tagName = this.getTagNameFromElement(element);
         const text = this.getTextFromElement(element);
         const texts = this.getTextsFromElement(element);
         const inline = this.getInlineFromElement(element);
@@ -45,6 +46,9 @@ export default class CustomComponent {
         const showRowNumbers = this.getShowRowNumbers(element);
         if (formData) {
             this.formData = formData;
+        }
+        if (tagName) {
+            this.tagName = tagName;
         }
         if (text) {
             this.text = text;
@@ -99,6 +103,17 @@ export default class CustomComponent {
     getFormDataFromElement(element) {
         const formData = JSON.parse(element?.getAttribute("formdata"));
         return hasValue(formData) && formData;
+    }
+
+    /**
+     * Retrieves the tag name from a given DOM element's "tagName" attribute.
+     *
+     * @param {Element} element - The DOM element from which to retrieve the tag name.
+     * @returns {string|false} The tag name if it exists and is valid; otherwise, `false`.
+     */
+    getTagNameFromElement(element) {
+        const tagName = element?.getAttribute("tagName");
+        return hasValue(tagName) && tagName;
     }
 
     /**
