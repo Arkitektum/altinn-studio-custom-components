@@ -9,6 +9,9 @@ import CustomComponent from "../CustomComponent.js";
  *
  * @class
  * @extends CustomComponent
+ *
+ * @param {HTMLElement | object} element - The element or object to initialize the component with.
+ * @property {boolean} isEmpty - Indicates whether the address fields are empty.
  */
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(element) {
