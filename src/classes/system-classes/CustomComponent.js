@@ -12,6 +12,7 @@ export default class CustomComponent {
      *
      * @param {HTMLElement} element - The HTML element used to initialize the component.
      * @property {Object} [formData] - The form data extracted from the element.
+     * @property {string} [tagName] - The tag name of the component, typically used for rendering.
      * @property {string} [text] - The text content extracted from the element.
      * @property {Object} [texts] - Additional text content extracted from the element.
      * @property {boolean} [inline] - Indicates whether the component should be displayed inline.
@@ -28,70 +29,98 @@ export default class CustomComponent {
      * @property {boolean} [showRowNumbers] - Indicates whether to show row numbers in the component.
      */
     constructor(element) {
-        const formData = this.getFormDataFromElement(element);
-        const tagName = this.getTagNameFromElement(element);
-        const text = this.getTextFromElement(element);
-        const texts = this.getTextsFromElement(element);
-        const inline = this.getInlineFromElement(element);
-        const hideTitle = this.getHideTitle(element);
-        const size = this.getSize(element);
-        const hideIfEmpty = this.getHideIfEmpty(element);
-        const styleOverride = this.getStyleOverride(element);
-        const isChildComponent = this.getIsChildComponent(element);
-        const tableColumns = this.getTableColumns(element);
-        const feedbackType = this.getFeedbackType(element);
-        const itemKey = this.getItemKey(element);
-        const hideOrgNr = this.getHideOrgNr(element);
-        const format = this.getFormat(element);
-        const showRowNumbers = this.getShowRowNumbers(element);
-        if (formData) {
-            this.formData = formData;
+        const props = element instanceof HTMLElement ? this.getPropsFromElementAttributes(element) : element;
+        if (props?.formData) {
+            this.formData = props.formData;
         }
-        if (tagName) {
-            this.tagName = tagName;
+        if (props?.tagName) {
+            this.tagName = props.tagName;
         }
-        if (text) {
-            this.text = text;
+        if (props?.text) {
+            this.text = props.text;
         }
-        if (texts) {
-            this.texts = texts;
+        if (props?.texts) {
+            this.texts = props.texts;
         }
-        if (inline) {
-            this.inline = inline;
+        if (props?.inline) {
+            this.inline = props.inline;
         }
-        if (hideTitle) {
-            this.hideTitle = hideTitle;
+        if (props?.hideTitle) {
+            this.hideTitle = props.hideTitle;
         }
-        if (size) {
-            this.size = size;
+        if (props?.size) {
+            this.size = props.size;
         }
-        if (hideIfEmpty) {
-            this.hideIfEmpty = hideIfEmpty;
+        if (props?.hideIfEmpty) {
+            this.hideIfEmpty = props.hideIfEmpty;
         }
-        if (styleOverride) {
-            this.styleOverride = styleOverride;
+        if (props?.styleOverride) {
+            this.styleOverride = props.styleOverride;
         }
-        if (isChildComponent) {
-            this.isChildComponent = isChildComponent;
+        if (props?.isChildComponent) {
+            this.isChildComponent = props.isChildComponent;
         }
-        if (tableColumns) {
-            this.tableColumns = tableColumns;
+        if (props?.tableColumns) {
+            this.tableColumns = props.tableColumns;
         }
-        if (feedbackType) {
-            this.feedbackType = feedbackType;
+        if (props?.feedbackType) {
+            this.feedbackType = props.feedbackType;
         }
-        if (itemKey) {
-            this.itemKey = itemKey;
+        if (props?.itemKey) {
+            this.itemKey = props.itemKey;
         }
-        if (hideOrgNr) {
-            this.hideOrgNr = hideOrgNr;
+        if (props?.hideOrgNr) {
+            this.hideOrgNr = props.hideOrgNr;
         }
-        if (format) {
-            this.format = format;
+        if (props?.format) {
+            this.format = props.format;
         }
-        if (showRowNumbers) {
-            this.showRowNumbers = showRowNumbers;
+        if (props?.showRowNumbers) {
+            this.showRowNumbers = props.showRowNumbers;
         }
+    }
+
+    /**
+     * Extracts and returns a set of properties from the given element's attributes.
+     *
+     * @param {HTMLElement} element - The DOM element from which to extract properties.
+     * @returns {Object} An object containing the following properties:
+     *   @property {*} formData - The form data extracted from the element.
+     *   @property {string} tagName - The tag name of the element.
+     *   @property {string} text - The text content of the element.
+     *   @property {Object} texts - Additional text values from the element.
+     *   @property {boolean} inline - Whether the element is inline.
+     *   @property {boolean} hideTitle - Whether the title should be hidden.
+     *   @property {string|number} size - The size attribute of the element.
+     *   @property {boolean} hideIfEmpty - Whether to hide the element if empty.
+     *   @property {Object} styleOverride - Style overrides for the element.
+     *   @property {boolean} isChildComponent - Whether the element is a child component.
+     *   @property {Array} tableColumns - Table columns configuration.
+     *   @property {string} feedbackType - The feedback type for the element.
+     *   @property {string} itemKey - The item key for the element.
+     *   @property {boolean} hideOrgNr - Whether to hide the organization number.
+     *   @property {string} format - The format of the element.
+     *   @property {boolean} showRowNumbers - Whether to show row numbers.
+     */
+    getPropsFromElementAttributes(element) {
+        return {
+            formData: this.getFormDataFromElement(element),
+            tagName: this.getTagNameFromElement(element),
+            text: this.getTextFromElement(element),
+            texts: this.getTextsFromElement(element),
+            inline: this.getInlineFromElement(element),
+            hideTitle: this.getHideTitle(element),
+            size: this.getSize(element),
+            hideIfEmpty: this.getHideIfEmpty(element),
+            styleOverride: this.getStyleOverride(element),
+            isChildComponent: this.getIsChildComponent(element),
+            tableColumns: this.getTableColumns(element),
+            feedbackType: this.getFeedbackType(element),
+            itemKey: this.getItemKey(element),
+            hideOrgNr: this.getHideOrgNr(element),
+            format: this.getFormat(element),
+            showRowNumbers: this.getShowRowNumbers(element)
+        };
     }
 
     /**
