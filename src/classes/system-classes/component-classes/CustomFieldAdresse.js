@@ -16,19 +16,29 @@ import CustomComponent from "../CustomComponent.js";
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(element) {
         super(element);
-        this.isEmpty = this.element?.isEmpty !== undefined ? this.element.isEmpty : !this.hasContent();
+        const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
+        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(props?.formData);
+
+        this.isEmpty = isEmpty;
     }
 
     /**
-     * Determines whether the address fields in the form data are empty.
+     * Determines if the provided form data contains any address information.
      *
-     * Checks if any of the address lines (adresselinje1, adresselinje2, adresselinje3),
-     * postal code (postnr), or city (poststed) fields have content.
+     * Checks if any of the address lines (adresselinje1, adresselinje2, adresselinje3)
+     * or either the postal code (postnr) or city (poststed) fields have content.
      *
-     * @returns {boolean} Returns true if all address fields are empty, otherwise false.
+     * @param {Object} formData - The form data object containing address information.
+     * @param {Object} formData.data - The address data object.
+     * @param {string} [formData.data.adresselinje1] - First address line.
+     * @param {string} [formData.data.adresselinje2] - Second address line.
+     * @param {string} [formData.data.adresselinje3] - Third address line.
+     * @param {string} [formData.data.postnr] - Postal code.
+     * @param {string} [formData.data.poststed] - City.
+     * @returns {boolean} True if any address line, postal code, or city has content; otherwise, false.
      */
-    hasContent() {
-        const address = this.formData?.data;
+    hasContent(formData) {
+        const address = formData?.data;
         const hasAdresselinje = [!!address?.adresselinje1?.length, !!address?.adresselinje2?.length, !!address?.adresselinje3?.length].some(Boolean);
         const hasZipCity = !!(address?.postnr?.length || address?.poststed?.length);
         return hasAdresselinje || hasZipCity;

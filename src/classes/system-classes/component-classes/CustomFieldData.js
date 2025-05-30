@@ -5,27 +5,30 @@ import CustomComponent from "../CustomComponent.js";
 import { hasValue } from "../../../functions/helpers.js";
 
 /**
- * Represents a custom field data component that extends the CustomComponent class.
- * Handles initialization and checks for content presence in the form data.
+ * Represents custom field data for a component, extending the CustomComponent class.
+ * Determines if the field is empty based on the provided element or form data.
  *
- * @class
  * @extends CustomComponent
  *
  * @param {HTMLElement | object} element - The element or object to initialize the component with.
- * @property {boolean} isEmpty - Indicates whether the form data is empty.
+ * @property {boolean} isEmpty - Indicates whether the custom field data is empty.
  */
 export default class CustomFieldData extends CustomComponent {
     constructor(element) {
         super(element);
-        this.isEmpty = this.element?.isEmpty !== undefined ? this.element.isEmpty : !this.hasContent();
+        const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
+        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(props?.formData);
+
+        this.isEmpty = isEmpty;
     }
 
     /**
-     * Checks if the form data has content by verifying the presence of a simple binding value.
+     * Checks if the provided form data contains content by verifying the presence of a value in the `simpleBinding` property.
      *
-     * @returns {boolean} Returns true if the simpleBinding property in formData has a value; otherwise, false.
+     * @param {Object} formData - The form data object to check.
+     * @returns {boolean} Returns `true` if `simpleBinding` has a value, otherwise `false`.
      */
-    hasContent() {
-        return hasValue(this.formData?.simpleBinding);
+    hasContent(formData) {
+        return hasValue(formData?.simpleBinding);
     }
 }
