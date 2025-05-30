@@ -13,10 +13,12 @@ export default class CustomElementHtmlAttributes {
      * @param {Object} props - The properties object containing attributes for the custom element.
      * @param {boolean} [props.isChildComponent] - Indicates if the component is a child component.
      * @param {*} [props.formData] - The form data associated with the component.
+     * @param {string} [props.tagName] - The tag name of the custom element.
      * @param {string} [props.text] - The text content of the component.
      * @param {string} [props.size] - The size attribute of the component.
      * @param {boolean} [props.hideTitle] - Determines if the title should be hidden.
      * @param {boolean} [props.hideIfEmpty] - Determines if the component should be hidden when empty.
+     * @param {boolean} [props.isEmpty] - Indicates if the component is empty.
      * @param {boolean} [props.inline] - Indicates if the component should be displayed inline.
      * @param {Object} [props.styleOverride] - Custom styles to override default styles.
      * @param {Object} [props.grid] - Grid configuration for the component.
@@ -38,6 +40,7 @@ export default class CustomElementHtmlAttributes {
         const size = this.getSizeAttributeFromProps(props);
         const hideTitle = this.getHideTitleAttributeFromProps(props);
         const hideIfEmpty = this.getHideIfEmptyAttributeFromProps(props);
+        const isEmpty = this.getIsEmptyAttributeFromProps(props);
         const inline = this.getInlineAttributeFromProps(props);
         const styleOverride = this.getStyleOverrideAttributeFromProps(props);
         const grid = this.getGridAttributeFromProps(props);
@@ -70,6 +73,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (hideIfEmpty) {
             this.hideIfEmpty = hideIfEmpty;
+        }
+        if (isEmpty) {
+            this.isEmpty = isEmpty;
         }
         if (inline) {
             this.inline = inline;
@@ -198,6 +204,18 @@ export default class CustomElementHtmlAttributes {
      */
     getHideIfEmptyAttributeFromProps(props) {
         return props?.hideIfEmpty?.toString() === "true" ? "true" : undefined;
+    }
+
+    /**
+     * Returns the string "true" if the `isEmpty` property in the given props is strictly equal to the string "true".
+     * Otherwise, returns `undefined`.
+     *
+     * @param {Object} props - The props object that may contain the `isEmpty` property.
+     * @param {*} [props.isEmpty] - The value to check for emptiness.
+     * @returns {string|undefined} "true" if `props.isEmpty` is "true", otherwise `undefined`.
+     */
+    getIsEmptyAttributeFromProps(props) {
+        return props?.isEmpty?.toString() === "true" ? "true" : undefined;
     }
 
     /**
