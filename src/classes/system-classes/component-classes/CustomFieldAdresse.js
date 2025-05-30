@@ -1,3 +1,4 @@
+// Classes
 import CustomComponent from "../CustomComponent.js";
 
 /**
@@ -12,7 +13,7 @@ import CustomComponent from "../CustomComponent.js";
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(element) {
         super(element);
-        this.isEmpty = this.element?.isEmpty !== undefined ? this.element.isEmpty : this.hasContent();
+        this.isEmpty = this.element?.isEmpty !== undefined ? this.element.isEmpty : !this.hasContent();
     }
 
     /**
@@ -27,6 +28,6 @@ export default class CustomFieldAdresse extends CustomComponent {
         const address = this.formData?.data;
         const hasAdresselinje = [!!address?.adresselinje1?.length, !!address?.adresselinje2?.length, !!address?.adresselinje3?.length].some(Boolean);
         const hasZipCity = !!(address?.postnr?.length || address?.poststed?.length);
-        return !(hasAdresselinje || hasZipCity);
+        return hasAdresselinje || hasZipCity;
     }
 }
