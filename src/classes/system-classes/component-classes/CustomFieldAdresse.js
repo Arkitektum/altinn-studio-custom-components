@@ -1,25 +1,84 @@
 // Classes
+import Adresse from "../../data-classes/Adresse.js";
 import CustomComponent from "../CustomComponent.js";
 
+// Global functions
+import { hasValue } from "../../../functions/helpers.js";
+
 /**
- * CustomFieldAdresse is a custom component class for handling address fields.
+ * CustomFieldAdresse is a custom component class for handling and formatting address data.
  *
- * Extends the CustomComponent class and provides logic to determine if the address fields
- * (adresselinje1, adresselinje2, adresselinje3, postnr, poststed) in the form data are empty.
+ * Extends the CustomComponent class and provides methods to:
+ * - Format address lines into a single string.
+ * - Format zip code and city into a single string.
+ * - Format a complete address object into a displayable string.
+ * - Extract and format form data from component properties.
+ * - Determine if the address form data contains any content.
  *
  * @class
  * @extends CustomComponent
- *
- * @param {HTMLElement | object} element - The element or object to initialize the component with.
- * @property {boolean} isEmpty - Indicates whether the address fields are empty.
  */
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(element) {
         super(element);
         const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(props?.formData);
+
+        const formData = this.getFormDataFromProps(props);
+        const isEmpty = !this.hasContent(formData);
 
         this.isEmpty = isEmpty;
+        this.formData = formData;
+
+        this.isEmpty = isEmpty;
+    }
+
+    /**
+     * Formats an address object into a single string with non-empty address lines separated by newlines.
+     *
+     * @param {Object} adresse - The address object containing address lines.
+     * @param {string} [adresse.adresselinje1] - The first line of the address.
+     * @param {string} [adresse.adresselinje2] - The second line of the address.
+     * @param {string} [adresse.adresselinje3] - The third line of the address.
+     * @returns {string} A formatted string with non-empty address lines separated by newline characters.
+     */
+    formatAdresselinje(adresse) {
+        const adresseLinjer = [adresse.adresselinje1, adresse.adresselinje2, adresse.adresselinje3];
+        return adresseLinjer.filter((adresselinje) => adresselinje?.length).join("\n");
+    }
+
+    /**
+     * Formats the zip code and city from an address object into a single string.
+     *
+     * @param {Object} adresse - The address object containing postal information.
+     * @param {string} adresse.postnr - The postal code.
+     * @param {string} adresse.poststed - The city name.
+     * @returns {string} A formatted string combining the postal code and city, separated by a space.
+     *                   If either the postal code or city is missing, it will be omitted from the result.
+     */
+    formatZipCity(adresse) {
+        const zipCity = [adresse.postnr, adresse.poststed];
+        return zipCity.filter((zipCity) => zipCity?.length).join(" ");
+    }
+
+    /**
+     * Formats an address object into a into a single string.
+     *
+     * @param {Adresse} adresse - The address object to format.
+     * @returns {string} The formatted address string.
+     */
+    formatAdresse(adresse) {
+        const adresseLinje = this.formatAdresselinje(adresse);
+        const zipCity = this.formatZipCity(adresse);
+        return adresseLinje?.length ? `${adresseLinje}\n${zipCity}` : zipCity;
+    }
+
+    getFormDataFromProps(element) {
+        const data = element?.formData?.data;
+        const address = new Adresse(data);
+        const adresseString = this.formatAdresse(address);
+        return {
+            simpleBinding: adresseString
+        };
     }
 
     /**
@@ -38,9 +97,6 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @returns {boolean} True if any address line, postal code, or city has content; otherwise, false.
      */
     hasContent(formData) {
-        const address = formData?.data;
-        const hasAdresselinje = [!!address?.adresselinje1?.length, !!address?.adresselinje2?.length, !!address?.adresselinje3?.length].some(Boolean);
-        const hasZipCity = !!(address?.postnr?.length || address?.poststed?.length);
-        return hasAdresselinje || hasZipCity;
+        return hasValue(formData?.simpleBinding);
     }
 }
