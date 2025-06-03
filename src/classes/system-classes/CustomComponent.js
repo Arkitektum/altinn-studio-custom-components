@@ -10,7 +10,7 @@ export default class CustomComponent {
     /**
      * Constructs a new CustomComponent instance.
      *
-     * @param {HTMLElement} element - The HTML element used to initialize the component.
+     * @param {HTMLElement | Object} element - The HTML element or an object containing properties to initialize the component.
      * @property {Object} [formData] - The form data extracted from the element.
      * @property {string} [tagName] - The tag name of the component, typically used for rendering.
      * @property {string} [text] - The text content extracted from the element.

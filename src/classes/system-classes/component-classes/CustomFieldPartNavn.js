@@ -5,6 +5,18 @@ import Part from "../../data-classes/Part.js";
 // Global functions
 import { hasValue } from "../../../functions/helpers.js";
 
+/**
+ * CustomFieldPartNavn is a custom component class for handling and formatting part names,
+ * optionally including organization numbers, for use in form data binding.
+ *
+ * @extends CustomComponent
+ *
+ * @class
+ * @param {HTMLElement|Object} element - The element or props used to initialize the component.
+ *
+ * @property {boolean} isEmpty - Indicates if the form data is empty.
+ * @property {Object} formData - The processed form data with a formatted name.
+ */
 export default class CustomFieldPartNavn extends CustomComponent {
     constructor(element) {
         super(element);
