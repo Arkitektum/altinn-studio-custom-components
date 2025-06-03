@@ -1,28 +1,23 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import Telefonnumre from "../../../classes/data-classes/Telefonnumre.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
-
-// Local functions
-import { formatPhoneNumbers } from "./functions.js";
+import { createCustomElement, getComponentContainerElement, getEmptyFieldText } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 export default customElements.define(
     "custom-field-telefonnummer",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const telefonnumre = new Telefonnumre(component?.formData?.data);
-            if (component?.hideIfEmpty && !hasValue(telefonnumre) && !!componentContainerElement) {
+            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const phoneNumbersString = formatPhoneNumbers(telefonnumre);
                 const emptyFieldText = getEmptyFieldText(component);
-                const value = phoneNumbersString?.length ? phoneNumbersString : emptyFieldText;
-                component.setFormData({ simpleBinding: value });
+                if (component.isEmpty) {
+                    component.setFormData({ simpleBinding: emptyFieldText });
+                }
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }
