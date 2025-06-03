@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, getEmptyFieldText } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 export default customElements.define(
@@ -11,7 +11,7 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && this.isEmpty && !!componentContainerElement) {
+            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const emptyFieldText = getEmptyFieldText(component);
