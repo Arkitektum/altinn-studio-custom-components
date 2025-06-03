@@ -146,7 +146,7 @@ export function createCustomElement(tagName, htmlAttributes) {
         throw new Error(`Invalid tag name ${tagName}. Must be one of: ${customElementTagNames.join(", ")}`);
     }
     const customFieldElement = document.createElement(tagName);
-    setAttributes(customFieldElement, htmlAttributes);
+    setAttributes(customFieldElement, { ...htmlAttributes, tagName });
     return customFieldElement;
 }
 
