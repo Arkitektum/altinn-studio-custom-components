@@ -1,5 +1,6 @@
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { addStyle, createCustomElement, getEmptyFieldText, getRowNumberTitle } from "../../../functions/helpers.js";
@@ -67,6 +68,25 @@ export function renderHeaderElement(text, size) {
 }
 
 /**
+ * Removes empty table rows from the provided array.
+ *
+ * A table row is considered empty if all its cells, when instantiated as components,
+ * are empty (i.e., their `isEmpty` property is true or falsy).
+ *
+ * @param {Array<Array<Object>>} tableRows - An array of table rows, where each row is an array of table cell objects.
+ * @returns {Array<Array<Object>>} A filtered array containing only rows with at least one non-empty cell.
+ */
+function removeEmptyTableRows(tableRows) {
+    return tableRows.filter((tableRow) => {
+        const netEmptyTableCells = tableRow.filter((tableCell) => {
+            const tableCellComponent = instantiateComponent(tableCell);
+            return !tableCellComponent?.isEmpty;
+        });
+        return netEmptyTableCells.length > 0;
+    });
+}
+
+/**
  * Renders a table element based on the provided component's data and style overrides.
  *
  * @param {Object} component - The component object containing data and style information.
@@ -87,6 +107,8 @@ export function renderTableElement(component) {
     const tr = document.createElement("tr");
 
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
+        const notEmptyTableRows = removeEmptyTableRows(data.tableRows);
+
         // Render table headers
         // Add a custom field for the row number title
         if (component?.showRowNumbers) {
@@ -102,14 +124,14 @@ export function renderTableElement(component) {
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         // Render table rows
-        data.tableRows.forEach((tableRow) => {
+        notEmptyTableRows.forEach((tableRow) => {
             if (component?.showRowNumbers) {
                 // Add a custom field for the row number
                 const rowNumberElement = {
                     tagName: "custom-field-data",
                     hideTitle: true,
                     formData: {
-                        simpleBinding: data.tableRows.indexOf(tableRow) + 1
+                        simpleBinding: notEmptyTableRows.indexOf(tableRow) + 1
                     }
                 };
                 tableRow.unshift(rowNumberElement);
