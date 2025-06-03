@@ -3,7 +3,6 @@ import CustomElementHtmlAttributes from "../classes/system-classes/CustomElement
 
 // Global functions
 import { createCustomElement, getTextResourcesFromResourceBindings, getValueFromDataKey, hasValue } from "./helpers.js";
-import { instantiateComponent } from "./componentHelpers.js";
 
 /**
  * Generates an array of table header objects based on the provided table columns and text resources.
@@ -49,8 +48,7 @@ export function getTableRows(tableColumns, texts, data) {
             if (hasValue(emptyFieldText)) {
                 componentProps.texts = { emptyFieldText };
             }
-            const component = instantiateComponent(componentProps);
-            tr.push(component);
+            tr.push(componentProps);
         });
         return tr;
     });
