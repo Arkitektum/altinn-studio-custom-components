@@ -45,15 +45,15 @@ export default class CustomFieldTelefonnummer extends CustomComponent {
     }
 
     /**
-     * Extracts and formats phone number data from the given element's form data.
+     * Extracts and formats phone number data from the provided props object.
      *
-     * @param {Object} element - The element containing form data.
-     * @param {Object} [element.formData] - The form data object.
-     * @param {Object} [element.formData.data] - The raw data containing phone numbers.
+     * @param {Object} props - The properties object containing form data.
+     * @param {Object} [props.formData] - The form data object.
+     * @param {Object} [props.formData.data] - The raw data containing phone numbers.
      * @returns {Object} An object with a `simpleBinding` property containing the formatted phone numbers as a string.
      */
-    getFormDataFromProps(element) {
-        const data = element?.formData?.data;
+    getFormDataFromProps(props) {
+        const data = props?.formData?.data;
         const telefonnumre = new Telefonnumre(data);
         const telefonnumreString = this.formatPhoneNumbers(telefonnumre);
 

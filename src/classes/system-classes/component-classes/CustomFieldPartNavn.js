@@ -59,18 +59,18 @@ export default class CustomFieldPartNavn extends CustomComponent {
      * If the `simpleBinding` property is already present in the element's form data, it returns the form data as is.
      * Otherwise, it constructs a new `Part` from the form data, formats the name, and returns it as `simpleBinding`.
      *
-     * @param {Object} element - The element containing form data.
-     * @param {Object} [element.formData] - The form data object.
-     * @param {*} [element.formData.simpleBinding] - The simple binding value, if already set.
-     * @param {*} [element.formData.data] - The data used to construct a new Part.
+     * @param {Object} props - The properties object containing form data.
+     * @param {Object} [props.formData] - The form data object.
+     * @param {*} [props.formData.simpleBinding] - The simple binding value, if already set.
+     * @param {*} [props.formData.data] - The data used to construct a new Part.
      * @returns {Object} The form data with a `simpleBinding` property.
      */
-    getFormDataFromProps(element) {
+    getFormDataFromProps(props) {
         // If simpleBinding is already set, return it directly
-        if (hasValue(element?.formData?.simpleBinding)) {
-            return element.formData;
+        if (hasValue(props?.formData?.simpleBinding)) {
+            return props.formData;
         }
-        const data = element?.formData?.data;
+        const data = props?.formData?.data;
         const part = new Part(data);
         const name = this.formatName(part, this.hideOrgNr);
         return {
