@@ -3,26 +3,14 @@ import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomE
 
 // Global functions
 import { createCustomElement } from "../../../functions/helpers.js";
-import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 
 /**
- * Renders a custom table element by setting form data and creating a custom HTML element.
+ * Renders a custom table element using the provided component configuration.
  *
- * @param {Object} component - The component object containing configuration and data.
- * @param {Array} component.tableColumns - The columns configuration for the table.
- * @param {Object} component.texts - The text resources used for table headers.
- * @param {Object} component.formData - The form data containing table rows data.
- * @param {Object} component.formData.data - The data used to populate table rows.
- *
+ * @param {Object} component - The component configuration object used to generate HTML attributes.
  * @returns {HTMLElement} The created custom table element.
  */
 export function renderTableElement(component) {
-    component.setFormData({
-        data: {
-            tableHeaders: getTableHeaders(component?.tableColumns, component?.texts),
-            tableRows: getTableRows(component?.tableColumns, component?.texts, component?.formData?.data)
-        }
-    });
     const htmlAttributes = new CustomElementHtmlAttributes(component);
     return createCustomElement("custom-table", htmlAttributes);
 }

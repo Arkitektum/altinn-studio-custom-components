@@ -36,17 +36,15 @@ function renderTableRowElement(tableRow) {
 }
 
 /**
- * Renders a table cell element by creating a `<td>` element,
- * applying custom HTML attributes, and embedding a custom element inside it.
+ * Renders a table cell element (<td>) containing a custom field data element.
  *
- * @param {Object} tableCell - The table cell data used to create the element.
- * @param {string} tableCell.tagName - The tag name of the custom element to be created.
- * @returns {HTMLTableCellElement} The rendered `<td>` element containing the custom element.
+ * @param {Object} tableCell - The data or configuration for the table cell.
+ * @returns {HTMLTableCellElement} The rendered <td> element with the custom field data inside.
  */
 function renderTableCellElement(tableCell) {
     const td = document.createElement("td");
     const htmlAttributes = new CustomElementHtmlAttributes(tableCell);
-    td.innerHTML = createCustomElement(tableCell.tagName, htmlAttributes).outerHTML;
+    td.innerHTML = createCustomElement("custom-field-data", htmlAttributes).outerHTML;
     return td;
 }
 
@@ -65,25 +63,6 @@ export function renderHeaderElement(text, size) {
     if (text) {
         return createCustomElement("custom-header", htmlAttributes);
     }
-}
-
-/**
- * Removes empty table rows from the provided array.
- *
- * A table row is considered empty if all its cells, when instantiated as components,
- * are empty (i.e., their `isEmpty` property is true or falsy).
- *
- * @param {Array<Array<Object>>} tableRows - An array of table rows, where each row is an array of table cell objects.
- * @returns {Array<Array<Object>>} A filtered array containing only rows with at least one non-empty cell.
- */
-function removeEmptyTableRows(tableRows) {
-    return tableRows.filter((tableRow) => {
-        const netEmptyTableCells = tableRow.filter((tableCell) => {
-            const tableCellComponent = instantiateComponent(tableCell);
-            return !tableCellComponent?.isEmpty;
-        });
-        return netEmptyTableCells.length > 0;
-    });
 }
 
 /**
@@ -107,15 +86,6 @@ export function renderTableElement(component) {
     const tr = document.createElement("tr");
 
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
-        const notEmptyTableRows = removeEmptyTableRows(data.tableRows);
-
-        // Render table headers
-        // Add a custom field for the row number title
-        if (component?.showRowNumbers) {
-            const th = document.createElement("th");
-            th.textContent = getRowNumberTitle(component);
-            tr.appendChild(th);
-        }
         // Render table header elements
         data.tableHeaders.forEach((tableHeader) => {
             tr.appendChild(renderTableHeaderElement(tableHeader));
@@ -124,18 +94,7 @@ export function renderTableElement(component) {
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         // Render table rows
-        notEmptyTableRows.forEach((tableRow) => {
-            if (component?.showRowNumbers) {
-                // Add a custom field for the row number
-                const rowNumberElement = {
-                    tagName: "custom-field-data",
-                    hideTitle: true,
-                    formData: {
-                        simpleBinding: notEmptyTableRows.indexOf(tableRow) + 1
-                    }
-                };
-                tableRow.unshift(rowNumberElement);
-            }
+        data.tableRows.forEach((tableRow) => {
             tbody.appendChild(renderTableRowElement(tableRow));
         });
         table.appendChild(tbody);
