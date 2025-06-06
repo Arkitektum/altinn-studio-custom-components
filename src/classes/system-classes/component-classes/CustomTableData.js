@@ -49,8 +49,10 @@ export default class CustomTableData extends CustomComponent {
      */
     getLocalPropsFromElementAttributes(element) {
         const showRowNumbers = this.getShowRowNumbersFromElementAttributes(element);
+        const tableColumns = this.getTableColumnsFromElementAttributes(element);
         return {
-            showRowNumbers
+            showRowNumbers,
+            tableColumns
         };
     }
 
@@ -61,6 +63,24 @@ export default class CustomTableData extends CustomComponent {
      */
     getShowRowNumbersFromElementAttributes(element) {
         return element?.getAttribute("showRowNumbers") === "true";
+    }
+
+    /**
+     * Retrieves and parses the "tableColumns" attribute from a given DOM element.
+     *
+     * @param {Element} element - The DOM element from which to extract the "tableColumns" attribute.
+     * @returns {Array} An array representing the parsed table columns, or an empty array if the attribute is missing or invalid.
+     */
+    getTableColumnsFromElementAttributes(element) {
+        const tableColumns = element?.getAttribute("tableColumns");
+        if (tableColumns) {
+            try {
+                return JSON.parse(tableColumns);
+            } catch (error) {
+                console.error("Failed to parse tableColumns attribute:", error);
+            }
+        }
+        return [];
     }
 
     /**

@@ -60,9 +60,6 @@ export default class CustomComponent {
         if (props?.isChildComponent) {
             this.isChildComponent = props.isChildComponent;
         }
-        if (props?.tableColumns) {
-            this.tableColumns = props.tableColumns;
-        }
         if (props?.feedbackType) {
             this.feedbackType = props.feedbackType;
         }
@@ -95,7 +92,6 @@ export default class CustomComponent {
      *   @property {boolean} hideIfEmpty - Whether to hide the element if empty.
      *   @property {Object} styleOverride - Style overrides for the element.
      *   @property {boolean} isChildComponent - Whether the element is a child component.
-     *   @property {Array} tableColumns - Table columns configuration.
      *   @property {string} feedbackType - The feedback type for the element.
      *   @property {string} itemKey - The item key for the element.
      *   @property {boolean} hideOrgNr - Whether to hide the organization number.
@@ -114,7 +110,6 @@ export default class CustomComponent {
             hideIfEmpty: this.getHideIfEmpty(element),
             styleOverride: this.getStyleOverride(element),
             isChildComponent: this.getIsChildComponent(element),
-            tableColumns: this.getTableColumns(element),
             feedbackType: this.getFeedbackType(element),
             itemKey: this.getItemKey(element),
             hideOrgNr: this.getHideOrgNr(element),
@@ -229,17 +224,6 @@ export default class CustomComponent {
         return element?.getAttribute("isChildComponent") === "true";
     }
 
-    /**
-     * Retrieves the table columns configuration from the given element's "tableColumns" attribute.
-     *
-     * @param {HTMLElement} element - The HTML element containing the "tableColumns" attribute.
-     * @returns {Array|boolean} The parsed table columns if the attribute is present and valid,
-     *                          otherwise returns `false`.
-     */
-    getTableColumns(element) {
-        const tableColumns = JSON.parse(element?.getAttribute("tableColumns"));
-        return hasValue(tableColumns) && tableColumns;
-    }
 
     /**
      * Retrieves the feedback type attribute from the given element.
