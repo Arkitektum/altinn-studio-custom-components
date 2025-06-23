@@ -1,22 +1,19 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
-
-// Global functions
-import { getRowNumberTitle, hasValue } from "../../../functions/helpers.js";
-import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
-import { hasMissingTextResources, hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
 import Eiendom from "../../data-classes/Eiendom.js";
 
-// Text resource bindings
-import textResourceBindings from "../../../components/data-components/custom-table-eiendom/textResourceBindings.js";
+// Global functions
+import { getTextResourcesFromResourceBindings, hasValue } from "../../../functions/helpers.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 export default class CustomTableEiendom extends CustomComponent {
     constructor(element) {
         super(element);
         const textResourceBindings = this.getTextResourceBindings();
+        const textResources = window.textResources;
 
         const parentProps = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-        const localProps = element instanceof HTMLElement ? this.getLocalPropsFromElementAttributes(element) : element;
+        const localProps = element instanceof HTMLElement ? this.getLocalPropsFromElementAttributes(textResources, textResourceBindings) : element;
         const props = { ...parentProps, ...localProps };
 
         const formData = this.getFormDataFromProps(props);
@@ -25,31 +22,25 @@ export default class CustomTableEiendom extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.formData = formData;
-        this.showRowNumbers = localProps.showRowNumbers;
+        this.texts = localProps.texts;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.textResourceBindings = textResourceBindings;
     }
 
     /**
-     * Extracts local properties from the given element's attributes.
+     * Extracts local properties from element attributes by retrieving text resources
+     * based on provided resource bindings.
      *
-     * @param {HTMLElement} element - The DOM element from which to extract attributes.
-     * @returns {Object} An object containing local properties, such as `showRowNumbers`.
+     * @param {Array<Object>} textResources - The list of available text resources.
+     * @param {Object} textResourceBindings - The bindings for text resources, expected to contain `eiendomByggested`.
+     * @returns {Object} An object containing the resolved `texts` property.
      */
-    getLocalPropsFromElementAttributes(element) {
-        const showRowNumbers = this.getShowRowNumbersFromElementAttributes(element);
+    getLocalPropsFromElementAttributes(textResources, textResourceBindings) {
+        const texts = getTextResourcesFromResourceBindings(textResources, textResourceBindings.eiendomByggested);
         return {
-            showRowNumbers
+            texts
         };
-    }
-
-    /**
-     * Determines whether the "showRowNumbers" attribute is set to "true" on the element.
-     *
-     * @returns {boolean} True if the "showRowNumbers" attribute is "true", otherwise false.
-     */
-    getShowRowNumbersFromElementAttributes(element) {
-        return element?.getAttribute("showRowNumbers") === "true";
     }
 
     /**
