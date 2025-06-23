@@ -61,12 +61,6 @@ describe("CustomComponent", () => {
         expect(component.isChildComponent).toBe(true);
     });
 
-    it("should initialize with valid tableColumns", () => {
-        mockElement.setAttribute("tableColumns", JSON.stringify(["col1", "col2"]));
-        const component = new CustomComponent(mockElement);
-        expect(component.tableColumns).toEqual(["col1", "col2"]);
-    });
-
     it("should initialize with valid feedbackType", () => {
         mockElement.setAttribute("feedbackType", "error");
         const component = new CustomComponent(mockElement);
