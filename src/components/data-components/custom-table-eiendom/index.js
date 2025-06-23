@@ -1,14 +1,9 @@
-// Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
-
 // Global functions
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
-import { hasMissingTextResources } from "../../../functions/validations.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { getEiendomList } from "./functions.js";
-import textResourceBindings from "./textResourceBindings.js";
 import { renderEiendomTable } from "./renderers.js";
 
 // Stylesheet
@@ -18,17 +13,17 @@ export default customElements.define(
     "custom-table-eiendom",
     class extends HTMLElement {
         async connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const eiendomList = getEiendomList(component);
-            const textResources = window.textResources;
-            const validationMessages = hasMissingTextResources(textResources, textResourceBindings);
-            if (component?.hideIfEmpty && !hasValue(eiendomList) && !!componentContainerElement) {
+            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const eiendomTableElement = renderEiendomTable(eiendomList, textResources, textResourceBindings);
+                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                const eiendomTableElement = renderEiendomTable(component);
                 this.appendChild(eiendomTableElement);
-                this.appendChild(renderFeedbackListElement(validationMessages));
+                if (feebackListElement) {
+                    this.appendChild(feebackListElement);
+                }
             }
         }
     }
