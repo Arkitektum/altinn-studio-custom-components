@@ -10,7 +10,7 @@ export default class CustomTableEiendom extends CustomComponent {
     constructor(element) {
         super(element);
         const textResourceBindings = this.getTextResourceBindings();
-        const textResources = window.textResources;
+        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
 
         const parentProps = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
         const localProps = element instanceof HTMLElement ? this.getLocalPropsFromElementAttributes(textResources, textResourceBindings) : element;
@@ -22,7 +22,7 @@ export default class CustomTableEiendom extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.formData = formData;
-        this.texts = localProps.texts;
+        this.texts = localProps?.texts ? localProps.texts : {};
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.textResourceBindings = textResourceBindings;
@@ -79,7 +79,7 @@ export default class CustomTableEiendom extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = window.textResources;
+        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
         return hasMissingTextResources(textResources, textResourceBindings);
     }
 
@@ -127,7 +127,7 @@ export default class CustomTableEiendom extends CustomComponent {
      * @param {Object} eiendom - The property object to check for address information.
      * @returns {boolean} True if the property has an address line or zip code/city, otherwise false.
      */
-    hasAddresse(eiendom) {
+    hasAdresse(eiendom) {
         return this.hasAdresseLinje(eiendom) || this.hasZipCodeOrCity(eiendom);
     }
 
@@ -172,7 +172,7 @@ export default class CustomTableEiendom extends CustomComponent {
      * @returns {boolean} `true` if any of the relevant fields have a value, otherwise `false`.
      */
     hasEiendomValue(eiendom) {
-        return this.hasAddresse(eiendom) || this.hasEiendomNummerField(eiendom);
+        return this.hasAdresse(eiendom) || this.hasEiendomNummerField(eiendom);
     }
 
     /**
