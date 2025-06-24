@@ -31,6 +31,7 @@ export default class CustomElementHtmlAttributes {
      * @param {boolean} [props.hideOrgNr] - Determines if the organization number should be hidden.
      * @param {string} [props.format] - The format attribute of the component.
      * @param {boolean} [props.showRowNumbers] - Indicates if row numbers should be shown.
+     * @param {string} [props.partType] - The type of part for the component.
      */
     constructor(props) {
         const isChildComponent = true;
@@ -53,6 +54,7 @@ export default class CustomElementHtmlAttributes {
         const hideOrgNr = this.getHideOrgNr(props);
         const format = this.getFormatAttributeFromProps(props);
         const showRowNumbers = this.getShowRowNumbersAttributeFromProps(props);
+        const partType = this.getPartTypeAttributeFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = "true";
         }
@@ -112,6 +114,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (showRowNumbers) {
             this.showRowNumbers = showRowNumbers;
+        }
+        if (partType) {
+            this.partType = partType;
         }
     }
 
@@ -365,5 +370,15 @@ export default class CustomElementHtmlAttributes {
      */
     getShowRowNumbersAttributeFromProps(props) {
         return props?.showRowNumbers?.toString() === "true" ? "true" : undefined;
+    }
+
+    /**
+     * Retrieves the 'partType' attribute from the provided props object if it has a value.
+     *
+     * @param {Object} props - The properties object that may contain the 'partType' attribute.
+     * @returns {*} The value of 'partType' if it exists and has a value; otherwise, returns a falsy value.
+     */
+    getPartTypeAttributeFromProps(props) {
+        return hasValue(props?.partType) && props?.partType;
     }
 }
