@@ -32,7 +32,7 @@ import customParagraphText from "./data-components/custom-paragraph-text/index.j
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
-import customTableTiltakshaver from "./data-components/custom-table-tiltakshaver/index.js";
+import customTablePart from "./data-components/custom-table-part/index.js";
 
 // Layout components
 import dispensasjon from "./layout-components/dispensasjon/index.js";
@@ -78,7 +78,7 @@ export {
     customSubheaderText,
     customTableData,
     customTableEiendom,
-    customTableTiltakshaver,
+    customTablePart,
     dispensasjon,
     gjennomfoeringsplan
 };
