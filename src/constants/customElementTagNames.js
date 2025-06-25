@@ -30,7 +30,7 @@ export default [
     "custom-subheader-text",
     "custom-table-data",
     "custom-table-eiendom",
-    "custom-table-tiltakshaver",
+    "custom-table-part",
     "custom-dispensasjon",
     "custom-gjennomfoeringsplan"
 ];

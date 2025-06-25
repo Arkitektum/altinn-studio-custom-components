@@ -143,31 +143,4 @@ describe("tableHelpers", () => {
             expect(result).toEqual([]);
         });
     });
-
-    describe("getPartTableElement", () => {
-        it("should generate a custom table element with the correct attributes", () => {
-            const part = { id: 1, name: "Part 1" };
-            const textResources = [{ id: "col-1", value: "Column 1" }];
-            const textResourceBindingsForPart = { "col-1": "Column 1" };
-
-            getTextResourcesFromResourceBindings.mockReturnValue({
-                "col-1": "Column 1"
-            });
-
-            const mockTableElement = {};
-            createCustomElement.mockReturnValue(mockTableElement);
-
-            const result = getPartTableElement(part, textResources, textResourceBindingsForPart);
-
-            expect(CustomElementHtmlAttributes).toHaveBeenCalledWith({
-                formData: { data: part },
-                texts: { "col-1": "Column 1" },
-                size: "h3",
-                hideIfEmpty: true,
-                tableColumns: expect.any(Array)
-            });
-            expect(createCustomElement).toHaveBeenCalledWith("custom-table-data", expect.any(CustomElementHtmlAttributes));
-            expect(result).toBe(mockTableElement);
-        });
-    });
 });

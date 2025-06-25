@@ -1,5 +1,6 @@
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { addStyle, createCustomElement, getEmptyFieldText, getRowNumberTitle } from "../../../functions/helpers.js";
@@ -35,17 +36,15 @@ function renderTableRowElement(tableRow) {
 }
 
 /**
- * Renders a table cell element by creating a `<td>` element,
- * applying custom HTML attributes, and embedding a custom element inside it.
+ * Renders a table cell element (<td>) containing a custom field data element.
  *
- * @param {Object} tableCell - The table cell data used to create the element.
- * @param {string} tableCell.tagName - The tag name of the custom element to be created.
- * @returns {HTMLTableCellElement} The rendered `<td>` element containing the custom element.
+ * @param {Object} tableCell - The data or configuration for the table cell.
+ * @returns {HTMLTableCellElement} The rendered <td> element with the custom field data inside.
  */
 function renderTableCellElement(tableCell) {
     const td = document.createElement("td");
     const htmlAttributes = new CustomElementHtmlAttributes(tableCell);
-    td.innerHTML = createCustomElement(tableCell.tagName, htmlAttributes).outerHTML;
+    td.innerHTML = createCustomElement("custom-field-data", htmlAttributes).outerHTML;
     return td;
 }
 
@@ -87,13 +86,6 @@ export function renderTableElement(component) {
     const tr = document.createElement("tr");
 
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
-        // Render table headers
-        // Add a custom field for the row number title
-        if (component?.showRowNumbers) {
-            const th = document.createElement("th");
-            th.textContent = getRowNumberTitle(component);
-            tr.appendChild(th);
-        }
         // Render table header elements
         data.tableHeaders.forEach((tableHeader) => {
             tr.appendChild(renderTableHeaderElement(tableHeader));
@@ -103,17 +95,6 @@ export function renderTableElement(component) {
         const tbody = document.createElement("tbody");
         // Render table rows
         data.tableRows.forEach((tableRow) => {
-            if (component?.showRowNumbers) {
-                // Add a custom field for the row number
-                const rowNumberElement = {
-                    tagName: "custom-field-data",
-                    hideTitle: true,
-                    formData: {
-                        simpleBinding: data.tableRows.indexOf(tableRow) + 1
-                    }
-                };
-                tableRow.unshift(rowNumberElement);
-            }
             tbody.appendChild(renderTableRowElement(tableRow));
         });
         table.appendChild(tbody);

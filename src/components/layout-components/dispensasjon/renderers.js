@@ -188,11 +188,12 @@ export function renderTiltakstyperTypeKode(dispensasjon, textResources, textReso
 export function renderTiltakshaverTable(dispensasjon, textResources, textResourceBindings) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         formData: { data: dispensasjon?.tiltakshaver },
+        partType: "tiltakshaver",
         text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.tiltakshaver?.title),
         hideIfEmpty: true
     });
 
-    return createCustomElement("custom-table-tiltakshaver", htmlAttributes);
+    return createCustomElement("custom-table-part", htmlAttributes);
 }
 
 /**

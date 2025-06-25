@@ -1,18 +1,16 @@
-// Classes
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-
 // Global functions
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
-import { renderTableElement } from "./renderers.js";
+import { renderPartTable } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
 
 export default customElements.define(
-    "custom-table-data",
+    "custom-table-part",
     class extends HTMLElement {
         async connectedCallback() {
             const component = instantiateComponent(this);
@@ -21,8 +19,8 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                const tableElement = renderTableElement(component);
-                this.appendChild(tableElement);
+                const partTable = renderPartTable(component);
+                this.appendChild(partTable);
                 if (feebackListElement) {
                     this.appendChild(feebackListElement);
                 }

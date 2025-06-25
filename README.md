@@ -99,7 +99,7 @@ These components are tailored to display specific data types consistently across
 - **Tables**
   - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
   - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
-  - [Tiltakshaver](src/components/data-components/custom-table-tiltakshaver/) – Displays table with data from an array with [`Part`](src/classes/data-classes/Part.js) objects for `tiltakshaver`.
+  - [Part](src/components/data-components/custom-table-part/) – Displays table with data from an array with [`Part`](src/classes/data-classes/Part.js) objects for `part`.
 
 These components adhere to the standards set by the Norwegian Building Authority (Direktoratet for Byggkvalitet) within the Fellestjenester BYGG platform.
 

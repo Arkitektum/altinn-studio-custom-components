@@ -13,10 +13,12 @@ export default class CustomElementHtmlAttributes {
      * @param {Object} props - The properties object containing attributes for the custom element.
      * @param {boolean} [props.isChildComponent] - Indicates if the component is a child component.
      * @param {*} [props.formData] - The form data associated with the component.
+     * @param {string} [props.tagName] - The tag name of the custom element.
      * @param {string} [props.text] - The text content of the component.
      * @param {string} [props.size] - The size attribute of the component.
      * @param {boolean} [props.hideTitle] - Determines if the title should be hidden.
      * @param {boolean} [props.hideIfEmpty] - Determines if the component should be hidden when empty.
+     * @param {boolean} [props.isEmpty] - Indicates if the component is empty.
      * @param {boolean} [props.inline] - Indicates if the component should be displayed inline.
      * @param {Object} [props.styleOverride] - Custom styles to override default styles.
      * @param {Object} [props.grid] - Grid configuration for the component.
@@ -29,14 +31,17 @@ export default class CustomElementHtmlAttributes {
      * @param {boolean} [props.hideOrgNr] - Determines if the organization number should be hidden.
      * @param {string} [props.format] - The format attribute of the component.
      * @param {boolean} [props.showRowNumbers] - Indicates if row numbers should be shown.
+     * @param {string} [props.partType] - The type of part for the component.
      */
     constructor(props) {
         const isChildComponent = true;
         const formData = this.getFormDataAttributeFromProps(props);
+        const tagName = this.getTagNameAttributeFromProps(props);
         const text = this.getTextAttributeFromProps(props);
         const size = this.getSizeAttributeFromProps(props);
         const hideTitle = this.getHideTitleAttributeFromProps(props);
         const hideIfEmpty = this.getHideIfEmptyAttributeFromProps(props);
+        const isEmpty = this.getIsEmptyAttributeFromProps(props);
         const inline = this.getInlineAttributeFromProps(props);
         const styleOverride = this.getStyleOverrideAttributeFromProps(props);
         const grid = this.getGridAttributeFromProps(props);
@@ -49,11 +54,15 @@ export default class CustomElementHtmlAttributes {
         const hideOrgNr = this.getHideOrgNr(props);
         const format = this.getFormatAttributeFromProps(props);
         const showRowNumbers = this.getShowRowNumbersAttributeFromProps(props);
+        const partType = this.getPartTypeAttributeFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = "true";
         }
         if (formData) {
             this.formData = formData;
+        }
+        if (tagName) {
+            this.tagName = tagName;
         }
         if (text) {
             this.text = text;
@@ -66,6 +75,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (hideIfEmpty) {
             this.hideIfEmpty = hideIfEmpty;
+        }
+        if (isEmpty) {
+            this.isEmpty = isEmpty;
         }
         if (inline) {
             this.inline = inline;
@@ -103,6 +115,9 @@ export default class CustomElementHtmlAttributes {
         if (showRowNumbers) {
             this.showRowNumbers = showRowNumbers;
         }
+        if (partType) {
+            this.partType = partType;
+        }
     }
 
     /**
@@ -131,6 +146,17 @@ export default class CustomElementHtmlAttributes {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Retrieves the `tagName` attribute from the provided props object.
+     *
+     * @param {Object} props - The props object containing attributes.
+     * @param {string} [props.tagName] - The tagName attribute to retrieve.
+     * @returns {string|undefined} The `tagName` as a string if it exists, otherwise `undefined`.
+     */
+    getTagNameAttributeFromProps(props) {
+        return props?.tagName ? props?.tagName.toString() : undefined;
     }
 
     /**
@@ -183,6 +209,18 @@ export default class CustomElementHtmlAttributes {
      */
     getHideIfEmptyAttributeFromProps(props) {
         return props?.hideIfEmpty?.toString() === "true" ? "true" : undefined;
+    }
+
+    /**
+     * Returns the string "true" if the `isEmpty` property in the given props is strictly equal to the string "true".
+     * Otherwise, returns `undefined`.
+     *
+     * @param {Object} props - The props object that may contain the `isEmpty` property.
+     * @param {*} [props.isEmpty] - The value to check for emptiness.
+     * @returns {string|undefined} "true" if `props.isEmpty` is "true", otherwise `undefined`.
+     */
+    getIsEmptyAttributeFromProps(props) {
+        return props?.isEmpty?.toString() === "true" ? "true" : undefined;
     }
 
     /**
@@ -332,5 +370,15 @@ export default class CustomElementHtmlAttributes {
      */
     getShowRowNumbersAttributeFromProps(props) {
         return props?.showRowNumbers?.toString() === "true" ? "true" : undefined;
+    }
+
+    /**
+     * Retrieves the 'partType' attribute from the provided props object if it has a value.
+     *
+     * @param {Object} props - The properties object that may contain the 'partType' attribute.
+     * @returns {*} The value of 'partType' if it exists and has a value; otherwise, returns a falsy value.
+     */
+    getPartTypeAttributeFromProps(props) {
+        return hasValue(props?.partType) && props?.partType;
     }
 }

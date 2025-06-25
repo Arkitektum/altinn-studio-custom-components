@@ -12,7 +12,7 @@ import { createCustomElement, getTextResourcesFromResourceBindings } from "../..
  * @param {Object} textResourceBindings - The bindings for text resources, including keys for specific text elements.
  * @returns {HTMLElement} - A custom HTML element representing the rendered table.
  */
-export function renderEiendomTable(eiendomList, textResources, textResourceBindings) {
+export function renderEiendomTable(component) {
     const tableColumns = [
         {
             titleResourceKey: "col-1",
@@ -63,8 +63,8 @@ export function renderEiendomTable(eiendomList, textResources, textResourceBindi
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: { data: eiendomList },
-        texts: getTextResourcesFromResourceBindings(textResources, textResourceBindings.eiendomByggested),
+        formData: component?.formData,
+        texts: component?.texts,
         size: "h3",
         hideIfEmpty: true,
         tableColumns

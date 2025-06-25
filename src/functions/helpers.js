@@ -143,10 +143,10 @@ export function getRowNumberTitle(component) {
  */
 export function createCustomElement(tagName, htmlAttributes) {
     if (!isValidTagName(tagName)) {
-        throw new Error("Invalid tag name");
+        throw new Error(`Invalid tag name ${tagName}. Must be one of: ${customElementTagNames.join(", ")}`);
     }
     const customFieldElement = document.createElement(tagName);
-    setAttributes(customFieldElement, htmlAttributes);
+    setAttributes(customFieldElement, { ...htmlAttributes, tagName });
     return customFieldElement;
 }
 
