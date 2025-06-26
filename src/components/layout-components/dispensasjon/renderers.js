@@ -415,7 +415,7 @@ export function renderStedfestingPosisjonKoordinatsystem(dispensasjon, textResou
  */
 export function renderStedfestingPosisjonKoordinater(dispensasjon, textResources, textResourceBindings) {
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: { simpleBinding: dispensasjon?.stedfesting?.posisjon?.koordinater },
+        formData: { simpleBinding: dispensasjon?.stedfesting?.posisjon?.koordinater?.koordinat },
         text: getTextResourceFromResourceBinding(textResources, textResourceBindings?.stedfestingPosisjonKoordinater?.title),
         hideIfEmpty: true
     });
