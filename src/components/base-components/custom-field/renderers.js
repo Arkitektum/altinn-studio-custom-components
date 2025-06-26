@@ -63,7 +63,6 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
         fieldElement.classList.add("inline");
     }
     const fieldValueElement = renderFieldValueElement(fieldValue);
-    console.log("renderFieldElement", fieldValueElement);
     if (fieldTitle?.length) {
         fieldValueElement.classList.add("has-title");
     }
