@@ -15,13 +15,23 @@ function renderFieldTitleElement(fieldTitle, inline) {
 }
 
 /**
- * Creates a span element and sets its inner HTML to the provided field value.
+ * Renders a field value as a span element, formatting arrays and objects for display.
  *
- * @param {string} fieldValue - The value to be displayed inside the span element.
- * @returns {HTMLElement} The span element containing the field value.
+ * - Arrays are joined into a comma-separated string.
+ * - Objects are stringified as pretty-printed JSON.
+ * - If the value is falsy or empty, the span will be empty.
+ *
+ * @param {*} fieldValue - The value to render. Can be of any type (string, number, array, object, etc.).
+ * @returns {HTMLSpanElement} A span element containing the formatted field value.
  */
 function renderFieldValueElement(fieldValue) {
     const fieldValueElement = document.createElement("span");
+    if (Array.isArray(fieldValue)) {
+        fieldValue = fieldValue.join(", ");
+    }
+    if (typeof fieldValue === "object") {
+        fieldValue = JSON.stringify(fieldValue, null, 2);
+    }
     fieldValueElement.innerHTML = hasValue(fieldValue) ? fieldValue : "";
     return fieldValueElement;
 }
@@ -53,6 +63,7 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
         fieldElement.classList.add("inline");
     }
     const fieldValueElement = renderFieldValueElement(fieldValue);
+    console.log("renderFieldElement", fieldValueElement);
     if (fieldTitle?.length) {
         fieldValueElement.classList.add("has-title");
     }
