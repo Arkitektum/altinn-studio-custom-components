@@ -1,38 +1,33 @@
-// Classes
-import CustomElementHtmlAttributes from "../classes/system-classes/CustomElementHtmlAttributes.js";
-
 // Global functions
-import { createCustomElement, getTextResourcesFromResourceBindings, getValueFromDataKey, hasValue } from "./helpers.js";
+import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "./helpers.js";
 
 /**
  * Generates an array of table header objects based on the provided table columns and text resources.
  *
- * @param {Array<Object>} tableColumns - An array of column definitions for the table. Each column object should have:
- *   - `titleResourceKey` {string}: The key used to look up the text for the column header.
- *   - `props` {Object}: Additional properties for the column header.
- * @param {Object} texts - An object containing text resources, where keys are resource keys and values are the corresponding text strings.
- * @returns {Array<Object>} An array of table header objects, where each object contains:
- *   - `text` {string}: The localized text for the column header.
- *   - `props` {Object}: The additional properties for the column header.
+ * @param {Array<Object>} tableColumns - The columns configuration for the table. Each column may contain `textResourceBindings` and `props`.
+ * @param {Array<Object>} textResources - The available text resources used to resolve header titles.
+ * @returns {Array<{ text: string, props: Object }>} An array of header objects, each containing the resolved text and associated props.
  */
-export function getTableHeaders(tableColumns, texts) {
+export function getTableHeaders(tableColumns, textResources) {
     return tableColumns.map((column) => {
+        const headerTitleTextResourceBinding = column?.textResourceBindings?.title;
+        const headerTitleText = getTextResourceFromResourceBinding(textResources, headerTitleTextResourceBinding);
         return {
-            text: texts[column.titleResourceKey],
+            text: headerTitleText,
             props: column.props
         };
     });
 }
 
 /**
- * Generates table rows based on the provided table columns, texts, and data.
+ * Generates table row data for rendering, based on provided columns, text resources, and data.
  *
- * @param {Array<Object>} tableColumns - An array of column definitions for the table. Each column should include a `dataKey` and optional `emptyFieldTextResourceKey` and `props`.
- * @param {Object} texts - An object containing text resources, where keys are resource keys and values are the corresponding text.
- * @param {Array<Object>|Object} data - The data to populate the table rows. Can be a single object or an array of objects.
- * @returns {Array<Array<Object>>} An array of table rows, where each row is an array of component properties for the columns.
+ * @param {Array<Object>} tableColumns - Array of column definitions for the table. Each column should specify a `dataKey`, `props`, `tagName`, and optionally `textResourceBindings`.
+ * @param {Array<Object>} textResources - Array of text resource objects used for resolving text bindings.
+ * @param {Object|Array<Object>} data - The data to be displayed in the table. Can be a single object or an array of objects.
+ * @returns {Array<Array<Object>>} An array of table rows, where each row is an array of component property objects for rendering each cell.
  */
-export function getTableRows(tableColumns, texts, data) {
+export function getTableRows(tableColumns, textResources, data) {
     const isSingleItem = !Array.isArray(data);
     if (isSingleItem) {
         data = [data];
@@ -43,7 +38,8 @@ export function getTableRows(tableColumns, texts, data) {
             const cellData = getValueFromDataKey(row, column.dataKey);
             const formDataProperty = typeof cellData === "string" || typeof cellData === "number" ? "simpleBinding" : "data";
             const formData = { [formDataProperty]: cellData };
-            const emptyFieldText = texts[column.emptyFieldTextResourceKey];
+            const emptyFieldTextResourceBinding = column?.textResourceBindings?.emptyFieldText;
+            const emptyFieldText = getTextResourceFromResourceBinding(textResources, emptyFieldTextResourceBinding);
             const componentProps = { ...column.props, formData, hideTitle: true, tagName: column.tagName };
             if (hasValue(emptyFieldText)) {
                 componentProps.texts = { emptyFieldText };
