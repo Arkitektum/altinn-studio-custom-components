@@ -147,11 +147,7 @@ export default class CustomTablePart extends CustomComponent {
     getTextResourceBindings(partType = "tiltakshaver") {
         return {
             part: {
-                title: `resource.${partType}.header`,
-                "col-1": `resource.${partType}.navn.title`,
-                "col-2": `resource.${partType}.telefonnummer.title`,
-                "col-3": `resource.${partType}.epost.title`,
-                "emptyFieldText-default": "resource.emptyFieldText.default"
+                title: `resource.${partType}.header`
             }
         };
     }
