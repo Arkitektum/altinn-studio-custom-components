@@ -2,23 +2,25 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getTextResourcesFromResourceBindings } from "../../../functions/helpers.js";
+import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
- * Renders a custom table for displaying property (eiendom) data.
+ * Renders a custom table element for displaying property (eiendom) data.
  *
- * @param {Array<Object>} eiendomList - The list of property data to be displayed in the table.
- * @param {Array<Object>} textResources - The text resources used for localization and display text.
- * @param {Object} textResourceBindings - The bindings for text resources, including keys for specific text elements.
- * @returns {HTMLElement} - A custom HTML element representing the rendered table.
+ * @param {Object} component - The component configuration object.
+ * @param {Object} [component.formData] - The form data to populate the table.
+ * @param {Object} [component.texts] - The text resources for localization.
+ * @returns {HTMLElement} The custom table element representing the property data.
  */
 export function renderEiendomTable(component) {
     const tableColumns = [
         {
-            titleResourceKey: "col-1",
-            emptyFieldTextResourceKey: "emptyFieldText-col-1",
             dataKey: "adresse",
             tagName: "custom-field-adresse",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.adresse.title",
+                emptyFieldText: "resource.eiendomByggested.eiendom.adresse.emptyFieldText"
+            },
             props: {
                 styleOverride: {
                     width: "116px"
@@ -26,40 +28,54 @@ export function renderEiendomTable(component) {
             }
         },
         {
-            titleResourceKey: "col-2",
-            emptyFieldTextResourceKey: "emptyFieldText-default",
             dataKey: "eiendomsidentifikasjon.gaardsnummer",
-            tagName: "custom-field-data"
+            tagName: "custom-field-data",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
+                emptyFieldText: "resource.emptyFieldText.default"
+            }
         },
         {
-            titleResourceKey: "col-3",
-            emptyFieldTextResourceKey: "emptyFieldText-default",
             dataKey: "eiendomsidentifikasjon.bruksnummer",
-            tagName: "custom-field-data"
+            tagName: "custom-field-data",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",
+                emptyFieldText: "resource.emptyFieldText.default"
+            }
         },
         {
-            titleResourceKey: "col-4",
-            emptyFieldTextResourceKey: "emptyFieldText-default",
             dataKey: "eiendomsidentifikasjon.seksjonsnummer",
-            tagName: "custom-field-data"
+            tagName: "custom-field-data",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title",
+                emptyFieldText: "resource.emptyFieldText.default"
+            }
         },
         {
-            titleResourceKey: "col-5",
-            emptyFieldTextResourceKey: "emptyFieldText-default",
             dataKey: "eiendomsidentifikasjon.festenummer",
-            tagName: "custom-field-data"
+            tagName: "custom-field-data",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
+                emptyFieldText: "resource.emptyFieldText.default"
+            }
         },
         {
             titleResourceKey: "col-6",
-            emptyFieldTextResourceKey: "emptyFieldText-default",
             dataKey: "bolignummer",
-            tagName: "custom-field-data"
+            tagName: "custom-field-data",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.bolignummer.title",
+                emptyFieldText: "resource.emptyFieldText.default"
+            }
         },
         {
             titleResourceKey: "col-7",
-            emptyFieldTextResourceKey: "emptyFieldText-default",
             dataKey: "bygningsnummer",
-            tagName: "custom-field-data"
+            tagName: "custom-field-data",
+            textResourceBindings: {
+                title: "resource.eiendomByggested.eiendom.bygningsnummer.title",
+                emptyFieldText: "resource.emptyFieldText.default"
+            }
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({

@@ -23,23 +23,24 @@ export default class CustomTableEiendom extends CustomComponent {
         this.isEmpty = isEmpty;
         this.formData = formData;
         this.texts = localProps?.texts ? localProps.texts : {};
+        this.text = localProps?.text;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.textResourceBindings = textResourceBindings;
     }
 
     /**
-     * Extracts local properties from element attributes by retrieving text resources
-     * based on provided resource bindings.
+     * Extracts and returns local properties from element attributes, specifically text resources and their bindings.
      *
-     * @param {Array<Object>} textResources - The list of available text resources.
+     * @param {Array<Object>} textResources - The array of available text resources.
      * @param {Object} textResourceBindings - The bindings for text resources, expected to contain `eiendomByggested`.
-     * @returns {Object} An object containing the resolved `texts` property.
+     * @returns {{ texts: Object|undefined, text: string|undefined }} An object containing the resolved texts and the title text.
      */
     getLocalPropsFromElementAttributes(textResources, textResourceBindings) {
         const texts = getTextResourcesFromResourceBindings(textResources, textResourceBindings.eiendomByggested);
+        const text = texts?.title;
         return {
-            texts
+            texts,
+            text
         };
     }
 
@@ -176,24 +177,16 @@ export default class CustomTableEiendom extends CustomComponent {
     }
 
     /**
-     * Returns an object containing text resource bindings for the "eiendomByggested" component.
-     * The returned object maps keys such as titles and column identifiers to their corresponding resource strings.
+     * Returns the text resource bindings for the component.
      *
-     * @returns {Object} An object with text resource bindings for various fields and columns related to "eiendomByggested".
+     * @returns {Object} An object containing text resource keys for localization.
+     * @returns {Object} return.eiendomByggested - Bindings related to 'eiendomByggested'.
+     * @returns {string} return.eiendomByggested.title - The resource key for the 'eiendom' title.
      */
     getTextResourceBindings() {
         return {
             eiendomByggested: {
-                title: "resource.eiendomByggested.eiendom.title",
-                "col-1": "resource.eiendomByggested.eiendom.adresse.title",
-                "col-2": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
-                "col-3": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",
-                "col-4": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title",
-                "col-5": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
-                "col-6": "resource.eiendomByggested.eiendom.bolignummer.title",
-                "col-7": "resource.eiendomByggested.eiendom.bygningsnummer.title",
-                "emptyFieldText-col-1": "resource.eiendomByggested.eiendom.adresse.emptyFieldText",
-                "emptyFieldText-default": "resource.emptyFieldText.default"
+                title: "resource.eiendomByggested.eiendom.title"
             }
         };
     }
