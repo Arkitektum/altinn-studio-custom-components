@@ -12,16 +12,12 @@ export function hasValidationMessages(validationMessages) {
 }
 
 /**
- * Checks for missing or empty text resources based on the provided text resource bindings.
+ * Checks for missing or empty text resources based on provided bindings and accumulates validation messages.
  *
- * @param {Object} textResources - The text resources object containing available resources.
- * @param {Array} textResources.resources - An array of text resource objects.
- * @param {string} textResources.resources[].id - The unique identifier for a text resource.
- * @param {string} textResources.resources[].value - The value of the text resource.
- * @param {Object} textResourceBindings - An object mapping component names to their text resource bindings.
- * @param {Object} textResourceBindings[componentName] - An object mapping text resource keys to their IDs.
- * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional instance of ValidationMessages to store validation results.
- * @returns {ValidationMessages} The updated ValidationMessages instance containing error and info messages.
+ * @param {Object} textResources - The object containing available text resources, expected to have a `resources` array.
+ * @param {Object} textResourceBindings - An object mapping component names to their text resource keys.
+ * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional ValidationMessages instance to accumulate errors and info.
+ * @returns {ValidationMessages} The updated ValidationMessages instance containing error and info messages about missing or empty text resources.
  */
 export function hasMissingTextResources(textResources, textResourceBindings, validationMessages = new ValidationMessages()) {
     for (const componentName in textResourceBindings) {
@@ -29,9 +25,9 @@ export function hasMissingTextResources(textResources, textResourceBindings, val
             const key = textResourceBindings[componentName][textResourceKey];
             const textResource = textResources?.resources?.find((resource) => resource.id === key);
             if (!textResource) {
-                validationMessages.error.push(`Missing text resource with id: "${key}"`);
+                validationMessages.error.push(`Missing text resource for "${textResourceKey}" with id: "${key}" in component "${componentName}"`);
             } else if (textResource.value === "") {
-                validationMessages.info.push(`Empty text resource with id: "${key}"`);
+                validationMessages.info.push(`Empty text resource for "${textResourceKey}" with id: "${key}" in component "${componentName}"`);
             }
         }
     }
@@ -39,20 +35,27 @@ export function hasMissingTextResources(textResources, textResourceBindings, val
 }
 
 /**
- * Validates the text resource bindings for table column headers.
+ * Validates that all text resource bindings in table columns exist and are not empty.
  *
- * @param {Array<Object>} tableColumns - An array of table column objects, where each object contains a `titleResourceKey` property.
- * @param {Object} textResources - An object containing text resource bindings, where keys are resource IDs and values are the corresponding text.
- * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional instance of ValidationMessages to collect validation errors and info.
- * @returns {ValidationMessages} The updated ValidationMessages instance containing any validation errors or info messages.
+ * @param {Array<Object>} tableColumns - The array of table column objects to validate.
+ * @param {Object} textResources - The text resources object containing a `resources` array.
+ * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional ValidationMessages instance to collect errors and info messages.
+ * @returns {ValidationMessages} The updated ValidationMessages instance with any errors or info messages found during validation.
  */
 export function validateTableHeadersTextResourceBindings(tableColumns, textResources, validationMessages = new ValidationMessages()) {
-    tableColumns.forEach((column) => {
-        if (textResources[column.titleResourceKey] === undefined) {
-            validationMessages.error.push(`Missing text resource binding with id: "${column.titleResourceKey}"`);
-        } else if (textResources[column.titleResourceKey] === "") {
-            validationMessages.info.push(`Empty text resource binding with id: "${column.titleResourceKey}"`);
-        }
+    tableColumns.forEach((column, columnIndex) => {
+        Object.keys(column?.textResourceBindings || {}).forEach((textResourceKey) => {
+            const textResource = textResources?.resources?.find((resource) => resource.id === column.textResourceBindings[textResourceKey]);
+            if (!textResource) {
+                validationMessages.error.push(
+                    `Missing text resource binding with id: "${column.textResourceBindings[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
+                );
+            } else if (textResource.value === "") {
+                validationMessages.info.push(
+                    `Empty text resource binding with id: "${column.textResourceBindings[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
+                );
+            }
+        });
     });
     return validationMessages;
 }
