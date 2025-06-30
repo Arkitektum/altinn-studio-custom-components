@@ -24,6 +24,7 @@ export default class CustomTablePart extends CustomComponent {
         this.isEmpty = isEmpty;
         this.formData = formData;
         this.texts = props?.texts ? props.texts : {};
+        this.text = props?.texts?.title;
         this.partType = props?.partType ? props.partType : "";
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
@@ -147,11 +148,7 @@ export default class CustomTablePart extends CustomComponent {
     getTextResourceBindings(partType = "tiltakshaver") {
         return {
             part: {
-                title: `resource.${partType}.header`,
-                "col-1": `resource.${partType}.navn.title`,
-                "col-2": `resource.${partType}.telefonnummer.title`,
-                "col-3": `resource.${partType}.epost.title`,
-                "emptyFieldText-default": "resource.emptyFieldText.default"
+                title: `resource.${partType}.header`
             }
         };
     }
