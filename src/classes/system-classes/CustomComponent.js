@@ -75,6 +75,9 @@ export default class CustomComponent {
         if (props?.showRowNumbers) {
             this.showRowNumbers = props.showRowNumbers;
         }
+        if (props?.textResourceBindings) {
+            this.textResourceBindings = props.textResourceBindings;
+        }
     }
 
     /**
@@ -92,11 +95,13 @@ export default class CustomComponent {
      *   @property {boolean} hideIfEmpty - Whether to hide the element if empty.
      *   @property {Object} styleOverride - Style overrides for the element.
      *   @property {boolean} isChildComponent - Whether the element is a child component.
+     *   @property {Array} tableColumns - The table columns configuration for the component.
      *   @property {string} feedbackType - The feedback type for the element.
      *   @property {string} itemKey - The item key for the element.
      *   @property {boolean} hideOrgNr - Whether to hide the organization number.
      *   @property {string} format - The format of the element.
      *   @property {boolean} showRowNumbers - Whether to show row numbers.
+     *   @property {Object} textResourceBindings - Text resource bindings for the element.
      */
     getPropsFromElementAttributes(element) {
         return {
@@ -114,7 +119,8 @@ export default class CustomComponent {
             itemKey: this.getItemKey(element),
             hideOrgNr: this.getHideOrgNr(element),
             format: this.getFormat(element),
-            showRowNumbers: this.getShowRowNumbers(element)
+            showRowNumbers: this.getShowRowNumbers(element),
+            textResourceBindings: this.getTextResourceBindings(element)
         };
     }
 
@@ -224,7 +230,6 @@ export default class CustomComponent {
         return element?.getAttribute("isChildComponent") === "true";
     }
 
-
     /**
      * Retrieves the feedback type attribute from the given element.
      *
@@ -276,6 +281,18 @@ export default class CustomComponent {
      */
     getShowRowNumbers(element) {
         return element?.getAttribute("showRowNumbers") === "true";
+    }
+
+    /**
+     * Retrieves and parses the "textResourceBindings" attribute from the given element.
+     * Returns the parsed object if it has a value, otherwise returns false.
+     *
+     * @param {Element} element - The DOM element from which to retrieve the attribute.
+     * @returns {Object|false} The parsed text resource bindings object if present and valid, otherwise false.
+     */
+    getTextResourceBindings(element) {
+        const textResourceBindings = JSON.parse(element?.getAttribute("textResourceBindings") || "{}");
+        return hasValue(textResourceBindings) && textResourceBindings;
     }
 
     /**
