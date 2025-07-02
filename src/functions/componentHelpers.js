@@ -1,5 +1,6 @@
 // Classes
 import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.js";
+import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.js";
 import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.js";
 import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
@@ -15,6 +16,8 @@ export function instantiateComponent(component) {
             return new CustomComponent(component);
         case "custom-field-adresse":
             return new CustomFieldAdresse(component);
+        case "custom-field-boolean-data":
+            return new CustomFieldBooleanData(component);
         case "custom-field-data":
             return new CustomFieldData(component);
         case "custom-field-part-navn":
