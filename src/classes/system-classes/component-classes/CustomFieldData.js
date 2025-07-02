@@ -3,23 +3,28 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { hasValue } from "../../../functions/helpers.js";
+import { getTextResourcesFromResourceBindings } from "../../../functions/helpers.js";
 
 /**
- * Represents custom field data for a component, extending the CustomComponent class.
- * Determines if the field is empty based on the provided element or form data.
+ * Represents a custom field data component, extending the CustomComponent class.
+ * Handles initialization of text resources, properties, and content state for a custom field.
  *
  * @extends CustomComponent
- *
- * @param {HTMLElement | object} element - The element or object to initialize the component with.
- * @property {boolean} isEmpty - Indicates whether the custom field data is empty.
  */
 export default class CustomFieldData extends CustomComponent {
     constructor(element) {
         super(element);
+        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
+
         const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
+        const texts =
+            element instanceof HTMLElement ? getTextResourcesFromResourceBindings(textResources, props?.textResourceBindings) : element.texts;
+
         const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(props?.formData);
 
         this.isEmpty = isEmpty;
+        this.texts = texts;
+        this.text = texts?.title;
     }
 
     /**

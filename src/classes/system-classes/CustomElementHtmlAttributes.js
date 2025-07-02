@@ -32,6 +32,7 @@ export default class CustomElementHtmlAttributes {
      * @param {string} [props.format] - The format attribute of the component.
      * @param {boolean} [props.showRowNumbers] - Indicates if row numbers should be shown.
      * @param {string} [props.partType] - The type of part for the component.
+     * @param {Object} [props.textResourceBindings] - Text resource bindings for the component.
      */
     constructor(props) {
         const isChildComponent = true;
@@ -55,6 +56,7 @@ export default class CustomElementHtmlAttributes {
         const format = this.getFormatAttributeFromProps(props);
         const showRowNumbers = this.getShowRowNumbersAttributeFromProps(props);
         const partType = this.getPartTypeAttributeFromProps(props);
+        const textResourceBindings = this.getTextResourceBindingsFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = "true";
         }
@@ -117,6 +119,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (partType) {
             this.partType = partType;
+        }
+        if (textResourceBindings) {
+            this.textResourceBindings = textResourceBindings;
         }
     }
 
@@ -380,5 +385,17 @@ export default class CustomElementHtmlAttributes {
      */
     getPartTypeAttributeFromProps(props) {
         return hasValue(props?.partType) && props?.partType;
+    }
+
+    /**
+     * Retrieves the text resource bindings from the given props object.
+     * If the `textResourceBindings` property exists and has a value, it returns its JSON string representation.
+     * Otherwise, returns a falsy value.
+     *
+     * @param {Object} props - The properties object that may contain text resource bindings.
+     * @returns {string|false} The JSON stringified text resource bindings if present, otherwise a falsy value.
+     */
+    getTextResourceBindingsFromProps(props) {
+        return hasValue(props?.textResourceBindings) && JSON.stringify(props?.textResourceBindings);
     }
 }
