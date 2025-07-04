@@ -10,7 +10,11 @@ import CustomTableEiendom from "../classes/system-classes/component-classes/Cust
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
 import CustomComponent from "../classes/system-classes/CustomComponent.js";
 
-export function instantiateComponent(component) {
+// Global functions
+import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";
+
+export function instantiateComponent(element) {
+    const component = element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element;
     const tagName = component?.tagName || component?.getAttribute("tagname") || "custom-component";
     switch (tagName?.toLowerCase()) {
         case "custom-component":
