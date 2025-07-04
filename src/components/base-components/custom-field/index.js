@@ -1,5 +1,5 @@
 // Global functions
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
