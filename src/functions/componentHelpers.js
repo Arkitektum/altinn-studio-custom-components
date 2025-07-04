@@ -2,6 +2,7 @@
 import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.js";
 import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.js";
 import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.js";
+import CustomFieldKommunensSaksnummer from "../classes/system-classes/component-classes/CustomFieldKommunensSaksnummer.js";
 import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
@@ -20,6 +21,8 @@ export function instantiateComponent(component) {
             return new CustomFieldBooleanData(component);
         case "custom-field-data":
             return new CustomFieldData(component);
+        case "custom-field-kommunens-saksnummer":
+            return new CustomFieldKommunensSaksnummer(component);
         case "custom-field-part-navn":
             return new CustomFieldPartNavn(component);
         case "custom-field-telefonnummer":
