@@ -21,16 +21,6 @@ function getDataModels() {
     return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModels")));
 }
 
-function getTextResources() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("textResources")));
-}
-
-function getValueFromTextResourceBinding(binding) {
-    const textResources = getTextResources();
-    const textResource = textResources.resources.find((resource) => resource.id === binding);
-    return textResource?.value !== undefined ? textResource?.value : binding;
-}
-
 function getDataForComponent(component) {
     const dataModels = getDataModels();
     const data = {};
@@ -52,27 +42,12 @@ function getDataForComponent(component) {
     return data;
 }
 
-function getTextsForComponent(component) {
-    let texts = {};
-    const textResourceBindings = component?.textResourceBindings;
-    const textResourcesBindingsKeys = textResourceBindings && Object.keys(textResourceBindings);
-    textResourcesBindingsKeys?.length &&
-        textResourcesBindingsKeys.forEach((key) => {
-            const textResourceBinding = component.textResourceBindings[key];
-            texts[key] = getValueFromTextResourceBinding(textResourceBinding);
-        });
-    return texts;
-}
-
 function renderResults() {
     const component = getLayoutCode();
     const data = getDataForComponent(component);
-    const texts = getTextsForComponent(component);
     const htmlAttributes = new CustomElementHtmlAttributes({
         ...component,
-        formData: data,
-        texts,
-        textResources: getTextResources()
+        formData: data
     });
     const element = createCustomElement(component?.tagName, htmlAttributes);
     const testElement = document.getElementById("code-results");
