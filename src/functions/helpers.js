@@ -129,7 +129,7 @@ export function getEmptyFieldText(component) {
  * @returns {string} The row number title if defined, otherwise the default value "#".
  */
 export function getRowNumberTitle(component) {
-    const rowNumberTitle = component?.texts?.rowNumberTitle;
+    const rowNumberTitle = component?.resourceValues?.rowNumberTitle;
     return rowNumberTitle || "#";
 }
 

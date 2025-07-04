@@ -27,14 +27,17 @@ import { getTextResourceFromResourceBinding, hasValue } from "../../../functions
 export default class CustomFieldData extends CustomComponent {
     constructor(props) {
         super(props);
-        const formDataValue = this.getValueFromFormData(props);
-        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(formDataValue);
+        const data = props?.isChildComponent ? props?.resourceValues?.data : this.getValueFromFormData(props);
+        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(data);
 
         this.isEmpty = isEmpty;
-        this.resourceValues = {
-            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
-        };
+
+        this.resourceValues = props?.isChildComponent
+            ? props?.resourceValues
+            : {
+                  title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+                  data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+              };
     }
 
     /**

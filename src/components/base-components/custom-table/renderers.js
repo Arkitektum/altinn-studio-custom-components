@@ -78,7 +78,7 @@ export function renderHeaderElement(text, size) {
  * @returns {HTMLTableElement} The rendered table element.
  */
 export function renderTableElement(component) {
-    const data = component?.formData?.data;
+    const data = component?.resourceValues?.data;
     const styleOverride = component?.styleOverride;
 
     const table = document.createElement("table");

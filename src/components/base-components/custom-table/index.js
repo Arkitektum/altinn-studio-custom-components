@@ -16,10 +16,10 @@ export default customElements.define(
         async connectedCallback() {
             const component = new CustomComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && !component?.formData?.data && !!componentContainerElement) {
+            if (component?.hideIfEmpty && !component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const headerElement = renderHeaderElement(component?.text, component?.size);
+                const headerElement = renderHeaderElement(component?.resourceValues?.title, component?.size);
                 const tableElement = renderTableElement(component);
                 this.innerHTML = "";
                 if (headerElement) {

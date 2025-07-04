@@ -21,9 +21,10 @@ import { hasValue } from "./helpers.js";
  *   @property {string} itemKey - The item key for the element.
  *   @property {boolean} hideOrgNr - Whether to hide the organization number.
  *   @property {string} format - The format of the element.
+ *   @property {Array} tableColumns - The table columns defined for the element.
  *   @property {boolean} showRowNumbers - Whether to show row numbers.
  *   @property {Object} resourceBindings - Text resource bindings for the element.
- *  @property {Object} resourceValues - Resource values for the element.
+ *   @property {Object} resourceValues - Resource values for the element.
  */
 export function getPropsFromElementAttributes(element) {
     return {
@@ -41,6 +42,7 @@ export function getPropsFromElementAttributes(element) {
         itemKey: getItemKey(element),
         hideOrgNr: getHideOrgNr(element),
         format: getFormat(element),
+        tableColumns: getTableColumns(element),
         showRowNumbers: getShowRowNumbers(element),
         resourceBindings: getResourceBindings(element),
         resourceValues: getResourceValues(element)
@@ -195,6 +197,11 @@ function getHideOrgNr(element) {
 function getFormat(element) {
     const format = element?.getAttribute("format");
     return hasValue(format) && format;
+}
+
+function getTableColumns(element) {
+    const tableColumns = JSON.parse(element?.getAttribute("tableColumns"));
+    return hasValue(tableColumns) && tableColumns;
 }
 
 /**

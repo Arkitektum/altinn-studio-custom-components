@@ -16,6 +16,7 @@ export default customElements.define(
     class extends HTMLElement {
         async connectedCallback() {
             const component = instantiateComponent(this);
+            console.log("CustomTableData connected with component:", {component, this: this});
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";

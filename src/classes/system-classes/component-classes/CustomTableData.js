@@ -2,7 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getRowNumberTitle, hasValue } from "../../../functions/helpers.js";
+import { getRowNumberTitle, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
@@ -24,23 +24,31 @@ import { hasValidationMessages, validateTableHeadersTextResourceBindings } from 
  * @property {boolean} hasValidationMessages - Indicates if there are any validation messages.
  */
 export default class CustomTableData extends CustomComponent {
-    constructor(element) {
-        super(element);
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
+    constructor(props) {
+        super(props);
+        const formDataValue = this.getValueFromFormData(props);
 
-        const parentProps = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
+        /*const parentProps = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
         const localProps = element instanceof HTMLElement ? this.getLocalPropsFromElementAttributes(element) : element;
-        const props = { ...parentProps, ...localProps };
+        const props = { ...parentProps, ...localProps };*/
 
-        const formData = this.getFormDataFromProps(props, textResources);
-        const isEmpty = !this.hasContent(formData);
-        const validationMessages = this.getValidationMessagesFromProps(props, textResources);
+        // const formData = this.getFormDataFromProps(props);
+        const isEmpty = !this.hasContent(formDataValue);
+        console.log("CustomTableData initialized with props:", props, formDataValue);
+        const validationMessages = this.getValidationMessagesFromProps(props);
 
         this.isEmpty = isEmpty;
-        this.formData = formData;
-        this.showRowNumbers = localProps.showRowNumbers;
+        //this.formData = formData;
+        //this.showRowNumbers = localProps.showRowNumbers;
+        this.showRowNumbers = props?.showRowNumbers;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            rowNumberTitle: getTextResourceFromResourceBinding(props?.resourceBindings?.rowNumberTitle),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+        };
+        console.log("CustomTableData initialized with props:", this.resourceValues);
     }
 
     /**
@@ -89,17 +97,14 @@ export default class CustomTableData extends CustomComponent {
      * Extracts and formats table data from the provided props and text resources.
      *
      * @param {Object} props - The properties object containing data for the table.
-     * @param {Array} [textResources=[]] - Optional array of text resources for localization or display purposes.
      * @returns {Object} An object containing `data` with `tableHeaders` and `tableRows` arrays.
      */
-    getFormDataFromProps(props, textResources = []) {
-        const tableHeaders = this.getTableHeadersFromProps(props, textResources);
-        const tableRows = this.getTableRowsFromProps(props, textResources);
+    getValueFromFormData(props) {
+        const tableHeaders = this.getTableHeadersFromProps(props);
+        const tableRows = this.getTableRowsFromProps(props);
         return {
-            data: {
-                tableHeaders,
-                tableRows
-            }
+            tableHeaders,
+            tableRows
         };
     }
 
@@ -107,15 +112,14 @@ export default class CustomTableData extends CustomComponent {
      * Generates table header definitions based on the provided props and optional text resources.
      *
      * @param {Object} props - The properties object containing table configuration.
-     * @param {Array<Object>} [textResources=[]] - Optional array of text resource objects for localization.
      * @returns {Array<Object>} An array of table header objects, including a row number header if specified.
      */
-    getTableHeadersFromProps(props, textResources = []) {
+    getTableHeadersFromProps(props) {
         const tableColumns = props?.tableColumns || [];
         if (tableColumns.length === 0) {
             return [];
         }
-        const tableHeaders = getTableHeaders(tableColumns, textResources);
+        const tableHeaders = getTableHeaders(tableColumns);
         if (props.showRowNumbers) {
             tableHeaders.unshift({
                 text: getRowNumberTitle(props)
@@ -128,13 +132,13 @@ export default class CustomTableData extends CustomComponent {
      * Generates table rows from the provided props and optional text resources.
      *
      * @param {Object} props - The properties object containing form data and table configuration.
-     * @param {Object[]} [textResources=[]] - Optional array of text resource objects for localization or display.
      * @returns {Array[]} An array of table rows, where each row is an array of cell objects. If `showRowNumbers` is true in props, each row will be prepended with a row number element.
      */
-    getTableRowsFromProps(props, textResources = []) {
+    getTableRowsFromProps(props) {
         const data = props?.formData?.data;
         const tableColumns = props?.tableColumns || [];
-        const tableRows = getTableRows(tableColumns, textResources, data);
+        const tableRows = getTableRows(tableColumns, data);
+        console.log("CustomTableData.getTableRowsFromProps with props and tableRows:", tableRows);
         const notEmptyTableRows = this.removeEmptyTableRows(tableRows);
         if (props.showRowNumbers) {
             // Add a row number for each table row
@@ -142,8 +146,9 @@ export default class CustomTableData extends CustomComponent {
                 const rowNumberElement = {
                     tagName: "custom-field-data",
                     hideTitle: true,
-                    formData: {
-                        simpleBinding: index + 1
+                    isChildComponent: true,
+                    resourceValues: {
+                        data: index + 1
                     }
                 };
                 return [rowNumberElement, ...tableRow];
@@ -156,11 +161,10 @@ export default class CustomTableData extends CustomComponent {
      * Retrieves validation messages for table headers based on the provided properties and text resources.
      *
      * @param {Object} props - The properties object, expected to contain `tableColumns`.
-     * @param {Array} [textResources=[]] - An optional array of text resources used for validation.
      * @returns {Array} An array of validation messages for the table headers.
      */
-    getValidationMessagesFromProps(props, textResources = []) {
-        return validateTableHeadersTextResourceBindings(props?.tableColumns, textResources);
+    getValidationMessagesFromProps(props) {
+        return validateTableHeadersTextResourceBindings(props?.tableColumns);
     }
 
     /**
@@ -189,6 +193,6 @@ export default class CustomTableData extends CustomComponent {
      * @returns {boolean} Returns true if tableRows has a value, otherwise false.
      */
     hasContent(formData) {
-        return hasValue(formData?.data?.tableRows);
+        return hasValue(formData);
     }
 }
