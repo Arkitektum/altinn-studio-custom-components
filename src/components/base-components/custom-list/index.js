@@ -1,8 +1,6 @@
-// Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
-
 // Global functions
 import { addStyle } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
 import { renderListElement, renderListFieldElement } from "./renderers.js";
@@ -14,10 +12,10 @@ export default customElements.define(
     "custom-list",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
-            this.innerHTML = component?.text?.length
-                ? renderListFieldElement(component?.text, component?.formData?.data)
-                : renderListElement(component?.formData?.data);
+            const component = new instantiateComponent(this);
+            this.innerHTML = component?.resourceValues?.title?.length
+                ? renderListFieldElement(component?.resourceValues?.title, component?.resourceValues?.data)
+                : renderListElement(component?.resourceValues?.data);
             addStyle(this, component?.styleOverride);
         }
     }
