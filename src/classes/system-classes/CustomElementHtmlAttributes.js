@@ -32,7 +32,8 @@ export default class CustomElementHtmlAttributes {
      * @param {string} [props.format] - The format attribute of the component.
      * @param {boolean} [props.showRowNumbers] - Indicates if row numbers should be shown.
      * @param {string} [props.partType] - The type of part for the component.
-     * @param {Object} [props.textResourceBindings] - Text resource bindings for the component.
+     * @param {Object} [props.resourceBindings] - Text resource bindings for the component.
+     * @param {Object} [props.resourceValues] - Resource values associated with the component.
      */
     constructor(props) {
         const isChildComponent = true;
@@ -56,7 +57,8 @@ export default class CustomElementHtmlAttributes {
         const format = this.getFormatAttributeFromProps(props);
         const showRowNumbers = this.getShowRowNumbersAttributeFromProps(props);
         const partType = this.getPartTypeAttributeFromProps(props);
-        const textResourceBindings = this.getTextResourceBindingsFromProps(props);
+        const resourceBindings = this.getResourceBindingsFromProps(props);
+        const resourceValues = this.getResourceValuesFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = "true";
         }
@@ -120,8 +122,11 @@ export default class CustomElementHtmlAttributes {
         if (partType) {
             this.partType = partType;
         }
-        if (textResourceBindings) {
-            this.textResourceBindings = textResourceBindings;
+        if (resourceBindings) {
+            this.resourceBindings = resourceBindings;
+        }
+        if (resourceValues) {
+            this.resourceValues = resourceValues;
         }
     }
 
@@ -389,13 +394,28 @@ export default class CustomElementHtmlAttributes {
 
     /**
      * Retrieves the text resource bindings from the given props object.
-     * If the `textResourceBindings` property exists and has a value, it returns its JSON string representation.
+     * If the `resourceBindings` property exists and has a value, it returns its JSON string representation.
      * Otherwise, returns a falsy value.
      *
      * @param {Object} props - The properties object that may contain text resource bindings.
      * @returns {string|false} The JSON stringified text resource bindings if present, otherwise a falsy value.
      */
-    getTextResourceBindingsFromProps(props) {
-        return hasValue(props?.textResourceBindings) && JSON.stringify(props?.textResourceBindings);
+    getResourceBindingsFromProps(props) {
+        return hasValue(props?.resourceBindings) && JSON.stringify(props?.resourceBindings);
+    }
+
+    /**
+     * Retrieves the resource values from the provided props object.
+     *
+     * @param {Object} props - The properties object that may contain resource values.
+     * @param {*} [props.resourceValues] - The resource values to retrieve.
+     * @returns {*} The resource values if present and valid; otherwise, returns null.
+     */
+    getResourceValuesFromProps(props) {
+        if (hasValue(props?.resourceValues)) {
+            return JSON.stringify(props?.resourceValues);
+        } else {
+            return null;
+        }
     }
 }
