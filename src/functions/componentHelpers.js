@@ -1,4 +1,5 @@
 // Classes
+import CustomField from "../classes/system-classes/component-classes/CustomField.js";
 import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.js";
 import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.js";
 import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.js";
@@ -19,6 +20,8 @@ export function instantiateComponent(element) {
     switch (tagName?.toLowerCase()) {
         case "custom-component":
             return new CustomComponent(component);
+        case "custom-field":
+            return new CustomField(component);
         case "custom-field-adresse":
             return new CustomFieldAdresse(component);
         case "custom-field-boolean-data":
