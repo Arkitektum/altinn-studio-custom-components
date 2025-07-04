@@ -17,7 +17,6 @@ export default class CustomComponent {
      * @param {Object} [props.styleOverride] - Custom style overrides for the component.
      * @param {boolean} [props.isChildComponent] - Whether this is a child component.
      * @param {string} [props.feedbackType] - The type of feedback for the component.
-     * @param {string} [props.itemKey] - The key identifying the item.
      * @param {boolean} [props.hideOrgNr] - Whether to hide the organization number.
      * @param {string} [props.format] - The format of the component's value.
      * @param {boolean} [props.showRowNumbers] - Whether to show row numbers.
@@ -52,9 +51,6 @@ export default class CustomComponent {
         }
         if (props?.feedbackType) {
             this.feedbackType = props.feedbackType;
-        }
-        if (props?.itemKey) {
-            this.itemKey = props.itemKey;
         }
         if (props?.hideOrgNr) {
             this.hideOrgNr = props.hideOrgNr;
