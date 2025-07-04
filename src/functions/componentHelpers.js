@@ -8,6 +8,7 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
+import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
@@ -40,6 +41,8 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-list":
             return new CustomList(component);
+        case "custom-list-data":
+            return new CustomListData(component);
         case "custom-table-data":
             return new CustomTableData(component);
         case "custom-table-eiendom":
