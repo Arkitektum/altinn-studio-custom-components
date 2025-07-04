@@ -22,8 +22,8 @@ import { getTextResourceFromResourceBinding, hasValue } from "../../../functions
  *
  * @property {boolean} isEmpty - Indicates if the field is empty.
  * @property {Object} resourceValues - Contains the title and text to be displayed.
- * @property {string} resourceValues.title - The title text resource.
- * @property {string} resourceValues.text - The formatted 'kommunens saksnummer' or empty field text.
+ * @property {string} resourceValues.title - The title resource.
+ * @property {string} resourceValues.data - The formatted 'kommunens saksnummer' or empty field text.
  */
 export default class CustomFieldKommunensSaksnummer extends CustomComponent {
     constructor(props) {
@@ -34,7 +34,7 @@ export default class CustomFieldKommunensSaksnummer extends CustomComponent {
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            text: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
         };
     }
 

@@ -24,7 +24,7 @@ import { getTextResourceFromResourceBinding, hasValue, validateFormData } from "
  * @param {string|number|boolean} [props.formData.defaultData] - Data to use if condition is neither true nor false.
  *
  * @property {boolean} isEmpty - Indicates if the field is considered empty.
- * @property {Object} resourceValues - Contains resolved text resources for title and text.
+ * @property {Object} resourceValues - Contains resolved resources for title and data.
  *
  * @example
  * const component = new CustomFieldBooleanData({
@@ -41,7 +41,7 @@ export default class CustomFieldBooleanData extends CustomComponent {
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            text: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
         };
     }
 

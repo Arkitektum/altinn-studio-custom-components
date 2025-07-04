@@ -22,7 +22,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "../../../functions
  * @property {boolean} isEmpty - Indicates whether the field is empty.
  * @property {Object} resourceValues - Contains the resolved title and text resources for the component.
  * @property {string} resourceValues.title - The resolved title resource.
- * @property {*} resourceValues.text - The resolved text resource or form data value.
+ * @property {*} resourceValues.data - The resolved text resource or form data value.
  */
 export default class CustomFieldData extends CustomComponent {
     constructor(props) {
@@ -33,7 +33,7 @@ export default class CustomFieldData extends CustomComponent {
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            text: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
         };
     }
 

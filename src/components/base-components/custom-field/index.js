@@ -21,7 +21,7 @@ export default customElements.define(
                     inline: component?.inline,
                     styleOverride: component?.styleOverride
                 };
-                this.innerHTML = renderFieldElement(component?.resourceValues?.title, component?.resourceValues?.text, options);
+                this.innerHTML = renderFieldElement(component?.resourceValues?.title, component?.resourceValues?.data, options);
             }
         }
     }
