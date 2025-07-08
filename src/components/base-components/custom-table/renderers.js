@@ -51,16 +51,18 @@ function renderTableCellElement(tableCell) {
 /**
  * Renders a custom header element if the text is provided.
  *
- * @param {string} text - The text content for the header element.
+ * @param {string} title - The text content for the header element.
  * @param {string} size - The size of the header element.
  * @returns {HTMLElement|undefined} The created custom header element or undefined if no text is provided.
  */
-export function renderHeaderElement(text, size) {
+export function renderHeaderElement(title, size) {
     const htmlAttributes = new CustomElementHtmlAttributes({
-        text,
-        size
+        size,
+        resourceValues: {
+            title
+        }
     });
-    if (text) {
+    if (title) {
         return createCustomElement("custom-header", htmlAttributes);
     }
 }
@@ -78,7 +80,7 @@ export function renderHeaderElement(text, size) {
  * @returns {HTMLTableElement} The rendered table element.
  */
 export function renderTableElement(component) {
-    const data = component?.formData?.data;
+    const data = component?.resourceValues?.data;
     const styleOverride = component?.styleOverride;
 
     const table = document.createElement("table");
