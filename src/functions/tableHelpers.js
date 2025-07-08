@@ -19,11 +19,11 @@ export function getTableHeaders(tableColumns) {
 }
 
 /**
- * Generates table row data for rendering, based on provided columns, text resources, and data.
+ * Generates table row data for rendering, based on provided columns and data.
  *
- * @param {Array<Object>} tableColumns - Array of column definitions for the table. Each column should specify a `dataKey`, `props`, `tagName`, and optionally `textResourceBindings`.
- * @param {Object|Array<Object>} data - The data to be displayed in the table. Can be a single object or an array of objects.
- * @returns {Array<Array<Object>>} An array of table rows, where each row is an array of component property objects for rendering each cell.
+ * @param {Array<Object>} tableColumns - Array of column definitions, each containing dataKey, resourceBindings, tagName, etc.
+ * @param {Object|Array<Object>} data - The data to populate the table rows. Can be a single object or an array of objects.
+ * @returns {Array<Array<Object>>} An array of rows, where each row is an array of componentProps objects for each column.
  */
 export function getTableRows(tableColumns, data) {
     const isSingleItem = !Array.isArray(data);
@@ -36,7 +36,13 @@ export function getTableRows(tableColumns, data) {
             const cellData = getValueFromDataKey(row, column.dataKey);
             const emptyFieldTextResourceBinding = column?.resourceBindings?.emptyFieldText;
             const emptyFieldText = getTextResourceFromResourceBinding(emptyFieldTextResourceBinding);
-            const componentProps = { resourceValues: { data: cellData, }, hideTitle: true, tagName: column.tagName, isChildComponent: true };
+            const componentProps = {
+                resourceBindings: column.resourceBindings,
+                resourceValues: { data: cellData },
+                hideTitle: true,
+                tagName: column.tagName,
+                isChildComponent: true
+            };
             if (hasValue(emptyFieldText)) {
                 componentProps.resourceValues.emptyFieldText = emptyFieldText;
             }
