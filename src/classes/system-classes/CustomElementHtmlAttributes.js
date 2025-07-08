@@ -36,7 +36,7 @@ export default class CustomElementHtmlAttributes {
      * @param {Object} [props.resourceValues] - Resource values associated with the component.
      */
     constructor(props) {
-        const isChildComponent = true;
+        const isChildComponent = this.getIsChildComponentAttributeFromProps(props);
         const formData = this.getFormDataAttributeFromProps(props);
         const tagName = this.getTagNameAttributeFromProps(props);
         const text = this.getTextAttributeFromProps(props);
@@ -60,7 +60,7 @@ export default class CustomElementHtmlAttributes {
         const resourceBindings = this.getResourceBindingsFromProps(props);
         const resourceValues = this.getResourceValuesFromProps(props);
         if (isChildComponent) {
-            this.isChildComponent = "true";
+            this.isChildComponent = isChildComponent;
         }
         if (formData) {
             this.formData = formData;
@@ -156,6 +156,10 @@ export default class CustomElementHtmlAttributes {
         } else {
             return null;
         }
+    }
+
+    getIsChildComponentAttributeFromProps(props) {
+        return props?.isChildComponent ? "true" : undefined;
     }
 
     /**
