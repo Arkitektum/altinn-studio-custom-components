@@ -2,50 +2,57 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getTextResourcesFromResourceBindings, hasValue, validateFormData } from "../../../functions/helpers.js";
+import { getTextResourceFromResourceBinding, hasValue, validateFormData } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldBooleanData is a custom component class for handling boolean-based form data.
  * It extends the CustomComponent class and provides logic for extracting, validating,
- * and representing boolean data with associated text resources.
+ * and presenting boolean data with support for resource bindings and empty state handling.
  *
  * @class
  * @extends CustomComponent
  *
- * @param {HTMLElement|Object} element - The DOM element or props object used to initialize the component.
+ * @param {Object} props - The properties object containing data and configuration for the component.
+ * @param {Object} [props.resourceBindings] - Resource bindings for text resources.
+ * @param {string} [props.resourceBindings.title] - Resource key for the title.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Resource key for the empty field text.
+ * @param {boolean} [props.isEmpty] - Optional flag to explicitly set the empty state.
+ * @param {Object} [props.formData] - Form data containing boolean and related values.
+ * @param {boolean|string} [props.formData.simpleBinding] - The boolean value or string representation.
+ * @param {string|number|boolean} [props.formData.trueData] - Data to use if condition is true.
+ * @param {string|number|boolean} [props.formData.falseData] - Data to use if condition is false.
+ * @param {string|number|boolean} [props.formData.defaultData] - Data to use if condition is neither true nor false.
  *
- * @property {boolean} isEmpty - Indicates whether the form data is considered empty.
- * @property {Object} formData - The extracted form data for the component.
- * @property {Object} texts - The text resources associated with the component.
- * @property {string} text - The title text from the text resources.
+ * @property {boolean} isEmpty - Indicates if the field is considered empty.
+ * @property {Object} resourceValues - Contains resolved resources for title and data.
+ *
+ * @example
+ * const component = new CustomFieldBooleanData({
+ *   resourceBindings: { title: 'field.title', emptyFieldText: 'field.empty' },
+ *   formData: { simpleBinding: true, trueData: 'Yes', falseData: 'No', defaultData: 'N/A' }
+ * });
  */
 export default class CustomFieldBooleanData extends CustomComponent {
-    constructor(element) {
-        super(element);
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-
-        const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-        const texts =
-            element instanceof HTMLElement ? getTextResourcesFromResourceBindings(textResources, props?.textResourceBindings) : element.texts;
-
-        const formData = this.getFormDataFromProps(props);
-        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(formData);
+    constructor(props) {
+        super(props);
+        const formDataValue = this.getValueFromFormData(props);
+        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(formDataValue);
 
         this.isEmpty = isEmpty;
-        this.formData = formData;
-        this.texts = texts;
-        this.text = texts?.title;
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+        };
     }
 
     /**
-     * Checks if the provided form data contains a value in the `simpleBinding` property.
+     * Determines if the provided form data value contains content.
      *
-     * @param {Object} formData - The form data object to check.
-     * @param {*} formData.simpleBinding - The value to check for content.
-     * @returns {boolean} Returns true if `simpleBinding` has a value, otherwise false.
+     * @param {*} formDataValue - The value from the form data to check.
+     * @returns {boolean} True if the form data value has content; otherwise, false.
      */
-    hasContent(formData) {
-        return hasValue(formData?.simpleBinding);
+    hasContent(formDataValue) {
+        return hasValue(formDataValue);
     }
 
     /**
@@ -75,7 +82,7 @@ export default class CustomFieldBooleanData extends CustomComponent {
      *
      * @throws {Error} If the form data validation fails.
      */
-    getBooleanData(component) {
+    getValueFromFormData(component) {
         const componentName = component?.id?.length && typeof component?.id === "string" ? component.id : "custom-field-boolean-data";
         const condition = component?.formData?.simpleBinding;
         const data = {

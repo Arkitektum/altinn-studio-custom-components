@@ -2,38 +2,58 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { hasValue } from "../../../functions/helpers.js";
-import { getTextResourcesFromResourceBindings } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
 /**
- * Represents a custom field data component, extending the CustomComponent class.
- * Handles initialization of text resources, properties, and content state for a custom field.
+ * CustomFieldData is a custom component class that manages field data and resource values
+ * for a form component. It determines if the field is empty and sets resource values
+ * for title and text based on the field's state.
  *
  * @extends CustomComponent
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} [props.formData] - The form data object.
+ * @param {*} [props.formData.simpleBinding] - The value to retrieve from form data.
+ * @param {Object} [props.resourceBindings] - Resource bindings for the component.
+ * @param {string} [props.resourceBindings.title] - Resource key for the title.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Resource key for the empty field text.
+ * @param {boolean} [props.isEmpty] - Optional flag to explicitly set if the field is empty.
+ *
+ * @property {boolean} isEmpty - Indicates whether the field is empty.
+ * @property {Object} resourceValues - Contains the resolved title and text resources for the component.
+ * @property {string} resourceValues.title - The resolved title resource.
+ * @property {*} resourceValues.data - The resolved text resource or form data value.
  */
 export default class CustomFieldData extends CustomComponent {
-    constructor(element) {
-        super(element);
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-
-        const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-        const texts =
-            element instanceof HTMLElement ? getTextResourcesFromResourceBindings(textResources, props?.textResourceBindings) : element.texts;
-
-        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(props?.formData);
+    constructor(props) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
-        this.texts = texts;
-        this.text = texts?.title;
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+        };
     }
 
     /**
-     * Checks if the provided form data contains content by verifying the presence of a value in the `simpleBinding` property.
+     * Checks if the provided form data value contains content.
      *
-     * @param {Object} formData - The form data object to check.
-     * @returns {boolean} Returns `true` if `simpleBinding` has a value, otherwise `false`.
+     * @param {*} formDataValue - The value from the form data to check.
+     * @returns {boolean} Returns true if the value has content, otherwise false.
      */
-    hasContent(formData) {
-        return hasValue(formData?.simpleBinding);
+    hasContent(formDataValue) {
+        return hasValue(formDataValue);
+    }
+
+    /**
+     * Retrieves the value of the component from the provided form data properties.
+     *
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {*} The value extracted from the form data for the component.
+     */
+    getValueFromFormData(props) {
+        return getComponentDataValue(props);
     }
 }

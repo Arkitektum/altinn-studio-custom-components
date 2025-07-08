@@ -116,20 +116,19 @@ export async function getComponentTexts(component) {
  * @returns {string} The empty field text if defined, otherwise an empty string.
  */
 export function getEmptyFieldText(component) {
-    const emptyFieldText = component?.texts?.emptyFieldText;
+    const emptyFieldText = component?.resourceValues?.emptyFieldText;
     return emptyFieldText || "";
 }
 
 /**
- * Retrieves the row number title from a given component object.
+ * Retrieves the row number title from a component's resource bindings.
+ * If the row number title is not defined, returns the default value "#".
  *
- * @param {Object} component - The component object containing text properties.
- * @param {Object} [component.texts] - An optional object containing text-related properties.
- * @param {string} [component.texts.rowNumberTitle] - The specific title for the row number.
- * @returns {string} The row number title if defined, otherwise the default value "#".
+ * @param {Object} component - The component object containing resource bindings.
+ * @returns {string} The row number title or "#" if not defined.
  */
 export function getRowNumberTitle(component) {
-    const rowNumberTitle = component?.texts?.rowNumberTitle;
+    const rowNumberTitle = getTextResourceFromResourceBinding(component?.resourceBindings?.rowNumberTitle);
     return rowNumberTitle || "#";
 }
 
@@ -203,6 +202,15 @@ export function renderLayoutContainerElement() {
         alignItems: "flex-start"
     });
     return containerElement;
+}
+
+/**
+ * Retrieves the global text resources from the window object if available.
+ *
+ * @returns {Array} An array of text resources if `window.textResources` exists, otherwise an empty array.
+ */
+export function getTextResources() {
+    return typeof window !== "undefined" && window.textResources ? window.textResources : [];
 }
 
 /**
@@ -316,33 +324,57 @@ export function getValueFromDataKey(data, dataKey) {
 }
 
 /**
- * Retrieves the text resource value corresponding to a given resource binding.
+ * Retrieves the text resource value corresponding to the given resource binding.
+ * If the resource is not found, returns the resourceBinding itself.
  *
- * @param {Object} textResources - The object containing text resources.
- * @param {Array} textResources.resources - An array of text resource objects.
- * @param {string} textResources.resources[].id - The unique identifier for a text resource.
- * @param {string} textResources.resources[].value - The value of the text resource.
- * @param {string} resourceBinding - The identifier of the resource binding to look up.
- * @returns {string} The value of the text resource if found, otherwise the resource binding itself.
+ * @param {string} resourceBinding - The ID of the resource to look up.
+ * @returns {string} The value of the text resource, or the resourceBinding if not found.
  */
-export function getTextResourceFromResourceBinding(textResources, resourceBinding) {
+export function getTextResourceFromResourceBinding(resourceBinding) {
+    const textResources = getTextResources();
     const textResource = textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
     return textResource || resourceBinding;
 }
 
 /**
- * Extracts text resources based on the provided resource bindings.
+ * Retrieves text resources from the given resource bindings object.
  *
- * @param {Object} textResources - An object containing all available text resources.
- * @param {Object} resourceBindings - An object where keys represent resource names and values are bindings to specific text resources.
- * @returns {Object} An object where keys are the same as in `resourceBindings` and values are the corresponding text resources.
+ * Iterates over each key in the resourceBindings object and uses
+ * getTextResourceFromResourceBinding to extract the corresponding text resource.
+ *
+ * @param {Object} resourceBindings - An object where each key maps to a resource binding.
+ * @returns {Object} An object mapping each key to its corresponding text resource.
  */
-export function getTextResourcesFromResourceBindings(textResources, resourceBindings) {
+export function getTextResourcesFromResourceBindings(resourceBindings) {
     const texts = {};
     for (const key in resourceBindings) {
-        texts[key] = getTextResourceFromResourceBinding(textResources, resourceBindings[key]);
+        texts[key] = getTextResourceFromResourceBinding(resourceBindings[key]);
     }
     return texts;
+}
+
+/**
+ * Retrieves the data value from a component object.
+ *
+ * If the component is a child component, it returns the value from `component.resourceValues.data`.
+ * Otherwise, it returns the value from `component.formData.simpleBinding` if available,
+ * or falls back to `component.formData.data`.
+ *
+ * @param {Object} component - The component object to extract the data value from.
+ * @param {boolean} component.isChildComponent - Indicates if the component is a child component.
+ * @param {Object} [component.resourceValues] - Resource values for child components.
+ * @param {*} [component.resourceValues.data] - Data value for child components.
+ * @param {Object} [component.formData] - Form data for non-child components.
+ * @param {*} [component.formData.simpleBinding] - Simple binding data for non-child components.
+ * @param {*} [component.formData.data] - Data value for non-child components.
+ * @returns {*} The extracted data value from the component.
+ */
+export function getComponentDataValue(component) {
+    if (component.isChildComponent) {
+        return component.resourceValues?.data;
+    } else {
+        return component.formData?.simpleBinding || component.formData?.data;
+    }
 }
 
 /**

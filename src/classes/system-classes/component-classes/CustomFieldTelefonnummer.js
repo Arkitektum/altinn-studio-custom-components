@@ -3,31 +3,38 @@ import CustomComponent from "../CustomComponent.js";
 import Telefonnumre from "../../data-classes/Telefonnumre.js";
 
 // Global functions
-import { hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
 /**
- * CustomFieldTelefonnummer is a custom component class for handling and formatting phone number fields.
- * It extends the CustomComponent base class and provides methods to extract, format, and validate phone number data.
+ * CustomFieldTelefonnummer is a custom component class for handling and displaying phone numbers.
+ * It extends the CustomComponent class and provides methods for formatting and extracting phone numbers
+ * from form data, as well as checking for content presence.
  *
  * @class
  * @extends CustomComponent
  *
- * @param {HTMLElement|Object} element - The element or props to initialize the component with.
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.resourceBindings - Resource bindings for text resources.
+ * @param {string} [props.resourceBindings.title] - Resource key for the title.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Resource key for the empty field text.
  *
- * @property {boolean} isEmpty - Indicates whether the form data is empty.
- * @property {Object} formData - The extracted and formatted form data.
+ * @property {boolean} isEmpty - Indicates if the component has content.
+ * @property {Object} resourceValues - Contains the title and data to be displayed.
+ * @property {string} resourceValues.title - The title text resource.
+ * @property {string} resourceValues.data - The formatted phone numbers or empty field text.
  */
 export default class CustomFieldTelefonnummer extends CustomComponent {
-    constructor(element) {
-        super(element);
+    constructor(props) {
+        super(props);
+        const data = this.getValueFromFormData(props);
 
-        const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-
-        const formData = this.getFormDataFromProps(props);
-        const isEmpty = !this.hasContent(formData);
+        const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
-        this.formData = formData;
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+        };
     }
 
     /**
@@ -45,30 +52,26 @@ export default class CustomFieldTelefonnummer extends CustomComponent {
     }
 
     /**
-     * Extracts and formats phone number data from the provided props object.
+     * Extracts and formats phone number data from the provided form data props.
      *
-     * @param {Object} props - The properties object containing form data.
-     * @param {Object} [props.formData] - The form data object.
-     * @param {Object} [props.formData.data] - The raw data containing phone numbers.
+     * @param {Object} props - The properties containing form data for the component.
      * @returns {Object} An object with a `simpleBinding` property containing the formatted phone numbers as a string.
      */
-    getFormDataFromProps(props) {
-        const data = props?.formData?.data;
+    getValueFromFormData(props) {
+        const data = getComponentDataValue(props);
         const telefonnumre = new Telefonnumre(data);
         const telefonnumreString = this.formatPhoneNumbers(telefonnumre);
 
-        return {
-            simpleBinding: telefonnumreString
-        };
+        return telefonnumreString;
     }
 
     /**
      * Checks if the provided form data contains a value for the 'simpleBinding' property.
      *
-     * @param {Object} formData - The form data object to check.
-     * @returns {boolean} Returns true if 'simpleBinding' has a value, otherwise false.
+     * @param {Object} data - The data object to check.
+     * @returns {boolean} Returns true if 'data' has a value, otherwise false.
      */
-    hasContent(formData) {
-        return hasValue(formData?.simpleBinding);
+    hasContent(data) {
+        return hasValue(data);
     }
 }

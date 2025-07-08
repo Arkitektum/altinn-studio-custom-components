@@ -5,13 +5,12 @@ import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } fro
  * Generates an array of table header objects based on the provided table columns and text resources.
  *
  * @param {Array<Object>} tableColumns - The columns configuration for the table. Each column may contain `textResourceBindings` and `props`.
- * @param {Array<Object>} textResources - The available text resources used to resolve header titles.
  * @returns {Array<{ text: string, props: Object }>} An array of header objects, each containing the resolved text and associated props.
  */
-export function getTableHeaders(tableColumns, textResources) {
+export function getTableHeaders(tableColumns) {
     return tableColumns.map((column) => {
-        const headerTitleTextResourceBinding = column?.textResourceBindings?.title;
-        const headerTitleText = getTextResourceFromResourceBinding(textResources, headerTitleTextResourceBinding);
+        const headerTitleTextResourceBinding = column?.resourceBindings?.title;
+        const headerTitleText = getTextResourceFromResourceBinding(headerTitleTextResourceBinding);
         return {
             text: headerTitleText,
             props: column.props
@@ -20,14 +19,13 @@ export function getTableHeaders(tableColumns, textResources) {
 }
 
 /**
- * Generates table row data for rendering, based on provided columns, text resources, and data.
+ * Generates table row data for rendering, based on provided columns and data.
  *
- * @param {Array<Object>} tableColumns - Array of column definitions for the table. Each column should specify a `dataKey`, `props`, `tagName`, and optionally `textResourceBindings`.
- * @param {Array<Object>} textResources - Array of text resource objects used for resolving text bindings.
- * @param {Object|Array<Object>} data - The data to be displayed in the table. Can be a single object or an array of objects.
- * @returns {Array<Array<Object>>} An array of table rows, where each row is an array of component property objects for rendering each cell.
+ * @param {Array<Object>} tableColumns - Array of column definitions, each containing dataKey, resourceBindings, tagName, etc.
+ * @param {Object|Array<Object>} data - The data to populate the table rows. Can be a single object or an array of objects.
+ * @returns {Array<Array<Object>>} An array of rows, where each row is an array of componentProps objects for each column.
  */
-export function getTableRows(tableColumns, textResources, data) {
+export function getTableRows(tableColumns, data) {
     const isSingleItem = !Array.isArray(data);
     if (isSingleItem) {
         data = [data];
@@ -36,13 +34,17 @@ export function getTableRows(tableColumns, textResources, data) {
         const tr = [];
         tableColumns.forEach((column) => {
             const cellData = getValueFromDataKey(row, column.dataKey);
-            const formDataProperty = typeof cellData === "string" || typeof cellData === "number" ? "simpleBinding" : "data";
-            const formData = { [formDataProperty]: cellData };
-            const emptyFieldTextResourceBinding = column?.textResourceBindings?.emptyFieldText;
-            const emptyFieldText = getTextResourceFromResourceBinding(textResources, emptyFieldTextResourceBinding);
-            const componentProps = { ...column.props, formData, hideTitle: true, tagName: column.tagName };
+            const emptyFieldTextResourceBinding = column?.resourceBindings?.emptyFieldText;
+            const emptyFieldText = getTextResourceFromResourceBinding(emptyFieldTextResourceBinding);
+            const componentProps = {
+                resourceBindings: column.resourceBindings,
+                resourceValues: { data: cellData },
+                hideTitle: true,
+                tagName: column.tagName,
+                isChildComponent: true
+            };
             if (hasValue(emptyFieldText)) {
-                componentProps.texts = { emptyFieldText };
+                componentProps.resourceValues.emptyFieldText = emptyFieldText;
             }
             tr.push(componentProps);
         });

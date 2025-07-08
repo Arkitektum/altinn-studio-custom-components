@@ -1,5 +1,5 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { addStyle } from "../../../functions/helpers.js";
@@ -14,9 +14,11 @@ export default customElements.define(
     "custom-header",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
-            this.innerHTML = renderHeaderElement(component?.text, component?.size);
-            addStyle(this, component?.styleOverride);
+            const component = instantiateComponent(this);
+            if (!component?.isEmpty) {
+                this.innerHTML = renderHeaderElement(component?.resourceValues?.title, component?.size);
+                addStyle(this, component?.styleOverride);
+            }
         }
     }
 );

@@ -1,29 +1,54 @@
 // Classes
+import CustomField from "../classes/system-classes/component-classes/CustomField.js";
 import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.js";
 import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.js";
 import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.js";
+import CustomFieldKommunensSaksnummer from "../classes/system-classes/component-classes/CustomFieldKommunensSaksnummer.js";
 import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.js";
+import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
+import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
+import CustomList from "../classes/system-classes/component-classes/CustomList.js";
+import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
+import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
 import CustomComponent from "../classes/system-classes/CustomComponent.js";
 
-export function instantiateComponent(component) {
+// Global functions
+import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";
+
+export function instantiateComponent(element) {
+    const component = element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element;
     const tagName = component?.tagName || component?.getAttribute("tagname") || "custom-component";
     switch (tagName?.toLowerCase()) {
         case "custom-component":
             return new CustomComponent(component);
+        case "custom-field":
+            return new CustomField(component);
         case "custom-field-adresse":
             return new CustomFieldAdresse(component);
         case "custom-field-boolean-data":
             return new CustomFieldBooleanData(component);
         case "custom-field-data":
             return new CustomFieldData(component);
+        case "custom-field-kommunens-saksnummer":
+            return new CustomFieldKommunensSaksnummer(component);
         case "custom-field-part-navn":
             return new CustomFieldPartNavn(component);
+        case "custom-field-prosjekt":
+            return new CustomFieldProsjekt(component);
         case "custom-field-telefonnummer":
             return new CustomFieldTelefonnummer(component);
+        case "custom-header":
+            return new CustomHeader(component);
+        case "custom-list":
+            return new CustomList(component);
+        case "custom-list-data":
+            return new CustomListData(component);
+        case "custom-table":
+            return new CustomTable(component);
         case "custom-table-data":
             return new CustomTableData(component);
         case "custom-table-eiendom":
