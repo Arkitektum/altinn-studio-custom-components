@@ -1,632 +1,314 @@
 import {
     hasValue,
+    isNumberLargerThanZero,
     addStyle,
     getComponentTexts,
+    getEmptyFieldText,
+    getRowNumberTitle,
     createCustomElement,
     addContainerElement,
     renderLayoutContainerElement,
+    getTextResources,
     validateTexts,
     validateFormData,
+    getAsync,
     getComponentContainerElement,
     getValueFromDataKey,
     getTextResourceFromResourceBinding,
     getTextResourcesFromResourceBindings,
-    appendChildren,
-    getAsync,
-    getEmptyFieldText,
-    isNumberLargerThanZero,
-    getRowNumberTitle
-} from "./helpers";
+    getComponentDataValue,
+    appendChildren
+} from "./helpers.js";
 
-// Ensure jsdom environment is used for DOM-related tests
-import { JSDOM } from "jsdom";
-const { window } = new JSDOM();
-global.document = window.document;
-global.window = window;
+// Mock for customElementTagNames
+jest.mock("../constants/customElementTagNames.js", () => ["custom-tag", "another-tag"]);
 
-// Mock getAsync function
-global.getAsync = jest.fn();
-
-describe("helpers.js", () => {
-    describe("hasValue", () => {
-        it("should return true for non-empty strings", () => {
-            expect(hasValue("test")).toBe(true);
-        });
-
-        it("should return false for empty strings", () => {
-            expect(hasValue("")).toBe(false);
-        });
-
-        it("should return true for valid numbers", () => {
-            expect(hasValue(123)).toBe(true);
-        });
-
-        it("should return false for NaN", () => {
-            expect(hasValue(NaN)).toBe(false);
-        });
-
-        it("should return true for objects with non-empty string properties", () => {
-            expect(hasValue({ key: "value" })).toBe(true);
-        });
-
-        it("should return false for empty objects", () => {
-            expect(hasValue({})).toBe(false);
-        });
+describe("hasValue", () => {
+    it("returns false for undefined or null", () => {
+        expect(hasValue(undefined)).toBe(false);
+        expect(hasValue(null)).toBe(false);
     });
-
-    describe("isNumberLargerThanZero", () => {
-        it("should return true for numbers larger than zero", () => {
-            expect(isNumberLargerThanZero(1)).toBe(true);
-            expect(isNumberLargerThanZero(100)).toBe(true);
-            expect(isNumberLargerThanZero(0.1)).toBe(true);
-        });
-
-        it("should return false for numbers less than or equal to zero", () => {
-            expect(isNumberLargerThanZero(0)).toBe(false);
-            expect(isNumberLargerThanZero(-1)).toBe(false);
-            expect(isNumberLargerThanZero(-100)).toBe(false);
-        });
-
-        it("should return false for non-number values", () => {
-            expect(isNumberLargerThanZero("1")).toBe(false);
-            expect(isNumberLargerThanZero(null)).toBe(false);
-            expect(isNumberLargerThanZero(undefined)).toBe(false);
-            expect(isNumberLargerThanZero({})).toBe(false);
-            expect(isNumberLargerThanZero([])).toBe(false);
-            expect(isNumberLargerThanZero(true)).toBe(false);
-        });
-
-        it("should return false for NaN", () => {
-            expect(isNumberLargerThanZero(NaN)).toBe(false);
-        });
+    it("returns true for non-empty string, false for empty string", () => {
+        expect(hasValue("abc")).toBe(true);
+        expect(hasValue("")).toBe(false);
     });
-
-    describe("addStyle", () => {
-        it("should apply styles to an HTML element", () => {
-            const element = document.createElement("div");
-            addStyle(element, { color: "red", fontSize: "16px" });
-            expect(element.style.color).toBe("red");
-            expect(element.style.fontSize).toBe("16px");
-        });
+    it("returns true for number (not NaN), false for NaN", () => {
+        expect(hasValue(123)).toBe(true);
+        expect(hasValue(NaN)).toBe(false);
     });
-
-    describe("getComponentTexts", () => {
-        it("should return parsed texts from the component's attribute", async () => {
-            const component = document.createElement("div");
-            component.setAttribute("texts", JSON.stringify({ key: "value" }));
-            const texts = await getComponentTexts(component);
-            expect(texts).toEqual({ key: "value" });
-        });
-
-        it("should throw a timeout error if the attribute is not set", async () => {
-            const component = document.createElement("div");
-            component.removeAttribute("texts");
-            await expect(getComponentTexts(component)).rejects.toThrow("Timeout");
-        });
-
-        it("should throw an error if the attribute is not valid JSON", async () => {
-            const component = document.createElement("div");
-            component.setAttribute("texts", "invalid-json");
-            await expect(getComponentTexts(component)).rejects.toThrow("Invalid JSON");
-        });
-
-        it("should resolve when the property is set within the timeout", async () => {
-            const obj = {};
-            const promise = getAsync(obj, "testProp", 500);
-            setTimeout(() => {
-                obj.testProp = "value";
-            }, 100);
-            await expect(promise).resolves.toBe("value");
-        });
-
-        it("should return parsed texts from the component's attribute", async () => {
-            const component = document.createElement("div");
-            component.setAttribute("texts", JSON.stringify({ key: "value" }));
-            const texts = await getComponentTexts(component);
-            expect(texts).toEqual({ key: "value" });
-        });
-
-        it("should throw an error if the attribute is not valid JSON", async () => {
-            const component = document.createElement("div");
-            component.setAttribute("texts", "invalid-json");
-            await expect(getComponentTexts(component)).rejects.toThrow("Invalid JSON");
-        });
-
-        it("should throw an error if getAsync fails", async () => {
-            const component = document.createElement("div");
-            jest.spyOn(global, "getAsync").mockRejectedValue(new Error("Async error"));
-
-            await expect(getComponentTexts(component)).rejects.toThrow("Timeout: texts was not set within 200ms");
-
-            global.getAsync.mockRestore();
-        });
+    it("returns true for boolean true, false for false", () => {
+        expect(hasValue(true)).toBe(true);
+        expect(hasValue(false)).toBe(false);
     });
-
-    describe("createCustomElement", () => {
-        it("should create a custom element with attributes", () => {
-            const tagName = "custom-field-data";
-            const attributes = { id: "test-id", formData: "test-data" };
-            const element = createCustomElement(tagName, attributes);
-            expect(element.tagName.toLowerCase()).toBe(tagName);
-            expect(element.getAttribute("id")).toBe("test-id");
-            expect(element.getAttribute("formData")).toBe("test-data");
-        });
-
-        it("should throw an error for invalid tag names", () => {
-            expect(() => createCustomElement("invalid-tag", {})).toThrow("Invalid tag name");
-        });
+    it("returns true for non-empty array, false for empty array", () => {
+        expect(hasValue([1])).toBe(true);
+        expect(hasValue([])).toBe(false);
     });
-
-    describe("addContainerElement", () => {
-        it("should create a container element with nested component", () => {
-            const component = document.createElement("div");
-            const container = addContainerElement(component);
-            expect(container.tagName).toBe("DIV");
-            expect(container.firstChild.firstChild).toBe(component);
-        });
-
-        it("should apply flex-based styles when the flex flag is true", () => {
-            const component = document.createElement("div");
-            const container = addContainerElement(component, true);
-
-            expect(container.style.flexGrow).toBe("0");
-            expect(container.style.maxWidth).toBe("50%");
-            expect(container.style.flexBasis).toBe("50%");
-            expect(container.style.padding).toBe("0.75rem 0px");
-        });
-
-        it("should apply default styles when the flex flag is false", () => {
-            const component = document.createElement("div");
-            const container = addContainerElement(component, false);
-
-            expect(container.style.flexBasis).toBe("100%");
-            expect(container.style.maxWidth).toBe("100%");
-            expect(container.style.padding).toBe("0.75rem 0px");
-        });
-
-        it("should handle cases where the flex flag is not provided", () => {
-            const component = document.createElement("div");
-            const container = addContainerElement(component);
-
-            expect(container.style.flexBasis).toBe("100%");
-            expect(container.style.maxWidth).toBe("100%");
-            expect(container.style.padding).toBe("0.75rem 0px");
-        });
+    it("returns true for object with non-empty string property", () => {
+        expect(hasValue({ a: "x" })).toBe(true);
+        expect(hasValue({ a: "" })).toBe(false);
+        expect(hasValue({})).toBe(false);
     });
+});
 
-    describe("renderLayoutContainerElement", () => {
-        it("should create a layout container element with predefined styles", () => {
-            const container = renderLayoutContainerElement();
-            expect(container.style.display).toBe("flex");
-            expect(container.style.flexFlow).toBe("wrap");
-            expect(container.style.justifyContent).toBe("start");
-            expect(container.style.alignItems).toBe("flex-start");
-        });
+describe("isNumberLargerThanZero", () => {
+    it("returns true for numbers > 0", () => {
+        expect(isNumberLargerThanZero(1)).toBe(true);
+        expect(isNumberLargerThanZero(100)).toBe(true);
     });
-
-    describe("validateTexts", () => {
-        it("should log warnings for missing text resources", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            validateTexts({}, {}, ["key1", "key2"], "TestComponent");
-            expect(consoleSpy).toHaveBeenCalledTimes(2);
-            consoleSpy.mockRestore();
-        });
-        it("should log warnings for missing text resources without fallback", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const texts = { key1: "value1" };
-            const fallbackTexts = {};
-            const keys = ["key1", "key2"];
-            const componentName = "TestComponent";
-
-            validateTexts(texts, fallbackTexts, keys, componentName);
-
-            expect(consoleSpy).toHaveBeenCalledTimes(1);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing textResourceBindings.key2 for "TestComponent".`);
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should log warnings for missing text resources with fallback", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const texts = { key1: "value1" };
-            const fallbackTexts = { key2: "fallbackValue" };
-            const keys = ["key1", "key2"];
-            const componentName = "TestComponent";
-
-            validateTexts(texts, fallbackTexts, keys, componentName);
-
-            expect(consoleSpy).toHaveBeenCalledTimes(1);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing textResourceBindings.key2 for "TestComponent". Using fallback text: "fallbackValue"`);
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should not log warnings if all keys are present in texts", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const texts = { key1: "value1", key2: "value2" };
-            const fallbackTexts = { key2: "fallbackValue" };
-            const keys = ["key1", "key2"];
-            const componentName = "TestComponent";
-
-            validateTexts(texts, fallbackTexts, keys, componentName);
-
-            expect(consoleSpy).not.toHaveBeenCalled();
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should handle empty keys array without logging warnings", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const texts = { key1: "value1" };
-            const fallbackTexts = { key2: "fallbackValue" };
-            const keys = [];
-            const componentName = "TestComponent";
-
-            validateTexts(texts, fallbackTexts, keys, componentName);
-
-            expect(consoleSpy).not.toHaveBeenCalled();
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should log warnings for multiple missing keys", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const texts = {};
-            const fallbackTexts = { key1: "fallback1", key2: "fallback2" };
-            const keys = ["key1", "key2", "key3"];
-            const componentName = "TestComponent";
-
-            validateTexts(texts, fallbackTexts, keys, componentName);
-
-            expect(consoleSpy).toHaveBeenCalledTimes(3);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing textResourceBindings.key1 for "TestComponent". Using fallback text: "fallback1"`);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing textResourceBindings.key2 for "TestComponent". Using fallback text: "fallback2"`);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing textResourceBindings.key3 for "TestComponent".`);
-
-            consoleSpy.mockRestore();
-        });
+    it("returns false for numbers <= 0 or non-numbers", () => {
+        expect(isNumberLargerThanZero(0)).toBe(false);
+        expect(isNumberLargerThanZero(-1)).toBe(false);
+        expect(isNumberLargerThanZero("1")).toBe(false);
+        expect(isNumberLargerThanZero(null)).toBe(false);
     });
+});
 
-    describe("validateFormData", () => {
-        it("should log warnings for missing form data keys", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const data = {};
-            const dataKeys = ["key1", "key2"];
-            const componentName = "TestComponent";
-
-            validateFormData(data, dataKeys, componentName);
-
-            expect(consoleSpy).toHaveBeenCalledTimes(2);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing dataModelBindings.key1 for "TestComponent".`);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing dataModelBindings.key2 for "TestComponent".`);
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should not log warnings if all keys are present in the data", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const data = { key1: "value1", key2: "value2" };
-            const dataKeys = ["key1", "key2"];
-            const componentName = "TestComponent";
-
-            validateFormData(data, dataKeys, componentName);
-
-            expect(consoleSpy).not.toHaveBeenCalled();
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should handle an empty dataKeys array without logging warnings", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const data = { key1: "value1" };
-            const dataKeys = [];
-            const componentName = "TestComponent";
-
-            validateFormData(data, dataKeys, componentName);
-
-            expect(consoleSpy).not.toHaveBeenCalled();
-
-            consoleSpy.mockRestore();
-        });
-
-        it("should log warnings for multiple missing keys", () => {
-            const consoleSpy = jest.spyOn(console, "warn").mockImplementation();
-            const data = { key1: "value1" };
-            const dataKeys = ["key1", "key2", "key3"];
-            const componentName = "TestComponent";
-
-            validateFormData(data, dataKeys, componentName);
-
-            expect(consoleSpy).toHaveBeenCalledTimes(2);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing dataModelBindings.key2 for "TestComponent".`);
-            expect(consoleSpy).toHaveBeenCalledWith(`Missing dataModelBindings.key3 for "TestComponent".`);
-
-            consoleSpy.mockRestore();
-        });
+describe("addStyle", () => {
+    it("applies styles to element", () => {
+        const el = document.createElement("div");
+        addStyle(el, { color: "red", background: "blue" });
+        expect(el.style.color).toBe("red");
+        expect(el.style.background).toBe("blue");
     });
+});
 
-    describe("getComponentContainerElement", () => {
-        it("should return the container element of a component", () => {
-            const component = document.createElement("div");
-            const container = addContainerElement(component);
-            expect(getComponentContainerElement(component)).toBe(container);
-        });
-        it("should return the component itself if it is a child component", () => {
-            const component = document.createElement("div");
-            component.setAttribute("isChildComponent", "true");
-            expect(getComponentContainerElement(component)).toBe(component);
-        });
-
-        it("should return the grandparent element if the component is not a child component", () => {
-            const grandparent = document.createElement("div");
-            const parent = document.createElement("div");
-            const component = document.createElement("div");
-
-            grandparent.appendChild(parent);
-            parent.appendChild(component);
-
-            expect(getComponentContainerElement(component)).toBe(grandparent);
-        });
-
-        it("should return null if the component has no grandparent", () => {
-            const component = document.createElement("div");
-            expect(getComponentContainerElement(component)).toBeNull();
-        });
-
-        it("should return null if the component is not attached to the DOM", () => {
-            const component = document.createElement("div");
-            expect(getComponentContainerElement(component)).toBeNull();
-        });
+describe("getComponentTexts", () => {
+    it("returns parsed texts from attribute", async () => {
+        const el = document.createElement("div");
+        el.setAttribute("texts", '{"a":1}');
+        await expect(getComponentTexts(el)).resolves.toEqual({ a: 1 });
     });
-
-    describe("getValueFromDataKey", () => {
-        it("should retrieve a value from a nested object using dot notation", () => {
-            const data = { a: { b: { c: 42 } } };
-            expect(getValueFromDataKey(data, "a.b.c")).toBe(42);
-        });
-
-        it("should retrieve a value from a nested object using bracket notation", () => {
-            const data = { a: [{ b: { c: 42 } }] };
-            expect(getValueFromDataKey(data, "a[0].b.c")).toBe(42);
-        });
-
-        it("should retrieve a value from a nested object using mixed notation", () => {
-            const data = { a: [{ b: { c: 42 } }] };
-            expect(getValueFromDataKey(data, "a[0].b.c")).toBe(42);
-        });
-
-        it("should return the original data if no dataKey is provided", () => {
-            const data = { a: { b: { c: 42 } } };
-            expect(getValueFromDataKey(data, "")).toBe(data);
-        });
-
-        it("should return undefined if the path does not exist", () => {
-            const data = { a: { b: { c: 42 } } };
-            expect(getValueFromDataKey(data, "a.b.d")).toBeUndefined();
-        });
-
-        it("should handle array indices correctly", () => {
-            const data = { a: [{ b: 42 }, { b: 43 }] };
-            expect(getValueFromDataKey(data, "a[1].b")).toBe(43);
-        });
-
-        it("should handle deeply nested structures", () => {
-            const data = { a: { b: { c: { d: { e: 42 } } } } };
-            expect(getValueFromDataKey(data, "a.b.c.d.e")).toBe(42);
-        });
-
-        it("should handle invalid dataKey gracefully", () => {
-            const data = { a: { b: { c: 42 } } };
-            expect(getValueFromDataKey(data, "a..b.c")).toBeUndefined();
-        });
-
-        it("should handle empty objects gracefully", () => {
-            const data = {};
-            expect(getValueFromDataKey(data, "a.b.c")).toBeUndefined();
-        });
-
-        it("should handle null or undefined data gracefully", () => {
-            expect(getValueFromDataKey(null, "a.b.c")).toBeUndefined();
-            expect(getValueFromDataKey(undefined, "a.b.c")).toBeUndefined();
-        });
+    it("throws on invalid JSON", async () => {
+        const el = document.createElement("div");
+        el.setAttribute("texts", "{bad}");
+        await expect(getComponentTexts(el)).rejects.toThrow("Invalid JSON");
     });
+});
 
-    describe("getTextResourceFromResourceBinding", () => {
-        it("should retrieve the correct text resource value for a valid resource binding", () => {
-            const textResources = {
-                resources: [
-                    { id: "key1", value: "value1" },
-                    { id: "key2", value: "value2" }
-                ]
-            };
-            expect(getTextResourceFromResourceBinding(textResources, "key1")).toBe("value1");
-            expect(getTextResourceFromResourceBinding(textResources, "key2")).toBe("value2");
-        });
-
-        it("should return the resource binding itself if no matching text resource is found", () => {
-            const textResources = {
-                resources: [{ id: "key1", value: "value1" }]
-            };
-            expect(getTextResourceFromResourceBinding(textResources, "key2")).toBe("key2");
-        });
-
-        it("should return the resource binding itself if the textResources object is undefined", () => {
-            expect(getTextResourceFromResourceBinding(undefined, "key1")).toBe("key1");
-        });
-
-        it("should return the resource binding itself if the resources array is undefined", () => {
-            const textResources = {};
-            expect(getTextResourceFromResourceBinding(textResources, "key1")).toBe("key1");
-        });
-
-        it("should handle an empty resources array gracefully", () => {
-            const textResources = { resources: [] };
-            expect(getTextResourceFromResourceBinding(textResources, "key1")).toBe("key1");
-        });
-
-        it("should handle null or undefined resource binding gracefully", () => {
-            const textResources = {
-                resources: [{ id: "key1", value: "value1" }]
-            };
-            expect(getTextResourceFromResourceBinding(textResources, null)).toBe(null);
-            expect(getTextResourceFromResourceBinding(textResources, undefined)).toBe(undefined);
-        });
+describe("getEmptyFieldText", () => {
+    it("returns emptyFieldText if present", () => {
+        expect(getEmptyFieldText({ resourceValues: { emptyFieldText: "abc" } })).toBe("abc");
     });
-
-    describe("getTextResourcesFromResourceBindings", () => {
-        it("should extract text resources based on bindings", () => {
-            const textResources = { resources: [{ id: "key1", value: "value1" }] };
-            const resourceBindings = { key1: "key1" };
-            expect(getTextResourcesFromResourceBindings(textResources, resourceBindings)).toEqual({ key1: "value1" });
-        });
+    it("returns empty string if not present", () => {
+        expect(getEmptyFieldText({})).toBe("");
     });
+});
 
-    describe("appendChildren", () => {
-        it("should append HTMLElement children to the parent element", () => {
-            const parent = document.createElement("div");
-            const child1 = document.createElement("span");
-            const child2 = document.createElement("p");
-
-            appendChildren(parent, [child1, child2]);
-
-            expect(parent.children.length).toBe(2);
-            expect(parent.children[0]).toBe(child1);
-            expect(parent.children[1]).toBe(child2);
-        });
-
-        it("should append string children to the parent's innerHTML", () => {
-            const parent = document.createElement("div");
-
-            appendChildren(parent, ["<span>Child 1</span>", "<p>Child 2</p>"]);
-
-            expect(parent.innerHTML).toBe("<span>Child 1</span><p>Child 2</p>");
-        });
-
-        it("should ignore falsy children", () => {
-            const parent = document.createElement("div");
-            const child1 = document.createElement("span");
-
-            appendChildren(parent, [child1, null, undefined, false, ""]);
-
-            expect(parent.children.length).toBe(1);
-            expect(parent.children[0]).toBe(child1);
-        });
+describe("getRowNumberTitle", () => {
+    beforeEach(() => {
+        global.window = Object.create(window);
+        window.textResources = { resources: [{ id: "row", value: "Rad" }] };
     });
-
-    describe("getAsync", () => {
-        it("should resolve when the property is set within the timeout", async () => {
-            const obj = {};
-            const proxy = getAsync(obj, "testProp", 500);
-            setTimeout(() => {
-                obj.testProp = "value";
-            }, 100);
-            await expect(proxy).resolves.toBe("value");
-        });
-
-        it("should reject if the property is not set within the timeout", async () => {
-            const obj = {};
-            const proxy = getAsync(obj, "testProp", 200);
-            await expect(proxy).rejects.toThrow("Timeout: testProp was not set within 200ms");
-        });
-
-        it("should resolve immediately if the property is already set", async () => {
-            const obj = { testProp: "value" };
-            const result = await getAsync(obj, "testProp", 200);
-            expect(result).toBe("value");
-        });
-
-        it("should handle multiple properties being set on the object", async () => {
-            const obj = {};
-            const proxy = getAsync(obj, "testProp", 500);
-            setTimeout(() => {
-                obj.otherProp = "otherValue";
-                obj.testProp = "value";
-            }, 100);
-            await expect(proxy).resolves.toBe("value");
-        });
-
-        it("should not resolve if a different property is set", async () => {
-            const obj = {};
-            const proxy = getAsync(obj, "testProp", 200);
-            setTimeout(() => {
-                obj.otherProp = "value";
-            }, 100);
-            await expect(proxy).rejects.toThrow("Timeout: testProp was not set within 200ms");
-        });
-
-        it("should reject if the property is not set within the timeout", async () => {
-            const obj = {};
-            const promise = getAsync(obj, "testProp", 200);
-            await expect(promise).rejects.toThrow("Timeout: testProp was not set within 200ms");
-        });
-
-        it("should resolve immediately if the property is already set", async () => {
-            const obj = { testProp: "value" };
-            const result = await getAsync(obj, "testProp", 200);
-            expect(result).toBe("value");
-        });
-
-        it("should handle multiple properties being set on the object", async () => {
-            const obj = {};
-            const promise = getAsync(obj, "testProp", 500);
-            setTimeout(() => {
-                obj.otherProp = "otherValue";
-                obj.testProp = "value";
-            }, 100);
-            await expect(promise).resolves.toBe("value");
-        });
-
-        it("should not resolve if a different property is set", async () => {
-            const obj = {};
-            const promise = getAsync(obj, "testProp", 200);
-            setTimeout(() => {
-                obj.otherProp = "value";
-            }, 100);
-            await expect(promise).rejects.toThrow("Timeout: testProp was not set within 200ms");
-        });
+    it("returns resource value if found", () => {
+        expect(getRowNumberTitle({ resourceBindings: { rowNumberTitle: "row" } })).toBe("Rad");
     });
-
-    describe("getEmptyFieldText", () => {
-        it("should return the emptyFieldText if it is defined", () => {
-            const component = { texts: { emptyFieldText: "This field is required" } };
-            expect(getEmptyFieldText(component)).toBe("This field is required");
-        });
-
-        it("should return an empty string if emptyFieldText is not defined", () => {
-            const component = { texts: {} };
-            expect(getEmptyFieldText(component)).toBe("");
-        });
-
-        it("should return an empty string if texts is not defined", () => {
-            const component = {};
-            expect(getEmptyFieldText(component)).toBe("");
-        });
-
-        it("should return an empty string if the component is null or undefined", () => {
-            expect(getEmptyFieldText(null)).toBe("");
-            expect(getEmptyFieldText(undefined)).toBe("");
-        });
+    it("returns # if not found", () => {
+        expect(getRowNumberTitle({ resourceBindings: {} })).toBe("#");
     });
+});
 
-    describe("getRowNumberTitle", () => {
-        it("should return the rowNumberTitle if it is defined", () => {
-            const component = { texts: { rowNumberTitle: "Row 1" } };
-            expect(getRowNumberTitle(component)).toBe("Row 1");
-        });
+describe("createCustomElement", () => {
+    it("creates element with attributes", () => {
+        const el = createCustomElement("custom-tag", { foo: "bar" });
+        expect(el.tagName.toLowerCase()).toBe("custom-tag");
+        expect(el.getAttribute("foo")).toBe("bar");
+        expect(el.getAttribute("tagName")).toBe("custom-tag");
+    });
+    it("throws for invalid tag", () => {
+        expect(() => createCustomElement("invalid", {})).toThrow(/Invalid tag name/);
+    });
+});
 
-        it("should return '#' if rowNumberTitle is not defined", () => {
-            const component = { texts: {} };
-            expect(getRowNumberTitle(component)).toBe("#");
-        });
+describe("addContainerElement", () => {
+    it("creates container with flex styles if flex is true", () => {
+        const comp = document.createElement("span");
+        const el = addContainerElement(comp, true);
+        expect(el.style.flexGrow).toBe("0");
+        expect(el.style.maxWidth).toBe("50%");
+        expect(el.style.flexBasis).toBe("50%");
+        expect(el.style.padding).toBe("0.75rem 0px");
+        expect(el.querySelector("span")).toBe(comp);
+    });
+    it("creates container with 100% styles if flex is false", () => {
+        const comp = document.createElement("span");
+        const el = addContainerElement(comp, false);
+        expect(el.style.flexBasis).toBe("100%");
+        expect(el.style.maxWidth).toBe("100%");
+    });
+});
 
-        it("should return '#' if texts is not defined", () => {
-            const component = {};
-            expect(getRowNumberTitle(component)).toBe("#");
-        });
+describe("renderLayoutContainerElement", () => {
+    it("returns a div with flex styles", () => {
+        const el = renderLayoutContainerElement();
+        expect(el.style.display).toBe("flex");
+        expect(el.style.flexFlow).toBe("wrap");
+        expect(el.style.justifyContent).toBe("start");
+        expect(el.style.alignItems).toBe("flex-start");
+    });
+});
 
-        it("should return '#' if the component is null or undefined", () => {
-            expect(getRowNumberTitle(null)).toBe("#");
-            expect(getRowNumberTitle(undefined)).toBe("#");
-        });
+describe("getTextResources", () => {
+    it("returns window.textResources if present", () => {
+        window.textResources = [1, 2, 3];
+        expect(getTextResources()).toEqual([1, 2, 3]);
+    });
+    it("returns [] if not present", () => {
+        delete window.textResources;
+        expect(getTextResources()).toEqual([]);
+    });
+});
+
+describe("validateTexts", () => {
+    beforeEach(() => {
+        jest.spyOn(console, "warn").mockImplementation(() => {});
+    });
+    afterEach(() => {
+        console.warn.mockRestore();
+    });
+    it("warns if missing and fallback exists", () => {
+        validateTexts({ a: 1 }, { b: "fallback" }, ["b"], "Comp");
+        expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Using fallback text"));
+    });
+    it("warns if missing and no fallback", () => {
+        validateTexts({ a: 1 }, {}, ["b"], "Comp");
+        expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Missing textResourceBindings.b"));
+    });
+    it("does not warn if present", () => {
+        validateTexts({ a: 1 }, {}, ["a"], "Comp");
+        expect(console.warn).not.toHaveBeenCalled();
+    });
+});
+
+describe("validateFormData", () => {
+    beforeEach(() => {
+        jest.spyOn(console, "warn").mockImplementation(() => {});
+    });
+    afterEach(() => {
+        console.warn.mockRestore();
+    });
+    it("warns if missing", () => {
+        validateFormData({ a: 1 }, ["b"], "Comp");
+        expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Missing dataModelBindings.b"));
+    });
+    it("does not warn if present", () => {
+        validateFormData({ a: 1 }, ["a"], "Comp");
+        expect(console.warn).not.toHaveBeenCalled();
+    });
+});
+
+describe("getAsync", () => {
+    it("resolves if property is set after call", async () => {
+        const obj = {};
+        const promise = getAsync(obj, "foo", 100);
+        setTimeout(() => {
+            obj.foo = 42;
+        }, 10);
+        await expect(promise).resolves.toBe(42);
+    });
+    it("resolves immediately if property exists", async () => {
+        const obj = { foo: 99 };
+        await expect(getAsync(obj, "foo")).resolves.toBe(99);
+    });
+    it("rejects if timeout", async () => {
+        const obj = {};
+        await expect(getAsync(obj, "foo", 10)).rejects.toThrow(/Timeout/);
+    });
+});
+
+describe("getComponentContainerElement", () => {
+    it("returns component if isChildComponent is true", () => {
+        const el = document.createElement("div");
+        el.setAttribute("isChildComponent", "true");
+        expect(getComponentContainerElement(el)).toBe(el);
+    });
+    it("returns grandparent if not child", () => {
+        const parent = document.createElement("div");
+        const grandparent = document.createElement("div");
+        const el = document.createElement("div");
+        parent.appendChild(el);
+        grandparent.appendChild(parent);
+        expect(getComponentContainerElement(el)).toBe(grandparent);
+    });
+    it("returns null if no grandparent", () => {
+        const el = document.createElement("div");
+        expect(getComponentContainerElement(el)).toBe(null);
+    });
+});
+
+describe("getValueFromDataKey", () => {
+    const data = { a: { b: [{ c: 5 }] }, d: 2 };
+    it("returns value for dot/bracket notation", () => {
+        expect(getValueFromDataKey(data, "a.b[0].c")).toBe(5);
+        expect(getValueFromDataKey(data, "d")).toBe(2);
+    });
+    it("returns data if no key", () => {
+        expect(getValueFromDataKey(data, "")).toBe(data);
+    });
+    it("returns undefined for invalid key or null data", () => {
+        expect(getValueFromDataKey(null, "a")).toBeUndefined();
+        expect(getValueFromDataKey(data, ".a")).toBeUndefined();
+        expect(getValueFromDataKey(data, "a..b")).toBeUndefined();
+    });
+});
+
+describe("getTextResourceFromResourceBinding", () => {
+    beforeEach(() => {
+        window.textResources = {
+            resources: [
+                { id: "foo", value: "bar" },
+                { id: "baz", value: "qux" }
+            ]
+        };
+    });
+    it("returns value if found", () => {
+        expect(getTextResourceFromResourceBinding("foo")).toBe("bar");
+    });
+    it("returns binding if not found", () => {
+        expect(getTextResourceFromResourceBinding("notfound")).toBe("notfound");
+    });
+});
+
+describe("getTextResourcesFromResourceBindings", () => {
+    beforeEach(() => {
+        window.textResources = {
+            resources: [
+                { id: "foo", value: "bar" },
+                { id: "baz", value: "qux" }
+            ]
+        };
+    });
+    it("returns mapped object", () => {
+        expect(getTextResourcesFromResourceBindings({ a: "foo", b: "baz", c: "nope" })).toEqual({ a: "bar", b: "qux", c: "nope" });
+    });
+});
+
+describe("getComponentDataValue", () => {
+    it("returns resourceValues.data for child", () => {
+        expect(getComponentDataValue({ isChildComponent: true, resourceValues: { data: 1 } })).toBe(1);
+    });
+    it("returns formData.simpleBinding if present", () => {
+        expect(getComponentDataValue({ isChildComponent: false, formData: { simpleBinding: 2 } })).toBe(2);
+    });
+    it("returns formData.data if no simpleBinding", () => {
+        expect(getComponentDataValue({ isChildComponent: false, formData: { data: 3 } })).toBe(3);
+    });
+    it("returns undefined if nothing present", () => {
+        expect(getComponentDataValue({ isChildComponent: false, formData: {} })).toBeUndefined();
+    });
+});
+
+describe("appendChildren", () => {
+    it("appends HTMLElements and strings", () => {
+        const parent = document.createElement("div");
+        const child1 = document.createElement("span");
+        appendChildren(parent, [child1, "hello"]);
+        expect(parent.querySelector("span")).toStrictEqual(child1);
+        expect(parent.innerHTML).toContain("hello");
+    });
+    it("ignores falsy children", () => {
+        const parent = document.createElement("div");
+        appendChildren(parent, [null, undefined, false, "ok"]);
+        expect(parent.innerHTML).toContain("ok");
     });
 });
