@@ -2,7 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldData is a custom component class that manages field data and resource values
@@ -27,13 +27,13 @@ import { getTextResourceFromResourceBinding, hasValue } from "../../../functions
 export default class CustomFieldData extends CustomComponent {
     constructor(props) {
         super(props);
-        const formDataValue = this.getValueFromFormData(props);
-        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(formDataValue);
+        const data = this.getValueFromFormData(props);
+        const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }
 
@@ -48,14 +48,12 @@ export default class CustomFieldData extends CustomComponent {
     }
 
     /**
-     * Retrieves the value of `simpleBinding` from the `formData` property of the given props object.
+     * Retrieves the value of the component from the provided form data properties.
      *
-     * @param {Object} props - The props object containing form data.
-     * @param {Object} [props.formData] - The form data object.
-     * @param {*} [props.formData.simpleBinding] - The value to retrieve.
-     * @returns {*} The value of `simpleBinding` if it exists, otherwise `undefined`.
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {*} The value extracted from the form data for the component.
      */
     getValueFromFormData(props) {
-        return props?.formData?.simpleBinding;
+        return getComponentDataValue(props);
     }
 }
