@@ -355,6 +355,30 @@ export function getTextResourcesFromResourceBindings(resourceBindings) {
 }
 
 /**
+ * Retrieves the data value from a component object.
+ *
+ * If the component is a child component, it returns the value from `component.resourceValues.data`.
+ * Otherwise, it returns the value from `component.formData.simpleBinding` if available,
+ * or falls back to `component.formData.data`.
+ *
+ * @param {Object} component - The component object to extract the data value from.
+ * @param {boolean} component.isChildComponent - Indicates if the component is a child component.
+ * @param {Object} [component.resourceValues] - Resource values for child components.
+ * @param {*} [component.resourceValues.data] - Data value for child components.
+ * @param {Object} [component.formData] - Form data for non-child components.
+ * @param {*} [component.formData.simpleBinding] - Simple binding data for non-child components.
+ * @param {*} [component.formData.data] - Data value for non-child components.
+ * @returns {*} The extracted data value from the component.
+ */
+export function getComponentDataValue(component) {
+    if (component.isChildComponent) {
+        return component.resourceValues?.data;
+    } else {
+        return component.formData?.simpleBinding || component.formData?.data;
+    }
+}
+
+/**
  * Appends an array of children to a parent element. If a child is an instance of HTMLElement,
  * it is appended using `appendChild`. Otherwise, the child's content is appended to the parent's
  * innerHTML.
