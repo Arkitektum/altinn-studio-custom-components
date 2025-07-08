@@ -121,15 +121,14 @@ export function getEmptyFieldText(component) {
 }
 
 /**
- * Retrieves the row number title from a given component object.
+ * Retrieves the row number title from a component's resource bindings.
+ * If the row number title is not defined, returns the default value "#".
  *
- * @param {Object} component - The component object containing text properties.
- * @param {Object} [component.texts] - An optional object containing text-related properties.
- * @param {string} [component.texts.rowNumberTitle] - The specific title for the row number.
- * @returns {string} The row number title if defined, otherwise the default value "#".
+ * @param {Object} component - The component object containing resource bindings.
+ * @returns {string} The row number title or "#" if not defined.
  */
 export function getRowNumberTitle(component) {
-    const rowNumberTitle = component?.texts?.rowNumberTitle;
+    const rowNumberTitle = getTextResourceFromResourceBinding(component?.resourceBindings?.rowNumberTitle);
     return rowNumberTitle || "#";
 }
 
