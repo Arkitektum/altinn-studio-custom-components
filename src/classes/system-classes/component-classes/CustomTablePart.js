@@ -3,32 +3,27 @@ import CustomComponent from "../CustomComponent.js";
 import Part from "../../data-classes/Part.js";
 
 // Global functions
-import { getTextResourcesFromResourceBindings, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 export default class CustomTablePart extends CustomComponent {
-    constructor(element) {
-        super(element);
-        const partType = element instanceof HTMLElement ? this.getPartTypeFromElementAttributes(element) : element.partType;
-        const textResourceBindings = this.getTextResourceBindings(partType);
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-        const texts = element instanceof HTMLElement ? getTextResourcesFromResourceBindings(textResources, textResourceBindings.part) : element.texts;
+    constructor(props) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const textResourceBindings = this.getTextResourceBindings(props.partType);
 
-        const parentProps = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-        const props = { ...parentProps, partType, texts };
-
-        const formData = this.getFormDataFromProps(props);
-        const isEmpty = !this.hasContent(formData);
+        const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(textResourceBindings);
 
         this.isEmpty = isEmpty;
-        this.formData = formData;
-        this.texts = props?.texts ? props.texts : {};
-        this.text = props?.texts?.title;
-        this.partType = props?.partType ? props.partType : "";
+        this.partType = props?.partType;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.textResourceBindings = textResourceBindings;
+
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(textResourceBindings?.part?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+        };
     }
 
     /**
@@ -44,19 +39,6 @@ export default class CustomTablePart extends CustomComponent {
     }
 
     /**
-     * Extracts form data from the provided props object.
-     *
-     * @param {Object} props - The properties object containing component data.
-     * @returns {Object} An object with a `data` property containing the part extracted from props.
-     */
-    getFormDataFromProps(props) {
-        const part = this.getPartFromProps(props);
-        return {
-            data: part
-        };
-    }
-
-    /**
      * Retrieves a Part instance from the provided props if valid data exists.
      *
      * @param {Object} props - The properties object, expected to contain formData with data.
@@ -64,8 +46,8 @@ export default class CustomTablePart extends CustomComponent {
      * @param {*} [props.formData.data] - The data to be used for creating the Part instance.
      * @returns {(Part|undefined)} Returns a Part instance if data is valid and has value, otherwise undefined.
      */
-    getPartFromProps(props) {
-        const data = props?.formData?.data;
+    getValueFromFormData(props) {
+        const data = getComponentDataValue(props);
         if (!hasValue(data)) {
             return undefined;
         }
@@ -87,11 +69,11 @@ export default class CustomTablePart extends CustomComponent {
     /**
      * Checks if the provided form data contains any content.
      *
-     * @param {Object} formData - The form data object to check.
+     * @param {Object} formDataValue - The form data object to check.
      * @returns {boolean} Returns true if the form data contains a value, otherwise false.
      */
-    hasContent(formData) {
-        return hasValue(formData?.data);
+    hasContent(formDataValue) {
+        return hasValue(formDataValue);
     }
 
     /**

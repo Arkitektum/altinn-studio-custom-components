@@ -17,14 +17,14 @@ export function renderPartTable(component) {
     const tableColumns = [
         {
             tagName: "custom-field-part-navn",
-            textResourceBindings: {
+            resourceBindings: {
                 title: `resource.${component?.partType}.navn.title`,
                 emptyFieldText: "resource.emptyFieldText.default"
             }
         },
         {
             tagName: "custom-field-telefonnummer",
-            textResourceBindings: {
+            resourceBindings: {
                 title: `resource.${component?.partType}.telefonnummer.title`,
                 emptyFieldText: "resource.emptyFieldText.default"
             }
@@ -32,17 +32,17 @@ export function renderPartTable(component) {
         {
             tagName: "custom-field-data",
             dataKey: "epost",
-            textResourceBindings: {
+            resourceBindings: {
                 title: `resource.${component?.partType}.epost.title`,
                 emptyFieldText: "resource.emptyFieldText.default"
             }
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: component?.formData,
-        texts: component?.texts,
         size: "h3",
         hideIfEmpty: true,
+        isChildComponent: true,
+        resourceValues: component?.resourceValues,
         tableColumns
     });
     const tableElement = createCustomElement("custom-table-data", htmlAttributes);
