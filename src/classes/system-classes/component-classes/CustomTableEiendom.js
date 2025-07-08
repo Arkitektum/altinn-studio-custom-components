@@ -6,6 +6,24 @@ import Eiendom from "../../data-classes/Eiendom.js";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
+/**
+ * CustomTableEiendom is a custom component class for handling and displaying a list of "eiendom" (property) objects.
+ * It provides utility methods for extracting, validating, and formatting property data from form input,
+ * as well as for retrieving localized text resources and validation messages.
+ *
+ * @class
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties containing form data, resource bindings, and component information.
+ *
+ * @property {boolean} isEmpty - Indicates if the component's data is empty.
+ * @property {boolean} validationMessages - Indicates if there are missing text resources for validation.
+ * @property {boolean} hasValidationMessages - Indicates if there are any validation messages.
+ * @property {Object} resourceValues - Contains localized text resources for the component.
+ * @property {string} resourceValues.title - The localized title for the component.
+ * @property {string|Array} resourceValues.data - The localized empty field text or the data array.
+ *
+ */
 export default class CustomTableEiendom extends CustomComponent {
     constructor(props) {
         super(props);

@@ -6,6 +6,25 @@ import Part from "../../data-classes/Part.js";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
+/**
+ * CustomTablePart is a custom component class for handling table parts in a form.
+ * It manages resource bindings, validation messages, and content checks for a specific part type.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties object for the component.
+ * @param {string} [props.partType] - The type of the part.
+ * @param {Object} [props.resourceBindings] - Resource bindings for the component.
+ * @param {Object} [props.formData] - Form data for the component.
+ *
+ * @property {boolean} isEmpty - Indicates if the component has content.
+ * @property {string} partType - The type of the part.
+ * @property {boolean} validationMessages - Validation messages for the component.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceValues - Contains resource values for title and data.
+ *
+ * @class
+ */
 export default class CustomTablePart extends CustomComponent {
     constructor(props) {
         super(props);

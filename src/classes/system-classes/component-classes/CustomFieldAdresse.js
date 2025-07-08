@@ -5,6 +5,21 @@ import CustomComponent from "../CustomComponent.js";
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
+/**
+ * CustomFieldAdresse is a custom component for handling and formatting address data.
+ *
+ * This class provides methods to format address lines, zip code and city, and the complete address.
+ * It also determines if the address data is empty and retrieves formatted address values from form data.
+ *
+ * @extends CustomComponent
+ *
+ * @class
+ * @param {Object} props - The properties for the component, including resource bindings and form data.
+ * @property {boolean} isEmpty - Indicates if the address data is empty.
+ * @property {Object} resourceValues - Contains formatted title and address data for display.
+ * @property {string} resourceValues.title - The title from resource bindings.
+ * @property {string} resourceValues.data - The formatted address or empty field text.
+ */
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(props) {
         super(props);
