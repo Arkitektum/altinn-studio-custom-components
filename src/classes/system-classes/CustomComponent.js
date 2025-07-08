@@ -19,7 +19,6 @@ export default class CustomComponent {
      * @param {string} [props.feedbackType] - The type of feedback for the component.
      * @param {boolean} [props.hideOrgNr] - Whether to hide the organization number.
      * @param {string} [props.format] - The format of the component's value.
-     * @param {boolean} [props.showRowNumbers] - Whether to show row numbers.
      */
     constructor(props) {
         if (props?.tagName) {
@@ -57,9 +56,6 @@ export default class CustomComponent {
         }
         if (props?.format) {
             this.format = props.format;
-        }
-        if (props?.showRowNumbers) {
-            this.showRowNumbers = props.showRowNumbers;
         }
     }
 
