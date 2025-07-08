@@ -1,111 +1,74 @@
 import CustomComponent from "./CustomComponent";
 
 describe("CustomComponent", () => {
-    let mockElement;
+    it("should initialize properties from props", () => {
+        const props = {
+            tagName: "custom-tag",
+            text: "Hello",
+            texts: { label: "Label" },
+            inline: true,
+            hideTitle: true,
+            size: "large",
+            hideIfEmpty: true,
+            styleOverride: { color: "red" },
+            isChildComponent: true,
+            feedbackType: "info",
+            hideOrgNr: true,
+            format: "uppercase"
+        };
+        const component = new CustomComponent(props);
 
-    beforeEach(() => {
-        mockElement = document.createElement("div");
-    });
-
-    it("should initialize with valid formData", () => {
-        mockElement.setAttribute("formdata", JSON.stringify({ key: "value" }));
-        const component = new CustomComponent(mockElement);
-        expect(component.formData).toEqual({ key: "value" });
-    });
-
-    it("should initialize with valid text", () => {
-        mockElement.setAttribute("text", "Sample Text");
-        const component = new CustomComponent(mockElement);
-        expect(component.text).toBe("Sample Text");
-    });
-
-    it("should initialize with valid texts", () => {
-        mockElement.setAttribute("texts", JSON.stringify({ title: "Title" }));
-        const component = new CustomComponent(mockElement);
-        expect(component.texts).toEqual({ title: "Title" });
-    });
-
-    it("should initialize with inline set to true", () => {
-        mockElement.setAttribute("inline", "true");
-        const component = new CustomComponent(mockElement);
+        expect(component.tagName).toBe("custom-tag");
+        expect(component.text).toBe("Hello");
+        expect(component.texts).toEqual({ label: "Label" });
         expect(component.inline).toBe(true);
-    });
-
-    it("should initialize with hideTitle set to true", () => {
-        mockElement.setAttribute("hideTitle", "true");
-        const component = new CustomComponent(mockElement);
         expect(component.hideTitle).toBe(true);
-    });
-
-    it("should initialize with valid size", () => {
-        mockElement.setAttribute("size", "h1");
-        const component = new CustomComponent(mockElement);
-        expect(component.size).toBe("h1");
-    });
-
-    it("should initialize with hideIfEmpty set to true", () => {
-        mockElement.setAttribute("hideIfEmpty", "true");
-        const component = new CustomComponent(mockElement);
+        expect(component.size).toBe("large");
         expect(component.hideIfEmpty).toBe(true);
-    });
-
-    it("should initialize with valid styleOverride", () => {
-        mockElement.setAttribute("styleOverride", JSON.stringify({ color: "red" }));
-        const component = new CustomComponent(mockElement);
         expect(component.styleOverride).toEqual({ color: "red" });
-    });
-
-    it("should initialize with isChildComponent set to true", () => {
-        mockElement.setAttribute("isChildComponent", "true");
-        const component = new CustomComponent(mockElement);
         expect(component.isChildComponent).toBe(true);
-    });
-
-    it("should initialize with valid feedbackType", () => {
-        mockElement.setAttribute("feedbackType", "error");
-        const component = new CustomComponent(mockElement);
-        expect(component.feedbackType).toBe("error");
-    });
-
-    it("should initialize with valid itemKey", () => {
-        mockElement.setAttribute("itemKey", "uniqueKey");
-        const component = new CustomComponent(mockElement);
-        expect(component.itemKey).toBe("uniqueKey");
-    });
-
-    it("should initialize with hideOrgNr set to true", () => {
-        mockElement.setAttribute("hideOrgNr", "true");
-        const component = new CustomComponent(mockElement);
+        expect(component.feedbackType).toBe("info");
         expect(component.hideOrgNr).toBe(true);
+        expect(component.format).toBe("uppercase");
     });
 
-    it("should initialize with valid format", () => {
-        mockElement.setAttribute("format", "json");
-        const component = new CustomComponent(mockElement);
-        expect(component.format).toBe("json");
+    it("should not set properties if not provided", () => {
+        const component = new CustomComponent({});
+        expect(component.tagName).toBeUndefined();
+        expect(component.text).toBeUndefined();
+        expect(component.texts).toBeUndefined();
+        expect(component.inline).toBeUndefined();
+        expect(component.hideTitle).toBeUndefined();
+        expect(component.size).toBeUndefined();
+        expect(component.hideIfEmpty).toBeUndefined();
+        expect(component.styleOverride).toBeUndefined();
+        expect(component.isChildComponent).toBeUndefined();
+        expect(component.feedbackType).toBeUndefined();
+        expect(component.hideOrgNr).toBeUndefined();
+        expect(component.format).toBeUndefined();
     });
 
-    it("should initialize with showRowNumbers set to true", () => {
-        mockElement.setAttribute("showRowNumbers", "true");
-        const component = new CustomComponent(mockElement);
-        expect(component.showRowNumbers).toBe(true);
+    it("should set formData using setFormData", () => {
+        const component = new CustomComponent({});
+        const formData = { field: "value" };
+        component.setFormData(formData);
+        expect(component.formData).toEqual(formData);
     });
 
-    it("should set formData using setFormData method", () => {
-        const component = new CustomComponent(mockElement);
-        component.setFormData({ key: "newValue" });
-        expect(component.formData).toEqual({ key: "newValue" });
+    it("should set texts using setTexts", () => {
+        const component = new CustomComponent({});
+        const texts = { label: "Test" };
+        component.setTexts(texts);
+        expect(component.texts).toEqual(texts);
     });
 
-    it("should set texts using setTexts method", () => {
-        const component = new CustomComponent(mockElement);
-        component.setTexts({ title: "New Title" });
-        expect(component.texts).toEqual({ title: "New Title" });
+    it("should set text using setText", () => {
+        const component = new CustomComponent({});
+        component.setText("New text");
+        expect(component.text).toBe("New text");
     });
 
-    it("should set text using setText method", () => {
-        const component = new CustomComponent(mockElement);
-        component.setText("New Text");
-        expect(component.text).toBe("New Text");
+    it("should not throw if props is undefined", () => {
+        expect(() => new CustomComponent()).not.toThrow();
     });
 });
