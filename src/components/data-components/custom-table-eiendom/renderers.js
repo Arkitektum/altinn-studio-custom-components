@@ -17,7 +17,7 @@ export function renderEiendomTable(component) {
         {
             dataKey: "adresse",
             tagName: "custom-field-adresse",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.adresse.title",
                 emptyFieldText: "resource.eiendomByggested.eiendom.adresse.emptyFieldText"
             },
@@ -30,7 +30,7 @@ export function renderEiendomTable(component) {
         {
             dataKey: "eiendomsidentifikasjon.gaardsnummer",
             tagName: "custom-field-data",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
@@ -38,7 +38,7 @@ export function renderEiendomTable(component) {
         {
             dataKey: "eiendomsidentifikasjon.bruksnummer",
             tagName: "custom-field-data",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
@@ -46,7 +46,7 @@ export function renderEiendomTable(component) {
         {
             dataKey: "eiendomsidentifikasjon.seksjonsnummer",
             tagName: "custom-field-data",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
@@ -54,7 +54,7 @@ export function renderEiendomTable(component) {
         {
             dataKey: "eiendomsidentifikasjon.festenummer",
             tagName: "custom-field-data",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
@@ -63,7 +63,7 @@ export function renderEiendomTable(component) {
             titleResourceKey: "col-6",
             dataKey: "bolignummer",
             tagName: "custom-field-data",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.bolignummer.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
@@ -72,17 +72,17 @@ export function renderEiendomTable(component) {
             titleResourceKey: "col-7",
             dataKey: "bygningsnummer",
             tagName: "custom-field-data",
-            textResourceBindings: {
+            resourceBindings: {
                 title: "resource.eiendomByggested.eiendom.bygningsnummer.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: component?.formData,
-        texts: component?.texts,
         size: "h3",
         hideIfEmpty: true,
+        isChildComponent: true,
+        resourceValues: component?.resourceValues,
         tableColumns
     });
     const tableElement = createCustomElement("custom-table-data", htmlAttributes);

@@ -3,74 +3,52 @@ import CustomComponent from "../CustomComponent.js";
 import Eiendom from "../../data-classes/Eiendom.js";
 
 // Global functions
-import { getTextResourcesFromResourceBindings, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 export default class CustomTableEiendom extends CustomComponent {
-    constructor(element) {
-        super(element);
+    constructor(props) {
+        super(props);
+        const data = this.getValueFromFormData(props);
         const textResourceBindings = this.getTextResourceBindings();
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
 
-        const parentProps = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-        const localProps = element instanceof HTMLElement ? this.getLocalPropsFromElementAttributes(textResources, textResourceBindings) : element;
-        const props = { ...parentProps, ...localProps };
-
-        const formData = this.getFormDataFromProps(props);
-        const isEmpty = !this.hasContent(formData);
+        const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(textResourceBindings);
 
         this.isEmpty = isEmpty;
-        this.formData = formData;
-        this.texts = localProps?.texts ? localProps.texts : {};
-        this.text = localProps?.text;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-    }
 
-    /**
-     * Extracts and returns local properties from element attributes, specifically text resources and their bindings.
-     *
-     * @param {Array<Object>} textResources - The array of available text resources.
-     * @param {Object} textResourceBindings - The bindings for text resources, expected to contain `eiendomByggested`.
-     * @returns {{ texts: Object|undefined, text: string|undefined }} An object containing the resolved texts and the title text.
-     */
-    getLocalPropsFromElementAttributes(textResources, textResourceBindings) {
-        const texts = getTextResourcesFromResourceBindings(textResources, textResourceBindings.eiendomByggested);
-        const text = texts?.title;
-        return {
-            texts,
-            text
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(textResourceBindings?.part?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }
 
     /**
-     * Extracts and formats form data from the provided props object.
+     * Retrieves the list of "eiendom" objects from the form data.
      *
-     * @param {Object} props - The properties object containing data for the component.
-     * @returns {Object} An object with a `data` property containing the list of eiendom items.
+     * @param {Object} props - The properties containing form data and component information.
+     * @returns {Array} The extracted list of "eiendom" objects from the form data.
      */
-    getFormDataFromProps(props) {
-        const eiendomList = this.getEiendomListFromProps(props);
-        return {
-            data: eiendomList
-        };
+    getValueFromFormData(props) {
+        const data = getComponentDataValue(props);
+        const eiendomList = this.getEiendomListFromData(data);
+        return eiendomList;
     }
 
     /**
-     * Retrieves a list of Eiendom instances from the provided props object.
+     * Transforms an array of raw eiendom data into an array of Eiendom instances,
+     * filtering out any instances that do not have a valid value.
      *
-     * @param {Object} props - The properties object containing form data.
-     * @param {Object} props.formData - The form data object.
-     * @param {Array<Object>} props.formData.data - The array of eiendom data objects.
-     * @returns {Eiendom[]|undefined} An array of Eiendom instances with valid values, or undefined if no data is present.
+     * @param {Array<Object>} data - The raw data array to be transformed.
+     * @returns {Eiendom[]|undefined} An array of Eiendom instances with valid values, or undefined if input is invalid.
      */
-    getEiendomListFromProps(props) {
-        const data = props?.formData?.data;
+    getEiendomListFromData(data) {
         if (!hasValue(data)) {
             return undefined;
         }
-        return props.formData.data.map((eiendom) => new Eiendom(eiendom)).filter((eiendom) => this.hasEiendomValue(eiendom));
+        return data.map((eiendom) => new Eiendom(eiendom)).filter((eiendom) => this.hasEiendomValue(eiendom));
     }
 
     /**
@@ -85,13 +63,13 @@ export default class CustomTableEiendom extends CustomComponent {
     }
 
     /**
-     * Checks if the provided form data contains any content.
+     * Checks if the provided data contains any content.
      *
-     * @param {Object} formData - The form data object to check.
-     * @returns {boolean} Returns true if the form data contains a value, otherwise false.
+     * @param {Object} data - The data object to check.
+     * @returns {boolean} Returns true if the data contains a value, otherwise false.
      */
-    hasContent(formData) {
-        return hasValue(formData?.data);
+    hasContent(data) {
+        return hasValue(data);
     }
 
     /**
