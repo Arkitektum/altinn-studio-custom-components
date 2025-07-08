@@ -9,42 +9,33 @@ jest.mock("./helpers.js", () => ({
 }));
 
 describe("getTableHeaders", () => {
-    it("should map columns to header objects with resolved text", () => {
-        const tableColumns = [
-            {
-                textResourceBindings: { title: "header1" },
-                props: { width: "100px" }
-            },
-            {
-                textResourceBindings: { title: "header2" },
-                props: { width: "200px" }
-            }
-        ];
-        const textResources = [
-            { id: "header1", value: "Header 1" },
-            { id: "header2", value: "Header 2" }
+    it("should return headers with resolved text and props", () => {
+        getTextResourceFromResourceBinding.mockImplementation((binding) => {
+            if (binding === "header1") return "Header 1";
+            if (binding === "header2") return "Header 2";
+            return "";
+        });
+
+        const columns = [
+            { resourceBindings: { title: "header1" }, props: { align: "left" } },
+            { resourceBindings: { title: "header2" }, props: { align: "right" } }
         ];
 
-        getTextResourceFromResourceBinding.mockImplementation((resources, key) => resources.find((r) => r.id === key)?.value);
-
-        const result = getTableHeaders(tableColumns, textResources);
+        const result = getTableHeaders(columns);
 
         expect(result).toEqual([
-            { text: "Header 1", props: { width: "100px" } },
-            { text: "Header 2", props: { width: "200px" } }
+            { text: "Header 1", props: { align: "left" } },
+            { text: "Header 2", props: { align: "right" } }
         ]);
-        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(2);
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("header1");
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("header2");
     });
 
-    it("should handle missing textResourceBindings gracefully", () => {
-        const tableColumns = [{ props: { width: "100px" } }];
-        const textResources = [];
-
-        getTextResourceFromResourceBinding.mockReturnValue(undefined);
-
-        const result = getTableHeaders(tableColumns, textResources);
-
-        expect(result).toEqual([{ text: undefined, props: { width: "100px" } }]);
+    it("should handle missing resourceBindings gracefully", () => {
+        getTextResourceFromResourceBinding.mockReturnValue("");
+        const columns = [{ props: { align: "center" } }];
+        const result = getTableHeaders(columns);
+        expect(result).toEqual([{ text: "", props: { align: "center" } }]);
     });
 });
 
@@ -53,127 +44,107 @@ describe("getTableRows", () => {
         jest.clearAllMocks();
     });
 
-    it("should generate rows for array data with simpleBinding", () => {
-        const tableColumns = [
+    it("should return rows for array data with resolved cell data and emptyFieldText", () => {
+        getValueFromDataKey.mockImplementation((row, key) => row[key]);
+        getTextResourceFromResourceBinding.mockImplementation((binding) => {
+            if (binding === "empty1") return "No data";
+            return "";
+        });
+        hasValue.mockImplementation((val) => !!val);
+
+        const columns = [
             {
-                dataKey: "name",
-                props: { width: 100 },
+                dataKey: "col1",
                 tagName: "td",
-                textResourceBindings: { emptyFieldText: "emptyName" }
+                resourceBindings: { emptyFieldText: "empty1" }
             },
             {
-                dataKey: "age",
-                props: { width: 50 },
-                tagName: "td",
-                textResourceBindings: { emptyFieldText: "emptyAge" }
+                dataKey: "col2",
+                tagName: "td"
             }
         ];
-        const textResources = [
-            { id: "emptyName", value: "No Name" },
-            { id: "emptyAge", value: "No Age" }
-        ];
         const data = [
-            { name: "Alice", age: 30 },
-            { name: "Bob", age: 0 }
+            { col1: "A", col2: "B" },
+            { col1: "", col2: "D" }
         ];
 
-        getValueFromDataKey.mockImplementation((row, key) => row[key]);
-        getTextResourceFromResourceBinding.mockImplementation((resources, key) => resources.find((r) => r.id === key)?.value);
-        hasValue.mockImplementation((val) => !!val || val === 0);
-
-        const result = getTableRows(tableColumns, textResources, data);
+        const result = getTableRows(columns, data);
 
         expect(result).toEqual([
             [
                 {
-                    width: 100,
-                    formData: { simpleBinding: "Alice" },
+                    resourceValues: { data: "A", emptyFieldText: "No data" },
                     hideTitle: true,
                     tagName: "td",
-                    texts: { emptyFieldText: "No Name" }
+                    isChildComponent: true
                 },
                 {
-                    width: 50,
-                    formData: { simpleBinding: 30 },
+                    resourceValues: { data: "B" },
                     hideTitle: true,
                     tagName: "td",
-                    texts: { emptyFieldText: "No Age" }
+                    isChildComponent: true
                 }
             ],
             [
                 {
-                    width: 100,
-                    formData: { simpleBinding: "Bob" },
+                    resourceValues: { data: "", emptyFieldText: "No data" },
                     hideTitle: true,
                     tagName: "td",
-                    texts: { emptyFieldText: "No Name" }
+                    isChildComponent: true
                 },
                 {
-                    width: 50,
-                    formData: { simpleBinding: 0 },
+                    resourceValues: { data: "D" },
                     hideTitle: true,
                     tagName: "td",
-                    texts: { emptyFieldText: "No Age" }
+                    isChildComponent: true
                 }
             ]
         ]);
+        expect(getValueFromDataKey).toHaveBeenCalledTimes(4);
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("empty1");
     });
 
     it("should handle single object data", () => {
-        const tableColumns = [{ dataKey: "foo", props: {}, tagName: "td", textResourceBindings: {} }];
-        const textResources = [];
-        const data = { foo: "bar" };
-
-        getValueFromDataKey.mockReturnValue("bar");
-        getTextResourceFromResourceBinding.mockReturnValue(undefined);
+        getValueFromDataKey.mockImplementation((row, key) => row[key]);
+        getTextResourceFromResourceBinding.mockReturnValue("");
         hasValue.mockReturnValue(false);
 
-        const result = getTableRows(tableColumns, textResources, data);
+        const columns = [
+            { dataKey: "foo", tagName: "td" },
+            { dataKey: "bar", tagName: "td" }
+        ];
+        const data = { foo: 1, bar: 2 };
+
+        const result = getTableRows(columns, data);
 
         expect(result).toEqual([
             [
                 {
-                    formData: { simpleBinding: "bar" },
+                    resourceValues: { data: 1 },
                     hideTitle: true,
-                    tagName: "td"
+                    tagName: "td",
+                    isChildComponent: true
+                },
+                {
+                    resourceValues: { data: 2 },
+                    hideTitle: true,
+                    tagName: "td",
+                    isChildComponent: true
                 }
             ]
         ]);
     });
 
-    it('should use "data" property for non-string/number cellData', () => {
-        const tableColumns = [{ dataKey: "obj", props: {}, tagName: "td", textResourceBindings: {} }];
-        const textResources = [];
-        const data = [{ obj: { nested: 1 } }];
-
-        getValueFromDataKey.mockReturnValue({ nested: 1 });
-        getTextResourceFromResourceBinding.mockReturnValue(undefined);
+    it("should not add emptyFieldText if hasValue returns false", () => {
+        getValueFromDataKey.mockReturnValue("value");
+        getTextResourceFromResourceBinding.mockReturnValue("");
         hasValue.mockReturnValue(false);
 
-        const result = getTableRows(tableColumns, textResources, data);
+        const columns = [{ dataKey: "foo", tagName: "td", resourceBindings: { emptyFieldText: "empty" } }];
+        const data = [{ foo: "value" }];
 
-        expect(result).toEqual([
-            [
-                {
-                    formData: { data: { nested: 1 } },
-                    hideTitle: true,
-                    tagName: "td"
-                }
-            ]
-        ]);
-    });
+        const result = getTableRows(columns, data);
 
-    it("should not add texts if emptyFieldText is not present", () => {
-        const tableColumns = [{ dataKey: "foo", props: {}, tagName: "td", textResourceBindings: {} }];
-        const textResources = [];
-        const data = [{ foo: "bar" }];
-
-        getValueFromDataKey.mockReturnValue("bar");
-        getTextResourceFromResourceBinding.mockReturnValue(undefined);
-        hasValue.mockReturnValue(false);
-
-        const result = getTableRows(tableColumns, textResources, data);
-
-        expect(result[0][0].texts).toBeUndefined();
+        expect(result[0][0].resourceValues).toEqual({ data: "value" });
     });
 });
