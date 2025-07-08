@@ -21,9 +21,11 @@ import { hasValue } from "./helpers.js";
  *   @property {string} itemKey - The item key for the element.
  *   @property {boolean} hideOrgNr - Whether to hide the organization number.
  *   @property {string} format - The format of the element.
+ *   @property {Array} tableColumns - The table columns defined for the element.
  *   @property {boolean} showRowNumbers - Whether to show row numbers.
  *   @property {Object} resourceBindings - Text resource bindings for the element.
- *  @property {Object} resourceValues - Resource values for the element.
+ *   @property {Object} resourceValues - Resource values for the element.
+ *   @property {string} partType - The type of part defined for the element.
  */
 export function getPropsFromElementAttributes(element) {
     return {
@@ -41,9 +43,11 @@ export function getPropsFromElementAttributes(element) {
         itemKey: getItemKey(element),
         hideOrgNr: getHideOrgNr(element),
         format: getFormat(element),
+        tableColumns: getTableColumns(element),
         showRowNumbers: getShowRowNumbers(element),
         resourceBindings: getResourceBindings(element),
-        resourceValues: getResourceValues(element)
+        resourceValues: getResourceValues(element),
+        partType: getPartType(element)
     };
 }
 
@@ -197,6 +201,11 @@ function getFormat(element) {
     return hasValue(format) && format;
 }
 
+function getTableColumns(element) {
+    const tableColumns = JSON.parse(element?.getAttribute("tableColumns"));
+    return hasValue(tableColumns) && tableColumns;
+}
+
 /**
  * Determines whether the "showRowNumbers" attribute is set to "true" on the element.
  *
@@ -228,4 +237,16 @@ function getResourceBindings(element) {
 function getResourceValues(element) {
     const resourceValues = JSON.parse(element?.getAttribute("resourceValues"));
     return hasValue(resourceValues) && resourceValues;
+}
+
+/**
+ * Retrieves the 'partType' attribute from the given HTML element.
+ * If the attribute is not present or has no value, returns the default value "tiltakshaver".
+ *
+ * @param {Element} element - The HTML element from which to retrieve the 'partType' attribute.
+ * @returns {string} The value of the 'partType' attribute, or "tiltakshaver" if not set.
+ */
+function getPartType(element) {
+    const partType = element?.getAttribute("partType");
+    return hasValue(partType) ? partType : "tiltakshaver";
 }
