@@ -3,31 +3,32 @@ import CustomComponent from "../CustomComponent.js";
 import Part from "../../data-classes/Part.js";
 
 // Global functions
-import { hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldPartNavn is a custom component class for handling and formatting part names,
- * optionally including organization numbers, for use in form data binding.
+ * optionally including organization numbers, and managing resource values for display.
  *
  * @extends CustomComponent
  *
- * @class
- * @param {HTMLElement|Object} element - The element or props used to initialize the component.
- *
- * @property {boolean} isEmpty - Indicates if the form data is empty.
- * @property {Object} formData - The processed form data with a formatted name.
+ * @param {Object} props - The properties for the component, including resource bindings and form data.
+ * @property {boolean} isEmpty - Indicates if the component's data is empty.
+ * @property {Object} resourceValues - Contains localized resource values for title and data.
+ * @property {string} resourceValues.title - The localized title for the component.
+ * @property {string} resourceValues.data - The formatted name or empty field text.
  */
 export default class CustomFieldPartNavn extends CustomComponent {
-    constructor(element) {
-        super(element);
+    constructor(props) {
+        super(props);
+        const data = this.getValueFromFormData(props);
 
-        const props = element instanceof HTMLElement ? super.getPropsFromElementAttributes(element) : element;
-
-        const formData = this.getFormDataFromProps(props);
-        const isEmpty = !this.hasContent(formData);
+        const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
-        this.formData = formData;
+        this.resourceValues = {
+            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+        };
     }
 
     /**
@@ -54,37 +55,25 @@ export default class CustomFieldPartNavn extends CustomComponent {
     }
 
     /**
-     * Retrieves form data from the given element, formatting the name if necessary.
+     * Retrieves and formats the name value from the form data.
      *
-     * If the `simpleBinding` property is already present in the element's form data, it returns the form data as is.
-     * Otherwise, it constructs a new `Part` from the form data, formats the name, and returns it as `simpleBinding`.
-     *
-     * @param {Object} props - The properties object containing form data.
-     * @param {Object} [props.formData] - The form data object.
-     * @param {*} [props.formData.simpleBinding] - The simple binding value, if already set.
-     * @param {*} [props.formData.data] - The data used to construct a new Part.
-     * @returns {Object} The form data with a `simpleBinding` property.
+     * @param {Object} props - The properties containing form data and component context.
+     * @returns {string} The formatted name value based on the form data and configuration.
      */
-    getFormDataFromProps(props) {
-        // If simpleBinding is already set, return it directly
-        if (hasValue(props?.formData?.simpleBinding)) {
-            return props.formData;
-        }
-        const data = props?.formData?.data;
+    getValueFromFormData(props) {
+        const data = getComponentDataValue(props);
         const part = new Part(data);
         const name = this.formatName(part, this.hideOrgNr);
-        return {
-            simpleBinding: name
-        };
+        return name;
     }
 
     /**
-     * Checks if the provided form data contains a value in the 'simpleBinding' property.
+     * Checks if the provided data contains a value in the 'simpleBinding' property.
      *
-     * @param {Object} formData - The form data object to check.
-     * @returns {boolean} Returns true if 'simpleBinding' has a value, otherwise false.
+     * @param {Object} data - The data object to check.
+     * @returns {boolean} Returns true if 'data' has a value, otherwise false.
      */
-    hasContent(formData) {
-        return hasValue(formData?.simpleBinding);
+    hasContent(data) {
+        return hasValue(data);
     }
 }
