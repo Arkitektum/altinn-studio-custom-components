@@ -378,6 +378,23 @@ export function getComponentDataValue(component) {
 }
 
 /**
+ * Retrieves the value of a resource for a given component and resource key.
+ * If the value exists in the component's `resourceValues`, it is returned.
+ * Otherwise, attempts to retrieve the value from the component's `resourceBindings`.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {string} resourceKey - The key identifying the resource to retrieve.
+ * @returns {*} The value of the resource, or the result from the resource binding lookup.
+ */
+export function getComponentResourceValue(component, resourceKey) {
+    if (hasValue(component?.resourceValues?.[resourceKey])) {
+        return component.resourceValues?.[resourceKey];
+    } else {
+        return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey]);
+    }
+}
+
+/**
  * Appends an array of children to a parent element. If a child is an instance of HTMLElement,
  * it is appended using `appendChild`. Otherwise, the child's content is appended to the parent's
  * innerHTML.
