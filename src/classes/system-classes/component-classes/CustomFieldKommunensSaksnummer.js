@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.js";
 
 // Global functions
-import { getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldKommunensSaksnummer is a custom component class for handling and displaying
@@ -28,24 +28,24 @@ import { getTextResourceFromResourceBinding, hasValue } from "../../../functions
 export default class CustomFieldKommunensSaksnummer extends CustomComponent {
     constructor(props) {
         super(props);
-        const formDataValue = this.getValueFromFormData(props);
-        const isEmpty = props?.isEmpty !== undefined ? props.isEmpty : !this.hasContent(formDataValue);
+        const data = this.getValueFromFormData(props);
+        const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : formDataValue
+            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }
 
     /**
-     * Checks if the provided form data value has content.
+     * Checks if the provided data value has content.
      *
-     * @param {*} formDataValue - The value from the form data to check.
-     * @returns {boolean} Returns true if the form data value has content, otherwise false.
+     * @param {*} data - The value from the data to check.
+     * @returns {boolean} Returns true if the data value has content, otherwise false.
      */
-    hasContent(formDataValue) {
-        return hasValue(formDataValue);
+    hasContent(data) {
+        return hasValue(data);
     }
 
     /**
@@ -71,7 +71,8 @@ export default class CustomFieldKommunensSaksnummer extends CustomComponent {
      * @returns {string} The formatted 'kommunens saksnummer'.
      */
     getValueFromFormData(props) {
-        const kommunensSaksnummer = new KommunensSaksnummer(props?.formData?.data);
+        const data = getComponentDataValue(props);
+        const kommunensSaksnummer = new KommunensSaksnummer(data);
         return this.formatKommunensSaksnummer(kommunensSaksnummer);
     }
 }
