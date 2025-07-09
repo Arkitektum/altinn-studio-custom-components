@@ -1,4 +1,5 @@
 // Classes
+import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
 import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.js";
 import CustomFeedbacklistData from "../classes/system-classes/component-classes/CustomFeedbacklistData.js";
@@ -35,6 +36,8 @@ export function instantiateComponent(element) {
     switch (tagName?.toLowerCase()) {
         case "custom-component":
             return new CustomComponent(component);
+        case "custom-dispensasjon":
+            return new CustomDispensasjon(component);
         case "custom-feedback":
             return new CustomFeedback(component);
         case "custom-feedback-data":
