@@ -377,6 +377,23 @@ export function getComponentDataValue(component) {
     }
 }
 
+/**
+ * Retrieves boolean data values (trueData, falseData, defaultData) from a component object.
+ * If the component is a child component, values are taken from `resourceValues`.
+ * Otherwise, values are taken from `formData`.
+ *
+ * @param {Object} component - The component object to extract data from.
+ * @param {boolean} component.isChildComponent - Indicates if the component is a child component.
+ * @param {Object} [component.resourceValues] - Resource values for child components.
+ * @param {*} [component.resourceValues.trueData] - Data value for true state in resource values.
+ * @param {*} [component.resourceValues.falseData] - Data value for false state in resource values.
+ * @param {*} [component.resourceValues.defaultData] - Data value for default state in resource values.
+ * @param {Object} [component.formData] - Form data for non-child components.
+ * @param {*} [component.formData.trueData] - Data value for true state in form data.
+ * @param {*} [component.formData.falseData] - Data value for false state in form data.
+ * @param {*} [component.formData.defaultData] - Data value for default state in form data.
+ * @returns {Object} An object containing `trueData`, `falseData`, and `defaultData`.
+ */
 export function getComponentBooleanDataValues(component) {
     if (component.isChildComponent) {
         return {
