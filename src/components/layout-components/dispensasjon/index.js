@@ -1,13 +1,11 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { appendChildren, getComponentContainerElement, hasValue, renderLayoutContainerElement } from "../../../functions/helpers.js";
-import { hasMissingTextResources } from "../../../functions/validations.js";
+import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { dispensasjonIsPlanBestemmelseType, getDispensasjon } from "./functions.js";
 import {
     renderBegrunnelseFordeler,
     renderBegrunnelseHeader,
@@ -42,89 +40,53 @@ import {
     renderTiltakstyperTypeKode,
     renderVarighetHeader
 } from "./renderers.js";
-import textResourceBindings from "./textResourceBindings.js";
 
 export default customElements.define(
     "custom-dispensasjon",
     class extends HTMLElement {
         async connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const dispensasjon = getDispensasjon(component);
-            const textResources = window.textResources;
 
-            const validationMessages = hasMissingTextResources(textResources, textResourceBindings);
-            if (!hasValue(dispensasjon) && !!componentContainerElement) {
+            if (component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 const layoutContainerElement = renderLayoutContainerElement();
-                const dispensasjonHeaderElement = renderDispansasjonHeader(dispensasjon);
-                const dispensasjonsreferanseElement = renderDispensasjonReferanse(dispensasjon, textResources, textResourceBindings);
-                const metadataFtbIdElement = renderMetadataFtbId(dispensasjon, textResources, textResourceBindings);
-                const kommunensSaksnummerElement = renderKommunensSaksnummer(dispensasjon, textResources, textResourceBindings);
-                const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(textResources, textResourceBindings);
-                const eiendomTableElement = renderEiendomTable(dispensasjon, textResources, textResourceBindings);
-                const tiltakstyperTypeHeaderElement = renderTiltakstyperTypeHeader(textResources, textResourceBindings);
-                const tiltakstyperTypeKodeElement = renderTiltakstyperTypeKode(dispensasjon, textResources, textResourceBindings);
-                const tiltakshaverTableElement = renderTiltakshaverTable(dispensasjon, textResources, textResourceBindings);
-                const tiltakshaverAdresseElement = renderTiltakshaverAdresse(dispensasjon, textResources, textResourceBindings);
-                const dispensasjonHeader2Element = renderDispansasjonHeader(dispensasjon, "h2");
-                const inngangsbeskrivelseElement = renderInngangsbeskrivelse(dispensasjon);
-                const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(dispensasjon, textResources, textResourceBindings);
-                const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(textResources, textResourceBindings);
-                const dispensasjonPlanBestemmelseNavnElement = renderDispensasjonPlanBestemmelseNavn(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const bestemmelserTypeElement = renderBestemmelserType(dispensasjon, textResources, textResourceBindings);
-                const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(dispensasjon, textResources, textResourceBindings);
-                const stedfestingHeaderElement = renderStedfestingHeader(textResources, textResourceBindings);
-                const stedfestingPosisjonKoordinatsystemElement = renderStedfestingPosisjonKoordinatsystem(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const stedfestingPosisjonKoordinaterElement = renderStedfestingPosisjonKoordinater(dispensasjon, textResources, textResourceBindings);
-                const stedfestingVertikalnivaaElement = renderStedfestingVertikalnivaa(dispensasjon, textResources, textResourceBindings);
-                const varighetHeaderElement = renderVarighetHeader(textResources, textResourceBindings);
-                const varighetOenskesVarigDispensasjonElement = renderOensketVarighet(dispensasjon, textResources, textResourceBindings);
-                const begrunnelseHeaderElement = renderBegrunnelseHeader(textResources, textResourceBindings);
-                const begrunnelseHensynBakBestemmelsenElement = renderBegrunnelseHensynBakBestemmelsen(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const begrunnelseVurderingHensynBakBestemmelsenElement = renderBegrunnelseVurderingHensynBakBestemmelsen(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const begrunnelseVurderingHensynOverordnetElement = renderBegrunnelseVurderingHensynOverordnet(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const begrunnelseFordelerElement = renderBegrunnelseFordeler(dispensasjon, textResources, textResourceBindings);
-                const begrunnelseUlemperElement = renderBegrunnelseUlemper(dispensasjon, textResources, textResourceBindings);
-                const begrunnelseSamletBegrunnelseElement = renderBegrunnelseSamletBegrunnelse(dispensasjon, textResources, textResourceBindings);
-                const generelleVilkaarNorskSvenskDanskHeaderElement = renderGenerelleVilkaarNorskSvenskDanskHeader(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
-                const renderedGenerelleVilkaarNorskSvenskDanskElement = renderGenerelleVilkaarNorskSvenskDansk(
-                    dispensasjon,
-                    textResources,
-                    textResourceBindings
-                );
+                const dispensasjonHeaderElement = renderDispansasjonHeader(component);
+                const dispensasjonsreferanseElement = renderDispensasjonReferanse(component);
+                const metadataFtbIdElement = renderMetadataFtbId(component);
+                const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
+                const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(component);
+                const eiendomTableElement = renderEiendomTable(component);
+                const tiltakstyperTypeHeaderElement = renderTiltakstyperTypeHeader(component);
+                const tiltakstyperTypeKodeElement = renderTiltakstyperTypeKode(component);
+                const tiltakshaverTableElement = renderTiltakshaverTable(component);
+                const tiltakshaverAdresseElement = renderTiltakshaverAdresse(component);
+                const dispensasjonHeader2Element = renderDispansasjonHeader(component, "h2");
+                const inngangsbeskrivelseElement = renderInngangsbeskrivelse(component);
+                const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(component);
+                const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(component);
+                const dispensasjonPlanBestemmelseNavnElement = renderDispensasjonPlanBestemmelseNavn(component);
+                const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(component);
+                const bestemmelserTypeElement = renderBestemmelserType(component);
+                const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(component);
+                const stedfestingHeaderElement = renderStedfestingHeader(component);
+                const stedfestingPosisjonKoordinatsystemElement = renderStedfestingPosisjonKoordinatsystem(component);
+                const stedfestingPosisjonKoordinaterElement = renderStedfestingPosisjonKoordinater(component);
+                const stedfestingVertikalnivaaElement = renderStedfestingVertikalnivaa(component);
+                const varighetHeaderElement = renderVarighetHeader(component);
+                const varighetOenskesVarigDispensasjonElement = renderOensketVarighet(component);
+                const begrunnelseHeaderElement = renderBegrunnelseHeader(component);
+                const begrunnelseHensynBakBestemmelsenElement = renderBegrunnelseHensynBakBestemmelsen(component);
+                const begrunnelseVurderingHensynBakBestemmelsenElement = renderBegrunnelseVurderingHensynBakBestemmelsen(component);
+                const begrunnelseVurderingHensynOverordnetElement = renderBegrunnelseVurderingHensynOverordnet(component);
+                const begrunnelseFordelerElement = renderBegrunnelseFordeler(component);
+                const begrunnelseUlemperElement = renderBegrunnelseUlemper(component);
+                const begrunnelseSamletBegrunnelseElement = renderBegrunnelseSamletBegrunnelse(component);
+                const generelleVilkaarNorskSvenskDanskHeaderElement = renderGenerelleVilkaarNorskSvenskDanskHeader(component);
+                const renderedGenerelleVilkaarNorskSvenskDanskElement = renderGenerelleVilkaarNorskSvenskDansk(component);
 
-                const validationFeedbackListElement = renderFeedbackListElement(validationMessages);
+                const validationFeedbackListElement = renderFeedbackListElement(component?.validationMessages);
 
                 // Intro
                 appendChildren(layoutContainerElement, [
@@ -149,7 +111,7 @@ export default customElements.define(
                 appendChildren(layoutContainerElement, [dispensasjonHeader2Element, inngangsbeskrivelseElement, dispensasjonBeskrivelseElement]);
 
                 // Dispensasjon fra
-                if (dispensasjonIsPlanBestemmelseType(dispensasjon)) {
+                if (component.isPlanBestemmelseType) {
                     appendChildren(layoutContainerElement, [
                         dispensasjonFraHeaderElement,
                         dispensasjonPlanBestemmelseNavnElement,
