@@ -377,6 +377,21 @@ export function getComponentDataValue(component) {
     }
 }
 
+export function getComponentBooleanDataValues(component) {
+    if (component.isChildComponent) {
+        return {
+            trueData: component.resourceValues?.trueData,
+            falseData: component.resourceValues?.falseData,
+            defaultData: component.resourceValues?.defaultData
+        };
+    }
+    return {
+        trueData: component.formData?.trueData,
+        falseData: component.formData?.falseData,
+        defaultData: component.formData?.defaultData
+    };
+}
+
 /**
  * Retrieves the value of a resource for a given component and resource key.
  * If the value exists in the component's `resourceValues`, it is returned.
