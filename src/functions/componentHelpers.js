@@ -2,6 +2,7 @@
 import CustomField from "../classes/system-classes/component-classes/CustomField.js";
 import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.js";
 import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.js";
+import CustomFieldBooleanText from "../classes/system-classes/component-classes/CustomFieldBooleanText.js";
 import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.js";
 import CustomFieldKommunensSaksnummer from "../classes/system-classes/component-classes/CustomFieldKommunensSaksnummer.js";
 import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.js";
@@ -34,6 +35,8 @@ export function instantiateComponent(element) {
             return new CustomFieldAdresse(component);
         case "custom-field-boolean-data":
             return new CustomFieldBooleanData(component);
+        case "custom-field-boolean-text":
+            return new CustomFieldBooleanText(component);
         case "custom-field-data":
             return new CustomFieldData(component);
         case "custom-field-kommunens-saksnummer":
