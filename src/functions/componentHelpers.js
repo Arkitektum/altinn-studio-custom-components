@@ -18,6 +18,7 @@ import CustomList from "../classes/system-classes/component-classes/CustomList.j
 import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
+import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
@@ -71,6 +72,8 @@ export function instantiateComponent(element) {
             return new CustomParagraph(component);
         case "custom-paragraph-text":
             return new CustomParagraphText(component);
+        case "custom-subheader-text":
+            return new CustomSubHeaderText(component);
         case "custom-table":
             return new CustomTable(component);
         case "custom-table-data":
