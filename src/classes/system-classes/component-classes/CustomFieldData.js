@@ -2,27 +2,25 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 
 /**
- * CustomFieldData is a custom component class that manages field data and resource values
- * for a form component. It determines if the field is empty and sets resource values
- * for title and text based on the field's state.
+ * CustomFieldData is a class that extends CustomComponent to handle custom field data logic.
+ * It initializes resource values based on the presence of content in the form data and manages
+ * display properties such as title and empty field text.
  *
+ * @class
  * @extends CustomComponent
  *
- * @param {Object} props - The properties passed to the component.
- * @param {Object} [props.formData] - The form data object.
- * @param {*} [props.formData.simpleBinding] - The value to retrieve from form data.
+ * @param {Object} props - The properties for the custom field component.
+ * @param {boolean} [props.hideTitle] - Determines if the title should be hidden.
  * @param {Object} [props.resourceBindings] - Resource bindings for the component.
- * @param {string} [props.resourceBindings.title] - Resource key for the title.
- * @param {string} [props.resourceBindings.emptyFieldText] - Resource key for the empty field text.
- * @param {boolean} [props.isEmpty] - Optional flag to explicitly set if the field is empty.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Resource key for empty field text.
  *
- * @property {boolean} isEmpty - Indicates whether the field is empty.
- * @property {Object} resourceValues - Contains the resolved title and text resources for the component.
- * @property {string} resourceValues.title - The resolved title resource.
- * @property {*} resourceValues.data - The resolved text resource or form data value.
+ * @property {boolean} isEmpty - Indicates if the field data is empty.
+ * @property {Object} resourceValues - Contains the title and data to be displayed.
+ * @property {string|undefined} resourceValues.title - The title of the component, if not hidden.
+ * @property {*} resourceValues.data - The data to display, or empty field text if no data.
  */
 export default class CustomFieldData extends CustomComponent {
     constructor(props) {
@@ -32,8 +30,8 @@ export default class CustomFieldData extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+            title: !props?.hideTitle && getComponentResourceValue(props, "title"),
+            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
 

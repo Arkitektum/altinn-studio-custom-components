@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldKommunensSaksnummer is a custom component class for handling and displaying
@@ -33,8 +33,8 @@ export default class CustomFieldKommunensSaksnummer extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+            title: getComponentResourceValue(props, "title"),
+            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
 

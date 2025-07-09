@@ -3,7 +3,7 @@ import Adresse from "../../data-classes/Adresse.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldAdresse is a custom component for handling and formatting address data.
@@ -28,10 +28,9 @@ export default class CustomFieldAdresse extends CustomComponent {
         const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
-
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
+            title: getComponentResourceValue(props, "title"),
+            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
 
