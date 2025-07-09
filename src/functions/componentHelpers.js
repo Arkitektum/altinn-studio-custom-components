@@ -1,4 +1,8 @@
 // Classes
+import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
+import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.js";
+import CustomFeedbacklistData from "../classes/system-classes/component-classes/CustomFeedbacklistData.js";
+import CustomFeedbacklistValidationMessages from "../classes/system-classes/component-classes/CustomFeedbacklistValidationMessages.js";
 import CustomField from "../classes/system-classes/component-classes/CustomField.js";
 import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.js";
 import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.js";
@@ -29,6 +33,14 @@ export function instantiateComponent(element) {
     switch (tagName?.toLowerCase()) {
         case "custom-component":
             return new CustomComponent(component);
+        case "custom-feedback":
+            return new CustomFeedback(component);
+        case "custom-feedback-data":
+            return new CustomFeedbackData(component);
+        case "custom-feedbacklist-data":
+            return new CustomFeedbacklistData(component);
+        case "custom-feedbacklist-validation-messages":
+            return new CustomFeedbacklistValidationMessages(component);
         case "custom-field":
             return new CustomField(component);
         case "custom-field-adresse":

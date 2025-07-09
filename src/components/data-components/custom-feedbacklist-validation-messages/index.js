@@ -1,9 +1,9 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import ValidationMessages from "../../../classes/system-classes/ValidationMessages.js";
 
 // Global functions
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
 import { renderValidationMessagesElement } from "./renderers.js";
@@ -15,10 +15,10 @@ export default customElements.define(
     "custom-feedbacklist-validation-messages",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const validationMessages = new ValidationMessages(component?.formData?.data);
-            if (!hasValue(validationMessages) && !!componentContainerElement) {
+            const validationMessages = new ValidationMessages(component?.resourceValues?.data);
+            if (component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 this.innerHTML = renderValidationMessagesElement(validationMessages);

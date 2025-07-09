@@ -1,8 +1,6 @@
-// Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
-
 // Global functions
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
 import { renderFeedbackListElement } from "./renderers.js";
@@ -14,11 +12,11 @@ export default customElements.define(
     "custom-feedbacklist-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const feedbackMessages = component?.formData?.data;
-            const title = component?.text || "Messages";
-            if (!hasValue(feedbackMessages) && !!componentContainerElement) {
+            const feedbackMessages = component?.resourceValues?.data;
+            const title = component?.resourceValues?.title || "Messages";
+            if (component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 this.innerHTML = renderFeedbackListElement(title, feedbackMessages, component?.feedbackType, component?.styleOverride);
