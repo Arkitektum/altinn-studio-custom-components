@@ -378,6 +378,79 @@ export function getComponentDataValue(component) {
 }
 
 /**
+ * Retrieves boolean data values (trueData, falseData, defaultData) from a component object.
+ * If the component is a child component, values are taken from `resourceValues`.
+ * Otherwise, values are taken from `formData`.
+ *
+ * @param {Object} component - The component object to extract data from.
+ * @param {boolean} component.isChildComponent - Indicates if the component is a child component.
+ * @param {Object} [component.resourceValues] - Resource values for child components.
+ * @param {*} [component.resourceValues.trueData] - Data value for true state in resource values.
+ * @param {*} [component.resourceValues.falseData] - Data value for false state in resource values.
+ * @param {*} [component.resourceValues.defaultData] - Data value for default state in resource values.
+ * @param {Object} [component.formData] - Form data for non-child components.
+ * @param {*} [component.formData.trueData] - Data value for true state in form data.
+ * @param {*} [component.formData.falseData] - Data value for false state in form data.
+ * @param {*} [component.formData.defaultData] - Data value for default state in form data.
+ * @returns {Object} An object containing `trueData`, `falseData`, and `defaultData`.
+ */
+export function getComponentBooleanDataValues(component) {
+    if (component.isChildComponent) {
+        return {
+            trueData: component.resourceValues?.trueData,
+            falseData: component.resourceValues?.falseData,
+            defaultData: component.resourceValues?.defaultData
+        };
+    }
+    return {
+        trueData: component.formData?.trueData,
+        falseData: component.formData?.falseData,
+        defaultData: component.formData?.defaultData
+    };
+}
+
+/**
+ * Retrieves the boolean text values (trueText, falseText, defaultText) for a given component.
+ * It prioritizes values from `component.resourceValues`, and falls back to values
+ * obtained via `getTextResourceFromResourceBinding` using the corresponding resource bindings.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component.resourceValues] - Direct text values for true, false, and default states.
+ * @param {string} [component.resourceValues.trueText] - Text to display for the true state.
+ * @param {string} [component.resourceValues.falseText] - Text to display for the false state.
+ * @param {string} [component.resourceValues.defaultText] - Text to display for the default state.
+ * @param {Object} [component.resourceBindings] - Resource bindings for true, false, and default states.
+ * @param {string} [component.resourceBindings.trueText] - Resource binding for the true state.
+ * @param {string} [component.resourceBindings.falseText] - Resource binding for the false state.
+ * @param {string} [component.resourceBindings.defaultText] - Resource binding for the default state.
+ * @returns {Object} An object containing `trueText`, `falseText`, and `defaultText` properties.
+ */
+export function getComponentBooleanTextValues(component) {
+    return {
+        trueText: component.resourceValues?.trueText || getTextResourceFromResourceBinding(component?.resourceBindings?.trueText),
+        falseText: component.resourceValues?.falseText || getTextResourceFromResourceBinding(component?.resourceBindings?.falseText),
+        defaultText: component.resourceValues?.defaultText || getTextResourceFromResourceBinding(component?.resourceBindings?.defaultText)
+    };
+}
+
+/**
+ * Retrieves the value of a resource for a given component and resource key.
+ * If the value exists in the component's `resourceValues`, it is returned.
+ * Otherwise, attempts to retrieve the value from the component's `resourceBindings`.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {string} resourceKey - The key identifying the resource to retrieve.
+ * @returns {*} The value of the resource, or the result from the resource binding lookup.
+ */
+export function getComponentResourceValue(component, resourceKey) {
+    if (hasValue(component?.resourceValues?.[resourceKey])) {
+        return component.resourceValues?.[resourceKey];
+    } else {
+        return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey]);
+    }
+}
+
+/**
  * Appends an array of children to a parent element. If a child is an instance of HTMLElement,
  * it is appended using `appendChild`. Otherwise, the child's content is appended to the parent's
  * innerHTML.

@@ -21,9 +21,12 @@ export function renderValidationMessagesElement(validationMessages) {
         const validationMessagesWithFeedbackType = validationMessages[feedbackType];
         if (validationMessagesWithFeedbackType?.length) {
             const htmlAttributes = new CustomElementHtmlAttributes({
-                formData: { data: validationMessages[feedbackType] },
-                text: getTitleForFeedbackType(feedbackType, validationMessagesWithFeedbackType.length),
-                feedbackType
+                isChildComponent: true,
+                feedbackType,
+                resourceValues: {
+                    title: getTitleForFeedbackType(feedbackType, validationMessagesWithFeedbackType.length),
+                    data: validationMessagesWithFeedbackType
+                }
             });
             const feedbackListElement = createCustomElement("custom-feedbacklist-data", htmlAttributes);
             validationMessagesContainer.appendChild(feedbackListElement);

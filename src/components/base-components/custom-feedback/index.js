@@ -1,5 +1,5 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { getComponentContainerElement } from "../../../functions/helpers.js";
@@ -14,13 +14,13 @@ export default customElements.define(
     "custom-feedback",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const value = component?.formData?.simpleBinding;
-            if (!value && !!componentContainerElement) {
+            const value = component?.resourceValues?.data;
+            if (component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                this.innerHTML = renderFeedbackElement(value, component?.feedbackType, component?.styleOverride);
+                this.innerHTML = renderFeedbackElement(value, component?.feedbackType);
             }
         }
     }

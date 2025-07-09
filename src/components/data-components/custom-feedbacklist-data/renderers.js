@@ -32,8 +32,11 @@ export function renderFeedbackListElement(title, feedbackMessages, feedbackType,
         const feedbackListItemElement = document.createElement("div");
         feedbackListItemElement.classList.add("feedback-list-item");
         const htmlAttributes = new CustomElementHtmlAttributes({
-            formData: { simpleBinding: message },
-            feedbackType: "default"
+            isChildComponent: true,
+            feedbackType: "default",
+            resourceValues: {
+                data: message
+            }
         });
         feedbackListItemElement.appendChild(createCustomElement("custom-feedback-data", htmlAttributes));
         feedbackListElement.appendChild(feedbackListItemElement);

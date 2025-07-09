@@ -1,23 +1,19 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 export default customElements.define(
     "custom-feedback-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            const value = component?.formData?.simpleBinding;
-            if (!hasValue(value) && !!componentContainerElement) {
+            if (component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                component.setFormData({
-                    simpleBinding: value
-                });
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-feedback", htmlAttributes).outerHTML;
             }
