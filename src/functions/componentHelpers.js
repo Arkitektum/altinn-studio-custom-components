@@ -8,6 +8,7 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
+import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
 import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
@@ -43,6 +44,8 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-header":
             return new CustomHeader(component);
+        case "custom-header-text":
+            return new CustomHeaderText(component);
         case "custom-list":
             return new CustomList(component);
         case "custom-list-data":

@@ -1,6 +1,6 @@
 // Classes
-import CustomComponent from "../../../classes/system-classes/CustomComponent.js";
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { addStyle, createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
@@ -12,7 +12,7 @@ export default customElements.define(
     "custom-header-text",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = new instantiateComponent(this);
             if (!component?.isChildComponent) {
                 const containerElement = getComponentContainerElement(this);
                 addStyle(containerElement, {
