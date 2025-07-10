@@ -2,7 +2,6 @@ import {
     hasValue,
     isNumberLargerThanZero,
     addStyle,
-    getComponentTexts,
     getEmptyFieldText,
     getRowNumberTitle,
     createCustomElement,
@@ -11,7 +10,6 @@ import {
     getTextResources,
     validateTexts,
     validateFormData,
-    getAsync,
     getComponentContainerElement,
     getValueFromDataKey,
     getTextResourceFromResourceBinding,
@@ -70,19 +68,6 @@ describe("addStyle", () => {
         addStyle(el, { color: "red", background: "blue" });
         expect(el.style.color).toBe("red");
         expect(el.style.background).toBe("blue");
-    });
-});
-
-describe("getComponentTexts", () => {
-    it("returns parsed texts from attribute", async () => {
-        const el = document.createElement("div");
-        el.setAttribute("texts", '{"a":1}');
-        await expect(getComponentTexts(el)).resolves.toEqual({ a: 1 });
-    });
-    it("throws on invalid JSON", async () => {
-        const el = document.createElement("div");
-        el.setAttribute("texts", "{bad}");
-        await expect(getComponentTexts(el)).rejects.toThrow("Invalid JSON");
     });
 });
 
@@ -194,25 +179,6 @@ describe("validateFormData", () => {
     it("does not warn if present", () => {
         validateFormData({ a: 1 }, ["a"], "Comp");
         expect(console.warn).not.toHaveBeenCalled();
-    });
-});
-
-describe("getAsync", () => {
-    it("resolves if property is set after call", async () => {
-        const obj = {};
-        const promise = getAsync(obj, "foo", 100);
-        setTimeout(() => {
-            obj.foo = 42;
-        }, 10);
-        await expect(promise).resolves.toBe(42);
-    });
-    it("resolves immediately if property exists", async () => {
-        const obj = { foo: 99 };
-        await expect(getAsync(obj, "foo")).resolves.toBe(99);
-    });
-    it("rejects if timeout", async () => {
-        const obj = {};
-        await expect(getAsync(obj, "foo", 10)).rejects.toThrow(/Timeout/);
     });
 });
 

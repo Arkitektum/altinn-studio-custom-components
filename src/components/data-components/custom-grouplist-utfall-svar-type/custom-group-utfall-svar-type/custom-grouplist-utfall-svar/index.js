@@ -1,27 +1,21 @@
-// Classes
-import CustomComponent from "../../../../../classes/system-classes/CustomComponent.js";
-import CustomElementHtmlAttributes from "../../../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement } from "../../../../../functions/helpers.js";
+import { instantiateComponent } from "../../../../../functions/componentHelpers.js";
+
+// Local functions
+import { renderUtfallSvarGroup } from "./renderers.js";
 
 export default customElements.define(
     "custom-grouplist-utfall-svar",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new CustomComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && !hasValue(component?.formData?.data) && !!componentContainerElement) {
+            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                for (const utfallSvar of component?.formData?.data) {
-                    component.setFormData({ data: utfallSvar });
-                    const htmlAttributes = new CustomElementHtmlAttributes({
-                        formData: component?.formData,
-                        texts: component?.texts,
-                        hideIfEmpty: true
-                    });
-                    const utfallSvarElement = createCustomElement("custom-group-utfall-svar", htmlAttributes);
+                for (const utfallSvar of component?.resourceValues?.data) {
+                    const utfallSvarElement = renderUtfallSvarGroup(utfallSvar);
                     this.appendChild(utfallSvarElement);
                     const dividerElement = createCustomElement("custom-divider");
                     this.appendChild(dividerElement);

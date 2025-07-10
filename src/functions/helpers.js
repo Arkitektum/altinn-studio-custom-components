@@ -85,29 +85,6 @@ function setAttributes(element, attributes) {
 }
 
 /**
- * Retrieves the texts associated with a given component.
- *
- * This function first attempts to get the texts from the component's "texts" attribute.
- * If the attribute is not present, it fetches the texts asynchronously.
- *
- * @param {HTMLElement} component - The component from which to retrieve the texts.
- * @returns {Promise<Object>} A promise that resolves to the texts object.
- */
-export async function getComponentTexts(component) {
-    let texts = component.getAttribute("texts");
-    if (texts) {
-        try {
-            return JSON.parse(texts);
-        } catch (error) {
-            throw new Error("Invalid JSON");
-        }
-    } else {
-        texts = await getAsync(component, "texts");
-        return texts;
-    }
-}
-
-/**
  * Retrieves the text for an empty field from the given component.
  *
  * @param {Object} component - The component object containing text properties.
@@ -246,38 +223,6 @@ export function validateFormData(data, dataKeys, componentName) {
     dataKeys.forEach((key) => {
         if (data[key] === undefined || data[key] === null) {
             console.warn(`Missing dataModelBindings.${key} for "${componentName}".`);
-        }
-    });
-}
-
-/**
- * Waits for a property to be set on an object within a specified timeout.
- *
- * @param {Object} obj - The object to watch for the property.
- * @param {string} prop - The property to watch for.
- * @param {number} [timeout=200] - The time in milliseconds to wait before rejecting the promise.
- * @returns {Promise<any>} A promise that resolves with the value of the property once it is set, or rejects if the timeout is reached.
- * @throws {Error} If the timeout is reached before the property is set.
- */
-export function getAsync(obj, prop, timeout = 200) {
-    return new Promise((resolve, reject) => {
-        const timer = setTimeout(() => {
-            reject(new Error(`Timeout: ${prop} was not set within ${timeout}ms`));
-        }, timeout);
-
-        if (typeof obj[prop] === "undefined") {
-            Object.defineProperty(obj, prop, {
-                set: (value) => {
-                    clearTimeout(timer);
-                    Object.defineProperty(obj, prop, { value });
-                    resolve(value);
-                },
-                configurable: true,
-                enumerable: true
-            });
-        } else {
-            clearTimeout(timer);
-            resolve(obj[prop]);
         }
     });
 }
