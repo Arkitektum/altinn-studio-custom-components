@@ -14,6 +14,7 @@ import CustomFieldKommunensSaksnummer from "../classes/system-classes/component-
 import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.js";
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
+import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
@@ -66,6 +67,8 @@ export function instantiateComponent(element) {
             return new CustomFieldProsjekt(component);
         case "custom-field-telefonnummer":
             return new CustomFieldTelefonnummer(component);
+        case "custom-field-utfall-svar-status":
+            return new CustomFieldUtfallSvarStatus(component);
         case "custom-header":
             return new CustomHeader(component);
         case "custom-header-text":
