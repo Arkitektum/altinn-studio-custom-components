@@ -19,6 +19,7 @@ import CustomHeader from "../classes/system-classes/component-classes/CustomHead
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
 import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
+import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.js";
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
 import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
@@ -77,6 +78,8 @@ export function instantiateComponent(element) {
             return new CustomList(component);
         case "custom-list-data":
             return new CustomListData(component);
+        case "custom-list-vedlegg":
+            return new CustomListVedlegg(component);
         case "custom-paragraph":
             return new CustomParagraph(component);
         case "custom-paragraph-text":
