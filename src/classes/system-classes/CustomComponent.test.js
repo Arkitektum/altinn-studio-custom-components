@@ -4,8 +4,6 @@ describe("CustomComponent", () => {
     it("should initialize properties from props", () => {
         const props = {
             tagName: "custom-tag",
-            text: "Hello",
-            texts: { label: "Label" },
             inline: true,
             hideTitle: true,
             size: "large",
@@ -19,8 +17,6 @@ describe("CustomComponent", () => {
         const component = new CustomComponent(props);
 
         expect(component.tagName).toBe("custom-tag");
-        expect(component.text).toBe("Hello");
-        expect(component.texts).toEqual({ label: "Label" });
         expect(component.inline).toBe(true);
         expect(component.hideTitle).toBe(true);
         expect(component.size).toBe("large");
@@ -35,8 +31,6 @@ describe("CustomComponent", () => {
     it("should not set properties if not provided", () => {
         const component = new CustomComponent({});
         expect(component.tagName).toBeUndefined();
-        expect(component.text).toBeUndefined();
-        expect(component.texts).toBeUndefined();
         expect(component.inline).toBeUndefined();
         expect(component.hideTitle).toBeUndefined();
         expect(component.size).toBeUndefined();
@@ -53,19 +47,6 @@ describe("CustomComponent", () => {
         const formData = { field: "value" };
         component.setFormData(formData);
         expect(component.formData).toEqual(formData);
-    });
-
-    it("should set texts using setTexts", () => {
-        const component = new CustomComponent({});
-        const texts = { label: "Test" };
-        component.setTexts(texts);
-        expect(component.texts).toEqual(texts);
-    });
-
-    it("should set text using setText", () => {
-        const component = new CustomComponent({});
-        component.setText("New text");
-        expect(component.text).toBe("New text");
     });
 
     it("should not throw if props is undefined", () => {

@@ -31,9 +31,7 @@ describe("CustomElementHtmlAttributes", () => {
                 inline: true,
                 styleOverride: { color: "red" },
                 grid: { xs: 12 },
-                texts: { title: "Title" },
                 tableColumns: [{ name: "col1" }],
-                textResources: { key: "value" },
                 itemKey: "item-1",
                 id: "id-123",
                 feedbackType: "error",
@@ -57,9 +55,7 @@ describe("CustomElementHtmlAttributes", () => {
             expect(instance.inline).toBe("true");
             expect(instance.styleOverride).toBe(JSON.stringify(props.styleOverride));
             expect(instance.grid).toBe(JSON.stringify(props.grid));
-            expect(instance.texts).toBe(JSON.stringify(props.texts));
             expect(instance.tableColumns).toBe(JSON.stringify(props.tableColumns));
-            expect(instance.textResources).toBe(JSON.stringify(props.textResources));
             expect(instance.itemKey).toBe("item-1");
             expect(instance.id).toBe("id-123");
             expect(instance.feedbackType).toBe("error");
@@ -81,7 +77,6 @@ describe("CustomElementHtmlAttributes", () => {
             expect(instance).not.toHaveProperty("isChildComponent");
             expect(instance).not.toHaveProperty("formData");
             expect(instance).not.toHaveProperty("tagName");
-            expect(instance).not.toHaveProperty("text");
             expect(instance).not.toHaveProperty("size");
             expect(instance).not.toHaveProperty("hideTitle");
             expect(instance).not.toHaveProperty("hideIfEmpty");
@@ -89,9 +84,7 @@ describe("CustomElementHtmlAttributes", () => {
             expect(instance).not.toHaveProperty("inline");
             expect(instance).not.toHaveProperty("styleOverride");
             expect(instance).not.toHaveProperty("grid");
-            expect(instance).not.toHaveProperty("texts");
             expect(instance).not.toHaveProperty("tableColumns");
-            expect(instance).not.toHaveProperty("textResources");
             expect(instance).not.toHaveProperty("itemKey");
             expect(instance).not.toHaveProperty("id");
             expect(instance).not.toHaveProperty("feedbackType");
@@ -150,25 +143,6 @@ describe("CustomElementHtmlAttributes", () => {
         it("should return undefined if tagName is not present", () => {
             const instance = new CustomElementHtmlAttributes({});
             expect(instance.getTagNameAttributeFromProps({})).toBeUndefined();
-        });
-    });
-
-    describe("getTextAttributeFromProps", () => {
-        it("should return text if present", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextAttributeFromProps({ text: "abc" })).toBe("abc");
-        });
-        it("should fallback to texts.title if text is not present", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextAttributeFromProps({ texts: { title: "fallback" } })).toBe("fallback");
-        });
-        it("should return empty string if hideTitle is true", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextAttributeFromProps({ text: "abc", hideTitle: true })).toBe("");
-        });
-        it("should return empty string if nothing is present", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextAttributeFromProps({})).toBe("");
         });
     });
 
@@ -259,19 +233,6 @@ describe("CustomElementHtmlAttributes", () => {
         });
     });
 
-    describe("getTextsAttributeFromProps", () => {
-        it("should return JSON string if texts is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextsAttributeFromProps({ texts: ["a", "b"] })).toBe(JSON.stringify(["a", "b"]));
-        });
-        it("should return falsey if texts is not present", () => {
-            hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextsAttributeFromProps({})).toBe(false);
-        });
-    });
-
     describe("getTableColumnsAttributeFromProps", () => {
         it("should return JSON string if tableColumns is present", () => {
             hasValue.mockReturnValue(true);
@@ -282,19 +243,6 @@ describe("CustomElementHtmlAttributes", () => {
             hasValue.mockReturnValue(false);
             const instance = new CustomElementHtmlAttributes({});
             expect(instance.getTableColumnsAttributeFromProps({})).toBe(false);
-        });
-    });
-
-    describe("getTextResourcesAttributeFromProps", () => {
-        it("should return JSON string if textResources is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextResourcesAttributeFromProps({ textResources: { a: 1 } })).toBe(JSON.stringify({ a: 1 }));
-        });
-        it("should return falsey if textResources is not present", () => {
-            hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTextResourcesAttributeFromProps({})).toBe(false);
         });
     });
 

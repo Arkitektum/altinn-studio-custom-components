@@ -24,12 +24,6 @@ export default class CustomComponent {
         if (props?.tagName) {
             this.tagName = props.tagName;
         }
-        if (props?.text) {
-            this.text = props.text;
-        }
-        if (props?.texts) {
-            this.texts = props.texts;
-        }
         if (props?.inline) {
             this.inline = props.inline;
         }
@@ -66,23 +60,5 @@ export default class CustomComponent {
      */
     setFormData(formData) {
         this.formData = formData;
-    }
-
-    /**
-     * Sets the texts for the custom component.
-     *
-     * @param {Object} texts - An object containing the texts to be set.
-     */
-    setTexts(texts) {
-        this.texts = texts;
-    }
-
-    /**
-     * Sets the text property of the CustomComponent instance.
-     *
-     * @param {string} text - The text to set.
-     */
-    setText(text) {
-        this.text = text;
     }
 }

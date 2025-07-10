@@ -31,17 +31,17 @@ export default class CustomDispensasjon extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const textResourceBindings = this.getResourceBindings();
+        const resourceBindings = this.getResourceBindings();
 
         const isEmpty = !this.hasContent(data);
         const isPlanBestemmelseType = this.dataIsPlanBestemmelseType(data);
-        const validationMessages = this.getValidationMessages(textResourceBindings);
+        const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
         this.isPlanBestemmelseType = isPlanBestemmelseType;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.resourceBindings = textResourceBindings;
+        this.resourceBindings = resourceBindings;
         this.resourceValues = {
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };

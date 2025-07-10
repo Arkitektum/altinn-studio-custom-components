@@ -14,7 +14,6 @@ export default class CustomElementHtmlAttributes {
      * @param {boolean} [props.isChildComponent] - Indicates if the component is a child component.
      * @param {*} [props.formData] - The form data associated with the component.
      * @param {string} [props.tagName] - The tag name of the custom element.
-     * @param {string} [props.text] - The text content of the component.
      * @param {string} [props.size] - The size attribute of the component.
      * @param {boolean} [props.hideTitle] - Determines if the title should be hidden.
      * @param {boolean} [props.hideIfEmpty] - Determines if the component should be hidden when empty.
@@ -22,9 +21,7 @@ export default class CustomElementHtmlAttributes {
      * @param {boolean} [props.inline] - Indicates if the component should be displayed inline.
      * @param {Object} [props.styleOverride] - Custom styles to override default styles.
      * @param {Object} [props.grid] - Grid configuration for the component.
-     * @param {Array} [props.texts] - An array of text elements associated with the component.
      * @param {Array} [props.tableColumns] - An array of table column configurations.
-     * @param {Object} [props.textResources] - Text resources for the component.
      * @param {string} [props.itemKey] - A unique key for the item.
      * @param {string} [props.id] - The ID of the component.
      * @param {string} [props.feedbackType] - The type of feedback associated with the component.
@@ -39,7 +36,6 @@ export default class CustomElementHtmlAttributes {
         const isChildComponent = this.getIsChildComponentAttributeFromProps(props);
         const formData = this.getFormDataAttributeFromProps(props);
         const tagName = this.getTagNameAttributeFromProps(props);
-        const text = this.getTextAttributeFromProps(props);
         const size = this.getSizeAttributeFromProps(props);
         const hideTitle = this.getHideTitleAttributeFromProps(props);
         const hideIfEmpty = this.getHideIfEmptyAttributeFromProps(props);
@@ -47,9 +43,7 @@ export default class CustomElementHtmlAttributes {
         const inline = this.getInlineAttributeFromProps(props);
         const styleOverride = this.getStyleOverrideAttributeFromProps(props);
         const grid = this.getGridAttributeFromProps(props);
-        const texts = this.getTextsAttributeFromProps(props);
         const tableColumns = this.getTableColumnsAttributeFromProps(props);
-        const textResources = this.getTextResourcesAttributeFromProps(props);
         const itemKey = this.getItemKeyAttributeFromProps(props);
         const id = this.getIdAttributeFromProps(props);
         const feedbackType = this.getFeedbackTypeAttributeFromProps(props);
@@ -67,9 +61,6 @@ export default class CustomElementHtmlAttributes {
         }
         if (tagName) {
             this.tagName = tagName;
-        }
-        if (text) {
-            this.text = text;
         }
         if (size) {
             this.size = size;
@@ -92,14 +83,8 @@ export default class CustomElementHtmlAttributes {
         if (grid) {
             this.grid = grid;
         }
-        if (texts) {
-            this.texts = texts;
-        }
         if (tableColumns) {
             this.tableColumns = tableColumns;
-        }
-        if (textResources) {
-            this.textResources = textResources;
         }
         if (itemKey) {
             this.itemKey = itemKey;
@@ -171,23 +156,6 @@ export default class CustomElementHtmlAttributes {
      */
     getTagNameAttributeFromProps(props) {
         return props?.tagName ? props?.tagName.toString() : undefined;
-    }
-
-    /**
-     * Retrieves a text attribute from the provided props object.
-     * The method prioritizes the `text` property, falling back to the `texts.title` property if `text` is not available.
-     * If the `hideTitle` property is set to true, the method returns an empty string.
-     *
-     * @param {Object} props - The properties object to extract the text attribute from.
-     * @param {string} [props.text] - The primary text attribute.
-     * @param {Object} [props.texts] - An object containing additional text attributes.
-     * @param {string} [props.texts.title] - A fallback text attribute if `text` is not provided.
-     * @param {boolean} [props.hideTitle] - A flag indicating whether the title should be hidden.
-     * @returns {string} The extracted text attribute, or an empty string if `hideTitle` is true.
-     */
-    getTextAttributeFromProps(props) {
-        const textAttribute = props?.text?.toString() || props?.texts?.title?.toString() || "";
-        return !props?.hideTitle ? textAttribute : "";
     }
 
     /**
@@ -275,19 +243,6 @@ export default class CustomElementHtmlAttributes {
     }
 
     /**
-     * Retrieves the `texts` attribute from the provided props object.
-     * If the `texts` attribute exists and has a value, it returns the JSON stringified version of it.
-     * Otherwise, it returns `undefined`.
-     *
-     * @param {Object} props - The props object containing the `texts` attribute.
-     * @param {Object|Array|string|number|boolean|null} [props.texts] - The `texts` attribute to be processed.
-     * @returns {string|undefined} The JSON stringified `texts` attribute if it exists and has a value, otherwise `undefined`.
-     */
-    getTextsAttributeFromProps(props) {
-        return hasValue(props?.texts) && JSON.stringify(props?.texts);
-    }
-
-    /**
      * Retrieves the `tableColumns` attribute from the provided props object.
      * If the `tableColumns` property exists and has a value, it returns the
      * JSON stringified version of the `tableColumns` property. Otherwise, it
@@ -298,19 +253,6 @@ export default class CustomElementHtmlAttributes {
      */
     getTableColumnsAttributeFromProps(props) {
         return hasValue(props?.tableColumns) && JSON.stringify(props?.tableColumns);
-    }
-
-    /**
-     * Retrieves the `textResources` attribute from the provided props object.
-     * If the `textResources` property exists and has a value, it returns the
-     * JSON stringified version of the `textResources`. Otherwise, it returns `undefined`.
-     *
-     * @param {Object} props - The props object containing the `textResources` attribute.
-     * @param {any} [props.textResources] - The text resources to be checked and stringified.
-     * @returns {string|undefined} The JSON stringified `textResources` if it exists and has a value, otherwise `undefined`.
-     */
-    getTextResourcesAttributeFromProps(props) {
-        return hasValue(props?.textResources) && JSON.stringify(props?.textResources);
     }
 
     /**
