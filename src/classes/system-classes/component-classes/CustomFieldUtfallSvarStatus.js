@@ -14,6 +14,23 @@ import {
 } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
+/**
+ * CustomFieldUtfallSvarStatus is a custom component class for handling the display and validation
+ * of "utfall svar status" (outcome answer status) in a form. It manages resource bindings,
+ * retrieves and formats status text, and handles validation messages.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} [props.resourceBindings] - Optional resource bindings for localization.
+ * @param {string} [props.resourceBindings.title] - Optional override for the title resource key.
+ *
+ * @property {boolean} isEmpty - Indicates if the component's data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for the component.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceValues - Contains localized title and data for the component.
+ *
+ */
 export default class CustomFieldUtfallSvarStatus extends CustomComponent {
     constructor(props) {
         super(props);
