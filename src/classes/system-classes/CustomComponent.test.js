@@ -42,13 +42,6 @@ describe("CustomComponent", () => {
         expect(component.format).toBeUndefined();
     });
 
-    it("should set formData using setFormData", () => {
-        const component = new CustomComponent({});
-        const formData = { field: "value" };
-        component.setFormData(formData);
-        expect(component.formData).toEqual(formData);
-    });
-
     it("should not throw if props is undefined", () => {
         expect(() => new CustomComponent()).not.toThrow();
     });

@@ -8,8 +8,6 @@ export default class CustomComponent {
      *
      * @param {Object} props - The properties to initialize the component with.
      * @param {string} [props.tagName] - The tag name for the component.
-     * @param {string} [props.text] - The main text content of the component.
-     * @param {Object} [props.texts] - Additional text resources for the component.
      * @param {boolean} [props.inline] - Whether the component should be displayed inline.
      * @param {boolean} [props.hideTitle] - Whether to hide the component's title.
      * @param {string} [props.size] - The size of the component.
@@ -51,14 +49,5 @@ export default class CustomComponent {
         if (props?.format) {
             this.format = props.format;
         }
-    }
-
-    /**
-     * Sets the form data for the custom component.
-     *
-     * @param {Object} formData - The form data to be set.
-     */
-    setFormData(formData) {
-        this.formData = formData;
     }
 }
