@@ -15,6 +15,10 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
+import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
+import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
+import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
+import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
@@ -70,6 +74,14 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-field-utfall-svar-status":
             return new CustomFieldUtfallSvarStatus(component);
+        case "custom-group-utfall-svar":
+            return new CustomGroupUtfallSvar(component);
+        case "custom-group-utfall-svar-type":
+            return new CustomGroupUtfallSvarType(component);
+        case "custom-grouplist-utfall-svar":
+            return new CustomGrouplistUtfallSvar(component);
+        case "custom-grouplist-utfall-svar-type":
+            return new CustomGrouplistUtfallSvarType(component);
         case "custom-header":
             return new CustomHeader(component);
         case "custom-header-text":
