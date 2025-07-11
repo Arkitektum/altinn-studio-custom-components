@@ -7,6 +7,7 @@ import {
     getComponentDataValue,
     getComponentResourceValue,
     hasValue,
+    isNumberLargerThanZero,
     validateFormData
 } from "../../../functions/helpers.js";
 
@@ -65,10 +66,11 @@ export default class CustomFieldBooleanData extends CustomComponent {
     getValueFromFormData(component) {
         const componentName = component?.id?.length && typeof component?.id === "string" ? component.id : "custom-field-boolean-data";
         const condition = getComponentDataValue(component);
+        const conditionIsNumberLargerThanZero = isNumberLargerThanZero(condition);
         const booleanDataValues = getComponentBooleanDataValues(component);
         const dataKeys = ["trueData", "falseData", "defaultData"];
         validateFormData(booleanDataValues, dataKeys, componentName);
-        if (condition === true || condition === "true") {
+        if (condition === true || condition === "true" || conditionIsNumberLargerThanZero) {
             return booleanDataValues?.trueData !== undefined && booleanDataValues.trueData !== null ? booleanDataValues.trueData : "";
         } else if (condition === false || condition === "false") {
             return booleanDataValues?.falseData !== undefined && booleanDataValues.falseData !== null ? booleanDataValues.falseData : "";
