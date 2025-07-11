@@ -277,13 +277,14 @@ export function renderInngangsbeskrivelse(component) {
     }
     const condition = data?.soeknadstype?.kodebeskrivelse === "Annet";
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: {
-            simpleBinding: condition,
+        isChildComponent: true,
+        hideIfEmpty: false,
+        resourceValues: {
+            data: condition,
             trueData: data?.dispensasjonBeskrivelse?.annenInngangsbeskrivelse,
             falseData: data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse,
             defaultData: data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse
-        },
-        hideIfEmpty: true
+        }
     });
     return addContainerElement(createCustomElement("custom-field-boolean-data", htmlAttributes));
 }
