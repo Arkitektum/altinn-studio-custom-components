@@ -40,13 +40,16 @@ export function hasValue(obj) {
 }
 
 /**
- * Checks if the given value is a number and larger than zero.
+ * Checks if the given value is a number larger than zero.
  *
- * @param {any} value - The value to check.
- * @returns {boolean} Returns `true` if the value is a number and greater than zero, otherwise `false`.
+ * Converts the input to a number if it is not already, and verifies that it is a valid number greater than zero.
+ *
+ * @param {number|string} value - The value to check.
+ * @returns {boolean} True if the value is a number greater than zero, otherwise false.
  */
 export function isNumberLargerThanZero(value) {
-    return typeof value === "number" && value > 0;
+    const num = typeof value === "number" ? value : Number(value);
+    return typeof num === "number" && !isNaN(num) && num > 0;
 }
 
 /**
