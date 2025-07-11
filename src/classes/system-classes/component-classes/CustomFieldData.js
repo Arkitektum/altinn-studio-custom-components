@@ -3,6 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { formatString } from "../../../functions/dataFormatHelpers.js";
 
 /**
  * CustomFieldData is a class that extends CustomComponent to handle custom field data logic.
@@ -46,12 +47,13 @@ export default class CustomFieldData extends CustomComponent {
     }
 
     /**
-     * Retrieves the value of the component from the provided form data properties.
+     * Retrieves and formats the value from the provided form data props.
      *
-     * @param {Object} props - The properties containing form data for the component.
-     * @returns {*} The value extracted from the form data for the component.
+     * @param {Object} props - The properties containing form data and formatting options.
+     * @returns {string} The formatted value extracted from the form data.
      */
     getValueFromFormData(props) {
-        return getComponentDataValue(props);
+        const data = getComponentDataValue(props);
+        return formatString(data, props?.format);
     }
 }
