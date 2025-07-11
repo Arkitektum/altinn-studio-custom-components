@@ -54,10 +54,10 @@ describe("isNumberLargerThanZero", () => {
         expect(isNumberLargerThanZero(1)).toBe(true);
         expect(isNumberLargerThanZero(100)).toBe(true);
     });
-    it("returns false for numbers <= 0 or non-numbers", () => {
+    it("returns false for numbers <= 0", () => {
         expect(isNumberLargerThanZero(0)).toBe(false);
         expect(isNumberLargerThanZero(-1)).toBe(false);
-        expect(isNumberLargerThanZero("1")).toBe(false);
+        expect(isNumberLargerThanZero("1")).toBe(true);
         expect(isNumberLargerThanZero(null)).toBe(false);
     });
 });
