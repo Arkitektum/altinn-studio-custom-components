@@ -277,13 +277,14 @@ export function renderInngangsbeskrivelse(component) {
     }
     const condition = data?.soeknadstype?.kodebeskrivelse === "Annet";
     const htmlAttributes = new CustomElementHtmlAttributes({
-        formData: {
-            simpleBinding: condition,
+        isChildComponent: true,
+        hideIfEmpty: false,
+        resourceValues: {
+            data: condition,
             trueData: data?.dispensasjonBeskrivelse?.annenInngangsbeskrivelse,
             falseData: data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse,
             defaultData: data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse
-        },
-        hideIfEmpty: true
+        }
     });
     return addContainerElement(createCustomElement("custom-field-boolean-data", htmlAttributes));
 }
@@ -576,7 +577,6 @@ export function renderOensketVarighet(component) {
     } else if (hasValue(data?.varighet?.oensketVarighetTil)) {
         const htmlAttributes = new CustomElementHtmlAttributes({
             isChildComponent: true,
-            formData: { simpleBinding: dispensasjon?.varighet?.oensketVarighetTil },
             format: "date",
             resourceBindings: {
                 title: component.resourceBindings?.varighetOensketVarighetTil?.title
