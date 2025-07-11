@@ -7,40 +7,33 @@ import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } f
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
- * CustomTablePart is a custom component class for handling table parts in a form.
- * It manages resource bindings, validation messages, and content checks for a specific part type.
+ * CustomTablePart is a specialized component class for handling custom table parts in a form.
+ * It provides methods for extracting and validating part data, generating text resource bindings,
+ * and determining the presence of content and validation messages.
  *
  * @extends CustomComponent
  *
- * @param {Object} props - The properties object for the component.
- * @param {string} [props.partType] - The type of the part.
- * @param {Object} [props.resourceBindings] - Resource bindings for the component.
- * @param {Object} [props.formData] - Form data for the component.
- *
- * @property {boolean} isEmpty - Indicates if the component has content.
- * @property {string} partType - The type of the part.
- * @property {boolean} validationMessages - Validation messages for the component.
- * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
- * @property {Object} resourceValues - Contains resource values for title and data.
- *
  * @class
+ * @param {Object} props - The properties for the component.
+ * @param {string} [props.partType] - The type of part, used for resource key generation.
+ * @param {Object} [props.resourceBindings] - Optional custom resource bindings for fields.
+ * @param {Object} [props.formData] - The form data object.
  */
 export default class CustomTablePart extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const textResourceBindings = this.getTextResourceBindings(props.partType);
+        const resourceBindings = this.getTextResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
-        const validationMessages = this.getValidationMessages(textResourceBindings);
+        const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
         this.partType = props?.partType;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-
+        this.resourceBindings = resourceBindings;
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(textResourceBindings?.part?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }
@@ -141,16 +134,47 @@ export default class CustomTablePart extends CustomComponent {
     }
 
     /**
-     * Generates text resource bindings for a given part type.
+     * Generates text resource bindings for a custom table part component.
      *
-     * @param {string} [partType="tiltakshaver"] - The type of part to generate resource keys for.
-     * @returns {Object} An object containing resource key mappings for the specified part type.
+     * @param {Object} props - The properties for the component.
+     * @param {string} [props.partType="tiltakshaver"] - The type of part, used for resource key generation.
+     * @param {Object} [props.resourceBindings] - Optional custom resource bindings for fields.
+     * @param {Object} [props.resourceBindings.navn] - Resource bindings for the "navn" field.
+     * @param {string} [props.resourceBindings.navn.title] - Custom title for the "navn" field.
+     * @param {Object} [props.resourceBindings.telefonnummer] - Resource bindings for the "telefonnummer" field.
+     * @param {string} [props.resourceBindings.telefonnummer.title] - Custom title for the "telefonnummer" field.
+     * @param {Object} [props.resourceBindings.epost] - Resource bindings for the "epost" field.
+     * @param {string} [props.resourceBindings.epost.title] - Custom title for the "epost" field.
+     * @param {string} [props.resourceBindings.title] - Custom title for the part header.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Custom text for empty fields.
+     * @param {boolean|string} [props.hideTitle] - If true, hides the part title.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, hides the empty field text.
+     * @returns {Object} Resource bindings object for use in the component.
      */
-    getTextResourceBindings(partType = "tiltakshaver") {
-        return {
-            part: {
-                title: `resource.${partType}.header`
+    getTextResourceBindings(props) {
+        const partType = props?.partType || "tiltakshaver";
+        const resourceBindings = {
+            navn: {
+                title: props?.resourceBindings?.navn?.title || `resource.${partType}.navn.title`
+            },
+            telefonnummer: {
+                title: props?.resourceBindings?.telefonnummer?.title || `resource.${partType}.telefonnummer.title`
+            },
+            epost: {
+                title: props?.resourceBindings?.epost?.title || `resource.${partType}.epost.title`
             }
         };
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.part = {
+                title: props?.resourceBindings?.title || `resource.${partType}.header`
+            };
+        }
+        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+            resourceBindings.part = {
+                ...resourceBindings.part,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
     }
 }
