@@ -7,38 +7,36 @@ import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } f
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
- * CustomTableEiendom is a custom component class for handling and displaying a list of "eiendom" (property) objects.
- * It provides utility methods for extracting, validating, and formatting property data from form input,
- * as well as for retrieving localized text resources and validation messages.
+ * CustomTableEiendom is a specialized component class for handling and displaying
+ * property ("eiendom") data in a custom table format. It provides methods for extracting,
+ * validating, and binding text resources to property fields, as well as utility functions
+ * for checking the presence and validity of property-related data.
  *
- * @class
  * @extends CustomComponent
  *
- * @param {Object} props - The properties containing form data, resource bindings, and component information.
+ * @class
+ * @param {Object} props - The properties for the component, including form data and resource bindings.
  *
- * @property {boolean} isEmpty - Indicates if the component's data is empty.
- * @property {boolean} validationMessages - Indicates if there are missing text resources for validation.
- * @property {boolean} hasValidationMessages - Indicates if there are any validation messages.
- * @property {Object} resourceValues - Contains localized text resources for the component.
- * @property {string} resourceValues.title - The localized title for the component.
- * @property {string|Array} resourceValues.data - The localized empty field text or the data array.
- *
+ * @property {boolean} isEmpty - Indicates if the property data is empty.
+ * @property {boolean} hasValidationMessages - Indicates if there are missing text resources for validation.
+ * @property {Object} validationMessages - Validation messages based on text resource bindings.
+ * @property {Object} resourceBindings - Text resource bindings for property fields.
+ * @property {Object} resourceValues - Resolved text resources for display, including empty field text.
  */
 export default class CustomTableEiendom extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const textResourceBindings = this.getTextResourceBindings();
+        const resourceBindings = this.getTextResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
-        const validationMessages = this.getValidationMessages(textResourceBindings);
+        const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-
+        this.resourceBindings = resourceBindings;
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(textResourceBindings?.part?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }
@@ -173,17 +171,77 @@ export default class CustomTableEiendom extends CustomComponent {
     }
 
     /**
-     * Returns the text resource bindings for the component.
+     * Generates an object containing text resource bindings for various property fields.
+     * The bindings are determined by the provided `props` object, falling back to default resource keys if not specified.
      *
-     * @returns {Object} An object containing text resource keys for localization.
-     * @returns {Object} return.eiendomByggested - Bindings related to 'eiendomByggested'.
-     * @returns {string} return.eiendomByggested.title - The resource key for the 'eiendom' title.
+     * @param {Object} props - The properties object containing resource bindings and configuration flags.
+     * @param {Object} [props.resourceBindings] - Custom resource bindings for each field.
+     * @param {Object} [props.resourceBindings.adresse] - Resource bindings for the address field.
+     * @param {string} [props.resourceBindings.adresse.title] - Custom title for the address field.
+     * @param {string} [props.resourceBindings.adresse.emptyFieldText] - Custom empty field text for the address field.
+     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon] - Resource bindings for property identification fields.
+     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.gaardsnummer] - Resource bindings for gaardsnummer.
+     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.gaardsnummer.title] - Custom title for gaardsnummer.
+     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.bruksnummer] - Resource bindings for bruksnummer.
+     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.bruksnummer.title] - Custom title for bruksnummer.
+     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.seksjonsnummer] - Resource bindings for seksjonsnummer.
+     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.seksjonsnummer.title] - Custom title for seksjonsnummer.
+     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.festenummer] - Resource bindings for festenummer.
+     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.festenummer.title] - Custom title for festenummer.
+     * @param {Object} [props.resourceBindings.bolignummer] - Resource bindings for bolignummer.
+     * @param {string} [props.resourceBindings.bolignummer.title] - Custom title for bolignummer.
+     * @param {Object} [props.resourceBindings.bygningsnummer] - Resource bindings for bygningsnummer.
+     * @param {string} [props.resourceBindings.bygningsnummer.title] - Custom title for bygningsnummer.
+     * @param {string} [props.resourceBindings.title] - Custom title for eiendomByggested.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text for eiendomByggested.
+     * @param {boolean|string} [props.hideTitle] - If true or "true", omits the eiendomByggested title binding.
+     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omits the eiendomByggested empty field text binding.
+     * @returns {Object} An object containing the resolved text resource bindings for each field.
      */
-    getTextResourceBindings() {
-        return {
-            eiendomByggested: {
-                title: "resource.eiendomByggested.eiendom.title"
+    getTextResourceBindings(props) {
+        const resourceBindings = {
+            adresse: {
+                title: props?.resourceBindings?.adresse?.title || "resource.eiendomByggested.eiendom.adresse.title",
+                emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.eiendomByggested.eiendom.adresse.emptyFieldText"
+            },
+            eiendomsidentifikasjonGaardsnummer: {
+                title:
+                    props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title ||
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title"
+            },
+            eiendomsidentifikasjonBruksnummer: {
+                title:
+                    props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title ||
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title"
+            },
+            eiendomsidentifikasjonSeksjonsnummer: {
+                title:
+                    props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title ||
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title"
+            },
+            eiendomsidentifikasjonFestenummer: {
+                title:
+                    props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title ||
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title"
+            },
+            bolignummer: {
+                title: props?.resourceBindings?.bolignummer?.title || "resource.eiendomByggested.eiendom.bolignummer.title"
+            },
+            bygningsnummer: {
+                title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendomByggested.eiendom.bygningsnummer.title"
             }
         };
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.eiendomByggested = {
+                title: props?.resourceBindings?.title || "resource.eiendomByggested.eiendom.title"
+            };
+        }
+        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+            resourceBindings.eiendomByggested = {
+                ...resourceBindings.eiendomByggested,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
     }
 }
