@@ -576,7 +576,6 @@ export function renderOensketVarighet(component) {
     } else if (hasValue(data?.varighet?.oensketVarighetTil)) {
         const htmlAttributes = new CustomElementHtmlAttributes({
             isChildComponent: true,
-            formData: { simpleBinding: dispensasjon?.varighet?.oensketVarighetTil },
             format: "date",
             resourceBindings: {
                 title: component.resourceBindings?.varighetOensketVarighetTil?.title
