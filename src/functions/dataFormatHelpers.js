@@ -20,11 +20,54 @@ export function getAvailableDateTimeLanguageOrDefault(language) {
 }
 
 /**
- * Checks if a given string is a valid date string.
+ * Parses a date string in the format "dd.mm.yyyy" and returns the date in ISO format.
+ * Returns null if the input is not a valid date or does not match the expected format.
  *
- * @param {string} dateString - The date string to validate.
- * @returns {boolean} - Returns `true` if the date string is valid, otherwise `false`.
+ * @param {string} dateString - The date string to parse (expected format: "dd.mm.yyyy").
+ * @returns {string|null} The ISO formatted date string if valid, otherwise null.
  */
+function parseDateString(dateString) {
+    // Match the string against the dd.mm.yyyy format
+    const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+    const match = dateString.match(regex);
+
+    if (!match) return null;
+
+    const day = parseInt(match[1], 10);
+    const month = parseInt(match[2], 10) - 1; // JavaScript months are 0-based
+    const year = parseInt(match[3], 10);
+
+    const date = new Date(year, month, day);
+
+    // Check if the constructed date is valid and matches input (to avoid invalid ones like 32.01.2024)
+    if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day) {
+        return date.toISOString(); // Return in ISO format
+    }
+
+    return null; // Not a valid date
+}
+
+/**
+ * Parses a time string in the format "hh:mm" or "hh:mm:ss" and returns an ISO 8601 string.
+ *
+ * @param {string} timeString - The time string to parse (e.g., "13:45" or "13:45:30").
+ * @returns {string|null} The ISO 8601 formatted string representing the time, or null if the input is invalid.
+ */
+function parseTimeString(timeString) {
+    // Match the string against the hh:mm:ss format
+    const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
+    const match = timeString.match(regex);
+    if (!match) return null;
+    const hours = parseInt(match[1], 10);
+    const minutes = parseInt(match[2], 10);
+    const seconds = match[3] ? parseInt(match[3], 10) : 0;
+    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
+        return null; // Invalid time
+    }
+    const date = new Date(1970, 0, 1, hours, minutes, seconds); // Use a fixed date
+    return date.toISOString(); // Return in ISO format
+}
+
 export function isValidDateString(dateString) {
     const date = new Date(dateString);
     return !!dateString && !isNaN(date.getTime());
@@ -55,15 +98,15 @@ export function formatDateTime(dateTime, language = "default") {
 }
 
 /**
- * Formats a given date string according to the specified language or default locale.
+ * Formats a date string according to the specified language locale.
  *
- * @param {string} date - The date string to format.
- * @param {string} [language="default"] - The language code to format the date in. Defaults to "default".
- * @returns {string} - The formatted date string.
+ * @param {string|Date} date - The date string or Date object to format.
+ * @param {string} [language="default"] - The language code for formatting (e.g., "en", "no"). Defaults to "default".
+ * @returns {string} The formatted date string.
  */
 export function formatDate(date, language = "default") {
     if (!isValidDateString(date)) {
-        throw new Error("Invalid date input");
+        date = parseDateString(date);
     }
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.date[language];
@@ -72,11 +115,15 @@ export function formatDate(date, language = "default") {
 }
 
 /**
- * Formats a given time string according to the specified language.
+ * Formats a time string according to the specified language/locale.
  *
- * @param {string} time - The time string to format.
- * @param {string} [language="default"] - The language code to use for formatting. Defaults to "default".
- * @returns {string} - The formatted time string.
+ * If the input time string does not contain a date, a default date is prepended.
+ * If the time string is not valid, it attempts to parse it.
+ * The formatted time is returned using the appropriate locale and formatting options.
+ *
+ * @param {string} time - The time string to format (e.g., "12:34:56" or "1970-01-01T12:34:56").
+ * @param {string} [language="default"] - The language/locale to use for formatting.
+ * @returns {string} The formatted time string.
  */
 export function formatTime(time, language = "default") {
     const timeHasDate = time.includes("T");
@@ -84,7 +131,7 @@ export function formatTime(time, language = "default") {
         time = "1970-01-01T" + time; // Append date if not present
     }
     if (!isValidDateString(time)) {
-        throw new Error("Invalid time input");
+        time = parseTimeString(time);
     }
 
     // Format the time string
