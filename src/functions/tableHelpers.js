@@ -39,6 +39,7 @@ export function getTableRows(tableColumns, data) {
             const componentProps = {
                 resourceBindings: column.resourceBindings,
                 resourceValues: { data: cellData },
+                format: column.format,
                 hideTitle: true,
                 tagName: column.tagName,
                 isChildComponent: true
