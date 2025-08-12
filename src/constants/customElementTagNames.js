@@ -27,6 +27,7 @@ export default [
     "custom-list-data",
     "custom-list-vedlegg",
     "custom-paragraph-text",
+    "custom-paragraph-text-data",
     "custom-subheader-text",
     "custom-table-data",
     "custom-table-eiendom",
