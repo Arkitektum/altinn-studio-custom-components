@@ -29,6 +29,7 @@ import customHeaderText from "./data-components/custom-header-text/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
+import customParagraphTextData from "./data-components/custom-paragraph-text-data/index.js";
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
@@ -75,6 +76,7 @@ export {
     customListData,
     customListVedlegg,
     customParagraphText,
+    customParagraphTextData,
     customSubheaderText,
     customTableData,
     customTableEiendom,
