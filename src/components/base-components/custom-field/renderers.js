@@ -1,4 +1,5 @@
 // Global functions
+import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
 import { addStyle, hasValue } from "../../../functions/helpers.js";
 
 /**
@@ -35,48 +36,6 @@ function renderFieldValueElement(fieldValue) {
     const htmlContent = hasValue(fieldValue) ? injectAnchorElements(fieldValue) : "";
     fieldValueElement.innerHTML = htmlContent;
     return fieldValueElement;
-}
-
-/**
- * Converts URLs in a given text string into HTML anchor elements.
- *
- * - Detects URLs starting with http(s):// or www.
- * - Splits the text to preserve URLs and non-URL parts.
- * - Escapes HTML in non-link text.
- * - Trims common trailing punctuation from URLs and reattaches it after the anchor.
- * - Ensures links open in a new tab with security attributes.
- *
- * @param {string} text - The input text potentially containing URLs.
- * @returns {string} The HTML string with URLs converted to anchor tags.
- */
-function injectAnchorElements(text) {
-    // One canonical URL pattern
-    const urlPattern = "(?:https?:\\/\\/(?:www\\.)?[a-zA-Z0-9][a-zA-Z0-9-]*\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]*\\.[^\\s]{2,})";
-
-    // 1) Capturing group so split keeps the URL tokens
-    const splitRegex = new RegExp(`(${urlPattern})`, "g");
-
-    // 2) Non-global tester to avoid lastIndex issues
-    const isUrl = new RegExp(`^${urlPattern}$`);
-
-    // Optional: basic HTML escape for non-link parts
-    const escapeHtml = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-    return text
-        .split(splitRegex)
-        .map((part) => {
-            if (!part) return "";
-            if (isUrl.test(part)) {
-                // Trim common trailing punctuation off the link and re-attach after the anchor
-                const m = part.match(/^(.*?)([).,!?:;]+)?$/);
-                const raw = m[1];
-                const trail = m[2] ?? "";
-                const href = raw.startsWith("http") ? raw : `https://${raw}`;
-                return `<a href="${href}" target="_blank" rel="noopener noreferrer">${raw}</a>${escapeHtml(trail)}`;
-            }
-            return escapeHtml(part);
-        })
-        .join("");
 }
 
 /**
