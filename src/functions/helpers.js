@@ -324,6 +324,19 @@ export function getComponentDataValue(component) {
         return component.formData?.simpleBinding || component.formData?.data;
     }
 }
+/**
+ * Retrieves the data title from a component's formData if it exists.
+ *
+ * @param {Object} component - The component object containing formData.
+ * @param {Object} [component.formData] - The formData object of the component.
+ * @param {string} [component.formData.dataTitle] - The data title to retrieve.
+ * @returns {string|undefined} The data title if present, otherwise undefined.
+ */
+export function getComponentDataTitle(component) {
+    if (component.formData?.dataTitle != null) {
+        return component.formData?.dataTitle;
+    }
+}
 
 /**
  * Retrieves boolean data values (trueData, falseData, defaultData) from a component object.
