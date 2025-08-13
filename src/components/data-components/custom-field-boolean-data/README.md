@@ -12,7 +12,8 @@
 | dataModelBindings.trueData      | boolean           | Reference to the data model value when the field is set to true.                    |               |
 | dataModelBindings.falseData     | boolean           | Reference to the data model value when the field is set to false.                   |               |
 | dataModelBindings.defaultData   | boolean           | Reference to the default data model value when no specific value is set.            |               |
-| textResourceBindings.title      | string            | The title text resource binding.                                                    |               |
+| resourceBindings.title          | string            | The title text resource binding.                                                    |               |
+| resourceBindings.emptyFieldText | string            | The resource binding for the text to display when the field is empty.               |               |
 | styleOverride                   | HTMLElement.style | The style override for the custom field.                                            |               |
 
 ## Example
@@ -31,8 +32,9 @@
         "falseData": "dispensasjon?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse",
         "defaultData": "dispensasjon?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse"
     },
-    "textResourceBindings": {
-        "title": "resource.eiendomByggested.eiendom.bygningsnummer.title"
+    "resourceBindings": {
+        "title": "resource.eiendomByggested.eiendom.bygningsnummer.title",
+        "emptyFieldText": "resource.emptyFieldText.default"
     }
 }
 ```
