@@ -45,15 +45,15 @@ To integrate these components into your Altinn Studio application, follow these 
 
 4. Add the following configuration to your `/views/Home/index.cshtml` file:
 
-   Make sure you replace `[APP NAME]` with the actual app name
+   Make sure you replace `[ORG NAME]` and `[APP NAME]` with the actual names
 
    ```html
    <html>
      <head>
-       <link rel="stylesheet" type="text/css" href="/dibk/[APP NAME]/altinn-studio-custom-components/main.css">
+       <link rel="stylesheet" type="text/css" href="/[ORG NAME]/[APP NAME]/altinn-studio-custom-components/main.css">
      </head>
      <body>
-       <script type="module" src="/dibk/[APP NAME]/altinn-studio-custom-components/main.js"></script>
+       <script type="module" src="/[ORG NAME]/[APP NAME]/altinn-studio-custom-components/main.js"></script>
      </body>
    </html>
    ```
@@ -78,10 +78,12 @@ These components are tailored to display specific data types consistently across
   - [Header](src/components/data-components/custom-header-text/) – Displays a title with text from a resource.
   - [Subheader](src/components/data-components/custom-subheader-text) – Displays a title with text from a resource.
   - [Paragraph](src/components/data-components/custom-paragraph-text/) – Displays a paragraph with text from a resource.
+  - [Paragraph Text Data](src/components/data-components/custom-paragraph-text-data/) – Displays a paragraph with text from a resource combined with text from data.
 - **Fields**
   - [Data](src/components/data-components/custom-field-data/) – Displays a data field with a label.
   - [Boolean Data](src/components/data-components/custom-field-boolean-data/) – Displays different data model values based on a boolean value.
   - [Boolean Text](src/components/data-components/custom-field-boolean-text/) – Displays different text resources based on a boolean value.
+  - [Count Data](src/components/data-components/custom-field-count-data/) – Displays the number of items in an array.
   - [Feedback](src/components/data-components/custom-feedback-data/) – Displays a single feedback message.
   - [Adresse](src/components/data-components/custom-field-adresse/) – Displays a complete address object
   - [Part-navn](src/components/data-components/custom-field-part-navn/) – Displays a part's name, optionally with an organization number.
