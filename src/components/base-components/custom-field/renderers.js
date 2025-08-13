@@ -33,7 +33,6 @@ function renderFieldValueElement(fieldValue) {
         fieldValue = JSON.stringify(fieldValue, null, 2);
     }
     const htmlContent = hasValue(fieldValue) ? injectAnchorElements(fieldValue) : "";
-    console.log({ fieldValue, htmlContent });
     fieldValueElement.innerHTML = htmlContent;
     return fieldValueElement;
 }
