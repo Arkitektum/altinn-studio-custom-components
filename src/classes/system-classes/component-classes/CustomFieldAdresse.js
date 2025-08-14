@@ -63,15 +63,23 @@ export default class CustomFieldAdresse extends CustomComponent {
     }
 
     /**
-     * Formats an address object into a into a single string.
+     * Formats an address object into a string with address line and zip/city.
      *
-     * @param {Adresse} adresse - The address object to format.
-     * @returns {string} The formatted address string.
+     * @param {Object} adresse - The address object to format.
+     * @returns {string} The formatted address string, combining address line and zip/city if available.
      */
     formatAdresse(adresse) {
         const adresseLinje = this.formatAdresselinje(adresse);
         const zipCity = this.formatZipCity(adresse);
-        return adresseLinje?.length ? `${adresseLinje}\n${zipCity}` : zipCity;
+        if (adresseLinje.length && zipCity.length) {
+            return `${adresseLinje}\n${zipCity}`;
+        } else if (adresseLinje.length) {
+            return adresseLinje;
+        } else if (zipCity.length) {
+            return zipCity;
+        } else {
+            return "";
+        }
     }
 
     /**
