@@ -1,5 +1,6 @@
 // Classes
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
+import CustomDispensasjonerListData from "../classes/system-classes/component-classes/CustomDispensasjonerListData.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
 import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.js";
 import CustomFeedbacklistData from "../classes/system-classes/component-classes/CustomFeedbacklistData.js";
@@ -47,6 +48,8 @@ export function instantiateComponent(element) {
             return new CustomComponent(component);
         case "custom-dispensasjon":
             return new CustomDispensasjon(component);
+        case "custom-dispensasjoner-list-data":
+            return new CustomDispensasjonerListData(component);
         case "custom-feedback":
             return new CustomFeedback(component);
         case "custom-feedback-data":

@@ -6,6 +6,7 @@ export default [
     "custom-list",
     "custom-paragraph",
     "custom-table",
+    "custom-dispensasjoner-list-data",
     "custom-feedback-data",
     "custom-feedbacklist-data",
     "custom-feedbacklist-validation-messages",
