@@ -13,7 +13,6 @@ export default customElements.define(
     class extends HTMLElement {
         connectedCallback() {
             const component = new instantiateComponent(this);
-            console.log(component);
             if (!component?.isChildComponent) {
                 const containerElement = getComponentContainerElement(this);
                 addStyle(containerElement, {

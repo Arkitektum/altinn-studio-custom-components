@@ -20,14 +20,11 @@ import { getComponentDataTitle, getComponentResourceValue } from "../../../funct
 export default class CustomHeaderTextData extends CustomComponent {
     constructor(props) {
         super(props);
-        console.log("props", props);
         this.size = props?.size;
         const textResource = getComponentResourceValue(props, "title");
         const textData = getComponentDataTitle(props);
-        console.log("textData", textData);
         this.resourceValues = {
             title: [textResource || "", textData || ""].filter(Boolean).join(" ")
         };
-        console.log(this.resourceValues);
     }
 }
