@@ -41,6 +41,8 @@ export function getPropsFromElementAttributes(element) {
         isChildComponent: getIsChildComponent(element),
         feedbackType: getFeedbackType(element),
         itemKey: getItemKey(element),
+        dataItemKey: getDataItemKey(element),
+        dataTitleItemKey: getDataTitleItemKey(element),
         hideOrgNr: getHideOrgNr(element),
         format: getFormat(element),
         tableColumns: getTableColumns(element),
@@ -177,6 +179,30 @@ function getFeedbackType(element) {
 function getItemKey(element) {
     const itemKey = element?.getAttribute("itemKey");
     return hasValue(itemKey) && itemKey;
+}
+
+/**
+ * Retrieves the value of the "dataItemKey" attribute from the given HTML element.
+ * Returns the value only if it is defined and not empty, otherwise returns false.
+ *
+ * @param {HTMLElement} element - The HTML element to extract the dataItemKey from.
+ * @returns {(string|false)} The value of the dataItemKey attribute if present and valid, otherwise false.
+ */
+function getDataItemKey(element) {
+    const dataItemKey = element?.getAttribute("dataItemKey");
+    return hasValue(dataItemKey) && dataItemKey;
+}
+
+/**
+ * Retrieves the value of the "dataTitleItemKey" attribute from the given HTML element,
+ * if it exists and is considered valid by the `hasValue` function.
+ *
+ * @param {HTMLElement} element - The HTML element from which to retrieve the attribute.
+ * @returns {string|false} The value of the "dataTitleItemKey" attribute if valid, otherwise false.
+ */
+function getDataTitleItemKey(element) {
+    const dataTitleItemKey = element?.getAttribute("dataTitleItemKey");
+    return hasValue(dataTitleItemKey) && dataTitleItemKey;
 }
 
 /**

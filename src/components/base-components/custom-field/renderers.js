@@ -1,4 +1,5 @@
 // Global functions
+import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
 import { addStyle, hasValue } from "../../../functions/helpers.js";
 
 /**
@@ -32,7 +33,8 @@ function renderFieldValueElement(fieldValue) {
     if (typeof fieldValue === "object") {
         fieldValue = JSON.stringify(fieldValue, null, 2);
     }
-    fieldValueElement.innerHTML = hasValue(fieldValue) ? fieldValue : "";
+    const htmlContent = hasValue(fieldValue) ? injectAnchorElements(fieldValue) : "";
+    fieldValueElement.innerHTML = htmlContent;
     return fieldValueElement;
 }
 

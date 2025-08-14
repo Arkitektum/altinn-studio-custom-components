@@ -2,7 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { formatString } from "../../../functions/dataFormatHelpers.js";
 
 /**
@@ -27,11 +27,13 @@ export default class CustomFieldData extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
+        const dataTitle = getComponentDataTitle(props);
         const isEmpty = !this.hasContent(data);
+        const isDataTitleEmpty = !this.hasContent(dataTitle);
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: !props?.hideTitle && getComponentResourceValue(props, "title"),
+            title: !props?.hideTitle && ((!isDataTitleEmpty && dataTitle) || getComponentResourceValue(props, "title")),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }

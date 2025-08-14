@@ -45,6 +45,8 @@ export default class CustomElementHtmlAttributes {
         const grid = this.getGridAttributeFromProps(props);
         const tableColumns = this.getTableColumnsAttributeFromProps(props);
         const itemKey = this.getItemKeyAttributeFromProps(props);
+        const dataItemKey = this.getDataItemKeyAttributeFromProps(props);
+        const dataTitleItemKey = this.getDataTitleItemKeyAttributeFromProps(props);
         const id = this.getIdAttributeFromProps(props);
         const feedbackType = this.getFeedbackTypeAttributeFromProps(props);
         const hideOrgNr = this.getHideOrgNr(props);
@@ -88,6 +90,12 @@ export default class CustomElementHtmlAttributes {
         }
         if (itemKey) {
             this.itemKey = itemKey;
+        }
+        if (dataItemKey) {
+            this.dataItemKey = dataItemKey;
+        }
+        if (dataTitleItemKey) {
+            this.dataTitleItemKey = dataTitleItemKey;
         }
         if (id) {
             this.id = id;
@@ -264,6 +272,27 @@ export default class CustomElementHtmlAttributes {
      */
     getItemKeyAttributeFromProps(props) {
         return hasValue(props?.itemKey) && props?.itemKey;
+    }
+
+    /**
+     * Retrieves the `dataItemKey` attribute from the given props object if it has a value.
+     *
+     * @param {Object} props - The props object containing potential attributes.
+     * @param {*} props.dataItemKey - The key to be retrieved if it has a value.
+     * @returns {*} The value of `dataItemKey` if it exists and is valid; otherwise, returns undefined or false.
+     */
+    getDataItemKeyAttributeFromProps(props) {
+        return hasValue(props?.dataItemKey) && props?.dataItemKey;
+    }
+
+    /**
+     * Retrieves the 'dataTitleItemKey' attribute from the given props if it has a value.
+     *
+     * @param {Object} props - The properties object to extract the attribute from.
+     * @returns {*} The value of 'dataTitleItemKey' if it exists and is valid; otherwise, returns undefined or a falsy value.
+     */
+    getDataTitleItemKeyAttributeFromProps(props) {
+        return hasValue(props?.dataTitleItemKey) && props?.dataTitleItemKey;
     }
 
     /**
