@@ -27,6 +27,7 @@ import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customHeaderText from "./data-components/custom-header-text/index.js";
+import customHeaderTextData from "./data-components/custom-header-text-data/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
@@ -75,6 +76,7 @@ export {
     customGrouplistUtfallSvar,
     customGroupUtfallSvar,
     customHeaderText,
+    customHeaderTextData,
     customListData,
     customListVedlegg,
     customParagraphText,

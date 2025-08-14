@@ -333,6 +333,7 @@ export function getComponentDataValue(component) {
  * @returns {string|undefined} The data title if present, otherwise undefined.
  */
 export function getComponentDataTitle(component) {
+    console.log("component", component);
     if (component.formData?.dataTitle != null) {
         return component.formData?.dataTitle;
     }

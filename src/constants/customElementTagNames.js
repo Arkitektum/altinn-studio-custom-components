@@ -25,6 +25,7 @@ export default [
     "custom-grouplist-utfall-svar",
     "custom-group-utfall-svar",
     "custom-header-text",
+    "custom-header-text-data",
     "custom-list-data",
     "custom-list-vedlegg",
     "custom-paragraph-text",

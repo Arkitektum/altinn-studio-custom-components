@@ -1,0 +1,6 @@
+custom-header-text {
+    display: block;
+    width: 100%;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+}
