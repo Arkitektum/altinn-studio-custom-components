@@ -40,12 +40,7 @@ export default class CustomFieldListData extends CustomComponent {
 
         if (Array.isArray(data) && data.length) {
             this.resourceValues = {
-                data: data.map((titleDataPair) => {
-                    return {
-                        title: titleDataPair.title,
-                        data: titleDataPair.item
-                    };
-                })
+                data
             };
         }
     }
@@ -96,7 +91,7 @@ export default class CustomFieldListData extends CustomComponent {
 
             return Array.from({ length: len }, (_, i) => ({
                 title: dataTitles[i],
-                item: dataItems[i]
+                data: dataItems[i]
             }));
         }
     }
