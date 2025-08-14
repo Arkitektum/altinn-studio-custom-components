@@ -26,14 +26,10 @@ import { formatString } from "../../../functions/dataFormatHelpers.js";
 export default class CustomFieldData extends CustomComponent {
     constructor(props) {
         super(props);
-        console.log(props);
         const data = this.getValueFromFormData(props);
         const dataTitle = getComponentDataTitle(props);
         const isEmpty = !this.hasContent(data);
         const isDataTitleEmpty = !this.hasContent(dataTitle);
-        const dataItemKey = this.hasContent(props?.dataItemKey);
-        const dataTitleItemKey = this.hasContent(props?.dataTitleItemKey);
-        console.log(dataItemKey, dataTitleItemKey);
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
