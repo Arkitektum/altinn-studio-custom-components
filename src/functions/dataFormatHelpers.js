@@ -26,7 +26,7 @@ export function getAvailableDateTimeLanguageOrDefault(language) {
  * @param {string} dateString - The date string to parse (expected format: "dd.mm.yyyy").
  * @returns {string|null} The ISO formatted date string if valid, otherwise null.
  */
-function parseDateString(dateString) {
+export function parseDateString(dateString) {
     // Match the string against the dd.mm.yyyy format
     const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
     const match = dateString.match(regex);
@@ -37,7 +37,7 @@ function parseDateString(dateString) {
     const month = parseInt(match[2], 10) - 1; // JavaScript months are 0-based
     const year = parseInt(match[3], 10);
 
-    const date = new Date(year, month, day);
+    const date = new Date(Date.UTC(year, month, day));
 
     // Check if the constructed date is valid and matches input (to avoid invalid ones like 32.01.2024)
     if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day) {
@@ -53,7 +53,7 @@ function parseDateString(dateString) {
  * @param {string} timeString - The time string to parse (e.g., "13:45" or "13:45:30").
  * @returns {string|null} The ISO 8601 formatted string representing the time, or null if the input is invalid.
  */
-function parseTimeString(timeString) {
+export function parseTimeString(timeString) {
     // Match the string against the hh:mm:ss format
     const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
     const match = timeString.match(regex);
@@ -64,7 +64,7 @@ function parseTimeString(timeString) {
     if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
         return null; // Invalid time
     }
-    const date = new Date(1970, 0, 1, hours, minutes, seconds); // Use a fixed date
+    const date = new Date(Date.UTC(1970, 0, 1, hours, minutes, seconds)); // Use a fixed date
     return date.toISOString(); // Return in ISO format
 }
 
@@ -111,6 +111,7 @@ export function formatDate(date, language = "default") {
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.date[language];
     const options = dateTimeFormat.date[locale] || dateTimeFormat.date.default;
+    console.log("return", new Intl.DateTimeFormat(locale, options).format(new Date(date)))
     return new Intl.DateTimeFormat(locale, options).format(new Date(date));
 }
 
