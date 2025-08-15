@@ -21,6 +21,7 @@ export default class CustomHeaderTextData extends CustomComponent {
     constructor(props) {
         super(props);
         this.size = props?.size;
+        console.log("props fra header text data", props);
         const textResource = getComponentResourceValue(props, "title");
         const textData = getComponentDataTitle(props);
         this.resourceValues = {

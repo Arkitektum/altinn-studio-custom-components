@@ -9,6 +9,7 @@ import customTable from "./base-components/custom-table/index.js";
 
 // Data components
 import customDispensasjonerListData from "./data-components/custom-dispensasjoner-list-data/index.js";
+import customDispensasjonerUnitInList from "./data-components/custom-dispensasjoner-list-data/custom-dispensasjoner-unit-in-list/index.js";
 import customFeedbackData from "./data-components/custom-feedback-data/index.js";
 import customFeedbacklistData from "./data-components/custom-feedbacklist-data/index.js";
 import customFeedbacklistValidationMessages from "./data-components/custom-feedbacklist-validation-messages/index.js";
@@ -59,6 +60,7 @@ export {
     customParagraph,
     customTable,
     customDispensasjonerListData,
+    customDispensasjonerUnitInList,
     customFeedbackData,
     customFeedbacklistData,
     customFeedbacklistValidationMessages,

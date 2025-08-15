@@ -8,9 +8,7 @@ import { formatString } from "../../../functions/dataFormatHelpers.js";
 export default class CustomDispensasjonerListData extends CustomComponent {
     constructor(props) {
         super(props);
-        console.log("props", props);
         const data = this.getValueFromFormData(props);
-        console.log("data", data);
         const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;

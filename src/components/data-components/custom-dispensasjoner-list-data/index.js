@@ -12,8 +12,9 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const headerElement = renderDispensasjonerListElement(component);
-                this.innerHTML = headerElement.outerHTML;
+                if (component?.resourceValues?.data) {
+                    this.appendChild(renderDispensasjonerListElement(component));
+                }
             }
         }
     }

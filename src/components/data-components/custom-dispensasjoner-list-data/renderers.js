@@ -2,25 +2,22 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
+import { createCustomElement } from "../../../functions/helpers.js";
 
-function renderHeaderElement(component) {
-    console.log("fra renderer", component);
+function renderUnitElement(item) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
         resourceValues: {
-            dataTitle: component?.dispensasjonFra.bestemmelserType.kodebeskrivelse
+            data: item
         }
     });
-    console.log("htmlAttributes", htmlAttributes);
-    return addContainerElement(createCustomElement("custom-header-text-data", htmlAttributes));
+    return createCustomElement("custom-dispensasjoner-unit-in-list", htmlAttributes);
 }
 export function renderDispensasjonerListElement(component) {
     const dispensasjonerListDataElement = document.createElement("div");
-    console.log("fra renderDispEle:", component);
     component?.resourceValues?.data?.forEach((item) => {
-        dispensasjonerListDataElement.appendChild(renderHeaderElement(item));
+        dispensasjonerListDataElement.appendChild(renderUnitElement(item));
     });
     return dispensasjonerListDataElement;
 }
