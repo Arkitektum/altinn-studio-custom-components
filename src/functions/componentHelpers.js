@@ -16,6 +16,7 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
+import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
@@ -82,6 +83,8 @@ export function instantiateComponent(element) {
             return new CustomGroupUtfallSvar(component);
         case "custom-group-utfall-svar-type":
             return new CustomGroupUtfallSvarType(component);
+        case "custom-grouplist-ettersending":
+            return new CustomGrouplistEttersending(component);
         case "custom-grouplist-utfall-svar":
             return new CustomGrouplistUtfallSvar(component);
         case "custom-grouplist-utfall-svar-type":
