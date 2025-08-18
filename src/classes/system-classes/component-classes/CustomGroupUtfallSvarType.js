@@ -39,7 +39,7 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceValues = {
-            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.utfallSvarType?.title),
+            title: !props?.hideTitle ? getTextResourceFromResourceBinding(resourceBindings?.utfallSvarType?.title) : undefined,
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
