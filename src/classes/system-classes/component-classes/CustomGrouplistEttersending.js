@@ -37,6 +37,7 @@ export default class CustomGrouplistEttersending extends CustomComponent {
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceValues = {
+            title: getTextResourceFromResourceBinding(resourceBindings?.ettersendinger?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.ettersendinger?.emptyFieldText) : data
         };
     }
