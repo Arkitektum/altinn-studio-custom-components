@@ -5,6 +5,25 @@ import CustomComponent from "../CustomComponent.js";
 import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
+/**
+ * CustomGrouplistEttersending is a custom component class for handling group list ettersending logic.
+ * It manages resource bindings, validation messages, and content state for the component.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties for the component.
+ * @param {Object} [props.resourceBindings] - Optional resource bindings overrides.
+ * @param {string} [props.resourceBindings.title] - Custom title resource binding.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text resource binding.
+ * @param {boolean|string} [props.hideTitle] - If true or "true", hides the title resource binding.
+ * @param {boolean|string} [props.hideIfEmpty] - If true or "true", hides the empty field text resource binding.
+ *
+ * @property {boolean} isEmpty - Indicates if the component data is empty.
+ * @property {Array|string} validationMessages - Validation messages for missing text resources.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceValues - Contains resource values for the component.
+ */
+
 export default class CustomGrouplistEttersending extends CustomComponent {
     constructor(props) {
         super(props);
