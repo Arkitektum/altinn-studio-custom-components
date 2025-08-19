@@ -197,7 +197,7 @@ export function injectAnchorElements(text) {
     // Optional: basic HTML escape for non-link parts
     const escapeHtml = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    return text
+    return text.toString()
         .split(splitRegex)
         .map((part) => {
             if (!part) return "";
