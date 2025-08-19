@@ -1,84 +1,123 @@
 import CustomGrouplistEttersending from "./CustomGrouplistEttersending";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
-// Mocks
-const mockGetComponentDataValue = jest.fn();
-const mockGetComponentResourceValue = jest.fn();
-const mockHasValue = jest.fn();
-const mockGetTextResources = jest.fn();
-const mockHasMissingTextResources = jest.fn();
-
+// Mocks for global functions and dependencies
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: (...args) => mockGetComponentDataValue(...args),
-    getComponentResourceValue: (...args) => mockGetComponentResourceValue(...args),
-    getTextResources: () => mockGetTextResources(),
-    hasValue: (data) => mockHasValue(data)
+    getComponentDataValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResources: jest.fn(),
+    hasValue: jest.fn()
 }));
-
 jest.mock("../../../functions/validations.js", () => ({
-    hasMissingTextResources: (...args) => mockHasMissingTextResources(...args)
+    hasMissingTextResources: jest.fn(),
+    hasValidationMessages: jest.fn()
 }));
 
-// Dummy CustomComponent base class
-class CustomComponent {
-    constructor(props) {
-        this.props = props;
-    }
-}
+// Dummy parent class
+class CustomComponent {}
 
 describe("CustomGrouplistEttersending", () => {
     beforeEach(() => {
         jest.clearAllMocks();
     });
 
-    it("should set isEmpty to true and resourceValues.data to emptyFieldText when data is empty", () => {
-        mockGetComponentDataValue.mockReturnValue(undefined);
-        mockHasValue.mockReturnValue(false);
-        mockGetComponentResourceValue.mockReturnValue("Empty text");
+    it("should set isEmpty to true when data is empty", () => {
+        getComponentDataValue.mockReturnValue(undefined);
+        hasValue.mockReturnValue(false);
+        getTextResourceFromResourceBinding.mockReturnValue("Empty text");
+        hasMissingTextResources.mockReturnValue([]);
+        hasValidationMessages.mockReturnValue(false);
 
-        const props = { some: "prop" };
+        const props = {};
         const instance = new CustomGrouplistEttersending(props);
 
         expect(instance.isEmpty).toBe(true);
         expect(instance.resourceValues.data).toBe("Empty text");
-        expect(mockGetComponentResourceValue).toHaveBeenCalledWith(props, "emptyFieldText");
     });
 
-    it("should set isEmpty to false and resourceValues.data to data when data is present", () => {
-        mockGetComponentDataValue.mockReturnValue("Some data");
-        mockHasValue.mockReturnValue(true);
+    it("should set isEmpty to false when data has value", () => {
+        getComponentDataValue.mockReturnValue("Some data");
+        hasValue.mockReturnValue(true);
+        hasMissingTextResources.mockReturnValue([]);
+        hasValidationMessages.mockReturnValue(false);
 
-        const props = { some: "prop" };
+        const props = {};
         const instance = new CustomGrouplistEttersending(props);
 
         expect(instance.isEmpty).toBe(false);
         expect(instance.resourceValues.data).toBe("Some data");
     });
 
-    it("hasContent should return result of hasValue", () => {
-        mockHasValue.mockReturnValue(true);
-        const instance = new CustomGrouplistEttersending({});
-        expect(instance.hasContent("abc")).toBe(true);
-        expect(mockHasValue).toHaveBeenCalledWith("abc");
-    });
+    it("should set validationMessages and hasValidationMessages correctly", () => {
+        getComponentDataValue.mockReturnValue("Some data");
+        hasValue.mockReturnValue(true);
+        hasMissingTextResources.mockReturnValue(["Missing resource"]);
+        hasValidationMessages.mockReturnValue(true);
 
-    it("getValidationMessages should call hasMissingTextResources with textResources and resourceBindings", () => {
-        mockGetTextResources.mockReturnValue(["resource1", "resource2"]);
-        mockHasMissingTextResources.mockReturnValue(["missing1"]);
-        const instance = new CustomGrouplistEttersending({});
-        const result = instance.getValidationMessages({ some: "binding" });
-
-        expect(mockGetTextResources).toHaveBeenCalled();
-        expect(mockHasMissingTextResources).toHaveBeenCalledWith(["resource1", "resource2"], { some: "binding" });
-        expect(result).toEqual(["missing1"]);
-    });
-
-    it("getValueFromFormData should call getComponentDataValue with props", () => {
-        mockGetComponentDataValue.mockReturnValue("formValue");
-        const props = { formData: "data" };
+        const props = {};
         const instance = new CustomGrouplistEttersending(props);
-        const value = instance.getValueFromFormData(props);
 
-        expect(mockGetComponentDataValue).toHaveBeenCalledWith(props);
-        expect(value).toBe("formValue");
+        expect(instance.validationMessages).toEqual(["Missing resource"]);
+        expect(instance.hasValidationMessages).toBe(true);
+    });
+
+    it("getResourceBindings should use default values when not overridden", () => {
+        const instance = new CustomGrouplistEttersending({});
+        const bindings = instance.getResourceBindings({});
+        expect(bindings.ettersendinger.title).toBe("resource.ettersendinger.title");
+        expect(bindings.ettersendinger.emptyFieldText).toBe("resource.emptyFieldText.default");
+    });
+
+    it("getResourceBindings should use custom resourceBindings when provided", () => {
+        const props = {
+            resourceBindings: {
+                title: "custom.title",
+                emptyFieldText: "custom.emptyFieldText"
+            }
+        };
+        const instance = new CustomGrouplistEttersending(props);
+        const bindings = instance.getResourceBindings(props);
+        expect(bindings.ettersendinger.title).toBe("custom.title");
+        expect(bindings.ettersendinger.emptyFieldText).toBe("custom.emptyFieldText");
+    });
+
+    it("getResourceBindings should hide title if hideTitle is true", () => {
+        const props = { hideTitle: true };
+        const instance = new CustomGrouplistEttersending(props);
+        const bindings = instance.getResourceBindings(props);
+        expect(bindings.ettersendinger.title).toBeUndefined();
+    });
+
+    it("getResourceBindings should hide emptyFieldText if hideIfEmpty is true", () => {
+        const props = { hideIfEmpty: true };
+        const instance = new CustomGrouplistEttersending(props);
+        const bindings = instance.getResourceBindings(props);
+        expect(bindings.ettersendinger.emptyFieldText).toBeUndefined();
+    });
+
+    it("hasContent should delegate to hasValue", () => {
+        const instance = new CustomGrouplistEttersending({});
+        hasValue.mockReturnValue(true);
+        expect(instance.hasContent("data")).toBe(true);
+        hasValue.mockReturnValue(false);
+        expect(instance.hasContent("")).toBe(false);
+    });
+
+    it("getValidationMessages should delegate to hasMissingTextResources", () => {
+        getTextResources.mockReturnValue(["resource1", "resource2"]);
+        hasMissingTextResources.mockReturnValue(["missing"]);
+        const instance = new CustomGrouplistEttersending({});
+        const result = instance.getValidationMessages({ ettersendinger: {} });
+        expect(result).toEqual(["missing"]);
+        expect(getTextResources).toHaveBeenCalled();
+        expect(hasMissingTextResources).toHaveBeenCalled();
+    });
+
+    it("getValueFromFormData should delegate to getComponentDataValue", () => {
+        getComponentDataValue.mockReturnValue("value");
+        const instance = new CustomGrouplistEttersending({});
+        expect(instance.getValueFromFormData({})).toBe("value");
+        expect(getComponentDataValue).toHaveBeenCalled();
     });
 });
