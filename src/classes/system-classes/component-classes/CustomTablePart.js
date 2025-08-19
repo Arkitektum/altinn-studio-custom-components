@@ -155,13 +155,16 @@ export default class CustomTablePart extends CustomComponent {
         const partType = props?.partType || "tiltakshaver";
         const resourceBindings = {
             navn: {
-                title: props?.resourceBindings?.navn?.title || `resource.${partType}.navn.title`
+                title: props?.resourceBindings?.navn?.title || `resource.${partType}.navn.title`,
+                emptyFieldText: props?.resourceBindings?.navn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             telefonnummer: {
-                title: props?.resourceBindings?.telefonnummer?.title || `resource.${partType}.telefonnummer.title`
+                title: props?.resourceBindings?.telefonnummer?.title || `resource.${partType}.telefonnummer.title`,
+                emptyFieldText: props?.resourceBindings?.telefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             epost: {
-                title: props?.resourceBindings?.epost?.title || `resource.${partType}.epost.title`
+                title: props?.resourceBindings?.epost?.title || `resource.${partType}.epost.title`,
+                emptyFieldText: props?.resourceBindings?.epost?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
