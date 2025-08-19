@@ -172,31 +172,15 @@ export default class CustomTableEiendom extends CustomComponent {
 
     /**
      * Generates an object containing text resource bindings for various property fields.
-     * The bindings are determined by the provided `props` object, falling back to default resource keys if not specified.
+     * Each field includes a `title` and `emptyFieldText`, which can be overridden by values in `props.resourceBindings`.
+     * Default resource keys are used if overrides are not provided.
+     * Optionally adds `eiendomByggested` resource bindings based on `hideTitle` and `hideIfEmpty` props.
      *
-     * @param {Object} props - The properties object containing resource bindings and configuration flags.
-     * @param {Object} [props.resourceBindings] - Custom resource bindings for each field.
-     * @param {Object} [props.resourceBindings.adresse] - Resource bindings for the address field.
-     * @param {string} [props.resourceBindings.adresse.title] - Custom title for the address field.
-     * @param {string} [props.resourceBindings.adresse.emptyFieldText] - Custom empty field text for the address field.
-     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon] - Resource bindings for property identification fields.
-     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.gaardsnummer] - Resource bindings for gaardsnummer.
-     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.gaardsnummer.title] - Custom title for gaardsnummer.
-     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.bruksnummer] - Resource bindings for bruksnummer.
-     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.bruksnummer.title] - Custom title for bruksnummer.
-     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.seksjonsnummer] - Resource bindings for seksjonsnummer.
-     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.seksjonsnummer.title] - Custom title for seksjonsnummer.
-     * @param {Object} [props.resourceBindings.eiendomsidentifikasjon.festenummer] - Resource bindings for festenummer.
-     * @param {string} [props.resourceBindings.eiendomsidentifikasjon.festenummer.title] - Custom title for festenummer.
-     * @param {Object} [props.resourceBindings.bolignummer] - Resource bindings for bolignummer.
-     * @param {string} [props.resourceBindings.bolignummer.title] - Custom title for bolignummer.
-     * @param {Object} [props.resourceBindings.bygningsnummer] - Resource bindings for bygningsnummer.
-     * @param {string} [props.resourceBindings.bygningsnummer.title] - Custom title for bygningsnummer.
-     * @param {string} [props.resourceBindings.title] - Custom title for eiendomByggested.
-     * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text for eiendomByggested.
-     * @param {boolean|string} [props.hideTitle] - If true or "true", omits the eiendomByggested title binding.
-     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omits the eiendomByggested empty field text binding.
-     * @returns {Object} An object containing the resolved text resource bindings for each field.
+     * @param {Object} props - The properties object.
+     * @param {Object} [props.resourceBindings] - Optional resource bindings to override defaults.
+     * @param {boolean|string} [props.hideTitle] - If true or "true", omits the `eiendomByggested.title` binding.
+     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omits the `eiendomByggested.emptyFieldText` binding.
+     * @returns {Object} An object containing resource bindings for property fields.
      */
     getTextResourceBindings(props) {
         const resourceBindings = {
@@ -207,28 +191,34 @@ export default class CustomTableEiendom extends CustomComponent {
             eiendomsidentifikasjonGaardsnummer: {
                 title:
                     props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title ||
-                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title"
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonBruksnummer: {
                 title:
                     props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title ||
-                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title"
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonSeksjonsnummer: {
                 title:
                     props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title ||
-                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title"
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonFestenummer: {
                 title:
                     props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title ||
-                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title"
+                    "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             bolignummer: {
-                title: props?.resourceBindings?.bolignummer?.title || "resource.eiendomByggested.eiendom.bolignummer.title"
+                title: props?.resourceBindings?.bolignummer?.title || "resource.eiendomByggested.eiendom.bolignummer.title",
+                emptyFieldText: props?.resourceBindings?.bolignummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             bygningsnummer: {
-                title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendomByggested.eiendom.bygningsnummer.title"
+                title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendomByggested.eiendom.bygningsnummer.title",
+                emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
