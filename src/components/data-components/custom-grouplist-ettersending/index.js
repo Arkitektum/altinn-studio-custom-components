@@ -1,6 +1,7 @@
 // Global functions
 import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
 import { renderEmptyFieldText, renderEttersendingGroup, renderHeaderElement } from "./renderers.js";
@@ -23,6 +24,10 @@ export default customElements.define(
                     this.appendChild(ettersendingElement);
                     const dividerElement = createCustomElement("custom-divider");
                     this.appendChild(dividerElement);
+                }
+                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                if (feebackListElement) {
+                    this.appendChild(feebackListElement);
                 }
             }
         }
