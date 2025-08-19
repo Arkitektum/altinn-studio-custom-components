@@ -3,7 +3,7 @@ import { createCustomElement, getComponentContainerElement } from "../../../func
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
-import { renderEmptyFieldText, renderEttersendingGroup } from "./renderers.js";
+import { renderEmptyFieldText, renderEttersendingGroup, renderHeaderElement } from "./renderers.js";
 
 export default customElements.define(
     "custom-grouplist-ettersending",
@@ -17,6 +17,7 @@ export default customElements.define(
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
             } else {
+                this.appendChild(renderHeaderElement(component, "h2"));
                 for (const ettersending of component?.resourceValues?.data) {
                     const ettersendingElement = renderEttersendingGroup(ettersending);
                     this.appendChild(ettersendingElement);
