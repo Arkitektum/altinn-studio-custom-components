@@ -32,7 +32,6 @@ export default class CustomTableData extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const emptyFieldText = getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessagesFromProps(props);
