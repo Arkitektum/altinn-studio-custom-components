@@ -1,18 +1,11 @@
 import CustomGroupUtfallSvarType from "./CustomGroupUtfallSvarType";
-import {
-    getComponentDataValue,
-    getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn(),
     hasValue: jest.fn()
 }));
@@ -26,105 +19,95 @@ describe("CustomGroupUtfallSvarType", () => {
         jest.clearAllMocks();
     });
 
-    it("should set isEmpty to true if data is empty", () => {
+    it("should set isEmpty to true if hasContent returns false", () => {
         getComponentDataValue.mockReturnValue(null);
         hasValue.mockReturnValue(false);
         getComponentResourceValue.mockReturnValue("Empty");
-        getTextResourceFromResourceBinding.mockReturnValue("Title");
         hasMissingTextResources.mockReturnValue([]);
         hasValidationMessages.mockReturnValue(false);
 
-        const props = {
-            resourceValues: { utfallType: "YES" }
-        };
+        const props = {};
         const instance = new CustomGroupUtfallSvarType(props);
 
         expect(instance.isEmpty).toBe(true);
         expect(instance.resourceValues.data).toBe("Empty");
     });
 
-    it("should set isEmpty to false if data is present", () => {
+    it("should set isEmpty to false if hasContent returns true", () => {
         getComponentDataValue.mockReturnValue("Some value");
         hasValue.mockReturnValue(true);
-        getTextResourceFromResourceBinding.mockReturnValue("Title");
+        getComponentResourceValue.mockReturnValue("Should not be used");
         hasMissingTextResources.mockReturnValue([]);
         hasValidationMessages.mockReturnValue(false);
 
-        const props = {
-            resourceValues: { utfallType: "NO" }
-        };
+        const props = {};
         const instance = new CustomGroupUtfallSvarType(props);
 
         expect(instance.isEmpty).toBe(false);
         expect(instance.resourceValues.data).toBe("Some value");
     });
 
-    it("should set resourceValues.title to undefined if hideTitle is true", () => {
-        getComponentDataValue.mockReturnValue("Value");
+    it("should set validationMessages and hasValidationMessages correctly", () => {
+        getComponentDataValue.mockReturnValue("data");
         hasValue.mockReturnValue(true);
-        getTextResourceFromResourceBinding.mockReturnValue("Should not be used");
-        hasMissingTextResources.mockReturnValue([]);
-        hasValidationMessages.mockReturnValue(false);
-
-        const props = {
-            resourceValues: { utfallType: "YES" },
-            hideTitle: true
-        };
-        const instance = new CustomGroupUtfallSvarType(props);
-
-        expect(instance.resourceValues.title).toBeUndefined();
-    });
-
-    it("should call getValidationMessages and set validationMessages and hasValidationMessages", () => {
-        getComponentDataValue.mockReturnValue("Value");
-        hasValue.mockReturnValue(true);
-        getTextResourceFromResourceBinding.mockReturnValue("Title");
-        getTextResources.mockReturnValue(["resource1", "resource2"]);
         hasMissingTextResources.mockReturnValue(["Missing resource"]);
         hasValidationMessages.mockReturnValue(true);
 
-        const props = {
-            resourceValues: { utfallType: "YES" }
-        };
+        const props = {};
         const instance = new CustomGroupUtfallSvarType(props);
 
         expect(instance.validationMessages).toEqual(["Missing resource"]);
         expect(instance.hasValidationMessages).toBe(true);
     });
 
-    it("getResourceBindings should generate correct resource key", () => {
-        const props = {
-            resourceValues: { utfallType: "YES" }
-        };
+    it("should generate correct resourceBindings for utfallType", () => {
+        getComponentDataValue.mockReturnValue("data");
+        hasValue.mockReturnValue(true);
+        hasMissingTextResources.mockReturnValue([]);
+        hasValidationMessages.mockReturnValue(false);
+
+        const props = { resourceValues: { utfallType: "YES" } };
         const instance = new CustomGroupUtfallSvarType(props);
-        const bindings = instance.getResourceBindings(props);
-        expect(bindings.utfallSvarType.title).toBe("resource.utfallBesvarelse.utfallSvar.yes.header");
+
+        expect(instance.resourceBindings.title).toBe("resource.utfallBesvarelse.utfallSvar.yes.header");
     });
 
     it("hasContent should delegate to hasValue", () => {
         hasValue.mockReturnValue(true);
-        const props = {};
-        const instance = new CustomGroupUtfallSvarType(props);
-        expect(instance.hasContent("data")).toBe(true);
-        expect(hasValue).toHaveBeenCalledWith("data");
+        const instance = new CustomGroupUtfallSvarType({});
+        expect(instance.hasContent("abc")).toBe(true);
+        expect(hasValue).toHaveBeenCalledWith("abc");
     });
 
-    it("getValueFromFormData should delegate to getComponentDataValue", () => {
-        getComponentDataValue.mockReturnValue("formData");
-        const props = {};
-        const instance = new CustomGroupUtfallSvarType(props);
-        expect(instance.getValueFromFormData(props)).toBe("formData");
+    it("getValidationMessages should call hasMissingTextResources with textResources and resourceBindings", () => {
+        getTextResources.mockReturnValue({ a: 1 });
+        hasMissingTextResources.mockReturnValue("msg");
+        const instance = new CustomGroupUtfallSvarType({});
+        const result = instance.getValidationMessages({ foo: "bar" });
+        expect(getTextResources).toHaveBeenCalled();
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ a: 1 }, { foo: "bar" });
+        expect(result).toBe("msg");
+    });
+
+    it("getValueFromFormData should call getComponentDataValue with props", () => {
+        getComponentDataValue.mockReturnValue("data");
+        const instance = new CustomGroupUtfallSvarType({});
+        const props = { some: "prop" };
+        expect(instance.getValueFromFormData(props)).toBe("data");
         expect(getComponentDataValue).toHaveBeenCalledWith(props);
     });
 
-    it("getValidationMessages should delegate to hasMissingTextResources", () => {
-        getTextResources.mockReturnValue(["resource1"]);
-        hasMissingTextResources.mockReturnValue(["msg"]);
+    it("getResourceBindings should generate correct keys", () => {
+        const instance = new CustomGroupUtfallSvarType({});
+        const props = { resourceValues: { utfallType: "NO" } };
+        const result = instance.getResourceBindings(props);
+        expect(result.utfallSvarType.title).toBe("resource.utfallBesvarelse.utfallSvar.no.header");
+    });
+
+    it("getResourceBindings should handle missing utfallType gracefully", () => {
+        const instance = new CustomGroupUtfallSvarType({});
         const props = {};
-        const instance = new CustomGroupUtfallSvarType(props);
-        const bindings = { utfallSvarType: { title: "key" } };
-        expect(instance.getValidationMessages(bindings)).toEqual(["msg"]);
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(["resource1"], bindings);
+        const result = instance.getResourceBindings(props);
+        expect(result.utfallSvarType.title).toBe("resource.utfallBesvarelse.utfallSvar.undefined.header");
     });
 });

@@ -2,13 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import {
-    getComponentDataValue,
-    getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -38,8 +32,10 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = {
+            title: resourceBindings?.utfallSvarType?.title
+        };
         this.resourceValues = {
-            title: !props?.hideTitle ? getTextResourceFromResourceBinding(resourceBindings?.utfallSvarType?.title) : undefined,
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }

@@ -1,8 +1,9 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
+import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -24,7 +25,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getResourceBindings();
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -34,7 +35,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings?.utfallSvar || {};
         this.resourceValues = {
-            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.utfallSvar?.emptyFieldText) : data
         };
     }
 
@@ -60,27 +61,36 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
     }
 
     /**
-     * Retrieves the value for this component from the provided form data.
+     * Retrieves the value from form data, constructs an UtfallSvar instance with it, and returns the instance.
      *
-     * @param {Object} props - The properties containing form data and component information.
-     * @returns {*} The value extracted from the form data for this component.
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {UtfallSvar} An instance of UtfallSvar initialized with the component's data value.
      */
     getValueFromFormData(props) {
-        return getComponentDataValue(props);
+        const data = getComponentDataValue(props);
+        const utfallSvar = new UtfallSvar(data);
+        return utfallSvar;
     }
 
     /**
-     * Returns an object containing resource bindings for various fields in the "utfallSvar" group.
+     * Generates resource bindings for the component based on provided props.
      *
-     * @returns {Object} An object with a single property `utfallSvar`, which maps field keys to their corresponding resource binding strings.
+     * @param {Object} props - The properties object.
+     * @param {boolean|string} [props.hideIfEmpty] - Determines if the empty field text should be hidden.
+     * @param {Object} [props.resourceBindings] - Optional custom resource bindings.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Custom text for empty fields.
+     * @returns {Object} An object containing resource bindings for `utfallSvar`.
      */
-    getResourceBindings() {
+    getResourceBindings(props) {
         const resourceBindings = {
             "status.title": "resource.utfallBesvarelse.utfallSvar.status.title",
             "tema.kodebeskrivelse.title": "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title",
             "kommentar.title": "resource.utfallBesvarelse.utfallSvar.kommentar.title",
             "vedleggsliste.vedlegg.title": "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title"
         };
+        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+        }
         return {
             utfallSvar: resourceBindings
         };
