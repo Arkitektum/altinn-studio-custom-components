@@ -73,12 +73,13 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
     }
 
     /**
-     * Generates and returns resource bindings for various UI fields.
+     * Generates resource bindings for the component based on provided props.
      *
-     * The returned object contains resource keys for status, tema, kommentar, and vedleggsliste fields.
-     * Optionally includes an `emptyFieldText` binding if `props.hideIfEmpty` is not set to true or "true".
-     *
-     * @returns {Object} An object with a single property `utfallSvar` containing resource bindings.
+     * @param {Object} props - The properties object.
+     * @param {boolean|string} [props.hideIfEmpty] - Determines if the empty field text should be hidden.
+     * @param {Object} [props.resourceBindings] - Optional custom resource bindings.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Custom text for empty fields.
+     * @returns {Object} An object containing resource bindings for `utfallSvar`.
      */
     getResourceBindings(props) {
         const resourceBindings = {
