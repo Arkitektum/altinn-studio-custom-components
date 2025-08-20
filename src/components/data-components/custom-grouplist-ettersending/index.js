@@ -25,9 +25,9 @@ export default customElements.define(
                     const dividerElement = createCustomElement("custom-divider");
                     this.appendChild(dividerElement);
                 }
-                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feebackListElement) {
-                    this.appendChild(feebackListElement);
+                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                if (feedbackListElement) {
+                    this.appendChild(feedbackListElement);
                 }
             }
         }
