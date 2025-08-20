@@ -1,5 +1,6 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
+import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
@@ -66,7 +67,9 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
      * @returns {*} The value extracted from the form data for this component.
      */
     getValueFromFormData(props) {
-        return getComponentDataValue(props);
+        const data = getComponentDataValue(props);
+        const utfallSvar = new UtfallSvar(data);
+        return utfallSvar;
     }
 
     /**
