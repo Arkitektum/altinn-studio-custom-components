@@ -2,32 +2,44 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
-import { hasMissingTextResources } from "../../../functions/validations.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
- * CustomGrouplistUtfallSvar is a custom component class that handles the display and validation
- * of grouped list answers in a form. It determines if the component's data is empty, manages
- * resource values for display, and provides validation message retrieval.
+ * CustomGrouplistUtfallSvar is a custom component class for handling group list responses with resource bindings and validation.
  *
  * @extends CustomComponent
  *
- * @class
- * @param {Object} props - The properties containing form data and component information.
+ * @param {Object} props - The properties for the component, including form data and resource bindings.
+ * @param {Object} props.resourceBindings - Resource bindings for the component.
+ * @param {string} [props.resourceBindings.title] - Title resource binding.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Empty field text resource binding.
+ * @param {boolean|string} [props.hideTitle] - If true or "true", hides the title.
+ * @param {boolean|string} [props.hideIfEmpty] - If true or "true", hides the empty field text.
  *
- * @property {boolean} isEmpty - Indicates whether the component's data is empty.
- * @property {Object} resourceValues - Contains resource values for display, such as empty field text or data.
+ * @property {boolean} isEmpty - Indicates if the component data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for the component.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceValues - Contains resolved text resources for title and data.
+ * @property {string} resourceValues.title - The resolved title text resource.
+ * @property {*} resourceValues.data - The resolved data or empty field text resource.
  */
+
 export default class CustomGrouplistUtfallSvar extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceValues = {
-            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+            title: getTextResourceFromResourceBinding(resourceBindings?.utfallSvar?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.utfallSvar?.emptyFieldText) : data
         };
     }
 
@@ -61,5 +73,29 @@ export default class CustomGrouplistUtfallSvar extends CustomComponent {
      */
     getValueFromFormData(props) {
         return getComponentDataValue(props);
+    }
+
+    /**
+     * Generates resource bindings for the component based on provided props.
+     *
+     * @param {Object} props - The properties object.
+     * @param {Object} [props.resourceBindings] - Resource bindings for the component.
+     * @param {string} [props.resourceBindings.title] - Title resource binding.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Empty field text resource binding.
+     * @param {boolean|string} [props.hideTitle] - If true or "true", hides the title.
+     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", hides the empty field text.
+     * @returns {Object} An object containing the resource bindings for 'utfallSvar'.
+     */
+    getResourceBindings(props) {
+        const resourceBindings = {};
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.title = props?.resourceBindings?.title;
+        }
+        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+        }
+        return {
+            utfallSvar: resourceBindings
+        };
     }
 }
