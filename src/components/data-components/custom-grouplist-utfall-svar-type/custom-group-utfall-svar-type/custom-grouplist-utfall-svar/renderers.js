@@ -25,13 +25,16 @@ export function renderHeaderElement(component, size = "h2") {
 /**
  * Renders a custom group element for "utfallSvar" data.
  *
- * @param {Object} utfallSvar - The data to be rendered within the custom group component.
+ * @param {Object} utfallSvar - The data to be rendered in the custom group.
+ * @param {Object} component - The component configuration object.
+ * @param {boolean} [component.enableLinks] - Whether to enable links in the rendered element.
  * @returns {HTMLElement} The custom group element for "utfallSvar".
  */
-export function renderUtfallSvarGroup(utfallSvar) {
+export function renderUtfallSvarGroup(utfallSvar, component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        enableLinks: component?.enableLinks,
         resourceValues: {
             data: utfallSvar
         }

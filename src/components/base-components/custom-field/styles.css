@@ -26,6 +26,9 @@ custom-field {
         & span {
             white-space: pre-line;
             display: block;
+            & a {
+                color: var(--color-text-link);
+            }
         }
         &:not(.inline) {
             & span {

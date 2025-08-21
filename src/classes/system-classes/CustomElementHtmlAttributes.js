@@ -31,6 +31,7 @@ export default class CustomElementHtmlAttributes {
      * @param {string} [props.partType] - The type of part for the component.
      * @param {Object} [props.resourceBindings] - Text resource bindings for the component.
      * @param {Object} [props.resourceValues] - Resource values associated with the component.
+     * @param {boolean} [props.enableLinks] - Indicates if links should be enabled in the component.
      */
     constructor(props) {
         const isChildComponent = this.getIsChildComponentAttributeFromProps(props);
@@ -55,6 +56,7 @@ export default class CustomElementHtmlAttributes {
         const partType = this.getPartTypeAttributeFromProps(props);
         const resourceBindings = this.getResourceBindingsFromProps(props);
         const resourceValues = this.getResourceValuesFromProps(props);
+        const enableLinks = this.getEnableLinksFromProps(props);
         if (isChildComponent) {
             this.isChildComponent = isChildComponent;
         }
@@ -120,6 +122,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (resourceValues) {
             this.resourceValues = resourceValues;
+        }
+        if (enableLinks) {
+            this.enableLinks = enableLinks;
         }
     }
 
@@ -392,5 +397,16 @@ export default class CustomElementHtmlAttributes {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Determines if the 'enableLinks' property in the given props is set to "true".
+     *
+     * @param {Object} props - The properties object to check.
+     * @param {*} [props.enableLinks] - The value indicating whether links should be enabled.
+     * @returns {string|undefined} Returns "true" if 'enableLinks' is strictly "true", otherwise undefined.
+     */
+    getEnableLinksFromProps(props) {
+        return props?.enableLinks?.toString() === "true" ? "true" : undefined;
     }
 }

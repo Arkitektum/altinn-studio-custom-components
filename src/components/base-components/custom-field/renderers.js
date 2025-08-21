@@ -16,16 +16,18 @@ function renderFieldTitleElement(fieldTitle, inline) {
 }
 
 /**
- * Renders a field value as a span element, formatting arrays and objects for display.
+ * Renders a field value as a span element, optionally injecting anchor elements for links.
  *
- * - Arrays are joined into a comma-separated string.
- * - Objects are stringified as pretty-printed JSON.
- * - If the value is falsy or empty, the span will be empty.
+ * - If the field value is an array, it joins the elements with a comma.
+ * - If the field value is an object, it stringifies it with indentation.
+ * - If the field value is falsy (as determined by hasValue), it renders an empty span.
+ * - If enableLinks is true, it injects anchor elements into the field value.
  *
- * @param {*} fieldValue - The value to render. Can be of any type (string, number, array, object, etc.).
- * @returns {HTMLSpanElement} A span element containing the formatted field value.
+ * @param {*} fieldValue - The value to render. Can be a string, array, or object.
+ * @param {boolean} enableLinks - Whether to inject anchor elements for links in the field value.
+ * @returns {HTMLSpanElement} The span element containing the rendered field value.
  */
-function renderFieldValueElement(fieldValue) {
+function renderFieldValueElement(fieldValue, enableLinks) {
     const fieldValueElement = document.createElement("span");
     if (Array.isArray(fieldValue)) {
         fieldValue = fieldValue.join(", ");
@@ -33,8 +35,11 @@ function renderFieldValueElement(fieldValue) {
     if (typeof fieldValue === "object") {
         fieldValue = JSON.stringify(fieldValue, null, 2);
     }
-    const htmlContent = hasValue(fieldValue) ? injectAnchorElements(fieldValue) : "";
-    fieldValueElement.innerHTML = htmlContent;
+    if (!hasValue(fieldValue)) {
+        fieldValueElement.innerHTML = "";
+    } else {
+        fieldValueElement.innerHTML = enableLinks ? injectAnchorElements(fieldValue) : fieldValue;
+    }
     return fieldValueElement;
 }
 
@@ -47,6 +52,7 @@ function renderFieldValueElement(fieldValue) {
  * @param {boolean} [options.returnHtml=true] - Whether to return the element as HTML string.
  * @param {boolean} [options.inline=false] - Whether to render the field inline.
  * @param {Object} [options.styleOverride={}] - Custom styles to apply to the field element.
+ * @param {boolean} [options.enableLinks=false] - Whether to enable links in the field value.
  * @returns {HTMLElement|string} The rendered field element or its HTML string representation.
  */
 export function renderFieldElement(fieldTitle, fieldValue, options) {
@@ -64,7 +70,7 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
     if (options?.inline) {
         fieldElement.classList.add("inline");
     }
-    const fieldValueElement = renderFieldValueElement(fieldValue);
+    const fieldValueElement = renderFieldValueElement(fieldValue, options.enableLinks);
     if (fieldTitle?.length) {
         fieldValueElement.classList.add("has-title");
     }

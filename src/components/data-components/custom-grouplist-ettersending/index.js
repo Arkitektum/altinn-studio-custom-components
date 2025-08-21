@@ -20,7 +20,7 @@ export default customElements.define(
             } else {
                 this.appendChild(renderHeaderElement(component, "h2"));
                 for (const ettersending of component?.resourceValues?.data) {
-                    const ettersendingElement = renderEttersendingGroup(ettersending);
+                    const ettersendingElement = renderEttersendingGroup(ettersending, component);
                     this.appendChild(ettersendingElement);
                     const dividerElement = createCustomElement("custom-divider");
                     this.appendChild(dividerElement);

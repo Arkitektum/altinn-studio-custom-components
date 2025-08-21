@@ -25,13 +25,16 @@ export function renderHeaderElement(component, size = "h2") {
 /**
  * Renders a custom group element for "ettersending" data.
  *
- * @param {Object} ettersending - The data to be rendered in the custom group.
- * @returns {HTMLElement} The custom group element for ettersending.
+ * @param {Object} ettersending - The data to be rendered in the group.
+ * @param {Object} component - The component configuration object.
+ * @param {boolean} [component.enableLinks] - Whether to enable links in the rendered group.
+ * @returns {HTMLElement} The custom group element for "ettersending".
  */
-export function renderEttersendingGroup(ettersending) {
+export function renderEttersendingGroup(ettersending, component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        enableLinks: component?.enableLinks,
         resourceValues: {
             data: ettersending
         }
