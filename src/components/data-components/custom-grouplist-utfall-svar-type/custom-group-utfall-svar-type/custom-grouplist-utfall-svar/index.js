@@ -20,7 +20,7 @@ export default customElements.define(
             } else {
                 this.appendChild(renderHeaderElement(component, "h2"));
                 for (const utfallSvar of component?.resourceValues?.data) {
-                    const utfallSvarElement = renderUtfallSvarGroup(utfallSvar);
+                    const utfallSvarElement = renderUtfallSvarGroup(utfallSvar, component);
                     this.appendChild(utfallSvarElement);
                     const dividerElement = createCustomElement("custom-divider");
                     this.appendChild(dividerElement);
