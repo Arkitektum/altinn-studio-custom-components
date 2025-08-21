@@ -23,12 +23,13 @@ export function renderHeaderElement(component, size = "h3") {
 }
 
 /**
- * Renders a custom field data element for the "tema" (topic) code description.
+ * Renders a custom field data element for a "tema" (topic) using provided component data.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values associated with the component.
- * @param {Object} component.resourceValues.data - The data object containing "tema" information.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} [component.resourceValues] - Resource values associated with the component.
+ * @param {Object} [component.resourceValues.data] - Data object containing "tema" information.
+ * @param {Object} [component.resourceBindings] - Resource bindings for the component.
+ * @param {boolean} [component.enableLinks] - Flag to enable or disable links in the element.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderTemaElement(component) {
@@ -36,6 +37,7 @@ export function renderTemaElement(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        enableLinks: component?.enableLinks,
         resourceBindings: {
             title: component?.resourceBindings?.["tema.kodebeskrivelse.title"]
         },
@@ -52,6 +54,7 @@ export function renderTemaElement(component) {
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} [component.resourceValues] - The resource values for the component.
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {boolean} [component.enableLinks] - Flag to enable or disable links in the element.
  * @returns {HTMLElement} The rendered custom comment element wrapped in a container.
  */
 export function renderKommentarElement(component) {
@@ -59,6 +62,7 @@ export function renderKommentarElement(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: false,
+        enableLinks: component?.enableLinks,
         resourceBindings: {
             title: component?.resourceBindings?.["kommentar.title"]
         },
