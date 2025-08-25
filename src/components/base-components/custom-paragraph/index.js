@@ -1,5 +1,4 @@
 // Global functions
-import { addStyle } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
@@ -14,8 +13,8 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             if (!component?.isEmpty) {
-                this.innerHTML = renderParagraphElement(component?.resourceValues?.title);
-                addStyle(this, component?.styleOverride);
+                const paragraphElement = renderParagraphElement(component);
+                this.innerHTML = paragraphElement;
             }
         }
     }

@@ -16,7 +16,7 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             if (!component?.isEmpty) {
-                this.innerHTML = renderHeaderElement(component?.resourceValues?.title, component?.size);
+                this.innerHTML = renderHeaderElement(component);
                 addStyle(this, component?.styleOverride);
             }
         }
