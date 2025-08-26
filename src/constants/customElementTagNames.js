@@ -32,6 +32,7 @@ export default [
     "custom-paragraph-text",
     "custom-paragraph-text-data",
     "custom-subheader-text",
+    "custom-table-arbeidsplasser",
     "custom-table-data",
     "custom-table-eiendom",
     "custom-table-part",
