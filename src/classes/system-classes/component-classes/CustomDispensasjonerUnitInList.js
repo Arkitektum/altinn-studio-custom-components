@@ -55,6 +55,9 @@ export default class CustomDispensasjonerUnitInList extends CustomComponent {
             },
             lovbestemmelse: {
                 title: props?.resourceBindings?.lovbestemmelse?.title || "resource.dispensasjonEllerTillatelse.lovbestemmelse.title"
+            },
+            begrunnelse: {
+                title: props?.resourceBindings?.begrunnelse?.title || "resource.dispensasjonEllerTillatelse.begrunnelse.title"
             }
         };
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
