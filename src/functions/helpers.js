@@ -406,6 +406,8 @@ export function getComponentBooleanTextValues(component) {
  * @returns {*} The value of the resource, or the result from the resource binding lookup.
  */
 export function getComponentResourceValue(component, resourceKey) {
+    console.log("component i getComponentResourceValue", component);
+    console.log("resourceKey i getComponentResourceValue", resourceKey);
     if (hasValue(component?.resourceValues?.[resourceKey])) {
         return component.resourceValues?.[resourceKey];
     } else {

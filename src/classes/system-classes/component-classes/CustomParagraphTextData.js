@@ -18,7 +18,9 @@ export default class CustomParagraphTextData extends CustomComponent {
         super(props);
         const formData = this.getValueFromFormData(props);
         const bodyResourceValue = getComponentResourceValue(props, "body");
-        const data = this.getTextDataCombination(formData, bodyResourceValue);
+        const isEndSymbolEmpty = !this.hasContent(props?.endSymbol);
+        const endSymbol = isEndSymbolEmpty ? "" : props?.endSymbol;
+        const data = this.getTextDataCombination(formData, bodyResourceValue ? bodyResourceValue : "", endSymbol);
         const isEmpty = !this.hasContent(formData);
 
         this.isEmpty = isEmpty;
@@ -46,9 +48,9 @@ export default class CustomParagraphTextData extends CustomComponent {
      * @param {string} bodyResourceValue - The body resource value to be included in the combination.
      * @returns {string} The combined string with a period, or an empty string if the combination is empty.
      */
-    getTextDataCombination(formData, bodyResourceValue) {
-        const textDataCombination = `${bodyResourceValue} ${formData}`.trim();
-        return textDataCombination?.length > 0 ? `${textDataCombination}.` : "";
+    getTextDataCombination(formData, bodyResourceValue, endSymbol) {
+        const textDataCombination = `${bodyResourceValue} ${formData}${endSymbol}`.trim();
+        return textDataCombination?.length > 0 ? `${textDataCombination}` : "";
     }
 
     /**
