@@ -3,30 +3,33 @@ import { isValidHeaderSize } from "./dataFormatHelpers.js";
 import { hasValue } from "./helpers.js";
 
 /**
- * Extracts and returns a set of properties from the given element's attributes.
+ * Extracts a set of properties from the given HTML element by invoking various helper functions.
  *
- * @param {HTMLElement} element - The DOM element from which to extract properties.
+ * @param {HTMLElement} element - The HTML element from which to extract properties.
  * @returns {Object} An object containing the following properties:
  *   @property {*} formData - The form data extracted from the element.
  *   @property {string} tagName - The tag name of the element.
  *   @property {string} text - The text content of the element.
- *   @property {Object} texts - Additional text values from the element.
+ *   @property {*} texts - Additional text values from the element.
  *   @property {boolean} inline - Whether the element is inline.
  *   @property {boolean} hideTitle - Whether the title should be hidden.
  *   @property {string|number} size - The size attribute of the element.
  *   @property {boolean} hideIfEmpty - Whether to hide the element if empty.
- *   @property {Object} styleOverride - Style overrides for the element.
+ *   @property {*} styleOverride - Style overrides for the element.
  *   @property {boolean} isChildComponent - Whether the element is a child component.
- *   @property {string} feedbackType - The feedback type for the element.
- *   @property {string} itemKey - The item key for the element.
+ *   @property {string} feedbackType - The feedback type of the element.
+ *   @property {string} itemKey - The item key associated with the element.
+ *   @property {string} dataItemKey - The data item key associated with the element.
+ *   @property {string} dataTitleItemKey - The data title item key associated with the element.
  *   @property {boolean} hideOrgNr - Whether to hide the organization number.
- *   @property {string} format - The format of the element.
- *   @property {Array} tableColumns - The table columns defined for the element.
+ *   @property {string} format - The format attribute of the element.
+ *   @property {Array} tableColumns - The table columns configuration.
  *   @property {boolean} showRowNumbers - Whether to show row numbers.
  *   @property {Object} resourceBindings - Text resource bindings for the element.
  *   @property {Object} resourceValues - Resource values for the element.
  *   @property {string} partType - The type of part defined for the element.
  *   @property {boolean} enableLinks - Whether to enable links in the field value.
+ *   @property {string} endSymbol - The end symbol for the element.
  */
 export function getPropsFromElementAttributes(element) {
     return {
@@ -52,6 +55,7 @@ export function getPropsFromElementAttributes(element) {
         resourceValues: getResourceValues(element),
         partType: getPartType(element),
         enableLinks: getEnableLinks(element)
+        endSymbol: getEndSymbol(element)
     };
 }
 
@@ -287,4 +291,15 @@ function getPartType(element) {
  */
 function getEnableLinks(element) {
     return element?.getAttribute("enableLinks") === "true";
+}
+
+/**
+ * Retrieves the "endSymbol" attribute from the given HTML element if it exists and has a value.
+ *
+ * @param {HTMLElement} element - The HTML element from which to retrieve the "endSymbol" attribute.
+ * @returns {string|false} The value of the "endSymbol" attribute if it exists and is valid, otherwise false.
+ */
+function getEndSymbol(element) {
+    const endSymbol = element?.getAttribute("endSymbol");
+    return hasValue(endSymbol) && endSymbol;
 }

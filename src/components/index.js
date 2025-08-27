@@ -8,6 +8,8 @@ import customParagraph from "./base-components/custom-paragraph/index.js";
 import customTable from "./base-components/custom-table/index.js";
 
 // Data components
+import customDispensasjonerListData from "./data-components/custom-dispensasjoner-list-data/index.js";
+import customDispensasjonerUnitInList from "./data-components/custom-dispensasjoner-list-data/custom-dispensasjoner-unit-in-list/index.js";
 import customFeedbackData from "./data-components/custom-feedback-data/index.js";
 import customFeedbacklistData from "./data-components/custom-feedbacklist-data/index.js";
 import customFeedbacklistValidationMessages from "./data-components/custom-feedbacklist-validation-messages/index.js";
@@ -29,6 +31,7 @@ import customGroupEttersending from "./data-components/custom-grouplist-ettersen
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
 import customHeaderText from "./data-components/custom-header-text/index.js";
+import customHeaderTextData from "./data-components/custom-header-text-data/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
@@ -59,6 +62,8 @@ export {
     customList,
     customParagraph,
     customTable,
+    customDispensasjonerListData,
+    customDispensasjonerUnitInList,
     customFeedbackData,
     customFeedbacklistData,
     customFeedbacklistValidationMessages,
@@ -80,6 +85,7 @@ export {
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
     customHeaderText,
+    customHeaderTextData,
     customListData,
     customListVedlegg,
     customParagraphText,

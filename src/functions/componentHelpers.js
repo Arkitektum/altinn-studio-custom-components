@@ -1,5 +1,7 @@
 // Classes
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
+import CustomDispensasjonerListData from "../classes/system-classes/component-classes/CustomDispensasjonerListData.js";
+import CustomDispensasjonerUnitInList from "../classes/system-classes/component-classes/CustomDispensasjonerUnitInList.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
 import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.js";
 import CustomFeedbacklistData from "../classes/system-classes/component-classes/CustomFeedbacklistData.js";
@@ -24,6 +26,7 @@ import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/C
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
+import CustomHeaderTextData from "../classes/system-classes/component-classes/CustomHeaderTextData.js";
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
 import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
 import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.js";
@@ -49,6 +52,10 @@ export function instantiateComponent(element) {
             return new CustomComponent(component);
         case "custom-dispensasjon":
             return new CustomDispensasjon(component);
+        case "custom-dispensasjoner-list-data":
+            return new CustomDispensasjonerListData(component);
+        case "custom-dispensasjoner-unit-in-list":
+            return new CustomDispensasjonerUnitInList(component);
         case "custom-feedback":
             return new CustomFeedback(component);
         case "custom-feedback-data":
@@ -97,6 +104,8 @@ export function instantiateComponent(element) {
             return new CustomHeader(component);
         case "custom-header-text":
             return new CustomHeaderText(component);
+        case "custom-header-text-data":
+            return new CustomHeaderTextData(component);
         case "custom-list":
             return new CustomList(component);
         case "custom-list-data":
