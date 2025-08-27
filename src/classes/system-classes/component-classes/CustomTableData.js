@@ -128,13 +128,15 @@ export default class CustomTableData extends CustomComponent {
      * @returns {Array<Array<Object>>} A new array of table rows with empty rows removed.
      */
     removeEmptyTableRows(tableRows) {
-        return tableRows
-            .map((tableRow) => {
-                const tableCells = tableRow.map((tableCell) => instantiateComponent(tableCell));
-                const notEmptyTableCells = tableCells.filter((tableCellComponent) => !tableCellComponent?.isEmpty);
-                return notEmptyTableCells.length > 0 ? tableCells : null;
-            })
-            .filter((tableRow) => tableRow !== null);
+        return Array.isArray(tableRows)
+            ? tableRows
+                  .map((tableRow) => {
+                      const tableCells = tableRow.map((tableCell) => instantiateComponent(tableCell));
+                      const notEmptyTableCells = tableCells.filter((tableCellComponent) => !tableCellComponent?.isEmpty);
+                      return notEmptyTableCells.length > 0 ? tableCells : null;
+                  })
+                  .filter((tableRow) => tableRow !== null)
+            : []; // Return empty array if tableRows is not an array
     }
 
     /**

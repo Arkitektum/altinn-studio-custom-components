@@ -18,6 +18,8 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
+import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
+import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
@@ -33,6 +35,7 @@ import CustomParagraphText from "../classes/system-classes/component-classes/Cus
 import CustomParagraphTextData from "../classes/system-classes/component-classes/CustomParagraphTextData.js";
 import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
+import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
@@ -85,10 +88,14 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-field-utfall-svar-status":
             return new CustomFieldUtfallSvarStatus(component);
+        case "custom-group-ettersending":
+            return new CustomGroupEttersending(component);
         case "custom-group-utfall-svar":
             return new CustomGroupUtfallSvar(component);
         case "custom-group-utfall-svar-type":
             return new CustomGroupUtfallSvarType(component);
+        case "custom-grouplist-ettersending":
+            return new CustomGrouplistEttersending(component);
         case "custom-grouplist-utfall-svar":
             return new CustomGrouplistUtfallSvar(component);
         case "custom-grouplist-utfall-svar-type":
@@ -115,6 +122,8 @@ export function instantiateComponent(element) {
             return new CustomSubHeaderText(component);
         case "custom-table":
             return new CustomTable(component);
+        case "custom-table-arbeidsplasser":
+            return new CustomTableArbeidsplasser(component);
         case "custom-table-data":
             return new CustomTableData(component);
         case "custom-table-eiendom":

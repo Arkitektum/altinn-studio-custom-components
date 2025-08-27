@@ -25,9 +25,10 @@ import { hasValue } from "./helpers.js";
  *   @property {string} format - The format attribute of the element.
  *   @property {Array} tableColumns - The table columns configuration.
  *   @property {boolean} showRowNumbers - Whether to show row numbers.
- *   @property {*} resourceBindings - Resource bindings for the element.
- *   @property {*} resourceValues - Resource values for the element.
- *   @property {string} partType - The part type of the element.
+ *   @property {Object} resourceBindings - Text resource bindings for the element.
+ *   @property {Object} resourceValues - Resource values for the element.
+ *   @property {string} partType - The type of part defined for the element.
+ *   @property {boolean} enableLinks - Whether to enable links in the field value.
  *   @property {string} endSymbol - The end symbol for the element.
  */
 export function getPropsFromElementAttributes(element) {
@@ -53,6 +54,7 @@ export function getPropsFromElementAttributes(element) {
         resourceBindings: getResourceBindings(element),
         resourceValues: getResourceValues(element),
         partType: getPartType(element),
+        enableLinks: getEnableLinks(element)
         endSymbol: getEndSymbol(element)
     };
 }
@@ -279,6 +281,16 @@ function getResourceValues(element) {
 function getPartType(element) {
     const partType = element?.getAttribute("partType");
     return hasValue(partType) ? partType : "tiltakshaver";
+}
+
+/**
+ * Checks if the "enableLinks" attribute of the given HTML element is set to "true".
+ *
+ * @param {HTMLElement} element - The HTML element to check.
+ * @returns {boolean} Returns true if the "enableLinks" attribute is "true", otherwise false.
+ */
+function getEnableLinks(element) {
+    return element?.getAttribute("enableLinks") === "true";
 }
 
 /**

@@ -6,6 +6,7 @@
 :root {
     --font-family-default: "Roboto Flex", Arial, sans-serif;
     --color-text-default: #1c1b1d;
+    --color-text-link: #01579b;
     --background-muted: #f7f4f4;
     --color-divider-default: #cdcaca;
     --color-border-default: #e6e4e4;
@@ -65,6 +66,9 @@ body {
             &[class^="fds-"] {
                 font-family: var(--font-family-default);
             }
+        }
+        & a {
+            color: var(--color-text-link);
         }
         & .fds-label {
             font-family: var(--font-family-default);
@@ -182,6 +186,9 @@ body {
     & h4 {
         font-size: var(--font-size-h4);
         font-weight: var(--font-weight-semibold);
+    }
+    & a {
+        color: var(--color-text-link);
     }
     & div[data-componenttype="AttachmentList"] ul {
         margin-top: 0.3em;

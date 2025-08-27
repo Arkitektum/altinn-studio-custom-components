@@ -19,7 +19,8 @@ export default customElements.define(
             } else {
                 const options = {
                     inline: component?.inline,
-                    styleOverride: component?.styleOverride
+                    styleOverride: component?.styleOverride,
+                    enableLinks: component?.enableLinks
                 };
                 this.innerHTML = renderFieldElement(component?.resourceValues?.title, component?.resourceValues?.data, options);
             }

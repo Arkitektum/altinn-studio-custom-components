@@ -24,10 +24,12 @@ import customFieldKommunensSaksnummer from "./data-components/custom-field-kommu
 import customFieldProsjekt from "./data-components/custom-field-prosjekt/index.js";
 import customFieldTelefonnummer from "./data-components/custom-field-telefonnummer/index.js";
 import customFieldUtfallSvarStatus from "./data-components/custom-field-utfall-svar-status/index.js";
-import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
-import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
+import customGrouplistEttersending from "./data-components/custom-grouplist-ettersending/index.js";
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
+import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
+import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
+import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
 import customHeaderText from "./data-components/custom-header-text/index.js";
 import customHeaderTextData from "./data-components/custom-header-text-data/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
@@ -35,6 +37,7 @@ import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
 import customParagraphTextData from "./data-components/custom-paragraph-text-data/index.js";
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
+import CustomTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
@@ -75,10 +78,12 @@ export {
     customFieldProsjekt,
     customFieldTelefonnummer,
     customFieldUtfallSvarStatus,
-    customGrouplistUtfallSvarType,
-    customGroupUtfallSvarType,
+    customGrouplistEttersending,
     customGrouplistUtfallSvar,
+    customGrouplistUtfallSvarType,
+    customGroupEttersending,
     customGroupUtfallSvar,
+    customGroupUtfallSvarType,
     customHeaderText,
     customHeaderTextData,
     customListData,
@@ -86,6 +91,7 @@ export {
     customParagraphText,
     customParagraphTextData,
     customSubheaderText,
+    CustomTableArbeidsplasser,
     customTableData,
     customTableEiendom,
     customTablePart,
