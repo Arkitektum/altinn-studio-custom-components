@@ -27,7 +27,6 @@ export default class CustomFieldData extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        console.log(props);
         const dataTitle = getComponentDataTitle(props);
         const isEmpty = !this.hasContent(data);
         const isDataTitleEmpty = !this.hasContent(dataTitle);
