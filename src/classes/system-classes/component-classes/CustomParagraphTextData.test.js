@@ -1,8 +1,8 @@
-import CustomParagraphTextData from "./CustomParagraphTextData";
+import CustomParagraphTextData from "./CustomParagraphTextData.js";
 import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { formatString } from "../../../functions/dataFormatHelpers.js";
 
-// Mocks
+// Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
@@ -12,7 +12,7 @@ jest.mock("../../../functions/dataFormatHelpers.js", () => ({
     formatString: jest.fn()
 }));
 
-// Dummy parent class
+// Minimal CustomComponent mock
 class CustomComponent {}
 
 describe("CustomParagraphTextData", () => {
@@ -20,68 +20,76 @@ describe("CustomParagraphTextData", () => {
         jest.clearAllMocks();
     });
 
-    it("should set isEmpty to true and use emptyFieldText when formData is empty", () => {
-        getComponentDataValue.mockReturnValue("");
-        formatString.mockReturnValue("");
+    it("should set resourceValues.title to combined data when formData is present", () => {
+        getComponentDataValue.mockReturnValue("myFormData");
+        formatString.mockImplementation((data) => data); // no formatting
         getComponentResourceValue.mockImplementation((props, key) => {
-            if (key === "body") return "Body text";
-            if (key === "emptyFieldText") return "No content";
+            if (key === "body") return "BodyText";
+            if (key === "emptyFieldText") return "EmptyText";
             return "";
         });
-        hasValue.mockReturnValue(false);
+        hasValue.mockImplementation((val) => !!val);
 
-        const props = { format: undefined };
-        const instance = new CustomParagraphTextData(props);
-
-        expect(instance.isEmpty).toBe(true);
-        expect(instance.resourceValues.title).toBe("No content");
-    });
-
-    it("should set isEmpty to false and combine body and formData when formData has value", () => {
-        getComponentDataValue.mockReturnValue("Some data");
-        formatString.mockReturnValue("Some data");
-        getComponentResourceValue.mockImplementation((props, key) => {
-            if (key === "body") return "Body text";
-            if (key === "emptyFieldText") return "No content";
-            return "";
-        });
-        hasValue.mockReturnValue(true);
-
-        const props = { format: undefined };
+        const props = { endSymbol: "." };
         const instance = new CustomParagraphTextData(props);
 
         expect(instance.isEmpty).toBe(false);
-        expect(instance.resourceValues.title).toBe("Body text Some data.");
+        expect(instance.resourceValues.title).toBe("BodyText myFormData.");
     });
 
-    it("hasContent returns true if hasValue returns true", () => {
+    it("should set resourceValues.title to emptyFieldText when formData is empty", () => {
+        getComponentDataValue.mockReturnValue("");
+        formatString.mockReturnValue("");
+        getComponentResourceValue.mockImplementation((props, key) => {
+            if (key === "body") return "BodyText";
+            if (key === "emptyFieldText") return "EmptyText";
+            return "";
+        });
+        hasValue.mockImplementation((val) => !!val);
+
+        const props = { endSymbol: "." };
+        const instance = new CustomParagraphTextData(props);
+
+        expect(instance.isEmpty).toBe(true);
+        expect(instance.resourceValues.title).toBe("EmptyText");
+    });
+
+    it("should handle missing endSymbol gracefully", () => {
+        getComponentDataValue.mockReturnValue("data");
+        formatString.mockReturnValue("data");
+        getComponentResourceValue.mockImplementation((props, key) => {
+            if (key === "body") return "Body";
+            if (key === "emptyFieldText") return "Empty";
+            return "";
+        });
+        hasValue.mockImplementation((val) => !!val);
+
+        const props = {}; // no endSymbol
+        const instance = new CustomParagraphTextData(props);
+
+        expect(instance.resourceValues.title).toBe("Body data");
+    });
+
+    it("hasContent should delegate to hasValue", () => {
         hasValue.mockReturnValue(true);
         const instance = new CustomParagraphTextData({});
         expect(instance.hasContent("abc")).toBe(true);
+        expect(hasValue).toHaveBeenCalledWith("abc");
     });
 
-    it("hasContent returns false if hasValue returns false", () => {
-        hasValue.mockReturnValue(false);
+    it("getTextDataCombination should combine and trim values", () => {
         const instance = new CustomParagraphTextData({});
-        expect(instance.hasContent("")).toBe(false);
+        expect(instance.getTextDataCombination("foo", "bar", "!")).toBe("bar foo!");
+        expect(instance.getTextDataCombination("", "", "")).toBe("");
     });
 
-    it("getTextDataCombination returns combined string with period", () => {
-        const instance = new CustomParagraphTextData({});
-        expect(instance.getTextDataCombination("foo", "bar")).toBe("bar foo.");
-    });
-
-    it("getTextDataCombination returns empty string if both inputs are empty", () => {
-        const instance = new CustomParagraphTextData({});
-        expect(instance.getTextDataCombination("", "")).toBe("");
-    });
-
-    it("getValueFromFormData returns formatted string from helpers", () => {
+    it("getValueFromFormData should call getComponentDataValue and formatString", () => {
         getComponentDataValue.mockReturnValue("raw");
         formatString.mockReturnValue("formatted");
         const instance = new CustomParagraphTextData({});
-        expect(instance.getValueFromFormData({ format: "upper" })).toBe("formatted");
-        expect(getComponentDataValue).toHaveBeenCalled();
+        const props = { format: "upper" };
+        expect(instance.getValueFromFormData(props)).toBe("formatted");
+        expect(getComponentDataValue).toHaveBeenCalledWith(props);
         expect(formatString).toHaveBeenCalledWith("raw", "upper");
     });
 });
