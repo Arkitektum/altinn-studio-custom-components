@@ -10,7 +10,7 @@ describe("Arbeidsplasser", () => {
             faste: false,
             framtidige: true,
             midlertidige: false,
-            utleiebygg: true,
+            utleieBygg: true,
             veiledning: false
         };
         const arbeidsplasser = new Arbeidsplasser(props);
@@ -22,7 +22,7 @@ describe("Arbeidsplasser", () => {
         expect(arbeidsplasser.faste).toBe(false);
         expect(arbeidsplasser.framtidige).toBe(true);
         expect(arbeidsplasser.midlertidige).toBe(false);
-        expect(arbeidsplasser.utleiebygg).toBe(true);
+        expect(arbeidsplasser.utleieBygg).toBe(true);
         expect(arbeidsplasser.veiledning).toBe(false);
     });
 
@@ -35,7 +35,7 @@ describe("Arbeidsplasser", () => {
         expect(arbeidsplasser.faste).toBeUndefined();
         expect(arbeidsplasser.framtidige).toBeUndefined();
         expect(arbeidsplasser.midlertidige).toBeUndefined();
-        expect(arbeidsplasser.utleiebygg).toBeUndefined();
+        expect(arbeidsplasser.utleieBygg).toBeUndefined();
         expect(arbeidsplasser.veiledning).toBeUndefined();
     });
 
@@ -48,7 +48,7 @@ describe("Arbeidsplasser", () => {
         expect(arbeidsplasser.faste).toBeUndefined();
         expect(arbeidsplasser.framtidige).toBeUndefined();
         expect(arbeidsplasser.midlertidige).toBeUndefined();
-        expect(arbeidsplasser.utleiebygg).toBeUndefined();
+        expect(arbeidsplasser.utleieBygg).toBeUndefined();
         expect(arbeidsplasser.veiledning).toBeUndefined();
     });
 });
