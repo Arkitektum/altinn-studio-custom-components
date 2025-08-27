@@ -54,7 +54,7 @@ export function getPropsFromElementAttributes(element) {
         resourceBindings: getResourceBindings(element),
         resourceValues: getResourceValues(element),
         partType: getPartType(element),
-        enableLinks: getEnableLinks(element)
+        enableLinks: getEnableLinks(element),
         endSymbol: getEndSymbol(element)
     };
 }
