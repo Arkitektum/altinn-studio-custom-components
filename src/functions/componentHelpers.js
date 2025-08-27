@@ -32,6 +32,7 @@ import CustomParagraphText from "../classes/system-classes/component-classes/Cus
 import CustomParagraphTextData from "../classes/system-classes/component-classes/CustomParagraphTextData.js";
 import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
+import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
@@ -112,6 +113,8 @@ export function instantiateComponent(element) {
             return new CustomSubHeaderText(component);
         case "custom-table":
             return new CustomTable(component);
+        case "custom-table-arbeidsplasser":
+            return new CustomTableArbeidsplasser(component);
         case "custom-table-data":
             return new CustomTableData(component);
         case "custom-table-eiendom":
