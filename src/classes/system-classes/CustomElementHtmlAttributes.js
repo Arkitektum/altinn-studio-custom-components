@@ -58,6 +58,8 @@ export default class CustomElementHtmlAttributes {
         const resourceValues = this.getResourceValuesFromProps(props);
         const enableLinks = this.getEnableLinksFromProps(props);
         const endSymbol = this.getEndSymbolAttributeFromProps(props);
+        const text = this.getTextAttributeFromProps(props);
+
         if (isChildComponent) {
             this.isChildComponent = isChildComponent;
         }
@@ -129,6 +131,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (endSymbol) {
             this.endSymbol = endSymbol;
+        }
+        if (text) {
+            this.text = text;
         }
     }
 
@@ -421,5 +426,15 @@ export default class CustomElementHtmlAttributes {
      */
     getEndSymbolAttributeFromProps(props) {
         return hasValue(props?.endSymbol) && props?.endSymbol;
+    }
+
+    /**
+     * Retrieves the 'text' attribute from the given props object if it has a value.
+     *
+     * @param {Object} props - The properties object that may contain a 'text' attribute.
+     * @returns {*} The value of 'props.text' if it exists and passes the hasValue check; otherwise, returns false or undefined.
+     */
+    getTextAttributeFromProps(props) {
+        return hasValue(props?.text) && props?.text;
     }
 }
