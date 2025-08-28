@@ -7,7 +7,7 @@ jest.mock("../../../functions/helpers.js", () => ({
     hasValue: jest.fn()
 }));
 
-// Mock CustomComponent base class
+// Dummy CustomComponent base class to avoid import errors
 class CustomComponent {
     constructor(props) {
         this.props = props;
@@ -19,51 +19,69 @@ describe("CustomParagraphText", () => {
         jest.clearAllMocks();
     });
 
-    it("should extend CustomComponent", () => {
-        const instance = new CustomParagraphText({});
-        expect(instance).toBeInstanceOf(CustomParagraphText);
-        expect(instance).toBeInstanceOf(CustomComponent);
-    });
-
-    it("should set resourceValues.title to the value from getTextData", () => {
-        getComponentResourceValue.mockReturnValue("localized title");
+    it("should set resourceValues.title to the localized title if available", () => {
+        getComponentResourceValue.mockReturnValue("Localized Title");
         hasValue.mockReturnValue(true);
 
-        const props = { text: "fallback text" };
+        const props = { text: "Fallback Text" };
         const instance = new CustomParagraphText(props);
 
-        expect(instance.resourceValues.title).toBe("localized title");
-    });
-
-    it("getTextData should return localized title if hasValue returns true", () => {
-        getComponentResourceValue.mockReturnValue("localized title");
-        hasValue.mockReturnValue(true);
-
-        const props = { text: "fallback text" };
-        const instance = new CustomParagraphText(props);
-
-        expect(instance.getTextData(props)).toBe("localized title");
         expect(getComponentResourceValue).toHaveBeenCalledWith(props, "title");
-        expect(hasValue).toHaveBeenCalledWith("localized title");
+        expect(hasValue).toHaveBeenCalledWith("Localized Title");
+        expect(instance.resourceValues.title).toBe("Localized Title");
     });
 
-    it("getTextData should return text if hasValue returns false", () => {
+    it("should set resourceValues.title to the fallback text if localized title is not available", () => {
         getComponentResourceValue.mockReturnValue(undefined);
         hasValue.mockReturnValue(false);
 
-        const props = { text: "fallback text" };
+        const props = { text: "Fallback Text" };
         const instance = new CustomParagraphText(props);
 
-        expect(instance.getTextData(props)).toBe("fallback text");
+        expect(getComponentResourceValue).toHaveBeenCalledWith(props, "title");
+        expect(hasValue).toHaveBeenCalledWith(undefined);
+        expect(instance.resourceValues.title).toBe("Fallback Text");
     });
 
-    it("getTextData should return undefined if neither title nor text is present", () => {
+    it("should set resourceValues.title to undefined if neither title nor text is available", () => {
         getComponentResourceValue.mockReturnValue(undefined);
         hasValue.mockReturnValue(false);
 
         const props = {};
         const instance = new CustomParagraphText(props);
 
-        expect(instance.getTextData(props)).toBeUndefined();
+        expect(instance.resourceValues.title).toBeUndefined();
+    });
+
+    describe("getTextData", () => {
+        it("returns the localized title if hasValue returns true", () => {
+            getComponentResourceValue.mockReturnValue("Localized");
+            hasValue.mockReturnValue(true);
+
+            const instance = new CustomParagraphText({});
+            const result = instance.getTextData({ text: "Fallback" });
+
+            expect(result).toBe("Localized");
+        });
+
+        it("returns the fallback text if hasValue returns false", () => {
+            getComponentResourceValue.mockReturnValue(undefined);
+            hasValue.mockReturnValue(false);
+
+            const instance = new CustomParagraphText({});
+            const result = instance.getTextData({ text: "Fallback" });
+
+            expect(result).toBe("Fallback");
+        });
+
+        it("returns undefined if neither title nor text is available", () => {
+            getComponentResourceValue.mockReturnValue(undefined);
+            hasValue.mockReturnValue(false);
+
+            const instance = new CustomParagraphText({});
+            const result = instance.getTextData({});
+
+            expect(result).toBeUndefined();
+        });
     });
 });
