@@ -57,7 +57,6 @@ export default class CustomElementHtmlAttributes {
         const resourceBindings = this.getResourceBindingsFromProps(props);
         const resourceValues = this.getResourceValuesFromProps(props);
         const enableLinks = this.getEnableLinksFromProps(props);
-        const endSymbol = this.getEndSymbolAttributeFromProps(props);
         const text = this.getTextAttributeFromProps(props);
 
         if (isChildComponent) {
@@ -128,9 +127,6 @@ export default class CustomElementHtmlAttributes {
         }
         if (enableLinks) {
             this.enableLinks = enableLinks;
-        }
-        if (endSymbol) {
-            this.endSymbol = endSymbol;
         }
         if (text) {
             this.text = text;
@@ -417,15 +413,6 @@ export default class CustomElementHtmlAttributes {
      */
     getEnableLinksFromProps(props) {
         return props?.enableLinks?.toString() === "true" ? "true" : undefined;
-    }
-    /**
-     * Retrieves the 'endSymbol' attribute from the provided props object if it has a value.
-     *
-     * @param {Object} props - The properties object that may contain the 'endSymbol' attribute.
-     * @returns {*} The value of 'endSymbol' if it exists and has a value; otherwise, returns a falsy value.
-     */
-    getEndSymbolAttributeFromProps(props) {
-        return hasValue(props?.endSymbol) && props?.endSymbol;
     }
 
     /**

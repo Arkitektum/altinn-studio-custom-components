@@ -54,8 +54,7 @@ export function getPropsFromElementAttributes(element) {
         resourceBindings: getResourceBindings(element),
         resourceValues: getResourceValues(element),
         partType: getPartType(element),
-        enableLinks: getEnableLinks(element),
-        endSymbol: getEndSymbol(element)
+        enableLinks: getEnableLinks(element)
     };
 }
 
@@ -291,15 +290,4 @@ function getPartType(element) {
  */
 function getEnableLinks(element) {
     return element?.getAttribute("enableLinks") === "true";
-}
-
-/**
- * Retrieves the "endSymbol" attribute from the given HTML element if it exists and has a value.
- *
- * @param {HTMLElement} element - The HTML element from which to retrieve the "endSymbol" attribute.
- * @returns {string|false} The value of the "endSymbol" attribute if it exists and is valid, otherwise false.
- */
-function getEndSymbol(element) {
-    const endSymbol = element?.getAttribute("endSymbol");
-    return hasValue(endSymbol) && endSymbol;
 }
