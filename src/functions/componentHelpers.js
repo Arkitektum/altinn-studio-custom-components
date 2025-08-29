@@ -20,8 +20,10 @@ import CustomFieldTelefonnummer from "../classes/system-classes/component-classe
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
+import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
+import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
@@ -90,12 +92,16 @@ export function instantiateComponent(element) {
             return new CustomFieldUtfallSvarStatus(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
+        case "custom-group-sjekklistekrav":
+            return new CustomGroupSjekklistekrav(component);
         case "custom-group-utfall-svar":
             return new CustomGroupUtfallSvar(component);
         case "custom-group-utfall-svar-type":
             return new CustomGroupUtfallSvarType(component);
         case "custom-grouplist-ettersending":
             return new CustomGrouplistEttersending(component);
+        case "custom-grouplist-sjekklistekrav":
+            return new CustomGrouplistSjekklistekrav(component);
         case "custom-grouplist-utfall-svar":
             return new CustomGrouplistUtfallSvar(component);
         case "custom-grouplist-utfall-svar-type":
