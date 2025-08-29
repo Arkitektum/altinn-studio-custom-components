@@ -130,29 +130,56 @@ export function createCustomElement(tagName, htmlAttributes) {
 }
 
 /**
- * Creates a container element with a nested form content element, applies styles,
- * and appends the provided component to the form content element.
+ * Calculates the flex width percentage based on a grid configuration.
+ * The function considers the grid breakpoints (xs, sm, md, lg, xl) and returns
+ * the smallest width percentage among them, defaulting to 100% if no grid is provided.
  *
- * @param {HTMLElement} component - The component to be added inside the container.
- * @param {boolean} flex - A flag indicating whether to apply flex-based styles.
- * @returns {HTMLElement} The container element with the nested component.
+ * @param {Object} [grid] - The grid configuration object.
+ * @param {number} [grid.xs=12] - Number of columns for extra small screens.
+ * @param {number} [grid.sm=grid.xs] - Number of columns for small screens.
+ * @param {number} [grid.md=grid.sm] - Number of columns for medium screens.
+ * @param {number} [grid.lg=grid.md] - Number of columns for large screens.
+ * @param {number} [grid.xl=grid.lg] - Number of columns for extra large screens.
+ * @returns {number} The minimum flex width percentage for the given grid configuration.
  */
-export function addContainerElement(component, flex) {
+export function calculateFlexWidth(grid) {
+    if (!grid) {
+        return 100;
+    } else {
+        const xs = grid.xs || 12;
+        const sm = grid.sm || xs;
+        const md = grid.md || sm;
+        const lg = grid.lg || md;
+        const xl = grid.xl || lg;
+        return Math.min((xs / 12) * 100, (sm / 12) * 100, (md / 12) * 100, (lg / 12) * 100, (xl / 12) * 100);
+    }
+}
+
+/**
+ * Creates a container element with a nested form content element, applies flex and padding styles,
+ * and sets the width based on the provided grid value.
+ *
+ * @param {HTMLElement} component - The component to be wrapped inside the container.
+ * @param {Object} grid - The grid configuration object to determine the width.
+ * @returns {HTMLDivElement} The styled container element containing the component.
+ */
+export function addContainerElement(component, grid) {
     const containerElement = document.createElement("div");
     const formContentElement = document.createElement("div");
     formContentElement.appendChild(component);
     containerElement.appendChild(formContentElement);
 
-    const flexStyle = hasValue(flex)
-        ? {
-              flexGrow: "0",
-              maxWidth: "50%",
-              flexBasis: "50%"
-          }
-        : {
-              flexBasis: "100%",
-              maxWidth: "100%"
-          };
+    const flexStyle = {
+        flexBasis: "100%",
+        maxWidth: "100%"
+    };
+
+    if (hasValue(grid)) {
+        const flexWidth = calculateFlexWidth(grid);
+        flexStyle.flexBasis = `${flexWidth}%`;
+        flexStyle.maxWidth = `${flexWidth}%`;
+        flexStyle.flexGrow = "0";
+    }
 
     addStyle(containerElement, {
         ...flexStyle,

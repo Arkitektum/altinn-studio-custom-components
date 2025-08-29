@@ -18,7 +18,8 @@ import {
     getComponentBooleanDataValues,
     getComponentBooleanTextValues,
     getComponentResourceValue,
-    appendChildren
+    appendChildren,
+    calculateFlexWidth
 } from "./helpers";
 
 // Mock for customElementTagNames
@@ -105,15 +106,28 @@ describe("createCustomElement", () => {
     });
 });
 
+describe("calculateFlexWidth", () => {
+    it("returns 100 if grid is undefined", () => {
+        expect(calculateFlexWidth()).toBe(100);
+    });
+    it("calculates minimum flex width", () => {
+        expect(calculateFlexWidth({ xs: 6 })).toBe(50);
+        expect(calculateFlexWidth({ xs: 6, sm: 12 })).toBe(50);
+        expect(calculateFlexWidth({ xs: 12, sm: 6 })).toBe(50);
+        expect(calculateFlexWidth({ xs: 12, sm: 12, md: 6 })).toBe(50);
+    });
+});
+
 describe("addContainerElement", () => {
-    it("creates container with flex styles if flex is true", () => {
-        const child = document.createElement("span");
-        const container = addContainerElement(child, true);
-        expect(container.style.flexGrow).toBe("0");
-        expect(container.style.maxWidth).toBe("50%");
+    it("wraps component and applies styles", () => {
+        const comp = document.createElement("span");
+        const grid = { xs: 6 };
+        const container = addContainerElement(comp, grid);
+        expect(container.tagName).toBe("DIV");
         expect(container.style.flexBasis).toBe("50%");
+        expect(container.style.maxWidth).toBe("50%");
         expect(container.style.padding).toBe("0.75rem 0px");
-        expect(container.querySelector("span")).toBe(child);
+        expect(container.firstChild.firstChild).toBe(comp);
     });
     it("creates container with 100% styles if flex is false", () => {
         const child = document.createElement("span");
