@@ -20,39 +20,7 @@ function renderHeaderElement(component) {
     });
     return createCustomElement("custom-header-text-data", htmlAttributes);
 }
-// function renderDispEllerTillatelseSubHeaderElement(component) {
-//     const htmlAttributes = new CustomElementHtmlAttributes({
-//         isChildComponent: true,
-//         hideIfEmpty: true,
-//         resourceBindings: {
-//             title: component?.resourceBindings?.dispensasjonPlanBestemmelseNavn?.title
-//         }
-//     });
-//     return createCustomElement("custom-subheader-text", htmlAttributes);
-// }
-// function renderParagraph1Element(component) {
-//     const htmlAttributes = new CustomElementHtmlAttributes({
-//         isChildComponent: true,
-//         hideIfEmpty: true,
-//         resourceValues: {
-//             data: component?.resourceValues?.data?.dispensasjonFra?.dispensasjonPlanBestemmelse?.navn
-//         }
-//     });
-//     return createCustomElement("custom-paragraph-text", htmlAttributes);
-// }
-// function renderParagraph2Element(component) {
-//     const htmlAttributes = new CustomElementHtmlAttributes({
-//         isChildComponent: true,
-//         hideIfEmpty: true,
-//         resourceValues: {
-//             data: component?.resourceValues?.data?.dispensasjonFra?.dispensasjonPlanBestemmelse?.nasjonalArealplanId?.planidentifikasjon
-//         },
-//         resourceBindings: {
-//             body: component?.resourceBindings?.dispensasjonPlanBestemmelseNasjonalArealPlanId?.title
-//         }
-//     });
-//     return createCustomElement("custom-paragraph-text", htmlAttributes);
-// }
+
 function renderBestemmelseFieldDataElement(component) {
     const lovbestemmelse = component?.resourceValues?.data?.dispensasjonFra?.lovbestemmelse;
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -87,17 +55,6 @@ export function renderDispensasjonerUnitInListElement(component) {
     const dispensasjonerUnitInListElement = document.createElement("div");
 
     dispensasjonerUnitInListElement.appendChild(renderHeaderElement(component));
-    //dispensasjonerUnitInListElement.appendChild(renderDispEllerTillatelseSubHeaderElement(component));
-
-    // const paragraphDiv = document.createElement("div");
-    // const p1 = renderParagraph1Element(component);
-    // const p2 = renderParagraph2Element(component);
-    // p1.style.display = "inline-block";
-    // p2.style.display = "inline-block";
-    // paragraphDiv.appendChild(p1);
-    // paragraphDiv.appendChild(document.createTextNode(" "));
-    // paragraphDiv.appendChild(p2);
-    // dispensasjonerUnitInListElement.appendChild(paragraphDiv);
 
     dispensasjonerUnitInListElement.appendChild(renderBestemmelseFieldDataElement(component));
     dispensasjonerUnitInListElement.appendChild(renderBegrunnelseFieldDataElement(component));

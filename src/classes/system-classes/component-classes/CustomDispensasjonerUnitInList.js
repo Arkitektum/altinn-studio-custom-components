@@ -38,21 +38,6 @@ export default class CustomDispensasjonerUnitInList extends CustomComponent {
 
     getTextResourceBindings(props) {
         const resourceBindings = {
-            // dispensasjonPlanBestemmelseNavn: {
-            //     title:
-            //         props?.resourceBindings?.dispensasjonPlanBestemmelseNavn?.title ||
-            //         "resource.dispensasjonEllerTillatelse.dispensasjonPlanBestemmelseNavn.title"
-            // },
-            // dispensasjonPlanBestemmelseNasjonalArealPlanId: {
-            //     title:
-            //         props?.resourceBindings?.dispensasjonPlanBestemmelseNasjonalArealPlanId?.title ||
-            //         "resource.dispensasjonEllerTillatelse.dispensasjonPlanBestemmelseNasjonalArealPlanId.title"
-            // },
-            // dispensasjonPlanBestemmelsePlanBestemmelse: {
-            //     title:
-            //         props?.resourceBindings?.dispensasjonPlanBestemmelsePlanBestemmelse?.title ||
-            //         "resource.dispensasjonEllerTillatelse.dispensasjonPlanBestemmelsePlanBestemmelse.title"
-            // },
             bestemmelse: {
                 title: props?.resourceBindings?.bestemmelse?.title || "resource.dispensasjon.bestemmelse.title"
             },
