@@ -35,7 +35,7 @@ function renderParagraph1Element(component) {
             data: component?.resourceValues?.data?.dispensasjonFra?.dispensasjonPlanBestemmelse?.navn
         }
     });
-    return createCustomElement("custom-paragraph-text-data", htmlAttributes);
+    return createCustomElement("custom-paragraph-text", htmlAttributes);
 }
 function renderParagraph2Element(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -46,10 +46,9 @@ function renderParagraph2Element(component) {
         },
         resourceBindings: {
             body: component?.resourceBindings?.dispensasjonPlanBestemmelseNasjonalArealPlanId?.title
-        },
-        endSymbol: ")"
+        }
     });
-    return createCustomElement("custom-paragraph-text-data", htmlAttributes);
+    return createCustomElement("custom-paragraph-text", htmlAttributes);
 }
 function renderBestemmelseFieldDataElement(component) {
     const lovbestemmelse = component?.resourceValues?.data?.dispensasjonFra?.lovbestemmelse;
