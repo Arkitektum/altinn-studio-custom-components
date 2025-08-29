@@ -38,37 +38,16 @@ export default class CustomDispensasjonerUnitInList extends CustomComponent {
 
     getTextResourceBindings(props) {
         const resourceBindings = {
-            dispensasjonPlanBestemmelseNavn: {
-                title:
-                    props?.resourceBindings?.dispensasjonPlanBestemmelseNavn?.title ||
-                    "resource.dispensasjonEllerTillatelse.dispensasjonPlanBestemmelseNavn.title"
-            },
-            dispensasjonPlanBestemmelseNasjonalArealPlanId: {
-                title:
-                    props?.resourceBindings?.dispensasjonPlanBestemmelseNasjonalArealPlanId?.title ||
-                    "resource.dispensasjonEllerTillatelse.dispensasjonPlanBestemmelseNasjonalArealPlanId.title"
-            },
-            dispensasjonPlanBestemmelsePlanBestemmelse: {
-                title:
-                    props?.resourceBindings?.dispensasjonPlanBestemmelsePlanBestemmelse?.title ||
-                    "resource.dispensasjonEllerTillatelse.dispensasjonPlanBestemmelsePlanBestemmelse.title"
-            },
-            lovbestemmelse: {
-                title: props?.resourceBindings?.lovbestemmelse?.title || "resource.dispensasjonEllerTillatelse.lovbestemmelse.title"
+            bestemmelse: {
+                title: props?.resourceBindings?.bestemmelse?.title || "resource.dispensasjon.bestemmelse.title"
             },
             begrunnelse: {
-                title: props?.resourceBindings?.begrunnelse?.title || "resource.dispensasjonEllerTillatelse.begrunnelse.title"
+                title: props?.resourceBindings?.begrunnelse?.title || "resource.dispensasjon.begrunnelse.title"
             }
         };
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
-            resourceBindings.dispensasjonEllerTillatelse = {
-                title: props?.resourceBindings?.title || "resource.dispensasjonEllerTillatelse.header"
-            };
-        }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.eiendomByggested = {
-                ...resourceBindings.eiendomByggested,
-                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            resourceBindings.bestemmelsestype = {
+                title: props?.resourceBindings?.title || "resource.bestemmelsestype.header"
             };
         }
         return resourceBindings;

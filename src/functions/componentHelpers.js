@@ -32,7 +32,6 @@ import CustomListData from "../classes/system-classes/component-classes/CustomLi
 import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.js";
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
-import CustomParagraphTextData from "../classes/system-classes/component-classes/CustomParagraphTextData.js";
 import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
 import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
@@ -116,8 +115,6 @@ export function instantiateComponent(element) {
             return new CustomParagraph(component);
         case "custom-paragraph-text":
             return new CustomParagraphText(component);
-        case "custom-paragraph-text-data":
-            return new CustomParagraphTextData(component);
         case "custom-subheader-text":
             return new CustomSubHeaderText(component);
         case "custom-table":
