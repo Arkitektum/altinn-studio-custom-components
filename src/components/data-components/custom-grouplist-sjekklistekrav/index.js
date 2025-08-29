@@ -1,10 +1,10 @@
 // Global functions
-import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
-import { renderEmptyFieldText, renderHeaderElement, renderSjekklistekravGroup } from "./renderers.js";
+import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderSjekklistekravGroup } from "./renderers.js";
 
 export default customElements.define(
     "custom-grouplist-sjekklistekrav",
@@ -22,7 +22,7 @@ export default customElements.define(
                 for (const sjekklistekrav of component?.resourceValues?.data) {
                     const sjekklistekravElement = renderSjekklistekravGroup(sjekklistekrav, component);
                     this.appendChild(sjekklistekravElement);
-                    const dividerElement = createCustomElement("custom-divider");
+                    const dividerElement = renderDivider();
                     this.appendChild(dividerElement);
                 }
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);

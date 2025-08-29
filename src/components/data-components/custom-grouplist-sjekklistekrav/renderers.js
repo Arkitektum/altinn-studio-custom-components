@@ -68,3 +68,15 @@ export function renderEmptyFieldText(component) {
     });
     return createCustomElement("custom-paragraph", htmlAttributes);
 }
+
+/**
+ * Renders a custom divider element with overridden margin style.
+ *
+ * @returns {HTMLElement} The custom divider element.
+ */
+export function renderDivider() {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        styleOverride: { margin: 0 }
+    });
+    return createCustomElement("custom-divider", htmlAttributes);
+}
