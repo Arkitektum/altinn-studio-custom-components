@@ -1,27 +1,25 @@
-import CustomElementHtmlAttributes from "../src/classes/system-classes/CustomElementHtmlAttributes.js";
-import { addContainerElement, createCustomElement, getValueFromDataKey } from "../src/functions/helpers.js";
+// Global functions
+import { getValueFromDataKey } from "../../src/functions/helpers.js";
 
-function removeTrailingOrLeadingComma(value) {
-    return value.replace(/(^,)|(,$)/g, "");
-}
+// Local functions
+import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
+import { getDataModels, getValueFromLocalStorage } from "./localStorage.js";
+import { renderResults, renderSidebar } from "./renderers.js";
+import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 
-function addValueToLocalStorage(key, value) {
-    localStorage.setItem(key, value);
-}
-
-function getValueFromLocalStorage(key) {
-    return localStorage.getItem(key);
-}
-
-function getLayoutCode() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("code")));
-}
-
-function getDataModels() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModels")));
-}
-
-function getDataForComponent(component) {
+/**
+ * Retrieves data for a given component based on its data model bindings.
+ *
+ * Iterates over the component's `dataModelBindings` and fetches corresponding values
+ * from the data models. If a binding is a string, it uses the first data model.
+ * If a binding is an object, it finds the data model matching the specified `dataType`.
+ * If the value is not found, it falls back to the binding itself or its `data` property.
+ *
+ * @param {Object} component - The component object containing data model bindings.
+ * @param {Object} component.dataModelBindings - Key-value pairs mapping component fields to data model bindings.
+ * @returns {Object} An object containing the resolved data for each binding key.
+ */
+export function getDataForComponent(component) {
     const dataModels = getDataModels();
     const data = {};
     component?.dataModelBindings &&
@@ -42,115 +40,27 @@ function getDataForComponent(component) {
     return data;
 }
 
-function renderResults() {
-    const component = getLayoutCode();
-    const data = getDataForComponent(component);
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        ...component,
-        formData: data
-    });
-    const element = createCustomElement(component?.tagName, htmlAttributes);
-    const testElement = document.getElementById("code-results");
-    testElement.innerHTML = "";
-    testElement.appendChild(addContainerElement(element));
-}
-
-function getDataModelSummaryText(dataModel, index) {
+/**
+ * Generates a summary text for a data model based on its type and index.
+ *
+ * @param {Object} dataModel - The data model object.
+ * @param {string} [dataModel.dataType] - The type of the data model.
+ * @param {number} index - The index of the data model in the list.
+ * @returns {string} The summary text for the data model.
+ */
+export function getDataModelSummaryText(dataModel, index) {
     const dataTypeName = dataModel.dataType?.length > 0 ? dataModel.dataType : `Data model ${index + 1}`;
     const dataModelType = index === 0 ? `[main] ${dataModel.dataType}` : dataTypeName;
     return dataModelType;
 }
 
-function handleDataModelTypeOnChange(index) {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
-    const dataModelTypeInputElement = document.getElementById(`data-model-type-input-${index}`);
-    dataModels[index].dataType = dataModelTypeInputElement.value;
-    addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-}
-
-function handleDataModelDataOnChange(index) {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
-    const dataModelDataInputElement = document.getElementById("code-input");
-    dataModels[index].data = JSON.parse(removeTrailingOrLeadingComma(dataModelDataInputElement.value));
-    addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-}
-
-function setActiveSidebarElement(itemId) {
-    const fileListElement = document.getElementById("file-list");
-    const dataModelListElement = document.getElementById("data-model-list");
-
-    if (fileListElement) {
-        const fileListItems = fileListElement.querySelectorAll("li");
-        fileListItems.forEach((item) => {
-            item.classList.remove("active");
-        });
-    }
-
-    if (dataModelListElement) {
-        const dataModelListItems = dataModelListElement.querySelectorAll("li");
-        dataModelListItems.forEach((item) => {
-            item.classList.remove("active");
-        });
-    }
-
-    const activeItem = document.getElementById(itemId);
-    if (activeItem) {
-        activeItem.classList.add("active");
-    }
-}
-
-function renderSidebar() {
-    const sidebarElement = document.getElementById("sidebar");
-    sidebarElement.innerHTML = "";
-
-    const fileListElement = document.createElement("ul");
-    fileListElement.id = "file-list";
-    fileListElement.classList.add("file-list");
-
-    // Layout code
-    const layoutCodeItemId = "layout-code";
-    const layoutCodeListElement = document.createElement("li");
-    layoutCodeListElement.id = layoutCodeItemId;
-    const layoutCodeButtonElement = document.createElement("button");
-    layoutCodeButtonElement.innerHTML = "Layout code";
-    layoutCodeButtonElement.onclick = function () {
-        const codeInputElement = getCodeInputElementForLayoutCode();
-        updateDataInputElement(codeInputElement);
-        setActiveSidebarElement(layoutCodeItemId);
-    };
-    layoutCodeListElement.appendChild(layoutCodeButtonElement);
-    fileListElement.appendChild(layoutCodeListElement);
-
-    // Text resources code
-    const textResourcesItemId = "text-resources-code";
-    const textResourcesCodeListElement = document.createElement("li");
-    textResourcesCodeListElement.id = textResourcesItemId;
-    const textResourcesCodeButtonElement = document.createElement("button");
-    textResourcesCodeButtonElement.innerHTML = "Text resources";
-    textResourcesCodeButtonElement.onclick = function () {
-        const codeInputElement = getCodeInputElementForTextResources();
-        updateDataInputElement(codeInputElement);
-        setActiveSidebarElement(textResourcesItemId);
-    };
-    textResourcesCodeListElement.appendChild(textResourcesCodeButtonElement);
-    fileListElement.appendChild(textResourcesCodeListElement);
-
-    sidebarElement.appendChild(fileListElement);
-
-    sidebarElement.appendChild(getDataModelListElements());
-
-    const addDataModelButtonElement = document.createElement("button");
-    addDataModelButtonElement.id = "add-data-model-button";
-    addDataModelButtonElement.innerHTML = "Add Data Model";
-    addDataModelButtonElement.classList.add("add-button");
-    addDataModelButtonElement.onclick = function () {
-        addDataModel();
-        renderSidebar();
-    };
-    sidebarElement.appendChild(addDataModelButtonElement);
-}
-
-function getDataModelListElements() {
+/**
+ * Generates a list element (<ul>) containing data model items from local storage.
+ * Each item includes controls for editing the data type, viewing a summary, and removing the data model.
+ *
+ * @returns {HTMLUListElement} The list element containing all data model items.
+ */
+export function getDataModelListElements() {
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
     const dataModelListElement = document.createElement("ul");
     dataModelListElement.id = "data-model-list";
@@ -225,17 +135,15 @@ function getDataModelListElements() {
     return dataModelListElement;
 }
 
-function beautifyJson(json) {
-    return JSON.stringify(JSON.parse(removeTrailingOrLeadingComma(json)), null, 2);
-}
-
-function addDataModel() {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
-    dataModels.push({ data: "", dataType: "", expanded: true });
-    addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
-}
-
-function getCodeInputElementForDataModel(dataModelIndex) {
+/**
+ * Creates and returns a textarea element for editing the data of a specific data model.
+ * The textarea is populated with the JSON stringified data of the selected data model.
+ * On change, it triggers data model update and re-renders results.
+ *
+ * @param {number} dataModelIndex - The index of the data model to edit.
+ * @returns {HTMLTextAreaElement} The textarea element for editing the data model.
+ */
+export function getCodeInputElementForDataModel(dataModelIndex) {
     const codeInputElement = document.createElement("textarea");
     codeInputElement.id = "code-input";
     const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")) || [];
@@ -248,7 +156,13 @@ function getCodeInputElementForDataModel(dataModelIndex) {
     return codeInputElement;
 }
 
-function getCodeInputElementForLayoutCode() {
+/**
+ * Creates and returns a textarea element for code input, pre-populated with the value from local storage.
+ * On change, the input is beautified, saved to local storage, and results are rendered.
+ *
+ * @returns {HTMLTextAreaElement} The textarea element for code input.
+ */
+export function getCodeInputElementForLayoutCode() {
     const codeInputElement = document.createElement("textarea");
     codeInputElement.id = "code-input";
     codeInputElement.value = getValueFromLocalStorage("code") || "";
@@ -260,7 +174,15 @@ function getCodeInputElementForLayoutCode() {
     return codeInputElement;
 }
 
-function getCodeInputElementForTextResources() {
+/**
+ * Creates and returns a textarea element for editing text resources as JSON.
+ * The textarea is initialized with the value from local storage (key: "textResources").
+ * On change, the input is beautified, saved to local storage, parsed to update `window.textResources`,
+ * and triggers a re-render of results.
+ *
+ * @returns {HTMLTextAreaElement} The textarea element for text resources input.
+ */
+export function getCodeInputElementForTextResources() {
     const codeInputElement = document.createElement("textarea");
     codeInputElement.id = "code-input";
     codeInputElement.value = getValueFromLocalStorage("textResources") || "";
@@ -272,15 +194,3 @@ function getCodeInputElementForTextResources() {
     };
     return codeInputElement;
 }
-
-function updateDataInputElement(inputElement) {
-    const dataInputElement = document.getElementById("data-input");
-    dataInputElement.innerHTML = "";
-    dataInputElement.appendChild(inputElement);
-}
-
-window.onload = function () {
-    window.textResources = JSON.parse(getValueFromLocalStorage("textResources") || "");
-    renderSidebar();
-    renderResults();
-};
