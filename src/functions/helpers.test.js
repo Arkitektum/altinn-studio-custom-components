@@ -19,7 +19,8 @@ import {
     getComponentBooleanTextValues,
     getComponentResourceValue,
     appendChildren,
-    calculateFlexWidth
+    calculateFlexWidth,
+    generateUniqueId
 } from "./helpers";
 
 // Mock for customElementTagNames
@@ -91,6 +92,30 @@ describe("getRowNumberTitle", () => {
     });
     it("returns text resource if found", () => {
         expect(getRowNumberTitle({ resourceBindings: { rowNumberTitle: "rowTitle" } })).toBe("Row #");
+    });
+});
+
+describe("generateUniqueId", () => {
+    it("generates a unique id with no prefix", () => {
+        const id1 = generateUniqueId();
+        const id2 = generateUniqueId();
+        expect(typeof id1).toBe("string");
+        expect(typeof id2).toBe("string");
+        expect(id1).not.toBe(id2);
+        expect(id1.length).toBeGreaterThan(0);
+    });
+
+    it("generates a unique id with a prefix", () => {
+        const prefix = "test-";
+        const id = generateUniqueId(prefix);
+        expect(id.startsWith(prefix)).toBe(true);
+        expect(id.length).toBeGreaterThan(prefix.length);
+    });
+
+    it("ids generated in quick succession are different", () => {
+        const ids = Array.from({ length: 5 }, () => generateUniqueId());
+        const uniqueIds = new Set(ids);
+        expect(uniqueIds.size).toBe(ids.length);
     });
 });
 

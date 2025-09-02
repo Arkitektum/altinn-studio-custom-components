@@ -113,6 +113,21 @@ export function getRowNumberTitle(component) {
 }
 
 /**
+ * Generates a unique identifier string, optionally prefixed.
+ *
+ * The identifier is composed of the current timestamp (in base36)
+ * and a random string (also in base36), ensuring uniqueness.
+ *
+ * @param {string} [prefix=""] - Optional prefix to prepend to the unique ID.
+ * @returns {string} A unique identifier string.
+ */
+export function generateUniqueId(prefix = "") {
+    const timestamp = Date.now().toString(36); // base36 for compactness
+    const random = Math.random().toString(36).substring(2, 10); // skip "0."
+    return `${prefix}${timestamp}${random}`;
+}
+
+/**
  * Creates a custom HTML element with the specified tag name and attributes.
  *
  * @param {string} tagName - The name of the HTML tag to create.

@@ -1,16 +1,21 @@
 // Global functions
 import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
-import { addStyle, hasValue } from "../../../functions/helpers.js";
+import { addStyle, generateUniqueId, hasValue } from "../../../functions/helpers.js";
 
 /**
- * Renders a field title element as a label.
+ * Creates and returns a span element representing a field title.
  *
- * @param {string} fieldTitle - The title text to be displayed in the label.
- * @param {boolean} inline - A flag indicating whether the title should be displayed inline with a colon.
- * @returns {HTMLLabelElement} The created label element with the specified title.
+ * @param {string} fieldTitle - The text to display as the field title.
+ * @param {string} [fieldTitleId] - Optional ID to assign to the span element.
+ * @param {boolean} inline - If true, appends a colon to the field title.
+ * @returns {HTMLSpanElement} The span element containing the field title.
  */
-function renderFieldTitleElement(fieldTitle, inline) {
-    const fieldTitleLabelElement = document.createElement("label");
+function renderFieldTitleElement(fieldTitle, fieldTitleId, inline) {
+    const fieldTitleLabelElement = document.createElement("span");
+    if (fieldTitleId) {
+        fieldTitleLabelElement.id = fieldTitleId;
+    }
+    fieldTitleLabelElement.classList.add("field-title");
     fieldTitleLabelElement.innerText = `${fieldTitle}${inline ? ":" : ""}`;
     return fieldTitleLabelElement;
 }
@@ -29,6 +34,7 @@ function renderFieldTitleElement(fieldTitle, inline) {
  */
 function renderFieldValueElement(fieldValue, enableLinks) {
     const fieldValueElement = document.createElement("span");
+    fieldValueElement.classList.add("field-value");
     if (Array.isArray(fieldValue)) {
         fieldValue = fieldValue.join(", ");
     }
@@ -44,16 +50,16 @@ function renderFieldValueElement(fieldValue, enableLinks) {
 }
 
 /**
- * Renders a field element with a title and value.
+ * Renders a custom field element with a title and value, supporting various options.
  *
- * @param {string} fieldTitle - The title of the field.
- * @param {string} fieldValue - The value of the field.
- * @param {Object} [options] - Optional settings for rendering the field element.
- * @param {boolean} [options.returnHtml=true] - Whether to return the element as HTML string.
- * @param {boolean} [options.inline=false] - Whether to render the field inline.
- * @param {Object} [options.styleOverride={}] - Custom styles to apply to the field element.
- * @param {boolean} [options.enableLinks=false] - Whether to enable links in the field value.
- * @returns {HTMLElement|string} The rendered field element or its HTML string representation.
+ * @param {string} fieldTitle - The title of the field to display.
+ * @param {*} fieldValue - The value/content of the field to display.
+ * @param {Object} [options] - Optional settings for rendering the field.
+ * @param {boolean} [options.returnHtml=true] - If true, returns the field as an HTML string; otherwise, returns the DOM element.
+ * @param {boolean} [options.inline=false] - If true, renders the field inline.
+ * @param {Object} [options.styleOverride={}] - CSS style overrides to apply to the field element.
+ * @param {boolean} [options.enableLinks] - If true, enables link rendering in the field value.
+ * @returns {string|HTMLElement} The rendered field element as an HTML string or DOM element, depending on `options.returnHtml`.
  */
 export function renderFieldElement(fieldTitle, fieldValue, options) {
     options = {
@@ -64,8 +70,9 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
     };
     const fieldElement = document.createElement("div");
     fieldElement.classList.add("field");
+    const fieldTitleId = fieldTitle?.length ? generateUniqueId("custom-field-") : null;
     if (fieldTitle?.length) {
-        fieldElement.appendChild(renderFieldTitleElement(fieldTitle, options.inline));
+        fieldElement.appendChild(renderFieldTitleElement(fieldTitle, fieldTitleId, options.inline));
     }
     if (options?.inline) {
         fieldElement.classList.add("inline");
@@ -73,6 +80,7 @@ export function renderFieldElement(fieldTitle, fieldValue, options) {
     const fieldValueElement = renderFieldValueElement(fieldValue, options.enableLinks);
     if (fieldTitle?.length) {
         fieldValueElement.classList.add("has-title");
+        fieldValueElement.setAttribute("aria-labelledby", fieldTitleId);
     }
     fieldElement.appendChild(fieldValueElement);
     addStyle(fieldElement, {
