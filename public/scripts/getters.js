@@ -1,9 +1,10 @@
 // Global functions
 import { getValueFromDataKey } from "../../src/functions/helpers.js";
+import { beautifyJson } from "./formatters.js";
 
 // Local functions
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
-import { getDataModels, getValueFromLocalStorage } from "./localStorage.js";
+import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.js";
 import { renderResults, renderSidebar } from "./renderers.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 
