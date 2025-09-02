@@ -11,7 +11,7 @@ custom-field {
             flex-direction: row;
             gap: 0.5rem;
         }
-        & label {
+        & span.field-title {
             font-weight: bold;
             display: block;
             page-break-after: avoid;
@@ -23,7 +23,7 @@ custom-field {
                 margin-bottom: -50px;
             }
         }
-        & span {
+        & span.field-value {
             white-space: pre-line;
             display: block;
             & a {
@@ -31,7 +31,7 @@ custom-field {
             }
         }
         &:not(.inline) {
-            & span {
+            & span.field-value {
                 &.has-title {
                     page-break-before: avoid;
                 }

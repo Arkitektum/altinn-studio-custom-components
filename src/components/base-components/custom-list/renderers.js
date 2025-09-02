@@ -1,11 +1,19 @@
+// Global functions
+import { generateUniqueId } from "../../../functions/helpers.js";
+
 /**
- * Creates a label element with the specified field title as its inner text.
+ * Creates a span element representing a field title with a specific class and optional ID.
  *
- * @param {string} fieldTitle - The title to be set as the inner text of the label element.
- * @returns {HTMLLabelElement} The created label element with the specified field title.
+ * @param {string} fieldTitle - The text content for the field title.
+ * @param {string} [fieldTitleId] - Optional ID to assign to the span element.
+ * @returns {HTMLSpanElement} The created span element with the field title.
  */
-function renderFieldTitleElement(fieldTitle) {
-    const fieldTitleLabelElement = document.createElement("label");
+function renderFieldTitleElement(fieldTitle, fieldTitleId) {
+    const fieldTitleLabelElement = document.createElement("span");
+    if (fieldTitleId) {
+        fieldTitleLabelElement.id = fieldTitleId;
+    }
+    fieldTitleLabelElement.classList.add("field-title");
     fieldTitleLabelElement.innerText = fieldTitle;
     return fieldTitleLabelElement;
 }
@@ -29,22 +37,24 @@ export function renderListElement(listItems, listType, returnHtml = true) {
 }
 
 /**
- * Renders a list field element with an optional title.
+ * Renders a list field element with an optional title and list items.
  *
- * @param {string} fieldTitle - The title of the field.
- * @param {Array} listItems - The items to be included in the list.
- * @param {string} listType - The type of the list (e.g., 'ul' for unordered list, 'ol' for ordered list).
- * @returns {string} The outer HTML of the rendered field element.
+ * @param {string} fieldTitle - The title of the field to display above the list. If empty or undefined, no title is rendered.
+ * @param {Array} listItems - The items to display in the list.
+ * @param {string} listType - The type of list to render (e.g., "ul" for unordered, "ol" for ordered).
+ * @returns {string} The HTML string representing the rendered field element containing the title and list.
  */
 export function renderListFieldElement(fieldTitle, listItems, listType) {
     const fieldElement = document.createElement("div");
     fieldElement.classList.add("field");
+    const fieldTitleId = fieldTitle?.length ? generateUniqueId("custom-field-") : null;
     if (fieldTitle?.length) {
-        fieldElement.appendChild(renderFieldTitleElement(fieldTitle));
+        fieldElement.appendChild(renderFieldTitleElement(fieldTitle, fieldTitleId));
     }
     const listElement = renderListElement(listItems, listType, false);
     if (fieldTitle?.length) {
         listElement.classList.add("has-title");
+        listElement.setAttribute("aria-labelledby", fieldTitleId);
     }
     fieldElement.appendChild(listElement);
     return fieldElement.outerHTML;
