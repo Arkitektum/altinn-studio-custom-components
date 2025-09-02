@@ -33,7 +33,7 @@ export default class CustomFieldData extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: !props?.hideTitle && ((!isDataTitleEmpty && dataTitle) || getComponentResourceValue(props, "title")),
+            title: !props?.hideTitle && ((!isDataTitleEmpty && dataTitle) || this.getTextData(props)),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
@@ -57,5 +57,18 @@ export default class CustomFieldData extends CustomComponent {
     getValueFromFormData(props) {
         const data = getComponentDataValue(props);
         return formatString(data, props?.format);
+    }
+
+    /**
+     * Retrieves the text data for a component, prioritizing the localized title if available.
+     *
+     * @param {Object} props - The properties object for the component.
+     * @param {string} [props.text] - The fallback text to use if no title is found.
+     * @returns {string|undefined} The component's title if available, otherwise the text property.
+     */
+    getTextData(props) {
+        const title = getComponentResourceValue(props, "title");
+        const text = props?.text;
+        return hasValue(title) ? title : text;
     }
 }
