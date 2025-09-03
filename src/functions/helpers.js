@@ -284,7 +284,7 @@ export function getComponentContainerElement(component) {
     const grandParentElement = component?.parentElement?.parentElement;
     if (isChildComponent) {
         return component;
-    } else if (!!grandParentElement) {
+    } else if (grandParentElement) {
         return grandParentElement;
     } else {
         return null;
