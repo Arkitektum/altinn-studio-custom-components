@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       # ------------------------------
-      # 2. Setup Node.js (faster installs)
+      # 2. Setup Node.js (for caching)
       # ------------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,20 +34,14 @@ jobs:
           cache: "npm"
 
       # ------------------------------
-      # 3. Install dependencies
+      # 3. Install ESLint + SARIF formatter
       # ------------------------------
-      - name: Install dependencies
-        run: npm ci
-
-      # ------------------------------
-      # 4. Install ESLint & SARIF formatter
-      # ------------------------------
-      - name: Install ESLint + SARIF formatter
+      - name: Install ESLint and SARIF formatter
         run: |
-          npm install --no-save eslint@9.34.0 @microsoft/eslint-formatter-sarif@3.1.0
+          npm install eslint@9.34.0 @microsoft/eslint-formatter-sarif@3.1.0
 
       # ------------------------------
-      # 5. Run ESLint (Flat Config)
+      # 4. Run ESLint (Flat Config)
       # ------------------------------
       - name: Run ESLint
         env:
@@ -57,13 +51,13 @@ jobs:
             --config eslint.config.mjs \
             --ext .js,.jsx,.ts,.tsx \
             --format @microsoft/eslint-formatter-sarif \
-            --output-file eslint-results.sarif \
-            || echo "ESLint completed with errors but SARIF file will still be uploaded."
+            --output-file eslint-results.sarif || echo "ESLint completed with errors."
+        continue-on-error: true
 
       # ------------------------------
-      # 6. Check SARIF file exists
+      # 5. Check if SARIF exists
       # ------------------------------
-      - name: Verify SARIF file
+      - name: Check if SARIF exists
         run: |
           if [ ! -f eslint-results.sarif ]; then
             echo "No SARIF file generated. Skipping upload."
@@ -71,7 +65,7 @@ jobs:
           fi
 
       # ------------------------------
-      # 7. Upload SARIF results to GitHub
+      # 6. Upload SARIF to GitHub Security tab
       # ------------------------------
       - name: Upload analysis results to GitHub
         if: ${{ hashFiles('eslint-results.sarif') != '' }}
