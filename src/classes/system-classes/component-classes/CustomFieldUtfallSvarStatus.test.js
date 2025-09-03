@@ -36,12 +36,6 @@ describe("CustomFieldUtfallSvarStatus", () => {
     describe("constructor", () => {
         it("should set isEmpty, validationMessages, hasValidationMessages, and resourceValues correctly when data is present", () => {
             const props = { id: "comp1", resourceBindings: { title: "custom.title" } };
-            const resourceBindings = {
-                title: "custom.title",
-                erUtfallBesvaresSenere: "senere",
-                erUtfallBesvart: "besvart",
-                status: "status"
-            };
             getComponentDataValue.mockReturnValue({ erUtfallBesvaresSenere: true });
             UtfallSvarStatus.mockImplementation((data) => data);
             getTextResourcesFromResourceBindings.mockReturnValue({
@@ -184,12 +178,8 @@ describe("CustomFieldUtfallSvarStatus", () => {
             const instance = new CustomFieldUtfallSvarStatus({});
             const result = instance.getResourceBindings({});
             expect(result.utfallSvarStatus.title).toBe("resource.utfallBesvarelse.utfallSvar.status.title");
-            expect(result.utfallSvarStatus.erUtfallBesvaresSenere).toBe(
-                "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere"
-            );
-            expect(result.utfallSvarStatus.erUtfallBesvart).toBe(
-                "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
-            );
+            expect(result.utfallSvarStatus.erUtfallBesvaresSenere).toBe("resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere");
+            expect(result.utfallSvarStatus.erUtfallBesvart).toBe("resource.utfallBesvarelse.utfallSvar.erUtfallBesvart");
             expect(result.utfallSvarStatus.status).toBe("resource.utfallBesvarelse.utfallSvar.status");
         });
 
