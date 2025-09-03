@@ -8,9 +8,6 @@ jest.mock("../../../functions/helpers.js", () => ({
     isNumberLargerThanZero: jest.fn()
 }));
 
-// Mock CustomComponent base class
-class CustomComponent {}
-
 describe("CustomFieldCountData", () => {
     beforeEach(() => {
         jest.clearAllMocks();

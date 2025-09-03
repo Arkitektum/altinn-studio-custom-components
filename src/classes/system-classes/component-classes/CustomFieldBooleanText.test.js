@@ -17,9 +17,6 @@ const {
     validateTexts
 } = require("../../../functions/helpers.js");
 
-// Dummy parent class
-class CustomComponent {}
-
 describe("CustomFieldBooleanText", () => {
     beforeEach(() => {
         jest.clearAllMocks();

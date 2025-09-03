@@ -7,13 +7,6 @@ jest.mock("../../../functions/helpers.js", () => ({
     hasValue: jest.fn()
 }));
 
-// Dummy CustomComponent base class to avoid import errors
-class CustomComponent {
-    constructor(props) {
-        this.props = props;
-    }
-}
-
 describe("CustomParagraphText", () => {
     beforeEach(() => {
         jest.clearAllMocks();
