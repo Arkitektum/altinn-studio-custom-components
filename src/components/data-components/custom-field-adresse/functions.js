@@ -1,6 +1,3 @@
-// Classes
-import Adresse from "../../../classes/data-classes/Adresse.js";
-
 /**
  * Formats an address object into a single string with non-empty address lines separated by newlines.
  *
