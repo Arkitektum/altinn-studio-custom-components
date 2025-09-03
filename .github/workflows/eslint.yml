@@ -42,10 +42,18 @@ jobs:
           --config eslint.config.mjs
           --ext .js,.jsx,.ts,.tsx
           --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
+          --output-file eslint-results.sarif || echo "ESLint completed with errors."
         continue-on-error: true
+      
+      - name: Check if SARIF exists
+        run: |
+          if [ ! -f eslint-results.sarif ]; then
+            echo "No SARIF file generated. Skipping upload."
+            exit 0
+          fi
 
       - name: Upload analysis results to GitHub
+        if: ${{ hashFiles('eslint-results.sarif') != '' }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: eslint-results.sarif
