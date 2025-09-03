@@ -19,7 +19,7 @@ describe("EiendomByggested", () => {
 
     it("should map the provided eiendom array to Eiendom instances", () => {
         const mockEiendomData = [{ id: 1 }, { id: 2 }];
-        const instance = new EiendomByggested({ eiendom: mockEiendomData });
+        new EiendomByggested({ eiendom: mockEiendomData });
 
         expect(Eiendom).toHaveBeenCalledTimes(mockEiendomData.length);
         mockEiendomData.forEach((data, index) => {
