@@ -19,7 +19,7 @@ export default customElements.define(
                 this.appendChild(emptyFieldTextElement);
             } else {
                 this.appendChild(renderHeaderElement(component, "h2"));
-                for (const sjekklistekrav of component?.resourceValues?.data) {
+                for (const sjekklistekrav of component?.resourceValues?.data ?? []) {
                     const sjekklistekravElement = renderSjekklistekravGroup(sjekklistekrav, component);
                     this.appendChild(sjekklistekravElement);
                     const dividerElement = renderDivider();

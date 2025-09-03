@@ -10,13 +10,6 @@ jest.mock("../../../functions/helpers.js", () => ({
     hasValue: (...args) => mockHasValue(...args)
 }));
 
-// Dummy CustomComponent base class
-class CustomComponent {
-    constructor(props) {
-        this.props = props;
-    }
-}
-
 describe("CustomFeedbacklistData", () => {
     beforeEach(() => {
         jest.clearAllMocks();

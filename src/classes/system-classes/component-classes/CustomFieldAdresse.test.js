@@ -1,13 +1,5 @@
 import CustomFieldAdresse from "./CustomFieldAdresse";
 
-// Mocks
-const mockGetComponentDataValue = jest.fn();
-const mockGetComponentResourceValue = jest.fn();
-const mockHasValue = jest.fn();
-const mockAdresse = function (data) {
-    return data;
-};
-
 // Mock dependencies
 jest.mock("../../data-classes/Adresse.js", () => {
     return jest.fn((data) => data);

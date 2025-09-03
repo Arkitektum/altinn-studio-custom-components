@@ -1,9 +1,8 @@
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { addStyle, createCustomElement, getEmptyFieldText, getRowNumberTitle } from "../../../functions/helpers.js";
+import { addStyle, createCustomElement, getEmptyFieldText } from "../../../functions/helpers.js";
 
 /**
  * Creates a table header (th) element with the specified text and style.

@@ -28,7 +28,6 @@ describe("CustomGrouplistUtfallSvarType", () => {
     describe("constructor", () => {
         it("should set isEmpty and resourceValues when data is empty", () => {
             const props = { hideTitle: false };
-            const groupedData = {};
             getComponentDataValue.mockReturnValue([]);
             hasValue.mockReturnValue(false);
             getComponentResourceValue.mockImplementation((p, key) => `resource_${key}`);

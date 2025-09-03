@@ -1,5 +1,4 @@
 import CustomDispensasjon from "./CustomDispensasjon";
-const Dispensasjon = require("../../layout-classes/Dispensasjon.js");
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

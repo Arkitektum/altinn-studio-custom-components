@@ -1,9 +1,5 @@
 import CustomFieldCountData from "./CustomFieldCountData";
-import {
-    getComponentDataValue,
-    getComponentResourceValue,
-    isNumberLargerThanZero
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.js";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
@@ -11,9 +7,6 @@ jest.mock("../../../functions/helpers.js", () => ({
     getComponentResourceValue: jest.fn(),
     isNumberLargerThanZero: jest.fn()
 }));
-
-// Mock CustomComponent base class
-class CustomComponent {}
 
 describe("CustomFieldCountData", () => {
     beforeEach(() => {

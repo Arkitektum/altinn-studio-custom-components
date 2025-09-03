@@ -14,9 +14,6 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn()
 }));
 
-// Dummy parent class
-class CustomComponent {}
-
 describe("CustomGrouplistEttersending", () => {
     beforeEach(() => {
         jest.clearAllMocks();
