@@ -65,10 +65,10 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
     }
 
     /**
-     * Groups an array of items by the `utfallType.kodverdi` property.
+     * Groups an array of items by the `utfallType.kodeverdi` property.
      *
      * @param {Array} array - The array of items to be grouped.
-     * @returns {Object} An object where each key is a unique `utfallType.kodverdi` and the value is an array of `UtfallSvar` instances.
+     * @returns {Object} An object where each key is a unique `utfallType.kodeverdi` and the value is an array of `UtfallSvar` instances.
      */
     groupArrayItemsByUtfallType(array) {
         return hasValue(array)

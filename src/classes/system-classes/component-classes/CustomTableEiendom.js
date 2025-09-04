@@ -152,7 +152,7 @@ export default class CustomTableEiendom extends CustomComponent {
 
     /**
      * Checks if the provided `eiendom` object contains any valid property
-     * related to an "eiendomnummer" (property number).
+     * related to an "eiendomNummer" (property number).
      *
      * The function returns `true` if at least one of the following properties
      * has a value:
