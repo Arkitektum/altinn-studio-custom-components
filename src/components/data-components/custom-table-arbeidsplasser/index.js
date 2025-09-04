@@ -18,11 +18,11 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const partTable = renderArbeidsplasserTable(component);
                 this.appendChild(partTable);
-                if (feebackListElement) {
-                    this.appendChild(feebackListElement);
+                if (feedbackListElement) {
+                    this.appendChild(feedbackListElement);
                 }
             }
         }
