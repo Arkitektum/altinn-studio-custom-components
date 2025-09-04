@@ -36,6 +36,7 @@ export default [
     "custom-list-vedlegg",
     "custom-paragraph-text",
     "custom-subheader-text",
+    "custom-summation-arealdisponering",
     "custom-table-arbeidsplasser",
     "custom-table-data",
     "custom-table-eiendom",
