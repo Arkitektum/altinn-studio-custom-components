@@ -11,199 +11,133 @@ describe("ArealdisponeringSummation", () => {
         jest.clearAllMocks();
     });
 
-    it("should set all fields when all values are present and hasValue returns true", () => {
-        hasValue.mockReturnValue(true);
+    const arealdisponering = {
+        beregnetMaksByggeareal: 100,
+        arealBebyggelseEksisterende: 50,
+        arealBebyggelseSomSkalRives: 10,
+        arealBebyggelseNytt: 40,
+        parkeringsarealTerreng: 20,
+        arealSumByggesak: 220,
+        tomtearealByggeomraade: 300,
+        tomtearealSomTrekkesFra: 30,
+        tomtearealBeregnet: 270
+    };
 
-        const arealdisponering = {
-            tomtearealBeregnet: 1,
-            tomtearealByggeomraade: 2,
-            tomtearealSomTrekkesFra: 3,
-            arealBebyggelseEksisterende: 4,
-            arealBebyggelseNytt: 5,
-            arealBebyggelseSomSkalRives: 6,
-            arealSumByggesak: 7,
-            beregnetGradAvUtnytting: 8,
-            beregnetMaksByggeareal: 9,
-            parkeringsarealTerreng: 10
-        };
+    const resourceBindings = {
+        tomtearealet: { title: "Tomtearealet" },
+        bebyggelsen: { title: "Bebyggelsen" },
+        beregnetMaksByggeareal: { label: "Maks byggeareal" },
+        arealBebyggelseEksisterende: { label: "Eksisterende bebyggelse" },
+        arealBebyggelseSomSkalRives: { label: "Bebyggelse som skal rives" },
+        arealBebyggelseNytt: { label: "Ny bebyggelse" },
+        parkeringsarealTerreng: { label: "Parkeringsareal terreng" },
+        arealSumByggesak: { label: "Sum byggesak" },
+        tomtearealByggeomraade: { label: "Byggeområde" },
+        tomtearealSomTrekkesFra: { label: "Trekkes fra" },
+        tomtearealBeregnet: { label: "Beregnet" }
+    };
 
-        const resourceBindings = {
-            tomtearealBeregnet: { title: "t1", emptyFieldText: "e1" },
-            tomtearealByggeomraade: { title: "t2", emptyFieldText: "e2" },
-            tomtearealSomTrekkesFra: { title: "t3", emptyFieldText: "e3" },
-            arealBebyggelseEksisterende: { title: "t4", emptyFieldText: "e4" },
-            arealBebyggelseNytt: { title: "t5", emptyFieldText: "e5" },
-            arealBebyggelseSomSkalRives: { title: "t6", emptyFieldText: "e6" },
-            arealSumByggesak: { title: "t7", emptyFieldText: "e7" },
-            beregnetGradAvUtnytting: { title: "t8", emptyFieldText: "e8" },
-            beregnetMaksByggeareal: { title: "t9", emptyFieldText: "e9" },
-            parkeringsarealTerreng: { title: "t10", emptyFieldText: "e10" }
-        };
+    it("should construct tomtearealet and bebyggelsen with correct data when all values are present", () => {
+        hasValue.mockImplementation((v) => v !== undefined && v !== null);
 
-        const instance = new ArealdisponeringSummation(arealdisponering, resourceBindings);
+        const summation = new ArealdisponeringSummation(arealdisponering, resourceBindings);
 
-        expect(instance.tomtearealet.tomtearealBeregnet).toEqual({
-            resourceValues: { data: 1 },
-            resourceBindings: { title: "t1", emptyFieldText: "e1" }
-        });
-        expect(instance.tomtearealet.tomtearealByggeomraade).toEqual({
-            resourceValues: { data: 2 },
-            resourceBindings: { title: "t2", emptyFieldText: "e2" }
-        });
-        expect(instance.tomtearealet.tomtearealSomTrekkesFra).toEqual({
-            resourceValues: { data: 3 },
-            resourceBindings: { title: "t3", emptyFieldText: "e3" }
-        });
+        expect(summation.tomtearealet.resourceBindings.title).toBe("Tomtearealet");
+        expect(summation.tomtearealet.resourceValues.data).toEqual([
+            {
+                resourceValues: { data: 300 },
+                resourceBindings: { label: "Byggeområde" }
+            },
+            {
+                resourceValues: { data: 30 },
+                resourceBindings: { label: "Trekkes fra" }
+            },
+            {
+                resourceValues: { data: 270 },
+                resourceBindings: { label: "Beregnet" }
+            }
+        ]);
 
-        expect(instance.bebyggelsen.arealBebyggelseEksisterende).toEqual({
-            resourceValues: { data: 4 },
-            resourceBindings: { title: "t4", emptyFieldText: "e4" }
-        });
-        expect(instance.bebyggelsen.arealBebyggelseNytt).toEqual({
-            resourceValues: { data: 5 },
-            resourceBindings: { title: "t5", emptyFieldText: "e5" }
-        });
-        expect(instance.bebyggelsen.arealBebyggelseSomSkalRives).toEqual({
-            resourceValues: { data: 6 },
-            resourceBindings: { title: "t6", emptyFieldText: "e6" }
-        });
-        expect(instance.bebyggelsen.arealSumByggesak).toEqual({
-            resourceValues: { data: 7 },
-            resourceBindings: { title: "t7", emptyFieldText: "e7" }
-        });
-        expect(instance.bebyggelsen.beregnetGradAvUtnytting).toEqual({
-            resourceValues: { data: 8 },
-            resourceBindings: { title: "t8", emptyFieldText: "e8" }
-        });
-        expect(instance.bebyggelsen.beregnetMaksByggeareal).toEqual({
-            resourceValues: { data: 9 },
-            resourceBindings: { title: "t9", emptyFieldText: "e9" }
-        });
-        expect(instance.bebyggelsen.parkeringsarealTerreng).toEqual({
-            resourceValues: { data: 10 },
-            resourceBindings: { title: "t10", emptyFieldText: "e10" }
-        });
+        expect(summation.bebyggelsen.resourceBindings.title).toBe("Bebyggelsen");
+        expect(summation.bebyggelsen.resourceValues.data).toEqual([
+            {
+                resourceValues: { data: 100 },
+                resourceBindings: { label: "Maks byggeareal" }
+            },
+            {
+                resourceValues: { data: 50 },
+                resourceBindings: { label: "Eksisterende bebyggelse" }
+            },
+            {
+                resourceValues: { data: 10 },
+                resourceBindings: { label: "Bebyggelse som skal rives" }
+            },
+            {
+                resourceValues: { data: 40 },
+                resourceBindings: { label: "Ny bebyggelse" }
+            },
+            {
+                resourceValues: { data: 20 },
+                resourceBindings: { label: "Parkeringsareal terreng" }
+            },
+            {
+                resourceValues: { data: 220 },
+                resourceBindings: { label: "Sum byggesak" }
+            }
+        ]);
     });
 
-    it("should set fields to undefined when hasValue returns false", () => {
-        hasValue.mockReturnValue(false);
+    it("should filter out null values when hasValue returns false", () => {
+        // Only tomtearealBeregnet and arealBebyggelseNytt are present
+        hasValue.mockImplementation((v) => v === arealdisponering.tomtearealBeregnet || v === arealdisponering.arealBebyggelseNytt);
 
-        const arealdisponering = {
-            tomtearealBeregnet: null,
-            tomtearealByggeomraade: null,
-            tomtearealSomTrekkesFra: null,
-            arealBebyggelseEksisterende: null,
-            arealBebyggelseNytt: null,
-            arealBebyggelseSomSkalRives: null,
-            arealSumByggesak: null,
-            beregnetGradAvUtnytting: null,
-            beregnetMaksByggeareal: null,
-            parkeringsarealTerreng: null
-        };
+        const summation = new ArealdisponeringSummation(arealdisponering, resourceBindings);
 
-        const resourceBindings = {};
-
-        const instance = new ArealdisponeringSummation(arealdisponering, resourceBindings);
-
-        expect(instance.tomtearealet.tomtearealBeregnet).toBeUndefined();
-        expect(instance.tomtearealet.tomtearealByggeomraade).toBeUndefined();
-        expect(instance.tomtearealet.tomtearealSomTrekkesFra).toBeUndefined();
-
-        expect(instance.bebyggelsen.arealBebyggelseEksisterende).toBeUndefined();
-        expect(instance.bebyggelsen.arealBebyggelseNytt).toBeUndefined();
-        expect(instance.bebyggelsen.arealBebyggelseSomSkalRives).toBeUndefined();
-        expect(instance.bebyggelsen.arealSumByggesak).toBeUndefined();
-        expect(instance.bebyggelsen.beregnetGradAvUtnytting).toBeUndefined();
-        expect(instance.bebyggelsen.beregnetMaksByggeareal).toBeUndefined();
-        expect(instance.bebyggelsen.parkeringsarealTerreng).toBeUndefined();
-    });
-
-    it("should only set fields for which hasValue returns true", () => {
-        // Alternate true/false for each call
-        let call = 0;
-        hasValue.mockImplementation(() => call++ % 2 === 0);
-
-        const arealdisponering = {
-            tomtearealBeregnet: 1,
-            tomtearealByggeomraade: 2,
-            tomtearealSomTrekkesFra: 3,
-            arealBebyggelseEksisterende: 4,
-            arealBebyggelseNytt: 5,
-            arealBebyggelseSomSkalRives: 6,
-            arealSumByggesak: 7,
-            beregnetGradAvUtnytting: 8,
-            beregnetMaksByggeareal: 9,
-            parkeringsarealTerreng: 10
-        };
-
-        const resourceBindings = {
-            tomtearealBeregnet: { title: "t1", emptyFieldText: "e1" },
-            tomtearealByggeomraade: { title: "t2", emptyFieldText: "e2" },
-            tomtearealSomTrekkesFra: { title: "t3", emptyFieldText: "e3" },
-            arealBebyggelseEksisterende: { title: "t4", emptyFieldText: "e4" },
-            arealBebyggelseNytt: { title: "t5", emptyFieldText: "e5" },
-            arealBebyggelseSomSkalRives: { title: "t6", emptyFieldText: "e6" },
-            arealSumByggesak: { title: "t7", emptyFieldText: "e7" },
-            beregnetGradAvUtnytting: { title: "t8", emptyFieldText: "e8" },
-            beregnetMaksByggeareal: { title: "t9", emptyFieldText: "e9" },
-            parkeringsarealTerreng: { title: "t10", emptyFieldText: "e10" }
-        };
-
-        const instance = new ArealdisponeringSummation(arealdisponering, resourceBindings);
-
-        // First call true, second false, etc.
-        expect(instance.tomtearealet.tomtearealBeregnet).toEqual({
-            resourceValues: { data: 1 },
-            resourceBindings: { title: "t1", emptyFieldText: "e1" }
-        });
-        expect(instance.tomtearealet.tomtearealByggeomraade).toBeUndefined();
-        expect(instance.tomtearealet.tomtearealSomTrekkesFra).toEqual({
-            resourceValues: { data: 3 },
-            resourceBindings: { title: "t3", emptyFieldText: "e3" }
-        });
-
-        expect(instance.bebyggelsen.arealBebyggelseEksisterende).toBeUndefined();
-        expect(instance.bebyggelsen.arealBebyggelseNytt).toEqual({
-            resourceValues: { data: 5 },
-            resourceBindings: { title: "t5", emptyFieldText: "e5" }
-        });
-        expect(instance.bebyggelsen.arealBebyggelseSomSkalRives).toBeUndefined();
-        expect(instance.bebyggelsen.arealSumByggesak).toEqual({
-            resourceValues: { data: 7 },
-            resourceBindings: { title: "t7", emptyFieldText: "e7" }
-        });
-        expect(instance.bebyggelsen.beregnetGradAvUtnytting).toBeUndefined();
-        expect(instance.bebyggelsen.beregnetMaksByggeareal).toEqual({
-            resourceValues: { data: 9 },
-            resourceBindings: { title: "t9", emptyFieldText: "e9" }
-        });
-        expect(instance.bebyggelsen.parkeringsarealTerreng).toBeUndefined();
+        expect(summation.tomtearealet.resourceValues.data).toEqual([
+            {
+                resourceValues: { data: 270 },
+                resourceBindings: { label: "Beregnet" }
+            }
+        ]);
+        expect(summation.bebyggelsen.resourceValues.data).toEqual([
+            {
+                resourceValues: { data: 40 },
+                resourceBindings: { label: "Ny bebyggelse" }
+            }
+        ]);
     });
 
     it("should handle missing resourceBindings gracefully", () => {
-        hasValue.mockReturnValue(true);
+        hasValue.mockImplementation((v) => v !== undefined && v !== null);
 
-        const arealdisponering = {
-            tomtearealBeregnet: 1
+        const partialResourceBindings = {
+            tomtearealet: {},
+            bebyggelsen: {}
         };
 
-        const instance = new ArealdisponeringSummation(arealdisponering, undefined);
+        const summation = new ArealdisponeringSummation(arealdisponering, partialResourceBindings);
 
-        expect(instance.tomtearealet.tomtearealBeregnet).toEqual({
-            resourceValues: { data: 1 },
-            resourceBindings: {
-                title: undefined,
-                emptyFieldText: undefined
-            }
-        });
+        expect(summation.tomtearealet.resourceBindings.title).toBeUndefined();
+        expect(summation.bebyggelsen.resourceBindings.title).toBeUndefined();
+
+        // resourceBindings for items should be undefined
+        expect(summation.tomtearealet.resourceValues.data[0].resourceBindings).toBeUndefined();
+        expect(summation.bebyggelsen.resourceValues.data[0].resourceBindings).toBeUndefined();
     });
 
-    it("should handle missing arealdisponering gracefully", () => {
+    it("should return empty arrays if all values are missing", () => {
         hasValue.mockReturnValue(false);
 
-        const instance = new ArealdisponeringSummation(undefined, undefined);
+        const summation = new ArealdisponeringSummation({}, resourceBindings);
 
-        expect(instance.tomtearealet.tomtearealBeregnet).toBeUndefined();
-        expect(instance.bebyggelsen.arealBebyggelseEksisterende).toBeUndefined();
+        expect(summation.tomtearealet.resourceValues.data).toEqual([]);
+        expect(summation.bebyggelsen.resourceValues.data).toEqual([]);
+    });
+
+    it("should not throw if arealdisponering or resourceBindings are undefined", () => {
+        hasValue.mockReturnValue(false);
+
+        expect(() => new ArealdisponeringSummation(undefined, undefined)).not.toThrow();
+        expect(() => new ArealdisponeringSummation(null, null)).not.toThrow();
     });
 });

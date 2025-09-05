@@ -8,118 +8,102 @@ import { hasValue } from "../../../functions/helpers.js";
 export default class ArealdisponeringSummation {
     constructor(arealdisponering, resourceBindings) {
         this.tomtearealet = {
-            tomtearealBeregnet: hasValue(arealdisponering?.tomtearealBeregnet)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.tomtearealBeregnet
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.tomtearealBeregnet?.title,
-                          emptyFieldText: resourceBindings?.tomtearealBeregnet?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            tomtearealByggeomraade: hasValue(arealdisponering?.tomtearealByggeomraade)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.tomtearealByggeomraade
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.tomtearealByggeomraade?.title,
-                          emptyFieldText: resourceBindings?.tomtearealByggeomraade?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            tomtearealSomTrekkesFra: hasValue(arealdisponering?.tomtearealSomTrekkesFra)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.tomtearealSomTrekkesFra
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.tomtearealSomTrekkesFra?.title,
-                          emptyFieldText: resourceBindings?.tomtearealSomTrekkesFra?.emptyFieldText
-                      }
-                  }
-                : undefined
+            resourceBindings: {
+                title: resourceBindings?.tomtearealet?.title
+            },
+            resourceValues: {
+                data: this.getTomtearealetItems(arealdisponering, resourceBindings)
+            }
         };
         this.bebyggelsen = {
-            arealBebyggelseEksisterende: hasValue(arealdisponering?.arealBebyggelseEksisterende)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.arealBebyggelseEksisterende
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.arealBebyggelseEksisterende?.title,
-                          emptyFieldText: resourceBindings?.arealBebyggelseEksisterende?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            arealBebyggelseNytt: hasValue(arealdisponering?.arealBebyggelseNytt)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.arealBebyggelseNytt
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.arealBebyggelseNytt?.title,
-                          emptyFieldText: resourceBindings?.arealBebyggelseNytt?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            arealBebyggelseSomSkalRives: hasValue(arealdisponering?.arealBebyggelseSomSkalRives)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.arealBebyggelseSomSkalRives
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.arealBebyggelseSomSkalRives?.title,
-                          emptyFieldText: resourceBindings?.arealBebyggelseSomSkalRives?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            arealSumByggesak: hasValue(arealdisponering?.arealSumByggesak)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.arealSumByggesak
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.arealSumByggesak?.title,
-                          emptyFieldText: resourceBindings?.arealSumByggesak?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            beregnetGradAvUtnytting: hasValue(arealdisponering?.beregnetGradAvUtnytting)
-                ? {
-                      resourceValues: {
-                          data: arealdisponering?.beregnetGradAvUtnytting
-                      },
-                      resourceBindings: {
-                          title: resourceBindings?.beregnetGradAvUtnytting?.title,
-                          emptyFieldText: resourceBindings?.beregnetGradAvUtnytting?.emptyFieldText
-                      }
-                  }
-                : undefined,
-            beregnetMaksByggeareal: hasValue(arealdisponering?.beregnetMaksByggeareal)
+            resourceBindings: {
+                title: resourceBindings?.bebyggelsen?.title
+            },
+            resourceValues: {
+                data: this.getBebyggelsenItems(arealdisponering, resourceBindings)
+            }
+        };
+    }
+
+    getBebyggelsenItems(arealdisponering, resourceBindings) {
+        return [
+            hasValue(arealdisponering?.beregnetMaksByggeareal)
                 ? {
                       resourceValues: {
                           data: arealdisponering?.beregnetMaksByggeareal
                       },
-                      resourceBindings: {
-                          title: resourceBindings?.beregnetMaksByggeareal?.title,
-                          emptyFieldText: resourceBindings?.beregnetMaksByggeareal?.emptyFieldText
-                      }
+                      resourceBindings: resourceBindings?.beregnetMaksByggeareal
                   }
-                : undefined,
-            parkeringsarealTerreng: hasValue(arealdisponering?.parkeringsarealTerreng)
+                : null,
+            hasValue(arealdisponering?.arealBebyggelseEksisterende)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.arealBebyggelseEksisterende
+                      },
+                      resourceBindings: resourceBindings?.arealBebyggelseEksisterende
+                  }
+                : null,
+            hasValue(arealdisponering?.arealBebyggelseSomSkalRives)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.arealBebyggelseSomSkalRives
+                      },
+                      resourceBindings: resourceBindings?.arealBebyggelseSomSkalRives
+                  }
+                : null,
+            hasValue(arealdisponering?.arealBebyggelseNytt)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.arealBebyggelseNytt
+                      },
+                      resourceBindings: resourceBindings?.arealBebyggelseNytt
+                  }
+                : null,
+            hasValue(arealdisponering?.parkeringsarealTerreng)
                 ? {
                       resourceValues: {
                           data: arealdisponering?.parkeringsarealTerreng
                       },
-                      resourceBindings: {
-                          title: resourceBindings?.parkeringsarealTerreng?.title,
-                          emptyFieldText: resourceBindings?.parkeringsarealTerreng?.emptyFieldText
-                      }
+                      resourceBindings: resourceBindings?.parkeringsarealTerreng
                   }
-                : undefined
-        };
+                : null,
+            hasValue(arealdisponering?.arealSumByggesak)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.arealSumByggesak
+                      },
+                      resourceBindings: resourceBindings?.arealSumByggesak
+                  }
+                : null
+        ].filter((item) => item !== null);
+    }
+
+    getTomtearealetItems(arealdisponering, resourceBindings) {
+        return [
+            hasValue(arealdisponering?.tomtearealByggeomraade)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.tomtearealByggeomraade
+                      },
+                      resourceBindings: resourceBindings?.tomtearealByggeomraade
+                  }
+                : null,
+            hasValue(arealdisponering?.tomtearealSomTrekkesFra)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.tomtearealSomTrekkesFra
+                      },
+                      resourceBindings: resourceBindings?.tomtearealSomTrekkesFra
+                  }
+                : null,
+            hasValue(arealdisponering?.tomtearealBeregnet)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.tomtearealBeregnet
+                      },
+                      resourceBindings: resourceBindings?.tomtearealBeregnet
+                  }
+                : null
+        ].filter((item) => item !== null);
     }
 }
