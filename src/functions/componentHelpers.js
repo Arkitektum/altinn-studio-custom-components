@@ -36,6 +36,7 @@ import CustomListVedlegg from "../classes/system-classes/component-classes/Custo
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
 import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
+import CustomSummation from "../classes/system-classes/component-classes/CustomSummation.js";
 import CustomSummationArealdisponering from "../classes/system-classes/component-classes/CustomSummationArealdisponering.js";
 import CustomSummationData from "../classes/system-classes/component-classes/CustomSummationData.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
@@ -128,6 +129,8 @@ export function instantiateComponent(element) {
             return new CustomParagraphText(component);
         case "custom-subheader-text":
             return new CustomSubHeaderText(component);
+        case "custom-summation":
+            return new CustomSummation(component);
         case "custom-summation-arealdisponering":
             return new CustomSummationArealdisponering(component);
         case "custom-summation-data":

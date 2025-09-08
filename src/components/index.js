@@ -5,6 +5,7 @@ import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
 import customParagraph from "./base-components/custom-paragraph/index.js";
+import customSummation from "./base-components/custom-summation/index.js";
 import customTable from "./base-components/custom-table/index.js";
 
 // Data components
@@ -95,6 +96,7 @@ export {
     customListVedlegg,
     customParagraphText,
     customSubheaderText,
+    customSummation,
     customSummationArealdisponering,
     customSummationData,
     customTableArbeidsplasser,
