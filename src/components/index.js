@@ -39,6 +39,7 @@ import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customSummationArealdisponering from "./data-components/custom-summation-arealdisponering/index.js";
+import customSummationData from "./data-components/custom-summation-data/index.js";
 import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
@@ -95,6 +96,7 @@ export {
     customParagraphText,
     customSubheaderText,
     customSummationArealdisponering,
+    customSummationData,
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
