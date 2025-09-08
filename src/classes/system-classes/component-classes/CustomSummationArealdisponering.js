@@ -36,7 +36,9 @@ export default class CustomSummationArealdisponering extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.resourceBindings = resourceBindings;
+        this.resourceBindings = {
+            emptyFieldText: resourceBindings?.emptyFieldText || undefined
+        };
         this.resourceValues = {
             data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
