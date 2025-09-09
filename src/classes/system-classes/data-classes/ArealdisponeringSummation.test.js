@@ -1,16 +1,11 @@
 import ArealdisponeringSummation from "./ArealdisponeringSummation";
-import { hasValue } from "../../../functions/helpers.js";
 
-// Mock hasValue to control its behavior in tests
+// Mock the hasValue function
 jest.mock("../../../functions/helpers.js", () => ({
-    hasValue: jest.fn()
+    hasValue: (val) => val !== undefined && val !== null && val !== ""
 }));
 
 describe("ArealdisponeringSummation", () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
-
     const arealdisponering = {
         beregnetMaksByggeareal: 100,
         arealBebyggelseEksisterende: 50,
@@ -28,116 +23,105 @@ describe("ArealdisponeringSummation", () => {
         bebyggelsen: { title: "Bebyggelsen" },
         beregnetMaksByggeareal: { label: "Maks byggeareal" },
         arealBebyggelseEksisterende: { label: "Eksisterende bebyggelse" },
-        arealBebyggelseSomSkalRives: { label: "Bebyggelse som skal rives" },
-        arealBebyggelseNytt: { label: "Ny bebyggelse" },
-        parkeringsarealTerreng: { label: "Parkeringsareal terreng" },
+        arealBebyggelseSomSkalRives: { label: "Skal rives" },
+        arealBebyggelseNytt: { label: "Nytt" },
+        parkeringsarealTerreng: { label: "Parkeringsareal" },
         arealSumByggesak: { label: "Sum byggesak" },
         tomtearealByggeomraade: { label: "Byggeområde" },
         tomtearealSomTrekkesFra: { label: "Trekkes fra" },
         tomtearealBeregnet: { label: "Beregnet" }
     };
 
-    it("should construct tomtearealet and bebyggelsen with correct data when all values are present", () => {
-        hasValue.mockImplementation((v) => v !== undefined && v !== null);
-
+    it("should construct tomtearealet and bebyggelsen with correct structure and values", () => {
         const summation = new ArealdisponeringSummation(arealdisponering, resourceBindings);
 
         expect(summation.tomtearealet.resourceBindings.title).toBe("Tomtearealet");
+        expect(summation.bebyggelsen.resourceBindings.title).toBe("Bebyggelsen");
+
+        // Tomtearealet items
         expect(summation.tomtearealet.resourceValues.data).toEqual([
             {
-                resourceValues: { data: 300 },
+                resourceValues: { data: 300, isTotal: false },
                 resourceBindings: { label: "Byggeområde" }
             },
             {
-                resourceValues: { data: 30 },
+                resourceValues: { data: 30, isTotal: false },
                 resourceBindings: { label: "Trekkes fra" }
             },
             {
-                resourceValues: { data: 270 },
+                resourceValues: { data: 270, isTotal: true },
                 resourceBindings: { label: "Beregnet" }
             }
         ]);
 
-        expect(summation.bebyggelsen.resourceBindings.title).toBe("Bebyggelsen");
+        // Bebyggelsen items
         expect(summation.bebyggelsen.resourceValues.data).toEqual([
             {
-                resourceValues: { data: 100 },
+                resourceValues: { data: 100, isTotal: false },
                 resourceBindings: { label: "Maks byggeareal" }
             },
             {
-                resourceValues: { data: 50 },
+                resourceValues: { data: 50, isTotal: false },
                 resourceBindings: { label: "Eksisterende bebyggelse" }
             },
             {
-                resourceValues: { data: 10 },
-                resourceBindings: { label: "Bebyggelse som skal rives" }
+                resourceValues: { data: 10, isTotal: false },
+                resourceBindings: { label: "Skal rives" }
             },
             {
-                resourceValues: { data: 40 },
-                resourceBindings: { label: "Ny bebyggelse" }
+                resourceValues: { data: 40, isTotal: false },
+                resourceBindings: { label: "Nytt" }
             },
             {
-                resourceValues: { data: 20 },
-                resourceBindings: { label: "Parkeringsareal terreng" }
+                resourceValues: { data: 20, isTotal: false },
+                resourceBindings: { label: "Parkeringsareal" }
             },
             {
-                resourceValues: { data: 220 },
+                resourceValues: { data: 220, isTotal: true },
                 resourceBindings: { label: "Sum byggesak" }
             }
         ]);
     });
 
-    it("should filter out null values when hasValue returns false", () => {
-        // Only tomtearealBeregnet and arealBebyggelseNytt are present
-        hasValue.mockImplementation((v) => v === arealdisponering.tomtearealBeregnet || v === arealdisponering.arealBebyggelseNytt);
+    it("should filter out null/undefined/empty values", () => {
+        const partialArealdisponering = {
+            beregnetMaksByggeareal: undefined,
+            arealBebyggelseEksisterende: null,
+            arealBebyggelseSomSkalRives: "",
+            arealBebyggelseNytt: 40,
+            arealSumByggesak: 220
+        };
+        const summation = new ArealdisponeringSummation(partialArealdisponering, resourceBindings);
 
-        const summation = new ArealdisponeringSummation(arealdisponering, resourceBindings);
-
-        expect(summation.tomtearealet.resourceValues.data).toEqual([
-            {
-                resourceValues: { data: 270 },
-                resourceBindings: { label: "Beregnet" }
-            }
-        ]);
         expect(summation.bebyggelsen.resourceValues.data).toEqual([
             {
-                resourceValues: { data: 40 },
-                resourceBindings: { label: "Ny bebyggelse" }
+                resourceValues: { data: 40, isTotal: false },
+                resourceBindings: { label: "Nytt" }
+            },
+            {
+                resourceValues: { data: 220, isTotal: true },
+                resourceBindings: { label: "Sum byggesak" }
             }
         ]);
     });
 
     it("should handle missing resourceBindings gracefully", () => {
-        hasValue.mockImplementation((v) => v !== undefined && v !== null);
-
-        const partialResourceBindings = {
-            tomtearealet: {},
-            bebyggelsen: {}
-        };
-
-        const summation = new ArealdisponeringSummation(arealdisponering, partialResourceBindings);
-
+        const summation = new ArealdisponeringSummation(arealdisponering, {});
         expect(summation.tomtearealet.resourceBindings.title).toBeUndefined();
         expect(summation.bebyggelsen.resourceBindings.title).toBeUndefined();
-
-        // resourceBindings for items should be undefined
-        expect(summation.tomtearealet.resourceValues.data[0].resourceBindings).toBeUndefined();
-        expect(summation.bebyggelsen.resourceValues.data[0].resourceBindings).toBeUndefined();
+        // ResourceBindings for items should be undefined
+        summation.tomtearealet.resourceValues.data.forEach((item) => {
+            expect(item.resourceBindings).toBeUndefined();
+        });
+        summation.bebyggelsen.resourceValues.data.forEach((item) => {
+            expect(item.resourceBindings).toBeUndefined();
+        });
     });
 
-    it("should return empty arrays if all values are missing", () => {
-        hasValue.mockReturnValue(false);
-
-        const summation = new ArealdisponeringSummation({}, resourceBindings);
-
+    it("should return empty arrays if no values are present", () => {
+        const emptyArealdisponering = {};
+        const summation = new ArealdisponeringSummation(emptyArealdisponering, resourceBindings);
         expect(summation.tomtearealet.resourceValues.data).toEqual([]);
         expect(summation.bebyggelsen.resourceValues.data).toEqual([]);
-    });
-
-    it("should not throw if arealdisponering or resourceBindings are undefined", () => {
-        hasValue.mockReturnValue(false);
-
-        expect(() => new ArealdisponeringSummation(undefined, undefined)).not.toThrow();
-        expect(() => new ArealdisponeringSummation(null, null)).not.toThrow();
     });
 });

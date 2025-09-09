@@ -30,7 +30,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.beregnetMaksByggeareal)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.beregnetMaksByggeareal
+                          data: arealdisponering?.beregnetMaksByggeareal,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.beregnetMaksByggeareal
                   }
@@ -38,7 +39,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.arealBebyggelseEksisterende)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.arealBebyggelseEksisterende
+                          data: arealdisponering?.arealBebyggelseEksisterende,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.arealBebyggelseEksisterende
                   }
@@ -46,7 +48,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.arealBebyggelseSomSkalRives)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.arealBebyggelseSomSkalRives
+                          data: arealdisponering?.arealBebyggelseSomSkalRives,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.arealBebyggelseSomSkalRives
                   }
@@ -54,7 +57,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.arealBebyggelseNytt)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.arealBebyggelseNytt
+                          data: arealdisponering?.arealBebyggelseNytt,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.arealBebyggelseNytt
                   }
@@ -62,7 +66,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.parkeringsarealTerreng)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.parkeringsarealTerreng
+                          data: arealdisponering?.parkeringsarealTerreng,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.parkeringsarealTerreng
                   }
@@ -70,7 +75,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.arealSumByggesak)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.arealSumByggesak
+                          data: arealdisponering?.arealSumByggesak,
+                          isTotal: true
                       },
                       resourceBindings: resourceBindings?.arealSumByggesak
                   }
@@ -83,7 +89,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.tomtearealByggeomraade)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.tomtearealByggeomraade
+                          data: arealdisponering?.tomtearealByggeomraade,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.tomtearealByggeomraade
                   }
@@ -91,7 +98,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.tomtearealSomTrekkesFra)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.tomtearealSomTrekkesFra
+                          data: arealdisponering?.tomtearealSomTrekkesFra,
+                          isTotal: false
                       },
                       resourceBindings: resourceBindings?.tomtearealSomTrekkesFra
                   }
@@ -99,7 +107,8 @@ export default class ArealdisponeringSummation {
             hasValue(arealdisponering?.tomtearealBeregnet)
                 ? {
                       resourceValues: {
-                          data: arealdisponering?.tomtearealBeregnet
+                          data: arealdisponering?.tomtearealBeregnet,
+                          isTotal: true
                       },
                       resourceBindings: resourceBindings?.tomtearealBeregnet
                   }
