@@ -133,55 +133,64 @@ export default class CustomSummationArealdisponering extends CustomComponent {
                 title:
                     props?.resourceBindings?.arealBebyggelseEksisterende?.title ||
                     `resource.rammebetingelser.arealdisponering.arealBebyggelseEksisterende.title`,
-                emptyFieldText: props?.resourceBindings?.arealBebyggelseEksisterende?.emptyFieldText || "resource.emptyFieldText.default"
+                emptyFieldText: props?.resourceBindings?.arealBebyggelseEksisterende?.emptyFieldText || "resource.emptyFieldText.default",
+                unit: "resource.unit.meterSquared"
             },
             arealBebyggelseNytt: {
                 title: props?.resourceBindings?.arealBebyggelseNytt?.title || `resource.rammebetingelser.arealdisponering.arealBebyggelseNytt.title`,
                 emptyFieldText: props?.resourceBindings?.arealBebyggelseNytt?.emptyFieldText || "resource.emptyFieldText.default",
-                operator: "resource.operator.plus"
+                operator: "resource.operator.plus",
+                unit: "resource.unit.meterSquared"
             },
             arealBebyggelseSomSkalRives: {
                 title:
                     props?.resourceBindings?.arealBebyggelseSomSkalRives?.title ||
                     `resource.rammebetingelser.arealdisponering.arealBebyggelseSomSkalRives.title`,
                 emptyFieldText: props?.resourceBindings?.arealBebyggelseSomSkalRives?.emptyFieldText || "resource.emptyFieldText.default",
-                operator: "resource.operator.minus"
+                operator: "resource.operator.minus",
+                unit: "resource.unit.meterSquared"
             },
             arealSumByggesak: {
                 title: props?.resourceBindings?.arealSumByggesak?.title || `resource.rammebetingelser.arealdisponering.arealSumByggesak.title`,
                 emptyFieldText: props?.resourceBindings?.arealSumByggesak?.emptyFieldText || "resource.emptyFieldText.default",
-                operator: "resource.operator.equals"
+                operator: "resource.operator.equals",
+                unit: "resource.unit.meterSquared"
             },
             beregnetMaksByggeareal: {
                 title:
                     props?.resourceBindings?.beregnetMaksByggeareal?.title ||
                     `resource.rammebetingelser.arealdisponering.beregnetMaksByggeareal.title`,
-                emptyFieldText: props?.resourceBindings?.beregnetMaksByggeareal?.emptyFieldText || "resource.emptyFieldText.default"
+                emptyFieldText: props?.resourceBindings?.beregnetMaksByggeareal?.emptyFieldText || "resource.emptyFieldText.default",
+                unit: "resource.unit.meterSquared"
             },
             parkeringsarealTerreng: {
                 title:
                     props?.resourceBindings?.parkeringsarealTerreng?.title ||
                     `resource.rammebetingelser.arealdisponering.parkeringsarealTerreng.title`,
                 emptyFieldText: props?.resourceBindings?.parkeringsarealTerreng?.emptyFieldText || "resource.emptyFieldText.default",
-                operator: "resource.operator.plus"
+                operator: "resource.operator.plus",
+                unit: "resource.unit.meterSquared"
             },
             tomtearealBeregnet: {
                 title: props?.resourceBindings?.tomtearealBeregnet?.title || `resource.rammebetingelser.arealdisponering.tomtearealBeregnet.title`,
                 emptyFieldText: props?.resourceBindings?.tomtearealBeregnet?.emptyFieldText || "resource.emptyFieldText.default",
-                operator: "resource.operator.equals"
+                operator: "resource.operator.equals",
+                unit: "resource.unit.meterSquared"
             },
             tomtearealByggeomraade: {
                 title:
                     props?.resourceBindings?.tomtearealByggeomraade?.title ||
                     `resource.rammebetingelser.arealdisponering.tomtearealByggeomraade.title`,
-                emptyFieldText: props?.resourceBindings?.tomtearealByggeomraade?.emptyFieldText || "resource.emptyFieldText.default"
+                emptyFieldText: props?.resourceBindings?.tomtearealByggeomraade?.emptyFieldText || "resource.emptyFieldText.default",
+                unit: "resource.unit.meterSquared"
             },
             tomtearealSomTrekkesFra: {
                 title:
                     props?.resourceBindings?.tomtearealSomTrekkesFra?.title ||
                     `resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title`,
                 emptyFieldText: props?.resourceBindings?.tomtearealSomTrekkesFra?.emptyFieldText || "resource.emptyFieldText.default",
-                operator: "resource.operator.minus"
+                operator: "resource.operator.minus",
+                unit: "resource.unit.meterSquared"
             }
         };
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {

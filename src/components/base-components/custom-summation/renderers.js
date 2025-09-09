@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, generateUniqueId } from "../../../functions/helpers.js";
+import { createCustomElement, generateUniqueId, hasValue } from "../../../functions/helpers.js";
 
 /**
  * Renders a custom header element with the specified title and size.
@@ -54,16 +54,19 @@ function renderSummationItemTitleElement(summationItemTitle, summationItemTitleI
 }
 
 /**
- * Creates a <span> element with the class "summation-item-data" and sets its inner text
- * to the provided summation item data.
+ * Creates a <span> element displaying the summation item data with an optional unit.
  *
- * @param {string} summationItemData - The data to display inside the summation item element.
- * @returns {HTMLSpanElement} The created <span> element containing the summation item data.
+ * @param {*} summationItemData - The data to display inside the span. If falsy, an empty span is returned.
+ * @param {string} [summationItemUnit] - Optional unit to append to the data, separated by a space.
+ * @returns {HTMLSpanElement} The created span element containing the formatted data and unit.
  */
-function renderSummationItemDataElement(summationItemData) {
+function renderSummationItemDataElement(summationItemData, summationItemUnit) {
     const fieldDataElement = document.createElement("span");
+    if (!hasValue(summationItemData)) {
+        return fieldDataElement;
+    }
     fieldDataElement.classList.add("summation-item-data");
-    fieldDataElement.innerText = summationItemData;
+    fieldDataElement.innerText = summationItemData + (summationItemUnit?.length ? ` ${summationItemUnit}` : "");
     return fieldDataElement;
 }
 
@@ -75,6 +78,7 @@ function renderSummationItemDataElement(summationItemData) {
  * @param {string} [summationItem.resourceValues.operator] - The operator to display.
  * @param {string} [summationItem.resourceValues.title] - The title of the summation item.
  * @param {string} [summationItem.resourceValues.data] - The data value of the summation item.
+ * @param {string} [summationItem.resourceValues.unit] - The unit to append to the data value.
  * @returns {string} The HTML string representing the summation item element.
  */
 export function renderSummationItemElement(summationItem) {
@@ -84,12 +88,13 @@ export function renderSummationItemElement(summationItem) {
     const summationItemOperator = summationItem?.resourceValues?.operator || "";
     const summationItemTitle = summationItem?.resourceValues?.title || "";
     const summationItemTitleId = summationItemTitle?.length ? generateUniqueId("custom-field-") : null;
-    const summationItemData = summationItem?.resourceValues?.data || "";
+    const summationItemData = hasValue(summationItem?.resourceValues?.data) ? summationItem?.resourceValues?.data : "0";
+    const summationItemUnit = summationItem?.resourceValues?.unit || "";
 
     summationItemElement.appendChild(renderSummationItemOperatorElement(summationItemOperator));
     summationItemElement.appendChild(renderSummationItemTitleElement(summationItemTitle, summationItemTitleId));
 
-    const summationItemDataElement = renderSummationItemDataElement(summationItemData);
+    const summationItemDataElement = renderSummationItemDataElement(summationItemData, summationItemUnit);
     if (summationItemTitle?.length) {
         summationItemDataElement.classList.add("has-title");
         summationItemDataElement.setAttribute("aria-labelledby", summationItemTitleId);
