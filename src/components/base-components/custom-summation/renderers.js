@@ -90,6 +90,11 @@ export function renderSummationItemElement(summationItem) {
     const summationItemTitleId = summationItemTitle?.length ? generateUniqueId("custom-field-") : null;
     const summationItemData = hasValue(summationItem?.resourceValues?.data) ? summationItem?.resourceValues?.data : "0";
     const summationItemUnit = summationItem?.resourceValues?.unit || "";
+    const summationItemIsTotal = summationItem?.resourceValues?.isTotal === true || summationItem?.resourceValues?.isTotal === "true";
+
+    if (summationItemIsTotal) {
+        summationItemElement.classList.add("total");
+    }
 
     summationItemElement.appendChild(renderSummationItemOperatorElement(summationItemOperator));
     summationItemElement.appendChild(renderSummationItemTitleElement(summationItemTitle, summationItemTitleId));
