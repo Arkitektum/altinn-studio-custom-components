@@ -5,6 +5,7 @@ import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
 import customParagraph from "./base-components/custom-paragraph/index.js";
+import customSummation from "./base-components/custom-summation/index.js";
 import customTable from "./base-components/custom-table/index.js";
 
 // Data components
@@ -38,7 +39,9 @@ import customListData from "./data-components/custom-list-data/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
-import CustomTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
+import customSummationArealdisponering from "./data-components/custom-summation-arealdisponering/index.js";
+import customSummationData from "./data-components/custom-summation-data/index.js";
+import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
@@ -93,7 +96,10 @@ export {
     customListVedlegg,
     customParagraphText,
     customSubheaderText,
-    CustomTableArbeidsplasser,
+    customSummation,
+    customSummationArealdisponering,
+    customSummationData,
+    customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
     customTablePart,

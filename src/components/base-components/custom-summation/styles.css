@@ -1,0 +1,32 @@
+custom-summation {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    font-weight: var(--font-weight-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
+    .summation-item {
+        display: flex;
+        align-items: center;
+        padding: 0.25rem 0;
+        margin: 0;
+        &:nth-child(even) {
+            background-color: var(--color-default-muted);
+        }
+        &.total {
+            border-top: 2px solid var(--color-border-default);
+        }
+        .summation-item-operator {
+            width: 1rem;
+            text-align: center;
+            margin-right: 0.5rem;
+        }
+
+        .summation-item-title {
+            flex: 1;
+            font-weight: var(--font-weight-normal);
+        }
+        .summation-item-data {
+            margin-left: 8px;
+        }
+    }
+}
