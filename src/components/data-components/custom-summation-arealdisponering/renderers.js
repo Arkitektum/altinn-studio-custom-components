@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement } from "../../../functions/helpers.js";
+import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a custom summation data element using the provided data.
@@ -20,7 +20,7 @@ function renderSummationDataElement(data) {
         resourceValues: data?.resourceValues,
         resourceBindings: data?.resourceBindings
     });
-    const summationDataElement = createCustomElement("custom-summation-data", htmlAttributes);
+    const summationDataElement = addContainerElement(createCustomElement("custom-summation-data", htmlAttributes));
     return summationDataElement;
 }
 
