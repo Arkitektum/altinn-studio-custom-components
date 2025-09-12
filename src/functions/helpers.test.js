@@ -20,7 +20,8 @@ import {
     getComponentResourceValue,
     appendChildren,
     calculateFlexWidth,
-    generateUniqueId
+    generateUniqueId,
+    getComponentDataTitle
 } from "./helpers";
 
 // Mock for customElementTagNames
@@ -290,6 +291,33 @@ describe("getComponentDataValue", () => {
     });
     it("returns formData.data if simpleBinding not present", () => {
         expect(getComponentDataValue({ isChildComponent: false, formData: { data: "def" } })).toBe("def");
+    });
+});
+
+describe("getComponentDataTitle", () => {
+    it("returns resourceValues.dataTitle if isChildComponent is true", () => {
+        const comp = { isChildComponent: true, resourceValues: { dataTitle: "Child Title" } };
+        expect(getComponentDataTitle(comp)).toBe("Child Title");
+    });
+
+    it("returns formData.dataTitle if isChildComponent is false and dataTitle exists", () => {
+        const comp = { isChildComponent: false, formData: { dataTitle: "Form Title" } };
+        expect(getComponentDataTitle(comp)).toBe("Form Title");
+    });
+
+    it("returns undefined if isChildComponent is false and dataTitle is not present", () => {
+        const comp = { isChildComponent: false, formData: {} };
+        expect(getComponentDataTitle(comp)).toBeUndefined();
+    });
+
+    it("returns undefined if isChildComponent is false and formData is missing", () => {
+        const comp = { isChildComponent: false };
+        expect(getComponentDataTitle(comp)).toBeUndefined();
+    });
+
+    it("returns undefined if isChildComponent is true and resourceValues.dataTitle is missing", () => {
+        const comp = { isChildComponent: true, resourceValues: {} };
+        expect(getComponentDataTitle(comp)).toBeUndefined();
     });
 });
 
