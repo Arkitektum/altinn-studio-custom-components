@@ -2,367 +2,334 @@ import CustomElementHtmlAttributes from "./CustomElementHtmlAttributes";
 const { isValidHeaderSize } = require("../../functions/dataFormatHelpers.js");
 const { hasValue } = require("../../functions/helpers.js");
 
-// Mock dependencies
+// Mock the imported helpers
 jest.mock("../../functions/dataFormatHelpers.js", () => ({
-    isValidHeaderSize: jest.fn()
+    isValidHeaderSize: jest.fn((size) => ["h1", "h2", "h3", "h4", "h5", "h6"].includes((size || "").toLowerCase()))
 }));
 jest.mock("../../functions/helpers.js", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
 
 describe("CustomElementHtmlAttributes", () => {
     beforeEach(() => {
         jest.clearAllMocks();
+        // Default hasValue to real implementation for most tests
+        hasValue.mockImplementation((val) => val !== undefined && val !== null && val !== "");
     });
 
     describe("constructor", () => {
-        it("should set properties if provided and valid", () => {
+        it("should set all attributes if provided in props", () => {
             isValidHeaderSize.mockReturnValue(true);
-            hasValue.mockImplementation((v) => v !== undefined && v !== null);
-
             const props = {
                 isChildComponent: true,
                 formData: { foo: "bar" },
                 tagName: "custom-tag",
-                size: "large",
+                size: "h2",
                 hideTitle: true,
                 hideIfEmpty: true,
                 isEmpty: true,
                 inline: true,
                 styleOverride: { color: "red" },
                 grid: { xs: 12 },
-                tableColumns: [{ name: "col1" }],
+                tableColumns: [{ key: "col1" }],
                 itemKey: "item-1",
-                id: "id-123",
+                dataItemKey: "data-1",
+                dataTitleItemKey: "title-1",
+                id: "id-1",
                 feedbackType: "error",
                 hideOrgNr: true,
                 format: "date",
                 showRowNumbers: true,
-                partType: "main",
-                resourceBindings: { title: "titleKey" },
-                resourceValues: { a: 1 }
+                partType: "part-1",
+                resourceBindings: { title: "Title" },
+                resourceValues: { value: 123 },
+                enableLinks: true,
+                text: "Some text"
             };
+            const attrs = new CustomElementHtmlAttributes(props);
 
-            const instance = new CustomElementHtmlAttributes(props);
-
-            expect(instance.isChildComponent).toBe("true");
-            expect(instance.formData).toBe(JSON.stringify(props.formData));
-            expect(instance.tagName).toBe("custom-tag");
-            expect(instance.size).toBe("large");
-            expect(instance.hideTitle).toBe("true");
-            expect(instance.hideIfEmpty).toBe("true");
-            expect(instance.isEmpty).toBe("true");
-            expect(instance.inline).toBe("true");
-            expect(instance.styleOverride).toBe(JSON.stringify(props.styleOverride));
-            expect(instance.grid).toBe(JSON.stringify(props.grid));
-            expect(instance.tableColumns).toBe(JSON.stringify(props.tableColumns));
-            expect(instance.itemKey).toBe("item-1");
-            expect(instance.id).toBe("id-123");
-            expect(instance.feedbackType).toBe("error");
-            expect(instance.hideOrgNr).toBe("true");
-            expect(instance.format).toBe("date");
-            expect(instance.showRowNumbers).toBe("true");
-            expect(instance.partType).toBe("main");
-            expect(instance.resourceBindings).toBe(JSON.stringify(props.resourceBindings));
-            expect(instance.resourceValues).toBe(JSON.stringify(props.resourceValues));
+            expect(attrs.isChildComponent).toBe("true");
+            expect(attrs.formData).toBe(JSON.stringify(props.formData));
+            expect(attrs.tagName).toBe("custom-tag");
+            expect(attrs.size).toBe("h2");
+            expect(attrs.hideTitle).toBe("true");
+            expect(attrs.hideIfEmpty).toBe("true");
+            expect(attrs.isEmpty).toBe("true");
+            expect(attrs.inline).toBe("true");
+            expect(attrs.styleOverride).toBe(JSON.stringify(props.styleOverride));
+            expect(attrs.grid).toBe(JSON.stringify(props.grid));
+            expect(attrs.tableColumns).toBe(JSON.stringify(props.tableColumns));
+            expect(attrs.itemKey).toBe("item-1");
+            expect(attrs.dataItemKey).toBe("data-1");
+            expect(attrs.dataTitleItemKey).toBe("title-1");
+            expect(attrs.id).toBe("id-1");
+            expect(attrs.feedbackType).toBe("error");
+            expect(attrs.hideOrgNr).toBe("true");
+            expect(attrs.format).toBe("date");
+            expect(attrs.showRowNumbers).toBe("true");
+            expect(attrs.partType).toBe("part-1");
+            expect(attrs.resourceBindings).toBe(JSON.stringify(props.resourceBindings));
+            expect(attrs.resourceValues).toBe(JSON.stringify(props.resourceValues));
+            expect(attrs.enableLinks).toBe("true");
+            expect(attrs.text).toBe("Some text");
         });
 
-        it("should not set properties if not provided or invalid", () => {
+        it("should not set attributes if props are missing or falsy", () => {
             isValidHeaderSize.mockReturnValue(false);
             hasValue.mockReturnValue(false);
-
-            const props = {};
-            const instance = new CustomElementHtmlAttributes(props);
-
-            expect(instance).not.toHaveProperty("isChildComponent");
-            expect(instance).not.toHaveProperty("formData");
-            expect(instance).not.toHaveProperty("tagName");
-            expect(instance).not.toHaveProperty("size");
-            expect(instance).not.toHaveProperty("hideTitle");
-            expect(instance).not.toHaveProperty("hideIfEmpty");
-            expect(instance).not.toHaveProperty("isEmpty");
-            expect(instance).not.toHaveProperty("inline");
-            expect(instance).not.toHaveProperty("styleOverride");
-            expect(instance).not.toHaveProperty("grid");
-            expect(instance).not.toHaveProperty("tableColumns");
-            expect(instance).not.toHaveProperty("itemKey");
-            expect(instance).not.toHaveProperty("id");
-            expect(instance).not.toHaveProperty("feedbackType");
-            expect(instance).not.toHaveProperty("hideOrgNr");
-            expect(instance).not.toHaveProperty("format");
-            expect(instance).not.toHaveProperty("showRowNumbers");
-            expect(instance).not.toHaveProperty("partType");
-            expect(instance).not.toHaveProperty("resourceBindings");
-            expect(instance).not.toHaveProperty("resourceValues");
+            const attrs = new CustomElementHtmlAttributes({});
+            expect(attrs).toEqual({});
         });
     });
 
     describe("getFormDataAttributeFromProps", () => {
-        beforeEach(() => {
-            hasValue.mockImplementation((v) => v !== undefined && v !== null);
-        });
-
         it("should stringify string formData", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFormDataAttributeFromProps({ formData: "abc" })).toBe(JSON.stringify("abc"));
+            expect(new CustomElementHtmlAttributes({}).getFormDataAttributeFromProps({ formData: "abc" })).toBe('"abc"');
         });
-
         it("should stringify number formData", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFormDataAttributeFromProps({ formData: 123 })).toBe(JSON.stringify("123"));
+            expect(new CustomElementHtmlAttributes({}).getFormDataAttributeFromProps({ formData: 123 })).toBe('"123"');
         });
-
         it("should stringify object formData", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFormDataAttributeFromProps({ formData: { a: 1 } })).toBe(JSON.stringify({ a: 1 }));
+            expect(new CustomElementHtmlAttributes({}).getFormDataAttributeFromProps({ formData: { a: 1 } })).toBe('{"a":1}');
         });
-
         it("should return null if formData is not present", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFormDataAttributeFromProps({})).toBeNull();
+            expect(new CustomElementHtmlAttributes({}).getFormDataAttributeFromProps({})).toBeNull();
         });
     });
 
     describe("getIsChildComponentAttributeFromProps", () => {
         it('should return "true" if isChildComponent is truthy', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getIsChildComponentAttributeFromProps({ isChildComponent: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getIsChildComponentAttributeFromProps({ isChildComponent: true })).toBe("true");
         });
         it("should return undefined if isChildComponent is falsy", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getIsChildComponentAttributeFromProps({ isChildComponent: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getIsChildComponentAttributeFromProps({ isChildComponent: false })).toBeUndefined();
         });
     });
 
     describe("getTagNameAttributeFromProps", () => {
         it("should return tagName as string if present", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTagNameAttributeFromProps({ tagName: "foo" })).toBe("foo");
+            expect(new CustomElementHtmlAttributes({}).getTagNameAttributeFromProps({ tagName: "foo" })).toBe("foo");
         });
-        it("should return undefined if tagName is not present", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTagNameAttributeFromProps({})).toBeUndefined();
+        it("should return undefined if tagName is missing", () => {
+            expect(new CustomElementHtmlAttributes({}).getTagNameAttributeFromProps({})).toBeUndefined();
         });
     });
 
     describe("getSizeAttributeFromProps", () => {
-        it("should return size as string if valid", () => {
+        it("should return size as lowercase string if valid", () => {
             isValidHeaderSize.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getSizeAttributeFromProps({ size: "LARGE" })).toBe("large");
+            expect(new CustomElementHtmlAttributes({}).getSizeAttributeFromProps({ size: "H3" })).toBe("h3");
         });
-        it("should return undefined if size is not valid", () => {
+        it("should return undefined if size is invalid", () => {
             isValidHeaderSize.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getSizeAttributeFromProps({ size: "invalid" })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getSizeAttributeFromProps({ size: "foo" })).toBeUndefined();
         });
     });
 
     describe("getHideTitleAttributeFromProps", () => {
         it('should return "true" if hideTitle is true', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getHideTitleAttributeFromProps({ hideTitle: true })).toBe("true");
-            expect(instance.getHideTitleAttributeFromProps({ hideTitle: "true" })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getHideTitleAttributeFromProps({ hideTitle: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getHideTitleAttributeFromProps({ hideTitle: "true" })).toBe("true");
         });
         it("should return undefined if hideTitle is false", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getHideTitleAttributeFromProps({ hideTitle: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getHideTitleAttributeFromProps({ hideTitle: false })).toBeUndefined();
         });
     });
 
     describe("getHideIfEmptyAttributeFromProps", () => {
         it('should return "true" if hideIfEmpty is true', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getHideIfEmptyAttributeFromProps({ hideIfEmpty: true })).toBe("true");
-            expect(instance.getHideIfEmptyAttributeFromProps({ hideIfEmpty: "true" })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getHideIfEmptyAttributeFromProps({ hideIfEmpty: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getHideIfEmptyAttributeFromProps({ hideIfEmpty: "true" })).toBe("true");
         });
         it("should return undefined if hideIfEmpty is false", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getHideIfEmptyAttributeFromProps({ hideIfEmpty: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getHideIfEmptyAttributeFromProps({ hideIfEmpty: false })).toBeUndefined();
         });
     });
 
     describe("getIsEmptyAttributeFromProps", () => {
         it('should return "true" if isEmpty is true', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getIsEmptyAttributeFromProps({ isEmpty: true })).toBe("true");
-            expect(instance.getIsEmptyAttributeFromProps({ isEmpty: "true" })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getIsEmptyAttributeFromProps({ isEmpty: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getIsEmptyAttributeFromProps({ isEmpty: "true" })).toBe("true");
         });
         it("should return undefined if isEmpty is false", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getIsEmptyAttributeFromProps({ isEmpty: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getIsEmptyAttributeFromProps({ isEmpty: false })).toBeUndefined();
         });
     });
 
     describe("getInlineAttributeFromProps", () => {
         it('should return "true" if inline is true', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getInlineAttributeFromProps({ inline: true })).toBe("true");
-            expect(instance.getInlineAttributeFromProps({ inline: "true" })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getInlineAttributeFromProps({ inline: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getInlineAttributeFromProps({ inline: "true" })).toBe("true");
         });
         it("should return undefined if inline is false", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getInlineAttributeFromProps({ inline: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getInlineAttributeFromProps({ inline: false })).toBeUndefined();
         });
     });
 
     describe("getStyleOverrideAttributeFromProps", () => {
-        it("should return JSON string if styleOverride is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getStyleOverrideAttributeFromProps({ styleOverride: { color: "red" } })).toBe(JSON.stringify({ color: "red" }));
+        it("should return JSON string if styleOverride has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getStyleOverrideAttributeFromProps({ styleOverride: { color: "red" } })).toBe(
+                '{"color":"red"}'
+            );
         });
-        it("should return undefined if styleOverride is not present", () => {
+        it("should return undefined if styleOverride is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getStyleOverrideAttributeFromProps({})).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getStyleOverrideAttributeFromProps({})).toBeUndefined();
         });
     });
 
     describe("getGridAttributeFromProps", () => {
-        it("should return JSON string if grid is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getGridAttributeFromProps({ grid: { xs: 12 } })).toBe(JSON.stringify({ xs: 12 }));
+        it("should return JSON string if grid has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getGridAttributeFromProps({ grid: { xs: 12 } })).toBe('{"xs":12}');
         });
-        it("should return falsey if grid is not present", () => {
+        it("should return false if grid is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getGridAttributeFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getGridAttributeFromProps({})).toBe(false);
         });
     });
 
     describe("getTableColumnsAttributeFromProps", () => {
-        it("should return JSON string if tableColumns is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTableColumnsAttributeFromProps({ tableColumns: [1, 2] })).toBe(JSON.stringify([1, 2]));
+        it("should return JSON string if tableColumns has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getTableColumnsAttributeFromProps({ tableColumns: [1, 2] })).toBe("[1,2]");
         });
-        it("should return falsey if tableColumns is not present", () => {
+        it("should return false if tableColumns is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getTableColumnsAttributeFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getTableColumnsAttributeFromProps({})).toBe(false);
         });
     });
 
     describe("getItemKeyAttributeFromProps", () => {
-        it("should return itemKey if present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getItemKeyAttributeFromProps({ itemKey: "key" })).toBe("key");
+        it("should return itemKey if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getItemKeyAttributeFromProps({ itemKey: "foo" })).toBe("foo");
         });
-        it("should return falsey if itemKey is not present", () => {
+        it("should return false if itemKey is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getItemKeyAttributeFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getItemKeyAttributeFromProps({})).toBe(false);
+        });
+    });
+
+    describe("getDataItemKeyAttributeFromProps", () => {
+        it("should return dataItemKey if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getDataItemKeyAttributeFromProps({ dataItemKey: "foo" })).toBe("foo");
+        });
+        it("should return false if dataItemKey is missing", () => {
+            hasValue.mockReturnValue(false);
+            expect(new CustomElementHtmlAttributes({}).getDataItemKeyAttributeFromProps({})).toBe(false);
+        });
+    });
+
+    describe("getDataTitleItemKeyAttributeFromProps", () => {
+        it("should return dataTitleItemKey if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getDataTitleItemKeyAttributeFromProps({ dataTitleItemKey: "foo" })).toBe("foo");
+        });
+        it("should return false if dataTitleItemKey is missing", () => {
+            hasValue.mockReturnValue(false);
+            expect(new CustomElementHtmlAttributes({}).getDataTitleItemKeyAttributeFromProps({})).toBe(false);
         });
     });
 
     describe("getIdAttributeFromProps", () => {
-        it("should return id if present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getIdAttributeFromProps({ id: "id" })).toBe("id");
+        it("should return id if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getIdAttributeFromProps({ id: "foo" })).toBe("foo");
         });
-        it("should return falsey if id is not present", () => {
+        it("should return false if id is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getIdAttributeFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getIdAttributeFromProps({})).toBe(false);
         });
     });
 
     describe("getFeedbackTypeAttributeFromProps", () => {
         it("should return feedbackType if valid", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFeedbackTypeAttributeFromProps({ feedbackType: "success" })).toBe("success");
+            expect(new CustomElementHtmlAttributes({}).getFeedbackTypeAttributeFromProps({ feedbackType: "error" })).toBe("error");
         });
         it('should return "default" if feedbackType is invalid', () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFeedbackTypeAttributeFromProps({ feedbackType: "not-valid" })).toBe("default");
+            expect(new CustomElementHtmlAttributes({}).getFeedbackTypeAttributeFromProps({ feedbackType: "invalid" })).toBe("default");
         });
-        it("should return null if feedbackType is not present", () => {
+        it("should return null if feedbackType is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFeedbackTypeAttributeFromProps({})).toBeNull();
+            expect(new CustomElementHtmlAttributes({}).getFeedbackTypeAttributeFromProps({})).toBeNull();
         });
     });
 
     describe("getHideOrgNr", () => {
         it('should return "true" if hideOrgNr is true', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getHideOrgNr({ hideOrgNr: true })).toBe("true");
-            expect(instance.getHideOrgNr({ hideOrgNr: "true" })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getHideOrgNr({ hideOrgNr: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getHideOrgNr({ hideOrgNr: "true" })).toBe("true");
         });
         it("should return undefined if hideOrgNr is false", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getHideOrgNr({ hideOrgNr: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getHideOrgNr({ hideOrgNr: false })).toBeUndefined();
         });
     });
 
     describe("getFormatAttributeFromProps", () => {
-        it("should return format as string if present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFormatAttributeFromProps({ format: 123 })).toBe("123");
+        it("should return format as string if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getFormatAttributeFromProps({ format: 123 })).toBe("123");
+            expect(new CustomElementHtmlAttributes({}).getFormatAttributeFromProps({ format: "abc" })).toBe("abc");
         });
-        it("should return falsey if format is not present", () => {
+        it("should return false if format is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getFormatAttributeFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getFormatAttributeFromProps({})).toBe(false);
         });
     });
 
     describe("getShowRowNumbersAttributeFromProps", () => {
         it('should return "true" if showRowNumbers is true', () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getShowRowNumbersAttributeFromProps({ showRowNumbers: true })).toBe("true");
-            expect(instance.getShowRowNumbersAttributeFromProps({ showRowNumbers: "true" })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getShowRowNumbersAttributeFromProps({ showRowNumbers: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getShowRowNumbersAttributeFromProps({ showRowNumbers: "true" })).toBe("true");
         });
         it("should return undefined if showRowNumbers is false", () => {
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getShowRowNumbersAttributeFromProps({ showRowNumbers: false })).toBeUndefined();
+            expect(new CustomElementHtmlAttributes({}).getShowRowNumbersAttributeFromProps({ showRowNumbers: false })).toBeUndefined();
         });
     });
 
     describe("getPartTypeAttributeFromProps", () => {
-        it("should return partType if present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getPartTypeAttributeFromProps({ partType: "main" })).toBe("main");
+        it("should return partType if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getPartTypeAttributeFromProps({ partType: "foo" })).toBe("foo");
         });
-        it("should return falsey if partType is not present", () => {
+        it("should return false if partType is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getPartTypeAttributeFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getPartTypeAttributeFromProps({})).toBe(false);
         });
     });
 
     describe("getResourceBindingsFromProps", () => {
-        it("should return JSON string if resourceBindings is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getResourceBindingsFromProps({ resourceBindings: { a: 1 } })).toBe(JSON.stringify({ a: 1 }));
+        it("should return JSON string if resourceBindings has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getResourceBindingsFromProps({ resourceBindings: { a: 1 } })).toBe('{"a":1}');
         });
-        it("should return falsey if resourceBindings is not present", () => {
+        it("should return false if resourceBindings is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getResourceBindingsFromProps({})).toBe(false);
+            expect(new CustomElementHtmlAttributes({}).getResourceBindingsFromProps({})).toBe(false);
         });
     });
 
     describe("getResourceValuesFromProps", () => {
-        it("should return JSON string if resourceValues is present", () => {
-            hasValue.mockReturnValue(true);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getResourceValuesFromProps({ resourceValues: { a: 1 } })).toBe(JSON.stringify({ a: 1 }));
+        it("should return JSON string if resourceValues has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getResourceValuesFromProps({ resourceValues: { a: 1 } })).toBe('{"a":1}');
         });
-        it("should return null if resourceValues is not present", () => {
+        it("should return null if resourceValues is missing", () => {
             hasValue.mockReturnValue(false);
-            const instance = new CustomElementHtmlAttributes({});
-            expect(instance.getResourceValuesFromProps({})).toBeNull();
+            expect(new CustomElementHtmlAttributes({}).getResourceValuesFromProps({})).toBeNull();
+        });
+    });
+
+    describe("getEnableLinksFromProps", () => {
+        it('should return "true" if enableLinks is true', () => {
+            expect(new CustomElementHtmlAttributes({}).getEnableLinksFromProps({ enableLinks: true })).toBe("true");
+            expect(new CustomElementHtmlAttributes({}).getEnableLinksFromProps({ enableLinks: "true" })).toBe("true");
+        });
+        it("should return undefined if enableLinks is false", () => {
+            expect(new CustomElementHtmlAttributes({}).getEnableLinksFromProps({ enableLinks: false })).toBeUndefined();
+        });
+    });
+
+    describe("getTextAttributeFromProps", () => {
+        it("should return text if has value", () => {
+            expect(new CustomElementHtmlAttributes({}).getTextAttributeFromProps({ text: "foo" })).toBe("foo");
+        });
+        it("should return false if text is missing", () => {
+            hasValue.mockReturnValue(false);
+            expect(new CustomElementHtmlAttributes({}).getTextAttributeFromProps({})).toBe(false);
         });
     });
 });
