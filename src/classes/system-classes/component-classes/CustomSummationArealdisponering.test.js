@@ -200,7 +200,7 @@ describe("CustomSummationArealdisponering", () => {
             const result = instance.getTextResourceBindings({});
             expect(result.tomtearealet.title).toBe("resource.rammebetingelser.arealdisponering.tomtearealet.title");
             expect(result.bebyggelsen.title).toBe("resource.rammebetingelser.arealdisponering.bebyggelsen.title");
-            expect(result.part.emptyFieldText).toBe("resource.emptyFieldText.default");
+            expect(result.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
 
         it("should override resource bindings with props.resourceBindings", () => {
@@ -213,7 +213,7 @@ describe("CustomSummationArealdisponering", () => {
             const instance = new CustomSummationArealdisponering(props);
             const result = instance.getTextResourceBindings(props);
             expect(result.tomtearealet.title).toBe("custom.tomtearealet");
-            expect(result.part.emptyFieldText).toBe("custom.empty");
+            expect(result.emptyFieldText).toBe("custom.empty");
         });
 
         it("should not include part if hideIfEmpty is true", () => {
