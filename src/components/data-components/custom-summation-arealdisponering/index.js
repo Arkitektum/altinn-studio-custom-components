@@ -6,7 +6,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { renderSummationArealdisponering } from "./renderers.js";
+import { renderEmptyFieldText, renderSummationArealdisponering } from "./renderers.js";
 
 export default customElements.define(
     "custom-summation-arealdisponering",
@@ -16,6 +16,9 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
+            } else if (component?.isEmpty) {
+                const emptyFieldTextElement = renderEmptyFieldText(component);
+                this.appendChild(emptyFieldTextElement);
             } else {
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const summationArealdisponeringElement = renderSummationArealdisponering(component);
