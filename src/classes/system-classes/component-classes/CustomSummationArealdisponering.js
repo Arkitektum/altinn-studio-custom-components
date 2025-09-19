@@ -37,10 +37,10 @@ export default class CustomSummationArealdisponering extends CustomComponent {
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = {
-            emptyFieldText: resourceBindings?.emptyFieldText || undefined
+            emptyFieldText: resourceBindings?.arealdisponering?.emptyFieldText || undefined
         };
         this.resourceValues = {
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.emptyFieldText) : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.emptyFieldText) : data
         };
     }
 
@@ -194,7 +194,9 @@ export default class CustomSummationArealdisponering extends CustomComponent {
             }
         };
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+            resourceBindings.arealdisponering = {
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
         }
         return resourceBindings;
     }
