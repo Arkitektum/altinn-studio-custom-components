@@ -24,31 +24,37 @@ export function getValueFromLocalStorage(key) {
 /**
  * Retrieves and parses the layout code from local storage.
  * The value is fetched using the key "code", and any trailing or leading commas are removed before parsing.
+ * If no layout code is found, returns an empty object.
  *
  * @returns {any} The parsed layout code object from local storage.
  */
 export function getLayoutCode() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("code")));
+    const layoutCode = getValueFromLocalStorage("code") || "{}";
+    return JSON.parse(removeTrailingOrLeadingComma(layoutCode));
 }
 
 /**
  * Retrieves and parses the data models from local storage.
+ * If no data models are found, returns an empty array.
  * Removes any trailing or leading commas from the stored value before parsing.
  *
  * @returns {any} The parsed data models from local storage.
  */
 export function getDataModels() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("dataModels")));
+    const dataModels = getValueFromLocalStorage("dataModels") || "[]";
+    return JSON.parse(removeTrailingOrLeadingComma(dataModels));
 }
 
 /**
  * Retrieves and parses the text resources from local storage.
+ * If no text resources are found, returns an empty object.
  * Removes any trailing or leading commas before parsing the JSON.
  *
  * @returns {Object} The parsed text resources object from local storage.
  */
 export function getTextResources() {
-    return JSON.parse(removeTrailingOrLeadingComma(getValueFromLocalStorage("textResources")));
+    const textResources = getValueFromLocalStorage("textResources") || "{}";
+    return JSON.parse(removeTrailingOrLeadingComma(textResources));
 }
 
 /**
