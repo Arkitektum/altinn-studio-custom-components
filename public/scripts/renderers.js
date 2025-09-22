@@ -10,10 +10,16 @@ import { addDataModel, getLayoutCode } from "./localStorage.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 
 /**
- * Renders the results by creating and displaying a custom component element.
- * - Retrieves the layout code and corresponding data for the component.
- * - Constructs HTML attributes for the custom element.
- * - Creates the custom element and appends it to the container element with ID "code-results".
+ * Renders the results of a custom component by retrieving its layout and data,
+ * creating the corresponding custom element with appropriate HTML attributes,
+ * and appending it to the container element in the DOM.
+ *
+ * The function performs the following steps:
+ * 1. Retrieves the component layout using `getLayoutCode()`.
+ * 2. Fetches the data for the component using `getDataForComponent(component)`.
+ * 3. Constructs HTML attributes for the custom element.
+ * 4. Clears the existing content of the results container.
+ * 5. If the component has a valid `tagName`, creates the custom element and appends it to the container.
  *
  * @returns {void}
  */
@@ -24,10 +30,13 @@ export function renderResults() {
         ...component,
         formData: data
     });
-    const element = createCustomElement(component?.tagName, htmlAttributes);
-    const testElement = document.getElementById("code-results");
-    testElement.innerHTML = "";
-    testElement.appendChild(addContainerElement(element));
+    const containerElement = document.getElementById("code-results");
+    containerElement.innerHTML = "";
+    if (!component?.tagName) {
+        return;
+    }
+    const resultsElement = createCustomElement(component?.tagName, htmlAttributes);
+    containerElement.appendChild(addContainerElement(resultsElement));
 }
 
 /**
