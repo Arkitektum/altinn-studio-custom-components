@@ -21,7 +21,6 @@ jobs:
                   node-version: "22"
                   registry-url: https://npm.pkg.github.com/
                   scope: "@arkitektum"
-                  cache: "yarn" # optional but nice for speed
 
             # 👇 Ensure Yarn v4 from packageManager is used
             - name: Enable Corepack & activate Yarn 4
@@ -29,6 +28,17 @@ jobs:
                   corepack enable
                   corepack prepare yarn@4.10.3 --activate
                   yarn --version
+
+            # Optional: cache Yarn Berry's project cache (speeds up installs)
+            - name: Cache Yarn v4 artifacts
+              uses: actions/cache@v3
+              with:
+                  path: |
+                      .yarn/cache
+                      .yarn/install-state.gz
+                  key: ${{ runner.os }}-yarn4-${{ hashFiles('**/yarn.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-yarn4-
 
             - run: yarn install --immutable
             - run: yarn test
