@@ -122,6 +122,9 @@ export default class CustomDispensasjon extends CustomComponent {
             tiltakshaverAdresse: {
                 title: "resource.tiltakshaver.adresse.title"
             },
+            ansvarligSoekerAdresse: {
+                title: "resource.ansvarligSoeker.adresse.title"
+            },
             dispensasjonBeskrivelseBeskrivelse: {
                 title: "resource.dispensasjonBeskrivelse.beskrivelse.title"
             },

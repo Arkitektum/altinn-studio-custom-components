@@ -254,6 +254,52 @@ export function renderTiltakshaverAdresse(component) {
 }
 
 /**
+ * Renders a custom table part for "Ansvarlig Søker" using provided component data.
+ *
+ * @param {Object} component - The component containing resource values.
+ * @param {Object} component.resourceValues - The resource values object.
+ * @param {Object} component.resourceValues.data - The data object containing "ansvarligSoeker".
+ * @returns {HTMLElement} The custom table part element for "Ansvarlig Søker".
+ */
+export function renderAnsvarligSoekerTable(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        partType: "ansvarligSoeker",
+        hideIfEmpty: true,
+        resourceValues: {
+            data: data?.ansvarligSoeker
+        }
+    });
+
+    return createCustomElement("custom-table-part", htmlAttributes);
+}
+
+/**
+ * Renders the "Ansvarlig Soeker Adresse" custom field component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} component.resourceValues - The resource values for the component.
+ * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @returns {HTMLElement} The rendered custom field address element wrapped in a container.
+ */
+export function renderAnsvarligSoekerAdresse(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component.resourceBindings?.ansvarligSoekerAdresse?.title
+        },
+        resourceValues: {
+            data: data?.ansvarligSoeker?.adresse
+        }
+    });
+
+    return addContainerElement(createCustomElement("custom-field-adresse", htmlAttributes));
+}
+
+/**
  * Renders the "inngangsbeskrivelse" (entrance description) field for a dispensasjon component.
  *
  * This function checks if either the "annenInngangsbeskrivelse" (other entrance description)

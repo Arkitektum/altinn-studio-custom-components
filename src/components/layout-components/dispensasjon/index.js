@@ -3,7 +3,7 @@ import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
+import { appendChildren, getComponentContainerElement, hasValue, renderLayoutContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
 import {
@@ -36,6 +36,8 @@ import {
     renderStedfestingVertikalnivaa,
     renderTiltakshaverAdresse,
     renderTiltakshaverTable,
+    renderAnsvarligSoekerTable,
+    renderAnsvarligSoekerAdresse,
     renderTiltakstyperTypeHeader,
     renderTiltakstyperTypeKode,
     renderVarighetHeader
@@ -62,6 +64,8 @@ export default customElements.define(
                 const tiltakstyperTypeKodeElement = renderTiltakstyperTypeKode(component);
                 const tiltakshaverTableElement = renderTiltakshaverTable(component);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(component);
+                const ansvarligSoekerTableElement = renderAnsvarligSoekerTable(component);
+                const ansvarligSoekerAdresseElement = renderAnsvarligSoekerAdresse(component);
                 const dispensasjonHeader2Element = renderDispansasjonHeader(component, "h2");
                 const inngangsbeskrivelseElement = renderInngangsbeskrivelse(component);
                 const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(component);
@@ -105,7 +109,11 @@ export default customElements.define(
                 ]);
 
                 // Soeker
-                appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);
+                if (hasValue(component?.resourceValues?.data?.ansvarligSoeker)) {
+                    appendChildren(layoutContainerElement, [ansvarligSoekerTableElement, ansvarligSoekerAdresseElement]);
+                } else if (hasValue(component?.resourceValues?.data?.tiltakshaver)) {
+                    appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);
+                }
 
                 // Dispensasjonsbeskrivelse
                 appendChildren(layoutContainerElement, [dispensasjonHeader2Element, inngangsbeskrivelseElement, dispensasjonBeskrivelseElement]);
