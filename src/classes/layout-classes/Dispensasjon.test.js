@@ -20,6 +20,7 @@ describe("Dispensasjon", () => {
             metadata: { createdBy: "user" },
             eiendomByggested: { address: "Test address" },
             tiltakshaver: { name: "Test Party" },
+            ansvarligSoeker: { name: "Test Applicant" },
             dispensasjonFra: { reason: "Test reason" },
             stedfesting: { location: "Test location" },
             varighet: { duration: "1 year" },
@@ -36,6 +37,7 @@ describe("Dispensasjon", () => {
         expect(instance.metadata).toBeInstanceOf(Metadata);
         expect(instance.eiendomByggested).toBeInstanceOf(EiendomByggested);
         expect(instance.tiltakshaver).toBeInstanceOf(Part);
+        expect(instance.ansvarligSoeker).toBeInstanceOf(Part);
         expect(instance.dispensasjonFra).toBeInstanceOf(DispensasjonFra);
         expect(instance.stedfesting).toBeInstanceOf(Stedfesting);
         expect(instance.varighet).toBeInstanceOf(Varighet);

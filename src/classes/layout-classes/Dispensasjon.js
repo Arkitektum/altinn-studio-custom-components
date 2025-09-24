@@ -28,6 +28,7 @@ export default class Dispensasjon {
      * @param {EiendomByggested} [props.eiendomByggested] - The property or construction site information.
      * @param {Tiltakstyper} [props.tiltakstyper] - The types of measures involved.
      * @param {Part} [props.tiltakshaver] - The party responsible for the tiltak (measure).
+     * @param {Part} [props.ansvarligSoeker] - The responsible applicant.
      * @param {DispensasjonFra} [props.dispensasjonFra] - Information about what the dispensasjon is from.
      * @param {Stedfesting} [props.stedfesting] - Geographical location information.
      * @param {Varighet} [props.varighet] - The duration of the dispensasjon.
@@ -43,6 +44,7 @@ export default class Dispensasjon {
         this.eiendomByggested = props?.eiendomByggested && new EiendomByggested(props.eiendomByggested);
         this.tiltakstyper = props?.tiltakstyper && new Tiltakstyper(props.tiltakstyper);
         this.tiltakshaver = props?.tiltakshaver && new Part(props.tiltakshaver);
+        this.ansvarligSoeker = props?.ansvarligSoeker && new Part(props.ansvarligSoeker);
         this.dispensasjonFra = props?.dispensasjonFra && new DispensasjonFra(props.dispensasjonFra);
         this.stedfesting = props?.stedfesting && new Stedfesting(props.stedfesting);
         this.varighet = props?.varighet && new Varighet(props.varighet);
