@@ -1,29 +1,42 @@
 name: Publish GitHub Package
 
 on:
-  release:
-    types: [created]
+    release:
+        types: [created]
 
 permissions:
-  contents: read        # To access repository contents
-  packages: write       # To publish the package
-  id-token: write       # For GitHub OIDC auth
+    contents: read
+    packages: write
+    id-token: write
 
 jobs:
-  publish-github-package:
-    runs-on: ubuntu-latest
+    publish-github-package:
+        runs-on: ubuntu-latest
 
-    steps:
-        - uses: actions/checkout@v4
-        - uses: actions/setup-node@v4
-          with:
-            node-version: '22'
-            registry-url: https://npm.pkg.github.com/
-            scope: "@arkitektum"   # 👈 use the exact casing as in package.json
-        - run: yarn install
-        - run: yarn test
-        - run: yarn build
-        - run: npm publish
-          if: ${{ success() }} # Only run if all previous steps succeeded
-          env:
-            NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: "22"
+                  registry-url: https://npm.pkg.github.com/
+                  scope: "@arkitektum"
+                  cache: "yarn" # optional but nice for speed
+
+            # 👇 Ensure Yarn v4 from packageManager is used
+            - name: Enable Corepack & activate Yarn 4
+              run: |
+                  corepack enable
+                  corepack prepare yarn@4.10.3 --activate
+                  yarn --version
+
+            - run: yarn install --immutable
+            - run: yarn test
+            - run: yarn build
+
+            # If your package is public on npmjs.com use npmjs; for GitHub Packages keep npm.pkg.github.com
+            - name: Publish to GitHub Packages
+              if: ${{ success() }}
+              run: npm publish --provenance
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
