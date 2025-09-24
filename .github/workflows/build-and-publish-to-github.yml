@@ -47,6 +47,6 @@ jobs:
             # If your package is public on npmjs.com use npmjs; for GitHub Packages keep npm.pkg.github.com
             - name: Publish to GitHub Packages
               if: ${{ success() }}
-              run: npm publish --provenance
+              run: npm publish
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
