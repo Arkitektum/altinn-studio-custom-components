@@ -30,8 +30,8 @@ function renderSummationDataElement(data) {
  * @param {Object} component - The component object containing resource values and data.
  * @param {Object} [component.resourceValues] - The resource values of the component.
  * @param {Object} [component.resourceValues.data] - The data object containing "bebyggelsen" and "tomtearealet".
- * @param {Object} [component.resourceValues.data.bebyggelsen] - The data for "bebyggelsen".
  * @param {Object} [component.resourceValues.data.tomtearealet] - The data for "tomtearealet".
+ * @param {Object} [component.resourceValues.data.bebyggelsen] - The data for "bebyggelsen".
  * @returns {HTMLDivElement|null} A div element containing the rendered summation data elements, or null if no data is available.
  */
 export function renderSummationArealdisponering(component) {
@@ -39,19 +39,19 @@ export function renderSummationArealdisponering(component) {
     const tomtearealetData = component?.resourceValues?.data?.tomtearealet;
     if (bebyggelsenData || tomtearealetData) {
         const container = document.createElement("div");
-        if (bebyggelsenData) {
-            const bebyggelsenElement = renderSummationDataElement({
-                resourceValues: bebyggelsenData?.resourceValues,
-                resourceBindings: bebyggelsenData?.resourceBindings
-            });
-            container.appendChild(bebyggelsenElement);
-        }
         if (tomtearealetData) {
             const tomtearealetElement = renderSummationDataElement({
                 resourceValues: tomtearealetData?.resourceValues,
                 resourceBindings: tomtearealetData?.resourceBindings
             });
             container.appendChild(tomtearealetElement);
+        }
+        if (bebyggelsenData) {
+            const bebyggelsenElement = renderSummationDataElement({
+                resourceValues: bebyggelsenData?.resourceValues,
+                resourceBindings: bebyggelsenData?.resourceBindings
+            });
+            container.appendChild(bebyggelsenElement);
         }
         return container;
     }
