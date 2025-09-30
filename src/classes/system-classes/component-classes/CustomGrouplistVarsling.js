@@ -5,6 +5,7 @@ import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import Varsling from "../../data-classes/Varsling.js";
 
 /**
  * CustomGrouplistVarsling is a specialized component class for handling checklist requirements
@@ -72,7 +73,8 @@ export default class CustomGrouplistVarsling extends CustomComponent {
      */
     getValueFromFormData(props, resourceBindings) {
         const data = getComponentDataValue(props);
-        const sjekklistekravItems = this.getSjekklistekravItems(data, resourceBindings);
+        const varsling = new Varsling(data);
+        const sjekklistekravItems = this.getSjekklistekravItems(varsling, resourceBindings);
         return sjekklistekravItems;
     }
 
