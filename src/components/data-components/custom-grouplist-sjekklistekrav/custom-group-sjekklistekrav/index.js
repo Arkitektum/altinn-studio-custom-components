@@ -23,9 +23,9 @@ export default customElements.define(
                 containerElement.appendChild(renderSjekklistepunk(component));
                 this.appendChild(containerElement);
 
-                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feebackListElement) {
-                    this.appendChild(feebackListElement);
+                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                if (feedbackListElement) {
+                    this.appendChild(feedbackListElement);
                 }
             }
         }
