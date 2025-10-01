@@ -26,7 +26,7 @@ export default class CustomGrouplistVarsling extends CustomComponent {
     constructor(props) {
         super(props);
         const resourceBindings = this.getResourceBindings(props);
-        const data = this.getValueFromFormData(props, resourceBindings?.varsling);
+        const data = this.getValueFromFormData(props, resourceBindings);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -34,9 +34,13 @@ export default class CustomGrouplistVarsling extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
+        console.log({ resourceBindings });
         this.resourceBindings = {
             title: resourceBindings?.varsling?.title,
-            emptyFieldText: resourceBindings?.varsling?.emptyFieldText
+            emptyFieldText: resourceBindings?.varsling?.emptyFieldText,
+            trueText: resourceBindings?.varsling?.trueText,
+            falseText: resourceBindings?.varsling?.falseText,
+            defaultText: resourceBindings?.varsling?.defaultText
         };
         this.resourceValues = {
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.varsling?.emptyFieldText) : data
@@ -155,9 +159,11 @@ export default class CustomGrouplistVarsling extends CustomComponent {
      */
     getResourceBindings(props) {
         const resourceBindings = {
-            trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
-            falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.defaultText.default",
+            varsling: {
+                trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
+                defaultText: props?.resourceBindings?.defaultText || "resource.defaultText.default"
+            },
             fritattFraNabovarsling: {
                 title: props?.resourceBindings?.fritattFraNabovarsling?.title || `resource.varsling.fritattFraNabovarsling.title`
             },
@@ -166,13 +172,17 @@ export default class CustomGrouplistVarsling extends CustomComponent {
             }
         };
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
-            resourceBindings.title = props?.resourceBindings?.title || "resource.varsling.title";
+            resourceBindings.varsling = {
+                ...resourceBindings.varsling,
+                title: props?.resourceBindings?.title || "resource.varsling.title"
+            };
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+            resourceBindings.varsling = {
+                ...resourceBindings.varsling,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
         }
-        return {
-            varsling: resourceBindings
-        };
+        return resourceBindings;
     }
 }

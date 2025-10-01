@@ -196,8 +196,8 @@ describe("CustomGrouplistVarsling", () => {
             expect(result.varsling.trueText).toBe("yes");
             expect(result.varsling.falseText).toBe("no");
             expect(result.varsling.defaultText).toBe("default");
-            expect(result.varsling.fritattFraNabovarsling.title).toBe("fritattTitle");
-            expect(result.varsling.foreliggerMerknader.title).toBe("merknadTitle");
+            expect(result.fritattFraNabovarsling.title).toBe("fritattTitle");
+            expect(result.foreliggerMerknader.title).toBe("merknadTitle");
             expect(result.varsling.title).toBe("customTitle");
             expect(result.varsling.emptyFieldText).toBe("emptyText");
         });
