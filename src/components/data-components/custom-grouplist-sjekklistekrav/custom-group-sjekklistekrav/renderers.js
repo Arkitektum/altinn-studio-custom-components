@@ -39,7 +39,7 @@ export function renderSjekklistepunkText(component) {
     const grid = { xs: 11 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
-        hideIfEmpty: true,
+        hideIfEmpty: false,
         enableLinks: component?.enableLinks,
         grid,
         resourceValues: {
