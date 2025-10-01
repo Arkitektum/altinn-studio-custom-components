@@ -100,6 +100,7 @@ These components are tailored to display specific data types consistently across
   - [Ettersending](src/components/data-components/custom-grouplist-ettersending/) – Displays a list of [`Ettersending`](src/classes/data-classes/Ettersending.js) component groups.
   - [Sjekklistekrav](src/components/data-components/custom-grouplist-sjekklistekrav/) – Displays a list of [`Sjekklistekrav`](src/classes/data-classes/Sjekklistekrav.js) component groups.
   - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of [`Utfallsvar`](src/classes/data-classes/UtfallSvar.js) component groups.
+  - [Varsling](src/components/data-components/custom-grouplist-varsling/) – Displays a list of [`Varsling`](src/classes/data-classes/Varsling.js) component groups.
 - **Summation**
   - [Data](src/components/data-components/custom-summation-data/) - Displays the summation of numeric values from a specified data array.
   - [Arealdisponering](src/components/data-components/custom-summation-arealdisponering) – Displays the summation of area allocation values from an [`Arealdisponering`](src/classes/data-classes/Arealdisponering.js) object.
