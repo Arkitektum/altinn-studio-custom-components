@@ -26,6 +26,7 @@ export default [
     "custom-grouplist-sjekklistekrav",
     "custom-grouplist-utfall-svar-type",
     "custom-grouplist-utfall-svar",
+    "custom-grouplist-varsling",
     "custom-group-ettersending",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
