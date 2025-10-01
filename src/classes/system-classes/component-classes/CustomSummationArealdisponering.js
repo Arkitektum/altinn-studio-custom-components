@@ -40,6 +40,7 @@ export default class CustomSummationArealdisponering extends CustomComponent {
             emptyFieldText: resourceBindings?.arealdisponering?.emptyFieldText || undefined
         };
         this.resourceValues = {
+            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.emptyFieldText) : data
         };
     }
@@ -193,6 +194,12 @@ export default class CustomSummationArealdisponering extends CustomComponent {
                 unit: "resource.unit.meterSquared"
             }
         };
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.arealdisponering = {
+                ...resourceBindings.arealdisponering,
+                title: props?.resourceBindings?.title || "resource.arealdisponering.title"
+            };
+        }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.arealdisponering = {
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

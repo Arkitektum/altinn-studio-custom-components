@@ -9,6 +9,7 @@
 | hideIfEmpty                                                 | boolean | Determines whether the element should be hidden when it contains no content.           | false                                                                          |
 | dataModelBindings.data                                      | string  | Reference to an object in the data model containing values for the summation component |                                                                                |
 | resourceBindings.emptyFieldText                             | string  | The resource binding for the text to display when the field is empty.                  | "resource.emptyFieldText.default"                                              |
+| resourceBindings.title                                      | string  | The resource binding key for the title of the component.                               | "resource.rammebetingelser.arealdisponering.title"                             |
 | resourceBindings.tomtearealet.title                         | string  | The resource binding key for the title of the "tomtearealet" section.                  | "resource.rammebetingelser.arealdisponering.tomtearealet.title"                |
 | resourceBindings.bebyggelsen.title                          | string  | The resource binding key for the title of the "bebyggelsen" section.                   | "resource.rammebetingelser.arealdisponering.bebyggelsen.title"                 |
 | resourceBindings.arealBebyggelseEksisterende.title          | string  | The resource binding key for the title of "areal bebyggelse (eksisterende)".           | "resource.rammebetingelser.arealdisponering.arealBebyggelseEksisterende.title" |
@@ -56,7 +57,8 @@
         "data": "arealdisponering"
     },
     "resourceBindings": {
-        "emptyFieldText": "resource.arealdisponering.emptyFieldText"
+        "emptyFieldText": "resource.arealdisponering.emptyFieldText",
+        "title": "resource.rammebetingelser.arealdisponering.title"
     }
 }
 ```
