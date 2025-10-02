@@ -1,5 +1,5 @@
 // Global functions
-import { createCustomElement, getComponentContainerElement } from "../../../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement, hasValue } from "../../../../../functions/helpers.js";
 import { instantiateComponent } from "../../../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../../../functions/feedbackHelpers.js";
 
@@ -18,7 +18,9 @@ export default customElements.define(
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
             } else {
-                this.appendChild(renderHeaderElement(component, "h2"));
+                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                }
                 for (const utfallSvar of component?.resourceValues?.data ?? []) {
                     const utfallSvarElement = renderUtfallSvarGroup(utfallSvar, component);
                     this.appendChild(utfallSvarElement);

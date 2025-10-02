@@ -14,7 +14,8 @@ import { createCustomElement } from "../../../functions/helpers.js";
 export function renderSummationData(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: "h3",
-        hideIfEmpty: true,
+        hideIfEmpty: component?.hideIfEmpty,
+        hideTitle: component?.hideTitle,
         isChildComponent: true,
         resourceValues: component?.resourceValues
     });
