@@ -5,18 +5,18 @@ import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomE
 import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
 
 /**
- * Renders a custom header element for a given component.
+ * Renders a custom header element if the text is provided.
  *
- * @param {Object} component - The component object containing resource values.
+ * @param {string} title - The text content for the header element.
  * @param {string} [size="h2"] - The size of the header element (e.g., "h1", "h2", etc.).
  * @returns {HTMLElement} The created custom header element.
  */
-export function renderHeaderElement(component, size = "h2") {
+export function renderHeaderElement(title, size = "h2") {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         size,
         resourceValues: {
-            title: component?.resourceValues?.title
+            title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);

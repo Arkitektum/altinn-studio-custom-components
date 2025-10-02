@@ -12,6 +12,7 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
+            console.log("CustomGrouplistSjekklistekrav connectedCallback with component:", component);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else if (component?.isEmpty) {
