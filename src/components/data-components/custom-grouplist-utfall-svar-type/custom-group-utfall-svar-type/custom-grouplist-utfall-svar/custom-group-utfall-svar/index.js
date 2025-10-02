@@ -1,5 +1,5 @@
 // Global functions
-import { getComponentContainerElement } from "../../../../../../functions/helpers.js";
+import { getComponentContainerElement, hasValue } from "../../../../../../functions/helpers.js";
 import { instantiateComponent } from "../../../../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../../../../functions/feedbackHelpers.js";
 
@@ -23,7 +23,9 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const containerElement = document.createElement("div");
-                containerElement.appendChild(renderHeaderElement(component, "h3"));
+                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                    containerElement.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                }
                 containerElement.appendChild(renderBeskrivelseElement(component));
                 containerElement.appendChild(renderStatusElement(component));
                 containerElement.appendChild(renderTemaElement(component));
