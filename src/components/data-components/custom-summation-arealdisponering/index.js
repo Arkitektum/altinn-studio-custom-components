@@ -23,7 +23,7 @@ export default customElements.define(
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const summationArealdisponeringElement = renderSummationArealdisponering(component);
                 if (component?.resourceValues?.title && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component, "h2"));
+                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
                 this.appendChild(summationArealdisponeringElement);
                 if (feedbackListElement) {

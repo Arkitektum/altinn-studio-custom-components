@@ -23,8 +23,8 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const containerElement = document.createElement("div");
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    containerElement.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                if (hasValue(component?.resourceValues?.data?.tittel) && component?.hideTitle !== true) {
+                    containerElement.appendChild(renderHeaderElement(component?.resourceValues?.data?.tittel, component?.size));
                 }
                 containerElement.appendChild(renderBeskrivelseElement(component));
                 containerElement.appendChild(renderStatusElement(component));

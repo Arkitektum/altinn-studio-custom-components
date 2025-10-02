@@ -19,8 +19,8 @@ export default customElements.define(
                 this.appendChild(emptyFieldTextElement);
             } else {
                 const containerElement = document.createElement("div");
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    containerElement.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                if (hasValue(component?.resourceValues?.data?.tittel) && component?.hideTitle !== true) {
+                    containerElement.appendChild(renderHeaderElement(component?.resourceValues?.data?.tittel, component?.size));
                 }
                 containerElement.appendChild(renderTemaElement(component));
                 containerElement.appendChild(renderKommentarElement(component));
