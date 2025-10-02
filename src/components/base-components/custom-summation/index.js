@@ -1,5 +1,5 @@
 // Global functions
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
@@ -18,11 +18,10 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const headerElement = renderHeaderElement(component?.resourceValues?.title, component?.size);
                 const summationElement = renderSummationElement(component?.resourceValues?.data);
                 this.innerHTML = "";
-                if (headerElement) {
-                    this.appendChild(headerElement);
+                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
                 this.appendChild(summationElement);
             }
