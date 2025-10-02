@@ -202,6 +202,7 @@ export default class CustomSummationArealdisponering extends CustomComponent {
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.arealdisponering = {
+                ...resourceBindings.arealdisponering,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }
