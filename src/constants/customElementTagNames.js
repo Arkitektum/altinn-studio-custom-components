@@ -23,6 +23,7 @@ export default [
     "custom-field-telefonnummer",
     "custom-field-utfall-svar-status",
     "custom-grouplist-ettersending",
+    "custom-grouplist-omraaderisikoer",
     "custom-grouplist-sjekklistekrav",
     "custom-grouplist-utfall-svar-type",
     "custom-grouplist-utfall-svar",

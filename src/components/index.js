@@ -26,6 +26,7 @@ import customFieldProsjekt from "./data-components/custom-field-prosjekt/index.j
 import customFieldTelefonnummer from "./data-components/custom-field-telefonnummer/index.js";
 import customFieldUtfallSvarStatus from "./data-components/custom-field-utfall-svar-status/index.js";
 import customGrouplistEttersending from "./data-components/custom-grouplist-ettersending/index.js";
+import customGrouplistOmraaderisikoer from "./data-components/custom-grouplist-omraaderisikoer/index.js";
 import customGrouplistSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/index.js";
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
 import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
@@ -84,6 +85,7 @@ export {
     customFieldTelefonnummer,
     customFieldUtfallSvarStatus,
     customGrouplistEttersending,
+    customGrouplistOmraaderisikoer,
     customGrouplistSjekklistekrav,
     customGrouplistUtfallSvar,
     customGrouplistUtfallSvarType,
