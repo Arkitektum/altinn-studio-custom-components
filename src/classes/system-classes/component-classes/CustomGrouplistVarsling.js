@@ -34,7 +34,6 @@ export default class CustomGrouplistVarsling extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        console.log({ resourceBindings });
         this.resourceBindings = {
             title: resourceBindings?.varsling?.title,
             emptyFieldText: resourceBindings?.varsling?.emptyFieldText,
