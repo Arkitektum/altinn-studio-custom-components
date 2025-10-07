@@ -115,8 +115,14 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
                     props?.resourceBindings?.planleggesTrappeheis?.title || `resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title`
             }
         };
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.loefteinnretninger = {
+                title: props?.resourceBindings?.title || "resource.loefteinnretninger.title"
+            };
+        }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.loefteinnretninger = {
+                ...resourceBindings.loefteinnretninger,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }
