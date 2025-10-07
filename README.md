@@ -93,6 +93,7 @@ These components are tailored to display specific data types consistently across
   - [Utfallbesvarelse](src/components/data-components/custom-field-utfall-svar-status/) – Displays the status based on the 'Utfallbesvarelse' object.
 - **Lists**
   - [Data](src/components/data-components/custom-list-data/) – Displays a list of values from an array.
+  - [Planlagte løfteinnretninger](src/components/data-components/custom-list-planlagte-loefteinnretninger/) – Displays a list containing [`PlanlagteLoefteinnretningerList`](src/classes/system-classes/data-classes/PlanlagteLoefteinnretningerList.js) from a [`Loefteinnretninger`](src/classes/data-classes/Loefteinnretninger.js) object.
   - [Vedlegg](src/components/data-components/custom-list-vedlegg/) – Displays a list of attachments.
   - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
   - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
