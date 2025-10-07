@@ -33,11 +33,11 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = {
-            emptyFieldText: resourceBindings?.arealdisponering?.emptyFieldText || undefined
+            emptyFieldText: resourceBindings?.loefteinnretninger?.emptyFieldText || undefined
         };
         this.resourceValues = {
-            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.emptyFieldText) : data
+            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.loefteinnretninger?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.loefteinnretninger?.emptyFieldText) : data
         };
     }
 
