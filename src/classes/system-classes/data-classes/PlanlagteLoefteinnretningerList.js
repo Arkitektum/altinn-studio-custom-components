@@ -35,15 +35,15 @@ export default class PlanlagteLoefteinnretningerList {
      */
     getPlanlagteLoefteinnretningItems(loefteinnretninger, resourceBindings) {
         return [
-            loefteinnretninger?.planleggesHeis === true ? getTextResourceFromResourceBinding(resourceBindings?.planleggesHeis.title) : null,
+            loefteinnretninger?.planleggesHeis === true ? getTextResourceFromResourceBinding(resourceBindings?.planleggesHeis?.title) : null,
             loefteinnretninger?.planleggesLoefteplattform === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.planleggesLoefteplattform.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.planleggesLoefteplattform?.title)
                 : null,
             loefteinnretninger?.planleggesRulletrapp === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.planleggesRulletrapp.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.planleggesRulletrapp?.title)
                 : null,
             loefteinnretninger?.planleggesTrappeheis === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.planleggesTrappeheis.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.planleggesTrappeheis?.title)
                 : null
         ].filter((item) => item !== null);
     }
