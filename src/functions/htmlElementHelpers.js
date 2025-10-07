@@ -232,6 +232,12 @@ function getFormat(element) {
     return hasValue(format) && format;
 }
 
+/**
+ * Retrieves and parses the "tableColumns" attribute from a given HTML element.
+ *
+ * @param {HTMLElement} element - The HTML element from which to extract the "tableColumns" attribute.
+ * @returns {any|null} The parsed table columns if present and valid, otherwise null.
+ */
 function getTableColumns(element) {
     const tableColumns = JSON.parse(element?.getAttribute("tableColumns"));
     return hasValue(tableColumns) && tableColumns;
