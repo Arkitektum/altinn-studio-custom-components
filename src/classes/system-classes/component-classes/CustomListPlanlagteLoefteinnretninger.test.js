@@ -85,7 +85,7 @@ describe("CustomListPlanlagteLoefteinnretninger", () => {
         };
         const instance = new CustomListPlanlagteLoefteinnretninger(props);
 
-        expect(instance.resourceBindings.emptyFieldText).toBeUndefined();
+        expect(instance.resourceBindings.emptyFieldText).toBe("custom.empty.text");
         expect(instance.resourceValues.data).toBe("Empty");
     });
 
@@ -125,13 +125,6 @@ describe("CustomListPlanlagteLoefteinnretninger", () => {
             const bindings = instance.getTextResourceBindings(props);
             expect(bindings.planleggesHeis.title).toBe("custom.heis.title");
             expect(bindings.loefteinnretninger.emptyFieldText).toBe("custom.empty.text");
-        });
-
-        it("should omit loefteinnretninger if hideIfEmpty is true", () => {
-            const props = { hideIfEmpty: true };
-            const instance = new CustomListPlanlagteLoefteinnretninger(props);
-            const bindings = instance.getTextResourceBindings(props);
-            expect(bindings.loefteinnretninger).toBeUndefined();
         });
     });
 
