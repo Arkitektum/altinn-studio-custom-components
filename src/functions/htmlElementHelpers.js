@@ -59,6 +59,19 @@ export function getPropsFromElementAttributes(element) {
 }
 
 /**
+ * Retrieves the boolean value of a specified attribute from an HTML element.
+ * Returns true if the attribute value is "true" or an empty string, otherwise false.
+ *
+ * @param {Element} element - The HTML element to retrieve the attribute from.
+ * @param {string} attributeName - The name of the attribute to check.
+ * @returns {boolean} True if the attribute value is "true" or "", otherwise false.
+ */
+function getBooleanAttributeValueFromElement(element, attributeName) {
+    const attribute = element?.getAttribute(attributeName);
+    return attribute === "true" || attribute === "";
+}
+
+/**
  * Extracts and parses the form data from a given HTML element's "formdata" attribute.
  *
  * @param {HTMLElement} element - The HTML element containing the "formdata" attribute.
@@ -103,23 +116,23 @@ function getTextsFromElement(element) {
 }
 
 /**
- * Determines if the given element has the "inline" attribute set to "true".
+ * Retrieves the boolean value of the "inline" attribute from the given HTML element.
  *
- * @param {HTMLElement} element - The HTML element to check.
- * @returns {boolean} True if the "inline" attribute is set to "true", otherwise false.
+ * @param {HTMLElement} element - The HTML element to check for the "inline" attribute.
+ * @returns {boolean} True if the "inline" attribute is present and truthy, otherwise false.
  */
 function getInlineFromElement(element) {
-    return element?.getAttribute("inline") === "true";
+    return getBooleanAttributeValueFromElement(element, "inline");
 }
 
 /**
- * Determines whether the title of the given element should be hidden.
+ * Determines whether the "hideTitle" attribute is set to a boolean value on the given HTML element.
  *
- * @param {Element} element - The DOM element to check for the "hideTitle" attribute.
- * @returns {boolean} Returns `true` if the "hideTitle" attribute is set to "true", otherwise `false`.
+ * @param {HTMLElement} element - The HTML element to check for the "hideTitle" attribute.
+ * @returns {boolean} True if the "hideTitle" attribute is present and evaluates to true; otherwise, false.
  */
 function getHideTitle(element) {
-    return element?.getAttribute("hideTitle") === "true";
+    return getBooleanAttributeValueFromElement(element, "hideTitle");
 }
 
 /**
@@ -134,13 +147,13 @@ function getSize(element) {
 }
 
 /**
- * Determines if the "hideIfEmpty" attribute of the given element is set to "true".
+ * Determines whether the "hideIfEmpty" attribute is set to a truthy value on the given HTML element.
  *
- * @param {Element} element - The DOM element to check for the "hideIfEmpty" attribute.
- * @returns {boolean} - Returns `true` if the "hideIfEmpty" attribute is set to "true", otherwise `false`.
+ * @param {HTMLElement} element - The HTML element to check for the "hideIfEmpty" attribute.
+ * @returns {boolean} True if the "hideIfEmpty" attribute is present and truthy; otherwise, false.
  */
 function getHideIfEmpty(element) {
-    return element?.getAttribute("hideIfEmpty") === "true";
+    return getBooleanAttributeValueFromElement(element, "hideIfEmpty");
 }
 
 /**
@@ -155,13 +168,13 @@ function getStyleOverride(element) {
 }
 
 /**
- * Determines if the given element is a child component.
+ * Determines if the given HTML element is marked as a child component.
  *
- * @param {HTMLElement} element - The DOM element to check.
- * @returns {boolean} True if the element has the attribute "isChildComponent" set to "true", otherwise false.
+ * @param {HTMLElement} element - The HTML element to check.
+ * @returns {boolean} True if the element has the "isChildComponent" attribute set to a truthy value, otherwise false.
  */
 function getIsChildComponent(element) {
-    return element?.getAttribute("isChildComponent") === "true";
+    return getBooleanAttributeValueFromElement(element, "isChildComponent");
 }
 
 /**
@@ -211,13 +224,13 @@ function getDataTitleItemKey(element) {
 }
 
 /**
- * Determines whether the "hideOrgNr" attribute of a given element is set to "true".
+ * Determines whether the "hideOrgNr" attribute is set to a boolean value on the given HTML element.
  *
  * @param {HTMLElement} element - The HTML element to check for the "hideOrgNr" attribute.
- * @returns {boolean} - Returns `true` if the "hideOrgNr" attribute is set to "true", otherwise `false`.
+ * @returns {boolean} True if the "hideOrgNr" attribute is present and evaluates to true; otherwise, false.
  */
 function getHideOrgNr(element) {
-    return element?.getAttribute("hideOrgNr") === "true";
+    return getBooleanAttributeValueFromElement(element, "hideOrgNr");
 }
 
 /**
@@ -244,12 +257,13 @@ function getTableColumns(element) {
 }
 
 /**
- * Determines whether the "showRowNumbers" attribute is set to "true" on the element.
+ * Retrieves the boolean value of the "showRowNumbers" attribute from the given HTML element.
  *
- * @returns {boolean} True if the "showRowNumbers" attribute is "true", otherwise false.
+ * @param {HTMLElement} element - The HTML element to extract the attribute from.
+ * @returns {boolean} True if the "showRowNumbers" attribute is present and truthy, otherwise false.
  */
 function getShowRowNumbers(element) {
-    return element?.getAttribute("showRowNumbers") === "true";
+    return getBooleanAttributeValueFromElement(element, "showRowNumbers");
 }
 
 /**
@@ -289,11 +303,11 @@ function getPartType(element) {
 }
 
 /**
- * Checks if the "enableLinks" attribute of the given HTML element is set to "true".
+ * Retrieves the boolean value of the "enableLinks" attribute from the given HTML element.
  *
- * @param {HTMLElement} element - The HTML element to check.
- * @returns {boolean} Returns true if the "enableLinks" attribute is "true", otherwise false.
+ * @param {HTMLElement} element - The HTML element to check for the "enableLinks" attribute.
+ * @returns {boolean} True if the "enableLinks" attribute is set and evaluates to true; otherwise, false.
  */
 function getEnableLinks(element) {
-    return element?.getAttribute("enableLinks") === "true";
+    return getBooleanAttributeValueFromElement(element, "enableLinks");
 }
