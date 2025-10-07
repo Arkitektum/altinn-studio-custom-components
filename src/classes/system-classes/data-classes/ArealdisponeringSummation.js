@@ -25,6 +25,15 @@ export default class ArealdisponeringSummation {
         };
     }
 
+    /**
+     * Generates an array of bebyggelsen (building) items based on the provided arealdisponering data and resource bindings.
+     * Each item represents a specific area type if its value exists, and includes associated resource bindings.
+     * The returned array excludes any items with missing values.
+     *
+     * @param {Object} arealdisponering - The object containing area disposition data.
+     * @param {Object} resourceBindings - The object containing resource bindings for each area type.
+     * @returns {Array<Object>} An array of objects, each with `resourceValues` and `resourceBindings` properties.
+     */
     getBebyggelsenItems(arealdisponering, resourceBindings) {
         return [
             hasValue(arealdisponering?.beregnetMaksByggeareal)
@@ -84,6 +93,15 @@ export default class ArealdisponeringSummation {
         ].filter((item) => item !== null);
     }
 
+    /**
+     * Generates an array of tomteareal items based on the provided arealdisponering object and resource bindings.
+     * Each item represents a specific tomteareal value with its associated resource bindings and a flag indicating if it is a total.
+     * Only items with a value are included in the returned array.
+     *
+     * @param {Object} arealdisponering - The object containing tomteareal data fields.
+     * @param {Object} resourceBindings - The object containing resource bindings for each tomteareal field.
+     * @returns {Array<Object>} An array of tomteareal items, each with resourceValues and resourceBindings.
+     */
     getTomtearealetItems(arealdisponering, resourceBindings) {
         return [
             hasValue(arealdisponering?.tomtearealByggeomraade)
