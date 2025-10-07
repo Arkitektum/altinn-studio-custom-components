@@ -33,11 +33,11 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = {
-            emptyFieldText: resourceBindings?.arealdisponering?.emptyFieldText || undefined
+            emptyFieldText: resourceBindings?.loefteinnretninger?.emptyFieldText || undefined
         };
         this.resourceValues = {
-            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.title),
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.arealdisponering?.emptyFieldText) : data
+            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.loefteinnretninger?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.loefteinnretninger?.emptyFieldText) : data
         };
     }
 
@@ -115,8 +115,14 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
                     props?.resourceBindings?.planleggesTrappeheis?.title || `resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title`
             }
         };
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.loefteinnretninger = {
+                title: props?.resourceBindings?.title || "resource.loefteinnretninger.title"
+            };
+        }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.loefteinnretninger = {
+                ...resourceBindings.loefteinnretninger,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }
