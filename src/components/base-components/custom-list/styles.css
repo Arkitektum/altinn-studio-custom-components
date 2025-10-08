@@ -6,7 +6,7 @@ custom-list {
     line-height: var(--line-height-default);
     & .field {
         & span.field-title {
-            font-weight: bold;
+            font-weight: var(--font-weight-bold);
             display: block;
             page-break-after: avoid;
             page-break-inside: avoid;
