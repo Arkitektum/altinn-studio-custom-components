@@ -8,8 +8,6 @@
     --color-text-default: #1c1b1d;
     --color-text-link: #01579b;
     --background-muted: #f7f4f4;
-    --color-divider-default: #cdcaca;
-    --color-border-default: #e6e4e4;
     --color-error-muted: #ef535030;
     --color-error-light: #ef5350;
     --color-error-default: #d32f2f;
@@ -28,7 +26,7 @@
     --color-info-dark: #01579b;
     --color-default-muted: #fdfbfb;
     --color-default-light: #f9f7f7;
-    --color-default-default: #f7f4f4;
+    --color-default-default: #f6f4f4;
     --color-default-dark: #e7e4e4;
     --font-size-default: 16px;
     --font-size-h1: 34px;
@@ -110,7 +108,7 @@ body {
                     text-align: left;
                     font-weight: var(--font-weight-bold);
                     background-color: var(--color-default-default);
-                    border-bottom: 1px solid var(--color-border-default);
+                    border-bottom: 1px solid var(--color-default-dark);
                     line-height: var(--line-height-table-header);
                     &:first-of-type {
                         border-top-left-radius: 5px;
@@ -127,7 +125,7 @@ body {
                     }
                     &:not(:last-of-type) {
                         & td {
-                            border-bottom: 1px solid var(--color-border-default);
+                            border-bottom: 1px solid var(--color-default-dark);
                         }
                     }
                     &:last-of-type {

@@ -82,7 +82,7 @@ custom-feedbacklist-data {
             }
             & .feedback-list {
                 & .feedback-list-item {
-                    border-bottom: 1px solid var(--color-border-default);
+                    border-bottom: 1px solid var(--color-default-dark);
                     border-top: none;
                     &:nth-child(odd) {
                         background-color: #fff;
