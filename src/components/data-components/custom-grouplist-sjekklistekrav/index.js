@@ -6,6 +6,9 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 // Local functions
 import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderSjekklistekravGroup } from "./renderers.js";
 
+// Stylesheet
+import "./styles.css" with { type: "css" };
+
 export default customElements.define(
     "custom-grouplist-sjekklistekrav",
     class extends HTMLElement {
@@ -21,11 +24,19 @@ export default customElements.define(
                 if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
+                const sjekklistekravListElement = document.createElement("div");
+                sjekklistekravListElement.className = "sjekklistekrav-list";
                 for (const sjekklistekrav of component?.resourceValues?.data ?? []) {
                     const sjekklistekravElement = renderSjekklistekravGroup(sjekklistekrav, component);
-                    this.appendChild(sjekklistekravElement);
+                    sjekklistekravListElement.appendChild(sjekklistekravElement);
                     const dividerElement = renderDivider();
-                    this.appendChild(dividerElement);
+                    sjekklistekravListElement.appendChild(dividerElement);
+                }
+                this.appendChild(sjekklistekravListElement);
+
+                // Remove the last divider
+                if (sjekklistekravListElement.lastChild) {
+                    sjekklistekravListElement.removeChild(sjekklistekravListElement.lastChild);
                 }
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 if (feedbackListElement) {
