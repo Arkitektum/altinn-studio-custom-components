@@ -4,30 +4,36 @@ custom-summation {
     font-weight: var(--font-weight-default);
     color: var(--color-text-default);
     line-height: var(--line-height-default);
-    .summation-item {
-        display: flex;
-        align-items: center;
+    & .custom-summation {
+        border: 1px solid var(--color-default-dark);
+        border-radius: 4px;
+        overflow: hidden;
+        margin: 0.75rem 0;
+        & .summation-item {
+            display: flex;
+            align-items: center;
             padding: 0.25rem 10px;
-        margin: 0;
-        &:nth-child(even) {
-            background-color: var(--color-default-muted);
-        }
-        &.total {
+            margin: 0;
+            &:nth-child(even) {
+                background-color: var(--color-default-muted);
+            }
+            &.total {
                 border-top: 1px solid var(--color-default-dark);
                 background-color: var(--color-default-default);
-        }
-        .summation-item-operator {
-            width: 1rem;
-            text-align: center;
-            margin-right: 0.5rem;
-        }
+            }
+            .summation-item-operator {
+                width: 1rem;
+                text-align: center;
+                margin-right: 0.5rem;
+            }
 
-        .summation-item-title {
-            flex: 1;
+            .summation-item-title {
+                flex: 1;
                 font-weight: var(--font-weight-default);
-        }
-        .summation-item-data {
-            margin-left: 8px;
+            }
+            .summation-item-data {
+                margin-left: 8px;
+            }
         }
     }
 }
