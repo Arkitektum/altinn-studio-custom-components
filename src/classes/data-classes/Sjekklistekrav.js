@@ -11,11 +11,13 @@ export default class Sjekklistekrav {
      * @param {Object} props - The properties to initialize the instance.
      * @param {boolean} [props.sjekklistepunktsvar] - The answer for the checklist item.
      * @param {Object} [props.sjekklistepunkt] - The checklist item, used to create a new Kode instance.
-     * @param {string} [props.dokumentasjon] - The documentation associated with the checklist item.
+     * @param {string} [props.dokumentasjon] - Optional documentation related to the checklist item.
      */
     constructor(props) {
         this.sjekklistepunktsvar = props?.sjekklistepunktsvar;
         this.sjekklistepunkt = props?.sjekklistepunkt && new Kode(props.sjekklistepunkt);
-        this.dokumentasjon = props?.dokumentasjon;
+        if (props?.dokumentasjon) {
+            this.dokumentasjon = props.dokumentasjon;
+        }
     }
 }

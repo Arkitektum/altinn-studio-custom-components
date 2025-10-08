@@ -1,13 +1,16 @@
-import CustomGrouplistSjekklistekrav from "./CustomGrouplistSjekklistekrav.js";
-import {
-    getComponentDataValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} from "../../../functions/helpers.js";
+import CustomGrouplistSjekklistekrav from "./CustomGrouplistSjekklistekrav";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
-// Mock dependencies
+// Mocks
+jest.mock("../CustomComponent.js", () => {
+    return class {};
+});
+jest.mock("../../data-classes/Sjekklistekrav.js", () => {
+    return function Sjekklistekrav(data) {
+        this.mockData = data;
+    };
+});
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
@@ -24,143 +27,124 @@ describe("CustomGrouplistSjekklistekrav", () => {
         jest.clearAllMocks();
     });
 
-    describe("constructor", () => {
-        it("should set isEmpty, validationMessages, hasValidationMessages, resourceBindings, and resourceValues correctly when data is present", () => {
-            const props = {
-                formData: { value: "some data" },
-                resourceBindings: {
-                    trueText: "trueTextKey",
-                    falseText: "falseTextKey",
-                    defaultText: "defaultTextKey",
-                    title: "titleKey",
-                    emptyFieldText: "emptyFieldTextKey"
-                }
-            };
+    it("should set isEmpty to true if hasContent returns false", () => {
+        hasValue.mockReturnValue(false);
+        getComponentDataValue.mockReturnValue([]);
+        getTextResourceFromResourceBinding.mockReturnValue("empty");
+        hasMissingTextResources.mockReturnValue([]);
+        hasValidationMessages.mockReturnValue(false);
 
-            const dataValue = "some data";
-            getComponentDataValue.mockReturnValue(dataValue);
-            hasValue.mockReturnValue(true);
-            getTextResources.mockReturnValue(["res1", "res2"]);
-            hasMissingTextResources.mockReturnValue([]);
-            hasValidationMessages.mockReturnValue(false);
-            getTextResourceFromResourceBinding.mockImplementation((key) => `text-for-${key}`);
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
 
-            const instance = new CustomGrouplistSjekklistekrav(props);
-
-            expect(instance.isEmpty).toBe(false);
-            expect(instance.validationMessages).toEqual([]);
-            expect(instance.hasValidationMessages).toBe(false);
-            expect(instance.resourceBindings).toEqual({
-                trueText: "trueTextKey",
-                falseText: "falseTextKey",
-                defaultText: "defaultTextKey",
-                title: "titleKey",
-                emptyFieldText: "emptyFieldTextKey"
-            });
-            expect(instance.resourceValues).toEqual({
-                title: "text-for-titleKey",
-                data: dataValue
-            });
-        });
-
-        it("should set isEmpty true and use emptyFieldText when data is empty", () => {
-            const props = {
-                formData: {},
-                resourceBindings: {
-                    emptyFieldText: "emptyFieldTextKey"
-                }
-            };
-
-            getComponentDataValue.mockReturnValue(undefined);
-            hasValue.mockReturnValue(false);
-            getTextResources.mockReturnValue([]);
-            hasMissingTextResources.mockReturnValue(["missing"]);
-            hasValidationMessages.mockReturnValue(true);
-            getTextResourceFromResourceBinding.mockImplementation((key) => `text-for-${key}`);
-
-            const instance = new CustomGrouplistSjekklistekrav(props);
-
-            expect(instance.isEmpty).toBe(true);
-            expect(instance.validationMessages).toEqual(["missing"]);
-            expect(instance.hasValidationMessages).toBe(true);
-            expect(instance.resourceValues.data).toBe("text-for-emptyFieldTextKey");
-        });
+        expect(instance.isEmpty).toBe(true);
+        expect(instance.resourceValues.data).toBe("empty");
     });
 
-    describe("hasContent", () => {
-        it("should return true if hasValue returns true", () => {
-            hasValue.mockReturnValue(true);
-            const instance = Object.create(CustomGrouplistSjekklistekrav.prototype);
-            expect(instance.hasContent("abc")).toBe(true);
-        });
+    it("should set isEmpty to false if hasContent returns true", () => {
+        hasValue.mockReturnValue(true);
+        getComponentDataValue.mockReturnValue([{ id: 1 }]);
+        getTextResourceFromResourceBinding.mockImplementation((key) => key);
+        hasMissingTextResources.mockReturnValue([]);
+        hasValidationMessages.mockReturnValue(false);
 
-        it("should return false if hasValue returns false", () => {
-            hasValue.mockReturnValue(false);
-            const instance = Object.create(CustomGrouplistSjekklistekrav.prototype);
-            expect(instance.hasContent(null)).toBe(false);
-        });
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
+
+        expect(instance.isEmpty).toBe(false);
+        expect(Array.isArray(instance.resourceValues.data)).toBe(true);
     });
 
-    describe("getValidationMessages", () => {
-        it("should call hasMissingTextResources with textResources and resourceBindings", () => {
-            const textResources = ["a", "b"];
-            getTextResources.mockReturnValue(textResources);
-            hasMissingTextResources.mockReturnValue(["missing"]);
-            const instance = Object.create(CustomGrouplistSjekklistekrav.prototype);
-            const result = instance.getValidationMessages({ foo: "bar" });
-            expect(getTextResources).toHaveBeenCalled();
-            expect(hasMissingTextResources).toHaveBeenCalledWith(textResources, { foo: "bar" });
-            expect(result).toEqual(["missing"]);
-        });
+    it("should call getValidationMessages and set validationMessages", () => {
+        hasValue.mockReturnValue(true);
+        getComponentDataValue.mockReturnValue([{ id: 1 }]);
+        getTextResourceFromResourceBinding.mockReturnValue("title");
+        hasMissingTextResources.mockReturnValue(["missing"]);
+        hasValidationMessages.mockReturnValue(true);
+
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
+
+        expect(instance.validationMessages).toEqual(["missing"]);
+        expect(instance.hasValidationMessages).toBe(true);
     });
 
-    describe("getValueFromFormData", () => {
-        it("should call getComponentDataValue with props", () => {
-            const props = { formData: { value: 1 } };
-            getComponentDataValue.mockReturnValue("value1");
-            const instance = Object.create(CustomGrouplistSjekklistekrav.prototype);
-            expect(instance.getValueFromFormData(props)).toBe("value1");
-            expect(getComponentDataValue).toHaveBeenCalledWith(props);
-        });
+    it("getValueFromFormData should return array of Sjekklistekrav instances", () => {
+        getComponentDataValue.mockReturnValue([{ foo: "bar" }, { baz: "qux" }]);
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        const result = instance.getValueFromFormData(props);
+
+        expect(result).toHaveLength(2);
+        expect(result[0].mockData).toEqual({ foo: "bar" });
+        expect(result[1].mockData).toEqual({ baz: "qux" });
     });
 
-    describe("getResourceBindings", () => {
-        it("should return default resource bindings if none provided", () => {
-            const props = {};
-            const instance = Object.create(CustomGrouplistSjekklistekrav.prototype);
-            const result = instance.getResourceBindings(props);
-            expect(result).toEqual({
-                sjekklistekrav: {
-                    trueText: "resource.trueText.default",
-                    falseText: "resource.falseText.default",
-                    defaultText: "resource.defaultText.default",
-                    title: "resource.krav.sjekklistekrav.title",
-                    emptyFieldText: "resource.emptyFieldText.default"
-                }
-            });
-        });
+    it("getResourceBindings should use default values if not provided", () => {
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        const bindings = instance.getResourceBindings(props);
 
-        it("should use provided resourceBindings and respect hideTitle/hideIfEmpty", () => {
-            const props = {
-                resourceBindings: {
-                    trueText: "t",
-                    falseText: "f",
-                    defaultText: "d",
-                    title: "myTitle",
-                    emptyFieldText: "myEmpty"
-                },
-                hideTitle: true,
-                hideIfEmpty: "true"
-            };
-            const instance = Object.create(CustomGrouplistSjekklistekrav.prototype);
-            const result = instance.getResourceBindings(props);
-            expect(result).toEqual({
-                sjekklistekrav: {
-                    trueText: "t",
-                    falseText: "f",
-                    defaultText: "d"
-                }
-            });
-        });
+        expect(bindings.sjekklistekrav.trueText).toBe("resource.trueText.default");
+        expect(bindings.sjekklistekrav.falseText).toBe("resource.falseText.default");
+        expect(bindings.sjekklistekrav.defaultText).toBe("resource.defaultText.default");
+        expect(bindings.sjekklistekrav.title).toBe("resource.krav.sjekklistekrav.title");
+        expect(bindings.sjekklistekrav.emptyFieldText).toBe("resource.emptyFieldText.default");
+    });
+
+    it("getResourceBindings should override values from props.resourceBindings", () => {
+        const props = {
+            resourceBindings: {
+                trueText: "yes",
+                falseText: "no",
+                defaultText: "maybe",
+                title: "My Title",
+                emptyFieldText: "Nothing here"
+            }
+        };
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        const bindings = instance.getResourceBindings(props);
+
+        expect(bindings.sjekklistekrav.trueText).toBe("yes");
+        expect(bindings.sjekklistekrav.falseText).toBe("no");
+        expect(bindings.sjekklistekrav.defaultText).toBe("maybe");
+        expect(bindings.sjekklistekrav.title).toBe("My Title");
+        expect(bindings.sjekklistekrav.emptyFieldText).toBe("Nothing here");
+    });
+
+    it("getResourceBindings should hide title if hideTitle is true", () => {
+        const props = { hideTitle: true };
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        const bindings = instance.getResourceBindings(props);
+
+        expect(bindings.sjekklistekrav.title).toBeUndefined();
+    });
+
+    it("getResourceBindings should hide emptyFieldText if hideIfEmpty is true", () => {
+        const props = { hideIfEmpty: true };
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        const bindings = instance.getResourceBindings(props);
+
+        expect(bindings.sjekklistekrav.emptyFieldText).toBeUndefined();
+    });
+
+    it("hasContent should delegate to hasValue", () => {
+        hasValue.mockReturnValue(true);
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        expect(instance.hasContent("data")).toBe(true);
+        expect(hasValue).toHaveBeenCalledWith("data");
+    });
+
+    it("getValidationMessages should call hasMissingTextResources", () => {
+        getTextResources.mockReturnValue(["a", "b"]);
+        hasMissingTextResources.mockReturnValue(["missing"]);
+        const props = {};
+        const instance = new CustomGrouplistSjekklistekrav(props);
+        const result = instance.getValidationMessages({ foo: "bar" });
+
+        expect(getTextResources).toHaveBeenCalled();
+        expect(hasMissingTextResources).toHaveBeenCalledWith(["a", "b"], { foo: "bar" });
+        expect(result).toEqual(["missing"]);
     });
 });
