@@ -1,5 +1,6 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
+import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
@@ -67,13 +68,17 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
     }
 
     /**
-     * Retrieves the value for this component from the provided form data.
+     * Retrieves and transforms form data into a list of Sjekklistekrav instances.
      *
-     * @param {Object} props - The properties containing form data and component information.
-     * @returns {*} The value extracted from the form data for this component.
+     * @param {Object} props - The properties containing form data.
+     * @returns {Sjekklistekrav[]} An array of Sjekklistekrav objects created from the form data.
      */
     getValueFromFormData(props) {
-        return getComponentDataValue(props);
+        const data = getComponentDataValue(props);
+        const sjekklistekravList = data?.map((item) => {
+            return new Sjekklistekrav(item);
+        });
+        return sjekklistekravList;
     }
 
     /**
