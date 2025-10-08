@@ -23,7 +23,7 @@ custom-summation {
 
         .summation-item-title {
             flex: 1;
-            font-weight: var(--font-weight-normal);
+                font-weight: var(--font-weight-default);
         }
         .summation-item-data {
             margin-left: 8px;

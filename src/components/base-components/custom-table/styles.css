@@ -30,7 +30,7 @@ custom-table {
             & th {
                 page-break-after: avoid;
                 text-align: left;
-                font-weight: 500;
+                font-weight: var(--font-weight-bold);
                 background-color: var(--color-default-default);
                 border-bottom: 1px solid var(--color-border-default);
                 line-height: var(--line-height-table-header);

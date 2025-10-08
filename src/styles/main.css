@@ -37,6 +37,7 @@
     --font-size-h4: 18px;
     --font-weight-default: 400;
     --font-weight-semibold: 500;
+    --font-weight-bold: 600;
     --line-height-default: 24px;
     --line-height-heading: 1.1em;
     --line-height-table-header: 20px;
@@ -107,7 +108,7 @@ body {
                     font-size: var(--font-size-default);
                     page-break-after: avoid;
                     text-align: left;
-                    font-weight: 500;
+                    font-weight: var(--font-weight-bold);
                     background-color: var(--color-default-default);
                     border-bottom: 1px solid var(--color-border-default);
                     line-height: var(--line-height-table-header);
