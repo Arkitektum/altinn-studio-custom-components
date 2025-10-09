@@ -1850,8 +1850,8 @@ __metadata:
   linkType: hard
 
 "@jsonjoy.com/json-pack@npm:^1.11.0":
-  version: 1.17.0
-  resolution: "@jsonjoy.com/json-pack@npm:1.17.0"
+  version: 1.20.0
+  resolution: "@jsonjoy.com/json-pack@npm:1.20.0"
   dependencies:
     "@jsonjoy.com/base64": "npm:^1.1.2"
     "@jsonjoy.com/buffers": "npm:^1.2.0"
@@ -1862,7 +1862,7 @@ __metadata:
     thingies: "npm:^2.5.0"
   peerDependencies:
     tslib: 2
-  checksum: 10c0/98b6610a3ea8ce894e5d1f5c6e236ed06f00a446cc328b4b8f7783916902570502d849cf8880b769c2b789966b2b4b2209b5bb4b04fc2d302bb731eb2ed9d977
+  checksum: 10c0/034292c4c4c7c3a09af451de2340392adbd56a5cdecf65bb981eed49556fd099f8ea8961363b22fd0b2f043fe4dcb41fecffd501d27e7b6a4e8338d6154ba938
   languageName: node
   linkType: hard
 
