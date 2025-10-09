@@ -14,6 +14,7 @@ import { createCustomElement } from "../../../functions/helpers.js";
  * @param {Object} component - The component configuration object containing resource bindings and values.
  * @param {Object} [component.resourceBindings] - Resource bindings for column titles and empty field text.
  * @param {Object} [component.resourceValues] - Resource values for the table.
+ * @param {string} [component.size] - Size attribute for the custom table element.
  * @returns {HTMLElement} The rendered custom table element.
  */
 export function renderEiendomTable(component) {
@@ -81,7 +82,7 @@ export function renderEiendomTable(component) {
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        size: "h3",
+        size: component?.size,
         hideIfEmpty: true,
         isChildComponent: true,
         resourceValues: component?.resourceValues,
