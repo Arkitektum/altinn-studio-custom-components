@@ -2,7 +2,7 @@ custom-divider {
     page-break-before: avoid;
     display: block;
     & hr {
-        background-color: var(--color-divider-default);
+        background-color: var(--color-default-dark);
         border: none;
         height: 1px;
         margin: 20px 0;

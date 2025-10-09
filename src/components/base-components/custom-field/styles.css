@@ -12,7 +12,7 @@ custom-field {
             gap: 0.5rem;
         }
         & span.field-title {
-            font-weight: bold;
+            font-weight: var(--font-weight-bold);
             display: block;
             page-break-after: avoid;
             page-break-inside: avoid;

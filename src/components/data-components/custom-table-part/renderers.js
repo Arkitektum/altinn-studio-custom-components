@@ -21,6 +21,7 @@ import { createCustomElement } from "../../../functions/helpers.js";
  * @param {Object} [component.resourceBindings.part] - Resource bindings for the table part title.
  * @param {string} [component.resourceBindings.part.title] - Title for the table part.
  * @param {Object} [component.resourceValues] - Resource values for the table.
+ * @param {string} [component.size] - Size attribute for the custom table element.
  * @returns {HTMLElement} The rendered custom table element.
  */
 export function renderPartTable(component) {
@@ -49,7 +50,7 @@ export function renderPartTable(component) {
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        size: "h3",
+        size: component?.size,
         hideIfEmpty: true,
         isChildComponent: true,
         resourceValues: component?.resourceValues,

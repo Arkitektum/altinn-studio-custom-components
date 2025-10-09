@@ -6,6 +6,9 @@ import { getComponentContainerElement, hasValue } from "../../../../functions/he
 // Local functions
 import { renderEmptyFieldText, renderHeaderElement, renderSjekklistepunk } from "./renderers.js";
 
+// Stylesheet
+import "./styles.css" with { type: "css" };
+
 export default customElements.define(
     "custom-group-sjekklistekrav",
     class extends HTMLElement {
