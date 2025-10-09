@@ -34,6 +34,7 @@ import CustomHeaderTextData from "../classes/system-classes/component-classes/Cu
 import CustomList from "../classes/system-classes/component-classes/CustomList.js";
 import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
 import CustomListPlanlagteLoefteinnretninger from "../classes/system-classes/component-classes/CustomListPlanlagteLoefteinnretninger.js";
+import CustomListTiltaksFormaal from "../classes/system-classes/component-classes/CustomListTiltaksFormaal.js";
 import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.js";
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
@@ -127,6 +128,8 @@ export function instantiateComponent(element) {
             return new CustomListData(component);
         case "custom-list-planlagte-loefteinnretninger":
             return new CustomListPlanlagteLoefteinnretninger(component);
+        case "custom-list-tiltaks-formaal":
+            return new CustomListTiltaksFormaal(component);
         case "custom-list-vedlegg":
             return new CustomListVedlegg(component);
         case "custom-paragraph":
