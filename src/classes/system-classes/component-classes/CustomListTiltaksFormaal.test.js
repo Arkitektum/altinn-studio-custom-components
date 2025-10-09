@@ -10,8 +10,6 @@ jest.mock("../../../functions/helpers.js", () => ({
     })
 }));
 
-class CustomComponent {}
-
 describe("CustomListTiltaksFormaal", () => {
     beforeEach(() => {
         jest.clearAllMocks();
