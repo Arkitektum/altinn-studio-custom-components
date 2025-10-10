@@ -6,43 +6,48 @@ jest.mock("./Adresse");
 jest.mock("./Eiendomsidentifikasjon");
 
 describe("Eiendom", () => {
-    it("should create an instance of Eiendom with all properties", () => {
-        const props = {
-            adresse: { street: "Test Street", city: "Test City" },
-            eiendomsidentifikasjon: { id: "12345" },
-            bolignummer: "H0101",
-            bygningsnummer: "B123"
-        };
-
-        const eiendom = new Eiendom(props);
-
-        expect(Adresse).toHaveBeenCalledWith(props.adresse);
-        expect(Eiendomsidentifikasjon).toHaveBeenCalledWith(props.eiendomsidentifikasjon);
-        expect(eiendom.adresse).toBeInstanceOf(Adresse);
-        expect(eiendom.eiendomsidentifikasjon).toBeInstanceOf(Eiendomsidentifikasjon);
-        expect(eiendom.bolignummer).toBe(props.bolignummer);
-        expect(eiendom.bygningsnummer).toBe(props.bygningsnummer);
+    beforeEach(() => {
+        Adresse.mockClear();
+        Eiendomsidentifikasjon.mockClear();
     });
 
-    it("should create an instance of Eiendom with missing optional properties", () => {
-        const props = {
-            bolignummer: "H0101"
-        };
-
-        const eiendom = new Eiendom(props);
-
-        expect(eiendom.adresse).toBeUndefined();
-        expect(eiendom.eiendomsidentifikasjon).toBeUndefined();
-        expect(eiendom.bolignummer).toBe(props.bolignummer);
-        expect(eiendom.bygningsnummer).toBeUndefined();
+    it("should create Adresse with props.adresse if provided", () => {
+        const adresseObj = { gate: "Testgate", nummer: 1 };
+        new Eiendom({ adresse: adresseObj });
+        expect(Adresse).toHaveBeenCalledWith(adresseObj);
     });
 
-    it("should handle undefined props gracefully", () => {
-        const eiendom = new Eiendom();
+    it("should create Adresse with props if props.adresse is not provided", () => {
+        const props = { foo: "bar" };
+        new Eiendom(props);
+        expect(Adresse).toHaveBeenCalledWith(props);
+    });
 
-        expect(eiendom.adresse).toBeUndefined();
-        expect(eiendom.eiendomsidentifikasjon).toBeUndefined();
-        expect(eiendom.bolignummer).toBeUndefined();
-        expect(eiendom.bygningsnummer).toBeUndefined();
+    it("should create Eiendomsidentifikasjon if props.eiendomsidentifikasjon is provided", () => {
+        const eiendomsidentifikasjonObj = { id: "123" };
+        new Eiendom({ eiendomsidentifikasjon: eiendomsidentifikasjonObj });
+        expect(Eiendomsidentifikasjon).toHaveBeenCalledWith(eiendomsidentifikasjonObj);
+    });
+
+    it("should not create Eiendomsidentifikasjon if props.eiendomsidentifikasjon is not provided", () => {
+        new Eiendom({});
+        expect(Eiendomsidentifikasjon).not.toHaveBeenCalled();
+    });
+
+    it("should set bolignummer, bygningsnummer, and kommunenavn from props", () => {
+        const props = {
+            bolignummer: "B1",
+            bygningsnummer: "BYG1",
+            kommunenavn: "Oslo"
+        };
+        const eiendom = new Eiendom(props);
+        expect(eiendom.bolignummer).toBe("B1");
+        expect(eiendom.bygningsnummer).toBe("BYG1");
+        expect(eiendom.kommunenavn).toBe("Oslo");
+    });
+
+    it("should set kommunenavn to null if not provided", () => {
+        const eiendom = new Eiendom({});
+        expect(eiendom.kommunenavn).toBeNull();
     });
 });
