@@ -47,6 +47,7 @@ import customSummationData from "./data-components/custom-summation-data/index.j
 import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
+import customTableOmraaderisiko from "./data-components/custom-table-omraaderisiko/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
 
 // Layout components
@@ -108,6 +109,7 @@ export {
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
+    customTableOmraaderisiko,
     customTablePart,
     dispensasjon,
     gjennomfoeringsplan
