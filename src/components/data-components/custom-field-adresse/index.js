@@ -2,8 +2,9 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, getEmptyFieldText } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -17,12 +18,12 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const emptyFieldText = getEmptyFieldText(component);
-                if (component.isEmpty) {
-                    component.setFormData({ simpleBinding: emptyFieldText });
-                }
+                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
+                if (feedbackListElement) {
+                    this.appendChild(feedbackListElement);
+                }
             }
         }
     }

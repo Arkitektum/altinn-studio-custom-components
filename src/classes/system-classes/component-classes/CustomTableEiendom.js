@@ -89,6 +89,16 @@ export default class CustomTableEiendom extends CustomComponent {
     }
 
     /**
+     * Checks if the given `eiendom` object has a non-empty `kommunenavn` property.
+     *
+     * @param {Object} eiendom - The object representing an eiendom (property).
+     * @returns {boolean} Returns true if `eiendom.kommunenavn` has a value, otherwise false.
+     */
+    hasKommunenavn(eiendom) {
+        return hasValue(eiendom?.kommunenavn);
+    }
+
+    /**
      * Checks if the given property object has either a zip code or a city in its address.
      *
      * @param {Object} eiendom - The property object to check.
@@ -116,14 +126,14 @@ export default class CustomTableEiendom extends CustomComponent {
     }
 
     /**
-     * Determines if the given 'eiendom' object has an address.
-     * Checks if either an address line or a zip code/city is present.
+     * Determines if the given 'eiendom' object has address information.
+     * Checks for the presence of an address line, zip code or city, or municipality name.
      *
      * @param {Object} eiendom - The property object to check for address information.
-     * @returns {boolean} True if the property has an address line or zip code/city, otherwise false.
+     * @returns {boolean} True if any address-related information is present, otherwise false.
      */
     hasAdresse(eiendom) {
-        return this.hasAdresseLinje(eiendom) || this.hasZipCodeOrCity(eiendom);
+        return this.hasAdresseLinje(eiendom) || this.hasZipCodeOrCity(eiendom) || this.hasKommunenavn(eiendom);
     }
 
     /**
@@ -228,7 +238,7 @@ export default class CustomTableEiendom extends CustomComponent {
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.eiendomByggested = {
-                ...resourceBindings.eiendomByggested,
+                ...resourceBindings?.eiendomByggested,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }

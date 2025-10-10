@@ -3,34 +3,45 @@ import Adresse from "../../data-classes/Adresse.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
- * CustomFieldAdresse is a custom component for handling and formatting address data.
- *
- * This class provides methods to format address lines, zip code and city, and the complete address.
- * It also determines if the address data is empty and retrieves formatted address values from form data.
- *
- * @extends CustomComponent
+ * CustomFieldAdresse is a custom component class for handling and formatting address data.
+ * It provides methods to format address lines, zip code and city, municipality name, and to retrieve
+ * validation messages and text resource bindings. It also determines if the address data is empty
+ * and prepares resource values for display.
  *
  * @class
- * @param {Object} props - The properties for the component, including resource bindings and form data.
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties for the component.
+ * @param {Object} [props.resourceBindings] - Resource bindings for the component.
+ * @param {string} [props.resourceBindings.title] - Custom title resource key.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text resource key.
+ * @param {boolean|string} [props.hideTitle] - If true or "true", the title will be hidden.
+ * @param {boolean|string} [props.hideIfEmpty] - If true or "true", the empty field text will be hidden.
+ *
+ * @property {Object} validationMessages - Validation messages for the component.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
  * @property {boolean} isEmpty - Indicates if the address data is empty.
  * @property {Object} resourceValues - Contains formatted title and address data for display.
- * @property {string} resourceValues.title - The title from resource bindings.
- * @property {string} resourceValues.data - The formatted address or empty field text.
  */
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(props) {
         super(props);
-        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getTextResourceBindings(props);
+        const data = this.getValueFromFormData(props, resourceBindings?.adresse);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
 
         const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: getComponentResourceValue(props, "title"),
-            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.adresse?.emptyFieldText) : data
         };
     }
 
@@ -44,7 +55,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @returns {string} A formatted string with non-empty address lines separated by newline characters.
      */
     formatAdresselinje(adresse) {
-        const adresseLinjer = [adresse.adresselinje1, adresse.adresselinje2, adresse.adresselinje3];
+        const adresseLinjer = [adresse?.adresselinje1, adresse?.adresselinje2, adresse?.adresselinje3];
         return adresseLinjer.filter((adresselinje) => adresselinje?.length).join("\n");
     }
 
@@ -58,40 +69,68 @@ export default class CustomFieldAdresse extends CustomComponent {
      *                   If either the postal code or city is missing, it will be omitted from the result.
      */
     formatZipCity(adresse) {
-        const zipCity = [adresse.postnr, adresse.poststed];
+        const zipCity = [adresse?.postnr, adresse?.poststed];
         return zipCity.filter((zipCity) => zipCity?.length).join(" ");
     }
 
     /**
-     * Formats an address object into a string with address line and zip/city.
+     * Returns the 'kommunenavn' property from the given address object if it exists, otherwise returns an empty string.
+     *
+     * @param {Object} adresse - The address object containing the 'kommunenavn' property.
+     * @param {string} [adresse.kommunenavn] - The name of the municipality.
+     * @returns {string} The municipality name if present, otherwise an empty string.
+     */
+    formatKommunenavn(adresse) {
+        return adresse?.kommunenavn ? `${adresse?.kommunenavn}` : "";
+    }
+
+    /**
+     * Retrieves validation messages based on provided text resource bindings.
+     *
+     * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
+     * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
+     */
+    getValidationMessages(textResourceBindings) {
+        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
+        return hasMissingTextResources(textResources, textResourceBindings);
+    }
+
+    /**
+     * Formats an address object into a displayable string, prioritizing address line and zip/city.
      *
      * @param {Object} adresse - The address object to format.
-     * @returns {string} The formatted address string, combining address line and zip/city if available.
+     * @param {Object} resourceBindings - Resource bindings for text resources.
+     * @returns {string} The formatted address string, or an empty string if no relevant fields are present.
      */
-    formatAdresse(adresse) {
+    formatAdresse(adresse, resourceBindings) {
         const adresseLinje = this.formatAdresselinje(adresse);
         const zipCity = this.formatZipCity(adresse);
-        if (adresseLinje.length && zipCity.length) {
+        const kommunenavn = this.formatKommunenavn(adresse);
+        const emptyFieldText = getTextResourceFromResourceBinding(resourceBindings?.emptyFieldText) || "";
+        if (adresseLinje?.length && zipCity?.length) {
             return `${adresseLinje}\n${zipCity}`;
-        } else if (adresseLinje.length) {
+        } else if (adresseLinje?.length) {
             return adresseLinje;
-        } else if (zipCity.length) {
+        } else if (zipCity?.length) {
             return zipCity;
+        } else if (kommunenavn?.length) {
+            return `${emptyFieldText}\n${kommunenavn}`;
         } else {
             return "";
         }
     }
 
     /**
-     * Retrieves and formats the address value from the provided form data props.
+     * Retrieves and formats the address value from the form data.
      *
-     * @param {Object} props - The properties containing form data for the component.
+     * @param {object} props - The properties containing form data.
+     * @param {object} resourceBindings - The resource bindings used for formatting.
      * @returns {string} The formatted address string.
      */
-    getValueFromFormData(props) {
+    getValueFromFormData(props, resourceBindings) {
         const data = getComponentDataValue(props);
         const address = new Adresse(data);
-        const adresseString = this.formatAdresse(address);
+        const adresseString = this.formatAdresse(address, resourceBindings);
         return adresseString;
     }
 
@@ -111,5 +150,34 @@ export default class CustomFieldAdresse extends CustomComponent {
      */
     hasContent(data) {
         return hasValue(data);
+    }
+
+    /**
+     * Generates text resource bindings for the address component based on the provided props.
+     *
+     * @param {Object} props - The properties object.
+     * @param {Object} [props.resourceBindings] - Resource bindings for the component.
+     * @param {string} [props.resourceBindings.title] - Custom title resource key.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text resource key.
+     * @param {boolean|string} [props.hideTitle] - If true or "true", the title will be hidden.
+     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", the empty field text will be hidden.
+     * @returns {Object} An object containing the resource bindings for the address component.
+     */
+    getTextResourceBindings(props) {
+        const resourceBindings = {
+            adresse: {}
+        };
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.adresse = {
+                title: props?.resourceBindings?.title || "resource.adresse.title"
+            };
+        }
+        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+            resourceBindings.adresse = {
+                ...resourceBindings?.adresse,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.adresse.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
     }
 }
