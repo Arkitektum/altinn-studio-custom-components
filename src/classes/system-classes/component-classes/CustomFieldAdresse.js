@@ -31,7 +31,7 @@ export default class CustomFieldAdresse extends CustomComponent {
     constructor(props) {
         super(props);
         const resourceBindings = this.getTextResourceBindings(props);
-        const data = this.getValueFromFormData(props, resourceBindings.adresse);
+        const data = this.getValueFromFormData(props, resourceBindings?.adresse);
         const validationMessages = this.getValidationMessages(resourceBindings);
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
@@ -55,7 +55,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @returns {string} A formatted string with non-empty address lines separated by newline characters.
      */
     formatAdresselinje(adresse) {
-        const adresseLinjer = [adresse.adresselinje1, adresse.adresselinje2, adresse.adresselinje3];
+        const adresseLinjer = [adresse?.adresselinje1, adresse?.adresselinje2, adresse?.adresselinje3];
         return adresseLinjer.filter((adresselinje) => adresselinje?.length).join("\n");
     }
 
@@ -69,7 +69,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      *                   If either the postal code or city is missing, it will be omitted from the result.
      */
     formatZipCity(adresse) {
-        const zipCity = [adresse.postnr, adresse.poststed];
+        const zipCity = [adresse?.postnr, adresse?.poststed];
         return zipCity.filter((zipCity) => zipCity?.length).join(" ");
     }
 
@@ -81,7 +81,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @returns {string} The municipality name if present, otherwise an empty string.
      */
     formatKommunenavn(adresse) {
-        return adresse.kommunenavn ? `${adresse.kommunenavn}` : "";
+        return adresse?.kommunenavn ? `${adresse?.kommunenavn}` : "";
     }
 
     /**
@@ -107,13 +107,13 @@ export default class CustomFieldAdresse extends CustomComponent {
         const zipCity = this.formatZipCity(adresse);
         const kommunenavn = this.formatKommunenavn(adresse);
         const emptyFieldText = getTextResourceFromResourceBinding(resourceBindings?.emptyFieldText) || "";
-        if (adresseLinje.length && zipCity.length) {
+        if (adresseLinje?.length && zipCity?.length) {
             return `${adresseLinje}\n${zipCity}`;
-        } else if (adresseLinje.length) {
+        } else if (adresseLinje?.length) {
             return adresseLinje;
-        } else if (zipCity.length) {
+        } else if (zipCity?.length) {
             return zipCity;
-        } else if (kommunenavn.length) {
+        } else if (kommunenavn?.length) {
             return `${emptyFieldText}\n${kommunenavn}`;
         } else {
             return "";
