@@ -174,7 +174,7 @@ export default class CustomFieldAdresse extends CustomComponent {
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.adresse = {
-                ...props.resourceBindings.adresse,
+                ...resourceBindings?.adresse,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.adresse.emptyFieldText.default"
             };
         }
