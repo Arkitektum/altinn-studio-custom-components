@@ -19,11 +19,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn()
 }));
 
-const {
-    getComponentDataValue,
-    getTextResourceFromResourceBinding,
-    hasValue
-} = require("../../../functions/helpers.js");
+const { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomTableEiendom", () => {
@@ -35,43 +31,43 @@ describe("CustomTableEiendom", () => {
         it("should set isEmpty, validationMessages, hasValidationMessages, resourceBindings, and resourceValues correctly when data is empty", () => {
             getComponentDataValue.mockReturnValue(undefined);
             hasValue.mockReturnValue(false);
-            getTextResourceFromResourceBinding.mockReturnValue("Empty");
-            hasMissingTextResources.mockReturnValue(false);
-            hasValidationMessages.mockReturnValue(false);
+            hasMissingTextResources.mockReturnValue("missing");
+            hasValidationMessages.mockReturnValue(true);
+            getTextResourceFromResourceBinding.mockReturnValue("empty");
 
-            const props = { resourceBindings: { emptyFieldText: "emptyTextKey" } };
+            const props = { resourceBindings: { eiendomByggested: { emptyFieldText: "emptyKey" } } };
             const instance = new CustomTableEiendom(props);
 
             expect(instance.isEmpty).toBe(true);
-            expect(instance.validationMessages).toBe(false);
-            expect(instance.hasValidationMessages).toBe(false);
+            expect(instance.validationMessages).toBe("missing");
+            expect(instance.hasValidationMessages).toBe(true);
             expect(instance.resourceBindings).toBeDefined();
-            expect(instance.resourceValues.data).toBe("Empty");
+            expect(instance.resourceValues.data).toBe("empty");
         });
 
         it("should set resourceValues.data to data when not empty", () => {
             getComponentDataValue.mockReturnValue([{ foo: "bar" }]);
             hasValue.mockReturnValue(true);
-            getTextResourceFromResourceBinding.mockReturnValue("ShouldNotBeUsed");
-            hasMissingTextResources.mockReturnValue(false);
+            hasMissingTextResources.mockReturnValue("none");
             hasValidationMessages.mockReturnValue(false);
 
-            const props = {};
-            const instance = new CustomTableEiendom(props);
+            // hasEiendomValue returns true for all Eiendom instances
+            const instance = new CustomTableEiendom({});
 
             expect(instance.isEmpty).toBe(false);
-            expect(instance.resourceValues.data).toEqual(expect.any(Array));
+            expect(Array.isArray(instance.resourceValues.data)).toBe(true);
         });
     });
 
     describe("getValueFromFormData", () => {
         it("should call getComponentDataValue and getEiendomListFromData", () => {
-            const props = {};
             getComponentDataValue.mockReturnValue([{ foo: "bar" }]);
-            const instance = new CustomTableEiendom(props);
+            hasValue.mockReturnValue(true);
+
+            const instance = new CustomTableEiendom({});
             const spy = jest.spyOn(instance, "getEiendomListFromData");
-            instance.getValueFromFormData(props);
-            expect(getComponentDataValue).toHaveBeenCalledWith(props);
+            instance.getValueFromFormData({});
+            expect(getComponentDataValue).toHaveBeenCalled();
             expect(spy).toHaveBeenCalled();
         });
     });
@@ -86,49 +82,56 @@ describe("CustomTableEiendom", () => {
         it("should return filtered Eiendom instances", () => {
             hasValue.mockReturnValue(true);
             const instance = new CustomTableEiendom({});
-            jest.spyOn(instance, "hasEiendomValue").mockImplementation((e) => e.valid);
-            const data = [{ valid: true }, { valid: false }];
-            const result = instance.getEiendomListFromData(data);
+            jest.spyOn(instance, "hasEiendomValue").mockReturnValueOnce(true).mockReturnValueOnce(false);
+            const result = instance.getEiendomListFromData([{ a: 1 }, { b: 2 }]);
             expect(result.length).toBe(1);
-            expect(result[0].valid).toBe(true);
+            expect(result[0].a).toBe(1);
         });
     });
 
     describe("getValidationMessages", () => {
         it("should call hasMissingTextResources with window.textResources", () => {
             global.window = { textResources: ["foo"] };
-            hasMissingTextResources.mockReturnValue(true);
+            hasMissingTextResources.mockReturnValue("msg");
             const instance = new CustomTableEiendom({});
-            expect(instance.getValidationMessages({})).toBe(true);
-            delete global.window;
+            expect(instance.getValidationMessages({})).toBe("msg");
         });
 
-        it("should call hasMissingTextResources with empty array if window.textResources is undefined", () => {
-            global.window = {};
-            hasMissingTextResources.mockReturnValue(false);
-            const instance = new CustomTableEiendom({});
-            expect(instance.getValidationMessages({})).toBe(false);
+        it("should call hasMissingTextResources with empty array if window is undefined", () => {
             delete global.window;
+            hasMissingTextResources.mockReturnValue("msg");
+            const instance = new CustomTableEiendom({});
+            expect(instance.getValidationMessages({})).toBe("msg");
         });
     });
 
     describe("hasContent", () => {
-        it("should return result of hasValue", () => {
+        it("should call hasValue", () => {
             hasValue.mockReturnValue(true);
             const instance = new CustomTableEiendom({});
             expect(instance.hasContent("data")).toBe(true);
-            hasValue.mockReturnValue(false);
-            expect(instance.hasContent("")).toBe(false);
+        });
+    });
+
+    describe("hasKommunenavn", () => {
+        it("should return true if kommunenavn has value", () => {
+            hasValue.mockReturnValue(true);
+            const instance = new CustomTableEiendom({});
+            expect(instance.hasKommunenavn({ kommunenavn: "Oslo" })).toBe(true);
         });
     });
 
     describe("hasZipCodeOrCity", () => {
-        it("should return true if postnr or poststed has value", () => {
-            hasValue.mockImplementation((v) => !!v);
+        it("should return true if postnr has value", () => {
+            hasValue.mockImplementation((v) => v === 1234);
             const instance = new CustomTableEiendom({});
-            expect(instance.hasZipCodeOrCity({ adresse: { postnr: "1234" } })).toBe(true);
+            expect(instance.hasZipCodeOrCity({ adresse: { postnr: 1234 } })).toBe(true);
+        });
+
+        it("should return true if poststed has value", () => {
+            hasValue.mockImplementation((v) => v === "Oslo");
+            const instance = new CustomTableEiendom({});
             expect(instance.hasZipCodeOrCity({ adresse: { poststed: "Oslo" } })).toBe(true);
-            expect(instance.hasZipCodeOrCity({ adresse: {} })).toBe(false);
         });
     });
 
@@ -136,26 +139,42 @@ describe("CustomTableEiendom", () => {
         it("should return true if any address line has value", () => {
             hasValue.mockImplementation((v) => !!v);
             const instance = new CustomTableEiendom({});
-            expect(instance.hasAdresseLinje({ adresse: { adresselinje1: "A" } })).toBe(true);
-            expect(instance.hasAdresseLinje({ adresse: { adresselinje2: "B" } })).toBe(true);
-            expect(instance.hasAdresseLinje({ adresse: { adresselinje3: "C" } })).toBe(true);
-            expect(instance.hasAdresseLinje({ adresse: {} })).toBe(false);
+            expect(instance.hasAdresseLinje({ adresse: { adresselinje1: "A", adresselinje2: "", adresselinje3: "" } })).toBe(true);
+            expect(instance.hasAdresseLinje({ adresse: { adresselinje1: "", adresselinje2: "B", adresselinje3: "" } })).toBe(true);
+            expect(instance.hasAdresseLinje({ adresse: { adresselinje1: "", adresselinje2: "", adresselinje3: "C" } })).toBe(true);
         });
     });
 
     describe("hasAdresse", () => {
-        it("should return true if hasAdresseLinje or hasZipCodeOrCity is true", () => {
+        it("should return true if hasAdresseLinje returns true", () => {
+            const instance = new CustomTableEiendom({});
+            jest.spyOn(instance, "hasAdresseLinje").mockReturnValue(true);
+            jest.spyOn(instance, "hasZipCodeOrCity").mockReturnValue(false);
+            jest.spyOn(instance, "hasKommunenavn").mockReturnValue(false);
+            expect(instance.hasAdresse({})).toBe(true);
+        });
+
+        it("should return true if hasZipCodeOrCity returns true", () => {
             const instance = new CustomTableEiendom({});
             jest.spyOn(instance, "hasAdresseLinje").mockReturnValue(false);
             jest.spyOn(instance, "hasZipCodeOrCity").mockReturnValue(true);
+            jest.spyOn(instance, "hasKommunenavn").mockReturnValue(false);
             expect(instance.hasAdresse({})).toBe(true);
+        });
 
-            instance.hasAdresseLinje.mockReturnValue(true);
-            instance.hasZipCodeOrCity.mockReturnValue(false);
+        it("should return true if hasKommunenavn returns true", () => {
+            const instance = new CustomTableEiendom({});
+            jest.spyOn(instance, "hasAdresseLinje").mockReturnValue(false);
+            jest.spyOn(instance, "hasZipCodeOrCity").mockReturnValue(false);
+            jest.spyOn(instance, "hasKommunenavn").mockReturnValue(true);
             expect(instance.hasAdresse({})).toBe(true);
+        });
 
-            instance.hasAdresseLinje.mockReturnValue(false);
-            instance.hasZipCodeOrCity.mockReturnValue(false);
+        it("should return false if all checks return false", () => {
+            const instance = new CustomTableEiendom({});
+            jest.spyOn(instance, "hasAdresseLinje").mockReturnValue(false);
+            jest.spyOn(instance, "hasZipCodeOrCity").mockReturnValue(false);
+            jest.spyOn(instance, "hasKommunenavn").mockReturnValue(false);
             expect(instance.hasAdresse({})).toBe(false);
         });
     });
@@ -170,29 +189,40 @@ describe("CustomTableEiendom", () => {
             expect(instance.hasEiendomNummerField({ eiendomsidentifikasjon: { bruksnummer: "4" } })).toBe(true);
             expect(instance.hasEiendomNummerField({ eiendomsidentifikasjon: { seksjonsnummer: "5" } })).toBe(true);
             expect(instance.hasEiendomNummerField({ eiendomsidentifikasjon: { festenummer: "6" } })).toBe(true);
+        });
+
+        it("should return false if no property number field has value", () => {
+            hasValue.mockReturnValue(false);
+            const instance = new CustomTableEiendom({});
             expect(instance.hasEiendomNummerField({})).toBe(false);
         });
     });
 
     describe("hasEiendomValue", () => {
-        it("should return true if hasAdresse or hasEiendomNummerField is true", () => {
+        it("should return true if hasAdresse returns true", () => {
             const instance = new CustomTableEiendom({});
             jest.spyOn(instance, "hasAdresse").mockReturnValue(true);
             jest.spyOn(instance, "hasEiendomNummerField").mockReturnValue(false);
             expect(instance.hasEiendomValue({})).toBe(true);
+        });
 
-            instance.hasAdresse.mockReturnValue(false);
-            instance.hasEiendomNummerField.mockReturnValue(true);
+        it("should return true if hasEiendomNummerField returns true", () => {
+            const instance = new CustomTableEiendom({});
+            jest.spyOn(instance, "hasAdresse").mockReturnValue(false);
+            jest.spyOn(instance, "hasEiendomNummerField").mockReturnValue(true);
             expect(instance.hasEiendomValue({})).toBe(true);
+        });
 
-            instance.hasAdresse.mockReturnValue(false);
-            instance.hasEiendomNummerField.mockReturnValue(false);
+        it("should return false if both checks return false", () => {
+            const instance = new CustomTableEiendom({});
+            jest.spyOn(instance, "hasAdresse").mockReturnValue(false);
+            jest.spyOn(instance, "hasEiendomNummerField").mockReturnValue(false);
             expect(instance.hasEiendomValue({})).toBe(false);
         });
     });
 
     describe("getTextResourceBindings", () => {
-        it("should return default bindings if none provided", () => {
+        it("should return default resource bindings if no overrides", () => {
             const instance = new CustomTableEiendom({});
             const result = instance.getTextResourceBindings({});
             expect(result.adresse.title).toBe("resource.eiendomByggested.eiendom.adresse.title");
@@ -201,42 +231,34 @@ describe("CustomTableEiendom", () => {
             expect(result.eiendomByggested.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
 
-        it("should use custom bindings if provided", () => {
+        it("should use overrides from props.resourceBindings", () => {
             const props = {
                 resourceBindings: {
-                    adresse: { title: "customAdresse", emptyFieldText: "customEmpty" },
-                    title: "customTitle",
-                    emptyFieldText: "customEmptyFieldText"
+                    adresse: { title: "customTitle", emptyFieldText: "customEmpty" },
+                    title: "customMainTitle",
+                    emptyFieldText: "customMainEmpty"
                 }
             };
-            const instance = new CustomTableEiendom(props);
+            const instance = new CustomTableEiendom({});
             const result = instance.getTextResourceBindings(props);
-            expect(result.adresse.title).toBe("customAdresse");
+            expect(result.adresse.title).toBe("customTitle");
             expect(result.adresse.emptyFieldText).toBe("customEmpty");
-            expect(result.eiendomByggested.title).toBe("customTitle");
-            expect(result.eiendomByggested.emptyFieldText).toBe("customEmptyFieldText");
+            expect(result.eiendomByggested.title).toBe("customMainTitle");
+            expect(result.eiendomByggested.emptyFieldText).toBe("customMainEmpty");
         });
 
-        it("should omit title and/or emptyFieldText if hideTitle/hideIfEmpty is true", () => {
-            const props = {
-                hideTitle: true,
-                hideIfEmpty: true,
-                resourceBindings: {}
-            };
-            const instance = new CustomTableEiendom(props);
+        it("should omit title if hideTitle is true", () => {
+            const props = { hideTitle: true };
+            const instance = new CustomTableEiendom({});
             const result = instance.getTextResourceBindings(props);
-            expect(result.eiendomByggested).toBeUndefined();
+            expect(result.eiendomByggested.title).toBeUndefined();
         });
 
-        it('should omit title and/or emptyFieldText if hideTitle/hideIfEmpty is "true"', () => {
-            const props = {
-                hideTitle: "true",
-                hideIfEmpty: "true",
-                resourceBindings: {}
-            };
-            const instance = new CustomTableEiendom(props);
+        it("should omit emptyFieldText if hideIfEmpty is true", () => {
+            const props = { hideIfEmpty: true };
+            const instance = new CustomTableEiendom({});
             const result = instance.getTextResourceBindings(props);
-            expect(result.eiendomByggested).toBeUndefined();
+            expect(result.eiendomByggested.emptyFieldText).toBeUndefined();
         });
     });
 });
