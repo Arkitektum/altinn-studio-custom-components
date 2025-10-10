@@ -238,7 +238,7 @@ export default class CustomTableEiendom extends CustomComponent {
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
             resourceBindings.eiendomByggested = {
-                ...resourceBindings.eiendomByggested,
+                ...resourceBindings?.eiendomByggested,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }
