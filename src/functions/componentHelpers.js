@@ -25,6 +25,7 @@ import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-c
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
 import CustomGrouplistVarsling from "../classes/system-classes/component-classes/CustomGrouplistVarsling.js";
+import CustomGroupPlan from "../classes/system-classes/component-classes/CustomGroupPlan.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
@@ -101,6 +102,8 @@ export function instantiateComponent(element) {
             return new CustomFieldUtfallSvarStatus(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
+        case "custom-group-plan":
+            return new CustomGroupPlan(component);
         case "custom-group-sjekklistekrav":
             return new CustomGroupSjekklistekrav(component);
         case "custom-group-utfall-svar":
