@@ -49,6 +49,7 @@ import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
 import customTableOmraaderisiko from "./data-components/custom-table-omraaderisiko/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
+import customTablePlan from "./data-components/custom-table-plan/index.js";
 
 // Layout components
 import dispensasjon from "./layout-components/dispensasjon/index.js";
@@ -111,6 +112,7 @@ export {
     customTableEiendom,
     customTableOmraaderisiko,
     customTablePart,
+    customTablePlan,
     dispensasjon,
     gjennomfoeringsplan
 };
