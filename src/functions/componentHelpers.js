@@ -21,10 +21,12 @@ import CustomFieldTelefonnummer from "../classes/system-classes/component-classe
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
+import CustomGrouplistPlan from "../classes/system-classes/component-classes/CustomGrouplistPlan.js";
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
 import CustomGrouplistVarsling from "../classes/system-classes/component-classes/CustomGrouplistVarsling.js";
+import CustomGroupPlan from "../classes/system-classes/component-classes/CustomGroupPlan.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
@@ -48,6 +50,7 @@ import CustomTableData from "../classes/system-classes/component-classes/CustomT
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
+import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
 import CustomComponent from "../classes/system-classes/CustomComponent.js";
 
 // Global functions
@@ -101,6 +104,8 @@ export function instantiateComponent(element) {
             return new CustomFieldUtfallSvarStatus(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
+        case "custom-group-plan":
+            return new CustomGroupPlan(component);
         case "custom-group-sjekklistekrav":
             return new CustomGroupSjekklistekrav(component);
         case "custom-group-utfall-svar":
@@ -109,6 +114,8 @@ export function instantiateComponent(element) {
             return new CustomGroupUtfallSvarType(component);
         case "custom-grouplist-ettersending":
             return new CustomGrouplistEttersending(component);
+        case "custom-grouplist-plan":
+            return new CustomGrouplistPlan(component);
         case "custom-grouplist-sjekklistekrav":
             return new CustomGrouplistSjekklistekrav(component);
         case "custom-grouplist-utfall-svar":
@@ -157,6 +164,8 @@ export function instantiateComponent(element) {
             return new CustomTableOmraaderisiko(component);
         case "custom-table-part":
             return new CustomTablePart(component);
+        case "custom-table-plan":
+            return new CustomTablePlan(component);
         default:
             console.warn(`Unknown component type: ${tagName}`);
             return null;

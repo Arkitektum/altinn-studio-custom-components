@@ -111,6 +111,7 @@ These components are tailored to display specific data types consistently across
   - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
   - [Områderisiko](src/components/data-components/custom-table-omraaderisiko/) – Displays table with data from an array with [`Omraaderisiko`](src/classes/data-classes/Omraaderisiko.js) objects.
   - [Part](src/components/data-components/custom-table-part/) – Displays table with data from an array with [`Part`](src/classes/data-classes/Part.js) objects for `part`.
+  - [Plan](src/components/data-components/custom-table-plan/) – Displays table with data from an array with [`Plan`](src/classes/data-classes/Plan.js) objects for `andrePlaner`.
 
 These components adhere to the standards set by the Norwegian Building Authority (Direktoratet for Byggkvalitet) within the Fellestjenester BYGG platform.
 

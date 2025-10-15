@@ -47,6 +47,7 @@ export default [
     "custom-table-eiendom",
     "custom-table-omraaderisiko",
     "custom-table-part",
+    "custom-table-plan",
     "custom-dispensasjon",
     "custom-gjennomfoeringsplan"
 ];
