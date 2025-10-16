@@ -87,6 +87,7 @@ These components are tailored to display specific data types consistently across
   - [Feedback](src/components/data-components/custom-feedback-data/) – Displays a single feedback message.
   - [Adresse](src/components/data-components/custom-field-adresse/) – Displays a complete address object
   - [Part-navn](src/components/data-components/custom-field-part-navn/) – Displays a part's name, optionally with an organization number.
+  - [Kode](src/components/data-components/custom-field-kode/) – Displays a code value from the data model, typically used for standardized codes or identifiers.
   - [Kommunens saksnummer](src/components/data-components/custom-field-kommunens-saksnummer/) – Displays a municipal case number composed of the case year and sequence number.
   - [Prosjekt](src/components/data-components/custom-field-prosjekt/) – Displays a project number composed of a number and name.
   - [Telefonnummer](src/components/data-components/custom-field-telefonnummer/) – Displays all phone numbers associated with a part object.
