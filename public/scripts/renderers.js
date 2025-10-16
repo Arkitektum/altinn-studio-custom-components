@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global function
-import { addContainerElement, createCustomElement } from "../../src/functions/helpers.js";
+import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
 import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
@@ -10,33 +10,48 @@ import { addDataModel, getLayoutCode } from "./localStorage.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 
 /**
- * Renders the results of a custom component by retrieving its layout and data,
- * creating the corresponding custom element with appropriate HTML attributes,
- * and appending it to the container element in the DOM.
+ * Renders the results by generating and displaying custom components based on the current layout code.
  *
- * The function performs the following steps:
- * 1. Retrieves the component layout using `getLayoutCode()`.
- * 2. Fetches the data for the component using `getDataForComponent(component)`.
- * 3. Constructs HTML attributes for the custom element.
- * 4. Clears the existing content of the results container.
- * 5. If the component has a valid `tagName`, creates the custom element and appends it to the container.
+ * This function retrieves the layout code, processes it into an array of components, and for each component:
+ * - Retrieves its associated data.
+ * - Constructs the appropriate HTML attributes.
+ * - Creates a custom element and wraps it in a container.
  *
- * @returns {void}
+ * The resulting elements are then appended to the container element with the ID "code-results".
+ *
+ * Dependencies:
+ * - getLayoutCode(): Function that returns the current layout code (single component or array).
+ * - getDataForComponent(component): Function that returns data for a given component.
+ * - CustomElementHtmlAttributes: Class for constructing HTML attributes for custom elements.
+ * - createCustomElement(tagName, attributes): Function that creates a custom element.
+ * - addContainerElement(element): Function that wraps an element in a container.
+ * - appendChildren(parent, children): Function that appends multiple children to a parent element.
  */
 export function renderResults() {
-    const component = getLayoutCode();
-    const data = getDataForComponent(component);
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        ...component,
-        formData: data
-    });
+    const componentCode = getLayoutCode();
+    let components = [];
+    if (!Array.isArray(componentCode)) {
+        components = [componentCode];
+    } else {
+        components = componentCode;
+    }
     const containerElement = document.getElementById("code-results");
     containerElement.innerHTML = "";
-    if (!component?.tagName) {
-        return;
-    }
-    const resultsElement = createCustomElement(component?.tagName, htmlAttributes);
-    containerElement.appendChild(addContainerElement(resultsElement));
+    const resultsElements = components
+        .map((component) => {
+            if (!component?.tagName) {
+                return;
+            }
+            const data = getDataForComponent(component);
+            console.log({ component, data });
+            const htmlAttributes = new CustomElementHtmlAttributes({
+                ...component,
+                formData: data
+            });
+            return addContainerElement(createCustomElement(component?.tagName, htmlAttributes));
+        })
+        .filter((attr) => attr !== undefined);
+    appendChildren(containerElement, resultsElements);
 }
 
 /**
