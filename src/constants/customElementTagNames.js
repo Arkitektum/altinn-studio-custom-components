@@ -17,6 +17,7 @@ export default [
     "custom-field-count-data",
     "custom-field-data",
     "custom-field-list-data",
+    "custom-field-kode",
     "custom-field-kommunens-saksnummer",
     "custom-field-part-navn",
     "custom-field-prosjekt",
