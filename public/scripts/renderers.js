@@ -43,7 +43,6 @@ export function renderResults() {
                 return;
             }
             const data = getDataForComponent(component);
-            console.log({ component, data });
             const htmlAttributes = new CustomElementHtmlAttributes({
                 ...component,
                 formData: data
