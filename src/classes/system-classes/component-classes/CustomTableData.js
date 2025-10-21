@@ -54,6 +54,9 @@ export default class CustomTableData extends CustomComponent {
      */
     getValueFromFormData(props) {
         const data = getComponentDataValue(props);
+        if (!hasValue(data)) {
+            return null;
+        }
         const tableHeaders = this.getTableHeadersFromProps(props);
         const tableRows = this.getTableRowsFromProps(props, data);
         return {

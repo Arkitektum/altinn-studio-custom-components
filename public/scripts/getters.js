@@ -14,7 +14,6 @@ import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
  * Iterates over the component's `dataModelBindings` and fetches corresponding values
  * from the data models. If a binding is a string, it uses the first data model.
  * If a binding is an object, it finds the data model matching the specified `dataType`.
- * If the value is not found, it falls back to the binding itself or its `data` property.
  *
  * @param {Object} component - The component object containing data model bindings.
  * @param {Object} component.dataModelBindings - Key-value pairs mapping component fields to data model bindings.
@@ -30,7 +29,7 @@ export function getDataForComponent(component) {
                 const index = 0;
                 const dataModel = dataModels[index]?.data;
                 const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
-                data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding;
+                data[key] = dataModelData;
             } else if (typeof dataModelBinding === "object") {
                 const index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataModelBinding?.dataType);
                 const dataModel = dataModels[index]?.data;
