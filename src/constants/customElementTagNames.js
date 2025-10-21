@@ -36,7 +36,6 @@ export default [
     "custom-header-text-data",
     "custom-list-data",
     "custom-list-planlagte-loefteinnretninger",
-    "custom-list-tiltaks-formaal",
     "custom-list-vedlegg",
     "custom-paragraph-text",
     "custom-subheader-text",

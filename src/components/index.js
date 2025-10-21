@@ -39,7 +39,6 @@ import customHeaderText from "./data-components/custom-header-text/index.js";
 import customHeaderTextData from "./data-components/custom-header-text-data/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
 import customListPlanlagteLoefteinnretninger from "./data-components/custom-list-planlagte-loefteinnretninger/index.js";
-import customListTiltaksFormaal from "./data-components/custom-list-tiltaks-formaal/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
@@ -102,7 +101,6 @@ export {
     customHeaderTextData,
     customListData,
     customListPlanlagteLoefteinnretninger,
-    customListTiltaksFormaal,
     customListVedlegg,
     customParagraphText,
     customSubheaderText,
