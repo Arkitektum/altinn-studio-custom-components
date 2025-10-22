@@ -221,10 +221,10 @@ describe("CustomTableEiendom", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should return default resource bindings if no overrides", () => {
             const instance = new CustomTableEiendom({});
-            const result = instance.getTextResourceBindings({});
+            const result = instance.getResourceBindings({});
             expect(result.adresse.title).toBe("resource.eiendomByggested.eiendom.adresse.title");
             expect(result.adresse.emptyFieldText).toBe("resource.eiendomByggested.eiendom.adresse.emptyFieldText");
             expect(result.eiendomByggested.title).toBe("resource.eiendomByggested.eiendom.title");
@@ -240,7 +240,7 @@ describe("CustomTableEiendom", () => {
                 }
             };
             const instance = new CustomTableEiendom({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.adresse.title).toBe("customTitle");
             expect(result.adresse.emptyFieldText).toBe("customEmpty");
             expect(result.eiendomByggested.title).toBe("customMainTitle");
@@ -250,14 +250,14 @@ describe("CustomTableEiendom", () => {
         it("should omit title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomTableEiendom({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.eiendomByggested.title).toBeUndefined();
         });
 
         it("should omit emptyFieldText if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true };
             const instance = new CustomTableEiendom({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.eiendomByggested.emptyFieldText).toBeUndefined();
         });
     });

@@ -30,7 +30,7 @@ import { hasMissingTextResources, hasValidationMessages } from "../../../functio
 export default class CustomFieldAdresse extends CustomComponent {
     constructor(props) {
         super(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
         const data = this.getValueFromFormData(props, resourceBindings?.adresse);
         const validationMessages = this.getValidationMessages(resourceBindings);
         this.validationMessages = validationMessages;
@@ -163,7 +163,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @param {boolean|string} [props.hideIfEmpty] - If true or "true", the empty field text will be hidden.
      * @returns {Object} An object containing the resource bindings for the address component.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             adresse: {}
         };

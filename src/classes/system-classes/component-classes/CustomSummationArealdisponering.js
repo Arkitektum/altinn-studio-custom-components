@@ -27,7 +27,7 @@ import { hasMissingTextResources, hasValidationMessages } from "../../../functio
 export default class CustomSummationArealdisponering extends CustomComponent {
     constructor(props) {
         super(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
         const data = this.getValueFromFormData(props, resourceBindings);
 
         const isEmpty = !this.hasContent(data);
@@ -122,7 +122,7 @@ export default class CustomSummationArealdisponering extends CustomComponent {
      * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omits the 'part' resource binding from the result.
      * @returns {Object} An object mapping field names to their respective resource binding configurations.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             tomtearealet: {
                 title: props?.resourceBindings?.tomtearealet?.title || `resource.rammebetingelser.arealdisponering.tomtearealet.title`

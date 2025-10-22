@@ -171,10 +171,10 @@ describe("CustomTableOmraaderisiko", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should return default bindings if none provided", () => {
             const instance = new CustomTableOmraaderisiko({});
-            const result = instance.getTextResourceBindings({});
+            const result = instance.getResourceBindings({});
             expect(result.risikotype.title).toContain("risikotype.title");
             expect(result.sikkerhetsklasse.title).toContain("sikkerhetsklasse.title");
             expect(result.omraadeRisiko.title).toContain("omraadeRisiko.title");
@@ -191,7 +191,7 @@ describe("CustomTableOmraaderisiko", () => {
                 }
             };
             const instance = new CustomTableOmraaderisiko({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.risikotype.title).toBe("customRisikotype");
             expect(result.risikotype.emptyFieldText).toBe("customEmpty");
             expect(result.sikkerhetsklasse.title).toBe("customSikkerhetsklasse");
@@ -203,7 +203,7 @@ describe("CustomTableOmraaderisiko", () => {
         it("should omit omraadeRisiko.title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomTableOmraaderisiko({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.omraadeRisiko).toBeDefined();
             expect(result.omraadeRisiko.title).toBeUndefined();
         });
@@ -211,7 +211,7 @@ describe("CustomTableOmraaderisiko", () => {
         it("should omit omraadeRisiko.emptyFieldText if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true };
             const instance = new CustomTableOmraaderisiko({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.omraadeRisiko.emptyFieldText).toBeUndefined();
         });
     });

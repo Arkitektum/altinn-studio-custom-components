@@ -199,10 +199,10 @@ describe("CustomTablePart", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should generate default resource bindings", () => {
             const instance = new CustomTablePart({});
-            const result = instance.getTextResourceBindings({});
+            const result = instance.getResourceBindings({});
             expect(result.navn.title).toBe("resource.tiltakshaver.navn.title");
             expect(result.telefonnummer.title).toBe("resource.tiltakshaver.telefonnummer.title");
             expect(result.epost.title).toBe("resource.tiltakshaver.epost.title");
@@ -222,7 +222,7 @@ describe("CustomTablePart", () => {
                 }
             };
             const instance = new CustomTablePart({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.navn.title).toBe("Custom Navn");
             expect(result.telefonnummer.title).toBe("Custom Tel");
             expect(result.epost.title).toBe("Custom Epost");
@@ -233,14 +233,14 @@ describe("CustomTablePart", () => {
         it("should not include part.title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomTablePart({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.part.title).toBeUndefined();
         });
 
         it("should not include part.emptyFieldText if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true };
             const instance = new CustomTablePart({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.part.emptyFieldText).toBeUndefined();
         });
     });

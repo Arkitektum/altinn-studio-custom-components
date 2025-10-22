@@ -185,7 +185,7 @@ describe("CustomFieldAdresse", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should set title and emptyFieldText if not hidden", () => {
             const props = {
                 hideTitle: false,
@@ -193,7 +193,7 @@ describe("CustomFieldAdresse", () => {
                 resourceBindings: { title: "custom.title", emptyFieldText: "custom.empty" }
             };
             const instance = new CustomFieldAdresse({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.adresse.title).toBe("custom.title");
             expect(result.adresse.emptyFieldText).toBe("custom.empty");
         });
@@ -201,7 +201,7 @@ describe("CustomFieldAdresse", () => {
         it("should use default keys if not provided", () => {
             const props = { hideTitle: false };
             const instance = new CustomFieldAdresse({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.adresse.title).toBe("resource.adresse.title");
             expect(result.adresse.emptyFieldText).toBe("resource.adresse.emptyFieldText.default");
         });
@@ -209,14 +209,14 @@ describe("CustomFieldAdresse", () => {
         it("should not set title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomFieldAdresse({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.adresse.title).toBeUndefined();
         });
 
         it("should not set emptyFieldText if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true };
             const instance = new CustomFieldAdresse({});
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.adresse.emptyFieldText).toBeUndefined();
         });
     });
