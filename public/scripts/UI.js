@@ -40,3 +40,57 @@ export function updateDataInputElement(inputElement) {
     dataInputElement.innerHTML = "";
     dataInputElement.appendChild(inputElement);
 }
+
+/**
+ * Opens a modal validation dialog and displays the provided content element inside it.
+ *
+ * @param {HTMLElement} contentElement - The DOM element to display inside the dialog's content area.
+ *
+ * The function locates the dialog element with the ID "validation-dialog", replaces its content
+ * with the provided element, and displays the dialog as a modal. It also sets up the close button
+ * to close the dialog when clicked. Additionally, it adds an event listener to close the dialog
+ * when clicking outside the dialog content area.
+ */
+export function openValidationDialog(contentElement) {
+    const dialogElement = document.getElementById("validation-dialog");
+    const dialogContentElement = dialogElement.querySelector(".dialog-content");
+    const closeDialogButton = dialogElement.querySelector(".close-dialog-button");
+
+    // Clear previous content
+    dialogContentElement.innerHTML = "";
+    dialogContentElement.appendChild(contentElement);
+
+    // Show the dialog
+    dialogElement.showModal();
+
+    // Set up close button
+    closeDialogButton.onclick = function () {
+        dialogElement.close();
+    };
+
+    // Close the dialog if clicking outside the dialog content
+    function handleOutsideClick(event) {
+        if (event.target === dialogElement) {
+            dialogElement.close();
+        }
+    }
+
+    dialogElement.addEventListener("click", handleOutsideClick);
+
+    // Remove the event listener when the dialog is closed
+    dialogElement.addEventListener("close", function cleanup() {
+        dialogElement.removeEventListener("click", handleOutsideClick);
+        dialogElement.removeEventListener("close", cleanup);
+    });
+}
+
+/**
+ * Closes the validation dialog by selecting the element with the ID "validation-dialog"
+ * and invoking its `close()` method.
+ *
+ * @function
+ */
+export function closeValidationDialog() {
+    const dialogElement = document.getElementById("validation-dialog");
+    dialogElement.close();
+}
