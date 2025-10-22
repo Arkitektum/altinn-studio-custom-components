@@ -175,10 +175,50 @@ export function getCodeInputElementForLayoutCode() {
 }
 
 /**
- * Creates and returns a textarea element for editing text resources as JSON.
+ * Cleans up the text resources object by trimming whitespace from resource IDs, values,
+ * and variable properties. Removes unnecessary properties such as "id" and "org" from the input object.
+ *
+ * @param {Object} textResources - The text resources object to clean up.
+ * @param {Array<Object>} textResources.resources - Array of text resource objects.
+ * @param {string} textResources.resources[].id - The ID of the text resource.
+ * @param {string} textResources.resources[].value - The value of the text resource.
+ * @param {Array<Object>} [textResources.resources[].variables] - Optional array of variable objects.
+ * @param {string} textResources.resources[].variables[].key - The key of the variable.
+ * @param {string} textResources.resources[].variables[].dataSource - The data source of the variable.
+ * @param {string} [textResources.resources[].variables[].defaultValue] - Optional default value for the variable.
+ * @returns {Object} The cleaned-up text resources object.
+ */
+function cleanUpTextResources(textResources) {
+    // Implement any necessary cleanup logic here
+    textResources.resources = textResources.resources.map((res) => {
+        const textResource = {
+            id: res.id.trim(),
+            value: res.value.trim()
+        };
+        if (res.variables) {
+            textResource.variables = res?.variables.map((variable) => {
+                const cleanedVariable = {
+                    key: variable.key.trim(),
+                    dataSource: variable.dataSource.trim()
+                };
+                if (variable.defaultValue) {
+                    cleanedVariable.defaultValue = variable.defaultValue.trim();
+                }
+                return cleanedVariable;
+            });
+        }
+        return textResource;
+    });
+    delete textResources["id"];
+    delete textResources["org"];
+    return textResources;
+}
+
+/**
+ * Creates and returns a textarea element for editing text resources.
  * The textarea is initialized with the value from local storage (key: "textResources").
- * On change, the input is beautified, saved to local storage, parsed to update `window.textResources`,
- * and triggers a re-render of results.
+ * On change, it parses, cleans, beautifies, and saves the updated text resources back to local storage,
+ * updates the global `window.textResources`, and triggers a re-render of results.
  *
  * @returns {HTMLTextAreaElement} The textarea element for text resources input.
  */
@@ -187,9 +227,12 @@ export function getCodeInputElementForTextResources() {
     codeInputElement.id = "code-input";
     codeInputElement.value = getValueFromLocalStorage("textResources") || "";
     codeInputElement.onchange = function () {
-        codeInputElement.value = beautifyJson(codeInputElement.value);
-        addValueToLocalStorage("textResources", codeInputElement.value);
-        window.textResources = JSON.parse(codeInputElement.value);
+        const textResources = JSON.parse(codeInputElement?.value);
+        const cleanedTextResources = cleanUpTextResources(textResources);
+        const cleanedTextResourcesJson = beautifyJson(JSON.stringify(cleanedTextResources, null, 2));
+        codeInputElement.value = cleanedTextResourcesJson;
+        addValueToLocalStorage("textResources", cleanedTextResourcesJson);
+        window.textResources = JSON.parse(cleanedTextResourcesJson);
         renderResults();
     };
     return codeInputElement;
