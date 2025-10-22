@@ -88,7 +88,7 @@ export function getDataModelListElements() {
         };
 
         const dataModelListItemButtonElement = document.createElement("button");
-        dataModelListItemButtonElement.innerHTML = getDataModelSummaryText(dataModel, index);
+        dataModelListItemButtonElement.innerHTML = `💾 ${getDataModelSummaryText(dataModel, index)}`;
         dataModelListItemButtonElement.onclick = function () {
             const codeInputElement = getCodeInputElementForDataModel(index);
             updateDataInputElement(codeInputElement);
