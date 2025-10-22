@@ -115,10 +115,9 @@ function getTextResourcesWithEmptyValue(textResources) {
  * - Text resources that have empty values.
  *
  * It collects all resource bindings from both Altinn and custom components,
- * compares them with the available text resources, and returns validation messages.
+ * compares them with the available text resources, and returns the validation results.
  *
- * @returns {ValidationMessages} An object containing error messages for unused text resources
- * and info messages for text resources with empty values.
+ * @returns {Object} An object containing arrays of unused resource bindings and empty text resources.
  */
 export function validateResources() {
     const altinnResourceBindings = [
@@ -149,9 +148,25 @@ export function validateResources() {
     });
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
+    const validationResults = {
+        unusedResourceBindings,
+        emptyTextResources
+    };
+    return validationResults;
+}
+
+/**
+ * Renders validation messages based on the provided validation results.
+ *
+ * @param {Object} validationResults - The results of the validation.
+ * @param {string[]} validationResults.unusedResourceBindings - Array of resource IDs that are unused.
+ * @param {string[]} validationResults.emptyTextResources - Array of resource IDs with empty values.
+ * @returns {ValidationMessages} An instance of ValidationMessages containing error and info messages.
+ */
+export function renderValidationMessages(validationResults) {
     const validationMessages = new ValidationMessages({
-        error: unusedResourceBindings.map((resId) => `Unused text resource: ${resId}`),
-        info: emptyTextResources.map((resId) => `Text resource with empty value: ${resId}`)
+        error: validationResults.unusedResourceBindings.map((resId) => `Unused text resource: ${resId}`),
+        info: validationResults.emptyTextResources.map((resId) => `Text resource with empty value: ${resId}`)
     });
     return validationMessages;
 }
