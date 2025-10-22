@@ -27,7 +27,7 @@ export default class CustomTableEiendom extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -192,7 +192,7 @@ export default class CustomTableEiendom extends CustomComponent {
      * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omits the `eiendomByggested.emptyFieldText` binding.
      * @returns {Object} An object containing resource bindings for property fields.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             adresse: {
                 title: props?.resourceBindings?.adresse?.title || "resource.eiendomByggested.eiendom.adresse.title",

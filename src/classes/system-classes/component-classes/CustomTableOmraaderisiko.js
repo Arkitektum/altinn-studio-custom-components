@@ -24,7 +24,7 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -133,7 +133,7 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
      * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omraadeRisiko empty field text is hidden.
      * @returns {Object} An object containing text resource bindings for risikotype, sikkerhetsklasse, and optionally omraadeRisiko.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             risikotype: {
                 title:

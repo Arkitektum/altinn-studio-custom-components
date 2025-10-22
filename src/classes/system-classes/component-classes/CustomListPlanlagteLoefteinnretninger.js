@@ -24,7 +24,7 @@ import { hasMissingTextResources, hasValidationMessages } from "../../../functio
 export default class CustomListPlanlagteLoefteinnretninger extends CustomComponent {
     constructor(props) {
         super(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
         const data = this.getValueFromFormData(props, resourceBindings);
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -96,7 +96,7 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
      * @param {boolean|string} [props.hideIfEmpty] - If true, omits the "loefteinnretninger" empty field text binding.
      * @returns {Object} An object containing the resolved text resource bindings.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             planleggesHeis: {
                 title: props?.resourceBindings?.planleggesHeis?.title || `resource.rammebetingelser.loefteinnretninger.planleggesHeis.title`

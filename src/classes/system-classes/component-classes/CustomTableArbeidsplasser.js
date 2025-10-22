@@ -24,7 +24,7 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
     constructor(props) {
         super(props);
         const arbeidsplasserBeroertKeys = ["eksisterende", "faste", "framtidige", "midlertidige", "utleieBygg"];
-        const resourceBindings = this.getTextResourceBindings(props, arbeidsplasserBeroertKeys);
+        const resourceBindings = this.getResourceBindings(props, arbeidsplasserBeroertKeys);
         const data = this.getValueFromFormData(props, arbeidsplasserBeroertKeys, resourceBindings);
 
         const isEmpty = !this.hasContent(data);
@@ -119,7 +119,7 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
      * @param {string[]} arbeidsplasserBeroertKeys - Array of keys representing affected workplaces.
      * @returns {Object} An object with text resource bindings for table fields, including titles and conditional texts.
      */
-    getTextResourceBindings(props, arbeidsplasserBeroertKeys) {
+    getResourceBindings(props, arbeidsplasserBeroertKeys) {
         const resourceBindings = {
             arbeidsplasser: {},
             arbeidsplasserKey: {

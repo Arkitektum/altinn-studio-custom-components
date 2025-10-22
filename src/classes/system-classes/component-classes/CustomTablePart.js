@@ -23,7 +23,7 @@ export default class CustomTablePart extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -151,7 +151,7 @@ export default class CustomTablePart extends CustomComponent {
      * @param {boolean|string} [props.hideIfEmpty] - If true, hides the empty field text.
      * @returns {Object} Resource bindings object for use in the component.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const partType = props?.partType || "tiltakshaver";
         const resourceBindings = {
             navn: {

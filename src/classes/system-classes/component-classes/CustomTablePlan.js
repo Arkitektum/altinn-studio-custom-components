@@ -35,7 +35,7 @@ export default class CustomTablePlan extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -100,7 +100,7 @@ export default class CustomTablePlan extends CustomComponent {
      * @param {boolean|string} [props.hideIfEmpty] - If true, hides the empty field text for the plan.
      * @returns {Object} An object containing resource bindings for plan, navn, and plantype fields.
      */
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             plan: {},
             navn: {

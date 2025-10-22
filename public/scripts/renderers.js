@@ -1,13 +1,15 @@
 // Classes
 import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
+import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.js";
 
 // Global function
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
 import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
-import { addDataModel, getLayoutCode } from "./localStorage.js";
-import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
+import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
+import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
+import { renderValidationMessages, validateResources } from "./validators.js";
 
 /**
  * Renders the results by generating and displaying custom components based on the current layout code.
@@ -80,7 +82,7 @@ export function renderSidebar() {
     const layoutCodeListElement = document.createElement("li");
     layoutCodeListElement.id = layoutCodeItemId;
     const layoutCodeButtonElement = document.createElement("button");
-    layoutCodeButtonElement.innerHTML = "Layout code";
+    layoutCodeButtonElement.innerHTML = "🎨 Layout code";
     layoutCodeButtonElement.onclick = function () {
         const codeInputElement = getCodeInputElementForLayoutCode();
         updateDataInputElement(codeInputElement);
@@ -93,14 +95,67 @@ export function renderSidebar() {
     const textResourcesItemId = "text-resources-code";
     const textResourcesCodeListElement = document.createElement("li");
     textResourcesCodeListElement.id = textResourcesItemId;
+
+    const buttonsContainerElement = document.createElement("div");
+    buttonsContainerElement.classList.add("buttons-container");
+
     const textResourcesCodeButtonElement = document.createElement("button");
-    textResourcesCodeButtonElement.innerHTML = "Text resources";
+    textResourcesCodeButtonElement.innerHTML = "📚 Text resources";
     textResourcesCodeButtonElement.onclick = function () {
         const codeInputElement = getCodeInputElementForTextResources();
         updateDataInputElement(codeInputElement);
         setActiveSidebarElement(textResourcesItemId);
     };
-    textResourcesCodeListElement.appendChild(textResourcesCodeButtonElement);
+
+    // Option buttons
+    const optionButtonsContainerElement = document.createElement("div");
+    optionButtonsContainerElement.classList.add("option-buttons-container");
+
+    const validateTextResourcesButtonElement = document.createElement("button");
+    validateTextResourcesButtonElement.classList.add("validate-text-resources-button");
+    validateTextResourcesButtonElement.innerHTML = "Validate";
+    validateTextResourcesButtonElement.onclick = function () {
+        // Open validation dialog
+        const validationResults = validateResources();
+        const feedbackMessages = renderValidationMessages(validationResults);
+        const contentElement = document.createElement("div");
+        const feedbackListElement = renderFeedbackListElement(feedbackMessages);
+        contentElement.appendChild(feedbackListElement);
+
+        // If there are no unused resource bindings, open the validation dialog and return
+        if (validationResults.unusedResourceBindings.length === 0) {
+            openValidationDialog(contentElement);
+            return;
+        }
+
+        // Add button to remove unused resources from text resources and update the code input element accordingly
+        const removeUnusedResourcesButtonElement = document.createElement("button");
+        removeUnusedResourcesButtonElement.innerHTML = "Remove unused resources";
+        removeUnusedResourcesButtonElement.onclick = function () {
+            const currentTextResourcesValue = getTextResources();
+            const unusedResourceIds = validationResults.unusedResourceBindings;
+            const updatedTextResourcesValue = {
+                ...currentTextResourcesValue,
+                resources: currentTextResourcesValue.resources.filter((res) => !unusedResourceIds.includes(res.id))
+            };
+            const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+            addValueToLocalStorage("textResources", updatedResourcesJson);
+            const textResourcesInputElement = getCodeInputElementForTextResources();
+            updateDataInputElement(textResourcesInputElement);
+            setActiveSidebarElement(textResourcesItemId);
+            closeValidationDialog();
+            renderResults();
+        };
+
+        contentElement.appendChild(removeUnusedResourcesButtonElement);
+        openValidationDialog(contentElement);
+    };
+
+    optionButtonsContainerElement.appendChild(validateTextResourcesButtonElement);
+
+    buttonsContainerElement.appendChild(textResourcesCodeButtonElement);
+    buttonsContainerElement.appendChild(optionButtonsContainerElement);
+    textResourcesCodeListElement.appendChild(buttonsContainerElement);
     fileListElement.appendChild(textResourcesCodeListElement);
 
     sidebarElement.appendChild(fileListElement);

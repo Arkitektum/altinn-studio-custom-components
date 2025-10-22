@@ -144,12 +144,12 @@ describe("CustomDispensasjonerUnitInList", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it('should return correct bindings when hideTitle is "true" string', () => {
             props.hideTitle = "true";
             props.resourceBindings = {};
             const instance = new CustomDispensasjonerUnitInList(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings).not.toHaveProperty("bestemmelsestype");
         });
     });

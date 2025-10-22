@@ -172,12 +172,12 @@ describe("CustomTableArbeidsplasser", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should generate resource bindings with defaults", () => {
             const instance = new CustomTableArbeidsplasser({});
             const props = { resourceBindings: {} };
             const keys = ["eksisterende", "faste"];
-            const result = instance.getTextResourceBindings(props, keys);
+            const result = instance.getResourceBindings(props, keys);
 
             expect(result.arbeidsplasserKey.title).toBe("resource.arbeidsplasser.arbeidsplasserKey.title");
             expect(result.beroertAvTiltaket.title).toBe("resource.arbeidsplasser.beroertAvTiltaket.title");
@@ -192,7 +192,7 @@ describe("CustomTableArbeidsplasser", () => {
             const instance = new CustomTableArbeidsplasser({});
             const props = { resourceBindings: {}, hideTitle: true, hideIfEmpty: true };
             const keys = ["eksisterende"];
-            const result = instance.getTextResourceBindings(props, keys);
+            const result = instance.getResourceBindings(props, keys);
 
             expect(result.arbeidsplasser.title).toBeUndefined();
             expect(result.arbeidsplasser.emptyFieldText).toBeUndefined();
@@ -208,7 +208,7 @@ describe("CustomTableArbeidsplasser", () => {
                 }
             };
             const keys = ["eksisterende"];
-            const result = instance.getTextResourceBindings(props, keys);
+            const result = instance.getResourceBindings(props, keys);
 
             expect(result.eksisterende.title).toBe("customTitle");
             expect(result.eksisterende.trueText).toBe("yes");

@@ -9,7 +9,7 @@ export default class CustomDispensasjonerUnitInList extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getTextResourceBindings(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -36,7 +36,7 @@ export default class CustomDispensasjonerUnitInList extends CustomComponent {
         return hasMissingTextResources(textResources, textResourceBindings);
     }
 
-    getTextResourceBindings(props) {
+    getResourceBindings(props) {
         const resourceBindings = {
             bestemmelse: {
                 title: props?.resourceBindings?.bestemmelse?.title || "resource.dispensasjon.bestemmelse.title"

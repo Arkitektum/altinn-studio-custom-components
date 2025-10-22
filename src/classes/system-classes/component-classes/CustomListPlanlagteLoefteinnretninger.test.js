@@ -106,10 +106,10 @@ describe("CustomListPlanlagteLoefteinnretninger", () => {
         expect(instance.resourceBindings.emptyFieldText).toBeUndefined();
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should return default resource bindings if none provided", () => {
             const instance = new CustomListPlanlagteLoefteinnretninger({});
-            const bindings = instance.getTextResourceBindings({});
+            const bindings = instance.getResourceBindings({});
             expect(bindings.planleggesHeis.title).toContain("resource.rammebetingelser.loefteinnretninger.planleggesHeis.title");
             expect(bindings.loefteinnretninger.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
@@ -122,7 +122,7 @@ describe("CustomListPlanlagteLoefteinnretninger", () => {
                 }
             };
             const instance = new CustomListPlanlagteLoefteinnretninger(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings.planleggesHeis.title).toBe("custom.heis.title");
             expect(bindings.loefteinnretninger.emptyFieldText).toBe("custom.empty.text");
         });

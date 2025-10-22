@@ -194,10 +194,10 @@ describe("CustomSummationArealdisponering", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("should return default resource bindings if no props are provided", () => {
             const instance = new CustomSummationArealdisponering({});
-            const result = instance.getTextResourceBindings({});
+            const result = instance.getResourceBindings({});
             expect(result.tomtearealet.title).toBe("resource.rammebetingelser.arealdisponering.tomtearealet.title");
             expect(result.bebyggelsen.title).toBe("resource.rammebetingelser.arealdisponering.bebyggelsen.title");
             expect(result.arealdisponering.emptyFieldText).toBe("resource.emptyFieldText.default");
@@ -211,7 +211,7 @@ describe("CustomSummationArealdisponering", () => {
                 }
             };
             const instance = new CustomSummationArealdisponering(props);
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.tomtearealet.title).toBe("custom.tomtearealet");
             expect(result.arealdisponering.emptyFieldText).toBe("custom.empty");
         });
@@ -219,14 +219,14 @@ describe("CustomSummationArealdisponering", () => {
         it("should not include part if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true, resourceBindings: {} };
             const instance = new CustomSummationArealdisponering(props);
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.part).toBeUndefined();
         });
 
         it('should not include part if hideIfEmpty is "true"', () => {
             const props = { hideIfEmpty: "true", resourceBindings: {} };
             const instance = new CustomSummationArealdisponering(props);
-            const result = instance.getTextResourceBindings(props);
+            const result = instance.getResourceBindings(props);
             expect(result.part).toBeUndefined();
         });
     });

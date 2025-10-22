@@ -110,10 +110,10 @@ describe("CustomTablePlan", () => {
         });
     });
 
-    describe("getTextResourceBindings", () => {
+    describe("getResourceBindings", () => {
         it("returns default bindings when no props are provided", () => {
             const instance = new CustomTablePlan({});
-            const bindings = instance.getTextResourceBindings({});
+            const bindings = instance.getResourceBindings({});
             expect(bindings.navn.title).toBe("resource.planer.andrePlaner.plan.navn.title");
             expect(bindings.navn.emptyFieldText).toBe("resource.emptyFieldText.default");
             expect(bindings.plantype.title).toBe("resource.planer.andrePlaner.plan.plantype.title");
@@ -132,7 +132,7 @@ describe("CustomTablePlan", () => {
                 }
             };
             const instance = new CustomTablePlan(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings.navn.title).toBe("navnTitle");
             expect(bindings.navn.emptyFieldText).toBe("navnEmpty");
             expect(bindings.plantype.title).toBe("plantypeTitle");
@@ -144,7 +144,7 @@ describe("CustomTablePlan", () => {
         it("omits plan.title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomTablePlan(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings.plan.title).toBeUndefined();
             expect(bindings.plan.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
@@ -152,7 +152,7 @@ describe("CustomTablePlan", () => {
         it("omits plan.emptyFieldText if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true };
             const instance = new CustomTablePlan(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings.plan.title).toBe("resource.planer.andrePlaner.title");
             expect(bindings.plan.emptyFieldText).toBeUndefined();
         });
@@ -160,7 +160,7 @@ describe("CustomTablePlan", () => {
         it("omits both plan.title and plan.emptyFieldText if both hideTitle and hideIfEmpty are true", () => {
             const props = { hideTitle: true, hideIfEmpty: true };
             const instance = new CustomTablePlan(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings.plan.title).toBeUndefined();
             expect(bindings.plan.emptyFieldText).toBeUndefined();
         });
@@ -168,7 +168,7 @@ describe("CustomTablePlan", () => {
         it('handles hideTitle/hideIfEmpty as string "true"', () => {
             const props = { hideTitle: "true", hideIfEmpty: "true" };
             const instance = new CustomTablePlan(props);
-            const bindings = instance.getTextResourceBindings(props);
+            const bindings = instance.getResourceBindings(props);
             expect(bindings.plan.title).toBeUndefined();
             expect(bindings.plan.emptyFieldText).toBeUndefined();
         });
