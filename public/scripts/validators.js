@@ -96,6 +96,32 @@ function getUnusedResourceBindings(allResourceBindings, textResources) {
     return unusedResourceBindings;
 }
 
+/**
+ * Returns an array of resource binding IDs that are missing from the provided text resources.
+ *
+ * @param {string[]} allResourceBindings - An array of all resource binding IDs to check.
+ * @param {Object} textResources - An object containing text resources.
+ * @param {Array<{ id: string }>} textResources.resources - An array of text resource objects, each with an `id` property.
+ * @returns {string[]} An array of resource binding IDs that are not present in the text resources.
+ */
+function getMissingResourceBindings(allResourceBindings, textResources) {
+    const missingResourceBindings = [];
+    const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
+    allResourceBindings.forEach((resId) => {
+        if (resId.length && !textResourceIds.includes(resId)) {
+            missingResourceBindings.push(resId);
+        }
+    });
+    return missingResourceBindings;
+}
+
+/**
+ * Returns an array of IDs for text resources that have an empty string as their value.
+ *
+ * @param {Object} textResources - The object containing text resources, expected to have a `resources` array property.
+ * @param {Array<{id: string, value: string}>} [textResources.resources] - The array of text resource objects.
+ * @returns {string[]} An array of resource IDs where the value is an empty string.
+ */
 function getTextResourcesWithEmptyValue(textResources) {
     const resourcesWithEmptyValue = [];
     const textResourceEntries = textResources?.resources || [];
@@ -113,11 +139,13 @@ function getTextResourcesWithEmptyValue(textResources) {
  * This function checks for:
  * - Unused resource bindings that are defined but not used in the layout.
  * - Text resources that have empty values.
+ * - Missing resource bindings that are used in the layout but not defined in the text resources.
  *
  * It collects all resource bindings from both Altinn and custom components,
  * compares them with the available text resources, and returns the validation results.
  *
- * @returns {Object} An object containing arrays of unused resource bindings and empty text resources.
+ * @returns {Object} An object containing arrays of unused resource bindings,
+ *                   missing resource bindings, and text resources with empty values.
  */
 export function validateResources() {
     const altinnResourceBindings = [
@@ -147,9 +175,11 @@ export function validateResources() {
         }
     });
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
+    const missingResourceBindings = getMissingResourceBindings(allResourceBindings, textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
     const validationResults = {
         unusedResourceBindings,
+        missingResourceBindings,
         emptyTextResources
     };
     return validationResults;
@@ -159,13 +189,15 @@ export function validateResources() {
  * Renders validation messages based on the provided validation results.
  *
  * @param {Object} validationResults - The results of the validation.
+ * @param {string[]} validationResults.missingResourceBindings - Array of resource IDs that are missing.
  * @param {string[]} validationResults.unusedResourceBindings - Array of resource IDs that are unused.
  * @param {string[]} validationResults.emptyTextResources - Array of resource IDs with empty values.
  * @returns {ValidationMessages} An instance of ValidationMessages containing error and info messages.
  */
 export function renderValidationMessages(validationResults) {
     const validationMessages = new ValidationMessages({
-        error: validationResults.unusedResourceBindings.map((resId) => `Unused text resource: ${resId}`),
+        error: validationResults.missingResourceBindings.map((resId) => `Missing text resource: ${resId}`),
+        warning: validationResults.unusedResourceBindings.map((resId) => `Unused text resource: ${resId}`),
         info: validationResults.emptyTextResources.map((resId) => `Text resource with empty value: ${resId}`)
     });
     return validationMessages;
