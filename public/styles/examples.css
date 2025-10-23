@@ -180,7 +180,7 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -36%);
             background-color: #fff;
             color: #000;
             border: 1px solid #ccc;
