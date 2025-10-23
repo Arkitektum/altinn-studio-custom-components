@@ -5,8 +5,9 @@ import { beautifyJson } from "./formatters.js";
 // Local functions
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
 import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.js";
-import { renderResults, renderSidebar } from "./renderers.js";
+import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
+import { validateResources } from "./validators.js";
 
 /**
  * Retrieves data for a given component based on its data model bindings.
@@ -157,10 +158,11 @@ export function getCodeInputElementForDataModel(dataModelIndex) {
 }
 
 /**
- * Creates and returns a textarea element for code input, pre-populated with the value from local storage.
- * On change, the input is beautified, saved to local storage, and results are rendered.
+ * Creates and returns a textarea element for code input, initializes its value from local storage,
+ * and sets up an onchange handler to beautify the JSON, update local storage, render results,
+ * validate resources, and update status indicators.
  *
- * @returns {HTMLTextAreaElement} The textarea element for code input.
+ * @returns {HTMLTextAreaElement} The configured textarea element for code input.
  */
 export function getCodeInputElementForLayoutCode() {
     const codeInputElement = document.createElement("textarea");
@@ -170,6 +172,9 @@ export function getCodeInputElementForLayoutCode() {
         codeInputElement.value = beautifyJson(codeInputElement.value);
         addValueToLocalStorage("code", codeInputElement.value);
         renderResults();
+
+        const validationResults = validateResources();
+        renderTextResourceStatusIndicators(validationResults);
     };
     return codeInputElement;
 }
@@ -190,6 +195,9 @@ export function getCodeInputElementForLayoutCode() {
  */
 function cleanUpTextResources(textResources) {
     // Implement any necessary cleanup logic here
+    if (!textResources?.resources?.length) {
+        return { resources: [] };
+    }
     textResources.resources = textResources.resources.map((res) => {
         const textResource = {
             id: res.id.trim(),
@@ -216,11 +224,11 @@ function cleanUpTextResources(textResources) {
 
 /**
  * Creates and returns a textarea element for editing text resources.
- * The textarea is initialized with the value from local storage (key: "textResources").
- * On change, it parses, cleans, beautifies, and saves the updated text resources back to local storage,
- * updates the global `window.textResources`, and triggers a re-render of results.
+ * The textarea is pre-filled with the value from local storage (if available).
+ * On change, it parses, cleans, beautifies, and saves the text resources,
+ * updates the global `window.textResources`, and triggers rendering and validation.
  *
- * @returns {HTMLTextAreaElement} The textarea element for text resources input.
+ * @returns {HTMLTextAreaElement} The textarea element for text resource input.
  */
 export function getCodeInputElementForTextResources() {
     const codeInputElement = document.createElement("textarea");
@@ -234,6 +242,9 @@ export function getCodeInputElementForTextResources() {
         addValueToLocalStorage("textResources", cleanedTextResourcesJson);
         window.textResources = JSON.parse(cleanedTextResourcesJson);
         renderResults();
+
+        const validationResults = validateResources();
+        renderTextResourceStatusIndicators(validationResults);
     };
     return codeInputElement;
 }

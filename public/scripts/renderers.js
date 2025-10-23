@@ -56,18 +56,70 @@ export function renderResults() {
 }
 
 /**
- * Renders the sidebar UI, including file list items for "Layout code" and "Text resources",
- * a dynamic data model list, and an "Add Data Model" button.
+ * Renders status indicators for text resource validation results.
  *
- * The sidebar allows users to select and interact with different code/data sections.
+ * Updates the DOM element with id "text-resource-status-indicators" to display
+ * the counts of missing, unused, and empty text resources, each with a corresponding
+ * status indicator.
  *
- * Dependencies:
- * - getCodeInputElementForLayoutCode: Returns the code input element for layout code.
- * - getCodeInputElementForTextResources: Returns the code input element for text resources.
- * - updateDataInputElement: Updates the data input element with the provided code input.
- * - setActiveSidebarElement: Sets the active sidebar element by ID.
- * - getDataModelListElements: Returns DOM elements representing the data model list.
- * - addDataModel: Adds a new data model.
+ * @param {Object} validationResults - The validation results for text resources.
+ * @param {Array} validationResults.missingResourceBindings - List of missing resource bindings.
+ * @param {Array} validationResults.unusedResourceBindings - List of unused resource bindings.
+ * @param {Array} validationResults.emptyTextResources - List of empty text resources.
+ */
+export function renderTextResourceStatusIndicators(validationResults) {
+    const statusIndicatorsContainerElement = document.getElementById("text-resource-status-indicators");
+    statusIndicatorsContainerElement.innerHTML = "";
+
+    const missingResourcesCount = validationResults.missingResourceBindings.length;
+    const unusedResourcesCount = validationResults.unusedResourceBindings.length;
+    const emptyResourcesCount = validationResults.emptyTextResources.length;
+
+    const missingResourcesIndicator = document.createElement("span");
+    missingResourcesIndicator.classList.add("status-indicator", missingResourcesCount === 0 ? "success" : "missing");
+    missingResourcesIndicator.innerHTML = `${missingResourcesCount === 0 ? "" : "-"}${missingResourcesCount}`;
+    statusIndicatorsContainerElement.appendChild(missingResourcesIndicator);
+
+    const unusedResourcesIndicator = document.createElement("span");
+    unusedResourcesIndicator.classList.add("status-indicator", unusedResourcesCount === 0 ? "success" : "unused");
+    unusedResourcesIndicator.innerHTML = `${unusedResourcesCount === 0 ? "" : "+"}${unusedResourcesCount}`;
+    statusIndicatorsContainerElement.appendChild(unusedResourcesIndicator);
+
+    const emptyResourcesIndicator = document.createElement("span");
+    emptyResourcesIndicator.classList.add("status-indicator", emptyResourcesCount === 0 ? "success" : "empty");
+    emptyResourcesIndicator.innerHTML = `${emptyResourcesCount}`;
+    statusIndicatorsContainerElement.appendChild(emptyResourcesIndicator);
+}
+
+/**
+ * Renders the sidebar UI, including layout code and text resources options,
+ * as well as data model management controls. This function dynamically creates
+ * and appends DOM elements for sidebar navigation, validation, and resource management.
+ *
+ * The sidebar includes:
+ * - A button to view and edit layout code.
+ * - A section for managing text resources, including validation and removal of unused resources.
+ * - A dynamically generated list of data models.
+ * - A button to add new data models.
+ *
+ * Relies on several helper functions for DOM manipulation, validation, and local storage:
+ * - getCodeInputElementForLayoutCode
+ * - updateDataInputElement
+ * - setActiveSidebarElement
+ * - getCodeInputElementForTextResources
+ * - validateResources
+ * - renderValidationMessages
+ * - renderFeedbackListElement
+ * - openValidationDialog
+ * - closeValidationDialog
+ * - getTextResources
+ * - addValueToLocalStorage
+ * - renderResults
+ * - getDataModelListElements
+ * - addDataModel
+ *
+ * @function
+ * @returns {void}
  */
 export function renderSidebar() {
     const sidebarElement = document.getElementById("sidebar");
@@ -111,9 +163,13 @@ export function renderSidebar() {
     const optionButtonsContainerElement = document.createElement("div");
     optionButtonsContainerElement.classList.add("option-buttons-container");
 
+    // Status indicators
+    const statusIndicatorsContainerElement = document.createElement("div");
+    statusIndicatorsContainerElement.id = "text-resource-status-indicators";
+    statusIndicatorsContainerElement.classList.add("status-indicators-container");
+
     const validateTextResourcesButtonElement = document.createElement("button");
     validateTextResourcesButtonElement.classList.add("validate-text-resources-button");
-    validateTextResourcesButtonElement.innerHTML = "Validate";
     validateTextResourcesButtonElement.onclick = function () {
         // Open validation dialog
         const validationResults = validateResources();
@@ -151,6 +207,7 @@ export function renderSidebar() {
         openValidationDialog(contentElement);
     };
 
+    validateTextResourcesButtonElement.appendChild(statusIndicatorsContainerElement);
     optionButtonsContainerElement.appendChild(validateTextResourcesButtonElement);
 
     buttonsContainerElement.appendChild(textResourcesCodeButtonElement);
