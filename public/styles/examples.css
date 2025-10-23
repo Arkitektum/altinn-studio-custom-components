@@ -99,7 +99,7 @@
                             overflow: hidden;
                         }
                         & .option-buttons-container {
-                            width: 132px;
+                            width: 131px;
                             display: inline-block;
                             text-align: right;
                             & button {
@@ -111,6 +111,26 @@
                                 text-align: center;
                                 &:hover {
                                     background-color: #393b3d;
+                                }
+                            }
+                            & .status-indicators-container {
+                                & .status-indicator {
+                                    display: inline-block;
+                                    margin: 0;
+                                    min-width: 32px;
+                                    text-align: center;
+                                    &.missing {
+                                        color: var(--color-error-default);
+                                    }
+                                    &.unused {
+                                        color: var(--color-warning-default);
+                                    }
+                                    &.empty {
+                                        color: var(--color-info-default);
+                                    }
+                                    &.success {
+                                        color: var(--color-success-default);
+                                    }
                                 }
                             }
                         }
