@@ -144,6 +144,7 @@ export function renderEiendomTable(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        size: "h3",
         resourceBindings: {
             title: component.resourceBindings?.eiendomByggested?.title
         },
@@ -218,6 +219,7 @@ export function renderTiltakshaverTable(component) {
         isChildComponent: true,
         partType: "tiltakshaver",
         hideIfEmpty: true,
+        size: "h2",
         resourceValues: {
             data: data?.tiltakshaver
         }
@@ -267,6 +269,7 @@ export function renderAnsvarligSoekerTable(component) {
         isChildComponent: true,
         partType: "ansvarligSoeker",
         hideIfEmpty: true,
+        size: "h2",
         resourceValues: {
             data: data?.ansvarligSoeker
         }
