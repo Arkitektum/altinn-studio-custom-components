@@ -44,15 +44,6 @@ export function renderBeskrivelseElement(component) {
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
-/**
- * Renders a status element for a custom group list component.
- *
- * @param {Object} component - The component object containing configuration and resource values.
- * @param {Object} [component.resourceValues] - Resource values associated with the component.
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
- * @param {boolean} [component.enableLinks] - Flag to enable or disable links in the element.
- * @returns {HTMLElement} The rendered status element wrapped in a container.
- */
 export function renderStatusElement(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -60,7 +51,10 @@ export function renderStatusElement(component) {
         hideIfEmpty: true,
         enableLinks: component?.enableLinks,
         resourceBindings: {
-            title: component?.resourceBindings?.["status.title"]
+            title: component?.resourceBindings?.utfallSvarStatus?.title,
+            erUtfallBesvaresSenere: component?.resourceBindings?.utfallSvarStatus?.erUtfallBesvaresSenere,
+            erUtfallBesvart: component?.resourceBindings?.utfallSvarStatus?.erUtfallBesvart,
+            status: component?.resourceBindings?.utfallSvarStatus?.status
         },
         resourceValues: {
             data
@@ -86,7 +80,7 @@ export function renderTemaElement(component) {
         hideIfEmpty: true,
         enableLinks: component?.enableLinks,
         resourceBindings: {
-            title: component?.resourceBindings?.["tema.kodebeskrivelse.title"]
+            title: component?.resourceBindings?.tema?.title
         },
         resourceValues: {
             data: data?.tema?.kodebeskrivelse
@@ -111,7 +105,7 @@ export function renderKommentarElement(component) {
         hideIfEmpty: false,
         enableLinks: component?.enableLinks,
         resourceBindings: {
-            title: component?.resourceBindings?.["kommentar.title"]
+            title: component?.resourceBindings?.kommentar?.title
         },
         resourceValues: {
             data: data?.kommentar,
@@ -136,7 +130,7 @@ export function renderVedleggslisteElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.["vedleggsliste.vedlegg.title"]
+            title: component?.resourceBindings?.vedleggsliste?.title
         },
         resourceValues: {
             data: data?.vedleggsliste?.vedlegg
