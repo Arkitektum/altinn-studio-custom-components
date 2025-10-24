@@ -101,14 +101,14 @@ describe("CustomGroupUtfallSvar", () => {
     it("getResourceBindings should return default bindings and emptyFieldText if hideIfEmpty is not true", () => {
         const instance = new CustomGroupUtfallSvar({});
         const bindings = instance.getResourceBindings({});
-        expect(bindings.utfallSvarStatus.title).toBeDefined();
+        expect(bindings.utfallSvarStatus?.title).toBeDefined();
         expect(bindings.utfallSvar.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 
     it("getResourceBindings should not include emptyFieldText if hideIfEmpty is true", () => {
         const instance = new CustomGroupUtfallSvar({});
         const bindings = instance.getResourceBindings({ hideIfEmpty: true });
-        expect(bindings.utfallSvar.emptyFieldText).toBeUndefined();
+        expect(bindings.utfallSvar?.emptyFieldText).toBeUndefined();
     });
 
     it("hasContent should delegate to hasValue", () => {

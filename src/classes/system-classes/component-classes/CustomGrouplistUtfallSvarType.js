@@ -117,7 +117,8 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
             },
             vedleggsliste: {
                 title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title"
-            }
+            },
+            utfallSvarType: {}
         };
         const data = this.getValueFromFormData(props);
         if (typeof data === "object" && hasValue(data)) {
@@ -132,10 +133,15 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
             });
         }
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
-            resourceBindings.title = props?.resourceBindings?.title;
+            resourceBindings.utfallSvarType = {
+                title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.title"
+            };
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+            resourceBindings.utfallSvarType = {
+                ...resourceBindings.utfallSvarType,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
         }
         return resourceBindings;
     }
