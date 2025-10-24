@@ -37,6 +37,12 @@ export default class CustomGrouplistUtfallSvar extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = {
+            utfallSvarStatus: resourceBindings?.utfallSvarStatus,
+            tema: resourceBindings?.tema,
+            kommentar: resourceBindings?.kommentar,
+            vedleggsliste: resourceBindings?.vedleggsliste
+        };
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(resourceBindings?.utfallSvar?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.utfallSvar?.emptyFieldText) : data
@@ -87,15 +93,35 @@ export default class CustomGrouplistUtfallSvar extends CustomComponent {
      * @returns {Object} An object containing the resource bindings for 'utfallSvar'.
      */
     getResourceBindings(props) {
-        const resourceBindings = {};
+        const resourceBindings = {
+            utfallSvarStatus: {
+                title: props?.resourceBindings?.status?.title || "resource.utfallBesvarelse.utfallSvar.status.title",
+                status: props?.resourceBindings?.status?.status || "resource.utfallBesvarelse.utfallSvar.status",
+                erUtfallBesvaresSenere:
+                    props?.resourceBindings?.erUtfallBesvaresSenere || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+                erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
+            },
+            tema: {
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title"
+            },
+            kommentar: {
+                title: props?.resourceBindings?.kommentar?.title || "resource.utfallBesvarelse.utfallSvar.kommentar.title"
+            },
+            vedleggsliste: {
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title"
+            }
+        };
         if (!props?.hideTitle === true || !props?.hideTitle === "true") {
-            resourceBindings.title = props?.resourceBindings?.title;
+            resourceBindings.utfallSvar = {
+                title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.title"
+            };
         }
         if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+            resourceBindings.utfallSvar = {
+                ...resourceBindings.utfallSvar,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
         }
-        return {
-            utfallSvar: resourceBindings
-        };
+        return resourceBindings;
     }
 }

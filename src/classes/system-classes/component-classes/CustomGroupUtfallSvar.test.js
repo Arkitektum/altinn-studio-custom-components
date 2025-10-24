@@ -80,7 +80,7 @@ describe("CustomGroupUtfallSvar", () => {
         };
         const instance = new CustomGroupUtfallSvar(props);
 
-        expect(instance.resourceBindings.emptyFieldText).toBe("custom.empty.text");
+        expect(instance.resourceBindings.utfallSvar.emptyFieldText).toBe("custom.empty.text");
         expect(instance.resourceValues.data).toBe("customEmptyText");
     });
 
@@ -101,7 +101,7 @@ describe("CustomGroupUtfallSvar", () => {
     it("getResourceBindings should return default bindings and emptyFieldText if hideIfEmpty is not true", () => {
         const instance = new CustomGroupUtfallSvar({});
         const bindings = instance.getResourceBindings({});
-        expect(bindings.utfallSvar["status.title"]).toBeDefined();
+        expect(bindings.utfallSvarStatus.title).toBeDefined();
         expect(bindings.utfallSvar.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 
