@@ -125,9 +125,9 @@ export default class CustomFieldUtfallSvarStatus extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.status.title",
-            erUtfallBesvaresSenere: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
-            erUtfallBesvart: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
-            status: "resource.utfallBesvarelse.utfallSvar.status"
+            erUtfallBesvaresSenere: props?.resourceBindings?.erUtfallBesvaresSenere || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+            erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
+            status: props?.resourceBindings?.status || "resource.utfallBesvarelse.utfallSvar.status"
         };
         return {
             utfallSvarStatus: resourceBindings
