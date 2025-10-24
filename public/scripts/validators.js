@@ -6,6 +6,7 @@ import { getLayoutCode, getTextResources } from "./localStorage.js";
 
 // Global functions
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
+import { getDataForComponent } from "./getters.js";
 
 /**
  * Adds resource bindings from a custom component's properties to a set of all resource bindings.
@@ -167,6 +168,7 @@ export function validateResources() {
     }
     components.forEach((componentProps) => {
         const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";
+        componentProps.formData = getDataForComponent(componentProps);
 
         if (isCustomComponent) {
             addResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
