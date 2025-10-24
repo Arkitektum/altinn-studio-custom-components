@@ -22,10 +22,12 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
+        this.resourceBindings = resourceBindings;
         this.resourceValues = {
             title: !props?.hideTitle && getComponentResourceValue(props, "title"),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
@@ -84,5 +86,57 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
                   return acc;
               }, {})
             : {};
+    }
+
+    /**
+     * Generates an object containing resource bindings for various fields based on the provided props.
+     * Default resource keys are used if specific bindings are not provided in props.
+     * Dynamically adds resource bindings for each key found in form data.
+     * Optionally includes title and empty field text based on props configuration.
+     *
+     * @param {Object} props - The properties object containing resourceBindings and configuration flags.
+     * @param {Object} [props.resourceBindings] - Custom resource bindings for fields.
+     * @param {boolean|string} [props.hideTitle] - If true, omits the title binding.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits the emptyFieldText binding.
+     * @returns {Object} An object mapping field names to their resource bindings.
+     */
+    getResourceBindings(props) {
+        const resourceBindings = {
+            utfallSvarStatus: {
+                title: props?.resourceBindings?.status?.title || "resource.utfallBesvarelse.utfallSvar.status.title",
+                status: props?.resourceBindings?.status?.status || "resource.utfallBesvarelse.utfallSvar.status",
+                erUtfallBesvaresSenere:
+                    props?.resourceBindings?.erUtfallBesvaresSenere || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+                erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
+            },
+            tema: {
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title"
+            },
+            kommentar: {
+                title: props?.resourceBindings?.kommentar?.title || "resource.utfallBesvarelse.utfallSvar.kommentar.title"
+            },
+            vedleggsliste: {
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title"
+            }
+        };
+        const data = this.getValueFromFormData(props);
+        if (typeof data === "object" && hasValue(data)) {
+            Object.keys(data).forEach((utfallType) => {
+                if (utfallType?.toLocaleLowerCase().length) {
+                    resourceBindings[utfallType?.toLocaleLowerCase()] = {
+                        title:
+                            props?.resourceBindings?.[utfallType?.toLocaleLowerCase()]?.title ||
+                            `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
+                    };
+                }
+            });
+        }
+        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+            resourceBindings.title = props?.resourceBindings?.title;
+        }
+        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+        }
+        return resourceBindings;
     }
 }

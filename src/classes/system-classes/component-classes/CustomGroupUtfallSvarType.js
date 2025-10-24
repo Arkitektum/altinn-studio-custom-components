@@ -33,7 +33,11 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = {
-            title: resourceBindings?.utfallSvarType?.title
+            title: resourceBindings?.utfallSvarType?.title,
+            kommentar: resourceBindings?.kommentar,
+            tema: resourceBindings?.tema,
+            utfallSvarStatus: resourceBindings?.utfallSvarStatus,
+            vedleggsliste: resourceBindings?.vedleggsliste
         };
         this.resourceValues = {
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
@@ -72,18 +76,42 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
     }
 
     /**
-     * Generates resource binding keys for the given component props.
+     * Generates resource binding objects for various fields based on provided props.
+     * If a specific resource binding title is not provided in props, a default resource key is constructed using the utfallType.
      *
-     * @param {Object} props - The properties object for the component.
-     * @param {Object} [props.resourceValues] - An object containing resource values.
-     * @param {string} [props.resourceValues.utfallType] - The type of outcome to use in the resource key.
-     * @returns {Object} An object containing resource binding keys for utfallSvarType.
+     * @param {Object} props - The properties object containing resource values and bindings.
+     * @param {Object} [props.resourceValues] - Contains values such as utfallType.
+     * @param {string} [props.resourceValues.utfallType] - The type of outcome used to construct resource keys.
+     * @param {Object} [props.resourceBindings] - Optional custom resource bindings for each field.
+     * @param {Object} [props.resourceBindings.utfallSvarType] - Custom binding for utfallSvarType.
+     * @param {Object} [props.resourceBindings.kommentar] - Custom binding for kommentar.
+     * @param {Object} [props.resourceBindings.tema] - Custom binding for tema.
+     * @param {Object} [props.resourceBindings.utfallSvarStatus] - Custom binding for utfallSvarStatus.
+     * @param {Object} [props.resourceBindings.vedleggsliste] - Custom binding for vedleggsliste.
+     * @returns {Object} An object containing resource bindings for utfallSvarType, kommentar, tema, utfallSvarStatus, and vedleggsliste.
      */
     getResourceBindings(props) {
         const utfallType = props?.resourceValues?.utfallType;
         return {
             utfallSvarType: {
-                title: `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
+                title: props?.resourceBindings?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
+            },
+            kommentar: {
+                title:
+                    props?.resourceBindings?.kommentar?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.kommentar.title`
+            },
+            tema: {
+                title: props?.resourceBindings?.tema?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.tema.title`
+            },
+            utfallSvarStatus: {
+                title:
+                    props?.resourceBindings?.utfallSvarStatus?.title ||
+                    `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.utfallSvarStatus.title`
+            },
+            vedleggsliste: {
+                title:
+                    props?.resourceBindings?.vedleggsliste?.title ||
+                    `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.vedleggsliste.title`
             }
         };
     }
