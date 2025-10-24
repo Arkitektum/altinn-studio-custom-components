@@ -14,9 +14,9 @@ export default customElements.define(
                 const utfallSvarGroupListElement = renderUtfallSvarGroupList(component);
                 this.appendChild(utfallSvarGroupListElement);
 
-                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feebackListElement) {
-                    this.appendChild(feebackListElement);
+                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                if (feedbackListElement) {
+                    this.appendChild(feedbackListElement);
                 }
             }
         }

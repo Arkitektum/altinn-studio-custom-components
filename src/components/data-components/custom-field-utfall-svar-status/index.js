@@ -17,9 +17,9 @@ export default customElements.define(
             } else {
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
-                const feebackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feebackListElement) {
-                    this.appendChild(feebackListElement);
+                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                if (feedbackListElement) {
+                    this.appendChild(feedbackListElement);
                 }
             }
         }
