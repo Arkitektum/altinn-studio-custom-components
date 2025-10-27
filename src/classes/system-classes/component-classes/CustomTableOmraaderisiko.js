@@ -147,12 +147,12 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.sikkerhetsklasse?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.omraadeRisiko = {
                 title: props?.resourceBindings?.title || "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.omraadeRisiko = {
                 ...resourceBindings.omraadeRisiko,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

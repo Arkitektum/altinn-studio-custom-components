@@ -136,12 +136,12 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
                 falseText: props?.resourceBindings?.[key]?.falseText || `resource.falseText.default`
             };
         });
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.arbeidsplasser = {
                 title: props?.resourceBindings?.title || `resource.arbeidsplasser.title`
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.arbeidsplasser = {
                 ...resourceBindings.arbeidsplasser,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

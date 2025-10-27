@@ -194,13 +194,13 @@ export default class CustomSummationArealdisponering extends CustomComponent {
                 unit: "resource.unit.meterSquared"
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.arealdisponering = {
                 ...resourceBindings.arealdisponering,
                 title: props?.resourceBindings?.title || "resource.arealdisponering.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.arealdisponering = {
                 ...resourceBindings.arealdisponering,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

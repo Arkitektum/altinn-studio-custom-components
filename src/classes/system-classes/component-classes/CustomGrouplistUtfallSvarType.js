@@ -132,12 +132,12 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
                 }
             });
         }
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.utfallSvarType = {
                 title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.utfallSvarType = {
                 ...resourceBindings.utfallSvarType,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

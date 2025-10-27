@@ -112,12 +112,12 @@ export default class CustomTablePlan extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.plantype?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.plan = {
                 title: props?.resourceBindings?.title || "resource.planer.andrePlaner.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.plan = {
                 ...resourceBindings.plan,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
