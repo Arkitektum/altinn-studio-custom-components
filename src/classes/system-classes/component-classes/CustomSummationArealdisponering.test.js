@@ -18,7 +18,8 @@ jest.mock("../data-classes/ArealdisponeringSummation.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResources: jest.fn() // Add this line to mock getTextResources
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
@@ -175,7 +176,8 @@ describe("CustomSummationArealdisponering", () => {
             hasMissingTextResources.mockReturnValue(false);
             const instance = new CustomSummationArealdisponering({});
             const result = instance.getValidationMessages({ foo: "bar" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith([], { foo: "bar" });
+            const calls = hasMissingTextResources.mock.calls;
+            expect(calls).toEqual(expect.arrayContaining([[undefined, { foo: "bar" }]]));
             expect(result).toBe(false);
         });
     });

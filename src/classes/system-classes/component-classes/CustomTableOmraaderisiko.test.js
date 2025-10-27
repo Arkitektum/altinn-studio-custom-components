@@ -5,7 +5,8 @@ import Omraaderisiko from "../../data-classes/Omraaderisiko";
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations", () => ({
     hasMissingTextResources: jest.fn(),
