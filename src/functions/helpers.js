@@ -158,15 +158,15 @@ export function createCustomElement(tagName, htmlAttributes) {
  * @returns {number} The minimum flex width percentage for the given grid configuration.
  */
 export function calculateFlexWidth(grid) {
-    if (!grid) {
-        return 100;
-    } else {
+    if (grid) {
         const xs = grid.xs || 12;
         const sm = grid.sm || xs;
         const md = grid.md || sm;
         const lg = grid.lg || md;
         const xl = grid.xl || lg;
         return Math.min((xs / 12) * 100, (sm / 12) * 100, (md / 12) * 100, (lg / 12) * 100, (xl / 12) * 100);
+    } else {
+        return 100;
     }
 }
 
