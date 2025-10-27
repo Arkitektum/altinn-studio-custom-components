@@ -24,7 +24,7 @@ export default class CustomGroupEttersending extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.resourceBindings = resourceBindings?.ettersending || {};
+        this.resourceBindings = resourceBindings || {};
         this.resourceValues = {
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.ettersending?.emptyFieldText) : data
         };
@@ -64,25 +64,41 @@ export default class CustomGroupEttersending extends CustomComponent {
     }
 
     /**
-     * Generates resource binding keys for the Ettersending component.
+     * Generates resource bindings for a custom group ettersending component.
      *
      * @param {Object} props - The properties object.
-     * @param {boolean|string} [props.hideIfEmpty] - Determines if the empty field text should be hidden.
-     * @param {Object} [props.resourceBindings] - Optional custom resource bindings.
-     * @param {string} [props.resourceBindings.emptyFieldText] - Custom text for empty fields.
-     * @returns {Object} An object containing resource binding keys for the Ettersending component.
+     * @param {Object} [props.resourceBindings] - Resource bindings for the component.
+     * @param {Object} [props.resourceBindings.tema] - Resource bindings for 'tema'.
+     * @param {Object} [props.resourceBindings.tema.kodebeskrivelse] - Resource bindings for 'kodebeskrivelse' under 'tema'.
+     * @param {string} [props.resourceBindings.tema.kodebeskrivelse.title] - Title for 'tema.kodebeskrivelse'.
+     * @param {Object} [props.resourceBindings.kommentar] - Resource bindings for 'kommentar'.
+     * @param {string} [props.resourceBindings.kommentar.title] - Title for 'kommentar'.
+     * @param {Object} [props.resourceBindings.vedleggsliste] - Resource bindings for 'vedleggsliste'.
+     * @param {Object} [props.resourceBindings.vedleggsliste.vedlegg] - Resource bindings for 'vedlegg' under 'vedleggsliste'.
+     * @param {string} [props.resourceBindings.vedleggsliste.vedlegg.title] - Title for 'vedleggsliste.vedlegg'.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Text to display for empty fields.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits 'emptyFieldText' from resource bindings.
+     * @returns {Object} Resource bindings object for the component.
      */
     getResourceBindings(props) {
         const resourceBindings = {
-            "tema.kodebeskrivelse.title": "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title",
-            "kommentar.title": "resource.ettersendinger.ettersending.kommentar.title",
-            "vedleggsliste.vedlegg.title": "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title"
+            tema: {
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title"
+            },
+            kommentar: {
+                title: props?.resourceBindings?.kommentar?.title || "resource.ettersendinger.ettersending.kommentar.title"
+            },
+            vedleggsliste: {
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title"
+            },
+            ettersending: {}
         };
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.ettersending = {
+                ...resourceBindings.ettersending,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
         }
-        return {
-            ettersending: resourceBindings
-        };
+        return resourceBindings;
     }
 }
