@@ -116,7 +116,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
             },
             utfallSvar: {}
         };
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.utfallSvar = {
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
