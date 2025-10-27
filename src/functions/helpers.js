@@ -23,7 +23,7 @@ export function hasValue(obj) {
         return obj.length > 0;
     }
     if (typeof obj === "number") {
-        return isNaN(obj) === false;
+        return !Number.isNaN(obj);
     }
     if (typeof obj === "boolean") {
         return obj === true;
@@ -49,7 +49,7 @@ export function hasValue(obj) {
  */
 export function isNumberLargerThanZero(value) {
     const num = typeof value === "number" ? value : Number(value);
-    return typeof num === "number" && !isNaN(num) && num > 0;
+    return typeof num === "number" && !Number.isNaN(num) && num > 0;
 }
 
 /**
