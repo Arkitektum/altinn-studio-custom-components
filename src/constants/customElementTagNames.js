@@ -45,6 +45,7 @@ export default [
     "custom-table-arbeidsplasser",
     "custom-table-data",
     "custom-table-eiendom",
+    "custom-table-nabo-gjenboer-eiendom",
     "custom-table-omraaderisiko",
     "custom-table-part",
     "custom-table-plan",

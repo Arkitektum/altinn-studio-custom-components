@@ -7,7 +7,7 @@
 | tagName                         | string            | The tag name for the custom field, which is "custom-field-data".                    |               |
 | hideTitle                       | boolean           | A flag indicating whether the title should be hidden.                               | false         |
 | hideIfEmpty                     | boolean           | Determines whether the element should be hidden when it contains no content.        | false         |
-| format                          | string            | The format of the data value, e.g., "date", "time", etc.                            |               |
+| format                          | string            | The format of the data value, e.g., "date", "time", "dateTime", "AR"                |               |
 | inline                          | boolean           | A flag indicating whether the title and value should be displayed on the same line. | false         |
 | enableLinks                     | boolean           | A flag indicating whether links should be generated from URLs in content.           | false         |
 | dataModelBindings.simpleBinding | string            | Reference to a string, number or boolean value in the data model.                   |               |
