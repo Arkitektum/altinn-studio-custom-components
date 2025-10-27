@@ -29,7 +29,7 @@ export function getAvailableDateTimeLanguageOrDefault(language) {
 export function parseDateString(dateString) {
     // Match the string against the dd.mm.yyyy format
     const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
-    const match = dateString.match(regex);
+    const match = regex.exec(dateString);
 
     if (!match) return null;
 
@@ -56,7 +56,7 @@ export function parseDateString(dateString) {
 export function parseTimeString(timeString) {
     // Match the string against the hh:mm:ss format
     const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
-    const match = timeString.match(regex);
+    const match = regex.exec(timeString);
     if (!match) return null;
     const hours = Number.parseInt(match[1], 10);
     const minutes = Number.parseInt(match[2], 10);
@@ -197,13 +197,15 @@ export function injectAnchorElements(text) {
     // Optional: basic HTML escape for non-link parts
     const escapeHtml = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
-    return text.toString()
+    return text
+        .toString()
         .split(splitRegex)
         .map((part) => {
             if (!part) return "";
             if (isUrl.test(part)) {
                 // Trim common trailing punctuation off the link and re-attach after the anchor
-                const m = part.match(/^(.*?)([).,!?:;]+)?$/);
+                const regex = /^(.*?)([).,!?:;]+)?$/;
+                const m = regex.exec(part);
                 const raw = m[1];
                 const trail = m[2] ?? "";
                 const href = raw.startsWith("http") ? raw : `https://${raw}`;
