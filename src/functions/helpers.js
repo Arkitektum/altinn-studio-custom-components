@@ -245,7 +245,7 @@ export function getTextResources() {
  * @param {string} componentName - The name of the component for which the texts are being validated.
  */
 export function validateTexts(texts, fallbackTexts, keys, componentName) {
-    keys.forEach((key) => {
+    for (const key of keys) {
         if (texts[key] === undefined || texts[key] === null) {
             if (fallbackTexts?.[key] !== undefined && fallbackTexts?.[key] !== null) {
                 console.warn(`Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`);
@@ -253,7 +253,7 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
                 console.warn(`Missing textResourceBindings.${key} for "${componentName}".`);
             }
         }
-    });
+    }
 }
 
 /**
@@ -265,11 +265,11 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
  * @param {string} componentName - The name of the component for context in warning messages.
  */
 export function validateFormData(data, dataKeys, componentName) {
-    dataKeys.forEach((key) => {
+    for (const key of dataKeys) {
         if (data[key] === undefined || data[key] === null) {
             console.warn(`Missing dataModelBindings.${key} for "${componentName}".`);
         }
-    });
+    }
 }
 
 /**
@@ -466,14 +466,13 @@ export function getComponentResourceValue(component, resourceKey) {
  * @returns {HTMLElement} The parent element after appending the children.
  */
 export function appendChildren(parent, children) {
-    children
-        .filter((child) => !!child)
-        .forEach((child) => {
-            if (child instanceof HTMLElement) {
-                parent.appendChild(child);
-            } else {
-                parent.innerHTML += child;
-            }
-        });
+    const filteredChildren = children.filter((child) => !!child);
+    for (const child of filteredChildren) {
+        if (child instanceof HTMLElement) {
+            parent.appendChild(child);
+        } else {
+            parent.innerHTML += child;
+        }
+    }
     return parent;
 }
