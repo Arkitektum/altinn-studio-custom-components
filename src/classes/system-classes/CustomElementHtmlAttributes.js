@@ -151,9 +151,9 @@ export default class CustomElementHtmlAttributes {
                 return JSON.stringify(formData);
             } else if (typeof props?.formData === "object") {
                 const formData = {};
-                Object.keys(props.formData).forEach((key) => {
+                for (const key of Object.keys(props.formData)) {
                     formData[key] = props.formData[key];
-                });
+                }
                 return JSON.stringify(formData);
             }
         } else {

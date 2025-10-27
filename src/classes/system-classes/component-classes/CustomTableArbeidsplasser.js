@@ -129,13 +129,13 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
                 title: props?.resourceBindings?.beroertAvTiltaket?.title || `resource.arbeidsplasser.beroertAvTiltaket.title`
             }
         };
-        arbeidsplasserBeroertKeys.forEach((key) => {
+        for (const key of arbeidsplasserBeroertKeys) {
             resourceBindings[key] = {
                 title: props?.resourceBindings?.[key]?.title || `resource.arbeidsplasser.${key}.title`,
                 trueText: props?.resourceBindings?.[key]?.trueText || `resource.trueText.default`,
                 falseText: props?.resourceBindings?.[key]?.falseText || `resource.falseText.default`
             };
-        });
+        }
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.arbeidsplasser = {
                 title: props?.resourceBindings?.title || `resource.arbeidsplasser.title`

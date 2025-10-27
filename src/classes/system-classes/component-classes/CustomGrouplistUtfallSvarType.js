@@ -122,7 +122,7 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
         };
         const data = this.getValueFromFormData(props);
         if (typeof data === "object" && hasValue(data)) {
-            Object.keys(data).forEach((utfallType) => {
+            for (const utfallType of Object.keys(data)) {
                 if (utfallType?.toLocaleLowerCase().length) {
                     resourceBindings[utfallType?.toLocaleLowerCase()] = {
                         title:
@@ -130,7 +130,7 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
                             `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
                     };
                 }
-            });
+            }
         }
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.utfallSvarType = {
