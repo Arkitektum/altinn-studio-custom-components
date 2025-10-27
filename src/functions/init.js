@@ -18,9 +18,9 @@ import { hasValue } from "./helpers.js";
  * - Text resources for both the selected and fallback languages cannot be retrieved.
  */
 export default function initCustomComponents() {
-    window.addEventListener("load", async () => {
-        const appId = window.location.pathname.split("/");
-        const origin = window.location.origin;
+    globalThis.addEventListener("load", async () => {
+        const appId = globalThis.location.pathname.split("/");
+        const origin = globalThis.location.origin;
         const org = appId?.[1];
         const app = appId?.[2];
         if (![origin?.length, org?.length, app?.length].every(Boolean)) {
@@ -37,20 +37,21 @@ export default function initCustomComponents() {
 
         const selectedLanguage = userProfileData?.profileSettingPreference?.language;
         const fallbackLanguage = "nb";
-        window.selectedLanguage = selectedLanguage;
+        globalThis.selectedLanguage = selectedLanguage;
         const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${selectedLanguage}`;
         const textResourcesData = await fetch(textResourcesApiUrl).then((response) => response.json());
-        if (!hasValue(textResourcesData)) {
+        if (hasValue(textResourcesData)) {
+            globalThis.textResources = textResourcesData;
+        } else {
             console.error("Could not retrieve text resources for the selected language.");
             const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
             const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) => response.json());
-            window.textResources = fallbackTextResourcesData;
-            if (!hasValue(fallbackTextResourcesData)) {
+            if (hasValue(fallbackTextResourcesData)) {
+                globalThis.textResources = fallbackTextResourcesData;
+            } else {
                 console.error("Could not retrieve text resources for the fallback language.");
                 return;
             }
-        } else {
-            window.textResources = textResourcesData;
         }
     });
 }
