@@ -232,7 +232,7 @@ export function renderLayoutContainerElement() {
  * @returns {Array} An array of text resources if `window.textResources` exists, otherwise an empty array.
  */
 export function getTextResources() {
-    return typeof window !== "undefined" && window.textResources ? window.textResources : [];
+    return typeof globalThis !== "undefined" && globalThis.textResources ? globalThis.textResources : [];
 }
 
 /**
