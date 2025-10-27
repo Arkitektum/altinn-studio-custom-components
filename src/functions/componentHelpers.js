@@ -48,6 +48,7 @@ import CustomTable from "../classes/system-classes/component-classes/CustomTable
 import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
+import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomTableNaboGjenboerEiendom.js";
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
@@ -160,6 +161,8 @@ export function instantiateComponent(element) {
             return new CustomTableData(component);
         case "custom-table-eiendom":
             return new CustomTableEiendom(component);
+        case "custom-table-nabo-gjenboer-eiendom":
+            return new CustomTableNaboGjenboerEiendom(component);
         case "custom-table-omraaderisiko":
             return new CustomTableOmraaderisiko(component);
         case "custom-table-part":
