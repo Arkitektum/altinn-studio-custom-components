@@ -101,10 +101,10 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
             defaultText: props?.resourceBindings?.defaultText || "resource.defaultText.default"
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.title = props?.resourceBindings?.title || "resource.krav.sjekklistekrav.title";
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
         }
         return {

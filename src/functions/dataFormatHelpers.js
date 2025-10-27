@@ -29,13 +29,13 @@ export function getAvailableDateTimeLanguageOrDefault(language) {
 export function parseDateString(dateString) {
     // Match the string against the dd.mm.yyyy format
     const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
-    const match = dateString.match(regex);
+    const match = regex.exec(dateString);
 
     if (!match) return null;
 
-    const day = parseInt(match[1], 10);
-    const month = parseInt(match[2], 10) - 1; // JavaScript months are 0-based
-    const year = parseInt(match[3], 10);
+    const day = Number.parseInt(match[1], 10);
+    const month = Number.parseInt(match[2], 10) - 1; // JavaScript months are 0-based
+    const year = Number.parseInt(match[3], 10);
 
     const date = new Date(Date.UTC(year, month, day));
 
@@ -56,11 +56,11 @@ export function parseDateString(dateString) {
 export function parseTimeString(timeString) {
     // Match the string against the hh:mm:ss format
     const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
-    const match = timeString.match(regex);
+    const match = regex.exec(timeString);
     if (!match) return null;
-    const hours = parseInt(match[1], 10);
-    const minutes = parseInt(match[2], 10);
-    const seconds = match[3] ? parseInt(match[3], 10) : 0;
+    const hours = Number.parseInt(match[1], 10);
+    const minutes = Number.parseInt(match[2], 10);
+    const seconds = match[3] ? Number.parseInt(match[3], 10) : 0;
     if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
         return null; // Invalid time
     }
@@ -70,7 +70,7 @@ export function parseTimeString(timeString) {
 
 export function isValidDateString(dateString) {
     const date = new Date(dateString);
-    return !!dateString && !isNaN(date.getTime());
+    return !!dateString && !Number.isNaN(date.getTime());
 }
 
 /**
@@ -186,7 +186,7 @@ export function isValidHeaderSize(size) {
  */
 export function injectAnchorElements(text) {
     // One canonical URL pattern
-    const urlPattern = "(?:https?:\\/\\/(?:www\\.)?[a-zA-Z0-9][a-zA-Z0-9-]*\\.[^\\s]{2,}|www\\.[a-zA-Z0-9][a-zA-Z0-9-]*\\.[^\\s]{2,})";
+    const urlPattern = String.raw`(?:https?:\/\/(?:www\.)?[a-zA-Z0-9][a-zA-Z0-9-]*\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]*\.[^\s]{2,})`;
 
     // 1) Capturing group so split keeps the URL tokens
     const splitRegex = new RegExp(`(${urlPattern})`, "g");
@@ -195,15 +195,17 @@ export function injectAnchorElements(text) {
     const isUrl = new RegExp(`^${urlPattern}$`);
 
     // Optional: basic HTML escape for non-link parts
-    const escapeHtml = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    const escapeHtml = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 
-    return text.toString()
+    return text
+        .toString()
         .split(splitRegex)
         .map((part) => {
             if (!part) return "";
             if (isUrl.test(part)) {
                 // Trim common trailing punctuation off the link and re-attach after the anchor
-                const m = part.match(/^(.*?)([).,!?:;]+)?$/);
+                const regex = /^(.*?)([).,!?:;]+)?$/;
+                const m = regex.exec(part);
                 const raw = m[1];
                 const trail = m[2] ?? "";
                 const href = raw.startsWith("http") ? raw : `https://${raw}`;

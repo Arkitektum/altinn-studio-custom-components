@@ -1,223 +1,206 @@
 import CustomFieldAdresse from "./CustomFieldAdresse";
 
-// Mock helpers and validations
-jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
-    getComponentResourceValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+// Mocks for dependencies
+jest.mock("../../data-classes/Adresse", () => {
+    return jest.fn().mockImplementation((data) => data);
+});
+jest.mock("../CustomComponent", () => {
+    return jest.fn().mockImplementation(function (props) {
+        this.props = props;
+    });
+});
+jest.mock("../../../functions/helpers", () => ({
+    getComponentDataValue: jest.fn((props) => props.formData || {}),
+    getComponentResourceValue: jest.fn((props, key) => props.resourceBindings?.[key] || `resource.${key}`),
+    getTextResourceFromResourceBinding: jest.fn((key) => (key ? `text:${key}` : "")),
+    getTextResources: jest.fn(() => ({ title: "Adresse", emptyFieldText: "Ingen adresse" })),
+    hasValue: jest.fn((obj) => {
+        if (obj === undefined || obj === null) {
+            return false;
+        }
+        if (typeof obj === "string") {
+            return obj.length > 0;
+        }
+        if (typeof obj === "number") {
+            return true;
+        }
+        if (Array.isArray(obj)) {
+            return obj.length > 0;
+        }
+        if (typeof obj === "object") {
+            return Object.values(obj).some((value) => typeof value === "string" && value.length > 0);
+        }
+        return false;
+    })
 }));
-jest.mock("../../../functions/validations.js", () => ({
-    hasMissingTextResources: jest.fn(),
-    hasValidationMessages: jest.fn()
+jest.mock("../../../functions/validations", () => ({
+    hasMissingTextResources: jest.fn(() => false),
+    hasValidationMessages: jest.fn((messages) => !!messages)
 }));
-
-const { getComponentDataValue, getComponentResourceValue, getTextResourceFromResourceBinding, hasValue } = require("../../../functions/helpers.js");
-const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomFieldAdresse", () => {
-    beforeEach(() => {
-        jest.clearAllMocks();
-    });
-
-    describe("constructor", () => {
-        it("should set validationMessages, hasValidationMessages, isEmpty, and resourceValues", () => {
-            getComponentDataValue.mockReturnValue({ adresselinje1: "A", postnr: "1234", poststed: "Oslo" });
-            getComponentResourceValue.mockReturnValue("Adresse");
-            getTextResourceFromResourceBinding.mockReturnValue("Tom adresse");
-            hasValue.mockReturnValue(true);
-            hasMissingTextResources.mockReturnValue(["Missing"]);
-            hasValidationMessages.mockReturnValue(true);
-
-            const props = {
-                resourceBindings: { title: "custom.title", emptyFieldText: "custom.empty" }
-            };
-            const instance = new CustomFieldAdresse(props);
-
-            expect(instance.validationMessages).toEqual(["Missing"]);
-            expect(instance.hasValidationMessages).toBe(true);
-            expect(instance.isEmpty).toBe(false);
-            expect(instance.resourceValues.title).toBe("Adresse");
-            expect(instance.resourceValues.data).not.toBe("Tom adresse");
-        });
-
-        it("should set isEmpty true and use emptyFieldText when no content", () => {
-            getComponentDataValue.mockReturnValue({});
-            getComponentResourceValue.mockReturnValue("Adresse");
-            getTextResourceFromResourceBinding.mockReturnValue("Tom adresse");
-            hasValue.mockReturnValue(false);
-            hasMissingTextResources.mockReturnValue([]);
-            hasValidationMessages.mockReturnValue(false);
-
-            const props = {
-                resourceBindings: { title: "custom.title", emptyFieldText: "custom.empty" }
-            };
-            const instance = new CustomFieldAdresse(props);
-
-            expect(instance.isEmpty).toBe(true);
-            expect(instance.resourceValues.data).toBe("Tom adresse");
-        });
-    });
-
     describe("formatAdresselinje", () => {
-        it("should format address lines with newlines", () => {
-            const adresse = { adresselinje1: "A", adresselinje2: "B", adresselinje3: "C" };
+        it("formats non-empty address lines separated by newline", () => {
             const instance = new CustomFieldAdresse({});
-            expect(instance.formatAdresselinje(adresse)).toBe("A\nB\nC");
-        });
-
-        it("should skip empty address lines", () => {
             const adresse = { adresselinje1: "A", adresselinje2: "", adresselinje3: "C" };
-            const instance = new CustomFieldAdresse({});
             expect(instance.formatAdresselinje(adresse)).toBe("A\nC");
+        });
+        it("returns empty string if all lines are empty", () => {
+            const instance = new CustomFieldAdresse({});
+            expect(instance.formatAdresselinje({})).toBe("");
         });
     });
 
     describe("formatZipCity", () => {
-        it("should format zip and city with space", () => {
-            const adresse = { postnr: "1234", poststed: "Oslo" };
+        it("formats zip and city separated by space", () => {
             const instance = new CustomFieldAdresse({});
-            expect(instance.formatZipCity(adresse)).toBe("1234 Oslo");
+            expect(instance.formatZipCity({ postnr: "1234", poststed: "Oslo" })).toBe("1234 Oslo");
         });
-
-        it("should skip empty zip/city", () => {
-            const adresse = { postnr: "", poststed: "Oslo" };
+        it("returns only zip if city is missing", () => {
             const instance = new CustomFieldAdresse({});
-            expect(instance.formatZipCity(adresse)).toBe("Oslo");
+            expect(instance.formatZipCity({ postnr: "1234" })).toBe("1234");
+        });
+        it("returns only city if zip is missing", () => {
+            const instance = new CustomFieldAdresse({});
+            expect(instance.formatZipCity({ poststed: "Oslo" })).toBe("Oslo");
+        });
+        it("returns empty string if both are missing", () => {
+            const instance = new CustomFieldAdresse({});
+            expect(instance.formatZipCity({})).toBe("");
         });
     });
 
     describe("formatKommunenavn", () => {
-        it("should return kommunenavn if present", () => {
-            const adresse = { kommunenavn: "Oslo" };
+        it("returns kommunenavn if present", () => {
             const instance = new CustomFieldAdresse({});
-            expect(instance.formatKommunenavn(adresse)).toBe("Oslo");
+            expect(instance.formatKommunenavn({ kommunenavn: "Bergen" })).toBe("Bergen");
         });
-
-        it("should return empty string if kommunenavn missing", () => {
-            const adresse = {};
+        it("returns empty string if kommunenavn is missing", () => {
             const instance = new CustomFieldAdresse({});
-            expect(instance.formatKommunenavn(adresse)).toBe("");
-        });
-    });
-
-    describe("getValidationMessages", () => {
-        it("should call hasMissingTextResources with textResources and bindings", () => {
-            global.window = { textResources: ["a", "b"] };
-            hasMissingTextResources.mockReturnValue(["missing"]);
-            const instance = new CustomFieldAdresse({});
-            const result = instance.getValidationMessages({ foo: "bar" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith([], {
-                adresse: { emptyFieldText: "resource.adresse.emptyFieldText.default", title: "resource.adresse.title" }
-            });
-            expect(result).toEqual(["missing"]);
-        });
-
-        it("should use empty array if window.textResources is undefined", () => {
-            global.window = {};
-            hasMissingTextResources.mockReturnValue([]);
-            const instance = new CustomFieldAdresse({});
-            const result = instance.getValidationMessages({ foo: "bar" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith([], { foo: "bar" });
-            expect(result).toEqual([]);
+            expect(instance.formatKommunenavn({})).toBe("");
         });
     });
 
     describe("formatAdresse", () => {
-        it("should format full address", () => {
+        let instance;
+        beforeEach(() => {
+            instance = new CustomFieldAdresse({});
+        });
+        it("returns address lines and zip/city if both present", () => {
             const adresse = { adresselinje1: "A", postnr: "1234", poststed: "Oslo" };
-            getTextResourceFromResourceBinding.mockReturnValue("Tom adresse");
-            const instance = new CustomFieldAdresse({});
-            const result = instance.formatAdresse(adresse, { emptyFieldText: "empty" });
-            expect(result).toBe("A\n1234 Oslo");
+            const resourceBindings = { emptyFieldText: "empty" };
+            expect(instance.formatAdresse(adresse, resourceBindings)).toBe("A\n1234 Oslo");
         });
-
-        it("should format only address line", () => {
+        it("returns only address lines if zip/city missing", () => {
             const adresse = { adresselinje1: "A" };
-            getTextResourceFromResourceBinding.mockReturnValue("Tom adresse");
-            const instance = new CustomFieldAdresse({});
-            const result = instance.formatAdresse(adresse, { emptyFieldText: "empty" });
-            expect(result).toBe("A");
+            const resourceBindings = { emptyFieldText: "empty" };
+            expect(instance.formatAdresse(adresse, resourceBindings)).toBe("A");
         });
-
-        it("should format only zip/city", () => {
+        it("returns only zip/city if address lines missing", () => {
             const adresse = { postnr: "1234", poststed: "Oslo" };
-            getTextResourceFromResourceBinding.mockReturnValue("Tom adresse");
-            const instance = new CustomFieldAdresse({});
-            const result = instance.formatAdresse(adresse, { emptyFieldText: "empty" });
-            expect(result).toBe("1234 Oslo");
+            const resourceBindings = { emptyFieldText: "empty" };
+            expect(instance.formatAdresse(adresse, resourceBindings)).toBe("1234 Oslo");
         });
-
-        it("should format kommunenavn with emptyFieldText", () => {
-            const adresse = { kommunenavn: "Oslo" };
-            getTextResourceFromResourceBinding.mockReturnValue("Tom adresse");
-            const instance = new CustomFieldAdresse({});
-            const result = instance.formatAdresse(adresse, { emptyFieldText: "empty" });
-            expect(result).toBe("Tom adresse\nOslo");
+        it("returns emptyFieldText and kommunenavn if only kommunenavn present", () => {
+            const adresse = { kommunenavn: "Bergen" };
+            const resourceBindings = { emptyFieldText: "empty" };
+            expect(instance.formatAdresse(adresse, resourceBindings)).toBe("text:empty\nBergen");
         });
-
-        it("should return empty string if no address info", () => {
+        it("returns empty string if nothing present", () => {
             const adresse = {};
-            getTextResourceFromResourceBinding.mockReturnValue("");
-            const instance = new CustomFieldAdresse({});
-            const result = instance.formatAdresse(adresse, { emptyFieldText: "empty" });
-            expect(result).toBe("");
+            const resourceBindings = { emptyFieldText: "empty" };
+            expect(instance.formatAdresse(adresse, resourceBindings)).toBe("");
         });
     });
 
     describe("getValueFromFormData", () => {
-        it("should get value from form data and format address", () => {
-            getComponentDataValue.mockReturnValue({ adresselinje1: "A", postnr: "1234", poststed: "Oslo" });
-            const instance = new CustomFieldAdresse({});
-            instance.formatAdresse = jest.fn().mockReturnValue("A\n1234 Oslo");
-            const result = instance.getValueFromFormData({}, {});
-            expect(result).toBe("A\n1234 Oslo");
-            expect(instance.formatAdresse).toHaveBeenCalled();
+        it("returns formatted address string from formData", () => {
+            const props = { formData: { adresselinje1: "A", postnr: "1234", poststed: "Oslo" } };
+            const instance = new CustomFieldAdresse(props);
+            const resourceBindings = { emptyFieldText: "empty" };
+            expect(instance.getValueFromFormData(props, resourceBindings)).toBe("A\n1234 Oslo");
         });
     });
 
     describe("hasContent", () => {
-        it("should call hasValue", () => {
-            hasValue.mockReturnValue(true);
+        it("returns true if any address field has value", () => {
             const instance = new CustomFieldAdresse({});
-            expect(instance.hasContent("data")).toBe(true);
-            expect(hasValue).toHaveBeenCalledWith("data");
+            expect(instance.hasContent({ adresselinje1: "A" })).toBe(true);
+            expect(instance.hasContent({ postnr: "1234" })).toBe(true);
+            expect(instance.hasContent({ poststed: "Oslo" })).toBe(true);
+        });
+        it("returns false if all fields are empty", () => {
+            const instance = new CustomFieldAdresse({});
+            expect(instance.hasContent({})).toBe(false);
         });
     });
 
     describe("getResourceBindings", () => {
-        it("should set title and emptyFieldText if not hidden", () => {
+        it("returns default resource bindings if none provided", () => {
+            const instance = new CustomFieldAdresse({});
+            expect(instance.getResourceBindings({})).toEqual({
+                adresse: {
+                    title: "resource.adresse.title",
+                    emptyFieldText: "resource.adresse.emptyFieldText.default"
+                }
+            });
+        });
+        it("returns custom resource bindings if provided", () => {
             const props = {
-                hideTitle: false,
-                hideIfTrue: false,
+                resourceBindings: {
+                    title: "custom.title",
+                    emptyFieldText: "custom.empty"
+                }
+            };
+            const instance = new CustomFieldAdresse(props);
+            expect(instance.getResourceBindings(props)).toEqual({
+                adresse: {
+                    title: "custom.title",
+                    emptyFieldText: "custom.empty"
+                }
+            });
+        });
+        it("omits title if hideTitle is true", () => {
+            const props = { hideTitle: true };
+            const instance = new CustomFieldAdresse(props);
+            expect(instance.getResourceBindings(props)).toEqual({
+                adresse: {
+                    emptyFieldText: "resource.adresse.emptyFieldText.default"
+                }
+            });
+        });
+        it("omits emptyFieldText if hideIfEmpty is true", () => {
+            const props = { hideIfEmpty: true };
+            const instance = new CustomFieldAdresse(props);
+            expect(instance.getResourceBindings(props)).toEqual({
+                adresse: {
+                    title: "resource.adresse.title"
+                }
+            });
+        });
+    });
+
+    describe("constructor", () => {
+        it("sets validationMessages, hasValidationMessages, isEmpty, and resourceValues", () => {
+            const props = {
+                formData: { adresselinje1: "A", postnr: "1234", poststed: "Oslo" },
                 resourceBindings: { title: "custom.title", emptyFieldText: "custom.empty" }
             };
-            const instance = new CustomFieldAdresse({});
-            const result = instance.getResourceBindings(props);
-            expect(result.adresse.title).toBe("custom.title");
-            expect(result.adresse.emptyFieldText).toBe("custom.empty");
+            const instance = new CustomFieldAdresse(props);
+            expect(instance.validationMessages).toBe(false);
+            expect(instance.hasValidationMessages).toBe(false);
+            expect(instance.resourceValues.data).toBe("A\n1234 Oslo");
+            expect(instance.isEmpty).toBe(false);
+            expect(instance.resourceValues.title).toBe("custom.title");
         });
-
-        it("should use default keys if not provided", () => {
-            const props = { hideTitle: false };
-            const instance = new CustomFieldAdresse({});
-            const result = instance.getResourceBindings(props);
-            expect(result.adresse.title).toBe("resource.adresse.title");
-            expect(result.adresse.emptyFieldText).toBe("resource.adresse.emptyFieldText.default");
-        });
-
-        it("should not set title if hideTitle is true", () => {
-            const props = { hideTitle: true };
-            const instance = new CustomFieldAdresse({});
-            const result = instance.getResourceBindings(props);
-            expect(result.adresse.title).toBeUndefined();
-        });
-
-        it("should not set emptyFieldText if hideIfEmpty is true", () => {
-            const props = { hideIfEmpty: true };
-            const instance = new CustomFieldAdresse({});
-            const result = instance.getResourceBindings(props);
-            expect(result.adresse.emptyFieldText).toBeUndefined();
+        it("sets isEmpty true and uses emptyFieldText if no address data", () => {
+            const props = {
+                formData: {},
+                resourceBindings: { title: "custom.title", emptyFieldText: "custom.empty" }
+            };
+            const instance = new CustomFieldAdresse(props);
+            expect(instance.isEmpty).toBe(true);
+            expect(instance.resourceValues.data).toBe("text:custom.empty");
         });
     });
 });

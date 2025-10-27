@@ -170,13 +170,13 @@ export default class CustomGrouplistVarsling extends CustomComponent {
                 title: props?.resourceBindings?.foreliggerMerknader?.title || `resource.varsling.foreliggerMerknader.title`
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.varsling = {
                 ...resourceBindings.varsling,
                 title: props?.resourceBindings?.title || "resource.varsling.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.varsling = {
                 ...resourceBindings.varsling,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

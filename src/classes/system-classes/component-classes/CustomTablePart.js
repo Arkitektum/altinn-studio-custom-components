@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import Part from "../../data-classes/Part.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -47,7 +47,7 @@ export default class CustomTablePart extends CustomComponent {
      */
     getPartTypeFromElementAttributes(element) {
         const partType = element.getAttribute("parttype");
-        return partType ? partType : "tiltakshaver";
+        return partType || "tiltakshaver";
     }
 
     /**
@@ -74,7 +74,7 @@ export default class CustomTablePart extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
+        const textResources = getTextResources();
         return hasMissingTextResources(textResources, textResourceBindings);
     }
 
@@ -167,12 +167,12 @@ export default class CustomTablePart extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.epost?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.part = {
                 title: props?.resourceBindings?.title || `resource.${partType}.header`
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.part = {
                 ...resourceBindings.part,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

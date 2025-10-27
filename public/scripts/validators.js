@@ -161,10 +161,10 @@ export function validateResources() {
     const componentCode = getLayoutCode();
     const textResources = getTextResources();
     let components = [];
-    if (!Array.isArray(componentCode)) {
-        components = [componentCode];
-    } else {
+    if (Array.isArray(componentCode)) {
         components = componentCode;
+    } else {
+        components = [componentCode];
     }
     components.forEach((componentProps) => {
         const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";

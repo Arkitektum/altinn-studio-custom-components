@@ -3,7 +3,13 @@ import Adresse from "../../data-classes/Adresse.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import {
+    getComponentDataValue,
+    getComponentResourceValue,
+    getTextResourceFromResourceBinding,
+    getTextResources,
+    hasValue
+} from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -35,7 +41,6 @@ export default class CustomFieldAdresse extends CustomComponent {
         const validationMessages = this.getValidationMessages(resourceBindings);
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-
         const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
@@ -91,7 +96,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
+        const textResources = getTextResources();
         return hasMissingTextResources(textResources, textResourceBindings);
     }
 
@@ -167,12 +172,12 @@ export default class CustomFieldAdresse extends CustomComponent {
         const resourceBindings = {
             adresse: {}
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.adresse = {
                 title: props?.resourceBindings?.title || "resource.adresse.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.adresse = {
                 ...resourceBindings?.adresse,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.adresse.emptyFieldText.default"

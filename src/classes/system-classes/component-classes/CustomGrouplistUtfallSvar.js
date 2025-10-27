@@ -111,12 +111,12 @@ export default class CustomGrouplistUtfallSvar extends CustomComponent {
                 title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title"
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.utfallSvar = {
                 title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.utfallSvar = {
                 ...resourceBindings.utfallSvar,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

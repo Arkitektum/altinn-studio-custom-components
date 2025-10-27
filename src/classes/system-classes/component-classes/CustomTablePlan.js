@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import AndrePlaner from "../../data-classes/AndrePlaner.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -69,7 +69,7 @@ export default class CustomTablePlan extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
+        const textResources = getTextResources();
         return hasMissingTextResources(textResources, textResourceBindings);
     }
 
@@ -112,12 +112,12 @@ export default class CustomTablePlan extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.plantype?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.plan = {
                 title: props?.resourceBindings?.title || "resource.planer.andrePlaner.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.plan = {
                 ...resourceBindings.plan,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

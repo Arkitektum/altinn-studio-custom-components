@@ -100,7 +100,7 @@ export default class CustomGroupPlan extends CustomComponent {
                 title: props?.resourceBindings?.plantype?.title || `resource.planer.andrePlaner.plan.plantype.title`
             }
         };
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.plan = {
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };

@@ -39,7 +39,7 @@ export function renderTemaElement(component) {
         hideIfEmpty: true,
         enableLinks: component?.enableLinks,
         resourceBindings: {
-            title: component?.resourceBindings?.["tema.kodebeskrivelse.title"]
+            title: component?.resourceBindings?.tema?.title
         },
         resourceValues: {
             data: data?.tema?.kodebeskrivelse
@@ -64,7 +64,7 @@ export function renderKommentarElement(component) {
         hideIfEmpty: false,
         enableLinks: component?.enableLinks,
         resourceBindings: {
-            title: component?.resourceBindings?.["kommentar.title"]
+            title: component?.resourceBindings?.kommentar?.title
         },
         resourceValues: {
             data: data?.kommentar,
@@ -89,7 +89,7 @@ export function renderVedleggslisteElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.["vedleggsliste.vedlegg.title"]
+            title: component?.resourceBindings?.vedleggsliste?.title
         },
         resourceValues: {
             data: data?.vedleggsliste?.vedlegg

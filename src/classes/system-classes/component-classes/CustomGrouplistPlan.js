@@ -103,13 +103,13 @@ export default class CustomGrouplistPlan extends CustomComponent {
                 title: props?.resourceBindings?.plantype?.title || `resource.planer.andrePlaner.plan.plantype.title`
             }
         };
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.andrePlaner = {
                 ...resourceBindings.andrePlaner,
                 title: props?.resourceBindings?.title || "resource.planer.andrePlaner.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.andrePlaner = {
                 ...resourceBindings.andrePlaner,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"

@@ -44,8 +44,9 @@ export function hasMissingTextResources(textResources, textResourceBindings, val
  */
 export function validateTableHeadersTextResourceBindings(tableColumns, validationMessages = new ValidationMessages()) {
     const textResources = getTextResources();
-    tableColumns.forEach((column, columnIndex) => {
-        Object.keys(column?.textResourceBindings || {}).forEach((textResourceKey) => {
+    for (let columnIndex = 0; columnIndex < tableColumns.length; columnIndex++) {
+        const column = tableColumns[columnIndex];
+        for (const textResourceKey of Object.keys(column?.textResourceBindings || {})) {
             const textResource = textResources?.resources?.find((resource) => resource.id === column.textResourceBindings[textResourceKey]);
             if (!textResource) {
                 validationMessages.error.push(
@@ -56,7 +57,7 @@ export function validateTableHeadersTextResourceBindings(tableColumns, validatio
                     `Empty text resource binding with id: "${column.textResourceBindings[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
                 );
             }
-        });
-    });
+        }
+    }
     return validationMessages;
 }

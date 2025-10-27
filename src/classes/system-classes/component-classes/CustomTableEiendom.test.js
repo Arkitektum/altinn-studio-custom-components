@@ -12,7 +12,8 @@ jest.mock("../../data-classes/Eiendom.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),

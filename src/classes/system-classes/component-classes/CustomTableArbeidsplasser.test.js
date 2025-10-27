@@ -12,7 +12,8 @@ jest.mock("../../data-classes/Arbeidsplasser.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
@@ -140,7 +141,20 @@ describe("CustomTableArbeidsplasser", () => {
 
             const instance = new CustomTableArbeidsplasser({});
             const result = instance.getValidationMessages({ key: "val" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith([], { key: "val" });
+            // Check that hasMissingTextResources was called with the correct resource bindings object
+            const expectedBindings = expect.objectContaining({
+                arbeidsplasser: expect.any(Object),
+                arbeidsplasserKey: expect.any(Object),
+                beroertAvTiltaket: expect.any(Object),
+                eksisterende: expect.any(Object),
+                faste: expect.any(Object),
+                framtidige: expect.any(Object),
+                midlertidige: expect.any(Object),
+                utleieBygg: expect.any(Object)
+            });
+            // Find the call with the expected arguments
+            const calls = hasMissingTextResources.mock.calls;
+            expect(calls).toContainEqual([undefined, expectedBindings]);
             expect(result).toBe(false);
         });
     });

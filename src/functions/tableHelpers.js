@@ -32,7 +32,7 @@ export function getTableRows(tableColumns, data) {
     }
     return data.map((row) => {
         const tr = [];
-        tableColumns.forEach((column) => {
+        for (const column of tableColumns) {
             const cellData = getValueFromDataKey(row, column.dataKey);
             const emptyFieldTextResourceBinding = column?.resourceBindings?.emptyFieldText;
             const emptyFieldText = getTextResourceFromResourceBinding(emptyFieldTextResourceBinding);
@@ -48,7 +48,7 @@ export function getTableRows(tableColumns, data) {
                 componentProps.resourceValues.emptyFieldText = emptyFieldText;
             }
             tr.push(componentProps);
-        });
+        }
         return tr;
     });
 }

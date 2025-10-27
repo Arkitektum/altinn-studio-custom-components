@@ -38,7 +38,7 @@ describe("CustomGroupEttersending", () => {
             expect(instance.isEmpty).toBe(true);
             expect(instance.validationMessages).toEqual(["missing"]);
             expect(instance.hasValidationMessages).toBe(true);
-            expect(instance.resourceBindings).toHaveProperty("emptyFieldText");
+            expect(instance.resourceBindings?.ettersending).toHaveProperty("emptyFieldText");
             expect(instance.resourceValues.data).toBe("emptyText");
         });
 

@@ -23,7 +23,7 @@ export function hasValue(obj) {
         return obj.length > 0;
     }
     if (typeof obj === "number") {
-        return isNaN(obj) === false;
+        return !Number.isNaN(obj);
     }
     if (typeof obj === "boolean") {
         return obj === true;
@@ -49,7 +49,7 @@ export function hasValue(obj) {
  */
 export function isNumberLargerThanZero(value) {
     const num = typeof value === "number" ? value : Number(value);
-    return typeof num === "number" && !isNaN(num) && num > 0;
+    return typeof num === "number" && !Number.isNaN(num) && num > 0;
 }
 
 /**
@@ -158,15 +158,15 @@ export function createCustomElement(tagName, htmlAttributes) {
  * @returns {number} The minimum flex width percentage for the given grid configuration.
  */
 export function calculateFlexWidth(grid) {
-    if (!grid) {
-        return 100;
-    } else {
+    if (grid) {
         const xs = grid.xs || 12;
         const sm = grid.sm || xs;
         const md = grid.md || sm;
         const lg = grid.lg || md;
         const xl = grid.xl || lg;
         return Math.min((xs / 12) * 100, (sm / 12) * 100, (md / 12) * 100, (lg / 12) * 100, (xl / 12) * 100);
+    } else {
+        return 100;
     }
 }
 
@@ -232,7 +232,7 @@ export function renderLayoutContainerElement() {
  * @returns {Array} An array of text resources if `window.textResources` exists, otherwise an empty array.
  */
 export function getTextResources() {
-    return typeof window !== "undefined" && window.textResources ? window.textResources : [];
+    return typeof globalThis !== "undefined" && globalThis.textResources ? globalThis.textResources : [];
 }
 
 /**
@@ -245,7 +245,7 @@ export function getTextResources() {
  * @param {string} componentName - The name of the component for which the texts are being validated.
  */
 export function validateTexts(texts, fallbackTexts, keys, componentName) {
-    keys.forEach((key) => {
+    for (const key of keys) {
         if (texts[key] === undefined || texts[key] === null) {
             if (fallbackTexts?.[key] !== undefined && fallbackTexts?.[key] !== null) {
                 console.warn(`Missing textResourceBindings.${key} for "${componentName}". Using fallback text: "${fallbackTexts[key]}"`);
@@ -253,7 +253,7 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
                 console.warn(`Missing textResourceBindings.${key} for "${componentName}".`);
             }
         }
-    });
+    }
 }
 
 /**
@@ -265,11 +265,11 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
  * @param {string} componentName - The name of the component for context in warning messages.
  */
 export function validateFormData(data, dataKeys, componentName) {
-    dataKeys.forEach((key) => {
+    for (const key of dataKeys) {
         if (data[key] === undefined || data[key] === null) {
             console.warn(`Missing dataModelBindings.${key} for "${componentName}".`);
         }
-    });
+    }
 }
 
 /**
@@ -309,8 +309,8 @@ export function getValueFromDataKey(data, dataKey) {
     if (/(\.\.|^\.)/.test(dataKey)) {
         return undefined; // Invalid dataKey
     }
-    const keys = dataKey.split(/\.|\[|\]/).filter(Boolean);
-    return keys.reduce((acc, key) => acc && acc[key], data);
+    const keys = dataKey.split(/[.[\]]/).filter(Boolean);
+    return keys.reduce((acc, key) => acc?.[key], data);
 }
 
 /**
@@ -466,14 +466,13 @@ export function getComponentResourceValue(component, resourceKey) {
  * @returns {HTMLElement} The parent element after appending the children.
  */
 export function appendChildren(parent, children) {
-    children
-        .filter((child) => !!child)
-        .forEach((child) => {
-            if (child instanceof HTMLElement) {
-                parent.appendChild(child);
-            } else {
-                parent.innerHTML += child;
-            }
-        });
+    const filteredChildren = children.filter((child) => !!child);
+    for (const child of filteredChildren) {
+        if (child instanceof HTMLElement) {
+            parent.appendChild(child);
+        } else {
+            parent.innerHTML += child;
+        }
+    }
     return parent;
 }

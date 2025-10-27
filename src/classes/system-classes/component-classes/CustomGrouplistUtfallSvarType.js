@@ -122,7 +122,7 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
         };
         const data = this.getValueFromFormData(props);
         if (typeof data === "object" && hasValue(data)) {
-            Object.keys(data).forEach((utfallType) => {
+            for (const utfallType of Object.keys(data)) {
                 if (utfallType?.toLocaleLowerCase().length) {
                     resourceBindings[utfallType?.toLocaleLowerCase()] = {
                         title:
@@ -130,14 +130,14 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
                             `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
                     };
                 }
-            });
+            }
         }
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.utfallSvarType = {
                 title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.title"
             };
         }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.utfallSvarType = {
                 ...resourceBindings.utfallSvarType,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
