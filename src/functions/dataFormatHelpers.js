@@ -33,9 +33,9 @@ export function parseDateString(dateString) {
 
     if (!match) return null;
 
-    const day = parseInt(match[1], 10);
-    const month = parseInt(match[2], 10) - 1; // JavaScript months are 0-based
-    const year = parseInt(match[3], 10);
+    const day = Number.parseInt(match[1], 10);
+    const month = Number.parseInt(match[2], 10) - 1; // JavaScript months are 0-based
+    const year = Number.parseInt(match[3], 10);
 
     const date = new Date(Date.UTC(year, month, day));
 
@@ -58,9 +58,9 @@ export function parseTimeString(timeString) {
     const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
     const match = timeString.match(regex);
     if (!match) return null;
-    const hours = parseInt(match[1], 10);
-    const minutes = parseInt(match[2], 10);
-    const seconds = match[3] ? parseInt(match[3], 10) : 0;
+    const hours = Number.parseInt(match[1], 10);
+    const minutes = Number.parseInt(match[2], 10);
+    const seconds = match[3] ? Number.parseInt(match[3], 10) : 0;
     if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
         return null; // Invalid time
     }
@@ -70,7 +70,7 @@ export function parseTimeString(timeString) {
 
 export function isValidDateString(dateString) {
     const date = new Date(dateString);
-    return !!dateString && !isNaN(date.getTime());
+    return !!dateString && !Number.isNaN(date.getTime());
 }
 
 /**
