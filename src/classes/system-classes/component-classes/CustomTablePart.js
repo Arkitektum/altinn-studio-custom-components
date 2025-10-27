@@ -47,7 +47,7 @@ export default class CustomTablePart extends CustomComponent {
      */
     getPartTypeFromElementAttributes(element) {
         const partType = element.getAttribute("parttype");
-        return partType ? partType : "tiltakshaver";
+        return partType || "tiltakshaver";
     }
 
     /**
