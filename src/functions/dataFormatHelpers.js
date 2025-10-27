@@ -142,10 +142,21 @@ export function formatTime(time, language = "default") {
 }
 
 /**
+ * Extracts and trims the substring from the input data after the last hyphen ("-").
+ *
+ * @param {string} data - The input string to format.
+ * @returns {string|undefined} The trimmed substring after the last hyphen, or undefined if input is not provided.
+ */
+export function formatAR(data) {
+    const splicedData = data?.substring(data?.lastIndexOf("-") + 1);
+    return splicedData?.trim();
+}
+
+/**
  * Formats a given string based on the specified format and language.
  *
  * @param {string} string - The string to be formatted.
- * @param {string} format - The format type ("dateTime", "date", "time").
+ * @param {string} format - The format type ("dateTime", "date", "time", "AR").
  * @param {string} [language="default"] - The language to use for formatting (default is "default").
  * @returns {string} - The formatted string.
  */
@@ -157,6 +168,8 @@ export function formatString(string, format, language = "default") {
             return formatDate(string, language);
         case "time":
             return formatTime(string, language);
+        case "AR":
+            return formatAR(string);
         default:
             return string;
     }
@@ -197,7 +210,8 @@ export function injectAnchorElements(text) {
     // Optional: basic HTML escape for non-link parts
     const escapeHtml = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-    return text.toString()
+    return text
+        .toString()
         .split(splitRegex)
         .map((part) => {
             if (!part) return "";
