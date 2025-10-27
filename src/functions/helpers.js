@@ -309,8 +309,8 @@ export function getValueFromDataKey(data, dataKey) {
     if (/(\.\.|^\.)/.test(dataKey)) {
         return undefined; // Invalid dataKey
     }
-    const keys = dataKey.split(/\.|\[|\]/).filter(Boolean);
-    return keys.reduce((acc, key) => acc && acc[key], data);
+    const keys = dataKey.split(/[.[\]]/).filter(Boolean);
+    return keys.reduce((acc, key) => acc?.[key], data);
 }
 
 /**
