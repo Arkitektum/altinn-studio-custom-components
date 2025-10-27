@@ -35,6 +35,7 @@ export function renderEttersendingGroup(ettersending, component) {
         isChildComponent: true,
         hideIfEmpty: true,
         enableLinks: component?.enableLinks,
+        resourceBindings: component?.resourceBindings,
         resourceValues: {
             data: ettersending
         }

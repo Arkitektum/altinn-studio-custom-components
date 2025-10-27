@@ -36,6 +36,11 @@ export default class CustomGrouplistEttersending extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = {
+            tema: resourceBindings?.tema,
+            kommentar: resourceBindings?.kommentar,
+            vedleggsliste: resourceBindings?.vedleggsliste
+        };
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(resourceBindings?.ettersendinger?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.ettersendinger?.emptyFieldText) : data
@@ -74,26 +79,48 @@ export default class CustomGrouplistEttersending extends CustomComponent {
     }
 
     /**
-     * Generates resource bindings for the component based on provided props.
+     * Generates resource bindings for various components based on the provided props.
      *
-     * @param {Object} props - The properties object.
-     * @param {Object} [props.resourceBindings] - Optional resource bindings overrides.
-     * @param {string} [props.resourceBindings.title] - Custom title resource binding.
-     * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text resource binding.
-     * @param {boolean|string} [props.hideTitle] - If true or "true", hides the title resource binding.
-     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", hides the empty field text resource binding.
-     * @returns {Object} An object containing the resource bindings for 'ettersendinger'.
+     * @param {Object} props - The properties object containing resource bindings and configuration flags.
+     * @param {Object} [props.resourceBindings] - Resource binding values for different components.
+     * @param {Object} [props.resourceBindings.tema] - Resource bindings for 'tema'.
+     * @param {Object} [props.resourceBindings.tema.kodebeskrivelse] - Resource bindings for 'tema.kodebeskrivelse'.
+     * @param {string} [props.resourceBindings.tema.kodebeskrivelse.title] - Title for 'tema.kodebeskrivelse'.
+     * @param {Object} [props.resourceBindings.kommentar] - Resource bindings for 'kommentar'.
+     * @param {string} [props.resourceBindings.kommentar.title] - Title for 'kommentar'.
+     * @param {Object} [props.resourceBindings.vedleggsliste] - Resource bindings for 'vedleggsliste'.
+     * @param {Object} [props.resourceBindings.vedleggsliste.vedlegg] - Resource bindings for 'vedleggsliste.vedlegg'.
+     * @param {string} [props.resourceBindings.vedleggsliste.vedlegg.title] - Title for 'vedleggsliste.vedlegg'.
+     * @param {string} [props.resourceBindings.title] - Title for 'ettersendinger'.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when a field is empty.
+     * @param {boolean|string} [props.hideTitle] - If true, hides the title for 'ettersendinger'.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, hides the empty field text for 'ettersendinger'.
+     * @returns {Object} Resource bindings object for the components.
      */
     getResourceBindings(props) {
-        const resourceBindings = {};
-        if (!props?.hideTitle === true || !props?.hideTitle === "true") {
-            resourceBindings.title = props?.resourceBindings?.title || "resource.ettersendinger.title";
-        }
-        if (!props?.hideIfEmpty === true || !props?.hideIfEmpty === "true") {
-            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
-        }
-        return {
-            ettersendinger: resourceBindings
+        const resourceBindings = {
+            tema: {
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title"
+            },
+            kommentar: {
+                title: props?.resourceBindings?.kommentar?.title || "resource.ettersendinger.ettersending.kommentar.title"
+            },
+            vedleggsliste: {
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title"
+            },
+            ettersendinger: {}
         };
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
+            resourceBindings.ettersendinger = {
+                title: props?.resourceBindings?.title || "resource.ettersendinger.title"
+            };
+        }
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.ettersendinger = {
+                ...resourceBindings.ettersendinger,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
     }
 }
