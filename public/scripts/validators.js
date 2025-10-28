@@ -75,6 +75,12 @@ function addResourceBindingsFromAltinnComponent(componentProps, allResourceBindi
                 allResourceBindings.add(bindingValue);
             }
         });
+    componentProps?.options?.length &&
+        componentProps.options.forEach((option) => {
+            if (option?.label?.length) {
+                allResourceBindings.add(option.label);
+            }
+        });
 }
 
 /**
