@@ -11,16 +11,16 @@ export function setActiveSidebarElement(itemId) {
 
     if (fileListElement) {
         const fileListItems = fileListElement.querySelectorAll("li");
-        fileListItems.forEach((item) => {
+        for (const item of fileListItems) {
             item.classList.remove("active");
-        });
+        }
     }
 
     if (dataModelListElement) {
         const dataModelListItems = dataModelListElement.querySelectorAll("li");
-        dataModelListItems.forEach((item) => {
+        for (const item of dataModelListItems) {
             item.classList.remove("active");
-        });
+        }
     }
 
     const activeItem = document.getElementById(itemId);
