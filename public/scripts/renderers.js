@@ -32,10 +32,10 @@ import { renderValidationMessages, validateResources } from "./validators.js";
 export function renderResults() {
     const componentCode = getLayoutCode();
     let components = [];
-    if (!Array.isArray(componentCode)) {
-        components = [componentCode];
-    } else {
+    if (Array.isArray(componentCode)) {
         components = componentCode;
+    } else {
+        components = [componentCode];
     }
     const containerElement = document.getElementById("code-results");
     containerElement.innerHTML = "";
