@@ -22,10 +22,9 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     const component = instantiateComponent(componentProps);
     const resourceBindings = component?.getResourceBindings?.(componentProps);
     // Add resource bindings added directly to the component
-    componentProps?.resourceBindings &&
-        Object.values(componentProps?.resourceBindings || {}).forEach((bindingValue) => {
-            allResourceBindings.add(bindingValue);
-        });
+    for (const bindingValue of Object.values(componentProps?.resourceBindings || {})) {
+        allResourceBindings.add(bindingValue);
+    }
 
     // Add resource bindings from table columns if applicable
     if (componentProps?.tableColumns) {
@@ -33,11 +32,11 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     }
 
     // Add resource bindings from the getResourceBindings function
-    Object.values(resourceBindings || {}).forEach((bindingCategory) => {
-        Object.values(bindingCategory || {}).forEach((bindingValue) => {
+    for (const bindingCategory of Object.values(resourceBindings || {})) {
+        for (const bindingValue of Object.values(bindingCategory || {})) {
             allResourceBindings.add(bindingValue);
-        });
-    });
+        }
+    }
 }
 
 /**
@@ -50,12 +49,13 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
  * @param {Set<string>} allResourceBindings - A Set to which all discovered resource binding values will be added.
  */
 function addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings) {
-    componentProps?.tableColumns &&
-        Object.values(componentProps?.tableColumns || {}).forEach((tableColumn) => {
-            Object.values(tableColumn?.resourceBindings || {}).forEach((bindingValue) => {
+    if (componentProps?.tableColumns) {
+        for (const tableColumn of Object.values(componentProps.tableColumns)) {
+            for (const bindingValue of Object.values(tableColumn?.resourceBindings || {})) {
                 allResourceBindings.add(bindingValue);
-            });
-        });
+            }
+        }
+    }
     return allResourceBindings;
 }
 
@@ -70,18 +70,20 @@ function addTableColumnsResourceBindingsFromCustomComponent(componentProps, allR
  * @param {Set<string>} allResourceBindings - A set to which all found resource binding strings will be added.
  */
 function addResourceBindingsFromAltinnComponent(componentProps, allResourceBindings) {
-    componentProps?.textResourceBindings &&
-        Object.values(componentProps?.textResourceBindings || {}).forEach((bindingValue) => {
+    if (componentProps?.textResourceBindings) {
+        for (const bindingValue of Object.values(componentProps.textResourceBindings)) {
             if (typeof bindingValue === "string") {
                 allResourceBindings.add(bindingValue);
             }
-        });
-    componentProps?.options?.length &&
-        componentProps.options.forEach((option) => {
+        }
+    }
+    if (componentProps?.options?.length) {
+        for (const option of componentProps.options) {
             if (option?.label?.length) {
                 allResourceBindings.add(option.label);
             }
-        });
+        }
+    }
 }
 
 /**
@@ -96,11 +98,11 @@ function addResourceBindingsFromAltinnComponent(componentProps, allResourceBindi
 function getUnusedResourceBindings(allResourceBindings, textResources) {
     const unusedResourceBindings = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
-    textResourceIds.forEach((resId) => {
+    for (const resId of textResourceIds) {
         if (!allResourceBindings.has(resId)) {
             unusedResourceBindings.push(resId);
         }
-    });
+    }
     return unusedResourceBindings;
 }
 
@@ -115,11 +117,11 @@ function getUnusedResourceBindings(allResourceBindings, textResources) {
 function getMissingResourceBindings(allResourceBindings, textResources) {
     const missingResourceBindings = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
-    allResourceBindings.forEach((resId) => {
+    for (const resId of allResourceBindings) {
         if (resId.length && !textResourceIds.includes(resId)) {
             missingResourceBindings.push(resId);
         }
-    });
+    }
     return missingResourceBindings;
 }
 
@@ -133,11 +135,11 @@ function getMissingResourceBindings(allResourceBindings, textResources) {
 function getTextResourcesWithEmptyValue(textResources) {
     const resourcesWithEmptyValue = [];
     const textResourceEntries = textResources?.resources || [];
-    textResourceEntries.forEach((res) => {
+    for (const res of textResourceEntries) {
         if (res.value === "") {
             resourcesWithEmptyValue.push(res.id);
         }
-    });
+    }
     return resourcesWithEmptyValue;
 }
 
@@ -173,7 +175,7 @@ export function validateResources() {
     } else {
         components = [componentCode];
     }
-    components.forEach((componentProps) => {
+    for (const componentProps of components) {
         const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";
         componentProps.formData = getDataForComponent(componentProps);
 
@@ -182,7 +184,7 @@ export function validateResources() {
         } else {
             addResourceBindingsFromAltinnComponent(componentProps, allResourceBindings);
         }
-    });
+    }
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const missingResourceBindings = getMissingResourceBindings(allResourceBindings, textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
