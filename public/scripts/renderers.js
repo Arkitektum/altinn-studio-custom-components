@@ -201,6 +201,7 @@ export function renderSidebar() {
             setActiveSidebarElement(textResourcesItemId);
             closeValidationDialog();
             renderResults();
+            renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
         };
 
         contentElement.appendChild(removeUnusedResourcesButtonElement);
