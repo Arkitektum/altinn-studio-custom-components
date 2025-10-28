@@ -5,7 +5,7 @@
  * @returns {string} The string without leading or trailing commas.
  */
 export function removeTrailingOrLeadingComma(value) {
-    return value.replace(/(^,)|(,$)/g, "");
+    return value.replaceAll(/(^,)|(,$)/g, "");
 }
 
 /**
