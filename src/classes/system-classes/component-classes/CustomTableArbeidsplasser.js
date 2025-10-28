@@ -23,9 +23,8 @@ import { hasMissingTextResources, hasValidationMessages } from "../../../functio
 export default class CustomTableArbeidsplasser extends CustomComponent {
     constructor(props) {
         super(props);
-        const arbeidsplasserBeroertKeys = ["eksisterende", "faste", "framtidige", "midlertidige", "utleieBygg"];
-        const resourceBindings = this.getResourceBindings(props, arbeidsplasserBeroertKeys);
-        const data = this.getValueFromFormData(props, arbeidsplasserBeroertKeys, resourceBindings);
+        const resourceBindings = this.getResourceBindings(props);
+        const data = this.getValueFromFormData(props, resourceBindings);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -40,14 +39,14 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
     }
 
     /**
-     * Retrieves an array of affected workplaces from form data if available.
+     * Retrieves an array of affected workplaces from form data if applicable.
      *
      * @param {Object} props - The properties containing form data.
-     * @param {Array<string>} arbeidsplasserBeroertKeys - Keys identifying affected workplaces.
-     * @param {Object} resourceBindings - Resource bindings for localization or additional data.
+     * @param {Object} resourceBindings - Resource bindings used for data extraction.
      * @returns {Array|undefined} An array of affected workplaces if present, otherwise undefined.
      */
-    getValueFromFormData(props, arbeidsplasserBeroertKeys, resourceBindings) {
+    getValueFromFormData(props, resourceBindings) {
+        const arbeidsplasserBeroertKeys = this.getArbeidsplasserBeroertKeys();
         const data = getComponentDataValue(props);
         if (!hasValue(data)) {
             return undefined;
@@ -56,6 +55,15 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
         return this.hasArbeidsplasserBeroertProps(arbeidsplasser, arbeidsplasserBeroertKeys)
             ? this.getArbeidsplasserBeroertArray(arbeidsplasser, arbeidsplasserBeroertKeys, resourceBindings)
             : undefined;
+    }
+
+    /**
+     * Returns an array of keys representing different types of affected workplaces.
+     *
+     * @returns {string[]} An array containing the keys: "eksisterende", "faste", "framtidige", "midlertidige", "utleieBygg".
+     */
+    getArbeidsplasserBeroertKeys() {
+        return ["eksisterende", "faste", "framtidige", "midlertidige", "utleieBygg"];
     }
 
     /**
@@ -110,16 +118,18 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
     }
 
     /**
-     * Generates an object containing text resource bindings for a custom table component.
+     * Generates resource bindings for arbeidsplasser (workplaces) based on provided props.
+     * It constructs an object containing titles and text resources for various keys,
+     * including dynamic keys from `getArbeidsplasserBeroertKeys()`.
      *
-     * @param {Object} props - The properties object containing resource bindings and display options.
-     * @param {Object} [props.resourceBindings] - Resource bindings for various table fields.
-     * @param {boolean|string} [props.hideTitle] - If true or "true", hides the title field.
-     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", hides the empty field text.
-     * @param {string[]} arbeidsplasserBeroertKeys - Array of keys representing affected workplaces.
-     * @returns {Object} An object with text resource bindings for table fields, including titles and conditional texts.
+     * @param {Object} props - The properties used to customize resource bindings.
+     * @param {Object} [props.resourceBindings] - Optional custom resource bindings.
+     * @param {boolean|string} [props.hideTitle] - If true, omits the title for arbeidsplasser.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits the empty field text for arbeidsplasser.
+     * @returns {Object} An object containing resource bindings for arbeidsplasser and related keys.
      */
-    getResourceBindings(props, arbeidsplasserBeroertKeys) {
+    getResourceBindings(props) {
+        const arbeidsplasserBeroertKeys = this.getArbeidsplasserBeroertKeys();
         const resourceBindings = {
             arbeidsplasser: {},
             arbeidsplasserKey: {
