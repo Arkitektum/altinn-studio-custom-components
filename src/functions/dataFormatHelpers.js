@@ -153,10 +153,20 @@ export function formatAR(data) {
 }
 
 /**
+ * Formats a numeric value as square meters (m²).
+ *
+ * @param {number|string} value - The value to format.
+ * @returns {string} The formatted string with square meters unit.
+ */
+export function formatMeterSquared(value) {
+    return `${value} m²`;
+}
+
+/**
  * Formats a given string based on the specified format and language.
  *
  * @param {string} string - The string to be formatted.
- * @param {string} format - The format type ("dateTime", "date", "time", "AR").
+ * @param {string} format - The format type ("dateTime", "date", "time", "AR", "meterSquared").
  * @param {string} [language="default"] - The language to use for formatting (default is "default").
  * @returns {string} - The formatted string.
  */
@@ -170,6 +180,8 @@ export function formatString(string, format, language = "default") {
             return formatTime(string, language);
         case "AR":
             return formatAR(string);
+        case "meterSquared":
+            return formatMeterSquared(string);
         default:
             return string;
     }

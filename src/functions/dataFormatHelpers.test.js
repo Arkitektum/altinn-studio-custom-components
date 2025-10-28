@@ -167,6 +167,10 @@ describe("formatString", () => {
     it("formats AR", () => {
         expect(formatString("abc-def", "AR")).toBe("def");
     });
+    it("formats meterSquared correctly", () => {
+        expect(formatString(123, "meterSquared")).toBe("123 m²");
+        expect(formatString("456", "meterSquared")).toBe("456 m²");
+    });
     it("returns input for unknown format", () => {
         expect(formatString("abc", "unknown")).toBe("abc");
     });
