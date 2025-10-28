@@ -56,6 +56,7 @@ function addTableColumnsResourceBindingsFromCustomComponent(componentProps, allR
                 allResourceBindings.add(bindingValue);
             });
         });
+    return allResourceBindings;
 }
 
 /**
