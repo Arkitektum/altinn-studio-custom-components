@@ -66,8 +66,7 @@ export function getDataModelListElements() {
     const dataModelListElement = document.createElement("ul");
     dataModelListElement.id = "data-model-list";
     dataModelListElement.classList.add("data-model-list");
-    let index = 0;
-    for (const dataModel of dataModels) {
+    dataModels.forEach((dataModel, index) => {
         const itemId = `data-model-list-item-${index}`;
         const dataModelListItemElement = document.createElement("li");
         dataModelListItemElement.id = itemId;
@@ -133,9 +132,7 @@ export function getDataModelListElements() {
         dataModelListItemElement.appendChild(buttonsContainerElement);
         dataModelListItemElement.appendChild(typeInputElement);
         dataModelListElement.appendChild(dataModelListItemElement);
-
-        index++;
-    }
+    });
     return dataModelListElement;
 }
 
