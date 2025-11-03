@@ -363,6 +363,10 @@ export function getComponentDataValue(component) {
     if (component.isChildComponent) {
         return component.resourceValues?.data;
     } else {
+        if (typeof component.formData?.simpleBinding === "boolean") {
+            // Special case for boolean values
+            return component.formData?.simpleBinding;
+        }
         return component.formData?.simpleBinding || component.formData?.data;
     }
 }
