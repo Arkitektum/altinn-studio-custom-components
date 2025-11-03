@@ -14,7 +14,16 @@ export default [
                     poststed: "Poststed",
                     landkode: "NO"
                 },
-                data: "Verdi for datafelt"
+                data: "Verdi for datafelt",
+                booleanData: {
+                    condition: true,
+                    trueData: "Verdi hvis sann",
+                    falseData: "Verdi hvis usann",
+                    defaultData: "Standard verdi"
+                },
+                booleanText: {
+                    condition: false
+                }
             },
             customTable: {
                 eiendom: [

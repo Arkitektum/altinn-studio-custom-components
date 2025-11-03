@@ -68,6 +68,26 @@ export default {
             value: "Adresse"
         },
         {
+            id: "resource.customField.booleanData.title",
+            value: "Label for boolean-data felt"
+        },
+        {
+            id: "resource.customField.booleanText.title",
+            value: "Label for boolean-text felt"
+        },
+        {
+            id: "resource.customField.booleanText.true.title",
+            value: "Ja"
+        },
+        {
+            id: "resource.customField.booleanText.false.title",
+            value: "Nei"
+        },
+        {
+            id: "resource.customField.booleanText.default.title",
+            value: "-"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
