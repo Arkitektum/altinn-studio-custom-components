@@ -28,7 +28,11 @@ export default [
                     "Element 1",
                     "Element 2",
                     "Element 3"
-                ]
+                ],
+                kode: {
+                    kodeverdi: "kode123",
+                    kodebeskrivelse: "Beskrivelse av kode123"
+                }
             },
             customTable: {
                 eiendom: [

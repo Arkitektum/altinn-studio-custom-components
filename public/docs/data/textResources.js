@@ -92,6 +92,10 @@ export default {
             value: "Label for count-data felt"
         },
         {
+            id: "resource.customField.kode.title",
+            value: "Label for kodefelt"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
