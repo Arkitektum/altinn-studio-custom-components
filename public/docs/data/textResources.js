@@ -88,6 +88,10 @@ export default {
             value: "-"
         },
         {
+            id: "resource.customField.countData.title",
+            value: "Label for count-data felt"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
