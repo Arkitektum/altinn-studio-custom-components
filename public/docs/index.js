@@ -60,7 +60,6 @@ export function getResults(componentExamples, dataModels) {
 window.onload = function () {
     window.textResources = textResources;
     const results = getResults(componentExamples, dataModels);
-    console.log({ results });
     renderResults(results);
     renderSidebar(results);
     hljs.highlightAll();
