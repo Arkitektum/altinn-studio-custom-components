@@ -1,3 +1,6 @@
+import hljs from "highlight.js/lib/core";
+import json from "highlight.js/lib/languages/json";
+
 // Local functions
 import componentExamples from "./components/index.js";
 import { renderResults, renderSidebar } from "./scripts/renderers.js";
@@ -16,6 +19,9 @@ import textResources from "./data/textResources.js";
 
 // Stylesheets
 import "./docs.css";
+import "highlight.js/styles/vs2015.css";
+
+hljs.registerLanguage("json", json);
 
 function getPreviewElement(component, data) {
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -57,4 +63,5 @@ window.onload = function () {
     console.log({ results });
     renderResults(results);
     renderSidebar(results);
+    hljs.highlightAll();
 };
