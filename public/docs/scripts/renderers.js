@@ -11,6 +11,7 @@ function renderComponentExampleMarkup(componentExample) {
 
     const codeElement = document.createElement("pre");
     const codeContentElement = document.createElement("code");
+    codeContentElement.classList.add("language-json");
     codeContentElement.textContent = JSON.stringify(componentExample?.markup, null, 2);
     codeElement.appendChild(codeContentElement);
     containerElement.appendChild(codeElement);
@@ -29,6 +30,7 @@ function renderComponentExampleData(componentExample) {
 
     const codeElement = document.createElement("pre");
     const codeContentElement = document.createElement("code");
+    codeContentElement.classList.add("language-json");
     codeContentElement.textContent = JSON.stringify(componentExample?.data, null, 2);
     codeElement.appendChild(codeContentElement);
     containerElement.appendChild(codeElement);
@@ -47,6 +49,7 @@ function renderComponentExampleResources(componentExample) {
 
     const codeElement = document.createElement("pre");
     const codeContentElement = document.createElement("code");
+    codeContentElement.classList.add("language-json");
     codeContentElement.textContent = JSON.stringify(componentExample?.resources, null, 2);
     codeElement.appendChild(codeContentElement);
     containerElement.appendChild(codeElement);
