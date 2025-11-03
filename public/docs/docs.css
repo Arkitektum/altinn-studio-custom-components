@@ -25,7 +25,7 @@
     display: flex;
     letter-spacing: normal;
     & aside.sidebar {
-        width: 250px;
+        width: 300px;
         background-color: #f7f7f7;
         border-right: 1px solid #ccc;
         height: 100vh;
