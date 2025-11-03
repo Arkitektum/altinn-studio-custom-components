@@ -1,10 +1,6 @@
 export default [
     {
         data: {
-            kommunensSaksnummer: {
-                saksaar: 2024,
-                sakssekvensnummer: 12345
-            },
             customField: {
                 adresse: {
                     adresselinje1: "Adressevegen 16",
@@ -24,14 +20,14 @@ export default [
                 booleanText: {
                     condition: false
                 },
-                countData: [
-                    "Element 1",
-                    "Element 2",
-                    "Element 3"
-                ],
+                countData: ["Element 1", "Element 2", "Element 3"],
                 kode: {
                     kodeverdi: "kode123",
                     kodebeskrivelse: "Beskrivelse av kode123"
+                },
+                kommunensSaksnummer: {
+                    saksaar: 2024,
+                    sakssekvensnummer: 12345
                 }
             },
             customTable: {

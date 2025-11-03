@@ -96,6 +96,10 @@ export default {
             value: "Label for kodefelt"
         },
         {
+            id: "resource.customField.kommunensSaksnummer.title",
+            value: "Kommunens saksnummer"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
