@@ -7,7 +7,8 @@ export default defineConfig([
         files: ["**/*.{js,mjs,cjs}"],
         plugins: { js },
         extends: ["js/recommended"],
-        languageOptions: { globals: { ...globals.browser, ...globals.node } }
+        languageOptions: { globals: { ...globals.browser, ...globals.node } },
+        ignorePatterns: ["dist/", "docs/", "node_modules/", "**/vendor/*.js"]
     },
     {
         files: ["**/*.test.js", "**/*.spec.js"], // 👈 Only apply to test files
