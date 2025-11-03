@@ -12,16 +12,14 @@ import { validateResources } from "./validators.js";
 /**
  * Retrieves data for a given component based on its data model bindings.
  *
- * Iterates over the component's `dataModelBindings` and fetches corresponding values
- * from the data models. If a binding is a string, it uses the first data model.
- * If a binding is an object, it finds the data model matching the specified `dataType`.
- *
  * @param {Object} component - The component object containing data model bindings.
- * @param {Object} component.dataModelBindings - Key-value pairs mapping component fields to data model bindings.
- * @returns {Object} An object containing the resolved data for each binding key.
+ * @param {Array<Object>} [dataModels] - Optional array of data model objects. If not provided, `getDataModels()` will be called to retrieve them.
+ * @returns {Object} An object mapping each binding key to its corresponding data value.
  */
-export function getDataForComponent(component) {
-    const dataModels = getDataModels();
+export function getDataForComponent(component, dataModels) {
+    if (!dataModels) {
+        dataModels = getDataModels();
+    }
     const data = {};
     component?.dataModelBindings &&
         Object.keys(component?.dataModelBindings).forEach((key) => {
