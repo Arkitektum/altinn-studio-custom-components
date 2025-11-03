@@ -79,7 +79,7 @@
         overflow-y: auto;
         height: 100vh;
         & main {
-            max-width: 1200px;
+            max-width: 940px;
             margin: 0 auto;
             & .component-type-section {
                 margin-bottom: 48px;
@@ -114,7 +114,7 @@
                             border: 1px solid #ddd;
                             & summary {
                                 font-weight: bold;
-                                padding: 16px;
+                                padding: 8px;
                                 font-size: 16px;
                                 cursor: pointer;
                                 transition: var(--background-transition-default);
