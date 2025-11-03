@@ -92,7 +92,7 @@ function renderComponentExample(componentExample) {
 }
 
 export function renderResults(results) {
-    const containerElement = document.getElementById("code-results");
+    const containerElement = document.getElementById("component-docs-container");
     containerElement.innerHTML = "";
     const resultElements = results.map((componentType) => {
         const typeContainerElement = document.createElement("div");
@@ -121,6 +121,11 @@ export function renderResults(results) {
 
 export function renderSidebar(results) {
     const sidebarElement = document.getElementById("sidebar");
+    const sidebarTitleElement = document.createElement("h2");
+    sidebarTitleElement.classList.add("sidebar-title");
+    sidebarTitleElement.textContent = "Components";
+    sidebarElement.appendChild(sidebarTitleElement);
+
     const navElement = document.createElement("nav");
     
     navElement.classList.add("component-type-list");
