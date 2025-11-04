@@ -104,6 +104,10 @@ export default {
             value: "Organisasjon"
         },
         {
+            id: "resource.customField.prosjekt.title",
+            value: "Prosjekt"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },

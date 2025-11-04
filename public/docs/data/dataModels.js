@@ -47,7 +47,11 @@ export default [
                     },
                     telefonnummer: "111223344",
                     mobilnummer: "12034043",
-                    epost: "test2@arkitektum.no",
+                    epost: "test2@arkitektum.no"
+                },
+                prosjekt: {
+                    prosjektnavn: "Prosjektnavn Eksempel",
+                    prosjektnr: "PNR-2025"
                 }
             },
             customTable: {
