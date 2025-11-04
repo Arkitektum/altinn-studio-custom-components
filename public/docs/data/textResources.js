@@ -132,6 +132,10 @@ export default {
             value: "Custom header text"
         },
         {
+            id: "resource.customList.data.title",
+            value: "Elementer"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },

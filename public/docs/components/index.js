@@ -14,6 +14,9 @@ import customFieldUtfallSvarStatus from "./custom-field/custom-field-utfall-svar
 // Header
 import customHeaderText from "./custom-header/custom-header-text.js";
 
+// List
+import customListData from "./custom-list/custom-list-data.js";
+
 // Table
 import customTableEiendom from "./custom-table/custom-table-eiendom.js";
 import customTablePart from "./custom-table/custom-table-part.js";
@@ -36,10 +39,13 @@ export const header = {
     customHeaderText
 };
 
+export const list = { customListData };
+
 export const table = { customTableEiendom, customTablePart };
 
 export default {
     field,
     header,
+    list,
     table
 };

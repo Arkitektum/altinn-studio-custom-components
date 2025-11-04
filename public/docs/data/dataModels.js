@@ -58,6 +58,22 @@ export default [
                     erUtfallBesvart: false
                 }
             },
+            customList: {
+                data: [
+                    {
+                        kodeverdi: "element1",
+                        kodebeskrivelse: "Beskrivelse av element 1"
+                    },
+                    {
+                        kodeverdi: "element2",
+                        kodebeskrivelse: "Beskrivelse av element 2"
+                    },
+                    {
+                        kodeverdi: "element3",
+                        kodebeskrivelse: "Beskrivelse av element 3"
+                    }
+                ]
+            },
             customTable: {
                 eiendom: [
                     {
