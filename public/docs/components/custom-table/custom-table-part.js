@@ -6,6 +6,6 @@ export default {
     partType: "tiltakshaver.kontaktperson",
     hideIfEmpty: true,
     dataModelBindings: {
-        data: "tiltakshaver"
+        data: "tiltakshaver.kontaktperson"
     }
 };
