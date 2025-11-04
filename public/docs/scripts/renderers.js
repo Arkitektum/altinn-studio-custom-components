@@ -1,4 +1,4 @@
-import { appendChildren } from "../../../src/functions/helpers.js";
+import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
 
 function renderComponentExampleMarkup(componentExample) {
     const containerElement = document.createElement("details");
@@ -19,7 +19,7 @@ function renderComponentExampleMarkup(componentExample) {
     return containerElement;
 }
 
-function renderComponentExampleData(componentExample) {
+function renderComponentExampleData(componentExampleData) {
     const containerElement = document.createElement("details");
     containerElement.classList.add("component-example-code");
 
@@ -31,14 +31,14 @@ function renderComponentExampleData(componentExample) {
     const codeElement = document.createElement("pre");
     const codeContentElement = document.createElement("code");
     codeContentElement.classList.add("language-json");
-    codeContentElement.textContent = JSON.stringify(componentExample?.data, null, 2);
+    codeContentElement.textContent = JSON.stringify(componentExampleData, null, 2);
     codeElement.appendChild(codeContentElement);
     containerElement.appendChild(codeElement);
 
     return containerElement;
 }
 
-function renderComponentExampleResources(componentExample) {
+function renderComponentExampleResources(componentExampleResources) {
     const containerElement = document.createElement("details");
     containerElement.classList.add("component-example-code");
 
@@ -50,7 +50,7 @@ function renderComponentExampleResources(componentExample) {
     const codeElement = document.createElement("pre");
     const codeContentElement = document.createElement("code");
     codeContentElement.classList.add("language-json");
-    codeContentElement.textContent = JSON.stringify(componentExample?.resources, null, 2);
+    codeContentElement.textContent = JSON.stringify(componentExampleResources, null, 2);
     codeElement.appendChild(codeContentElement);
     containerElement.appendChild(codeElement);
 
@@ -82,11 +82,17 @@ function renderComponentExample(componentExample) {
     const markupElement = renderComponentExampleMarkup(componentExample);
     containerElement.appendChild(markupElement);
 
-    const dataElement = renderComponentExampleData(componentExample);
-    containerElement.appendChild(dataElement);
+    const componentExampleData = componentExample?.data;
+    if (hasValue(componentExampleData)) {
+        const dataElement = renderComponentExampleData(componentExampleData);
+        containerElement.appendChild(dataElement);
+    }
 
-    const resourcesElement = renderComponentExampleResources(componentExample);
-    containerElement.appendChild(resourcesElement);
+    const componentExampleResources = componentExample?.resources;
+    if (hasValue(componentExampleResources)) {
+        const resourcesElement = renderComponentExampleResources(componentExampleResources);
+        containerElement.appendChild(resourcesElement);
+    }
 
     return containerElement;
 }
@@ -127,7 +133,7 @@ export function renderSidebar(results) {
     sidebarElement.appendChild(sidebarTitleElement);
 
     const navElement = document.createElement("nav");
-    
+
     navElement.classList.add("component-type-list");
 
     results.forEach((componentType) => {
