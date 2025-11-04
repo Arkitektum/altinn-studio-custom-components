@@ -100,6 +100,10 @@ export default {
             value: "Kommunens saksnummer"
         },
         {
+            id: "resource.customField.part.navn.title",
+            value: "Organisasjon"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },

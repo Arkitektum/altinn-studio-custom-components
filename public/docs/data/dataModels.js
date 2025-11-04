@@ -28,6 +28,26 @@ export default [
                 kommunensSaksnummer: {
                     saksaar: 2024,
                     sakssekvensnummer: 12345
+                },
+                part: {
+                    partstype: {
+                        kodeverdi: "Foretak",
+                        kodebeskrivelse: "Foretak"
+                    },
+                    foedselsnummer: null,
+                    organisasjonsnummer: "910748548",
+                    navn: "Selskap AS",
+                    adresse: {
+                        adresselinje1: "Adressevegen 21",
+                        adresselinje2: null,
+                        adresselinje3: null,
+                        postnr: "3802",
+                        poststed: "Bø i Telemark",
+                        landkode: "NO"
+                    },
+                    telefonnummer: "111223344",
+                    mobilnummer: "12034043",
+                    epost: "test2@arkitektum.no",
                 }
             },
             customTable: {
