@@ -108,6 +108,10 @@ export default {
             value: "Prosjekt"
         },
         {
+            id: "resource.customField.telefonnummer.title",
+            value: "Telefonnummer"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
