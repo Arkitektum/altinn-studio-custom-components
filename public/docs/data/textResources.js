@@ -128,6 +128,10 @@ export default {
             value: "Besvares nå"
         },
         {
+            id: "resource.customHeader.text.title",
+            value: "Custom header text"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
