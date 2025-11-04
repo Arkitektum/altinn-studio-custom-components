@@ -44,8 +44,8 @@ export const list = { customListData };
 export const table = { customTableEiendom, customTablePart };
 
 export default {
-    field,
     header,
+    field,
     list,
     table
 };
