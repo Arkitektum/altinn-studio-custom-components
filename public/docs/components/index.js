@@ -9,6 +9,7 @@ import customFieldKommunensSaksnummer from "./custom-field/custom-field-kommunen
 import customFieldPartNavn from "./custom-field/custom-field-part-navn.js";
 import customFieldProsjekt from "./custom-field/custom-field-prosjekt.js";
 import customFieldTelefonnummer from "./custom-field/custom-field-telefonnummer.js";
+import customFieldUtfallSvarStatus from "./custom-field/custom-field-utfall-svar-status.js";
 
 // Table
 import customTableEiendom from "./custom-table/custom-table-eiendom.js";
@@ -24,7 +25,8 @@ export const field = {
     customFieldKommunensSaksnummer,
     customFieldPartNavn,
     customFieldProsjekt,
-    customFieldTelefonnummer
+    customFieldTelefonnummer,
+    customFieldUtfallSvarStatus
 };
 export const table = { customTableEiendom, customTablePart };
 

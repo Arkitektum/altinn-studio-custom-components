@@ -52,6 +52,10 @@ export default [
                 prosjekt: {
                     prosjektnavn: "Prosjektnavn Eksempel",
                     prosjektnr: "PNR-2025"
+                },
+                utfallSvarStatus: {
+                    erUtfallBesvaresSenere: false,
+                    erUtfallBesvart: false
                 }
             },
             customTable: {

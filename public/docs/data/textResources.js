@@ -112,6 +112,22 @@ export default {
             value: "Telefonnummer"
         },
         {
+            id: "resource.customField.utfallSvar.status.title",
+            value: "Status"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+            value: "Besvares senere"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
+            value: "Svar innsendt tidligere"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.status",
+            value: "Besvares nå"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
