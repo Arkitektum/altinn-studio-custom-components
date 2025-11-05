@@ -161,7 +161,44 @@ export default [
                     parkeringsarealTerreng: 36.2,
                     arealSumByggesak: 95.15,
                     beregnetGradAvUtnytting: 1.22
-                }
+                },
+                data: [
+                    {
+                        resourceValues: {
+                            data: 80.25,
+                            isTotal: false
+                        },
+                        resourceBindings: {
+                            title: "resource.customSummation.areaBasis.title",
+                            emptyFieldText: "resource.emptyFieldText.default",
+                            unit: "resource.unit.meterSquared"
+                        }
+                    },
+                    {
+                        resourceValues: {
+                            data: 20.15,
+                            isTotal: false
+                        },
+                        resourceBindings: {
+                            title: "resource.customSummation.areaMinus.title",
+                            emptyFieldText: "resource.emptyFieldText.default",
+                            operator: "resource.operator.minus",
+                            unit: "resource.unit.meterSquared"
+                        }
+                    },
+                    {
+                        resourceValues: {
+                            data: 60.1,
+                            isTotal: true
+                        },
+                        resourceBindings: {
+                            title: "resource.customSummation.areaEquals.title",
+                            emptyFieldText: "resource.emptyFieldText.default",
+                            operator: "resource.operator.equals",
+                            unit: "resource.unit.meterSquared"
+                        }
+                    }
+                ]
             },
             dispensasjonOversikt: {
                 dispensasjon: [

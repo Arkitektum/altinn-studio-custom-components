@@ -228,6 +228,22 @@ export default {
             value: "Byggeområde/grunneiendom"
         },
         {
+            id: "resource.customSummation.data.title",
+            value: "Oppsummering av arealdata"
+        },
+        {
+            id: "resource.customSummation.areaBasis.title",
+            value: "Beregningsgrunnlag"
+        },
+        {
+            id: "resource.customSummation.areaMinus.title",
+            value: "Ev. areal som trekkes fra iht. beregningsregler"
+        },
+        {
+            id: "resource.customSummation.areaEquals.title",
+            value: "Areal som skal byggesesakbehandles"
+        },
+        {
             id: "resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title",
             value: "Ev. areal som trekkes fra iht. beregningsregler"
         },

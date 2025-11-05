@@ -27,6 +27,7 @@ import customTablePart from "./custom-table/custom-table-part.js";
 
 // Summation
 import customSummationArealdisponering from "./custom-summation/custom-summation-arealdisponering.js";
+import customSummationData from "./custom-summation/custom-summation-data.js";
 
 export const field = {
     customFieldAdresse,
@@ -52,7 +53,7 @@ export const list = { customListData, customListPlanlagteLoefteinnretninger, cus
 
 export const table = { customTableEiendom, customTablePart };
 
-export const summation = { customSummationArealdisponering };
+export const summation = { customSummationArealdisponering, customSummationData };
 
 export default {
     typography,
