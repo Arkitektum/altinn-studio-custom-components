@@ -1,4 +1,4 @@
-export default {
+const markup = {
     id: "custom-field-kommunens-saksnummer",
     type: "Custom",
     tagName: "custom-field-kommunens-saksnummer",
@@ -13,3 +13,5 @@ export default {
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };
+
+export default { markup };

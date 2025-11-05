@@ -1,4 +1,4 @@
-export default {
+const markup = {
     id: "custom-field-prosjekt",
     type: "Custom",
     tagName: "custom-field-prosjekt",
@@ -12,3 +12,5 @@ export default {
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };
+
+export default { markup };

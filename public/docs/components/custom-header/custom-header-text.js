@@ -1,4 +1,4 @@
-export default {
+const markup = {
     id: "custom-header-text",
     type: "Custom",
     tagName: "custom-header-text",
@@ -7,3 +7,5 @@ export default {
         title: "resource.customHeader.text.title"
     }
 };
+
+export default { markup };

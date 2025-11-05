@@ -1,4 +1,4 @@
-export default {
+const markup = {
     id: "utfallBesvarelse-utfallSvar-status",
     type: "Custom",
     tagName: "custom-field-utfall-svar-status",
@@ -11,3 +11,12 @@ export default {
         title: "resource.customField.utfallSvar.status.title"
     }
 };
+
+const defaultResourceBindings = {
+    title: "resource.utfallBesvarelse.utfallSvar.status.title",
+    erUtfallBesvaresSenere: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+    erUtfallBesvart: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
+    status: "resource.utfallBesvarelse.utfallSvar.status"
+};
+
+export default { markup, defaultResourceBindings };

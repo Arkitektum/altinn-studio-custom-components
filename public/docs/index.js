@@ -37,15 +37,15 @@ export function getResults(componentExamples, dataModels) {
             const componentsInType = componentExamples[componentType];
             const components = Object.keys(componentsInType).map((componentKey) => {
                 const component = componentsInType[componentKey];
-                if (!component?.tagName) {
+                if (!component?.markup?.tagName) {
                     return;
                 }
-                const data = getDataForComponent(component, dataModels);
+                const data = getDataForComponent(component?.markup, dataModels);
                 return {
-                    element: getPreviewElement(component, data),
-                    markup: component,
+                    element: getPreviewElement(component?.markup, data),
+                    markup: component?.markup,
                     data,
-                    resources: getTextResourcesFromResourceBindings(component?.resourceBindings)
+                    resources: getTextResourcesFromResourceBindings({ ...component?.defaultResourceBindings, ...component?.markup?.resourceBindings })
                 };
             });
             return {

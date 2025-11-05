@@ -1,4 +1,4 @@
-export default {
+const markup = {
     id: "customField-boolean-text",
     type: "Custom",
     tagName: "custom-field-boolean-text",
@@ -16,3 +16,5 @@ export default {
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };
+
+export default { markup };

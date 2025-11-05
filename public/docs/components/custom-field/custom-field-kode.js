@@ -1,4 +1,4 @@
-export default {
+const markup = {
     id: "customField-kode",
     type: "Custom",
     tagName: "custom-field-kode",
@@ -10,3 +10,5 @@ export default {
         title: "resource.customField.kode.title"
     }
 };
+
+export default { markup };
