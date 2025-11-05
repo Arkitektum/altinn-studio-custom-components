@@ -1,5 +1,4 @@
 // Field
-import CustomListVedlegg from "../../../src/classes/system-classes/component-classes/CustomListVedlegg.js";
 import customFieldAdresse from "./custom-field/custom-field-adresse.js";
 import customFieldBooleanData from "./custom-field/custom-field-boolean-data.js";
 import customFieldBooleanText from "./custom-field/custom-field-boolean-text.js";
