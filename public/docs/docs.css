@@ -33,7 +33,7 @@
         & .sidebar-title {
             font-size: 20px;
             font-weight: bold;
-            padding: 16px;
+            padding: 16px 10px;
             border-bottom: 1px solid #ccc;
             margin: 0;
             display: block;
@@ -45,7 +45,7 @@
                     font-weight: 500;
                     text-transform: capitalize;
                     cursor: pointer;
-                    padding: 4px 0 8px 16px;
+                    padding: 4px 0 8px 10px;
                     transition: var(--background-transition-default);
                     &:hover {
                         background-color: #e0e0e0;
@@ -61,7 +61,7 @@
                         & a {
                             text-decoration: none;
                             color: var(--color-text-default);
-                            padding: 4px 0 4px 32px;
+                            padding: 4px 0 4px 28px;
                             display: block;
                             transition: var(--background-transition-default);
                             &:hover {
