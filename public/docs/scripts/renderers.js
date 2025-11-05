@@ -1,5 +1,16 @@
+// Global functions
 import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
 
+/**
+ * Renders a markup example for a component as a collapsible <details> element.
+ *
+ * The rendered element includes a summary titled "Markup" and a code block
+ * displaying the JSON representation of the component's markup.
+ *
+ * @param {Object} componentExample - The example object containing markup to render.
+ * @param {any} componentExample.markup - The markup data to be displayed as JSON.
+ * @returns {HTMLDetailsElement} The constructed <details> element containing the markup example.
+ */
 function renderComponentExampleMarkup(componentExample) {
     const containerElement = document.createElement("details");
     containerElement.classList.add("component-example-code");
@@ -19,6 +30,12 @@ function renderComponentExampleMarkup(componentExample) {
     return containerElement;
 }
 
+/**
+ * Renders a collapsible details element displaying the provided component example data as formatted JSON.
+ *
+ * @param {Object} componentExampleData - The example data to display in the rendered component.
+ * @returns {HTMLElement} The DOM element containing the formatted example data.
+ */
 function renderComponentExampleData(componentExampleData) {
     const containerElement = document.createElement("details");
     containerElement.classList.add("component-example-code");
@@ -38,6 +55,12 @@ function renderComponentExampleData(componentExampleData) {
     return containerElement;
 }
 
+/**
+ * Renders a collapsible "Resources" section displaying the given component example resources as formatted JSON.
+ *
+ * @param {Object} componentExampleResources - The resources object to display in the code block.
+ * @returns {HTMLElement} The DOM element containing the rendered resources section.
+ */
 function renderComponentExampleResources(componentExampleResources) {
     const containerElement = document.createElement("details");
     containerElement.classList.add("component-example-code");
@@ -57,6 +80,13 @@ function renderComponentExampleResources(componentExampleResources) {
     return containerElement;
 }
 
+/**
+ * Creates a container div element and appends the provided component example's element as its child.
+ *
+ * @param {Object} componentExample - The example object containing the element to preview.
+ * @param {HTMLElement} componentExample.element - The HTML element to be rendered inside the preview container.
+ * @returns {HTMLDivElement} The container div element with the preview element appended.
+ */
 function renderPreviewElement(componentExample) {
     const containerElement = document.createElement("div");
     containerElement.classList.add("component-example-preview");
@@ -67,6 +97,16 @@ function renderPreviewElement(componentExample) {
     return containerElement;
 }
 
+/**
+ * Renders a component example, including its title, preview, markup, data, and resources.
+ *
+ * @param {Object} componentExample - The component example object to render.
+ * @param {Object} [componentExample.markup] - The markup information for the component.
+ * @param {string} [componentExample.markup.tagName] - The tag name of the component.
+ * @param {Object} [componentExample.data] - The data associated with the component example.
+ * @param {Object} [componentExample.resources] - The resources related to the component example.
+ * @returns {HTMLDivElement} The container element with the rendered component example.
+ */
 function renderComponentExample(componentExample) {
     const containerElement = document.createElement("div");
     containerElement.classList.add("component-example");
@@ -97,6 +137,16 @@ function renderComponentExample(componentExample) {
     return containerElement;
 }
 
+/**
+ * Renders the given results into the component documentation container.
+ *
+ * @param {Array<Object>} results - An array of component type objects to render.
+ * @param {string} results[].type - The name of the component type.
+ * @param {Array<Object>} results[].components - An array of component example objects for the type.
+ *
+ * Each component example object is rendered using the `renderComponentExample` function.
+ * The rendered elements are appended to the container with the ID "component-docs-container".
+ */
 export function renderResults(results) {
     const containerElement = document.getElementById("component-docs-container");
     containerElement.innerHTML = "";
@@ -125,6 +175,17 @@ export function renderResults(results) {
     appendChildren(containerElement, resultElements);
 }
 
+/**
+ * Renders the sidebar navigation for component types and their examples.
+ *
+ * @param {Array<Object>} results - An array of component type objects.
+ * @param {string} results[].type - The name of the component type.
+ * @param {Array<Object>} results[].components - An array of component example objects.
+ * @param {Object} results[].components[].markup - The markup object for the component example.
+ * @param {string} results[].components[].markup.tagName - The tag name of the component example.
+ *
+ * @returns {void}
+ */
 export function renderSidebar(results) {
     const sidebarElement = document.getElementById("sidebar");
     const sidebarTitleElement = document.createElement("h2");
