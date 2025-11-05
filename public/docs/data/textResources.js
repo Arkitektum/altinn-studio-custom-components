@@ -137,43 +137,36 @@ export default {
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.title",
-            value: "Løfteinnretninger",
-            variables: null
+            value: "Løfteinnretninger"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
-            value: "Er det løfteinnretninger som omfattes av TEK i bygningen?",
-            variables: null
+            value: "Er det løfteinnretninger som omfattes av TEK i bygningen?"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.planleggesLoefteinnretningIBygning.title",
-            value: "Planlegges løfteinnretninger som omfattes av TEK i bygningen?",
-            variables: null
+            value: "Planlegges løfteinnretninger som omfattes av TEK i bygningen?"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.planlagteLoefteinnretninger.title",
-            value: "Planlagte løfteinnretninger",
-            variables: null
+            value: "Planlagte løfteinnretninger"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.planleggesHeis.title",
-            value: "Det planlegges heis",
-            variables: null
+            value: "Det planlegges heis"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.planleggesLoefteplattform.title",
-            value: "Det planlegges løfteplattform",
-            variables: null
+            value: "Det planlegges løfteplattform"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.planleggesRulletrapp.title",
-            value: "Det planlegges rulletrapp",
-            variables: null
+            value: "Det planlegges rulletrapp"
         },
         {
             id: "resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title",
-            value: "Det planlegges trappeheis",
-            variables: null
+            value: "Det planlegges trappeheis"
+        },
         },
         {
             id: "resource.customTable.eiendom.title",
