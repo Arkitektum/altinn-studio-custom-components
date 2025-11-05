@@ -248,6 +248,42 @@ export default {
             value: "Ev. areal som trekkes fra iht. beregningsregler"
         },
         {
+            id: "resource.arbeidsplasser.title",
+            value: "Hvilke arbeidsplasser er berørt av tiltaket"
+        },
+        {
+            id: "resource.arbeidsplasser.emptyFieldText",
+            value: "Ingen arbeidsplasser registrert"
+        },
+        {
+            id: "resource.arbeidsplasser.arbeidsplasserKey.title",
+            value: "Arbeidsplasser"
+        },
+        {
+            id: "resource.arbeidsplasser.beroertAvTiltaket.title",
+            value: "Berørt av tiltaket"
+        },
+        {
+            id: "resource.arbeidsplasser.eksisterende.title",
+            value: "Eksisterende arbeidsplasser"
+        },
+        {
+            id: "resource.arbeidsplasser.faste.title",
+            value: "Faste arbeidsplasser"
+        },
+        {
+            id: "resource.arbeidsplasser.framtidige.title",
+            value: "Framtidige arbeidsplasser"
+        },
+        {
+            id: "resource.arbeidsplasser.midlertidige.title",
+            value: "Midlertidige arbeidsplasser"
+        },
+        {
+            id: "resource.arbeidsplasser.utleieBygg.title",
+            value: "Utleiebygg"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },

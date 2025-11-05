@@ -99,6 +99,17 @@ export default [
                 ]
             },
             customTable: {
+                arbeidsplasser: {
+                    framtidige: true,
+                    faste: false,
+                    midlertidige: true,
+                    antallAnsatte: "31",
+                    eksisterende: false,
+                    utleieBygg: false,
+                    antallVirksomheter: "1",
+                    beskrivelse: "Beskrivelse av arbeidsplasser",
+                    veiledning: false
+                },
                 eiendom: [
                     {
                         eiendomsidentifikasjon: {
