@@ -136,6 +136,46 @@ export default {
             value: "Elementer"
         },
         {
+            id: "resource.rammebetingelser.loefteinnretninger.title",
+            value: "Løfteinnretninger",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
+            value: "Er det løfteinnretninger som omfattes av TEK i bygningen?",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.planleggesLoefteinnretningIBygning.title",
+            value: "Planlegges løfteinnretninger som omfattes av TEK i bygningen?",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.planlagteLoefteinnretninger.title",
+            value: "Planlagte løfteinnretninger",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.planleggesHeis.title",
+            value: "Det planlegges heis",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.planleggesLoefteplattform.title",
+            value: "Det planlegges løfteplattform",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.planleggesRulletrapp.title",
+            value: "Det planlegges rulletrapp",
+            variables: null
+        },
+        {
+            id: "resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title",
+            value: "Det planlegges trappeheis",
+            variables: null
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },

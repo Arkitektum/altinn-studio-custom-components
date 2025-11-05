@@ -16,6 +16,7 @@ import customHeaderText from "./custom-header/custom-header-text.js";
 
 // List
 import customListData from "./custom-list/custom-list-data.js";
+import customListPlanlagteLoefteinnretninger from "./custom-list/custom-list-planlagte-loefteinnretninger.js";
 
 // Table
 import customTableEiendom from "./custom-table/custom-table-eiendom.js";
@@ -39,7 +40,7 @@ export const header = {
     customHeaderText
 };
 
-export const list = { customListData };
+export const list = { customListData, customListPlanlagteLoefteinnretninger };
 
 export const table = { customTableEiendom, customTablePart };
 

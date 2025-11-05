@@ -72,7 +72,15 @@ export default [
                         kodeverdi: "element3",
                         kodebeskrivelse: "Beskrivelse av element 3"
                     }
-                ]
+                ],
+                loefteinnretninger: {
+                    erLoefteinnretningIBygning: false,
+                    planleggesLoefteinnretningIBygning: true,
+                    planleggesHeis: false,
+                    planleggesTrappeheis: true,
+                    planleggesRulletrapp: true,
+                    planleggesLoefteplattform: false
+                }
             },
             customTable: {
                 eiendom: [
