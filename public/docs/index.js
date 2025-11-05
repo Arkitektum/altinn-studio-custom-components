@@ -57,8 +57,8 @@ export function getResults(componentExamples, dataModels) {
     return resultsElements;
 }
 
-window.onload = function () {
-    window.textResources = textResources;
+globalThis.onload = function () {
+    globalThis.textResources = textResources;
     const results = getResults(componentExamples, dataModels);
     renderResults(results);
     renderSidebar(results);
