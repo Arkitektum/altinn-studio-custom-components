@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -14,9 +14,9 @@ module.exports = {
             filename: "main.css"
         }),
         new HtmlWebpackPlugin({
-            template: "./public/docs/index.html", // use your HTML as a base
-            filename: "index.html", // output file in /docs
-            inject: "body" // inject scripts before </body>
+            template: "./public/docs/index.html",
+            filename: "index.html",
+            inject: "body"
         })
     ],
     module: {
@@ -24,6 +24,13 @@ module.exports = {
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]
+            },
+            {
+                test: /\.(woff2?|eot|ttf|otf)$/i,
+                type: "asset/resource",
+                generator: {
+                    filename: "fonts/[name][ext][query]"
+                }
             }
         ]
     },
