@@ -11,8 +11,10 @@ import customFieldProsjekt from "./custom-field/custom-field-prosjekt.js";
 import customFieldTelefonnummer from "./custom-field/custom-field-telefonnummer.js";
 import customFieldUtfallSvarStatus from "./custom-field/custom-field-utfall-svar-status.js";
 
-// Header
-import customHeaderText from "./custom-header/custom-header-text.js";
+// Typography
+import customHeaderText from "./custom-typography/custom-header-text.js";
+import customSubheaderText from "./custom-typography/custom-subheader-text.js";
+import customParagraphText from "./custom-typography/custom-paragraph-text.js";
 
 // List
 import customListData from "./custom-list/custom-list-data.js";
@@ -37,8 +39,10 @@ export const field = {
     customFieldUtfallSvarStatus
 };
 
-export const header = {
-    customHeaderText
+export const typography = {
+    customHeaderText,
+    customSubheaderText,
+    customParagraphText
 };
 
 export const list = { customListData, customListPlanlagteLoefteinnretninger, customListVedlegg };
@@ -46,7 +50,7 @@ export const list = { customListData, customListPlanlagteLoefteinnretninger, cus
 export const table = { customTableEiendom, customTablePart };
 
 export default {
-    header,
+    typography,
     field,
     list,
     table

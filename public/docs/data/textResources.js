@@ -132,6 +132,14 @@ export default {
             value: "Custom header text"
         },
         {
+            id: "resource.customParagraph.text.title",
+            value: "Custom paragraph text"
+        },
+        {
+            id: "resource.customSubheader.text.title",
+            value: "Custom subheader text"
+        },
+        {
             id: "resource.customList.data.title",
             value: "Elementer"
         },
