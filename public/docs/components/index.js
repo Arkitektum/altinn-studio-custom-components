@@ -1,4 +1,5 @@
 // Field
+import CustomListVedlegg from "../../../src/classes/system-classes/component-classes/CustomListVedlegg.js";
 import customFieldAdresse from "./custom-field/custom-field-adresse.js";
 import customFieldBooleanData from "./custom-field/custom-field-boolean-data.js";
 import customFieldBooleanText from "./custom-field/custom-field-boolean-text.js";
@@ -17,6 +18,7 @@ import customHeaderText from "./custom-header/custom-header-text.js";
 // List
 import customListData from "./custom-list/custom-list-data.js";
 import customListPlanlagteLoefteinnretninger from "./custom-list/custom-list-planlagte-loefteinnretninger.js";
+import customListVedlegg from "./custom-list/custom-list-vedlegg.js";
 
 // Table
 import customTableEiendom from "./custom-table/custom-table-eiendom.js";
@@ -40,7 +42,7 @@ export const header = {
     customHeaderText
 };
 
-export const list = { customListData, customListPlanlagteLoefteinnretninger };
+export const list = { customListData, customListPlanlagteLoefteinnretninger, customListVedlegg };
 
 export const table = { customTableEiendom, customTablePart };
 

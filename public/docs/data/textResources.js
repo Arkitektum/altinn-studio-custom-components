@@ -167,6 +167,9 @@ export default {
             id: "resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title",
             value: "Det planlegges trappeheis"
         },
+        {
+            id: "resource.customList.vedlegg.title",
+            value: "Vedlegg"
         },
         {
             id: "resource.customTable.eiendom.title",

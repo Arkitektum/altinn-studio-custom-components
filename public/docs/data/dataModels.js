@@ -80,7 +80,23 @@ export default [
                     planleggesTrappeheis: true,
                     planleggesRulletrapp: true,
                     planleggesLoefteplattform: false
-                }
+                },
+                vedlegg: [
+                    {
+                        vedleggstype: {
+                            kodeverdi: "attachment1",
+                            kodebeskrivelse: "Vedlegg 1"
+                        },
+                        filnavn: "File1.pdf"
+                    },
+                    {
+                        vedleggstype: {
+                            kodeverdi: "attachment2",
+                            kodebeskrivelse: "Vedlegg 2"
+                        },
+                        filnavn: "File2.pdf"
+                    }
+                ]
             },
             customTable: {
                 eiendom: [
