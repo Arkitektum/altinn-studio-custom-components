@@ -148,6 +148,21 @@ export default [
                     }
                 ]
             },
+            customSummation: {
+                arealdisponering: {
+                    tomtearealByggeomraade: 95.15,
+                    tomtearealSomTrekkesFra: 59.6,
+                    tomtearealSomLeggesTil: 36.2,
+                    tomtearealBeregnet: 95.15,
+                    beregnetMaksByggeareal: 59.6,
+                    arealBebyggelseEksisterende: 36.2,
+                    arealBebyggelseSomSkalRives: 95.15,
+                    arealBebyggelseNytt: 59.6,
+                    parkeringsarealTerreng: 36.2,
+                    arealSumByggesak: 95.15,
+                    beregnetGradAvUtnytting: 1.22
+                }
+            },
             dispensasjonOversikt: {
                 dispensasjon: [
                     {

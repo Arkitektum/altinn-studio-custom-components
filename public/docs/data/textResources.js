@@ -180,6 +180,58 @@ export default {
             value: "Vedlegg"
         },
         {
+            id: "resource.rammebetingelser.arealdisponering.title",
+            value: "Planer"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.emptyFieldText",
+            value: "Ingen planer registrert"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.bebyggelsen.title",
+            value: "Bebyggelsen"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.tomtearealet.title",
+            value: "Tomtearealet"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.arealBebyggelseEksisterende.title",
+            value: "Areal eksisterende bebyggelse"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.arealBebyggelseNytt.title",
+            value: "Areal ny bebyggelse"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.arealBebyggelseSomSkalRives.title",
+            value: "Areal som skal rives"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.arealSumByggesak.title",
+            value: "Sum areal"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.beregnetMaksByggeareal.title",
+            value: "Beregnet maksimalt byggeareal iht. plan"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.parkeringsarealTerreng.title",
+            value: "Parkeringsareal"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.tomtearealBeregnet.title",
+            value: "Beregnet tomteareal"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.tomtearealByggeomraade.title",
+            value: "Byggeområde/grunneiendom"
+        },
+        {
+            id: "resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title",
+            value: "Ev. areal som trekkes fra iht. beregningsregler"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },
