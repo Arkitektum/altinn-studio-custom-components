@@ -340,6 +340,43 @@ export default {
             value: "Bygnings-nummer"
         },
         {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
+            value: "Matrikkelinformasjon"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.emptyFieldText",
+            value: "Ingen eiendommer registrert"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.title",
+            value: "Adresse"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.gaardsnummer.title",
+            value: "Gårds-nummer"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.bruksnummer.title",
+            value: "Bruks-nummer"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.seksjonsnummer.title",
+            value: "Seksjons-nummer"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.festenummer.title",
+            value: "Feste-nummer"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bolignummer.title",
+            value: "Bruksenhets-nummer"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bygningsnummer.title",
+            value: "Bygnings-nummer"
+        },
+
+        {
             id: "resource.tiltakshaver.kontaktperson.header",
             value: "Kontaktperson for tiltakshaver"
         },

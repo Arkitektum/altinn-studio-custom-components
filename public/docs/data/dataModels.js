@@ -169,6 +169,58 @@ export default [
                         bolignummer: "H0101",
                         kommunenavn: "Oslo"
                     }
+                ],
+                naboGjenboerEiendom: [
+                    {
+                        matrikkelinformasjon: {
+                            eiendomsidentifikasjon: {
+                                kommunenummer: "1234",
+                                gaardsnummer: 33,
+                                bruksnummer: 16,
+                                festenummer: 0,
+                                seksjonsnummer: 0
+                            },
+                            adresse: {
+                                adresselinje1: "Naboens Adressevegen 2",
+                                adresselinje2: "",
+                                adresselinje3: "",
+                                postnr: "1234",
+                                poststed: "Bø",
+                                landkode: "NO",
+                                gatenavn: "Adressevegen",
+                                husnr: "2",
+                                bokstav: ""
+                            },
+                            bygningsnummer: "1234568",
+                            bolignummer: "H0102",
+                            kommunenavn: "Oslo"
+                        }
+                    },
+                    {
+                        matrikkelinformasjon: {
+                            eiendomsidentifikasjon: {
+                                kommunenummer: "0301",
+                                gaardsnummer: 208,
+                                bruksnummer: 391,
+                                festenummer: 0,
+                                seksjonsnummer: 0
+                            },
+                            address: {
+                                adresselinje1: "",
+                                adresselinje2: "",
+                                adresselinje3: "",
+                                postnr: "",
+                                poststed: "",
+                                landkode: "NO",
+                                gatenavn: "",
+                                husnr: "",
+                                bokstav: ""
+                            },
+                            bygningsnummer: "81099619",
+                            bolignummer: "H0102",
+                            kommunenavn: "Oslo"
+                        }
+                    }
                 ]
             },
             customSummation: {
