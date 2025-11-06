@@ -109,10 +109,10 @@ function renderPreviewElement(componentExample) {
  */
 function renderComponentExample(componentExample) {
     const containerElement = document.createElement("div");
+    containerElement.id = `component-${componentExample?.markup?.tagName}`;
     containerElement.classList.add("component-example");
 
     const titleElement = document.createElement("h3");
-    titleElement.id = `component-${componentExample?.markup?.tagName}`;
     titleElement.textContent = componentExample?.markup?.tagName;
     containerElement.appendChild(titleElement);
 
