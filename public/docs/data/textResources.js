@@ -388,6 +388,18 @@ export default {
             value: "Sikkerhetsklasse/tiltakskategori"
         },
         {
+            id: "resource.planer.andrePlaner.title",
+            value: "Andre planer"
+        },
+        {
+            id: "resource.planer.andrePlaner.plan.navn.title",
+            value: "Navn på plan"
+        },
+        {
+            id: "resource.planer.andrePlaner.plan.plantype.title",
+            value: "Type plan"
+        },
+        {
             id: "resource.tiltakshaver.kontaktperson.header",
             value: "Kontaktperson for tiltakshaver"
         },

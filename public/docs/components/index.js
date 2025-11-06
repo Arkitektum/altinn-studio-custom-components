@@ -32,6 +32,7 @@ import customTableArbeidsplasser from "./custom-table/custom-table-arbeidsplasse
 import customTableData from "./custom-table/custom-table-data.js";
 import customTableNaboGjenboerEiendom from "./custom-table/custom-table-nabo-gjenboer-eiendom.js";
 import customTableOmraaderisiko from "./custom-table/custom-table-omraaderisiko.js";
+import customTablePlan from "./custom-table/custom-table-plan.js";
 
 export const field = {
     customFieldAdresse,
@@ -61,7 +62,8 @@ export const table = {
     customTableEiendom,
     customTableNaboGjenboerEiendom,
     customTableOmraaderisiko,
-    customTablePart
+    customTablePart,
+    customTablePlan
 };
 
 export const summation = { customSummationArealdisponering, customSummationData };

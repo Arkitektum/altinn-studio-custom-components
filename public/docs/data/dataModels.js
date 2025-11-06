@@ -253,6 +253,22 @@ export default [
                             kodebeskrivelse: "Mindre fare for kvikkleire"
                         }
                     }
+                ],
+                plan: [
+                    {
+                        navn: "Kommuneplanens arealdel 2020-2030",
+                        plantype: {
+                            kodeverdi: "KP",
+                            kodebeskrivelse: "Arealdel av kommuneplan"
+                        }
+                    },
+                    {
+                        navn: "Reguleringsplan for Sentrum Øst",
+                        plantype: {
+                            kodeverdi: "RP",
+                            kodebeskrivelse: "Reguleringsplan for Sentrum Øst"
+                        }
+                    }
                 ]
             },
             customSummation: {
