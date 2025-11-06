@@ -6,11 +6,11 @@ const markup = {
     hideIfEmpty: false,
     size: "h2",
     dataModelBindings: {
-        data: "grouplist.ettersending"
+        data: "customGrouplist.ettersending"
     },
     resourceBindings: {
-        title: "resource.grouplist.ettersending.title",
-        emptyFieldText: "resource.grouplist.ettersending.emptyFieldText.default"
+        title: "resource.customGrouplist.ettersending.title",
+        emptyFieldText: "resource.customGrouplist.ettersending.emptyFieldText.default"
     }
 };
 const defaultResourceBindings = {

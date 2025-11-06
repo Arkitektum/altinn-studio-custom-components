@@ -323,7 +323,7 @@ export default [
                     }
                 ]
             },
-            grouplist: {
+            customGrouplist: {
                 ettersending: [
                     {
                         tema: {

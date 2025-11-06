@@ -416,11 +416,11 @@ export default {
             value: "E-postadresse"
         },
         {
-            id: "resource.grouplist.ettersending.title",
+            id: "resource.customGrouplist.ettersending.title",
             value: "Ettersendinger"
         },
         {
-            id: "resource.grouplist.ettersending.emptyFieldText.default",
+            id: "resource.customGrouplist.ettersending.emptyFieldText.default",
             value: "Ingen ettersendinger registrert"
         },
         {
