@@ -375,7 +375,18 @@ export default {
             id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bygningsnummer.title",
             value: "Bygnings-nummer"
         },
-
+        {
+            id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
+            value: "Oversikt over områderisikoer der byggverket skal plasseres"
+        },
+        {
+            id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
+            value: "Naturpåkjenning"
+        },
+        {
+            id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.sikkerhetsklasse.title",
+            value: "Sikkerhetsklasse/tiltakskategori"
+        },
         {
             id: "resource.tiltakshaver.kontaktperson.header",
             value: "Kontaktperson for tiltakshaver"
