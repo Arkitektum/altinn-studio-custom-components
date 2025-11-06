@@ -37,6 +37,7 @@ import customSummationData from "./custom-summation/custom-summation-data.js";
 // Grouplist
 import customGrouplistEttersending from "./grouplist/custom-grouplist-ettersending.js";
 import customGrouplistSjekklistekrav from "./grouplist/custom-grouplist-sjekklistekrav.js";
+import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
 
 export const field = {
     customFieldAdresse,
@@ -72,7 +73,7 @@ export const table = {
 
 export const summation = { customSummationArealdisponering, customSummationData };
 
-export const grouplist = { customGrouplistEttersending, customGrouplistSjekklistekrav };
+export const grouplist = { customGrouplistEttersending, customGrouplistSjekklistekrav, customGrouplistUtfallSvarType };
 
 export default {
     typography,

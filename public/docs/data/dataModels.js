@@ -396,6 +396,73 @@ export default [
                         },
                         dokumentasjon: "Dokumentasjon for sjekklistepunkt 3.7"
                     }
+                ],
+                utfallSvar: [
+                    {
+                        utfallId: "1",
+                        utfallType: {
+                            kodeverdi: "svv",
+                            kodebeskrivelse: "Svar på vilkår for midlertidig brukstillatelse"
+                        },
+                        utloestFraSjekkpunkt: {
+                            sjekkpunktId: "SP1",
+                            sjekkpunktEier: "System"
+                        },
+                        tema: {
+                            kodeverdi: "byggesak",
+                            kodebeskrivelse: "Byggesak"
+                        },
+                        tittel: "Utfall svar for byggesak",
+                        beskrivelse: "Dette er en beskrivelse av utfall svar for byggesak.",
+                        erUtfallBesvaresSenere: false,
+                        erUtfallBesvart: true,
+                        kommentar: "Kommentar til utfall svar for byggesak.",
+                        vedleggsliste: {
+                            vedlegg: [
+                                {
+                                    versjonsnummer: "1",
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE_A",
+                                        kodebeskrivelse: "Vedleggstype A"
+                                    },
+                                    versjonsdato: "2025-05-06T00:00:02",
+                                    filnavn: "dokumentA.pdf"
+                                },
+                                {
+                                    versjonsnummer: "1",
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE_B",
+                                        kodebeskrivelse: "Vedleggstype B"
+                                    },
+                                    versjonsdato: "2025-05-06T00:00:03",
+                                    filnavn: "dokumentB.pdf"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        utfallId: "2",
+                        utfallType: {
+                            kodeverdi: "mkv",
+                            kodebeskrivelse: "Svar på oppfølgingspunkt for midlertidig brukstillatelse"
+                        },
+                        utloestFraSjekkpunkt: {
+                            sjekkpunktId: "SP2",
+                            sjekkpunktEier: "System"
+                        },
+                        tema: {
+                            kodeverdi: "plan",
+                            kodebeskrivelse: "Plan"
+                        },
+                        tittel: "Utfall svar for plan",
+                        beskrivelse: "Dette er en beskrivelse av utfall svar for plan.",
+                        erUtfallBesvaresSenere: true,
+                        erUtfallBesvart: false,
+                        kommentar: "Kommentar til utfall svar for plan.",
+                        vedleggsliste: {
+                            vedlegg: []
+                        }
+                    }
                 ]
             },
             dispensasjonOversikt: {

@@ -120,6 +120,18 @@ export default {
             value: "Status"
         },
         {
+            id: "resource.utfallBesvarelse.utfallSvar.svv.header",
+            value: "Svar på vilkår for midlertidig brukstillatelse"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.mkv.header",
+            value: "Svar på oppfølgingspunkt for midlertidig brukstillatelse"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.status.title",
+            value: "Status"
+        },
+        {
             id: "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
             value: "Besvares senere"
         },
@@ -130,6 +142,18 @@ export default {
         {
             id: "resource.utfallBesvarelse.utfallSvar.status",
             value: "Besvares nå"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title",
+            value: "Tema"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.kommentar.title",
+            value: "Kommentar"
+        },
+        {
+            id: "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title",
+            value: "Vedlegg"
         },
         {
             id: "resource.customHeader.text.title",
