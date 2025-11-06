@@ -370,6 +370,32 @@ export default [
                             ]
                         }
                     }
+                ],
+                sjekklistekrav: [
+                    {
+                        sjekklistepunktsvar: true,
+                        sjekklistepunkt: {
+                            kodeverdi: "1.15",
+                            kodebeskrivelse: "Sjekklistepunkt 1.15 beskrivelse"
+                        },
+                        dokumentasjon: "Dokumentasjon for sjekklistepunkt 1.15"
+                    },
+                    {
+                        sjekklistepunktsvar: false,
+                        sjekklistepunkt: {
+                            kodeverdi: "2.3",
+                            kodebeskrivelse: "Sjekklistepunkt 2.3 beskrivelse"
+                        },
+                        dokumentasjon: "Dokumentasjon for sjekklistepunkt 2.3"
+                    },
+                    {
+                        sjekklistepunktsvar: true,
+                        sjekklistepunkt: {
+                            kodeverdi: "3.7",
+                            kodebeskrivelse: "Sjekklistepunkt 3.7 beskrivelse"
+                        },
+                        dokumentasjon: "Dokumentasjon for sjekklistepunkt 3.7"
+                    }
                 ]
             },
             dispensasjonOversikt: {

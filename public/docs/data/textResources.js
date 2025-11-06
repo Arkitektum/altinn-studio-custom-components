@@ -44,6 +44,10 @@ export default {
             value: "Nei"
         },
         {
+            id: "resource.defaultText.default",
+            value: "-"
+        },
+        {
             id: "resource.operator.minus",
             value: "-"
         },
@@ -434,6 +438,10 @@ export default {
         {
             id: "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
             value: "Vedlegg"
+        },
+        {
+            id: "resource.krav.sjekklistekrav.title",
+            value: "Sjekklistekrav"
         }
     ]
 };
