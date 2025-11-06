@@ -414,6 +414,26 @@ export default {
         {
             id: "resource.tiltakshaver.kontaktperson.epost.title",
             value: "E-postadresse"
+        },
+        {
+            id: "resource.grouplist.ettersending.title",
+            value: "Ettersendinger"
+        },
+        {
+            id: "resource.grouplist.ettersending.emptyFieldText.default",
+            value: "Ingen ettersendinger registrert"
+        },
+        {
+            id: "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title",
+            value: "Tema"
+        },
+        {
+            id: "resource.ettersendinger.ettersending.kommentar.title",
+            value: "Kommentar"
+        },
+        {
+            id: "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
+            value: "Vedlegg"
         }
     ]
 };

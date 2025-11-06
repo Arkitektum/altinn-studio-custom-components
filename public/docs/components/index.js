@@ -22,17 +22,20 @@ import customListPlanlagteLoefteinnretninger from "./custom-list/custom-list-pla
 import customListVedlegg from "./custom-list/custom-list-vedlegg.js";
 
 // Table
+import customTableArbeidsplasser from "./custom-table/custom-table-arbeidsplasser.js";
+import customTableData from "./custom-table/custom-table-data.js";
 import customTableEiendom from "./custom-table/custom-table-eiendom.js";
+import customTableNaboGjenboerEiendom from "./custom-table/custom-table-nabo-gjenboer-eiendom.js";
+import customTableOmraaderisiko from "./custom-table/custom-table-omraaderisiko.js";
 import customTablePart from "./custom-table/custom-table-part.js";
+import customTablePlan from "./custom-table/custom-table-plan.js";
 
 // Summation
 import customSummationArealdisponering from "./custom-summation/custom-summation-arealdisponering.js";
 import customSummationData from "./custom-summation/custom-summation-data.js";
-import customTableArbeidsplasser from "./custom-table/custom-table-arbeidsplasser.js";
-import customTableData from "./custom-table/custom-table-data.js";
-import customTableNaboGjenboerEiendom from "./custom-table/custom-table-nabo-gjenboer-eiendom.js";
-import customTableOmraaderisiko from "./custom-table/custom-table-omraaderisiko.js";
-import customTablePlan from "./custom-table/custom-table-plan.js";
+
+// Grouplist
+import customGrouplistEttersending from "./grouplist/custom-grouplist-ettersending.js";
 
 export const field = {
     customFieldAdresse,
@@ -68,10 +71,13 @@ export const table = {
 
 export const summation = { customSummationArealdisponering, customSummationData };
 
+export const grouplist = { customGrouplistEttersending };
+
 export default {
     typography,
     field,
     list,
     table,
-    summation
+    summation,
+    grouplist
 };

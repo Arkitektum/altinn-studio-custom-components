@@ -323,6 +323,55 @@ export default [
                     }
                 ]
             },
+            grouplist: {
+                ettersending: [
+                    {
+                        tema: {
+                            kodeverdi: "byggesak",
+                            kodebeskrivelse: "Byggesak"
+                        },
+                        tittel: "Ettersendelse for byggesak",
+                        kommentar: "Dette er en kommentar for byggesak ettersendelse.",
+                        vedleggsliste: {
+                            vedlegg: [
+                                {
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE1",
+                                        kodebeskrivelse: "Vedleggstype 1"
+                                    },
+                                    filnavn: "dokument1.pdf"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        tema: {
+                            kodeverdi: "plan",
+                            kodebeskrivelse: "Plan"
+                        },
+                        tittel: "Ettersendelse for plan",
+                        kommentar: "Dette er en kommentar for plan ettersendelse.",
+                        vedleggsliste: {
+                            vedlegg: [
+                                {
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE2",
+                                        kodebeskrivelse: "Vedleggstype 2"
+                                    },
+                                    filnavn: "dokument2.pdf"
+                                },
+                                {
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE3",
+                                        kodebeskrivelse: "Vedleggstype 3"
+                                    },
+                                    filnavn: "dokument3.pdf"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
             dispensasjonOversikt: {
                 dispensasjon: [
                     {
