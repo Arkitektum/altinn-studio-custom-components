@@ -110,6 +110,18 @@ export default [
                     beskrivelse: "Beskrivelse av arbeidsplasser",
                     veiledning: false
                 },
+                data: [
+                    {
+                        navn: "Ola Nordmann",
+                        dato: "2024-01-15",
+                        kommentar: "Dette er en kommentar fra Ola."
+                    },
+                    {
+                        navn: "Kari Nordmann",
+                        dato: "2024-02-20",
+                        kommentar: "Dette er en kommentar fra Kari."
+                    }
+                ],
                 eiendom: [
                     {
                         eiendomsidentifikasjon: {

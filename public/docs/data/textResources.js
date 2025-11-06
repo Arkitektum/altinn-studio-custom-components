@@ -284,6 +284,26 @@ export default {
             value: "Utleiebygg"
         },
         {
+            id: "resource.customTable.data.title",
+            value: "Data"
+        },
+        {
+            id: "resource.customTable.data.emptyFieldText",
+            value: "Ingen data registrert"
+        },
+        {
+            id: "resource.customTable.data.navn.title",
+            value: "Navn"
+        },
+        {
+            id: "resource.customTable.data.dato.title",
+            value: "Dato"
+        },
+        {
+            id: "resource.customTable.data.kommentar.title",
+            value: "Kommentar"
+        },
+        {
             id: "resource.customTable.eiendom.title",
             value: "Eiendom/byggested"
         },

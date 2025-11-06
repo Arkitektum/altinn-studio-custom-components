@@ -29,6 +29,7 @@ import customTablePart from "./custom-table/custom-table-part.js";
 import customSummationArealdisponering from "./custom-summation/custom-summation-arealdisponering.js";
 import customSummationData from "./custom-summation/custom-summation-data.js";
 import customTableArbeidsplasser from "./custom-table/custom-table-arbeidsplasser.js";
+import customTableData from "./custom-table/custom-table-data.js";
 
 export const field = {
     customFieldAdresse,
@@ -52,7 +53,7 @@ export const typography = {
 
 export const list = { customListData, customListPlanlagteLoefteinnretninger, customListVedlegg };
 
-export const table = { customTableArbeidsplasser, customTableEiendom, customTablePart };
+export const table = { customTableArbeidsplasser, customTableData, customTableEiendom, customTablePart };
 
 export const summation = { customSummationArealdisponering, customSummationData };
 
