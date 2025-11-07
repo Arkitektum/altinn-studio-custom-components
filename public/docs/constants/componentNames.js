@@ -28,5 +28,6 @@ export default {
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-sjekklistekrav": "Sjekklistekrav",
     "custom-grouplist-utfall-svar-type": "Utfall svar type",
-    "custom-grouplist-utfall-svar": "Utfall svar"
+    "custom-grouplist-utfall-svar": "Utfall svar",
+    "custom-dispensasjon": "Dispensasjonssøknad"
 };

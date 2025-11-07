@@ -40,6 +40,9 @@ import customGrouplistSjekklistekrav from "./grouplist/custom-grouplist-sjekklis
 import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
 import customGrouplistUtfallSvar from "./grouplist/custom-grouplist-utfall-svar.js";
 
+// Layout
+import customDispensasjon from "./layout/custom-dispensasjon.js";
+
 export const field = {
     customFieldAdresse,
     customFieldBooleanData,
@@ -76,11 +79,14 @@ export const summation = { customSummationArealdisponering, customSummationData 
 
 export const grouplist = { customGrouplistEttersending, customGrouplistSjekklistekrav, customGrouplistUtfallSvarType, customGrouplistUtfallSvar };
 
+export const layout = { customDispensasjon };
+
 export default {
     typography,
     field,
     list,
     table,
     summation,
-    grouplist
+    grouplist,
+    layout
 };

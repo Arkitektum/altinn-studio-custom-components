@@ -336,6 +336,10 @@ export default {
             value: "Eiendom/byggested"
         },
         {
+            id: "resource.eiendomByggested.eiendom.title",
+            value: "Eiendom/byggested"
+        },
+        {
             id: "resource.eiendomByggested.eiendom.adresse.title",
             value: "Adresse"
         },
@@ -466,6 +470,158 @@ export default {
         {
             id: "resource.krav.sjekklistekrav.title",
             value: "Sjekklistekrav"
+        },
+        {
+            id: "resource.soeknadGjelder.header",
+            value: "Søknaden gjelder"
+        },
+        {
+            id: "resource.tiltakshaver.header",
+            value: "Søker"
+        },
+        {
+            id: "resource.tiltakshaver.navn.title",
+            value: "Tiltakshaver"
+        },
+        {
+            id: "resource.tiltakshaver.telefonnummer.title",
+            value: "Telefonnummer"
+        },
+        {
+            id: "resource.tiltakshaver.epost.title",
+            value: "E-postadresse"
+        },
+        {
+            id: "resource.tiltakshaver.adresse.title",
+            value: "Adresse"
+        },
+        {
+            id: "resource.dispensasjonBeskrivelse.beskrivelse.title",
+            value: "Beskrivelse"
+        },
+        {
+            id: "resource.dispensasjonFra.header",
+            value: "Bestemmelse"
+        },
+        {
+            id: "resource.dispensasjonFra.dispensasjonPlanBestemmelse.navn.title",
+            value: "Navn"
+        },
+        {
+            id: "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
+            value: "Nasjonal arealplan-ID"
+        },
+        {
+            id: "resource.dispensasjonFra.bestemmelserType.title",
+            value: "Bestemmelsestype"
+        },
+        {
+            id: "resource.dispensasjonFra.dispensasjonPlanBestemmelse.planbestemmelse.nummerering.title",
+            value: "Planbestemmelse"
+        },
+        {
+            id: "resource.stedfesting.header",
+            value: "Stedfesting"
+        },
+        {
+            id: "resource.stedfesting.posisjon.koordinatsystem.title",
+            value: "Koordinatsystem"
+        },
+        {
+            id: "resource.stedfesting.posisjon.koordinater.title",
+            value: "Koordinater"
+        },
+        {
+            id: "resource.stedfesting.vertikalnivaa.title",
+            value: "Vertikalnivå"
+        },
+        {
+            id: "resource.varighet.header",
+            value: "Varighet"
+        },
+        {
+            id: "resource.varighet.oenskesVarigDispensasjon.true.title",
+            value: "Ønskes permanent dispensasjon"
+        },
+        {
+            id: "resource.varighet.oensketVarighetTil.title",
+            value: "Ønskes varighet til"
+        },
+        {
+            id: "resource.begrunnelse.header",
+            value: "Begrunnelse"
+        },
+        {
+            id: "resource.begrunnelse.hensynBakBestemmelsen.title",
+            value: "Hensynet bak bestemmelse"
+        },
+        {
+            id: "resource.begrunnelse.vurderingHensynBakBestemmelsen.title",
+            value: "I hvilken grad blir hensynene bak bestemmelsen tilsidesatt ved dispensasjon?"
+        },
+        {
+            id: "resource.begrunnelse.vurderingHensynOverordnet.title",
+            value: "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?"
+        },
+        {
+            id: "resource.begrunnelse.fordeler.title",
+            value: "Liste med fordeler"
+        },
+        {
+            id: "resource.begrunnelse.ulemper.title",
+            value: "Liste med ulemper"
+        },
+        {
+            id: "resource.begrunnelse.samletBegrunnelse.title",
+            value: "Samlet begrunnelse"
+        },
+        {
+            id: "resource.generelleVilkaar.norskSvenskDansk.header",
+            value: "Erklæring"
+        },
+        {
+            id: "resource.generelleVilkaar.norskSvenskDansk.true.title",
+            value: "Søknaden og all relevant dokumentasjon er skrevet/oversatt til norsk, svensk eller dansk."
+        },
+        {
+            id: "resource.dispensasjon.dispensasjonReferanse.title",
+            value: "Dispensasjonsreferanse"
+        },
+        {
+            id: "resource.kommunensSaksnummer.title",
+            value: "Kommunens saksnummer"
+        },
+        {
+            id: "resource.metadata.ftbId.title",
+            value: "FtID"
+        },
+        {
+            id: "resource.tiltakstyper.type.header",
+            value: "Tiltak/ byggeplaner"
+        },
+        {
+            id: "resource.tiltakstyper.type.kode.title",
+            value: "Tiltakstyper i søknad om dispensasjon"
+        },
+        {
+            id: "resource.ansvarligSoeker.header",
+            value: "Ansvarlig søker"
+        },
+        {
+            id: "resource.ansvarligSoeker.navn.title",
+            value: "Navn"
+        },
+        {
+            id: "resource.ansvarligSoeker.telefonnummer.title",
+            value: "Telefonnummer"
+        },
+        {
+            id: "resource.ansvarligSoeker.epost.title",
+            value: "E-post"
+        },
+        {
+            id: "resource.ansvarligSoeker.adresse.title",
+            value: "Adresse"
         }
     ]
 };

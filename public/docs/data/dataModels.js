@@ -542,6 +542,210 @@ export default [
                     mobilnummer: "12034043",
                     epost: "test2@arkitektum.no"
                 }
+            },
+            customLayout: {
+                dispensasjon: {
+                    dispensasjonBeskrivelse: {
+                        dispensasjonTittel: {
+                            kodeverdi: "byggeGrense",
+                            kodebeskrivelse: "Byggegrenser"
+                        },
+                        inngangsbeskrivelse: {
+                            kodeverdi: "byggeLinje",
+                            kodebeskrivelse: "Vi vil plassere tiltaket utenfor regulert byggelinje"
+                        },
+                        annenInngangsbeskrivelse: "Jeg vil bygge i en sikrings-, støy- og faresone",
+                        beskrivelse:
+                            "Vi ønsker å plassere garasjen 4,9 meter fra tomtegrensen mot veien, for å unngå å felle det fine eiketreet i hagen."
+                    },
+                    dispensasjonReferanse: "89fa33df-079a-407c-8371-4e85df5cf418",
+                    soeknadstype: {
+                        kodeverdi: "NV",
+                        kodebeskrivelse: "Nabovarsel"
+                    },
+                    kommunensSaksnummer: {
+                        saksaar: 2024,
+                        sakssekvensnummer: 12345
+                    },
+                    metadata: {
+                        fraSluttbrukersystem: "eByggesøknadssystem X",
+                        ftbId: "FTB123",
+                        prosjektnavn: "Eksempelsak Dispensasjon",
+                        prosjektnr: "2024-54-A",
+                        foretrukketSpraak: {
+                            kodeverdi: "nb",
+                            kodebeskrivelse: "Bokmål"
+                        }
+                    },
+                    tiltakshaver: {
+                        partstype: {
+                            kodeverdi: "Foretak",
+                            kodebeskrivelse: "Foretak"
+                        },
+                        foedselsnummer: null,
+                        organisasjonsnummer: "123456789",
+                        navn: "Organisasjon AS",
+                        adresse: {
+                            adresselinje1: "Organisasjonsvegen 1",
+                            adresselinje2: null,
+                            adresselinje3: null,
+                            postnr: "1234",
+                            poststed: "Eksempelbyen",
+                            landkode: "NO"
+                        },
+                        telefonnummer: "111223344",
+                        mobilnummer: "12034043",
+                        epost: "eksempel@organisasjon.no"
+                    },
+                    ansvarligSoeker: {
+                        partstype: {
+                            kodeverdi: "Person",
+                            kodebeskrivelse: "Person"
+                        },
+                        foedselsnummer: "01020312345",
+                        organisasjonsnummer: null,
+                        navn: "Ola Nordmann",
+                        adresse: {
+                            adresselinje1: "Søkervegen 2",
+                            adresselinje2: null,
+                            adresselinje3: null,
+                            postnr: "5678",
+                            poststed: "Søkerbyen",
+                            landkode: "NO"
+                        },
+                        telefonnummer: "99887766",
+                        mobilnummer: "91234567",
+                        epost: "ola.nordmann@eksempel.no",
+                        kontaktperson: {
+                            navn: "Kari Nordmann",
+                            telefonnummer: "99887766",
+                            mobilnummer: "91234567",
+                            epost: "kari.nordmann@eksempel.no"
+                        }
+                    },
+                    eiendomByggested: {
+                        eiendom: [
+                            {
+                                eiendomsidentifikasjon: {
+                                    kommunenummer: "1234",
+                                    gaardsnummer: 33,
+                                    bruksnummer: 16,
+                                    festenummer: 0,
+                                    seksjonsnummer: 0
+                                },
+                                adresse: {
+                                    adresselinje1: "Adressevegen 1",
+                                    adresselinje2: "",
+                                    adresselinje3: "",
+                                    postnr: "1234",
+                                    poststed: "Bø",
+                                    landkode: "NO",
+                                    gatenavn: "Adressevegen",
+                                    husnr: "1",
+                                    bokstav: ""
+                                },
+                                bygningsnummer: "1234567",
+                                bolignummer: "H0101",
+                                kommunenavn: "Oslo"
+                            },
+                            {
+                                eiendomsidentifikasjon: {
+                                    kommunenummer: "0301",
+                                    gaardsnummer: 208,
+                                    bruksnummer: 391,
+                                    festenummer: 0,
+                                    seksjonsnummer: 0
+                                },
+                                adresse: {
+                                    adresselinje1: "",
+                                    adresselinje2: "",
+                                    adresselinje3: "",
+                                    postnr: "",
+                                    poststed: "",
+                                    landkode: "NO",
+                                    gatenavn: "",
+                                    husnr: "",
+                                    bokstav: ""
+                                },
+                                bygningsnummer: "81099618",
+                                bolignummer: "H0101",
+                                kommunenavn: "Oslo"
+                            }
+                        ]
+                    },
+                    tiltakstyper: {
+                        type: [
+                            {
+                                kodeverdi: "nybygg",
+                                kodebeskrivelse: "Nybygg"
+                            },
+                            {
+                                kodeverdi: "tilbygg",
+                                kodebeskrivelse: "Tilbygg"
+                            }
+                        ]
+                    },
+                    dispensasjonFra: {
+                        bestemmelserType: {
+                            kodeverdi: "reguleringsPlan",
+                            kodebeskrivelse: "Reguleringsplan"
+                        },
+                        dispensasjonPlanBestemmelse: {
+                            navn: "Reguleringsplan for Sentrum Øst",
+                            nasjonalArealplanId: {
+                                administrativEnhet: "0301",
+                                planidentifikasjon: "RP-2020-1234"
+                            },
+                            planbestemmelse: {
+                                nummerering: "8-9",
+                                overskrift: "Byggegrenser og plassering",
+                                bestemmelsestekst: "Bygninger skal plasseres innenfor angitte byggegrenser på plankartet."
+                            },
+                            gradAvUtnytting: "17",
+                            beregningsregelGradAvUtnytting: {
+                                kodeverdi: "annet",
+                                kodebeskrivelse: "Annet i m2"
+                            }
+                        },
+                        lovbestemmelse: "§ 29-4 i plan- og bygningsloven"
+                    },
+                    stedfesting: {
+                        posisjon: {
+                            type: null,
+                            koordinatsystem: {
+                                kodeverdi: "EPSG:25835",
+                                kodebeskrivelse: "EUREF89 UTM sone 35"
+                            },
+                            koordinater: {
+                                koordinat: [57.9139, 13.7522]
+                            }
+                        },
+                        vertikalnivaa: {
+                            kodeverdi: "2",
+                            kodebeskrivelse: "På grunnen/vannoverflate"
+                        }
+                    },
+                    varighet: {
+                        oenskesVarigDispensasjon: true,
+                        oensketVarighetTil: "2025-12-31T00:00:00"
+                    },
+                    begrunnelse: {
+                        hensynBakBestemmelsen: "Bestemmelsen er satt for å sikre tilstrekkelig avstand til vei og naboeiendommer",
+                        vurderingHensynBakBestemmelsen:
+                            "I dette tilfellet vil plassering utenfor byggegrensen ikke medføre ulempe for omkringliggende eiendommer eller trafikk.",
+                        vurderingHensynOverordnet: "Nasjonale og regionale interesser blir ikke vesentlig tilsidesatt av av endringen.",
+                        fordeler: {
+                            effekt: ["Bedre utnyttelse av tomten", "Bevaring av eksisterende trær og grøntområder"]
+                        },
+                        ulemper: {
+                            effekt: ["Redusert mulighet for fremtidig utvidelse av veien"]
+                        },
+                        samletBegrunnelse: "Etter en helhetsvurdering mener vi at fordelene ved å gi dispensasjon veier tyngre enn ulempene."
+                    },
+                    generelleVilkaar: {
+                        norskSvenskDansk: true
+                    }
+                }
             }
         }
     }
