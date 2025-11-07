@@ -462,6 +462,39 @@ export default [
                         vedleggsliste: {
                             vedlegg: []
                         }
+                    },
+                    {
+                        utfallId: "3",
+                        utfallType: {
+                            kodeverdi: "svv",
+                            kodebeskrivelse: "Svar på vilkår for midlertidig brukstillatelse"
+                        },
+                        utloestFraSjekkpunkt: {
+                            sjekkpunktId: "SP3",
+                            sjekkpunktEier: "System"
+                        },
+                        tema: {
+                            kodeverdi: "byggesak",
+                            kodebeskrivelse: "Byggesak"
+                        },
+                        tittel: "Utfall svar 2 for byggesak",
+                        beskrivelse: "Dette er en annen beskrivelse av utfall svar for byggesak.",
+                        erUtfallBesvaresSenere: false,
+                        erUtfallBesvart: true,
+                        kommentar: "En annen kommentar til utfall svar for byggesak.",
+                        vedleggsliste: {
+                            vedlegg: [
+                                {
+                                    versjonsnummer: "1",
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE_C",
+                                        kodebeskrivelse: "Vedleggstype C"
+                                    },
+                                    versjonsdato: "2025-05-06T00:00:04",
+                                    filnavn: "dokumentC.pdf"
+                                }
+                            ]
+                        }
                     }
                 ]
             },

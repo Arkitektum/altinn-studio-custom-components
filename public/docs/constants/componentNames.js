@@ -27,5 +27,6 @@ export default {
     "custom-summation-data": "Summering (data)",
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-sjekklistekrav": "Sjekklistekrav",
-    "custom-grouplist-utfall-svar-type": "Utfall svar type"
+    "custom-grouplist-utfall-svar-type": "Utfall svar type",
+    "custom-grouplist-utfall-svar": "Utfall svar"
 };
