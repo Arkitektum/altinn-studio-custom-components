@@ -1,5 +1,6 @@
 // Global functions
 import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
+import { getComponentNameFromTagName } from "./helpers.js";
 
 /**
  * Renders a markup example for a component as a collapsible <details> element.
@@ -113,7 +114,7 @@ function renderComponentExample(componentExample) {
     containerElement.classList.add("component-example");
 
     const titleElement = document.createElement("h3");
-    titleElement.textContent = componentExample?.markup?.tagName;
+    titleElement.textContent = getComponentNameFromTagName(componentExample?.markup?.tagName);
     containerElement.appendChild(titleElement);
 
     const previewElement = renderPreviewElement(componentExample);
@@ -211,7 +212,7 @@ export function renderSidebar(results) {
         componentType.components.forEach((componentExample) => {
             const componentLiElement = document.createElement("li");
             const componentLinkElement = document.createElement("a");
-            componentLinkElement.textContent = componentExample?.markup?.tagName;
+            componentLinkElement.textContent = getComponentNameFromTagName(componentExample?.markup?.tagName);
             componentLinkElement.href = `#component-${componentExample?.markup?.tagName}`;
             componentLiElement.appendChild(componentLinkElement);
             componentsUlElement.appendChild(componentLiElement);
