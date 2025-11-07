@@ -1,7 +1,5 @@
 // Classes
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
-import CustomDispensasjonerListData from "../classes/system-classes/component-classes/CustomDispensasjonerListData.js";
-import CustomDispensasjonerUnitInList from "../classes/system-classes/component-classes/CustomDispensasjonerUnitInList.js";
 import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
 import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.js";
@@ -64,10 +62,6 @@ export function instantiateComponent(element) {
             return new CustomComponent(component);
         case "custom-dispensasjon":
             return new CustomDispensasjon(component);
-        case "custom-dispensasjoner-list-data":
-            return new CustomDispensasjonerListData(component);
-        case "custom-dispensasjoner-unit-in-list":
-            return new CustomDispensasjonerUnitInList(component);
         case "custom-divider":
             return new CustomDivider(component);
         case "custom-feedback":
