@@ -30,7 +30,6 @@ import customGrouplistEttersending from "./data-components/custom-grouplist-ette
 import customGrouplistSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/index.js";
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
 import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
-import customGrouplistVarsling from "./data-components/custom-grouplist-varsling/index.js";
 import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.js";
 import customGroupSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
@@ -93,7 +92,6 @@ export {
     customGrouplistSjekklistekrav,
     customGrouplistUtfallSvar,
     customGrouplistUtfallSvarType,
-    customGrouplistVarsling,
     customGroupEttersending,
     customGroupSjekklistekrav,
     customGroupUtfallSvar,
