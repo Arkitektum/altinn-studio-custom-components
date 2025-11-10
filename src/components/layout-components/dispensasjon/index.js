@@ -15,7 +15,7 @@ import {
     renderBegrunnelseVurderingHensynBakBestemmelsen,
     renderBegrunnelseVurderingHensynOverordnet,
     renderBestemmelserType,
-    renderDispansasjonHeader,
+    renderDispensasjonHeader,
     renderDispensasjonBeskrivelse,
     renderDispensasjonFraHeader,
     renderDispensasjonPlanBestemmelseNavn,
@@ -54,7 +54,7 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const layoutContainerElement = renderLayoutContainerElement();
-                const dispensasjonHeaderElement = renderDispansasjonHeader(component);
+                const dispensasjonHeaderElement = renderDispensasjonHeader(component);
                 const dispensasjonsreferanseElement = renderDispensasjonReferanse(component);
                 const metadataFtbIdElement = renderMetadataFtbId(component);
                 const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
@@ -66,7 +66,7 @@ export default customElements.define(
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(component);
                 const ansvarligSoekerTableElement = renderAnsvarligSoekerTable(component);
                 const ansvarligSoekerAdresseElement = renderAnsvarligSoekerAdresse(component);
-                const dispensasjonHeader2Element = renderDispansasjonHeader(component, "h2");
+                const dispensasjonHeader2Element = renderDispensasjonHeader(component, "h2");
                 const inngangsbeskrivelseElement = renderInngangsbeskrivelse(component);
                 const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(component);
                 const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(component);

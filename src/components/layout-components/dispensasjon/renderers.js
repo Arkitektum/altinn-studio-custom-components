@@ -11,7 +11,7 @@ import { addContainerElement, createCustomElement, hasValue } from "../../../fun
  * @param {string} [size="h1"] - The header size (e.g., "h1", "h2").
  * @returns {Object|null} The custom header element or null if the title is not available.
  */
-export function renderDispansasjonHeader(component, size = "h1") {
+export function renderDispensasjonHeader(component, size = "h1") {
     const data = component?.resourceValues?.data;
     const title = data?.dispensasjonBeskrivelse?.dispensasjonTittel?.kodebeskrivelse;
     if (!hasValue(title)) {
