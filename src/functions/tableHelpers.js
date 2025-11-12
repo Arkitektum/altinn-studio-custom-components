@@ -42,7 +42,9 @@ export function getTableRows(tableColumns, data) {
                 format: column.format,
                 hideTitle: true,
                 tagName: column.tagName,
-                isChildComponent: true
+                isChildComponent: true,
+                itemTermKey: column.itemTermKey,
+                itemDescriptionKey: column.itemDescriptionKey
             };
             if (hasValue(emptyFieldText)) {
                 componentProps.resourceValues.emptyFieldText = emptyFieldText;
