@@ -44,7 +44,7 @@ export default class CustomFieldUtfallSvarStatus extends CustomComponent {
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(resourceBindings?.utfallSvarStatus?.title),
+            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.utfallSvarStatus?.title),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
