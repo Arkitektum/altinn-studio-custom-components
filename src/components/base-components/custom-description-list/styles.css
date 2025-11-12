@@ -1,0 +1,49 @@
+custom-description-list {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    font-weight: var(--font-weight-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
+    & .field {
+        & span.field-title {
+            font-weight: var(--font-weight-bold);
+            display: block;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+            &::after {
+                content: "";
+                display: block;
+                height: 50px;
+                margin-bottom: -50px;
+            }
+        }
+    }
+    /* make pair of dt and dd on same line. dt aligned to the left and dt aligned to the right */
+    & dl {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+        padding: 0;
+
+        & dt {
+            flex: 0 0 50%;
+            font-weight: var(--font-weight-default);
+            padding: 0.5rem 0;
+            margin: 0;
+            hyphens: auto;
+            word-break: break-word;
+            word-break: normal;
+            overflow-wrap: normal;
+            white-space: normal;
+        }
+        & dd {
+            flex: 0 0 50%;
+            font-weight: var(--font-weight-default);
+            margin: 0;
+            padding: 0.5rem 0;
+        }
+        &.has-title {
+            page-break-before: avoid;
+        }
+    }
+}

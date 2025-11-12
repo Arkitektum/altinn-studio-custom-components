@@ -1,4 +1,5 @@
 export default [
+    "custom-description-list",
     "custom-divider",
     "custom-feedback",
     "custom-field",

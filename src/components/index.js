@@ -1,4 +1,5 @@
 // Base components
+import customDescriptionList from "./base-components/custom-description-list/index.js";
 import customDivider from "./base-components/custom-divider/index.js";
 import customFeedback from "./base-components/custom-feedback/index.js";
 import customField from "./base-components/custom-field/index.js";
@@ -62,6 +63,7 @@ import "../styles/main.css" with { type: "css" };
 initCustomComponents();
 
 export {
+    customDescriptionList,
     customDivider,
     customFeedback,
     customField,

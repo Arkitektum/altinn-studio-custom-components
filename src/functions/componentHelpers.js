@@ -1,4 +1,5 @@
 // Classes
+import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.js";
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
 import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
@@ -60,6 +61,10 @@ export function instantiateComponent(element) {
     switch (tagName?.toLowerCase()) {
         case "custom-component":
             return new CustomComponent(component);
+        case "custom-description-list":
+            return new CustomDescriptionList(component);
+        case "custom-description-list-data":
+            return new CustomDescriptionListData(component);
         case "custom-dispensasjon":
             return new CustomDispensasjon(component);
         case "custom-divider":
