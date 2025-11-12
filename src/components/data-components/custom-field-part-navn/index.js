@@ -14,10 +14,6 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const emptyFieldText = getEmptyFieldText(component);
-                if (component.isEmpty) {
-                    component.setFormData({ simpleBinding: emptyFieldText });
-                }
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             }
