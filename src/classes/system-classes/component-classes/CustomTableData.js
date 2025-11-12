@@ -124,19 +124,20 @@ export default class CustomTableData extends CustomComponent {
     }
 
     /**
-     * Removes empty rows from a table. A row is considered empty if all its cells are empty.
-     * Each cell is instantiated as a component, and the `isEmpty` property is checked.
+     * Removes empty table rows from the provided array of table rows.
+     * A table row is considered empty if all its cells are empty, as determined by the `instantiateComponent(tableCell)?.isEmpty` check.
      *
-     * @param {Array<Array<Object>>} tableRows - An array of table rows, where each row is an array of cell objects.
-     * @returns {Array<Array<Object>>} A new array of table rows with empty rows removed.
+     * @param {Array<Array<any>>} tableRows - An array of table rows, where each row is an array of table cell objects.
+     * @returns {Array<Array<any>>} A new array containing only the non-empty table rows.
      */
     removeEmptyTableRows(tableRows) {
         return Array.isArray(tableRows)
             ? tableRows
                   .map((tableRow) => {
-                      const tableCells = tableRow.map((tableCell) => instantiateComponent(tableCell));
-                      const notEmptyTableCells = tableCells.filter((tableCellComponent) => !tableCellComponent?.isEmpty);
-                      return notEmptyTableCells.length > 0 ? tableCells : null;
+                      const notEmptyTableCells = tableRow.filter((tableCell) => {
+                          return !instantiateComponent(tableCell)?.isEmpty;
+                      });
+                      return notEmptyTableCells.length > 0 ? tableRow : null;
                   })
                   .filter((tableRow) => tableRow !== null)
             : []; // Return empty array if tableRows is not an array
