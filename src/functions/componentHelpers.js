@@ -20,6 +20,7 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
+import CustomGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomGjennomfoeringsplan.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistPlan from "../classes/system-classes/component-classes/CustomGrouplistPlan.js";
@@ -105,6 +106,8 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-field-utfall-svar-status":
             return new CustomFieldUtfallSvarStatus(component);
+        case "custom-gjennomfoeringsplan":
+            return new CustomGjennomfoeringsplan(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
         case "custom-group-plan":
