@@ -14,5 +14,6 @@ export default class Ansvarsomraade {
         this.ansvarsomraade = props?.ansvarsomraade;
         this.foretak = props?.foretak && new Part(props.foretak);
         this.planlagteSamsvarKontrollErklaeringerList = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
+        this.ansvarsomraadeStatus = props?.ansvarsomraadeStatus && new Kode(props.ansvarsomraadeStatus);
     }
 }
