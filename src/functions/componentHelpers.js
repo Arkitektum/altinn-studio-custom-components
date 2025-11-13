@@ -44,6 +44,7 @@ import CustomSummation from "../classes/system-classes/component-classes/CustomS
 import CustomSummationArealdisponering from "../classes/system-classes/component-classes/CustomSummationArealdisponering.js";
 import CustomSummationData from "../classes/system-classes/component-classes/CustomSummationData.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
+import CustomTableAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableAnsvarsomraade.js";
 import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
@@ -152,6 +153,8 @@ export function instantiateComponent(element) {
             return new CustomSummationData(component);
         case "custom-table":
             return new CustomTable(component);
+        case "custom-table-ansvarsomraade":
+            return new CustomTableAnsvarsomraade(component);
         case "custom-table-arbeidsplasser":
             return new CustomTableArbeidsplasser(component);
         case "custom-table-data":

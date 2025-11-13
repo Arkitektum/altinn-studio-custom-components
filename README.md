@@ -109,6 +109,7 @@ These components are tailored to display specific data types consistently across
   - [Arealdisponering](src/components/data-components/custom-summation-arealdisponering) – Displays the summation of area allocation values from an [`Arealdisponering`](src/classes/data-classes/Arealdisponering.js) object.
 - **Tables**
   - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
+  - [Ansvarsområde](src/components/data-components/custom-table-ansvarsomraade/) – Displays table with data from an array with [`Ansvarsomraade`](src/classes/data-classes/Ansvarsomraade.js) objects.
   - [Arbeidsplasser](src/components/data-components/custom-table-arbeidsplasser/) – Displays table with data from an array with [`Arbeidsplasser`](src/classes/data-classes/Arbeidsplasser.js) objects.
   - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
   - [Områderisiko](src/components/data-components/custom-table-omraaderisiko/) – Displays table with data from an array with [`Omraaderisiko`](src/classes/data-classes/Omraaderisiko.js) objects.

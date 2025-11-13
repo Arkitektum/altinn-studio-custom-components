@@ -41,6 +41,7 @@ export default [
     "custom-summation",
     "custom-summation-arealdisponering",
     "custom-summation-data",
+    "custom-table-ansvarsomraade",
     "custom-table-arbeidsplasser",
     "custom-table-data",
     "custom-table-eiendom",
