@@ -1,5 +1,6 @@
 export default [
     "custom-description-list",
+    "custom-description-list-data",
     "custom-divider",
     "custom-feedback",
     "custom-field",

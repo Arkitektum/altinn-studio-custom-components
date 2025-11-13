@@ -98,6 +98,8 @@ These components are tailored to display specific data types consistently across
   - [Vedlegg](src/components/data-components/custom-list-vedlegg/) – Displays a list of attachments.
   - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
   - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
+- **Descriptions lists**
+  - [Data](src/components/data-components/custom-description-list-data/) - Displays a description list of values from an array.
 - **Group lists**
   - [Ettersending](src/components/data-components/custom-grouplist-ettersending/) – Displays a list of [`Ettersending`](src/classes/data-classes/Ettersending.js) component groups.
   - [Sjekklistekrav](src/components/data-components/custom-grouplist-sjekklistekrav/) – Displays a list of [`Sjekklistekrav`](src/classes/data-classes/Sjekklistekrav.js) component groups.

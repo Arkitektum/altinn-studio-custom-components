@@ -1,5 +1,6 @@
 // Classes
 import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.js";
+import CustomDescriptionListData from "../classes/system-classes/component-classes/CustomDescriptionListData.js";
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
 import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
