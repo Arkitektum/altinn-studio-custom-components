@@ -44,7 +44,8 @@ export function getTableRows(tableColumns, data) {
                 tagName: column.tagName,
                 isChildComponent: true,
                 itemTermKey: column.itemTermKey,
-                itemDescriptionKey: column.itemDescriptionKey
+                itemDescriptionKey: column.itemDescriptionKey,
+                styleOverride: column?.styleOverride
             };
             if (hasValue(emptyFieldText)) {
                 componentProps.resourceValues.emptyFieldText = emptyFieldText;
