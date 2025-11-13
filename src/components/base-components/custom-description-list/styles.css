@@ -24,7 +24,6 @@ custom-description-list {
         flex-wrap: wrap;
         margin: 0;
         padding: 0;
-
         & dt {
             flex: 0 0 50%;
             font-weight: var(--font-weight-default);
@@ -32,7 +31,6 @@ custom-description-list {
             margin: 0;
             hyphens: auto;
             word-break: break-word;
-            word-break: normal;
             overflow-wrap: normal;
             white-space: normal;
         }
