@@ -1,26 +1,75 @@
+// Global functions
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
-import { hasMissingTextResources } from "../../../functions/validations.js";
-import { getGjennomfoeringsplanData, renderEiendomTable, renderGjenomfoeringsplanNummer } from "./functions.js";
-import textResourceBindings from "./textResourceBindings.js";
+import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
+import { setPageOrientation } from "../../../functions/printHelpers.js";
+
+// Local functions
+import {
+    renderAnsvarligSoeker,
+    renderAnsvarsomraade,
+    renderEiendomByggested,
+    renderGjennomfoeringsplanHeader,
+    renderGjennomfoeringsplanSubHeader,
+    renderKommunensSaksnummer,
+    renderMetadataFtbId,
+    renderMetadataProsjektnavn,
+    renderPlanenGjelderHeader,
+    renderVersjon
+} from "./renderers.js";
 
 export default customElements.define(
     "custom-gjennomfoeringsplan",
     class extends HTMLElement {
         async connectedCallback() {
-            const textResources = JSON.parse(this.getAttribute("textResources"));
-            const gjennomfoeringsplan = getGjennomfoeringsplanData(this);
-            const validationMessages = hasMissingTextResources(textResources, textResourceBindings);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
-            if (!hasValue(gjennomfoeringsplan) && !!componentContainerElement) {
+
+            setPageOrientation("landscape");
+
+            if (component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const gjennomfoeringsplanNummerElement = renderGjenomfoeringsplanNummer(gjennomfoeringsplan, textResources);
-                const eiendomTableElement = renderEiendomTable(gjennomfoeringsplan?.eiendomByggested?.eiendom, textResources);
-                const feebackListElement = renderFeedbackListElement(validationMessages);
-                this.appendChild(gjennomfoeringsplanNummerElement);
-                this.appendChild(eiendomTableElement);
-                this.appendChild(feebackListElement);
+                const layoutContainerElement = renderLayoutContainerElement();
+
+                const headerElement = renderGjennomfoeringsplanHeader(component, "h1");
+                const subHeaderElement = renderGjennomfoeringsplanSubHeader(component);
+
+                const versjonElement = renderVersjon(component);
+                const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
+                const metadataProsjektnavnElement = renderMetadataProsjektnavn(component);
+                const metadataFtbIdElement = renderMetadataFtbId(component);
+
+                const planenGjelderHeaderElement = renderPlanenGjelderHeader(component);
+                const eiendomByggestedElement = renderEiendomByggested(component);
+                const ansvarligSoekerElement = renderAnsvarligSoeker(component);
+                const ansvarsomraadeElement = renderAnsvarsomraade(component);
+
+                const validationFeedbackListElement = renderFeedbackListElement(component?.validationMessages);
+
+                // Header and subheader
+                appendChildren(layoutContainerElement, [headerElement, subHeaderElement]);
+
+                // Intro
+                appendChildren(layoutContainerElement, [
+                    versjonElement,
+                    kommunensSaksnummerElement,
+                    metadataProsjektnavnElement,
+                    metadataFtbIdElement
+                ]);
+
+                // Planen gjelder
+                appendChildren(layoutContainerElement, [
+                    planenGjelderHeaderElement,
+                    eiendomByggestedElement,
+                    ansvarligSoekerElement,
+                    ansvarsomraadeElement
+                ]);
+
+                // Append the validation feedback list element if there are validation messages
+                appendChildren(layoutContainerElement, [validationFeedbackListElement]);
+
+                this.appendChild(layoutContainerElement);
             }
         }
     }

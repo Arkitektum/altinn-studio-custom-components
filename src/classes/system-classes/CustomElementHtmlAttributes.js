@@ -23,6 +23,8 @@ export default class CustomElementHtmlAttributes {
      * @param {Object} [props.grid] - Grid configuration for the component.
      * @param {Array} [props.tableColumns] - An array of table column configurations.
      * @param {string} [props.itemKey] - A unique key for the item.
+     * @param {string} [props.itemTermKey] - A key for the item term.
+     * @param {string} [props.itemDescriptionKey] - A key for the item description.
      * @param {string} [props.id] - The ID of the component.
      * @param {string} [props.feedbackType] - The type of feedback associated with the component.
      * @param {boolean} [props.hideOrgNr] - Determines if the organization number should be hidden.
@@ -46,6 +48,8 @@ export default class CustomElementHtmlAttributes {
         const grid = this.getGridAttributeFromProps(props);
         const tableColumns = this.getTableColumnsAttributeFromProps(props);
         const itemKey = this.getItemKeyAttributeFromProps(props);
+        const itemTermKey = this.getItemTermKeyAttributeFromProps(props);
+        const itemDescriptionKey = this.getItemDescriptionKeyAttributeFromProps(props);
         const dataItemKey = this.getDataItemKeyAttributeFromProps(props);
         const dataTitleItemKey = this.getDataTitleItemKeyAttributeFromProps(props);
         const id = this.getIdAttributeFromProps(props);
@@ -94,6 +98,12 @@ export default class CustomElementHtmlAttributes {
         }
         if (itemKey) {
             this.itemKey = itemKey;
+        }
+        if (itemTermKey) {
+            this.itemTermKey = itemTermKey;
+        }
+        if (itemDescriptionKey) {
+            this.itemDescriptionKey = itemDescriptionKey;
         }
         if (dataItemKey) {
             this.dataItemKey = dataItemKey;
@@ -282,6 +292,27 @@ export default class CustomElementHtmlAttributes {
      */
     getItemKeyAttributeFromProps(props) {
         return hasValue(props?.itemKey) && props?.itemKey;
+    }
+
+    /**
+     * Retrieves the `itemTermKey` attribute from the given props if it has a value.
+     *
+     * @param {Object} props - The properties object to extract the attribute from.
+     * @param {*} props.itemTermKey - The item term key to check and return.
+     * @returns {*} The value of `itemTermKey` if it exists and has a value; otherwise, returns a falsy value.
+     */
+    getItemTermKeyAttributeFromProps(props) {
+        return hasValue(props?.itemTermKey) && props?.itemTermKey;
+    }
+
+    /**
+     * Retrieves the 'itemDescriptionKey' attribute from the provided props object if it has a valid value.
+     *
+     * @param {Object} props - The properties object that may contain the 'itemDescriptionKey' attribute.
+     * @returns {*} The value of 'itemDescriptionKey' if it exists and is valid; otherwise, returns a falsy value.
+     */
+    getItemDescriptionKeyAttributeFromProps(props) {
+        return hasValue(props?.itemDescriptionKey) && props?.itemDescriptionKey;
     }
 
     /**

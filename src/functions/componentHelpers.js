@@ -1,4 +1,6 @@
 // Classes
+import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.js";
+import CustomDescriptionListData from "../classes/system-classes/component-classes/CustomDescriptionListData.js";
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
 import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
@@ -18,6 +20,7 @@ import CustomFieldPartNavn from "../classes/system-classes/component-classes/Cus
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
+import CustomGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomGjennomfoeringsplan.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistPlan from "../classes/system-classes/component-classes/CustomGrouplistPlan.js";
@@ -42,6 +45,7 @@ import CustomSummation from "../classes/system-classes/component-classes/CustomS
 import CustomSummationArealdisponering from "../classes/system-classes/component-classes/CustomSummationArealdisponering.js";
 import CustomSummationData from "../classes/system-classes/component-classes/CustomSummationData.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
+import CustomTableAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableAnsvarsomraade.js";
 import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
@@ -60,6 +64,10 @@ export function instantiateComponent(element) {
     switch (tagName?.toLowerCase()) {
         case "custom-component":
             return new CustomComponent(component);
+        case "custom-description-list":
+            return new CustomDescriptionList(component);
+        case "custom-description-list-data":
+            return new CustomDescriptionListData(component);
         case "custom-dispensasjon":
             return new CustomDispensasjon(component);
         case "custom-divider":
@@ -98,6 +106,8 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-field-utfall-svar-status":
             return new CustomFieldUtfallSvarStatus(component);
+        case "custom-gjennomfoeringsplan":
+            return new CustomGjennomfoeringsplan(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
         case "custom-group-plan":
@@ -146,6 +156,8 @@ export function instantiateComponent(element) {
             return new CustomSummationData(component);
         case "custom-table":
             return new CustomTable(component);
+        case "custom-table-ansvarsomraade":
+            return new CustomTableAnsvarsomraade(component);
         case "custom-table-arbeidsplasser":
             return new CustomTableArbeidsplasser(component);
         case "custom-table-data":

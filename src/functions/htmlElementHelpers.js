@@ -19,6 +19,8 @@ import { hasValue } from "./helpers.js";
  *   @property {boolean} isChildComponent - Whether the element is a child component.
  *   @property {string} feedbackType - The feedback type of the element.
  *   @property {string} itemKey - The item key associated with the element.
+ *   @property {string} itemTermKey - The item term key associated with the element.
+ *   @property {string} itemDescriptionKey - The item description key associated with the element.
  *   @property {string} dataItemKey - The data item key associated with the element.
  *   @property {string} dataTitleItemKey - The data title item key associated with the element.
  *   @property {boolean} hideOrgNr - Whether to hide the organization number.
@@ -45,6 +47,8 @@ export function getPropsFromElementAttributes(element) {
         isChildComponent: getIsChildComponent(element),
         feedbackType: getFeedbackType(element),
         itemKey: getItemKey(element),
+        itemTermKey: getItemTermKey(element),
+        itemDescriptionKey: getItemDescriptionKey(element),
         dataItemKey: getDataItemKey(element),
         dataTitleItemKey: getDataTitleItemKey(element),
         hideOrgNr: getHideOrgNr(element),
@@ -197,6 +201,30 @@ function getFeedbackType(element) {
 function getItemKey(element) {
     const itemKey = element?.getAttribute("itemKey");
     return hasValue(itemKey) && itemKey;
+}
+
+/**
+ * Retrieves the value of the "itemTermKey" attribute from the given HTML element.
+ * Returns the value only if it is considered valid by the hasValue function.
+ *
+ * @param {Element} element - The HTML element from which to retrieve the attribute.
+ * @returns {string|false} The value of the "itemTermKey" attribute if valid, otherwise false.
+ */
+function getItemTermKey(element) {
+    const itemTermKey = element?.getAttribute("itemTermKey");
+    return hasValue(itemTermKey) && itemTermKey;
+}
+
+/**
+ * Retrieves the value of the "itemDescriptionKey" attribute from the given HTML element.
+ * Returns the value only if it exists and passes the `hasValue` check.
+ *
+ * @param {Element} element - The HTML element from which to retrieve the attribute.
+ * @returns {string|false} The value of the "itemDescriptionKey" attribute if present and valid, otherwise false.
+ */
+function getItemDescriptionKey(element) {
+    const itemDescriptionKey = element?.getAttribute("itemDescriptionKey");
+    return hasValue(itemDescriptionKey) && itemDescriptionKey;
 }
 
 /**

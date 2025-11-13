@@ -98,6 +98,8 @@ These components are tailored to display specific data types consistently across
   - [Vedlegg](src/components/data-components/custom-list-vedlegg/) – Displays a list of attachments.
   - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
   - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
+- **Descriptions lists**
+  - [Data](src/components/data-components/custom-description-list-data/) - Displays a description list of values from an array.
 - **Group lists**
   - [Ettersending](src/components/data-components/custom-grouplist-ettersending/) – Displays a list of [`Ettersending`](src/classes/data-classes/Ettersending.js) component groups.
   - [Sjekklistekrav](src/components/data-components/custom-grouplist-sjekklistekrav/) – Displays a list of [`Sjekklistekrav`](src/classes/data-classes/Sjekklistekrav.js) component groups.
@@ -107,6 +109,7 @@ These components are tailored to display specific data types consistently across
   - [Arealdisponering](src/components/data-components/custom-summation-arealdisponering) – Displays the summation of area allocation values from an [`Arealdisponering`](src/classes/data-classes/Arealdisponering.js) object.
 - **Tables**
   - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
+  - [Ansvarsområde](src/components/data-components/custom-table-ansvarsomraade/) – Displays table with data from an array with [`Ansvarsomraade`](src/classes/data-classes/Ansvarsomraade.js) objects.
   - [Arbeidsplasser](src/components/data-components/custom-table-arbeidsplasser/) – Displays table with data from an array with [`Arbeidsplasser`](src/classes/data-classes/Arbeidsplasser.js) objects.
   - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
   - [Områderisiko](src/components/data-components/custom-table-omraaderisiko/) – Displays table with data from an array with [`Omraaderisiko`](src/classes/data-classes/Omraaderisiko.js) objects.

@@ -5,7 +5,7 @@ import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } fro
  * Generates an array of table header objects based on the provided table columns and text resources.
  *
  * @param {Array<Object>} tableColumns - The columns configuration for the table. Each column may contain `textResourceBindings` and `props`.
- * @returns {Array<{ text: string, props: Object }>} An array of header objects, each containing the resolved text and associated props.
+ * @returns {Array<{ text: string, styleOverride: Object }>} An array of header objects, each containing the resolved text and associated style overrides.
  */
 export function getTableHeaders(tableColumns) {
     return tableColumns.map((column) => {
@@ -13,7 +13,7 @@ export function getTableHeaders(tableColumns) {
         const headerTitleText = getTextResourceFromResourceBinding(headerTitleTextResourceBinding);
         return {
             text: headerTitleText,
-            props: column.props
+            styleOverride: column.styleOverride
         };
     });
 }
@@ -42,7 +42,10 @@ export function getTableRows(tableColumns, data) {
                 format: column.format,
                 hideTitle: true,
                 tagName: column.tagName,
-                isChildComponent: true
+                isChildComponent: true,
+                itemTermKey: column.itemTermKey,
+                itemDescriptionKey: column.itemDescriptionKey,
+                styleOverride: column?.styleOverride
             };
             if (hasValue(emptyFieldText)) {
                 componentProps.resourceValues.emptyFieldText = emptyFieldText;

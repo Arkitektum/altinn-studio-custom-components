@@ -26,10 +26,8 @@ export function renderEiendomTable(component) {
                 title: component?.resourceBindings?.adresse?.title,
                 emptyFieldText: component?.resourceBindings?.adresse?.emptyFieldText
             },
-            props: {
-                styleOverride: {
-                    width: "116px"
-                }
+            styleOverride: {
+                width: "116px"
             }
         },
         {

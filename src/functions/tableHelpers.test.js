@@ -9,25 +9,25 @@ jest.mock("./helpers.js", () => ({
 }));
 
 describe("getTableHeaders", () => {
-    it("should return headers with resolved text and props", () => {
+    it("should return headers with resolved text and styleOverride", () => {
         getTextResourceFromResourceBinding.mockImplementation((binding) => `text-for-${binding}`);
 
         const columns = [
             {
                 resourceBindings: { title: "col1" },
-                props: { align: "left" }
+                styleOverride: { align: "left" }
             },
             {
                 resourceBindings: { title: "col2" },
-                props: { align: "right" }
+                styleOverride: { align: "right" }
             }
         ];
 
         const result = getTableHeaders(columns);
 
         expect(result).toEqual([
-            { text: "text-for-col1", props: { align: "left" } },
-            { text: "text-for-col2", props: { align: "right" } }
+            { text: "text-for-col1", styleOverride: { align: "left" } },
+            { text: "text-for-col2", styleOverride: { align: "right" } }
         ]);
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("col1");
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("col2");
@@ -36,11 +36,11 @@ describe("getTableHeaders", () => {
     it("should handle missing resourceBindings gracefully", () => {
         getTextResourceFromResourceBinding.mockReturnValue(undefined);
 
-        const columns = [{ props: { align: "left" } }];
+        const columns = [{ styleOverride: { align: "left" } }];
 
         const result = getTableHeaders(columns);
 
-        expect(result).toEqual([{ text: undefined, props: { align: "left" } }]);
+        expect(result).toEqual([{ text: undefined, styleOverride: { align: "left" } }]);
     });
 });
 

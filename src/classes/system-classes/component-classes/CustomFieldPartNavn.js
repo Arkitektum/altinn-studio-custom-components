@@ -26,7 +26,7 @@ export default class CustomFieldPartNavn extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            title: !props?.hideTitle && getTextResourceFromResourceBinding(props?.resourceBindings?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }

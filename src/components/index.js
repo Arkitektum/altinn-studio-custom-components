@@ -1,4 +1,5 @@
 // Base components
+import customDescriptionList from "./base-components/custom-description-list/index.js";
 import customDivider from "./base-components/custom-divider/index.js";
 import customFeedback from "./base-components/custom-feedback/index.js";
 import customField from "./base-components/custom-field/index.js";
@@ -9,6 +10,7 @@ import customSummation from "./base-components/custom-summation/index.js";
 import customTable from "./base-components/custom-table/index.js";
 
 // Data components
+import customDescriptionListData from "./data-components/custom-description-list-data/index.js";
 import customFeedbackData from "./data-components/custom-feedback-data/index.js";
 import customFeedbacklistData from "./data-components/custom-feedbacklist-data/index.js";
 import customFeedbacklistValidationMessages from "./data-components/custom-feedbacklist-validation-messages/index.js";
@@ -41,6 +43,7 @@ import customParagraphText from "./data-components/custom-paragraph-text/index.j
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customSummationArealdisponering from "./data-components/custom-summation-arealdisponering/index.js";
 import customSummationData from "./data-components/custom-summation-data/index.js";
+import customTableAnsvarsomraade from "./data-components/custom-table-ansvarsomraade/index.js";
 import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
@@ -62,6 +65,7 @@ import "../styles/main.css" with { type: "css" };
 initCustomComponents();
 
 export {
+    customDescriptionList,
     customDivider,
     customFeedback,
     customField,
@@ -69,6 +73,7 @@ export {
     customList,
     customParagraph,
     customTable,
+    customDescriptionListData,
     customFeedbackData,
     customFeedbacklistData,
     customFeedbacklistValidationMessages,
@@ -102,6 +107,7 @@ export {
     customSummation,
     customSummationArealdisponering,
     customSummationData,
+    customTableAnsvarsomraade,
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
