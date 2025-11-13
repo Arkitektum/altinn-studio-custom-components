@@ -18,14 +18,13 @@ custom-description-list {
             }
         }
     }
-    /* make pair of dt and dd on same line. dt aligned to the left and dt aligned to the right */
     & dl {
         display: flex;
         flex-wrap: wrap;
         margin: 0;
         padding: 0;
         & dt {
-            flex: 0 0 50%;
+            flex: 0 0 58%;
             font-weight: var(--font-weight-default);
             padding: 0.5rem 0;
             margin: 0;
@@ -35,8 +34,9 @@ custom-description-list {
             white-space: normal;
         }
         & dd {
-            flex: 0 0 50%;
+            flex: 0 0 42%;
             font-weight: var(--font-weight-default);
+            text-align: right;
             margin: 0;
             padding: 0.5rem 0;
         }
