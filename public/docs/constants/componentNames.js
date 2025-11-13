@@ -29,5 +29,6 @@ export default {
     "custom-grouplist-sjekklistekrav": "Sjekklistekrav",
     "custom-grouplist-utfall-svar-type": "Utfall svar type",
     "custom-grouplist-utfall-svar": "Utfall svar",
-    "custom-dispensasjon": "Dispensasjonssøknad"
+    "custom-dispensasjon": "Dispensasjonssøknad",
+    "custom-gjennomfoeringsplan": "Gjennomføringsplan"
 };

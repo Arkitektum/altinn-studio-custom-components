@@ -42,6 +42,7 @@ import customGrouplistUtfallSvar from "./grouplist/custom-grouplist-utfall-svar.
 
 // Layout
 import customDispensasjon from "./layout/custom-dispensasjon.js";
+import customGjennomfoeringsplan from "./layout/custom-gjennomfoeringsplan.js";
 
 export const field = {
     customFieldAdresse,
@@ -79,7 +80,7 @@ export const summation = { customSummationArealdisponering, customSummationData 
 
 export const grouplist = { customGrouplistEttersending, customGrouplistSjekklistekrav, customGrouplistUtfallSvarType, customGrouplistUtfallSvar };
 
-export const layout = { customDispensasjon };
+export const layout = { customDispensasjon, customGjennomfoeringsplan };
 
 export default {
     typography,
