@@ -16,7 +16,7 @@ import { addStyle, createCustomElement, getEmptyFieldText } from "../../../funct
 function renderTableHeaderElement(tableHeader) {
     const th = document.createElement("th");
     th.textContent = tableHeader.text;
-    addStyle(th, tableHeader?.props?.styleOverride);
+    addStyle(th, tableHeader?.styleOverride);
     return th;
 }
 
