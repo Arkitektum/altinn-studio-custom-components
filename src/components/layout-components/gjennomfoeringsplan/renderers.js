@@ -274,5 +274,5 @@ export function renderAnsvarsomraade(component) {
             data: data?.gjennomfoeringsplan?.ansvarsomraade
         }
     });
-    return createCustomElement("custom-table-ansvarsomraade", htmlAttributes);
+    return createCustomElement("custom-grouplist-ansvarsomraade-type", htmlAttributes);
 }
