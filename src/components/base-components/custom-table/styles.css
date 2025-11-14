@@ -12,10 +12,13 @@ custom-table {
         overflow: hidden;
         width: 100%;
         margin: 0.75rem 0px;
+        &.has-caption {
+            margin-top: 0;
+        }
         & caption {
             caption-side: top;
             text-align: left;
-            padding: 0.75rem 0px;
+            padding: 0 0 0.75rem 0;
             margin: 0;
         }
         & tr {

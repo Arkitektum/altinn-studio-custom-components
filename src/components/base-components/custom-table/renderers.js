@@ -90,6 +90,7 @@ export function renderTableElement(component) {
         const tableCaption = document.createElement("caption");
         tableCaption.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
         table.appendChild(tableCaption);
+        table.classList.add("has-caption");
     }
 
     const thead = document.createElement("thead");
