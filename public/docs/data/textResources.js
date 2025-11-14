@@ -622,6 +622,66 @@ export default {
         {
             id: "resource.ansvarligSoeker.adresse.title",
             value: "Adresse"
+        },
+        {
+            id: "resource.gjennomfoeringsplan.title",
+            value: "Gjennomføringsplan"
+        },
+        {
+            id: "resource.gjennomfoeringsplan.description",
+            value: "etter saksforskriften § 5-3"
+        },
+        {
+            id: "resource.versjon.title",
+            value: "Gjennomføringsplannummer"
+        },
+        {
+            id: "resource.metadata.prosjekt.title",
+            value: "Prosjektnavn"
+        },
+        {
+            id: "resource.planenGjelder.title",
+            value: "Planen gjelder"
+        },
+        {
+            id: "resource.ansvarsfordeling.title",
+            value: "Ansvarsfordeling"
+        },
+        {
+            id: "resource.tiltaksklasse.title",
+            value: "Titaksklasse"
+        },
+        {
+            id: "resource.ansvarsomraade.title",
+            value: "Beskrivelse av ansvarsområde"
+        },
+        {
+            id: "resource.foretak.title",
+            value: "Ansvarlig foretak"
+        },
+        {
+            id: "resource.planlagteSamsvarKontrollErklaeringer.title",
+            value: "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
+        },
+        {
+            id: "resource.ansvarsomraadeStatus.title",
+            value: "Status for arbeidene"
+        },
+        {
+            id: "resource.samsvarKontrollPlanlagtVedRammetillatelse.title",
+            value: "Rammesøknad"
+        },
+        {
+            id: "resource.samsvarKontrollPlanlagtVedIgangsettingstillatelse.title",
+            value: "Ettrinn-/igangsettingssøknad"
+        },
+        {
+            id: "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title",
+            value: "Søknad om midlertidig brukstillatelse"
+        },
+        {
+            id: "resource.samsvarKontrollPlanlagtVedFerdigattest.title",
+            value: "Søknad om ferdigattest"
         }
     ]
 };
