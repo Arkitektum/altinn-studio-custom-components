@@ -101,6 +101,7 @@ These components are tailored to display specific data types consistently across
 - **Descriptions lists**
   - [Data](src/components/data-components/custom-description-list-data/) - Displays a description list of values from an array.
 - **Group lists**
+  - [Ansvarsområde](src/components/data-components/custom-grouplist-ansvarsomraade-type/) – Displays a list of [`Ansvarsomraade`](src/classes/data-classes/Ansvarsomraade.js) component groups.
   - [Ettersending](src/components/data-components/custom-grouplist-ettersending/) – Displays a list of [`Ettersending`](src/classes/data-classes/Ettersending.js) component groups.
   - [Sjekklistekrav](src/components/data-components/custom-grouplist-sjekklistekrav/) – Displays a list of [`Sjekklistekrav`](src/classes/data-classes/Sjekklistekrav.js) component groups.
   - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of [`Utfallsvar`](src/classes/data-classes/UtfallSvar.js) component groups.
