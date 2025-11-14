@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { addStyle, createCustomElement, getEmptyFieldText } from "../../../functions/helpers.js";
+import { addStyle, createCustomElement, getEmptyFieldText, hasValue } from "../../../functions/helpers.js";
 
 /**
  * Creates a table header (th) element with the specified text and style.
@@ -67,15 +67,17 @@ export function renderHeaderElement(title, size) {
 }
 
 /**
- * Renders a table element based on the provided component's data and style overrides.
+ * Renders a table element based on the provided component configuration.
  *
- * @param {Object} component - The component object containing data and style information.
- * @param {Object} [component.formData] - The form data associated with the component.
- * @param {Object} [component.formData.data] - The data used to populate the table.
- * @param {Array<string>} [component.formData.data.tableHeaders] - An array of table header strings.
- * @param {Array<Array<string>>} [component.formData.data.tableRows] - An array of table row data, where each row is an array of strings.
- * @param {string} [component.styleOverride] - Optional CSS style overrides for the table.
- *
+ * @param {Object} component - The component configuration object.
+ * @param {Object} [component.resourceValues] - Resource values for the table.
+ * @param {Object} [component.resourceValues.data] - Data for table headers and rows.
+ * @param {string[]} [component.resourceValues.data.tableHeaders] - Array of table header strings.
+ * @param {Array} [component.resourceValues.data.tableRows] - Array of table row data.
+ * @param {string} [component.resourceValues.title] - Title for the table caption.
+ * @param {boolean} [component.hideTitle] - If true, hides the table title.
+ * @param {string} [component.size] - Size of the table header element.
+ * @param {Object} [component.styleOverride] - Style overrides for the table element.
  * @returns {HTMLTableElement} The rendered table element.
  */
 export function renderTableElement(component) {
@@ -83,6 +85,13 @@ export function renderTableElement(component) {
     const styleOverride = component?.styleOverride;
 
     const table = document.createElement("table");
+
+    if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+        const tableCaption = document.createElement("caption");
+        tableCaption.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+        table.appendChild(tableCaption);
+    }
+
     const thead = document.createElement("thead");
     const tr = document.createElement("tr");
 

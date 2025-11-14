@@ -2,10 +2,10 @@
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { renderHeaderElement, renderTableElement } from "./renderers.js";
+import { renderTableElement } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -21,9 +21,6 @@ export default customElements.define(
             } else {
                 const tableElement = renderTableElement(component);
                 this.innerHTML = "";
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
-                }
                 this.appendChild(tableElement);
             }
         }
