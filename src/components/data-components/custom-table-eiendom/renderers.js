@@ -27,7 +27,7 @@ export function renderEiendomTable(component) {
                 emptyFieldText: component?.resourceBindings?.adresse?.emptyFieldText
             },
             styleOverride: {
-                width: "116px"
+                width: globalThis?.pageOrientation === "landscape" ? "200px" : "116px"
             }
         },
         {
