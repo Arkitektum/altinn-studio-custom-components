@@ -35,6 +35,7 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
+            title: props?.resourceValues?.title,
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.eiendomByggested?.emptyFieldText) : data
         };
     }
@@ -140,7 +141,7 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
                     props?.resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest?.title || "resource.samsvarKontrollPlanlagtVedFerdigattest.title"
             }
         };
-        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
+        if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
             resourceBindings.ansvarsfordeling = {
                 title: props?.resourceBindings?.title || "resource.ansvarsfordeling.title"
             };

@@ -41,7 +41,9 @@ export default class CustomTableData extends CustomComponent {
         this.hasValidationMessages = hasValidationMessages(validationMessages);
 
         this.resourceValues = {
-            title: getTextResourceFromResourceBinding(props?.resourceBindings?.title),
+            title: hasValue(props?.resourceValues?.title)
+                ? props?.resourceValues?.title
+                : getTextResourceFromResourceBinding(props?.resourceBindings?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
     }
