@@ -26,8 +26,8 @@ custom-description-list {
         & dt {
             flex: 0 0 58%;
             font-weight: var(--font-weight-default);
-            padding: 0.5rem 0;
-            margin: 0;
+            padding: 0;
+            margin: 0 0 0.5rem 0;
             hyphens: auto;
             word-break: break-word;
             overflow-wrap: normal;
@@ -37,8 +37,8 @@ custom-description-list {
             flex: 0 0 42%;
             font-weight: var(--font-weight-default);
             text-align: right;
-            margin: 0;
-            padding: 0.5rem 0;
+            padding: 0;
+            margin: 0 0 0.5rem 0;
         }
         &.has-title {
             page-break-before: avoid;
