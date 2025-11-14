@@ -23,4 +23,4 @@ const defaultResourceBindings = {
     emptyFieldText: "resource.emptyFieldText.default"
 };
 
-export default { markup };
+export default { markup, defaultResourceBindings };
