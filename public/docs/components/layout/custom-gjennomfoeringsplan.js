@@ -12,4 +12,8 @@ const markup = {
     }
 };
 
-export default { markup };
+const options = {
+    pageOrientation: "landscape"
+};
+
+export default { markup, options };

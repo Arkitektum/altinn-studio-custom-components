@@ -108,6 +108,15 @@
                     & .component-example {
                         margin: 0;
                         padding: 32px 0 0 0;
+                        width: 100%;
+                        &.orientation-portrait {
+                            max-width: 940px;
+                            margin: 0 auto;
+                        }
+                        &.orientation-landscape {
+                            max-width: 1115px;
+                            margin: 0 auto;
+                        }
                         & > h3 {
                             margin-top: 0;
                             margin-bottom: 16px;

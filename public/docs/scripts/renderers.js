@@ -112,6 +112,11 @@ function renderComponentExample(componentExample) {
     const containerElement = document.createElement("div");
     containerElement.id = `component-${componentExample?.markup?.tagName}`;
     containerElement.classList.add("component-example");
+    if (componentExample?.options?.pageOrientation === "landscape") {
+        containerElement.classList.add("orientation-landscape");
+    } else {
+        containerElement.classList.add("orientation-portrait");
+    }
 
     const titleElement = document.createElement("h3");
     titleElement.textContent = getComponentNameFromTagName(componentExample?.markup?.tagName);

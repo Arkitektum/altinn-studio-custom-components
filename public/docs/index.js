@@ -64,6 +64,7 @@ export function getResults(componentExamples, dataModels) {
                 return {
                     element: getPreviewElement(component?.markup, data),
                     markup: component?.markup,
+                    options: component?.options,
                     data,
                     resources: getTextResourcesFromResourceBindings({ ...component?.defaultResourceBindings, ...component?.markup?.resourceBindings })
                 };
