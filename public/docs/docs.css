@@ -83,15 +83,24 @@
         overflow-y: auto;
         height: 100vh;
         & main {
-            max-width: 940px;
+            max-width: 1200px;
             margin: 0 auto;
+            > h1 {
+                text-align: center;
+                margin: 52px 0;
+                margin-bottom: 32px;
+                display: block;
+            }
             & .component-type-section {
                 margin-bottom: 48px;
                 & > h2 {
                     text-transform: capitalize;
-                    border-bottom: 2px solid #333;
-                    padding-bottom: 8px;
-                    margin-bottom: 0;
+                    text-align: center;
+                    border-bottom: 1px solid #ccc;
+                    padding-bottom: 2px;
+                    display: block;
+                    max-width: 940px;
+                    margin: 76px auto 10px;
                 }
                 & .components-container {
                     display: flex;
