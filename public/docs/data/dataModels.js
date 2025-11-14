@@ -745,6 +745,180 @@ export default [
                     generelleVilkaar: {
                         norskSvenskDansk: true
                     }
+                },
+                gjennomfoeringsplan: {
+                    versjon: "1.0",
+                    gjennomfoeringsplan: {
+                        ansvarsomraade: [
+                            {
+                                funksjon: {
+                                    kodeverdi: "KONTROLL",
+                                    kodebeskrivelse: "Ansvarlig kontrollerende"
+                                },
+                                ansvarsomraade: "Strukturell sikkerhet",
+                                tiltaksklasse: {
+                                    kodeverdi: "1",
+                                    kodebeskrivelse: "1"
+                                },
+                                foretak: {
+                                    partstype: {
+                                        kodeverdi: "Foretak",
+                                        kodebeskrivelse: "Foretak"
+                                    },
+                                    foedselsnummer: null,
+                                    organisasjonsnummer: "987654321",
+                                    navn: "Kontrollforetak AS",
+                                    adresse: {
+                                        adresselinje1: "Kontrollvegen 3",
+                                        adresselinje2: null,
+                                        adresselinje3: null,
+                                        postnr: "4321",
+                                        poststed: "Kontrollbyen",
+                                        landkode: "NO"
+                                    },
+                                    telefonnummer: "22334455",
+                                    mobilnummer: "99887766",
+                                    epost: "kontakt@kontrollforetak.no"
+                                },
+                                samsvarKontrollPlanlagtVedRammetillatelse: true,
+                                samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
+                                samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: false,
+                                samsvarKontrollPlanlagtVedFerdigattest: false,
+                                samsvarKontrollForeliggerVedRammetillatelse: "2023-05-28",
+                                samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-06-28",
+                                samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "",
+                                samsvarKontrollForeliggerVedFerdigattest: "",
+                                ansvarsomraadeStatus: {
+                                    kodeverdi: "avsluttet",
+                                    kodebeskrivelse: "Avsluttet"
+                                }
+                            },
+                            {
+                                funksjon: {
+                                    kodeverdi: "UTFØRENDE",
+                                    kodebeskrivelse: "Ansvarlig utførende"
+                                },
+                                ansvarsomraade: "Brannsikkerhet",
+                                tiltaksklasse: {
+                                    kodeverdi: "2",
+                                    kodebeskrivelse: "2"
+                                },
+                                foretak: {
+                                    partstype: {
+                                        kodeverdi: "Foretak",
+                                        kodebeskrivelse: "Foretak"
+                                    },
+                                    foedselsnummer: null,
+                                    organisasjonsnummer: "123123123",
+                                    navn: "Utførende Foretak AS",
+                                    adresse: {
+                                        adresselinje1: "Utførervegen 4",
+                                        adresselinje2: null,
+                                        adresselinje3: null,
+                                        postnr: "5678",
+                                        poststed: "Utførerbyen",
+                                        landkode: "NO"
+                                    },
+                                    telefonnummer: "33445566",
+                                    mobilnummer: "88776655",
+                                    epost: "kontakt@utforendeforetak.no"
+                                },
+                                samsvarKontrollPlanlagtVedRammetillatelse: false,
+                                samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
+                                samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: true,
+                                samsvarKontrollPlanlagtVedFerdigattest: true,
+                                samsvarKontrollForeliggerVedRammetillatelse: "",
+                                samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-07-15",
+                                samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "2023-08-20",
+                                samsvarKontrollForeliggerVedFerdigattest: "2023-09-30",
+                                ansvarsomraadeStatus: {
+                                    kodeverdi: "pågående",
+                                    kodebeskrivelse: "Pågående"
+                                }
+                            }
+                        ]
+                    },
+                    metadata: {
+                        fraSluttbrukersystem: "eByggesøknadssystem Y",
+                        ftbId: "FTB456",
+                        prosjektnavn: "Eksempelsak Gjennomføringsplan",
+                        sluttbrukersystemUrl: "https://ebs.eksempel.no/sak/78910",
+                        hovedinnsendingsnummer: "2024-78910-A"
+                    },
+                    kommunensSaksnummer: {
+                        saksaar: "2004",
+                        sakssekvensnummer: "456"
+                    },
+                    eiendomByggested: {
+                        eiendom: [
+                            {
+                                eiendomsidentifikasjon: {
+                                    kommunenummer: "5678",
+                                    gaardsnummer: 44,
+                                    bruksnummer: 22,
+                                    festenummer: 0,
+                                    seksjonsnummer: 0
+                                },
+                                adresse: {
+                                    adresselinje1: "Byggestedvegen 5",
+                                    adresselinje2: "",
+                                    adresselinje3: "",
+                                    postnr: "5678",
+                                    poststed: "Byggestedbyen",
+                                    landkode: "NO",
+                                    gatenavn: "Byggestedvegen",
+                                    husnr: "5",
+                                    bokstav: ""
+                                },
+                                bygningsnummer: "6543210",
+                                bolignummer: "H0201",
+                                kommunenavn: "Bergen"
+                            },
+                            {
+                                eiendomsidentifikasjon: {
+                                    kommunenummer: "0301",
+                                    gaardsnummer: 208,
+                                    bruksnummer: 391,
+                                    festenummer: 0,
+                                    seksjonsnummer: 0
+                                },
+                                adresse: {
+                                    adresselinje1: "",
+                                    adresselinje2: "",
+                                    adresselinje3: "",
+                                    postnr: "",
+                                    poststed: "",
+                                    landkode: "NO",
+                                    gatenavn: "",
+                                    husnr: "",
+                                    bokstav: ""
+                                },
+                                bygningsnummer: "81099618",
+                                bolignummer: "H0101",
+                                kommunenavn: "Oslo"
+                            }
+                        ]
+                    },
+                    ansvarligSoeker: {
+                        partstype: {
+                            kodeverdi: "Person",
+                            kodebeskrivelse: "Person"
+                        },
+                        foedselsnummer: "02030456789",
+                        organisasjonsnummer: null,
+                        navn: "Kari Nordmann",
+                        adresse: {
+                            adresselinje1: "Søkervegen 3",
+                            adresselinje2: null,
+                            adresselinje3: null,
+                            postnr: "5678",
+                            poststed: "Søkerbyen",
+                            landkode: "NO"
+                        },
+                        telefonnummer: "88776655",
+                        mobilnummer: "91234567",
+                        epost: "kari.nordmann@example.com"
+                    }
                 }
             }
         }
