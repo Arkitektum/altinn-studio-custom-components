@@ -10,5 +10,6 @@ export function setPageOrientation(orientation) {
             size: A4 ${orientation} !important;
         }
     `;
+    globalThis.pageOrientation = orientation;
     document.head.appendChild(style);
 }
