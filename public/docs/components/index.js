@@ -1,39 +1,39 @@
 // Field
-import customFieldAdresse from "./custom-field/custom-field-adresse.js";
-import customFieldBooleanData from "./custom-field/custom-field-boolean-data.js";
-import customFieldBooleanText from "./custom-field/custom-field-boolean-text.js";
-import customFieldCountData from "./custom-field/custom-field-count-data.js";
-import customFieldData from "./custom-field/custom-field-data.js";
-import customFieldKode from "./custom-field/custom-field-kode.js";
-import customFieldKommunensSaksnummer from "./custom-field/custom-field-kommunens-saksnummer.js";
-import customFieldPartNavn from "./custom-field/custom-field-part-navn.js";
-import customFieldProsjekt from "./custom-field/custom-field-prosjekt.js";
-import customFieldTelefonnummer from "./custom-field/custom-field-telefonnummer.js";
-import customFieldUtfallSvarStatus from "./custom-field/custom-field-utfall-svar-status.js";
+import customFieldAdresse from "./field/custom-field-adresse.js";
+import customFieldBooleanData from "./field/custom-field-boolean-data.js";
+import customFieldBooleanText from "./field/custom-field-boolean-text.js";
+import customFieldCountData from "./field/custom-field-count-data.js";
+import customFieldData from "./field/custom-field-data.js";
+import customFieldKode from "./field/custom-field-kode.js";
+import customFieldKommunensSaksnummer from "./field/custom-field-kommunens-saksnummer.js";
+import customFieldPartNavn from "./field/custom-field-part-navn.js";
+import customFieldProsjekt from "./field/custom-field-prosjekt.js";
+import customFieldTelefonnummer from "./field/custom-field-telefonnummer.js";
+import customFieldUtfallSvarStatus from "./field/custom-field-utfall-svar-status.js";
 
 // Typography
-import customHeaderText from "./custom-typography/custom-header-text.js";
-import customSubheaderText from "./custom-typography/custom-subheader-text.js";
-import customParagraphText from "./custom-typography/custom-paragraph-text.js";
+import customHeaderText from "./typography/custom-header-text.js";
+import customSubheaderText from "./typography/custom-subheader-text.js";
+import customParagraphText from "./typography/custom-paragraph-text.js";
 
 // List
-import customListData from "./custom-list/custom-list-data.js";
-import customListPlanlagteLoefteinnretninger from "./custom-list/custom-list-planlagte-loefteinnretninger.js";
-import customListVedlegg from "./custom-list/custom-list-vedlegg.js";
+import customListData from "./list/custom-list-data.js";
+import customListPlanlagteLoefteinnretninger from "./list/custom-list-planlagte-loefteinnretninger.js";
+import customListVedlegg from "./list/custom-list-vedlegg.js";
 
 // Table
-import customTableAnsvarsomraade from "./custom-table/custom-table-ansvarsomraade.js";
-import customTableArbeidsplasser from "./custom-table/custom-table-arbeidsplasser.js";
-import customTableData from "./custom-table/custom-table-data.js";
-import customTableEiendom from "./custom-table/custom-table-eiendom.js";
-import customTableNaboGjenboerEiendom from "./custom-table/custom-table-nabo-gjenboer-eiendom.js";
-import customTableOmraaderisiko from "./custom-table/custom-table-omraaderisiko.js";
-import customTablePart from "./custom-table/custom-table-part.js";
-import customTablePlan from "./custom-table/custom-table-plan.js";
+import customTableAnsvarsomraade from "./table/custom-table-ansvarsomraade.js";
+import customTableArbeidsplasser from "./table/custom-table-arbeidsplasser.js";
+import customTableData from "./table/custom-table-data.js";
+import customTableEiendom from "./table/custom-table-eiendom.js";
+import customTableNaboGjenboerEiendom from "./table/custom-table-nabo-gjenboer-eiendom.js";
+import customTableOmraaderisiko from "./table/custom-table-omraaderisiko.js";
+import customTablePart from "./table/custom-table-part.js";
+import customTablePlan from "./table/custom-table-plan.js";
 
 // Summation
-import customSummationArealdisponering from "./custom-summation/custom-summation-arealdisponering.js";
-import customSummationData from "./custom-summation/custom-summation-data.js";
+import customSummationArealdisponering from "./summation/custom-summation-arealdisponering.js";
+import customSummationData from "./summation/custom-summation-data.js";
 
 // Grouplist
 import customGrouplistEttersending from "./grouplist/custom-grouplist-ettersending.js";
