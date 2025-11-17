@@ -16,6 +16,7 @@ export default {
     "custom-list-data": "Data",
     "custom-list-planlagte-loefteinnretninger": "Planlagte løfteinnretninger",
     "custom-list-vedlegg": "Vedlegg",
+    "custom-table-ansvarsomraade": "Ansvarsområde",
     "custom-table-arbeidsplasser": "Arbeidsplasser",
     "custom-table-data": "Data",
     "custom-table-eiendom": "Eiendom",

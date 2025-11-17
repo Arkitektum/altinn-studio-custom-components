@@ -22,6 +22,7 @@ import customListPlanlagteLoefteinnretninger from "./custom-list/custom-list-pla
 import customListVedlegg from "./custom-list/custom-list-vedlegg.js";
 
 // Table
+import customTableAnsvarsomraade from "./custom-table/custom-table-ansvarsomraade.js";
 import customTableArbeidsplasser from "./custom-table/custom-table-arbeidsplasser.js";
 import customTableData from "./custom-table/custom-table-data.js";
 import customTableEiendom from "./custom-table/custom-table-eiendom.js";
@@ -67,6 +68,7 @@ export const typography = {
 export const list = { customListData, customListPlanlagteLoefteinnretninger, customListVedlegg };
 
 export const table = {
+    customTableAnsvarsomraade,
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
