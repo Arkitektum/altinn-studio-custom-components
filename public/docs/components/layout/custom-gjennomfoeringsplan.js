@@ -12,8 +12,65 @@ const markup = {
     }
 };
 
+const defaultResourceBindings = {
+    gjennomfoeringsplan: {
+        title: "resource.gjennomfoeringsplan.title",
+        description: "resource.gjennomfoeringsplan.description"
+    },
+    planenGjelder: {
+        title: "resource.planenGjelder.title"
+    },
+    ansvarsfordeling: {
+        title: "resource.ansvarsfordeling.title"
+    },
+    versjon: {
+        title: "resource.versjon.title"
+    },
+    kommunensSaksnummer: {
+        title: "resource.kommunensSaksnummer.title"
+    },
+    metadataProsjektnavn: {
+        title: "resource.metadata.prosjekt.title"
+    },
+    metadataFtbId: {
+        title: "resource.metadata.ftbId.title"
+    },
+    tiltaksklasse: {
+        title: "resource.tiltaksklasse.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    ansvarsomraade: {
+        title: "resource.ansvarsomraade.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    foretak: {
+        title: "resource.foretak.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    planlagteSamsvarKontrollErklaeringer: {
+        title: "resource.planlagteSamsvarKontrollErklaeringer.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    ansvarsomraadeStatus: {
+        title: "resource.ansvarsomraadeStatus.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    samsvarKontrollPlanlagtVedRammetillatelse: {
+        title: "resource.samsvarKontrollPlanlagtVedRammetillatelse.title"
+    },
+    samsvarKontrollPlanlagtVedIgangsettingstillatelse: {
+        title: "resource.samsvarKontrollPlanlagtVedIgangsettingstillatelse.title"
+    },
+    samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: {
+        title: "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title"
+    },
+    samsvarKontrollPlanlagtVedFerdigattest: {
+        title: "resource.samsvarKontrollPlanlagtVedFerdigattest.title"
+    }
+};
+
 const options = {
     pageOrientation: "landscape"
 };
 
-export default { markup, options };
+export default { markup, defaultResourceBindings, options };
