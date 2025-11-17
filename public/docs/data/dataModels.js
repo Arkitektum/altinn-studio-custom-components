@@ -1,5 +1,3 @@
-import customDescriptionListData from "../components/description-list/custom-description-list-data";
-
 export default [
     {
         data: {
