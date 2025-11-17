@@ -28,8 +28,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         const instance = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(instance.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)).toEqual([
             {
-                title: "Rammetillatelse Title",
-                signingDate: "2024-01-01"
+                title: { data: "Rammetillatelse Title" },
+                signingDate: { data: "2024-01-01", format: "date" }
             }
         ]);
     });
@@ -42,8 +42,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         const instance = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(instance.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)).toEqual([
             {
-                title: "Igangsettingstillatelse Title",
-                signingDate: "2024-02-02"
+                title: { data: "Igangsettingstillatelse Title" },
+                signingDate: { data: "2024-02-02", format: "date" }
             }
         ]);
     });
@@ -56,8 +56,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         const instance = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(instance.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)).toEqual([
             {
-                title: "Midlertidig Brukstillatelse Title",
-                signingDate: "2024-03-03"
+                title: { data: "Midlertidig Brukstillatelse Title" },
+                signingDate: { data: "2024-03-03", format: "date" }
             }
         ]);
     });
@@ -70,8 +70,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         const instance = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(instance.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)).toEqual([
             {
-                title: "Ferdigattest Title",
-                signingDate: "2024-04-04"
+                title: { data: "Ferdigattest Title" },
+                signingDate: { data: "2024-04-04", format: "date" }
             }
         ]);
     });
@@ -86,12 +86,12 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         const instance = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(instance.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)).toEqual([
             {
-                title: "Rammetillatelse Title",
-                signingDate: "2024-01-01"
+                title: { data: "Rammetillatelse Title" },
+                signingDate: { data: "2024-01-01", format: "date" }
             },
             {
-                title: "Ferdigattest Title",
-                signingDate: "2024-04-04"
+                title: { data: "Ferdigattest Title" },
+                signingDate: { data: "2024-04-04", format: "date" }
             }
         ]);
     });
@@ -104,8 +104,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         const instance = new PlanlagteSamsvarKontrollErklaeringerList(props, {});
         expect(instance.getPlanlagteSamsvarKontrollErklaeringerList(props, {})).toEqual([
             {
-                title: "mocked title",
-                signingDate: "2024-01-01"
+                title: { data: "mocked title" },
+                signingDate: { data: "2024-01-01", format: "date" }
             }
         ]);
     });

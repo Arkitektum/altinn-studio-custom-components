@@ -30,42 +30,42 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
     }
 
     /**
-     * Generates a list of planned conformity control declarations based on the provided properties and resource bindings.
+     * Generates a list of planned compliance control declarations based on provided properties and resource bindings.
      *
-     * Each item in the returned list represents a planned conformity control declaration for a specific permit stage,
-     * including its title (localized via resource bindings) and signing date (if available).
+     * Each item in the returned list represents a planned compliance control declaration for a specific permit stage,
+     * including its title (localized using resource bindings) and signing date (formatted as "date").
      * Only stages marked as planned (`true`) in the `props` object are included.
      *
-     * @param {Object} props - The properties indicating which conformity controls are planned and their signing dates.
-     * @param {Object} resourceBindings - The resource bindings used to retrieve localized titles for each stage.
-     * @returns {Array<Object>} An array of objects, each containing:
-     *   - {string} title: The localized title of the planned conformity control declaration.
-     *   - {string|undefined} signingDate: The signing date for the declaration, if available.
+     * @param {Object} props - The properties indicating which compliance controls are planned and their signing dates.
+     * @param {Object} resourceBindings - The resource bindings used to localize the titles for each compliance control stage.
+     * @returns {Array<Object>} An array of objects, each containing a `title` and `signingDate` for a planned compliance control declaration.
      */
     getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings) {
         return [
             props?.samsvarKontrollPlanlagtVedRammetillatelse === true
                 ? {
-                      title: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title),
-                      signingDate: props?.samsvarKontrollForeliggerVedRammetillatelse
+                      title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title) },
+                      signingDate: { data: props?.samsvarKontrollForeliggerVedRammetillatelse, format: "date" }
                   }
                 : null,
             props?.samsvarKontrollPlanlagtVedIgangsettingstillatelse === true
                 ? {
-                      title: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse?.title),
-                      signingDate: props?.samsvarKontrollForeliggerVedIgangsettingstillatelse
+                      title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse?.title) },
+                      signingDate: { data: props?.samsvarKontrollForeliggerVedIgangsettingstillatelse, format: "date" }
                   }
                 : null,
             props?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse === true
                 ? {
-                      title: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse?.title),
-                      signingDate: props?.samsvarKontrollForeliggerVedMidlertidigBrukstillatelse
+                      title: {
+                          data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse?.title)
+                      },
+                      signingDate: { data: props?.samsvarKontrollForeliggerVedMidlertidigBrukstillatelse, format: "date" }
                   }
                 : null,
             props?.samsvarKontrollPlanlagtVedFerdigattest === true
                 ? {
-                      title: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest?.title),
-                      signingDate: props?.samsvarKontrollForeliggerVedFerdigattest
+                      title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest?.title) },
+                      signingDate: { data: props?.samsvarKontrollForeliggerVedFerdigattest, format: "date" }
                   }
                 : null
         ].filter((item) => item !== null);
