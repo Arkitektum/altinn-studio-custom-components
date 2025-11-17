@@ -1,6 +1,6 @@
 // Global functions
 import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
-import { getComponentNameFromTagName } from "./helpers.js";
+import { getComponentNameFromTagName, getComponentTypeNameFromKey } from "./helpers.js";
 
 // Assets
 import iconBrick from "../assets/svg/brick.svg";
@@ -183,7 +183,7 @@ export function renderResults(results) {
 
         const typeTitleElement = document.createElement("h2");
         typeTitleElement.id = `component-type-${componentType.type}`;
-        typeTitleElement.textContent = componentType.type;
+        typeTitleElement.textContent = getComponentTypeNameFromKey(componentType?.type);
         typeContainerElement.appendChild(typeTitleElement);
 
         const componentsContainerElement = document.createElement("div");
@@ -228,7 +228,7 @@ export function renderSidebar(results) {
         const typeDetailsElement = document.createElement("details");
         typeDetailsElement.open = true;
         const typeTitleElement = document.createElement("summary");
-        typeTitleElement.textContent = componentType.type;
+        typeTitleElement.textContent = getComponentTypeNameFromKey(componentType?.type);
         typeDetailsElement.appendChild(typeTitleElement);
         typeDetailsElement.appendChild(typeTitleElement);
 
