@@ -26,7 +26,7 @@ export default {
     "custom-table-part": "Part",
     "custom-table-plan": "Plan",
     "custom-summation-arealdisponering": "Arealdisponering",
-    "custom-summation-data": "Summering (data)",
+    "custom-summation-data": "Data",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-sjekklistekrav": "Sjekklistekrav",
