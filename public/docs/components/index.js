@@ -21,6 +21,9 @@ import customListData from "./list/custom-list-data.js";
 import customListPlanlagteLoefteinnretninger from "./list/custom-list-planlagte-loefteinnretninger.js";
 import customListVedlegg from "./list/custom-list-vedlegg.js";
 
+// Description list
+import customDescriptionListData from "./description-list/custom-description-list-data.js";
+
 // Table
 import customTableAnsvarsomraade from "./table/custom-table-ansvarsomraade.js";
 import customTableArbeidsplasser from "./table/custom-table-arbeidsplasser.js";
@@ -36,6 +39,7 @@ import customSummationArealdisponering from "./summation/custom-summation-areald
 import customSummationData from "./summation/custom-summation-data.js";
 
 // Grouplist
+import customGrouplistAnsvarsomraadeType from "./grouplist/custom-grouplist-ansvarsomraade-type.js";
 import customGrouplistEttersending from "./grouplist/custom-grouplist-ettersending.js";
 import customGrouplistSjekklistekrav from "./grouplist/custom-grouplist-sjekklistekrav.js";
 import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
@@ -67,6 +71,8 @@ export const typography = {
 
 export const list = { customListData, customListPlanlagteLoefteinnretninger, customListVedlegg };
 
+export const descriptionList = { customDescriptionListData };
+
 export const table = {
     customTableAnsvarsomraade,
     customTableArbeidsplasser,
@@ -80,7 +86,13 @@ export const table = {
 
 export const summation = { customSummationArealdisponering, customSummationData };
 
-export const grouplist = { customGrouplistEttersending, customGrouplistSjekklistekrav, customGrouplistUtfallSvarType, customGrouplistUtfallSvar };
+export const grouplist = {
+    customGrouplistAnsvarsomraadeType,
+    customGrouplistEttersending,
+    customGrouplistSjekklistekrav,
+    customGrouplistUtfallSvarType,
+    customGrouplistUtfallSvar
+};
 
 export const layout = { customDispensasjon, customGjennomfoeringsplan };
 
@@ -88,6 +100,7 @@ export default {
     typography,
     field,
     list,
+    descriptionList,
     table,
     summation,
     grouplist,

@@ -1,3 +1,5 @@
+import customDescriptionListData from "../components/description-list/custom-description-list-data";
+
 export default [
     {
         data: {
@@ -96,6 +98,13 @@ export default [
                         },
                         filnavn: "File2.pdf"
                     }
+                ]
+            },
+            customDescriptionList: {
+                data: [
+                    { event: "Konferanse", date: "2023-09-15" },
+                    { event: "Workshop", date: "2023-10-20" },
+                    { event: "Webinar", date: "2023-11-05" }
                 ]
             },
             customTable: {
@@ -412,6 +421,137 @@ export default [
                 ]
             },
             customGrouplist: {
+                ansvarsomraade: [
+                    {
+                        funksjon: {
+                            kodeverdi: "KONTROLL",
+                            kodebeskrivelse: "Ansvarlig kontrollerende"
+                        },
+                        ansvarsomraade: "Strukturell sikkerhet",
+                        tiltaksklasse: {
+                            kodeverdi: "1",
+                            kodebeskrivelse: "1"
+                        },
+                        foretak: {
+                            partstype: {
+                                kodeverdi: "Foretak",
+                                kodebeskrivelse: "Foretak"
+                            },
+                            foedselsnummer: null,
+                            organisasjonsnummer: "987654321",
+                            navn: "Kontrollforetak AS",
+                            adresse: {
+                                adresselinje1: "Kontrollvegen 3",
+                                adresselinje2: null,
+                                adresselinje3: null,
+                                postnr: "4321",
+                                poststed: "Kontrollbyen",
+                                landkode: "NO"
+                            },
+                            telefonnummer: "22334455",
+                            mobilnummer: "99887766",
+                            epost: "kontakt@kontrollforetak.no"
+                        },
+                        samsvarKontrollPlanlagtVedRammetillatelse: true,
+                        samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
+                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: false,
+                        samsvarKontrollPlanlagtVedFerdigattest: false,
+                        samsvarKontrollForeliggerVedRammetillatelse: "2023-05-28",
+                        samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-06-28",
+                        samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "",
+                        samsvarKontrollForeliggerVedFerdigattest: "",
+                        ansvarsomraadeStatus: {
+                            kodeverdi: "avsluttet",
+                            kodebeskrivelse: "Avsluttet"
+                        }
+                    },
+                    {
+                        funksjon: {
+                            kodeverdi: "UTFØRENDE",
+                            kodebeskrivelse: "Ansvarlig utførende"
+                        },
+                        ansvarsomraade: "Brannsikkerhet",
+                        tiltaksklasse: {
+                            kodeverdi: "2",
+                            kodebeskrivelse: "2"
+                        },
+                        foretak: {
+                            partstype: {
+                                kodeverdi: "Foretak",
+                                kodebeskrivelse: "Foretak"
+                            },
+                            foedselsnummer: null,
+                            organisasjonsnummer: "123123123",
+                            navn: "Utførende Foretak AS",
+                            adresse: {
+                                adresselinje1: "Utførervegen 4",
+                                adresselinje2: null,
+                                adresselinje3: null,
+                                postnr: "5678",
+                                poststed: "Utførerbyen",
+                                landkode: "NO"
+                            },
+                            telefonnummer: "33445566",
+                            mobilnummer: "88776655",
+                            epost: "kontakt@utforendeforetak.no"
+                        },
+                        samsvarKontrollPlanlagtVedRammetillatelse: false,
+                        samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
+                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: true,
+                        samsvarKontrollPlanlagtVedFerdigattest: true,
+                        samsvarKontrollForeliggerVedRammetillatelse: "",
+                        samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-07-15",
+                        samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "2023-08-20",
+                        samsvarKontrollForeliggerVedFerdigattest: "2023-09-30",
+                        ansvarsomraadeStatus: {
+                            kodeverdi: "pågående",
+                            kodebeskrivelse: "Pågående"
+                        }
+                    },
+                    {
+                        funksjon: {
+                            kodeverdi: "KONTROLL",
+                            kodebeskrivelse: "Ansvarlig kontrollerende"
+                        },
+                        ansvarsomraade: "Geoteknisk sikkerhet",
+                        tiltaksklasse: {
+                            kodeverdi: "3",
+                            kodebeskrivelse: "3"
+                        },
+                        foretak: {
+                            partstype: {
+                                kodeverdi: "Foretak",
+                                kodebeskrivelse: "Foretak"
+                            },
+                            foedselsnummer: null,
+                            organisasjonsnummer: "555666777",
+                            navn: "Geoteknisk Kontroll AS",
+                            adresse: {
+                                adresselinje1: "Geovegen 5",
+                                adresselinje2: null,
+                                adresselinje3: null,
+                                postnr: "8765",
+                                poststed: "Geobyen",
+                                landkode: "NO"
+                            },
+                            telefonnummer: "44556677",
+                            mobilnummer: "77665544",
+                            epost: "kontakt@geotekniskkontroll.no"
+                        },
+                        samsvarKontrollPlanlagtVedRammetillatelse: true,
+                        samsvarKontrollPlanlagtVedIgangsettingstillatelse: false,
+                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: true,
+                        samsvarKontrollPlanlagtVedFerdigattest: false,
+                        samsvarKontrollForeliggerVedRammetillatelse: "2023-10-10",
+                        samsvarKontrollForeliggerVedIgangsettingstillatelse: "",
+                        samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "2023-12-01",
+                        samsvarKontrollForeliggerVedFerdigattest: "",
+                        ansvarsomraadeStatus: {
+                            kodeverdi: "planlagt",
+                            kodebeskrivelse: "Planlagt"
+                        }
+                    }
+                ],
                 ettersending: [
                     {
                         tema: {
