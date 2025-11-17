@@ -77,8 +77,8 @@ describe("CustomDescriptionListData", () => {
         it("should transform items using keys", () => {
             const instance = new CustomDescriptionListData({});
             const items = [
-                { a: "term1", b: "desc1" },
-                { a: "term2", b: "desc2" }
+                { a: { data: "term1" }, b: { data: "desc1" } },
+                { a: { data: "term2" }, b: { data: "desc2" } }
             ];
             const result = instance.getDescriptionListItemsFromKeys(items, "a", "b");
             expect(result).toEqual([
@@ -95,7 +95,7 @@ describe("CustomDescriptionListData", () => {
 
         it("should handle missing keys gracefully", () => {
             const instance = new CustomDescriptionListData({});
-            const items = [{}, { a: "term" }];
+            const items = [{}, { a: { data: "term" } }];
             const result = instance.getDescriptionListItemsFromKeys(items, "a", "b");
             expect(result).toEqual([
                 { term: undefined, description: undefined },
@@ -108,7 +108,7 @@ describe("CustomDescriptionListData", () => {
         it("should return description list items if itemTermKey or itemDescriptionKey is present", () => {
             const instance = new CustomDescriptionListData({});
             const props = {
-                formData: [{ foo: "bar", baz: "qux" }],
+                formData: [{ foo: { data: "bar" }, baz: { data: "qux" } }],
                 itemTermKey: "foo",
                 itemDescriptionKey: "baz"
             };

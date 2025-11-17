@@ -3,6 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { formatString } from "../../../functions/dataFormatHelpers.js";
 
 /**
  * CustomDescriptionListData is a custom component class for handling description list data.
@@ -41,19 +42,25 @@ export default class CustomDescriptionListData extends CustomComponent {
     }
 
     /**
-     * Transforms an array of items into an array of objects with `term` and `description` properties,
-     * using the specified keys to extract values from each item.
+     * Generates an array of description list items from the provided items array,
+     * extracting term and description values using the specified keys. If a format is provided
+     * for a term or description, it uses the formatString function to format the data.
      *
-     * @param {Array<Object>} items - The array of items to transform.
-     * @param {string} itemTermKey - The key to extract the term from each item.
-     * @param {string} itemDescriptionKey - The key to extract the description from each item.
-     * @returns {Array<{term: any, description: any}>} An array of objects with `term` and `description` properties,
-     *   or an empty array if the input is not a non-empty array.
+     * @param {Array<Object>} items - The array of items to process.
+     * @param {string} itemTermKey - The key used to extract the term from each item.
+     * @param {string} itemDescriptionKey - The key used to extract the description from each item.
+     * @returns {Array<{ term: any, description: any }>} An array of objects containing term and description pairs.
      */
     getDescriptionListItemsFromKeys(items, itemTermKey, itemDescriptionKey) {
         return Array.isArray(items) && items.length
             ? items.map((item) => {
-                  return { term: item?.[itemTermKey], description: item?.[itemDescriptionKey] };
+                  const term = item?.[itemTermKey]?.format
+                      ? formatString(item?.[itemTermKey]?.data, item?.[itemTermKey]?.format)
+                      : item?.[itemTermKey]?.data;
+                  const description = item?.[itemDescriptionKey]?.format
+                      ? formatString(item?.[itemDescriptionKey]?.data, item?.[itemDescriptionKey]?.format)
+                      : item?.[itemDescriptionKey]?.data;
+                  return { term, description };
               })
             : [];
     }

@@ -100,9 +100,9 @@ export default [
             },
             customDescriptionList: {
                 data: [
-                    { event: "Konferanse", date: "2023-09-15" },
-                    { event: "Workshop", date: "2023-10-20" },
-                    { event: "Webinar", date: "2023-11-05" }
+                    { event: { data: "Konferanse" }, date: { data: "2023-09-15", format: "date" } },
+                    { event: { data: "Workshop" }, date: { data: "2023-10-20", format: "date" } },
+                    { event: { data: "Webinar" }, date: { data: "2023-11-05", format: "date" } }
                 ]
             },
             customTable: {
