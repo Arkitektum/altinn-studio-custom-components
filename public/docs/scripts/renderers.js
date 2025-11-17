@@ -1,6 +1,8 @@
 // Global functions
 import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
 import { getComponentNameFromTagName } from "./helpers.js";
+// Assets
+import iconBrick from "../assets/svg/brick.svg";
 
 /**
  * Renders a markup example for a component as a collapsible <details> element.
@@ -217,7 +219,12 @@ export function renderSidebar(results) {
         componentType.components.forEach((componentExample) => {
             const componentLiElement = document.createElement("li");
             const componentLinkElement = document.createElement("a");
+            const iconElement = document.createElement("img");
+            iconElement.src = iconBrick;
+            iconElement.alt = "Component Icon";
+            iconElement.classList.add("component-icon");
             componentLinkElement.textContent = getComponentNameFromTagName(componentExample?.markup?.tagName);
+            componentLinkElement.prepend(iconElement);
             componentLinkElement.href = `#component-${componentExample?.markup?.tagName}`;
             componentLiElement.appendChild(componentLinkElement);
             componentsUlElement.appendChild(componentLiElement);

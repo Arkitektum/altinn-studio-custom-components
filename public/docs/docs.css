@@ -71,6 +71,14 @@
                             &:hover {
                                 background-color: #efeded;
                             }
+                            img {
+                                width: 16px;
+                                height: 16px;
+                                vertical-align: middle;
+                                margin-right: 5px;
+                                position: relative;
+                                top: -1px;
+                            }
                         }
                     }
                 }
