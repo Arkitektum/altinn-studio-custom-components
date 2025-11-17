@@ -16,6 +16,7 @@ custom-field {
             display: block;
             page-break-after: avoid;
             page-break-inside: avoid;
+            margin-bottom: 0.1rem;
             &::after {
                 content: "";
                 display: block;
