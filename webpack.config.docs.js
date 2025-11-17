@@ -31,6 +31,13 @@ module.exports = {
                 generator: {
                     filename: "fonts/[name][ext][query]"
                 }
+            },
+            {
+                test: /\.svg$/i,
+                type: "asset/resource",
+                generator: {
+                    filename: "assets/svg/[name][ext][query]"
+                }
             }
         ]
     },

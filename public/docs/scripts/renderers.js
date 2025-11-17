@@ -2,6 +2,12 @@
 import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
 import { getComponentNameFromTagName } from "./helpers.js";
 
+// Assets
+import iconBrick from "../assets/svg/brick.svg";
+import iconCodeBlocks from "../assets/svg/code-blocks.svg";
+import iconDataObject from "../assets/svg/data-object.svg";
+import iconDictionary from "../assets/svg/dictionary.svg";
+
 /**
  * Renders a markup example for a component as a collapsible <details> element.
  *
@@ -18,7 +24,12 @@ function renderComponentExampleMarkup(componentExample) {
 
     const titleElement = document.createElement("summary");
     titleElement.classList.add("component-example-markup-title");
+    const iconElement = document.createElement("img");
+    iconElement.src = iconCodeBlocks;
+    iconElement.alt = "Markup Icon";
+    iconElement.classList.add("summary-icon");
     titleElement.textContent = "Markup";
+    titleElement.prepend(iconElement);
     containerElement.appendChild(titleElement);
 
     const codeElement = document.createElement("pre");
@@ -43,7 +54,12 @@ function renderComponentExampleData(componentExampleData) {
 
     const titleElement = document.createElement("summary");
     titleElement.classList.add("component-example-data-title");
+    const iconElement = document.createElement("img");
+    iconElement.src = iconDataObject;
+    iconElement.alt = "Data Icon";
+    iconElement.classList.add("summary-icon");
     titleElement.textContent = "Data";
+    titleElement.prepend(iconElement);
     containerElement.appendChild(titleElement);
 
     const codeElement = document.createElement("pre");
@@ -68,7 +84,12 @@ function renderComponentExampleResources(componentExampleResources) {
 
     const titleElement = document.createElement("summary");
     titleElement.classList.add("component-example-resources-title");
+    const iconElement = document.createElement("img");
+    iconElement.src = iconDictionary;
+    iconElement.alt = "Resources Icon";
+    iconElement.classList.add("summary-icon");
     titleElement.textContent = "Resources";
+    titleElement.prepend(iconElement);
     containerElement.appendChild(titleElement);
 
     const codeElement = document.createElement("pre");
@@ -217,7 +238,12 @@ export function renderSidebar(results) {
         componentType.components.forEach((componentExample) => {
             const componentLiElement = document.createElement("li");
             const componentLinkElement = document.createElement("a");
+            const iconElement = document.createElement("img");
+            iconElement.src = iconBrick;
+            iconElement.alt = "Component Icon";
+            iconElement.classList.add("component-icon");
             componentLinkElement.textContent = getComponentNameFromTagName(componentExample?.markup?.tagName);
+            componentLinkElement.prepend(iconElement);
             componentLinkElement.href = `#component-${componentExample?.markup?.tagName}`;
             componentLiElement.appendChild(componentLinkElement);
             componentsUlElement.appendChild(componentLiElement);

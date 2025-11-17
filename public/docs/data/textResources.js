@@ -682,6 +682,10 @@ export default {
         {
             id: "resource.samsvarKontrollPlanlagtVedFerdigattest.title",
             value: "Søknad om ferdigattest"
+        },
+        {
+            id: "resource.customDescriptionList.data.title",
+            value: "Arrangementer"
         }
     ]
 };

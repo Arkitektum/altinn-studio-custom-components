@@ -1,40 +1,16 @@
 const markup = {
-    id: "custom-gjennomfoeringsplan",
+    id: "custom-table-ansvarsomraade",
     type: "Custom",
-    tagName: "custom-gjennomfoeringsplan",
+    tagName: "custom-table-ansvarsomraade",
+    size: "h2",
+    hideTitle: false,
+    hideIfEmpty: false,
     dataModelBindings: {
-        versjon: "customLayout.gjennomfoeringsplan.versjon",
-        gjennomfoeringsplan: "customLayout.gjennomfoeringsplan.gjennomfoeringsplan",
-        metadata: "customLayout.gjennomfoeringsplan.metadata",
-        kommunensSaksnummer: "customLayout.gjennomfoeringsplan.kommunensSaksnummer",
-        eiendomByggested: "customLayout.gjennomfoeringsplan.eiendomByggested",
-        ansvarligSoeker: "customLayout.gjennomfoeringsplan.ansvarligSoeker"
+        data: "customTable.ansvarsomraade"
     }
 };
 
 const defaultResourceBindings = {
-    gjennomfoeringsplan: {
-        title: "resource.gjennomfoeringsplan.title",
-        description: "resource.gjennomfoeringsplan.description"
-    },
-    planenGjelder: {
-        title: "resource.planenGjelder.title"
-    },
-    ansvarsfordeling: {
-        title: "resource.ansvarsfordeling.title"
-    },
-    versjon: {
-        title: "resource.versjon.title"
-    },
-    kommunensSaksnummer: {
-        title: "resource.kommunensSaksnummer.title"
-    },
-    metadataProsjektnavn: {
-        title: "resource.metadata.prosjekt.title"
-    },
-    metadataFtbId: {
-        title: "resource.metadata.ftbId.title"
-    },
     tiltaksklasse: {
         title: "resource.tiltaksklasse.title",
         emptyFieldText: "resource.emptyFieldText.default"
@@ -66,11 +42,9 @@ const defaultResourceBindings = {
     },
     samsvarKontrollPlanlagtVedFerdigattest: {
         title: "resource.samsvarKontrollPlanlagtVedFerdigattest.title"
-    }
+    },
+    title: "resource.ansvarsfordeling.title",
+    emptyFieldText: "resource.emptyFieldText.default"
 };
 
-const options = {
-    pageOrientation: "landscape"
-};
-
-export default { markup, defaultResourceBindings, options };
+export default { markup, defaultResourceBindings };
