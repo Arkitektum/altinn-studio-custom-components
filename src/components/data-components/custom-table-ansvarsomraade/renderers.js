@@ -49,7 +49,7 @@ export function renderAnsvarsomraadeTable(component) {
                 emptyFieldText: component?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText
             },
             styleOverride: {
-                width: "270px"
+                width: "284px"
             }
         },
         {
