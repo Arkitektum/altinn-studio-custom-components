@@ -9,8 +9,8 @@ custom-header {
     &::after {
         content: "";
         display: block;
-        height: 100px;
-        margin-bottom: -100px;
+        height: 150px;
+        margin-bottom: -150px;
     }
     & h1,
     & h2,
