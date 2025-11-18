@@ -673,7 +673,7 @@ export default {
         },
         {
             id: "resource.samsvarKontrollPlanlagtVedIgangsettingstillatelse.title",
-            value: "Ettrinn-/igangsettingssøknad"
+            value: "Ettrinn-/igangsettings-søknad"
         },
         {
             id: "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title",
