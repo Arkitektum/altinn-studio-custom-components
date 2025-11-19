@@ -27,7 +27,7 @@ export function renderEiendomTable(component) {
                 emptyFieldText: component?.resourceBindings?.adresse?.emptyFieldText
             },
             styleOverride: {
-                width: "116px"
+                width: globalThis?.pageOrientation === "landscape" ? "200px" : "116px"
             }
         },
         {
@@ -36,6 +36,9 @@ export function renderEiendomTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.eiendomsidentifikasjonGaardsnummer?.title,
                 emptyFieldText: component?.resourceBindings?.eiendomsidentifikasjonGaardsnummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
@@ -44,6 +47,9 @@ export function renderEiendomTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.eiendomsidentifikasjonBruksnummer?.title,
                 emptyFieldText: component?.resourceBindings?.eiendomsidentifikasjonBruksnummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
@@ -52,6 +58,9 @@ export function renderEiendomTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.eiendomsidentifikasjonSeksjonsnummer?.title,
                 emptyFieldText: component?.resourceBindings?.eiendomsidentifikasjonSeksjonsnummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
@@ -60,6 +69,9 @@ export function renderEiendomTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.eiendomsidentifikasjonFestenummer?.title,
                 emptyFieldText: component?.resourceBindings?.eiendomsidentifikasjonFestenummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
@@ -68,6 +80,9 @@ export function renderEiendomTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.bolignummer?.title,
                 emptyFieldText: component?.resourceBindings?.bolignummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
@@ -76,6 +91,9 @@ export function renderEiendomTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.bygningsnummer?.title,
                 emptyFieldText: component?.resourceBindings?.bygningsnummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         }
     ];

@@ -21,6 +21,9 @@ export function renderAnsvarsomraadeTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.tiltaksklasse?.title,
                 emptyFieldText: component?.resourceBindings?.tiltaksklasse?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
