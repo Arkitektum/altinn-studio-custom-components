@@ -38,6 +38,9 @@ export function renderPartTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.telefonnummer?.title,
                 emptyFieldText: component?.resourceBindings?.telefonnummer?.emptyFieldText
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {

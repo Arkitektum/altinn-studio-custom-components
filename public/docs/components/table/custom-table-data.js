@@ -24,6 +24,9 @@ const markup = {
             resourceBindings: {
                 title: "resource.customTable.data.dato.title",
                 emptyFieldText: "resource.emptyFieldText.default"
+            },
+            styleOverride: {
+                textAlign: "right"
             }
         },
         {
