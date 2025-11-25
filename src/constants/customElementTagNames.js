@@ -29,6 +29,7 @@ export default [
     "custom-grouplist-utfall-svar-type",
     "custom-grouplist-utfall-svar",
     "custom-group-ettersending",
+    "custom-group-nabo-gjenboer-eiendom",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",
