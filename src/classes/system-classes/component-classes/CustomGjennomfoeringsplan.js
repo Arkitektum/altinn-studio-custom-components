@@ -1,6 +1,6 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Gjennomfoeringsplan from "../../data-classes/Gjennomfoeringsplan.js";
+import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
 
 // Global functions
 import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
