@@ -25,7 +25,7 @@ import CustomGjenpartNabovarsel from "../classes/system-classes/component-classe
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
-import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/customGrouplistNaboGjenboerEiendom.js";
+import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
 import CustomGrouplistPlan from "../classes/system-classes/component-classes/CustomGrouplistPlan.js";
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
