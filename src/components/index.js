@@ -58,6 +58,7 @@ import customTablePlan from "./data-components/custom-table-plan/index.js";
 // Layout components
 import dispensasjon from "./layout-components/dispensasjon/index.js";
 import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.js";
+import gjenpartNabovarsel from "./layout-components/gjenpart-nabovarsel/index.js";
 
 // Global functions
 import initCustomComponents from "../functions/init.js";
@@ -122,5 +123,6 @@ export {
     customTablePart,
     customTablePlan,
     dispensasjon,
-    gjennomfoeringsplan
+    gjennomfoeringsplan,
+    gjenpartNabovarsel
 };
