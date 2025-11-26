@@ -25,10 +25,12 @@ export default [
     "custom-field-utfall-svar-status",
     "custom-grouplist-ansvarsomraade-type",
     "custom-grouplist-ettersending",
+    "custom-grouplist-nabo-gjenboer-eiendom",
     "custom-grouplist-sjekklistekrav",
     "custom-grouplist-utfall-svar-type",
     "custom-grouplist-utfall-svar",
     "custom-group-ettersending",
+    "custom-group-nabo-gjenboer-eiendom",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",
@@ -51,5 +53,6 @@ export default [
     "custom-table-part",
     "custom-table-plan",
     "custom-dispensasjon",
-    "custom-gjennomfoeringsplan"
+    "custom-gjennomfoeringsplan",
+    "custom-gjenpart-nabovarsel"
 ];

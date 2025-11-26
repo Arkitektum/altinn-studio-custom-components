@@ -21,13 +21,16 @@ import CustomFieldProsjekt from "../classes/system-classes/component-classes/Cus
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
 import CustomGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomGjennomfoeringsplan.js";
+import CustomGjenpartNabovarsel from "../classes/system-classes/component-classes/CustomGjenpartNabovarsel.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
+import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/customGrouplistNaboGjenboerEiendom.js";
 import CustomGrouplistPlan from "../classes/system-classes/component-classes/CustomGrouplistPlan.js";
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
+import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupPlan from "../classes/system-classes/component-classes/CustomGroupPlan.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
@@ -107,10 +110,14 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-field-utfall-svar-status":
             return new CustomFieldUtfallSvarStatus(component);
+        case "custom-gjenpart-nabovarsel":
+            return new CustomGjenpartNabovarsel(component);
         case "custom-gjennomfoeringsplan":
             return new CustomGjennomfoeringsplan(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
+        case "custom-group-nabo-gjenboer-eiendom":
+            return new CustomGroupNaboGjenboerEiendom(component);
         case "custom-group-plan":
             return new CustomGroupPlan(component);
         case "custom-group-sjekklistekrav":
@@ -123,6 +130,8 @@ export function instantiateComponent(element) {
             return new CustomGrouplistAnsvarsomraadeType(component);
         case "custom-grouplist-ettersending":
             return new CustomGrouplistEttersending(component);
+        case "custom-grouplist-nabo-gjenboer-eiendom":
+            return new CustomGrouplistNaboGjenboerEiendom(component);
         case "custom-grouplist-plan":
             return new CustomGrouplistPlan(component);
         case "custom-grouplist-sjekklistekrav":
