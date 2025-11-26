@@ -41,6 +41,7 @@ import customSummationData from "./summation/custom-summation-data.js";
 // Grouplist
 import customGrouplistAnsvarsomraadeType from "./grouplist/custom-grouplist-ansvarsomraade-type.js";
 import customGrouplistEttersending from "./grouplist/custom-grouplist-ettersending.js";
+import customGrouplistNaboGjenboerEiendom from "./grouplist/custom-grouplist-nabo-gjenboer-eiendom.js";
 import customGrouplistSjekklistekrav from "./grouplist/custom-grouplist-sjekklistekrav.js";
 import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
 import customGrouplistUtfallSvar from "./grouplist/custom-grouplist-utfall-svar.js";
@@ -89,6 +90,7 @@ export const summation = { customSummationArealdisponering, customSummationData 
 export const grouplist = {
     customGrouplistAnsvarsomraadeType,
     customGrouplistEttersending,
+    customGrouplistNaboGjenboerEiendom,
     customGrouplistSjekklistekrav,
     customGrouplistUtfallSvarType,
     customGrouplistUtfallSvar

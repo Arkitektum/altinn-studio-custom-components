@@ -29,6 +29,7 @@ export default {
     "custom-summation-data": "Data",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
     "custom-grouplist-ettersending": "Ettersending",
+    "custom-grouplist-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",
     "custom-grouplist-sjekklistekrav": "Sjekklistekrav",
     "custom-grouplist-utfall-svar-type": "Utfall svar type",
     "custom-grouplist-utfall-svar": "Utfall svar",
