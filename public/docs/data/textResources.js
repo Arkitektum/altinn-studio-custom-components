@@ -686,6 +686,58 @@ export default {
         {
             id: "resource.customDescriptionList.data.title",
             value: "Arrangementer"
+        },
+        {
+            id: "resource.naboGjenboer.title",
+            value: "Følgende naboer har fått tilsendt nabovarsel med tilhørende vedlegg"
+        },
+        {
+            id: "resource.eier.header",
+            value: "Eier/fester av naboeiendom"
+        },
+        {
+            id: "resource.eier.navn.title",
+            value: "Navn"
+        },
+        {
+            id: "resource.eier.telefonnummer.title",
+            value: "Telefonnummer"
+        },
+        {
+            id: "resource.eier.epost.title",
+            value: "E-postadresse"
+        },
+        {
+            id: "resource.eier.adresse.title",
+            value: "Adresse"
+        },
+        {
+            id: "resource.respons.nabovarselSendtVia.title",
+            value: "Nabovarsel sendt via"
+        },
+        {
+            id: "resource.respons.merknadMottattDato.title",
+            value: "Nabovarsel sendt"
+        },
+        {
+            id: "resource.respons.erMerknadEllerSamtykkeMottatt.title",
+            value: "Status"
+        },
+        {
+            id: "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
+            value: "Ikke svar"
+        },
+        {
+            id: "resource.respons.erMerknadMottatt.trueText",
+            value: "Merknad"
+        },
+        {
+            id: "resource.respons.erSamtykkeMottatt.trueText",
+            value: "Samtykke"
+        },
+        {
+            id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText",
+            value: "(adresse mangler)"
         }
     ]
 };
