@@ -1,4 +1,4 @@
-// Global functions
+// Classes
 import Kode from "./Kode.js";
 
 /**
