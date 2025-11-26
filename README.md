@@ -201,5 +201,4 @@ yarn test
 
 ## 📝 Changelog
 
-See the latest release notes at:\
-https://github.com/Arkitektum/altinn-studio-custom-components/releases
+The [changelog](https://github.com/Arkitektum/altinn-studio-custom-components/releases) is regularly updated to reflect what's changed in each new release.
