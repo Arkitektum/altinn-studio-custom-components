@@ -1,9 +1,9 @@
 import CustomGjennomfoeringsplan from "./CustomGjennomfoeringsplan";
-import Gjennomfoeringsplan from "../../data-classes/Gjennomfoeringsplan";
+import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan";
 import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations";
 
-jest.mock("../../data-classes/Gjennomfoeringsplan");
+jest.mock("../../layout-classes/Gjennomfoeringsplan");
 jest.mock("../CustomComponent");
 jest.mock("../../../functions/helpers");
 jest.mock("../../../functions/validations");
