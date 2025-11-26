@@ -597,6 +597,136 @@ export default [
                         }
                     }
                 ],
+                naboGjenboerEiendom: [
+                    {
+                        eier: {
+                            navn: "Nabo Eiendom AS",
+                            organisasjonsnummer: "998877665",
+                            adresse: {
+                                adresselinje1: "Naboens Gate 10",
+                                adresselinje2: null,
+                                adresselinje3: null,
+                                postnr: "4321",
+                                poststed: "Nabobyen",
+                                landkode: "NO"
+                            },
+                            telefonnummer: "55667788",
+                            epost: "nabo@eiendom.no"
+                        },
+                        eiendommer: {
+                            eiendom: [
+                                {
+                                    matrikkelinformasjon: {
+                                        eiendomsidentifikasjon: {
+                                            kommunenummer: "1234",
+                                            gaardsnummer: 33,
+                                            bruksnummer: 16,
+                                            festenummer: 0,
+                                            seksjonsnummer: 0
+                                        },
+                                        adresse: {
+                                            adresselinje1: "Naboens Gate 10",
+                                            adresselinje2: null,
+                                            adresselinje3: null,
+                                            postnr: "4321",
+                                            poststed: "Nabobyen",
+                                            landkode: "NO"
+                                        },
+                                        bygningsnummer: "1234569",
+                                        bolignummer: "H0201",
+                                        kommunenavn: "Nabokommunen"
+                                    }
+                                },
+                                {
+                                    matrikkelinformasjon: {
+                                        eiendomsidentifikasjon: {
+                                            kommunenummer: "0301",
+                                            gaardsnummer: 208,
+                                            bruksnummer: 391,
+                                            festenummer: 0,
+                                            seksjonsnummer: 0
+                                        },
+                                        adresse: {
+                                            adresselinje1: "Naboens Gate 20",
+                                            adresselinje2: null,
+                                            adresselinje3: null,
+                                            postnr: "0301",
+                                            poststed: "Oslo",
+                                            landkode: "NO"
+                                        },
+                                        bygningsnummer: "81099620",
+                                        bolignummer: "H0202",
+                                        kommunenavn: "Oslo"
+                                    }
+                                }
+                            ]
+                        },
+                        respons: {
+                            merknadMottattDato: "2024-03-10",
+                            nabovarselSentVia: {
+                                kodeverdi: "FTB",
+                                kodebeskrivelse: "Fellestjenester Bygg"
+                            },
+                            nabovarselSendt: "2024-02-28",
+                            erMerknadMottatt: "true",
+                            erSamtykkeMottatt: "false",
+                            samtykkeMottattDato: null
+                        }
+                    },
+                    {
+                        eier: {
+                            navn: "Gjenboer Eiendom AS",
+                            organisasjonsnummer: "887766554",
+                            adresse: {
+                                adresselinje1: "Gjenboerens Vei 5",
+                                adresselinje2: null,
+                                adresselinje3: null,
+                                postnr: "5678",
+                                poststed: "Gjenboerbyen",
+                                landkode: "NO"
+                            },
+                            telefonnummer: "66778899",
+                            epost: "kontakt@gjenboereiendom.no"
+                        },
+                        eiendommer: {
+                            eiendom: [
+                                {
+                                    matrikkelinformasjon: {
+                                        eiendomsidentifikasjon: {
+                                            kommunenummer: "5678",
+                                            gaardsnummer: 44,
+                                            bruksnummer: 22,
+                                            festenummer: 0,
+                                            seksjonsnummer: 0
+                                        },
+                                        adresse: {
+                                            adresselinje1: "Gjenboerens Vei 5",
+                                            adresselinje2: null,
+                                            adresselinje3: null,
+                                            postnr: "5678",
+                                            poststed: "Gjenboerbyen",
+                                            landkode: "NO"
+                                        },
+                                        bygningsnummer: "2233445",
+                                        bolignummer: "H0301",
+                                        kommunenavn: "Gjenboerkommunen"
+                                    }
+                                }
+                            ]
+                        },
+                        respons: {
+                            merknadMottattDato: "2024-04-15",
+                            nabovarselSentVia: {
+                                kodeverdi: "EPOST",
+                                kodebeskrivelse: "E-post"
+                            },
+                            nabovarselSendt: "2024-04-01",
+                            erMerknadMottatt: "false",
+                            erSamtykkeMottatt: "true",
+                            samtykkeMottattDato: "2024-04-10"
+                        }
+                    }
+                ],
                 sjekklistekrav: [
                     {
                         sjekklistepunktsvar: true,
