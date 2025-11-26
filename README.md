@@ -1,167 +1,192 @@
 # altinn-studio-custom-components
 
-This repository provides a collection of reusable custom components designed for Altinn Studio, enabling standardized presentation of various data types in digital public services.
+![CI](https://github.com/Arkitektum/altinn-studio-custom-components/actions/workflows/ci.yml/badge.svg) ![npm version](https://img.shields.io/npm/v/@arkitektum/altinn-studio-custom-components.svg)
+
+A collection of reusable custom components for **Altinn Studio**, designed to provide consistent, standardized presentation of various data types in digital public services.
 
 ---
 
 ## 📦 Installation
 
-To integrate these components into your Altinn Studio application, follow these steps:
+To integrate this package into your Altinn Studio application, follow
+the steps below.
 
-1. Init NPM:
+### 1. Initialize npm
 
-   ```bash
-   npm init -y
-   ```
+```bash
+npm init -y
+```
 
-2. Install the package via npm:
+### 2. Install the package
 
-   ```bash
-   npm install @arkitektum/altinn-studio-custom-components --save
-   ```
+```bash
+npm install @arkitektum/altinn-studio-custom-components --save
+```
 
-3. Add the following configuration to your `/App/App.csproj` file to ensure proper installation and asset copying during build:
+### 3. Configure asset handling in `/App/App.csproj`
 
-   ```xml
-   <Target Name="NpmInstall" Inputs="package.json" Outputs="node_modules/.install-stamp">
-     <Exec Command="npm ci"      Condition="'$(RestorePackagesWithLockFile)' == 'true'" />
-     <Exec Command="npm install" Condition="'$(RestorePackagesWithLockFile)' != 'true'" />
-     <Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
-   </Target>
+Add the following snippet to ensure npm packages are installed and
+copied to `wwwroot` during the build:
 
-   <ItemGroup>
-     <MyAssets Include="node_modules/@arkitektum/altinn-studio-custom-components/**/*.*" />
-   </ItemGroup>
+```xml
+<Target Name="NpmInstall" Inputs="package.json" Outputs="node_modules/.install-stamp">
+  <Exec Command="npm ci"      Condition="'$(RestorePackagesWithLockFile)' == 'true'" />
+  <Exec Command="npm install" Condition="'$(RestorePackagesWithLockFile)' != 'true'" />
+  <Touch Files="node_modules/.install-stamp" AlwaysCreate="true" />
+</Target>
 
-   <Target Name="CopyAssetsToWwwroot" DependsOnTargets="NpmInstall" AfterTargets="Build">
-     <Message Text="Copying assets to wwwroot..." Importance="High" />
-     <MakeDir Directories="wwwroot/altinn-studio-custom-components" />
-     <Copy
-       SourceFiles="@(MyAssets)"
-       DestinationFolder="wwwroot/altinn-studio-custom-components"
-       SkipUnchangedFiles="true" />
-   </Target>
-   ```
+<ItemGroup>
+  <MyAssets Include="node_modules/@arkitektum/altinn-studio-custom-components/**/*.*" />
+</ItemGroup>
 
-4. Add the following configuration to your `/views/Home/index.cshtml` file:
+<Target Name="CopyAssetsToWwwroot" DependsOnTargets="NpmInstall" AfterTargets="Build">
+  <Message Text="Copying assets to wwwroot..." Importance="High" />
+  <MakeDir Directories="wwwroot/altinn-studio-custom-components" />
+  <Copy
+    SourceFiles="@(MyAssets)"
+    DestinationFolder="wwwroot/altinn-studio-custom-components"
+    SkipUnchangedFiles="true" />
+</Target>
+```
 
-   Make sure you replace `[ORG NAME]` and `[APP NAME]` with the actual names
+### 4. Include the scripts and styles in `/views/Home/index.cshtml`
 
-   ```html
-   <html>
-     <head>
-       <link rel="stylesheet" type="text/css" href="/[ORG NAME]/[APP NAME]/altinn-studio-custom-components/main.css">
-     </head>
-     <body>
-       <script type="module" src="/[ORG NAME]/[APP NAME]/altinn-studio-custom-components/main.js"></script>
-     </body>
-   </html>
-   ```
+Replace `[ORG NAME]` and `[APP NAME]` with the correct values:
 
-5. Add npm to `Dockerfile`
+```html
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/[ORG NAME]/[APP NAME]/altinn-studio-custom-components/main.css" />
+    </head>
+    <body>
+        <script type="module" src="/[ORG NAME]/[APP NAME]/altinn-studio-custom-components/main.js"></script>
+    </body>
+</html>
+```
 
-   ```dockerfile
-   WORKDIR /App
+### 5. Add npm support in your Dockerfile
 
-   RUN apk add --no-cache npm
-   ```
+```dockerfile
+WORKDIR /App
 
-This will handle the installation of the necessary npm packages and copy the assets to the `wwwroot/altinn-studio-custom-components` directory during the build process.
+RUN apk add --no-cache npm
+```
+
+After these steps, npm packages will be installed automatically during
+the build, and all assets will be copied into
+`wwwroot/altinn-studio-custom-components`.
 
 ---
 
 ## 🧩 Available Components
 
-These components are tailored to display specific data types consistently across Altinn Studio applications:
+Components are grouped by category and tailored to display domain-specific data according to standards from **Direktoratet for Byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
 
-- **Typography**
-  - [Header](src/components/data-components/custom-header-text/) – Displays a title with text from a resource.
-  - [Subheader](src/components/data-components/custom-subheader-text) – Displays a title with text from a resource.
-  - [Paragraph](src/components/data-components/custom-paragraph-text/) – Displays a paragraph with text from a resource.
-  - [Paragraph Text Data](src/components/data-components/custom-paragraph-text-data/) – Displays a paragraph with text from a resource combined with text from data.
-- **Fields**
-  - [Data](src/components/data-components/custom-field-data/) – Displays a data field with a label.
-  - [Boolean Data](src/components/data-components/custom-field-boolean-data/) – Displays different data model values based on a boolean value.
-  - [Boolean Text](src/components/data-components/custom-field-boolean-text/) – Displays different text resources based on a boolean value.
-  - [Count Data](src/components/data-components/custom-field-count-data/) – Displays the number of items in an array.
-  - [Feedback](src/components/data-components/custom-feedback-data/) – Displays a single feedback message.
-  - [Adresse](src/components/data-components/custom-field-adresse/) – Displays a complete address object
-  - [Part-navn](src/components/data-components/custom-field-part-navn/) – Displays a part's name, optionally with an organization number.
-  - [Kode](src/components/data-components/custom-field-kode/) – Displays a code value from the data model, typically used for standardized codes or identifiers.
-  - [Kommunens saksnummer](src/components/data-components/custom-field-kommunens-saksnummer/) – Displays a municipal case number composed of the case year and sequence number.
-  - [Prosjekt](src/components/data-components/custom-field-prosjekt/) – Displays a project number composed of a number and name.
-  - [Telefonnummer](src/components/data-components/custom-field-telefonnummer/) – Displays all phone numbers associated with a part object.
-  - [Utfallbesvarelse](src/components/data-components/custom-field-utfall-svar-status/) – Displays the status based on the 'Utfallbesvarelse' object.
-- **Lists**
-  - [Data](src/components/data-components/custom-list-data/) – Displays a list of values from an array.
-  - [Planlagte løfteinnretninger](src/components/data-components/custom-list-planlagte-loefteinnretninger/) – Displays a list containing [`PlanlagteLoefteinnretningerList`](src/classes/system-classes/data-classes/PlanlagteLoefteinnretningerList.js) from a [`Loefteinnretninger`](src/classes/data-classes/Loefteinnretninger.js) object.
-  - [Vedlegg](src/components/data-components/custom-list-vedlegg/) – Displays a list of attachments.
-  - [Feedback](src/components/data-components/custom-feedbacklist-data/) – Displays a list of feedback messages for a feedback type.
-  - [ValidationMessages](src/components/data-components/custom-feedbacklist-validation-messages/) – Displays lists of feedback messages for all feedback types.
-- **Descriptions lists**
-  - [Data](src/components/data-components/custom-description-list-data/) - Displays a description list of values from an array.
-- **Group lists**
-  - [Ansvarsområde](src/components/data-components/custom-grouplist-ansvarsomraade-type/) – Displays a list of [`Ansvarsomraade`](src/classes/data-classes/Ansvarsomraade.js) component groups.
-  - [Ettersending](src/components/data-components/custom-grouplist-ettersending/) – Displays a list of [`Ettersending`](src/classes/data-classes/Ettersending.js) component groups.
-  - [Sjekklistekrav](src/components/data-components/custom-grouplist-sjekklistekrav/) – Displays a list of [`Sjekklistekrav`](src/classes/data-classes/Sjekklistekrav.js) component groups.
-  - [Utfall svar](src/components/data-components/custom-grouplist-utfall-svar-type/) – Displays a list of [`Utfallsvar`](src/classes/data-classes/UtfallSvar.js) component groups.
-- **Summation**
-  - [Data](src/components/data-components/custom-summation-data/) - Displays the summation of numeric values from a specified data array.
-  - [Arealdisponering](src/components/data-components/custom-summation-arealdisponering) – Displays the summation of area allocation values from an [`Arealdisponering`](src/classes/data-classes/Arealdisponering.js) object.
-- **Tables**
-  - [Data](src/components/data-components/custom-table-data/) – Displays data table with customizable columns and rows.
-  - [Ansvarsområde](src/components/data-components/custom-table-ansvarsomraade/) – Displays table with data from an array with [`Ansvarsomraade`](src/classes/data-classes/Ansvarsomraade.js) objects.
-  - [Arbeidsplasser](src/components/data-components/custom-table-arbeidsplasser/) – Displays table with data from an array with [`Arbeidsplasser`](src/classes/data-classes/Arbeidsplasser.js) objects.
-  - [Eiendom](src/components/data-components/custom-table-eiendom/) – Displays table with data from an array with [`Eiendom`](src/classes/data-classes/Eiendom.js) objects.
-  - [Områderisiko](src/components/data-components/custom-table-omraaderisiko/) – Displays table with data from an array with [`Omraaderisiko`](src/classes/data-classes/Omraaderisiko.js) objects.
-  - [Part](src/components/data-components/custom-table-part/) – Displays table with data from an array with [`Part`](src/classes/data-classes/Part.js) objects for `part`.
-  - [Plan](src/components/data-components/custom-table-plan/) – Displays table with data from an array with [`Plan`](src/classes/data-classes/Plan.js) objects for `andrePlaner`.
+### **Typography**
 
-These components adhere to the standards set by the Norwegian Building Authority (Direktoratet for Byggkvalitet) within the Fellestjenester BYGG platform.
+- **Header** -- Displays a header text from a resource.
+- **Subheader** -- Displays a subheader from a resource.
+- **Paragraph** -- Displays a paragraph from a resource.
+- **Paragraph Text Data** -- Combines resource text with data text.
+
+### **Fields**
+
+- **Data** -- Field with label and value.
+- **Boolean Data** -- Displays model values based on boolean.
+- **Boolean Text** -- Displays resource text based on boolean.
+- **Count Data** -- Counts items in an array.
+- **Feedback** -- Single feedback message.
+- **Adresse** -- Full address object.
+- **Part-navn** -- Part name, optionally with org number.
+- **Kode** -- Standardized code value.
+- **Kommunens saksnummer** -- Composite case number (year + sequence).
+- **Prosjekt** -- Composite project number and name.
+- **Telefonnummer** -- All phone numbers for a part object.
+- **Utfallbesvarelse** -- Displays status from an `Utfallbesvarelse` object.
+
+### **Lists**
+
+- **Data** -- Values from an array.
+- **Planlagte løfteinnretninger** -- List of `PlanlagteLoefteinnretningerList`.
+- **Vedlegg** -- Attachment list.
+- **Feedback** -- List of feedback messages by type.
+- **ValidationMessages** -- Combined validation feedback.
+
+### **Description Lists**
+
+- **Data** -- Produces a description list from array values.
+
+### **Group Lists**
+
+- **Ansvarsområde** -- Displays `Ansvarsomraade` groups.
+- **Ettersending** -- Displays `Ettersending` groups.
+- **Sjekklistekrav** -- Displays `Sjekklistekrav` groups.
+- **Utfall svar** -- Displays `Utfallsvar` groups.
+
+### **Summation**
+
+- **Data** -- Sums numerical values from an array.
+- **Arealdisponering** -- Sums area allocation values from an `Arealdisponering` object.
+
+### **Tables**
+
+- **Data** -- Configurable data table.
+- **Ansvarsområde** -- Table displaying responsibility areas.
+- **Arbeidsplasser** -- Table listing workplaces.
+- **Eiendom** -- Table showing property information.
+- **Områderisiko** -- Table for area risk assessments.
+- **Part** -- Table of parties involved.
+- **Plan** -- Table of plans.
 
 ---
 
 ## 🧪 Development & Testing
 
-To set up a local development environment for testing these components:
-
-### Run development environment
+### Development
 
 1. Clone the repository:
 
-   ```bash
-   git clone https://github.com/Arkitektum/altinn-studio-custom-components.git
-   ```
+    ```bash
+    git clone https://github.com/Arkitektum/altinn-studio-custom-components.git
+    ```
 
-2. Navigate into the project directory:
+2. Move into the project directory:
 
-   ```bash
-   cd altinn-studio-custom-components
-   ```
+    ```bash
+    cd altinn-studio-custom-components
+    ```
 
 3. Install dependencies:
 
-   ```bash
-   yarn install
-   ```
+    ```bash
+    yarn install
+    ```
 
 4. Start the development server:
 
-   ```bash
-   yarn start
-   ```
+    ```bash
+    yarn start
+    ```
 
-   This will launch a local server where you can preview and test the components in isolation.
+5. Start the documentation site (for local docs development):
 
-### Run unit tests
+    ```bash
+    yarn start-docs
+    ```
 
-To ensure everything is working as expected, run the tests:
+6. Build the documentation site (static output):
+
+    ```bash
+    yarn build-docs
+    ```
+
+### Testing
+
+Run unit tests:
 
 ```bash
 yarn test
 ```
-
-This will execute the test suite and help validate that the components behave as intended.
 
 ---
 
@@ -176,4 +201,5 @@ This will execute the test suite and help validate that the components behave as
 
 ## 📝 Changelog
 
-The [changelog](https://github.com/Arkitektum/altinn-studio-custom-components/releases) is regularly updated to reflect what's changed in each new release.
+See the latest release notes at:\
+https://github.com/Arkitektum/altinn-studio-custom-components/releases
