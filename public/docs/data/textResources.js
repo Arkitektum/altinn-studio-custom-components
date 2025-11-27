@@ -746,6 +746,78 @@ export default {
         {
             id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText",
             value: "(adresse mangler)"
+        },
+        {
+            id: "resource.gjenpartNabovarsel.title",
+            value: "Gjenpart nabovarsel"
+        },
+        {
+            id: "resource.gjenpartNabovarsel.description",
+            value: "(Gjenpart av nabovarsel) Pbl § 21-3 inneholder opplysninger gitt i nabovarsel og kvittering for nabovarsel."
+        },
+        {
+            id: "resource.soeknadGjelder.title",
+            value: "Søknaden gjelder"
+        },
+        {
+            id: "resource.detVarslesHervedOm.title",
+            value: "Det varsles herved om"
+        },
+        {
+            id: "resource.soeknadGjelder.type.title",
+            value: "Tiltakstype"
+        },
+        {
+            id: "resource.soeknadGjelder.bruk.tiltaksformaal.title",
+            value: "Tiltaksformål"
+        },
+        {
+            id: "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
+            value: "Beskrivelse av bruk"
+        },
+        {
+            id: "resource.planer.gjeldendePlan.title",
+            value: "Gjeldende plan"
+        },
+        {
+            id: "resource.planer.gjeldendePlan.navn.title",
+            value: "Navn på plan"
+        },
+        {
+            id: "resource.planer.gjeldendePlan.plantype.title",
+            value: "Type plan"
+        },
+        {
+            id: "resource.tiltakshaver.title",
+            value: "Tiltakshaver (bare for tiltak uten ansvarlig søker pbl § 20-4)"
+        },
+        {
+            id: "resource.spoersmaalRettesTil.title",
+            value: "Spørsmål vedrørende nabovarselet rettes til"
+        },
+        {
+            id: "resource.kontaktpersonForNabovarselet.title",
+            value: "Foretak/tiltakshaver"
+        },
+        {
+            id: "resource.kontaktpersonForNabovarselet.navn.title",
+            value: "Kontaktperson"
+        },
+        {
+            id: "resource.kontaktpersonForNabovarselet.telefonnummer.title",
+            value: "Telefonnummer"
+        },
+        {
+            id: "resource.kontaktpersonForNabovarselet.epost.title",
+            value: "E-postadresse"
+        },
+        {
+            id: "resource.merknaderSendesTil.title",
+            value: "Merknader sendes til"
+        },
+        {
+            id: "resource.ansvarligSoeker.title",
+            value: "Ansvarlig søker for tiltaket (for tiltak etter pbl § 20-1)"
         }
     ]
 };
