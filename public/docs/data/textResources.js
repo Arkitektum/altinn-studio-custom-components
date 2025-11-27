@@ -736,6 +736,14 @@ export default {
             value: "Samtykke"
         },
         {
+            id: "resource.respons.merknadMottattDato.title",
+            value: "Mottatt merknad"
+        },
+        {
+            id: "resource.respons.samtykkeMottattDato.title",
+            value: "Mottatt samtykke"
+        },
+        {
             id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText",
             value: "(adresse mangler)"
         }

@@ -77,6 +77,12 @@ const defaultResourceBindings = {
     },
     responsErSamtykkeMottatt: {
         trueText: "resource.respons.erSamtykkeMottatt.trueText"
+    },
+    responsMerknadMottattDato: {
+        title: "resource.respons.merknadMottattDato.title"
+    },
+    responsSamtykkeMottattDato: {
+        title: "resource.respons.samtykkeMottattDato.title"
     }
 };
 
