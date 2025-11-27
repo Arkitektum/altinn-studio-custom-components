@@ -14,6 +14,7 @@ export default class Respons {
      * @param {string} [props.nabovarselSendt] - The date the neighbor notification was sent.
      * @param {string|Object} [props.nabovarselSendtVia] - The method by which the neighbor notification was sent.
      * @param {string} [props.samtykkeMottattDato] - The date consent was received.
+     * @param {string} [props.merknadMottattDato] - The date a remark was received.
      */
     constructor(props) {
         this.erMerknadMottatt = props?.erMerknadMottatt;
@@ -21,5 +22,6 @@ export default class Respons {
         this.nabovarselSendt = props?.nabovarselSendt;
         this.nabovarselSendtVia = props?.nabovarselSendtVia && new Kode(props.nabovarselSendtVia);
         this.samtykkeMottattDato = props?.samtykkeMottattDato;
+        this.merknadMottattDato = props?.merknadMottattDato;
     }
 }
