@@ -1275,6 +1275,309 @@ export default [
                         mobilnummer: "91234567",
                         epost: "kari.nordmann@example.com"
                     }
+                },
+                gjenpartNabovarsel: {
+                    ansvarligSoeker: {
+                        navn: "Ola Nordmann",
+                        foedselsnummer: "01020312345",
+                        adresse: {
+                            adresselinje1: "Søkervegen 2",
+                            adresselinje2: null,
+                            adresselinje3: null,
+                            postnr: "5678",
+                            poststed: "Søkerbyen",
+                            landkode: "NO"
+                        },
+                        telefonnummer: "99887766",
+                        epost: "ola.nordmann@example.com"
+                    },
+                    eiendomByggested: {
+                        eiendom: [
+                            {
+                                eiendomsidentifikasjon: {
+                                    kommunenummer: "1234",
+                                    gaardsnummer: 33,
+                                    bruksnummer: 16,
+                                    festenummer: 0,
+                                    seksjonsnummer: 0
+                                },
+                                adresse: {
+                                    adresselinje1: "Adressevegen 1",
+                                    adresselinje2: "",
+                                    adresselinje3: "",
+                                    postnr: "1234",
+                                    poststed: "Bø",
+                                    landkode: "NO",
+                                    gatenavn: "Adressevegen",
+                                    husnr: "1",
+                                    bokstav: ""
+                                },
+                                bygningsnummer: "1234567",
+                                bolignummer: "H0101",
+                                kommunenavn: "Oslo"
+                            },
+                            {
+                                eiendomsidentifikasjon: {
+                                    kommunenummer: "0301",
+                                    gaardsnummer: 208,
+                                    bruksnummer: 391,
+                                    festenummer: 0,
+                                    seksjonsnummer: 0
+                                },
+                                adresse: {
+                                    adresselinje1: "",
+                                    adresselinje2: "",
+                                    adresselinje3: "",
+                                    postnr: "",
+                                    poststed: "",
+                                    landkode: "NO",
+                                    gatenavn: "",
+                                    husnr: "",
+                                    bokstav: ""
+                                },
+                                bygningsnummer: "81099618",
+                                bolignummer: "H0101",
+                                kommunenavn: "Oslo"
+                            }
+                        ]
+                    },
+                    kontaktpersonForNabovarselet: {
+                        navn: "Kari Nordmann",
+                        telefonnummer: "99887766",
+                        epost: "kari.nordmann@example.com"
+                    },
+                    naboGjenboerEiendommer: {
+                        naboGjenboerEiendom: [
+                            {
+                                eier: {
+                                    navn: "Nabo AS",
+                                    organisasjonsnummer: "987654321",
+                                    adresse: {
+                                        adresselinje1: "Nabovegen 1",
+                                        adresselinje2: null,
+                                        adresselinje3: null,
+                                        postnr: "4321",
+                                        poststed: "Nabobyen",
+                                        landkode: "NO"
+                                    },
+                                    telefonnummer: "55667788",
+                                    epost: "nabo@example.com"
+                                },
+                                eiendommer: {
+                                    eiendom: [
+                                        {
+                                            matrikkelinformasjon: {
+                                                eiendomsidentifikasjon: {
+                                                    kommunenummer: "4321",
+                                                    gaardsnummer: 55,
+                                                    bruksnummer: 33,
+                                                    festenummer: 0,
+                                                    seksjonsnummer: 0
+                                                },
+                                                adresse: {
+                                                    adresselinje1: "Naboeiendomsvegen 2",
+                                                    adresselinje2: "",
+                                                    adresselinje3: "",
+                                                    postnr: "4321",
+                                                    poststed: "Nabobyen",
+                                                    landkode: "NO"
+                                                },
+                                                bygningsnummer: "7654321",
+                                                bolignummer: "H0301",
+                                                kommunenavn: "Trondheim"
+                                            }
+                                        },
+                                        {
+                                            matrikkelinformasjon: {
+                                                eiendomsidentifikasjon: {
+                                                    kommunenummer: "4321",
+                                                    gaardsnummer: 56,
+                                                    bruksnummer: 34,
+                                                    festenummer: 0,
+                                                    seksjonsnummer: 0
+                                                },
+                                                adresse: {
+                                                    adresselinje1: "Naboeiendomsvegen 3",
+                                                    adresselinje2: "",
+                                                    adresselinje3: "",
+                                                    postnr: "4321",
+                                                    poststed: "Nabobyen",
+                                                    landkode: "NO"
+                                                },
+                                                bygningsnummer: "7654322",
+                                                bolignummer: "H0302",
+                                                kommunenavn: "Trondheim"
+                                            }
+                                        }
+                                    ]
+                                },
+                                respons: {
+                                    nabovarselSendtVia: {
+                                        kodeverdi: "POST",
+                                        kodebeskrivelse: "Post"
+                                    },
+                                    nabovarselSendt: "2024-06-15T10:30:00",
+                                    erMerknadMottatt: true,
+                                    erSamtykkeMottatt: false,
+                                    merknadMottattDato: "2024-06-20T14:45:00",
+                                    samtykkeMottattDato: null
+                                }
+                            },
+                            {
+                                eier: {
+                                    navn: "Gjenboer Person",
+                                    foedselsnummer: "05060789012",
+                                    adresse: {
+                                        adresselinje1: "Gjenboervegen 4",
+                                        adresselinje2: null,
+                                        adresselinje3: null,
+                                        postnr: "8765",
+                                        poststed: "Gjenboerbyen",
+                                        landkode: "NO"
+                                    },
+                                    telefonnummer: "66778899",
+                                    epost: "gjenboer.person@example.com"
+                                },
+                                eiendommer: {
+                                    eiendom: [
+                                        {
+                                            matrikkelinformasjon: {
+                                                eiendomsidentifikasjon: {
+                                                    kommunenummer: "8765",
+                                                    gaardsnummer: 77,
+                                                    bruksnummer: 44,
+                                                    festenummer: 0,
+                                                    seksjonsnummer: 0
+                                                },
+                                                adresse: {
+                                                    adresselinje1: "Gjenboereiendomsvegen 5",
+                                                    adresselinje2: "",
+                                                    adresselinje3: "",
+                                                    postnr: "8765",
+                                                    poststed: "Gjenboerbyen",
+                                                    landkode: "NO"
+                                                },
+                                                bygningsnummer: "8765432",
+                                                bolignummer: "H0401",
+                                                kommunenavn: "Stavanger"
+                                            }
+                                        },
+                                        {
+                                            matrikkelinformasjon: {
+                                                eiendomsidentifikasjon: {
+                                                    kommunenummer: "8765",
+                                                    gaardsnummer: 78,
+                                                    bruksnummer: 45,
+                                                    festenummer: 0,
+                                                    seksjonsnummer: 0
+                                                },
+                                                adresse: {
+                                                    adresselinje1: "Gjenboereiendomsvegen 6",
+                                                    adresselinje2: "",
+                                                    adresselinje3: "",
+                                                    postnr: "8765",
+                                                    poststed: "Gjenboerbyen",
+                                                    landkode: "NO"
+                                                },
+                                                bygningsnummer: "8765433",
+                                                bolignummer: "H0402",
+                                                kommunenavn: "Stavanger"
+                                            }
+                                        }
+                                    ]
+                                },
+                                respons: {
+                                    nabovarselSendtVia: {
+                                        kodeverdi: "EPOST",
+                                        kodebeskrivelse: "E-post"
+                                    },
+                                    nabovarselSendt: "2024-06-16T11:00:00",
+                                    erMerknadMottatt: false,
+                                    erSamtykkeMottatt: true,
+                                    merknadMottattDato: null,
+                                    samtykkeMottattDato: "2024-06-22T09:15:00"
+                                }
+                            }
+                        ]
+                    },
+                    planer: {
+                        gjeldendePlan: {
+                            navn: "Reguleringsplan for Sentrum Øst",
+                            plantype: {
+                                kodeverdi: "reguleringsPlan",
+                                kodebeskrivelse: "Reguleringsplan"
+                            }
+                        },
+                        andrePlaner: {
+                            plan: [
+                                {
+                                    navn: "Kommunedelplan for Byutvikling",
+                                    plantype: {
+                                        kodeverdi: "kommunedelplan",
+                                        kodebeskrivelse: "Kommunedelplan"
+                                    }
+                                },
+                                {
+                                    navn: "Regional plan for klima og miljø",
+                                    plantype: {
+                                        kodeverdi: "regionalPlan",
+                                        kodebeskrivelse: "Regional plan"
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    soeknadGjelder: {
+                        type: {
+                            kode: [
+                                {
+                                    kodeverdi: "dispensasjon",
+                                    kodebeskrivelse: "Dispensasjon"
+                                },
+                                {
+                                    kodeverdi: "gjennomfoeringsplan",
+                                    kodebeskrivelse: "Gjennomføringsplan"
+                                }
+                            ]
+                        },
+                        foelgebrev: "Søknaden gjelder dispensasjon fra byggegrenser i reguleringsplan samt gjennomføringsplan for tiltaket.",
+                        bruk: {
+                            tiltaksformaal: {
+                                kode: [
+                                    {
+                                        kodeverdi: "bolig",
+                                        kodebeskrivelse: "Bolig"
+                                    },
+                                    {
+                                        kodeverdi: "næring",
+                                        kodebeskrivelse: "Næring"
+                                    }
+                                ]
+                            },
+                            beskrivTidligereFormaal: "Tidligere var eiendommen brukt til landbruk.",
+                            beskrivPlanlagtFormaal: "Planlagt bruk er boligformål med tilhørende garasje."
+                        }
+                    },
+                    tiltakshaver: {
+                        partstype: {
+                            kodeverdi: "Foretak",
+                            kodebeskrivelse: "Foretak"
+                        },
+                        foedselsnummer: null,
+                        organisasjonsnummer: "112233445",
+                        navn: "Tiltakshaver AS",
+                        adresse: {
+                            adresselinje1: "Tiltakshavervegen 7",
+                            adresselinje2: null,
+                            adresselinje3: null,
+                            postnr: "3456",
+                            poststed: "Tiltakshaverbyen",
+                            landkode: "NO"
+                        },
+                        telefonnummer: "44556677",
+                        mobilnummer: "77665544",
+                        epost: "post@tiltakshaver.no"
+                    }
                 }
             }
         }
