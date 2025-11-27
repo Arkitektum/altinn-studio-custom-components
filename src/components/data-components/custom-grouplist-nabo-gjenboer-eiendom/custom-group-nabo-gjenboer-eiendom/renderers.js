@@ -126,7 +126,7 @@ export function renderResponsNabovarselSendtViaElement(component) {
  * @param {Object} component.resourceValues - The resource values for the component.
  * @param {Object} component.resourceValues.data - The data object containing "respons".
  * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.responsMerknadMottattDato - The resource binding for the title.
+ * @param {Object} component.resourceBindings.responsNabovarselSendt - The resource binding for the title.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsMerknadMottattDatoElement(component) {
@@ -136,7 +136,7 @@ export function renderResponsMerknadMottattDatoElement(component) {
         hideIfEmpty: true,
         format: "date",
         resourceBindings: {
-            title: component?.resourceBindings?.responsMerknadMottattDato?.title
+            title: component?.resourceBindings?.responsNabovarselSendt?.title
         },
         resourceValues: {
             data: data?.respons?.merknadMottattDato

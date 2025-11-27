@@ -258,9 +258,9 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",
                 emptyFieldText: props?.resourceBindings?.responsNabovarselSendtVia?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            responsMerknadMottattDato: {
-                title: props?.resourceBindings?.responsMerknadMottattDato?.title || "resource.respons.merknadMottattDato.title",
-                emptyFieldText: props?.resourceBindings?.responsMerknadMottattDato?.emptyFieldText || "resource.emptyFieldText.default"
+            responsNabovarselSendt: {
+                title: props?.resourceBindings?.responsNabovarselSendt?.title || "resource.respons.nabovarselSendt.title",
+                emptyFieldText: props?.resourceBindings?.responsNabovarselSendt?.emptyFieldText || "resource.emptyFieldText.default"
             },
             responsErMerknadEllerSamtykkeMottatt: {
                 title: props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title || "resource.respons.erMerknadEllerSamtykkeMottatt.title",
