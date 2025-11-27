@@ -34,5 +34,6 @@ export default {
     "custom-grouplist-utfall-svar-type": "Utfall svar type",
     "custom-grouplist-utfall-svar": "Utfall svar",
     "custom-dispensasjon": "Dispensasjonssøknad",
-    "custom-gjennomfoeringsplan": "Gjennomføringsplan"
+    "custom-gjennomfoeringsplan": "Gjennomføringsplan",
+    "custom-gjenpart-nabovarsel": "Gjenpart nabovarsel"
 };
