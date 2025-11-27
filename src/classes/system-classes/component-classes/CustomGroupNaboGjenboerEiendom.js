@@ -170,6 +170,12 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
             },
             responsErSamtykkeMottatt: {
                 trueText: props?.resourceBindings?.responsErSamtykkeMottatt?.trueText || "resource.respons.erSamtykkeMottatt.trueText"
+            },
+            responsMerknadMottattDato: {
+                title: props?.resourceBindings?.responsMerknadMottattDato?.title || "resource.respons.merknadMottattDato.title"
+            },
+            responsSamtykkeMottattDato: {
+                title: props?.resourceBindings?.responsSamtykkeMottattDato?.title || "resource.respons.samtykkeMottattDato.title"
             }
         };
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

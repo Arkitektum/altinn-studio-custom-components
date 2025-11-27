@@ -42,6 +42,8 @@
 | resourceBindings.responsErMerknadEllerSamtykkeMottatt.falseText                                 | string  | The resource binding for the text to display when no comment or consent is received.        | "resource.respons.erMerknadEllerSamtykkeMottatt.falseText"                                                  |
 | resourceBindings.responsErMerknadMottatt.trueText                                               | string  | The resource binding for the text to display when a comment is received.                    | "resource.respons.erMerknadMottatt.trueText"                                                                |
 | resourceBindings.responsErSamtykkeMottatt.trueText                                              | string  | The resource binding for the text to display when consent is received.                      | "resource.respons.responsErSamtykkeMottatt.trueText"                                                        |
+| resourceBindings.responsMerknadMottattDato.title                                                | string  | The resource binding for the comment received date title.                                   | "resource.respons.merknadMottattDato.title"                                                                 |
+| resourceBindings.responsSamtykkeMottattDato.title                                               | string  | The resource binding for the consent received date title.                                   | "resource.respons.samtykkeMottattDato.title"                                                                |
 
 ## Example
 
