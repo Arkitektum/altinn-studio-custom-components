@@ -1,8 +1,8 @@
 // Classes
-import EiendomByggested from "./EiendomByggested.js";
-import NaboGjenboerEiendommer from "./NaboGjenboerEiendommer.js";
-import Part from "./Part.js";
-import Planer from "./Planer.js";
+import EiendomByggested from "../data-classes/EiendomByggested.js";
+import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.js";
+import Part from "../data-classes/Part.js";
+import Planer from "../data-classes/Planer.js";
 
 /**
  * Class representing a GjenpartNabovarsel.

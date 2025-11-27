@@ -1,5 +1,5 @@
 import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel";
-import GjenpartNabovarsel from "../../data-classes/GjenpartNabovarsel.js";
+import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
@@ -7,7 +7,7 @@ import { hasMissingTextResources, hasValidationMessages } from "../../../functio
 jest.mock("../CustomComponent.js", () => {
     return jest.fn().mockImplementation(() => {});
 });
-jest.mock("../../data-classes/GjenpartNabovarsel.js", () => {
+jest.mock("../../layout-classes/GjenpartNabovarsel.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, _isGjenpartNabovarsel: true }));
 });
 jest.mock("../../../functions/helpers.js", () => ({

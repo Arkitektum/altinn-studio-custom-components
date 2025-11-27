@@ -1,6 +1,6 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import GjenpartNabovarsel from "../../data-classes/GjenpartNabovarsel.js";
+import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 
 // Global functions
 import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
