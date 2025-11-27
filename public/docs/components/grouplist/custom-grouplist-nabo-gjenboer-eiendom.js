@@ -64,8 +64,8 @@ const defaultResourceBindings = {
         title: "resource.respons.nabovarselSendtVia.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
-    responsMerknadMottattDato: {
-        title: "resource.respons.merknadMottattDato.title",
+    responsNabovarselSendt: {
+        title: "resource.respons.nabovarselSendt.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     responsErMerknadEllerSamtykkeMottatt: {

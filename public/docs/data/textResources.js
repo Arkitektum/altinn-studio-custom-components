@@ -716,7 +716,7 @@ export default {
             value: "Nabovarsel sendt via"
         },
         {
-            id: "resource.respons.merknadMottattDato.title",
+            id: "resource.respons.nabovarselSendt.title",
             value: "Nabovarsel sendt"
         },
         {
