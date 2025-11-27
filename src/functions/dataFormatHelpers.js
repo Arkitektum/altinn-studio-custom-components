@@ -105,6 +105,9 @@ export function formatDateTime(dateTime, language = "default") {
  * @returns {string} The formatted date string.
  */
 export function formatDate(date, language = "default") {
+    if (!date) {
+        return "";
+    }
     if (!isValidDateString(date)) {
         date = parseDateString(date);
     }
