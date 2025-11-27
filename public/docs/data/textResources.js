@@ -716,7 +716,7 @@ export default {
             value: "Nabovarsel sendt via"
         },
         {
-            id: "resource.respons.merknadMottattDato.title",
+            id: "resource.respons.nabovarselSendt.title",
             value: "Nabovarsel sendt"
         },
         {
@@ -734,6 +734,14 @@ export default {
         {
             id: "resource.respons.erSamtykkeMottatt.trueText",
             value: "Samtykke"
+        },
+        {
+            id: "resource.respons.merknadMottattDato.title",
+            value: "Mottatt merknad"
+        },
+        {
+            id: "resource.respons.samtykkeMottattDato.title",
+            value: "Mottatt samtykke"
         },
         {
             id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText",

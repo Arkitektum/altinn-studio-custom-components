@@ -64,8 +64,8 @@ const defaultResourceBindings = {
         title: "resource.respons.nabovarselSendtVia.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
-    responsMerknadMottattDato: {
-        title: "resource.respons.merknadMottattDato.title",
+    responsNabovarselSendt: {
+        title: "resource.respons.nabovarselSendt.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     responsErMerknadEllerSamtykkeMottatt: {
@@ -77,6 +77,12 @@ const defaultResourceBindings = {
     },
     responsErSamtykkeMottatt: {
         trueText: "resource.respons.erSamtykkeMottatt.trueText"
+    },
+    responsMerknadMottattDato: {
+        title: "resource.respons.merknadMottattDato.title"
+    },
+    responsSamtykkeMottattDato: {
+        title: "resource.respons.samtykkeMottattDato.title"
     }
 };
 

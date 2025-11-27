@@ -10,8 +10,9 @@ import {
     renderEmptyFieldText,
     renderNaboGjenboerEiendomElement,
     renderResponsErMerknadEllerSamtykkeMottattElement,
-    renderResponsMerknadMottattDatoElement,
-    renderResponsNabovarselSendtViaElement
+    renderResponsNabovarselSendtElement,
+    renderResponsNabovarselSendtViaElement,
+    renderResponsSamtykkeEllerMerknadMottattElement
 } from "./renderers.js";
 
 export default customElements.define(
@@ -31,8 +32,9 @@ export default customElements.define(
                 containerElement.appendChild(renderEierPartElement(component));
                 containerElement.appendChild(renderEierAdresseElement(component));
                 containerElement.appendChild(renderResponsNabovarselSendtViaElement(component));
-                containerElement.appendChild(renderResponsMerknadMottattDatoElement(component));
+                containerElement.appendChild(renderResponsNabovarselSendtElement(component));
                 containerElement.appendChild(renderResponsErMerknadEllerSamtykkeMottattElement(component));
+                containerElement.appendChild(renderResponsSamtykkeEllerMerknadMottattElement(component));
                 this.appendChild(containerElement);
 
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);

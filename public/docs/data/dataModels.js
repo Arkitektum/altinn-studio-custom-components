@@ -715,7 +715,7 @@ export default [
                             ]
                         },
                         respons: {
-                            merknadMottattDato: "2024-04-15",
+                            merknadMottattDato: "",
                             nabovarselSentVia: {
                                 kodeverdi: "EPOST",
                                 kodebeskrivelse: "E-post"
