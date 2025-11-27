@@ -182,6 +182,51 @@ export function renderResponsErMerknadEllerSamtykkeMottattElement(component) {
 }
 
 /**
+ * Renders a custom element displaying either the date a remark ("merknad") or consent ("samtykke") was received,
+ * based on the provided component's data. The function determines which date and title to use depending on the
+ * response flags in the component's resource values.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} component.resourceValues - Contains the data for the component.
+ * @param {Object} component.resourceValues.data - The data object with response information.
+ * @param {Object} component.resourceValues.data.respons - The response object.
+ * @param {string} component.resourceValues.data.respons.erMerknadMottatt - Indicates if a remark was received ("true"/"false").
+ * @param {string} component.resourceValues.data.respons.erSamtykkeMottatt - Indicates if consent was received ("true"/"false").
+ * @param {string} [component.resourceValues.data.respons.merknadMottattDato] - The date a remark was received.
+ * @param {string} [component.resourceValues.data.respons.samtykkeMottattDato] - The date consent was received.
+ * @param {Object} component.resourceBindings - Contains title bindings for the fields.
+ * @param {string} [component.resourceBindings.responsMerknadMottattDato.title] - The title for the remark received date.
+ * @param {string} [component.resourceBindings.responsSamtykkeMottattDato.title] - The title for the consent received date.
+ * @returns {HTMLElement} The rendered custom element wrapped in a container.
+ */
+export function renderResponsSamtykkeEllerMerknadMottattElement(component) {
+    const data = component?.resourceValues?.data;
+    const erMerknadMottatt = data?.respons?.erMerknadMottatt;
+    const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
+    let value;
+    let title;
+    if (erMerknadMottatt === "true" && erSamtykkeMottatt === "false") {
+        value = data?.respons?.merknadMottattDato;
+        title = component?.resourceBindings?.responsMerknadMottattDato?.title;
+    } else if (erMerknadMottatt === "false" && erSamtykkeMottatt === "true") {
+        value = data?.respons?.samtykkeMottattDato;
+        title = component?.resourceBindings?.responsSamtykkeMottattDato?.title;
+    }
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        format: "date",
+        resourceBindings: {
+            title
+        },
+        resourceValues: {
+            data: value
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.

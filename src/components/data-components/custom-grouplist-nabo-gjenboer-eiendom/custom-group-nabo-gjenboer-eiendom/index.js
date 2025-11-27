@@ -11,7 +11,8 @@ import {
     renderNaboGjenboerEiendomElement,
     renderResponsErMerknadEllerSamtykkeMottattElement,
     renderResponsNabovarselSendtElement,
-    renderResponsNabovarselSendtViaElement
+    renderResponsNabovarselSendtViaElement,
+    renderResponsSamtykkeEllerMerknadMottattElement
 } from "./renderers.js";
 
 export default customElements.define(
@@ -33,6 +34,7 @@ export default customElements.define(
                 containerElement.appendChild(renderResponsNabovarselSendtViaElement(component));
                 containerElement.appendChild(renderResponsNabovarselSendtElement(component));
                 containerElement.appendChild(renderResponsErMerknadEllerSamtykkeMottattElement(component));
+                containerElement.appendChild(renderResponsSamtykkeEllerMerknadMottattElement(component));
                 this.appendChild(containerElement);
 
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
