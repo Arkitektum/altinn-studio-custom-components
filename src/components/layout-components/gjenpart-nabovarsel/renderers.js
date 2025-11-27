@@ -430,7 +430,7 @@ export function renderNaboGjenboerEiendom(component) {
             eierEpost: component?.resourceBindings?.eierEpost,
             eierAdresse: component?.resourceBindings?.eierAdresse,
             responsNabovarselSendtVia: component?.resourceBindings?.responsNabovarselSendtVia,
-            responsMerknadMottattDato: component?.resourceBindings?.responsMerknadMottattDato,
+            responsNabovarselSendt: component?.resourceBindings?.responsNabovarselSendt,
             responsErMerknadEllerSamtykkeMottatt: component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt,
             responsErMerknadMottatt: component?.resourceBindings?.responsErMerknadMottatt,
             responsErSamtykkeMottatt: component?.resourceBindings?.responsErSamtykkeMottatt

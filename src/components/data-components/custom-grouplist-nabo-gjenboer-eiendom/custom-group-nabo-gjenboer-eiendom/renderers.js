@@ -116,7 +116,7 @@ export function renderResponsNabovarselSendtViaElement(component) {
 }
 
 /**
- * Renders a custom field data element for "responsMerknadMottattDato".
+ * Renders a custom field data element for "responsNabovarselSendt".
  *
  * This function creates a custom element with specific HTML attributes,
  * including formatting as a date and resource bindings for the title and data.
@@ -129,7 +129,7 @@ export function renderResponsNabovarselSendtViaElement(component) {
  * @param {Object} component.resourceBindings.responsNabovarselSendt - The resource binding for the title.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
-export function renderResponsMerknadMottattDatoElement(component) {
+export function renderResponsNabovarselSendtElement(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -139,7 +139,7 @@ export function renderResponsMerknadMottattDatoElement(component) {
             title: component?.resourceBindings?.responsNabovarselSendt?.title
         },
         resourceValues: {
-            data: data?.respons?.merknadMottattDato
+            data: data?.respons?.nabovarselSendt
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));

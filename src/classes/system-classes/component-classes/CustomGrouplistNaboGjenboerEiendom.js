@@ -53,7 +53,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
             eierEpost: resourceBindings?.eierEpost,
             eierAdresse: resourceBindings?.eierAdresse,
             responsNabovarselSendtVia: resourceBindings?.responsNabovarselSendtVia,
-            responsMerknadMottattDato: resourceBindings?.responsMerknadMottattDato,
+            responsNabovarselSendt: resourceBindings?.responsNabovarselSendt,
             responsErMerknadEllerSamtykkeMottatt: resourceBindings?.responsErMerknadEllerSamtykkeMottatt,
             responsErMerknadMottatt: resourceBindings?.responsErMerknadMottatt,
             responsErSamtykkeMottatt: resourceBindings?.responsErSamtykkeMottatt
