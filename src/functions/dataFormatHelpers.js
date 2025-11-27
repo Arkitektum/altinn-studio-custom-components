@@ -114,7 +114,6 @@ export function formatDate(date, language = "default") {
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.date[language];
     const options = dateTimeFormat.date[locale] || dateTimeFormat.date.default;
-    console.log({ unformattedDate: date, formattedDate: new Intl.DateTimeFormat(locale, options).format(new Date(date)) });
     return new Intl.DateTimeFormat(locale, options).format(new Date(date));
 }
 
