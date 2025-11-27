@@ -12,7 +12,7 @@ describe("Respons", () => {
         const props = {
             erMerknadMottatt: true,
             erSamtykkeMottatt: false,
-            merknadMottattDato: "2024-06-01",
+            nabovarselSendt: "2024-06-01",
             nabovarselSendtVia: { kode: "EMAIL" },
             samtykkeMottattDato: "2024-06-02"
         };
@@ -23,7 +23,7 @@ describe("Respons", () => {
 
         expect(respons.erMerknadMottatt).toBe(true);
         expect(respons.erSamtykkeMottatt).toBe(false);
-        expect(respons.merknadMottattDato).toBe("2024-06-01");
+        expect(respons.nabovarselSendt).toBe("2024-06-01");
         expect(Kode).toHaveBeenCalledWith(props.nabovarselSendtVia);
         expect(respons.nabovarselSendtVia).toBe(kodeInstance);
         expect(respons.samtykkeMottattDato).toBe("2024-06-02");
@@ -33,7 +33,7 @@ describe("Respons", () => {
         const props = {
             erMerknadMottatt: false,
             erSamtykkeMottatt: true,
-            merknadMottattDato: "2024-06-03",
+            nabovarselSendt: "2024-06-01",
             samtykkeMottattDato: "2024-06-04"
         };
 
