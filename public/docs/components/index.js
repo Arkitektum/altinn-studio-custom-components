@@ -49,6 +49,7 @@ import customGrouplistUtfallSvar from "./grouplist/custom-grouplist-utfall-svar.
 // Layout
 import customDispensasjon from "./layout/custom-dispensasjon.js";
 import customGjennomfoeringsplan from "./layout/custom-gjennomfoeringsplan.js";
+import customGjenpartNabovarsel from "./layout/custom-gjenpart-nabovarsel.js";
 
 export const field = {
     customFieldAdresse,
@@ -96,7 +97,7 @@ export const grouplist = {
     customGrouplistUtfallSvar
 };
 
-export const layout = { customDispensasjon, customGjennomfoeringsplan };
+export const layout = { customDispensasjon, customGjennomfoeringsplan, customGjenpartNabovarsel };
 
 export default {
     typography,
