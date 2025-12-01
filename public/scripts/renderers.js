@@ -49,7 +49,11 @@ export function renderResults() {
                 ...component,
                 formData: data
             });
-            return addContainerElement(createCustomElement(component?.tagName, htmlAttributes));
+            const containerElement = addContainerElement(createCustomElement(component?.tagName, htmlAttributes));
+            if (component?.tagName === "custom-header-text") {
+                containerElement.style.margin = "0 -.75rem";
+            }
+            return containerElement;
         })
         .filter((attr) => attr !== undefined);
     appendChildren(containerElement, resultsElements);
