@@ -272,6 +272,10 @@ export default {
             value: "Areal som skal byggesesakbehandles"
         },
         {
+            id: "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
+            value: "Areal som legges til"
+        },
+        {
             id: "resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title",
             value: "Ev. areal som trekkes fra iht. beregningsregler"
         },
