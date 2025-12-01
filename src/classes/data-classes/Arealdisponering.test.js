@@ -5,6 +5,7 @@ describe("Arealdisponering", () => {
         const props = {
             tomtearealByggeomraade: 100,
             tomtearealSomTrekkesFra: 10,
+            tomtearealSomLeggesTil: 15,
             tomtearealBeregnet: 90,
             beregnetMaksByggeareal: 80,
             arealBebyggelseEksisterende: 50,
@@ -18,6 +19,7 @@ describe("Arealdisponering", () => {
 
         expect(instance.tomtearealByggeomraade).toBe(100);
         expect(instance.tomtearealSomTrekkesFra).toBe(10);
+        expect(instance.tomtearealSomLeggesTil).toBe(15);
         expect(instance.tomtearealBeregnet).toBe(90);
         expect(instance.beregnetMaksByggeareal).toBe(80);
         expect(instance.arealBebyggelseEksisterende).toBe(50);
@@ -32,6 +34,7 @@ describe("Arealdisponering", () => {
         const instance = new Arealdisponering({});
         expect(instance.tomtearealByggeomraade).toBeUndefined();
         expect(instance.tomtearealSomTrekkesFra).toBeUndefined();
+        expect(instance.tomtearealSomLeggesTil).toBeUndefined();
         expect(instance.tomtearealBeregnet).toBeUndefined();
         expect(instance.beregnetMaksByggeareal).toBeUndefined();
         expect(instance.arealBebyggelseEksisterende).toBeUndefined();
@@ -46,6 +49,7 @@ describe("Arealdisponering", () => {
         const instance = new Arealdisponering();
         expect(instance.tomtearealByggeomraade).toBeUndefined();
         expect(instance.tomtearealSomTrekkesFra).toBeUndefined();
+        expect(instance.tomtearealSomLeggesTil).toBeUndefined();
         expect(instance.tomtearealBeregnet).toBeUndefined();
         expect(instance.beregnetMaksByggeareal).toBeUndefined();
         expect(instance.arealBebyggelseEksisterende).toBeUndefined();

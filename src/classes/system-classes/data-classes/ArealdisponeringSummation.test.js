@@ -14,6 +14,7 @@ describe("ArealdisponeringSummation", () => {
         parkeringsarealTerreng: 20,
         arealSumByggesak: 220,
         tomtearealByggeomraade: 300,
+        tomtearealSomLeggesTil: 15,
         tomtearealSomTrekkesFra: 30,
         tomtearealBeregnet: 270
     };
@@ -28,6 +29,7 @@ describe("ArealdisponeringSummation", () => {
         parkeringsarealTerreng: { label: "Parkeringsareal" },
         arealSumByggesak: { label: "Sum byggesak" },
         tomtearealByggeomraade: { label: "Byggeområde" },
+        tomtearealSomLeggesTil: { label: "Legges til" },
         tomtearealSomTrekkesFra: { label: "Trekkes fra" },
         tomtearealBeregnet: { label: "Beregnet" }
     };
@@ -43,6 +45,10 @@ describe("ArealdisponeringSummation", () => {
             {
                 resourceValues: { data: 300, isTotal: false },
                 resourceBindings: { label: "Byggeområde" }
+            },
+            {
+                resourceValues: { data: 15, isTotal: false },
+                resourceBindings: { label: "Legges til" }
             },
             {
                 resourceValues: { data: 30, isTotal: false },
