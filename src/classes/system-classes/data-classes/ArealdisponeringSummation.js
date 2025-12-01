@@ -113,6 +113,15 @@ export default class ArealdisponeringSummation {
                       resourceBindings: resourceBindings?.tomtearealByggeomraade
                   }
                 : null,
+            hasValue(arealdisponering?.tomtearealSomLeggesTil)
+                ? {
+                      resourceValues: {
+                          data: arealdisponering?.tomtearealSomLeggesTil,
+                          isTotal: false
+                      },
+                      resourceBindings: resourceBindings?.tomtearealSomLeggesTil
+                  }
+                : null,
             hasValue(arealdisponering?.tomtearealSomTrekkesFra)
                 ? {
                       resourceValues: {

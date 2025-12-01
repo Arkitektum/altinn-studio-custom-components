@@ -185,6 +185,14 @@ export default class CustomSummationArealdisponering extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tomtearealByggeomraade?.emptyFieldText || "resource.emptyFieldText.default",
                 unit: "resource.unit.meterSquared"
             },
+            tomtearealSomLeggesTil: {
+                title:
+                    props?.resourceBindings?.tomtearealSomLeggesTil?.title ||
+                    `resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title`,
+                emptyFieldText: props?.resourceBindings?.tomtearealSomLeggesTil?.emptyFieldText || "resource.emptyFieldText.default",
+                operator: "resource.operator.plus",
+                unit: "resource.unit.meterSquared"
+            },
             tomtearealSomTrekkesFra: {
                 title:
                     props?.resourceBindings?.tomtearealSomTrekkesFra?.title ||
