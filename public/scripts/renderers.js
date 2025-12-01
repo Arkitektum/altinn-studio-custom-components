@@ -178,6 +178,28 @@ export function renderSidebar() {
         const feedbackListElement = renderFeedbackListElement(feedbackMessages);
         contentElement.appendChild(feedbackListElement);
 
+        // Add button to order resources alphabetically by ID
+        const orderResourcesAlphabeticallyByIdButtonElement = document.createElement("button");
+        orderResourcesAlphabeticallyByIdButtonElement.classList.add("order-resources-alphabetically-button");
+        orderResourcesAlphabeticallyByIdButtonElement.innerHTML = "Order by ID";
+        orderResourcesAlphabeticallyByIdButtonElement.onclick = function () {
+            const currentTextResourcesValue = getTextResources();
+            const orderedResources = [...currentTextResourcesValue.resources].sort((a, b) => a.id.localeCompare(b.id));
+            const updatedTextResourcesValue = {
+                ...currentTextResourcesValue,
+                resources: orderedResources
+            };
+            const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+            addValueToLocalStorage("textResources", updatedResourcesJson);
+            const textResourcesInputElement = getCodeInputElementForTextResources();
+            updateDataInputElement(textResourcesInputElement);
+            setActiveSidebarElement(textResourcesItemId);
+            closeValidationDialog();
+            renderResults();
+            renderTextResourceStatusIndicators(validationResults);
+        };
+        contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
+
         // If there are no unused resource bindings, open the validation dialog and return
         if (validationResults.unusedResourceBindings.length === 0) {
             openValidationDialog(contentElement);
@@ -205,28 +227,6 @@ export function renderSidebar() {
             renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
         };
         contentElement.appendChild(removeUnusedResourcesButtonElement);
-
-        // Add button to order resources alphabetically by ID
-        const orderResourcesAlphabeticallyByIdButtonElement = document.createElement("button");
-        orderResourcesAlphabeticallyByIdButtonElement.classList.add("order-resources-alphabetically-button");
-        orderResourcesAlphabeticallyByIdButtonElement.innerHTML = "Order by ID";
-        orderResourcesAlphabeticallyByIdButtonElement.onclick = function () {
-            const currentTextResourcesValue = getTextResources();
-            const orderedResources = [...currentTextResourcesValue.resources].sort((a, b) => a.id.localeCompare(b.id));
-            const updatedTextResourcesValue = {
-                ...currentTextResourcesValue,
-                resources: orderedResources
-            };
-            const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-            addValueToLocalStorage("textResources", updatedResourcesJson);
-            const textResourcesInputElement = getCodeInputElementForTextResources();
-            updateDataInputElement(textResourcesInputElement);
-            setActiveSidebarElement(textResourcesItemId);
-            closeValidationDialog();
-            renderResults();
-            renderTextResourceStatusIndicators(validationResults);
-        };
-        contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
 
         openValidationDialog(contentElement);
     };
