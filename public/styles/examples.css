@@ -243,7 +243,6 @@
                 overflow-y: auto;
                 & button {
                     color: #fff;
-                    background-color: #287fff;
                     border: none;
                     cursor: pointer;
                     display: inline-block;
@@ -255,13 +254,27 @@
                     border-radius: 4px;
                     font-family: var(--font-family-default);
                     transition: var(--background-transition-default);
-                    &:hover {
-                        background-color: #3d9bff;
-                    }
                     &::before {
                         margin-right: 8px;
-                        content: "🗑️";
                         font-family: var(--font-family-default);
+                    }
+                    &.remove-unused-resources-button {
+                        background-color: #d9534f;
+                        &:hover {
+                            background-color: #c9302c;
+                        }
+                        &::before {
+                            content: "🧹";
+                        }
+                    }
+                    &.order-resources-alphabetically-button {
+                        background-color: #5bc0de;
+                        &:hover {
+                            background-color: #31b0d5;
+                        }
+                        &::before {
+                            content: "🔤";
+                        }
                     }
                 }
             }

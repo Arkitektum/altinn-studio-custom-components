@@ -186,7 +186,8 @@ export function renderSidebar() {
 
         // Add button to remove unused resources from text resources and update the code input element accordingly
         const removeUnusedResourcesButtonElement = document.createElement("button");
-        removeUnusedResourcesButtonElement.innerHTML = "Remove unused resources";
+        removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
+        removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
         removeUnusedResourcesButtonElement.onclick = function () {
             const currentTextResourcesValue = getTextResources();
             const unusedResourceIds = validationResults.unusedResourceBindings;
@@ -203,8 +204,30 @@ export function renderSidebar() {
             renderResults();
             renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
         };
-
         contentElement.appendChild(removeUnusedResourcesButtonElement);
+
+        // Add button to order resources alphabetically by ID
+        const orderResourcesAlphabeticallyByIdButtonElement = document.createElement("button");
+        orderResourcesAlphabeticallyByIdButtonElement.classList.add("order-resources-alphabetically-button");
+        orderResourcesAlphabeticallyByIdButtonElement.innerHTML = "Order by ID";
+        orderResourcesAlphabeticallyByIdButtonElement.onclick = function () {
+            const currentTextResourcesValue = getTextResources();
+            const orderedResources = [...currentTextResourcesValue.resources].sort((a, b) => a.id.localeCompare(b.id));
+            const updatedTextResourcesValue = {
+                ...currentTextResourcesValue,
+                resources: orderedResources
+            };
+            const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+            addValueToLocalStorage("textResources", updatedResourcesJson);
+            const textResourcesInputElement = getCodeInputElementForTextResources();
+            updateDataInputElement(textResourcesInputElement);
+            setActiveSidebarElement(textResourcesItemId);
+            closeValidationDialog();
+            renderResults();
+            renderTextResourceStatusIndicators(validationResults);
+        };
+        contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
+
         openValidationDialog(contentElement);
     };
 
