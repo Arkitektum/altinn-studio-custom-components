@@ -65,6 +65,12 @@ const defaultResourceBindings = {
         emptyFieldText: "resource.emptyFieldText.default",
         unit: "resource.unit.meterSquared"
     },
+    tomtearealSomLeggesTil: {
+        title: `resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title`,
+        emptyFieldText: "resource.emptyFieldText.default",
+        operator: "resource.operator.plus",
+        unit: "resource.unit.meterSquared"
+    },
     tomtearealSomTrekkesFra: {
         title: `resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title`,
         emptyFieldText: "resource.emptyFieldText.default",
