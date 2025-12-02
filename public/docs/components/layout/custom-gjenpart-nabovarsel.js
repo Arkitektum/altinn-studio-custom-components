@@ -89,6 +89,18 @@ const defaultResourceBindings = {
         title: "resource.kontaktpersonForNabovarselet.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
+    kontaktpersonForNabovarseletNavn: {
+        title: "resource.kontaktpersonForNabovarselet.navn.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    kontaktpersonForNabovarseletTelefonnummer: {
+        title: "resource.kontaktpersonForNabovarselet.telefonnummer.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    kontaktpersonForNabovarseletEpost: {
+        title: "resource.kontaktpersonForNabovarselet.epost.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
     merknaderSendesTil: {
         title: "resource.merknaderSendesTil.title"
     },
