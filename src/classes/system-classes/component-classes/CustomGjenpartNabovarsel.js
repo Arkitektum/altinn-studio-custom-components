@@ -174,6 +174,21 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 title: props?.resourceBindings?.kontaktpersonForNabovarselet?.title || "resource.kontaktpersonForNabovarselet.title",
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarselet?.emptyFieldText || "resource.emptyFieldText.default"
             },
+            kontaktpersonForNabovarseletNavn: {
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.title || "resource.kontaktpersonForNabovarselet.navn.title",
+                emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            kontaktpersonForNabovarseletTelefonnummer: {
+                title:
+                    props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title ||
+                    "resource.kontaktpersonForNabovarselet.telefonnummer.title",
+                emptyFieldText:
+                    props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            kontaktpersonForNabovarseletEpost: {
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.title || "resource.kontaktpersonForNabovarselet.epost.title",
+                emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.emptyFieldText || "resource.emptyFieldText.default"
+            },
             merknaderSendesTil: {
                 title: props?.resourceBindings?.merknaderSendesTil?.title || "resource.merknaderSendesTil.title"
             },
