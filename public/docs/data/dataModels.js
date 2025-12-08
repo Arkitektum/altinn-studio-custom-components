@@ -636,7 +636,40 @@ export default [
                             ]
                         }
                     }
-                ]
+                ],
+                utfallSvar: {
+                    beskrivelse: "Dette er en beskrivelse av utfallet.",
+                    erUtfallBesvaresSenere: false,
+                    erUtfallBesvart: true,
+                    kommentar: "Dette er en kommentar knyttet til utfallet.",
+                    tema: {
+                        kodeverdi: "byggesak",
+                        kodebeskrivelse: "Byggesak"
+                    },
+                    tittel: "Utfallsvar for byggesak",
+                    utfallType: {
+                        kodeverdi: "svv",
+                        kodebeskrivelse: "Svar på vilkår for midlertidig brukstillatelse"
+                    },
+                    vedleggsliste: {
+                        vedlegg: [
+                            {
+                                vedleggstype: {
+                                    kodeverdi: "VEDLEGGSTYPE1",
+                                    kodebeskrivelse: "Vedleggstype 1"
+                                },
+                                filnavn: "utfall_dokument1.pdf"
+                            },
+                            {
+                                vedleggstype: {
+                                    kodeverdi: "VEDLEGGSTYPE2",
+                                    kodebeskrivelse: "Vedleggstype 2"
+                                },
+                                filnavn: "utfall_dokument2.pdf"
+                            }
+                        ]
+                    }
+                }
             },
             customGrouplist: {
                 ansvarsomraade: [

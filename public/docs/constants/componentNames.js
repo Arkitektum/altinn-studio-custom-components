@@ -34,6 +34,7 @@ export default {
     "custom-group-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",
     "custom-group-overvann": "Overvann",
     "custom-group-sjekklistekrav": "Sjekklistekrav",
+    "custom-group-utfall-svar": "Utfall svar",
     "custom-group-utfall-svar-type": "Utfall svar type",
     "custom-group-vannforsyning": "Vannforsyning",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
