@@ -32,6 +32,7 @@ export default [
     "custom-group-adkomst",
     "custom-group-avloep",
     "custom-group-ettersending",
+    "custom-group-loefteinnretninger",
     "custom-group-nabo-gjenboer-eiendom",
     "custom-group-overvann",
     "custom-group-sjekklistekrav",
