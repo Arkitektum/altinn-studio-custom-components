@@ -434,6 +434,32 @@ export default [
                         kodebeskrivelse: "Tilknytningstype 1 beskrivelse"
                     }
                 },
+                ettersending: {
+                    kommentar: "Dette er en kommentar for ettersendelse.",
+                    tema: {
+                        kodeverdi: "byggesak",
+                        kodebeskrivelse: "Byggesak"
+                    },
+                    tittel: "Ettersendelse for byggesak",
+                    vedleggsliste: {
+                        vedlegg: [
+                            {
+                                vedleggstype: {
+                                    kodeverdi: "VEDLEGGSTYPE1",
+                                    kodebeskrivelse: "Vedleggstype 1"
+                                },
+                                filnavn: "dokument1.pdf"
+                            },
+                            {
+                                vedleggstype: {
+                                    kodeverdi: "VEDLEGGSTYPE2",
+                                    kodebeskrivelse: "Vedleggstype 2"
+                                },
+                                filnavn: "dokument2.pdf"
+                            }
+                        ]
+                    }
+                },
                 loefteinnretninger: {
                     erLoefteinnretningIBygning: false,
                     planleggesLoefteinnretningIBygning: true,
