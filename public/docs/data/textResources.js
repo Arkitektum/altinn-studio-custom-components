@@ -834,6 +834,22 @@ export default {
         {
             id: "resource.rammebetingelser.adkomst.vegtype.title",
             value: "Veitype"
+        },
+        {
+            id: "resource.rammebetingelser.avloep.title",
+            value: "Avløp"
+        },
+        {
+            id: "resource.rammebetingelser.avloep.tilknytningstype.title",
+            value: "Tilknytning"
+        },
+        {
+            id: "resource.rammebetingelser.avloep.harTinglystErklaering.title",
+            value: "Foreligger rettighet ved tinglyst erklæring?"
+        },
+        {
+            id: "resource.rammebetingelser.avloep.krysserAvloepAnnensGrunn.title",
+            value: "Krysser avløpsanlegg annens grunn?"
         }
     ]
 };

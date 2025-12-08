@@ -28,6 +28,7 @@ export default {
     "custom-summation-arealdisponering": "Arealdisponering",
     "custom-summation-data": "Data",
     "custom-group-adkomst": "Adkomst",
+    "custom-group-avloep": "Avløp",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",

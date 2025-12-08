@@ -425,6 +425,14 @@ export default [
                         kodeverdi: "VEGTYPE1",
                         kodebeskrivelse: "Vegtype 1 beskrivelse"
                     }
+                },
+                avloep: {
+                    harTinglystErklaering: true,
+                    krysserAvloepAnnensGrunn: false,
+                    tilknytningstype: {
+                        kodeverdi: "TILKNYTNINGSTYPE1",
+                        kodebeskrivelse: "Tilknytningstype 1 beskrivelse"
+                    }
                 }
             },
             customGrouplist: {
