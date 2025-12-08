@@ -28,14 +28,12 @@ import CustomGroupEttersending from "../classes/system-classes/component-classes
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
-import CustomGrouplistPlan from "../classes/system-classes/component-classes/CustomGrouplistPlan.js";
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
-import CustomGroupPlan from "../classes/system-classes/component-classes/CustomGroupPlan.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
@@ -131,8 +129,6 @@ export function instantiateComponent(element) {
             return new CustomGroupNaboGjenboerEiendom(component);
         case "custom-group-overvann":
             return new CustomGroupOvervann(component);
-        case "custom-group-plan":
-            return new CustomGroupPlan(component);
         case "custom-group-sjekklistekrav":
             return new CustomGroupSjekklistekrav(component);
         case "custom-group-utfall-svar":
@@ -147,8 +143,6 @@ export function instantiateComponent(element) {
             return new CustomGrouplistEttersending(component);
         case "custom-grouplist-nabo-gjenboer-eiendom":
             return new CustomGrouplistNaboGjenboerEiendom(component);
-        case "custom-grouplist-plan":
-            return new CustomGrouplistPlan(component);
         case "custom-grouplist-sjekklistekrav":
             return new CustomGrouplistSjekklistekrav(component);
         case "custom-grouplist-utfall-svar":
