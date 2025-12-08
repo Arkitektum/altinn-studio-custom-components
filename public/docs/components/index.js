@@ -43,6 +43,7 @@ import customGroupAdkomst from "./group/custom-group-adkomst.js";
 import customGroupAvloep from "./group/custom-group-avloep.js";
 import customGroupEttersending from "./group/custom-group-ettersending.js";
 import customGroupLoefteinnretninger from "./group/custom-group-loefteinnretninger.js";
+import customGroupNaboGjenboerEiendom from "./group/custom-group-nabo-gjenboer-eiendom.js";
 import customGroupOvervann from "./group/custom-group-overvann.js";
 import customGroupVannforsyning from "./group/custom-group-vannforsyning.js";
 
@@ -101,6 +102,7 @@ export const group = {
     customGroupAvloep,
     customGroupEttersending,
     customGroupLoefteinnretninger,
+    customGroupNaboGjenboerEiendom,
     customGroupOvervann,
     customGroupVannforsyning
 };

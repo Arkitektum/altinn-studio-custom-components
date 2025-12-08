@@ -468,6 +468,93 @@ export default [
                     planleggesRulletrapp: true,
                     planleggesLoefteplattform: false
                 },
+                naboGjenboerEiendom: {
+                    eiendommer: {
+                        eiendom: [
+                            {
+                                matrikkelinformasjon: {
+                                    eiendomsidentifikasjon: {
+                                        kommunenummer: "1234",
+                                        gaardsnummer: 33,
+                                        bruksnummer: 16,
+                                        festenummer: 0,
+                                        seksjonsnummer: 0
+                                    },
+                                    adresse: {
+                                        adresselinje1: "Naboens Adressevegen 2",
+                                        adresselinje2: "",
+                                        adresselinje3: "",
+                                        postnr: "1234",
+                                        poststed: "Bø",
+                                        landkode: "NO",
+                                        gatenavn: "Adressevegen",
+                                        husnr: "2",
+                                        bokstav: ""
+                                    },
+                                    bygningsnummer: "1234568",
+                                    bolignummer: "H0102",
+                                    kommunenavn: "Oslo"
+                                }
+                            },
+                            {
+                                matrikkelinformasjon: {
+                                    eiendomsidentifikasjon: {
+                                        kommunenummer: "0301",
+                                        gaardsnummer: 208,
+                                        bruksnummer: 391,
+                                        festenummer: 0,
+                                        seksjonsnummer: 0
+                                    },
+                                    address: {
+                                        adresselinje1: "",
+                                        adresselinje2: "",
+                                        adresselinje3: "",
+                                        postnr: "",
+                                        poststed: "",
+                                        landkode: "NO",
+                                        gatenavn: "",
+                                        husnr: "",
+                                        bokstav: ""
+                                    },
+                                    bygningsnummer: "81099619",
+                                    bolignummer: "H0102",
+                                    kommunenavn: "Oslo"
+                                }
+                            }
+                        ]
+                    },
+                    eier: {
+                        partstype: {
+                            kodeverdi: "Privatperson",
+                            kodebeskrivelse: "Privatperson"
+                        },
+                        foedselsnummer: "01020312345",
+                        organisasjonsnummer: null,
+                        navn: "Nabo Navnesen",
+                        adresse: {
+                            adresselinje1: "Naboens Veg 5",
+                            adresselinje2: null,
+                            adresselinje3: null,
+                            postnr: "5678",
+                            poststed: "Nabobyen",
+                            landkode: "NO"
+                        },
+                        telefonnummer: "55667788",
+                        mobilnummer: "99887766",
+                        epost: "nabo@naboen.no"
+                    },
+                    respons: {
+                        erMerknadMottatt: "true",
+                        erSamtykkeMottatt: "false",
+                        nabovarselSendt: "2024-03-10",
+                        nabovarselSendtVia: {
+                            kodeverdi: "POST",
+                            kodebeskrivelse: "Post"
+                        },
+                        samtykkeMottattDato: null,
+                        merknadMottattDato: "2024-03-25"
+                    }
+                },
                 overvann: {
                     ledesOvervannTilTerreng: true,
                     ledesOvervannTilAvloepssystem: false
