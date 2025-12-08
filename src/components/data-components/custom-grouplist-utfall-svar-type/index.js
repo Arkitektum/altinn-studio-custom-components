@@ -13,13 +13,11 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
-            } else {
-                if (component?.resourceValues?.data) {
-                    Object.keys(component?.resourceValues?.data).forEach((utfallTypeKey) => {
-                        const utfallTypeElement = renderUtfallSvarType(component, utfallTypeKey);
-                        this.appendChild(utfallTypeElement);
-                    });
-                }
+            } else if (component?.resourceValues?.data) {
+                Object.keys(component?.resourceValues?.data).forEach((utfallTypeKey) => {
+                    const utfallTypeElement = renderUtfallSvarType(component, utfallTypeKey);
+                    this.appendChild(utfallTypeElement);
+                });
             }
         }
     }
