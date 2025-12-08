@@ -445,6 +445,15 @@ export default [
                 overvann: {
                     ledesOvervannTilTerreng: true,
                     ledesOvervannTilAvloepssystem: false
+                },
+                vannforsyning: {
+                    beskrivelse: "Beskrivelse av vannforsyning",
+                    harTinglystErklaering: false,
+                    krysserVannforsyningAnnensGrunn: true,
+                    tilknytningstype: {
+                        kodeverdi: "VANN_TILKNYTNINGSTYPE1",
+                        kodebeskrivelse: "Vann tilknytningstype 1 beskrivelse"
+                    }
                 }
             },
             customGrouplist: {

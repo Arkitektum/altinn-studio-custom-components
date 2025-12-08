@@ -862,6 +862,26 @@ export default {
         {
             id: "resource.rammebetingelser.overvann.ledesOvervannTilTerreng.title",
             value: "Blir takvann/overvann ført til terreng?"
+        },
+        {
+            id: "resource.rammebetingelser.vannforsyning.title",
+            value: "Vannforsyning"
+        },
+        {
+            id: "resource.rammebetingelser.vannforsyning.tilknytningstype.title",
+            value: "Tilknytning"
+        },
+        {
+            id: "resource.rammebetingelser.vannforsyning.beskrivelse.title",
+            value: "Beskrivelse"
+        },
+        {
+            id: "resource.rammebetingelser.vannforsyning.krysserVannforsyningAnnensGrunn.title",
+            value: "Krysser vanntilførsel annens grunn?"
+        },
+        {
+            id: "resource.rammebetingelser.vannforsyning.harTinglystErklaering.title",
+            value: "Foreligger rettighet ved tinglyst erklæring?"
         }
     ]
 };

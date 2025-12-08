@@ -31,6 +31,7 @@ export default {
     "custom-group-avloep": "Avløp",
     "custom-group-loefteinnretninger": "Løfteinnretninger",
     "custom-group-overvann": "Overvann",
+    "custom-group-vannforsyning": "Vannforsyning",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",
