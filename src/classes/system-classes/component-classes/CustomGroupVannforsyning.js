@@ -104,7 +104,7 @@ export default class CustomGroupVannforsyning extends CustomComponent {
                 falseText: props?.resourceBindings?.krysserVannforsyningAnnensGrunn?.falseText || `resource.falseText.default`
             },
             tilknytningstype: {
-                title: props?.resourceBindings?.tilknytningstype?.title || `resource.rammebetingelser.avloep.tilknytningstype.title`
+                title: props?.resourceBindings?.tilknytningstype?.title || `resource.rammebetingelser.vannforsyning.tilknytningstype.title`
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
