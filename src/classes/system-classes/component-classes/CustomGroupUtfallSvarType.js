@@ -97,21 +97,16 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
                 title: props?.resourceBindings?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
             },
             kommentar: {
-                title:
-                    props?.resourceBindings?.kommentar?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.kommentar.title`
+                title: props?.resourceBindings?.kommentar?.title || `resource.utfallBesvarelse.utfallSvar.kommentar.title`
             },
             tema: {
-                title: props?.resourceBindings?.tema?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.tema.title`
+                title: props?.resourceBindings?.tema?.title || `resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title`
             },
             utfallSvarStatus: {
-                title:
-                    props?.resourceBindings?.utfallSvarStatus?.title ||
-                    `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.utfallSvarStatus.title`
+                title: props?.resourceBindings?.utfallSvarStatus?.title || `resource.utfallBesvarelse.utfallSvar.status.title`
             },
             vedleggsliste: {
-                title:
-                    props?.resourceBindings?.vedleggsliste?.title ||
-                    `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.vedleggsliste.title`
+                title: props?.resourceBindings?.vedleggsliste?.title || `resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title`
             }
         };
     }
