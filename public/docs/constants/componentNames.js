@@ -27,6 +27,7 @@ export default {
     "custom-table-plan": "Plan",
     "custom-summation-arealdisponering": "Arealdisponering",
     "custom-summation-data": "Data",
+    "custom-group-adkomst": "Adkomst",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",

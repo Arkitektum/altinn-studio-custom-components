@@ -418,6 +418,15 @@ export default [
                     }
                 ]
             },
+            customGroup: {
+                adkomst: {
+                    erNyEllerEndretAdkomst: true,
+                    vegtype: {
+                        kodeverdi: "VEGTYPE1",
+                        kodebeskrivelse: "Vegtype 1 beskrivelse"
+                    }
+                }
+            },
             customGrouplist: {
                 ansvarsomraade: [
                     {

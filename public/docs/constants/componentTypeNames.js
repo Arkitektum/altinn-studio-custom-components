@@ -5,6 +5,7 @@ export default {
     descriptionList: "Beskrivelsesliste",
     table: "Tabell",
     summation: "Summering",
+    group: "Gruppe",
     grouplist: "Gruppeliste",
     layout: "Underskjema"
 };
