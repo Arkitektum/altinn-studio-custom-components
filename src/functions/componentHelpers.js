@@ -22,6 +22,7 @@ import CustomFieldTelefonnummer from "../classes/system-classes/component-classe
 import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.js";
 import CustomGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomGjennomfoeringsplan.js";
 import CustomGjenpartNabovarsel from "../classes/system-classes/component-classes/CustomGjenpartNabovarsel.js";
+import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
@@ -111,10 +112,12 @@ export function instantiateComponent(element) {
             return new CustomFieldTelefonnummer(component);
         case "custom-field-utfall-svar-status":
             return new CustomFieldUtfallSvarStatus(component);
-        case "custom-gjenpart-nabovarsel":
-            return new CustomGjenpartNabovarsel(component);
         case "custom-gjennomfoeringsplan":
             return new CustomGjennomfoeringsplan(component);
+        case "custom-gjenpart-nabovarsel":
+            return new CustomGjenpartNabovarsel(component);
+        case "custom-group-avloep":
+            return new CustomGroupAvloep(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
         case "custom-group-nabo-gjenboer-eiendom":
