@@ -35,6 +35,7 @@ import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-ut
 import customGroupAvloep from "./data-components/custom-group-avloep/index.js";
 import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.js";
 import customGroupNaboGjenboerEiendom from "./data-components/custom-grouplist-nabo-gjenboer-eiendom/custom-group-nabo-gjenboer-eiendom/index.js";
+import customGroupOvervann from "./data-components/custom-group-overvann/index.js";
 import customGroupSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
@@ -104,6 +105,7 @@ export {
     customGroupAvloep,
     customGroupEttersending,
     customGroupNaboGjenboerEiendom,
+    customGroupOvervann,
     customGroupSjekklistekrav,
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
