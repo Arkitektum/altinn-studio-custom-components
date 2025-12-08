@@ -122,7 +122,7 @@ export default class CustomGroupOvervann extends CustomComponent {
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.overvann = {
-                ...resourceBindings.plan,
+                ...resourceBindings.overvann,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }

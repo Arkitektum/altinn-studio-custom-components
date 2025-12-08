@@ -124,7 +124,7 @@ export default class CustomGroupAvloep extends CustomComponent {
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.avloep = {
-                ...resourceBindings.plan,
+                ...resourceBindings.avloep,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }

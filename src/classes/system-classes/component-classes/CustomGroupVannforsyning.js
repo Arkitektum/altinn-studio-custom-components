@@ -114,7 +114,7 @@ export default class CustomGroupVannforsyning extends CustomComponent {
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.vannforsyning = {
-                ...resourceBindings.plan,
+                ...resourceBindings.vannforsyning,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }
