@@ -29,6 +29,7 @@ export default {
     "custom-summation-data": "Data",
     "custom-group-adkomst": "Adkomst",
     "custom-group-avloep": "Avløp",
+    "custom-group-loefteinnretninger": "Løfteinnretninger",
     "custom-grouplist-ansvarsomraade-type": "Ansvarsområde",
     "custom-grouplist-ettersending": "Ettersending",
     "custom-grouplist-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",

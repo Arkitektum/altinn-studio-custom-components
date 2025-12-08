@@ -433,6 +433,14 @@ export default [
                         kodeverdi: "TILKNYTNINGSTYPE1",
                         kodebeskrivelse: "Tilknytningstype 1 beskrivelse"
                     }
+                },
+                loefteinnretninger: {
+                    erLoefteinnretningIBygning: false,
+                    planleggesLoefteinnretningIBygning: true,
+                    planleggesHeis: false,
+                    planleggesTrappeheis: true,
+                    planleggesRulletrapp: true,
+                    planleggesLoefteplattform: false
                 }
             },
             customGrouplist: {
