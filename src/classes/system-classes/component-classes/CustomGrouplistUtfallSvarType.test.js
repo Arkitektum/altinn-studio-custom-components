@@ -35,7 +35,6 @@ describe("CustomGrouplistUtfallSvarType", () => {
             const instance = new CustomGrouplistUtfallSvarType(props);
 
             expect(instance.isEmpty).toBe(true);
-            expect(instance.resourceValues.title).toBe("resource_title");
             expect(instance.resourceValues.data).toBe("resource_emptyFieldText");
         });
 
@@ -54,17 +53,6 @@ describe("CustomGrouplistUtfallSvarType", () => {
 
             expect(instance.isEmpty).toBe(false);
             expect(instance.resourceValues.data).toEqual(groupedData);
-        });
-
-        it("should not set title if hideTitle is true", () => {
-            const props = { hideTitle: true };
-            getComponentDataValue.mockReturnValue([]);
-            hasValue.mockReturnValue(false);
-            getComponentResourceValue.mockImplementation((p, key) => `resource_${key}`);
-
-            const instance = new CustomGrouplistUtfallSvarType(props);
-
-            expect(instance.resourceValues.title).toBe(false);
         });
     });
 

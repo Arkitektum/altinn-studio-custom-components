@@ -29,7 +29,6 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
         this.isEmpty = isEmpty;
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
-            title: !props?.hideTitle && getComponentResourceValue(props, "title"),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
@@ -92,11 +91,10 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
      * Generates an object containing resource bindings for various fields based on the provided props.
      * Default resource keys are used if specific bindings are not provided in props.
      * Dynamically adds resource bindings for each key found in form data.
-     * Optionally includes title and empty field text based on props configuration.
+     * Optionally includes empty field text based on props configuration.
      *
      * @param {Object} props - The properties object containing resourceBindings and configuration flags.
      * @param {Object} [props.resourceBindings] - Custom resource bindings for fields.
-     * @param {boolean|string} [props.hideTitle] - If true, omits the title binding.
      * @param {boolean|string} [props.hideIfEmpty] - If true, omits the emptyFieldText binding.
      * @returns {Object} An object mapping field names to their resource bindings.
      */
@@ -131,11 +129,6 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
                     };
                 }
             }
-        }
-        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
-            resourceBindings.utfallSvarType = {
-                title: props?.resourceBindings?.title || "resource.utfallBesvarelse.utfallSvar.title"
-            };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.utfallSvarType = {

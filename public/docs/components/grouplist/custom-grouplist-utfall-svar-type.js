@@ -6,7 +6,6 @@ const markup = {
         data: "customGrouplist.utfallSvar"
     },
     resourceBindings: {
-        title: "resource.utfallSvar.title",
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };
