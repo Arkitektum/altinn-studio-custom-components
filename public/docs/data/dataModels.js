@@ -575,7 +575,68 @@ export default [
                         kodeverdi: "VANN_TILKNYTNINGSTYPE1",
                         kodebeskrivelse: "Vann tilknytningstype 1 beskrivelse"
                     }
-                }
+                },
+                utfallSvarType: [
+                    {
+                        beskrivelse: "Utfall svar for type 1",
+                        erUtfallBesvaresSenere: false,
+                        erUtfallBesvart: true,
+                        kommentar: "Kommentar for utfall svar type 1",
+                        tema: {
+                            kodeverdi: "tema1",
+                            kodebeskrivelse: "Tema 1 beskrivelse"
+                        },
+                        tittel: "Utfall Svar Type 1",
+                        utfallType: {
+                            kodeverdi: "svv",
+                            kodebeskrivelse: "Svar på vilkår for midlertidig brukstillatelse"
+                        },
+                        vedleggsliste: {
+                            vedlegg: [
+                                {
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE1",
+                                        kodebeskrivelse: "Vedleggstype 1"
+                                    },
+                                    filnavn: "utfall_dokument1.pdf"
+                                },
+                                {
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE2",
+                                        kodebeskrivelse: "Vedleggstype 2"
+                                    },
+                                    filnavn: "utfall_dokument2.pdf"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        beskrivelse: "Utfall svar for type 2",
+                        erUtfallBesvaresSenere: true,
+                        erUtfallBesvart: false,
+                        kommentar: "Kommentar for utfall svar type 2",
+                        tema: {
+                            kodeverdi: "tema2",
+                            kodebeskrivelse: "Tema 2 beskrivelse"
+                        },
+                        tittel: "Utfall Svar Type 2",
+                        utfallType: {
+                            kodeverdi: "svv",
+                            kodebeskrivelse: "Svar på vilkår for midlertidig brukstillatelse"
+                        },
+                        vedleggsliste: {
+                            vedlegg: [
+                                {
+                                    vedleggstype: {
+                                        kodeverdi: "VEDLEGGSTYPE3",
+                                        kodebeskrivelse: "Vedleggstype 3"
+                                    },
+                                    filnavn: "utfall_dokument3.pdf"
+                                }
+                            ]
+                        }
+                    }
+                ]
             },
             customGrouplist: {
                 ansvarsomraade: [
