@@ -37,7 +37,10 @@ export default class CustomGroupVannforsyning extends CustomComponent {
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings || {};
         this.resourceValues = {
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.plan?.emptyFieldText) : data
+            title: hasValue(props?.resourceValues?.title)
+                ? props?.resourceValues?.title
+                : getTextResourceFromResourceBinding(resourceBindings?.vannforsyning?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.vannforsyning?.emptyFieldText) : data
         };
     }
 
