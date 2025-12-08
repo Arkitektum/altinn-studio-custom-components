@@ -850,6 +850,18 @@ export default {
         {
             id: "resource.rammebetingelser.avloep.krysserAvloepAnnensGrunn.title",
             value: "Krysser avløpsanlegg annens grunn?"
+        },
+        {
+            id: "resource.rammebetingelser.overvann.title",
+            value: "Overvann"
+        },
+        {
+            id: "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title",
+            value: "Finnes det avløpssystem for overvann?"
+        },
+        {
+            id: "resource.rammebetingelser.overvann.ledesOvervannTilTerreng.title",
+            value: "Blir takvann/overvann ført til terreng?"
         }
     ]
 };

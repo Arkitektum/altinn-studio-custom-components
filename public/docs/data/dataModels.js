@@ -441,6 +441,10 @@ export default [
                     planleggesTrappeheis: true,
                     planleggesRulletrapp: true,
                     planleggesLoefteplattform: false
+                },
+                overvann: {
+                    ledesOvervannTilTerreng: true,
+                    ledesOvervannTilAvloepssystem: false
                 }
             },
             customGrouplist: {
