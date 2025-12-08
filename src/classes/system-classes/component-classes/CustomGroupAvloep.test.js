@@ -108,7 +108,7 @@ describe("CustomGroupAvloep", () => {
         expect(instance.resourceBindings.krysserAvloepAnnensGrunn.trueText).toBe("yup");
         expect(instance.resourceBindings.krysserAvloepAnnensGrunn.falseText).toBe("nope");
         expect(instance.resourceBindings.tilknytningstype.title).toBe("typeTitle");
-        expect(instance.resourceBindings.avloep.title).toBeUndefined();
+        expect(instance.resourceBindings.avloep.title).toBe("mainTitle");
         expect(instance.resourceBindings.avloep.emptyFieldText).toBe("emptyText");
     });
 

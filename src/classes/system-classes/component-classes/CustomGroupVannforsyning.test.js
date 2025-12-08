@@ -35,7 +35,7 @@ describe("CustomGroupVannforsyning", () => {
         const instance = new CustomGroupVannforsyning(props);
 
         expect(instance.isEmpty).toBe(false);
-        expect(instance.resourceBindings.vannforsyning.title).toBeUndefined();
+        expect(instance.resourceBindings.vannforsyning.title).toBe("resource.rammebetingelser.vannforsyning.title");
         expect(instance.resourceValues.title).toBeUndefined();
         expect(instance.resourceValues.data).toEqual({ foo: "bar", __isVannforsyning: true });
         expect(instance.hasValidationMessages).toBe(false);
@@ -105,7 +105,7 @@ describe("CustomGroupVannforsyning", () => {
         const instance = new CustomGroupVannforsyning(props);
 
         expect(instance.resourceBindings.beskrivelse.title).toBe("custom.beskrivelse.title");
-        expect(instance.resourceBindings.vannforsyning.title).toBeUndefined();
+        expect(instance.resourceBindings.vannforsyning.title).toBe("custom.vannforsyning.title");
         expect(instance.resourceBindings.vannforsyning.emptyFieldText).toBe("custom.emptyFieldText");
     });
 
@@ -138,7 +138,7 @@ describe("CustomGroupVannforsyning", () => {
         const instance = new CustomGroupVannforsyning({});
         const bindings = instance.getResourceBindings({});
         expect(bindings.beskrivelse.title).toBe("resource.rammebetingelser.vannforsyning.beskrivelse.title");
-        expect(bindings.vannforsyning.title).toBeUndefined();
+        expect(bindings.vannforsyning.title).toBe("resource.rammebetingelser.vannforsyning.title");
         expect(bindings.vannforsyning.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 });

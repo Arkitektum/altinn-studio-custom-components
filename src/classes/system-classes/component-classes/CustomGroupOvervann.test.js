@@ -35,7 +35,7 @@ describe("CustomGroupOvervann", () => {
         expect(instance.resourceBindings.ledesOvervannTilAvloepssystem.title).toBe(
             "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title"
         );
-        expect(instance.resourceBindings.overvann.title).toBeUndefined();
+        expect(instance.resourceBindings.overvann.title).toBe("resource.rammebetingelser.overvann.title");
         expect(instance.resourceBindings.overvann.emptyFieldText).toBe("resource.emptyFieldText.default");
         expect(instance.resourceValues.data).toEqual({});
     });
@@ -112,7 +112,7 @@ describe("CustomGroupOvervann", () => {
         expect(instance.resourceBindings.ledesOvervannTilAvloepssystem.title).toBe("custom-title2");
         expect(instance.resourceBindings.ledesOvervannTilAvloepssystem.trueText).toBe("yes2");
         expect(instance.resourceBindings.ledesOvervannTilAvloepssystem.falseText).toBe("no2");
-        expect(instance.resourceBindings.overvann.title).toBeUndefined();
+        expect(instance.resourceBindings.overvann.title).toBe("main-title");
         expect(instance.resourceBindings.overvann.emptyFieldText).toBe("empty");
     });
 
