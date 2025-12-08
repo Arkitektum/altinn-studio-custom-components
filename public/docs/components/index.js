@@ -45,6 +45,7 @@ import customGroupEttersending from "./group/custom-group-ettersending.js";
 import customGroupLoefteinnretninger from "./group/custom-group-loefteinnretninger.js";
 import customGroupNaboGjenboerEiendom from "./group/custom-group-nabo-gjenboer-eiendom.js";
 import customGroupOvervann from "./group/custom-group-overvann.js";
+import customGroupSjekklistekrav from "./group/custom-group-sjekklistekrav.js";
 import customGroupVannforsyning from "./group/custom-group-vannforsyning.js";
 
 // Grouplist
@@ -104,6 +105,7 @@ export const group = {
     customGroupLoefteinnretninger,
     customGroupNaboGjenboerEiendom,
     customGroupOvervann,
+    customGroupSjekklistekrav,
     customGroupVannforsyning
 };
 

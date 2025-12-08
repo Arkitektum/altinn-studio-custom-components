@@ -559,6 +559,14 @@ export default [
                     ledesOvervannTilTerreng: true,
                     ledesOvervannTilAvloepssystem: false
                 },
+                sjekklistekrav: {
+                    sjekklistepunktsvar: true,
+                    sjekklistepunkt: {
+                        kodeverdi: "KRAV1",
+                        kodebeskrivelse: "Sjekklistekrav 1 beskrivelse"
+                    },
+                    dokumentasjon: "Dokumentasjon for sjekklistekrav"
+                },
                 vannforsyning: {
                     beskrivelse: "Beskrivelse av vannforsyning",
                     harTinglystErklaering: false,
