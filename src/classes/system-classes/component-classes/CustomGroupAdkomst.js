@@ -115,7 +115,7 @@ export default class CustomGroupAdkomst extends CustomComponent {
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.adkomst = {
-                ...resourceBindings.plan,
+                ...resourceBindings.adkomst,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }
