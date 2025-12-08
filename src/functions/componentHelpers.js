@@ -32,6 +32,7 @@ import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-c
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
+import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
 import CustomGroupPlan from "../classes/system-classes/component-classes/CustomGroupPlan.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
@@ -122,6 +123,8 @@ export function instantiateComponent(element) {
             return new CustomGroupEttersending(component);
         case "custom-group-nabo-gjenboer-eiendom":
             return new CustomGroupNaboGjenboerEiendom(component);
+        case "custom-group-overvann":
+            return new CustomGroupOvervann(component);
         case "custom-group-plan":
             return new CustomGroupPlan(component);
         case "custom-group-sjekklistekrav":

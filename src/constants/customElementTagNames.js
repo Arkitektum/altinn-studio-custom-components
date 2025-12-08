@@ -32,6 +32,7 @@ export default [
     "custom-group-avloep",
     "custom-group-ettersending",
     "custom-group-nabo-gjenboer-eiendom",
+    "custom-group-overvann",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",
