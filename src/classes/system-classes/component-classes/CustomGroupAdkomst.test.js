@@ -38,7 +38,7 @@ describe("CustomGroupAdkomst", () => {
         expect(instance.hasValidationMessages).toBe(true);
         expect(instance.resourceBindings.erNyEllerEndretAdkomst.title).toBe("resource.rammebetingelser.adkomst.erNyEllerEndretAdkomst.title");
         expect(instance.resourceBindings.vegtype.title).toBe("resource.rammebetingelser.adkomst.vegtype.title");
-        expect(instance.resourceBindings.adkomst.title).toBeUndefined();
+        expect(instance.resourceBindings.adkomst.title).toBe("resource.rammebetingelser.adkomst.title");
         expect(instance.resourceBindings.adkomst.emptyFieldText).toBe("resource.emptyFieldText.default");
         expect(instance.resourceValues.data).toEqual({ mockAdkomst: true, data: "test-data" });
     });
@@ -104,7 +104,7 @@ describe("CustomGroupAdkomst", () => {
         expect(instance.resourceBindings.erNyEllerEndretAdkomst.trueText).toBe("custom-true");
         expect(instance.resourceBindings.erNyEllerEndretAdkomst.falseText).toBe("custom-false");
         expect(instance.resourceBindings.vegtype.title).toBe("custom-vegtype");
-        expect(instance.resourceBindings.adkomst.title).toBeUndefined();
+        expect(instance.resourceBindings.adkomst.title).toBe("custom-adkomst-title");
         expect(instance.resourceBindings.adkomst.emptyFieldText).toBe("custom-empty");
     });
 
