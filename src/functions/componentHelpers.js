@@ -35,6 +35,7 @@ import CustomGroupPlan from "../classes/system-classes/component-classes/CustomG
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
+import CustomGroupVannforsyning from "../classes/system-classes/component-classes/CustomGroupVannforsyning.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomHeaderTextData from "../classes/system-classes/component-classes/CustomHeaderTextData.js";
@@ -126,6 +127,8 @@ export function instantiateComponent(element) {
             return new CustomGroupUtfallSvar(component);
         case "custom-group-utfall-svar-type":
             return new CustomGroupUtfallSvarType(component);
+        case "custom-group-vannforsyning":
+            return new CustomGroupVannforsyning(component);
         case "custom-grouplist-ansvarsomraade-type":
             return new CustomGrouplistAnsvarsomraadeType(component);
         case "custom-grouplist-ettersending":

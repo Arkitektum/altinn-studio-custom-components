@@ -34,6 +34,7 @@ export default [
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",
+    "custom-group-vannforsyning",
     "custom-header-text",
     "custom-header-text-data",
     "custom-list-data",
