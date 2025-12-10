@@ -81,7 +81,8 @@ export default class CustomTableData extends CustomComponent {
         const tableHeaders = getTableHeaders(tableColumns);
         if (props.showRowNumbers) {
             tableHeaders.unshift({
-                text: getRowNumberTitle(props)
+                text: getRowNumberTitle(props),
+                styleOverride: { textAlign: "right" }
             });
         }
         return tableHeaders;
@@ -107,7 +108,8 @@ export default class CustomTableData extends CustomComponent {
                     isChildComponent: true,
                     resourceValues: {
                         data: index + 1
-                    }
+                    },
+                    styleOverride: { textAlign: "right" }
                 };
                 return [rowNumberElement, ...tableRow];
             });
