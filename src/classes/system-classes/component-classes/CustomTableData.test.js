@@ -103,7 +103,7 @@ describe("CustomTableData", () => {
             const props = { tableColumns: [{ header: "A" }], showRowNumbers: true };
             const instance = new CustomTableData({});
             const result = instance.getTableHeadersFromProps(props);
-            expect(result[0]).toEqual({ text: "Row #" });
+            expect(result[0]).toEqual({ text: "Row #", styleOverride: { textAlign: "right" } });
         });
     });
 
@@ -127,7 +127,8 @@ describe("CustomTableData", () => {
                 tagName: "custom-field-data",
                 hideTitle: true,
                 isChildComponent: true,
-                resourceValues: { data: 1 }
+                resourceValues: { data: 1 },
+                styleOverride: { textAlign: "right" }
             });
             expect(result[1][0].resourceValues.data).toBe(2);
         });
