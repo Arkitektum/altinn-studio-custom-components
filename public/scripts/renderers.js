@@ -75,55 +75,53 @@ export function renderTextResourceStatusIndicators(validationResults) {
     const statusIndicatorsContainerElement = document.getElementById("text-resource-status-indicators");
     statusIndicatorsContainerElement.innerHTML = "";
 
-    const missingResourcesCount = validationResults.missingResourceBindings.length;
-    const unusedResourcesCount = validationResults.unusedResourceBindings.length;
-    const emptyResourcesCount = validationResults.emptyTextResources.length;
+    const resourceErrorsCount = validationResults.missingResourceBindings.length + validationResults.duplicateTextResources.length;
+    const resourceWarningsCount = validationResults.unusedResourceBindings.length;
+    const resourceInfoCount = validationResults.emptyTextResources.length;
 
-    const missingResourcesIndicator = document.createElement("span");
-    missingResourcesIndicator.classList.add("status-indicator", missingResourcesCount === 0 ? "success" : "missing");
-    missingResourcesIndicator.innerHTML = `${missingResourcesCount === 0 ? "" : "-"}${missingResourcesCount}`;
-    statusIndicatorsContainerElement.appendChild(missingResourcesIndicator);
+    const resourceErrorsIndicator = document.createElement("span");
+    resourceErrorsIndicator.classList.add("status-indicator", resourceErrorsCount === 0 ? "success" : "missing");
+    resourceErrorsIndicator.innerHTML = resourceErrorsCount;
+    statusIndicatorsContainerElement.appendChild(resourceErrorsIndicator);
 
-    const unusedResourcesIndicator = document.createElement("span");
-    unusedResourcesIndicator.classList.add("status-indicator", unusedResourcesCount === 0 ? "success" : "unused");
-    unusedResourcesIndicator.innerHTML = `${unusedResourcesCount === 0 ? "" : "+"}${unusedResourcesCount}`;
-    statusIndicatorsContainerElement.appendChild(unusedResourcesIndicator);
+    const resourceWarningsIndicator = document.createElement("span");
+    resourceWarningsIndicator.classList.add("status-indicator", resourceWarningsCount === 0 ? "success" : "unused");
+    resourceWarningsIndicator.innerHTML = resourceWarningsCount;
+    statusIndicatorsContainerElement.appendChild(resourceWarningsIndicator);
 
-    const emptyResourcesIndicator = document.createElement("span");
-    emptyResourcesIndicator.classList.add("status-indicator", emptyResourcesCount === 0 ? "success" : "empty");
-    emptyResourcesIndicator.innerHTML = `${emptyResourcesCount}`;
-    statusIndicatorsContainerElement.appendChild(emptyResourcesIndicator);
+    const resourceInfoIndicator = document.createElement("span");
+    resourceInfoIndicator.classList.add("status-indicator", resourceInfoCount === 0 ? "success" : "empty");
+    resourceInfoIndicator.innerHTML = resourceInfoCount;
+    statusIndicatorsContainerElement.appendChild(resourceInfoIndicator);
 }
 
 /**
- * Renders the sidebar UI, including layout code and text resources options,
- * as well as data model management controls. This function dynamically creates
- * and appends DOM elements for sidebar navigation, validation, and resource management.
+ * Renders the sidebar UI, including layout code, text resources, and data model management.
  *
- * The sidebar includes:
- * - A button to view and edit layout code.
- * - A section for managing text resources, including validation and removal of unused resources.
- * - A dynamically generated list of data models.
- * - A button to add new data models.
+ * - Clears and rebuilds the sidebar element.
+ * - Adds buttons for editing layout code and text resources.
+ * - Provides validation and management options for text resources, such as:
+ *   - Validating resources
+ *   - Ordering resources alphabetically by ID
+ *   - Removing unused or duplicate resources
+ * - Appends data model list elements and an "Add Data Model" button.
  *
- * Relies on several helper functions for DOM manipulation, validation, and local storage:
+ * Relies on several helper functions for UI updates and data management:
  * - getCodeInputElementForLayoutCode
+ * - getCodeInputElementForTextResources
  * - updateDataInputElement
  * - setActiveSidebarElement
- * - getCodeInputElementForTextResources
  * - validateResources
  * - renderValidationMessages
  * - renderFeedbackListElement
- * - openValidationDialog
- * - closeValidationDialog
  * - getTextResources
  * - addValueToLocalStorage
+ * - closeValidationDialog
  * - renderResults
+ * - renderTextResourceStatusIndicators
+ * - openValidationDialog
  * - getDataModelListElements
  * - addDataModel
- *
- * @function
- * @returns {void}
  */
 export function renderSidebar() {
     const sidebarElement = document.getElementById("sidebar");
@@ -208,24 +206,61 @@ export function renderSidebar() {
             // Add button to remove unused resources from text resources and update the code input element accordingly
             const removeUnusedResourcesButtonElement = document.createElement("button");
             removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
-        removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
-        removeUnusedResourcesButtonElement.onclick = function () {
-            const currentTextResourcesValue = getTextResources();
-            const unusedResourceIds = validationResults.unusedResourceBindings;
-            const updatedTextResourcesValue = {
-                ...currentTextResourcesValue,
-                resources: currentTextResourcesValue.resources.filter((res) => !unusedResourceIds.includes(res.id))
+            removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
+            removeUnusedResourcesButtonElement.onclick = function () {
+                const currentTextResourcesValue = getTextResources();
+                const unusedResourceIds = validationResults.unusedResourceBindings;
+                const updatedTextResourcesValue = {
+                    ...currentTextResourcesValue,
+                    resources: currentTextResourcesValue.resources.filter((res) => !unusedResourceIds.includes(res.id))
+                };
+                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+                addValueToLocalStorage("textResources", updatedResourcesJson);
+                const textResourcesInputElement = getCodeInputElementForTextResources();
+                updateDataInputElement(textResourcesInputElement);
+                setActiveSidebarElement(textResourcesItemId);
+                closeValidationDialog();
+                renderResults();
+                renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
             };
-            const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-            addValueToLocalStorage("textResources", updatedResourcesJson);
-            const textResourcesInputElement = getCodeInputElementForTextResources();
-            updateDataInputElement(textResourcesInputElement);
-            setActiveSidebarElement(textResourcesItemId);
-            closeValidationDialog();
-            renderResults();
-            renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
-        };
-        contentElement.appendChild(removeUnusedResourcesButtonElement);
+            contentElement.appendChild(removeUnusedResourcesButtonElement);
+        }
+
+        if (validationResults?.duplicateTextResources?.length) {
+            const removeDuplicateResourcesButtonElement = document.createElement("button");
+            removeDuplicateResourcesButtonElement.classList.add("remove-duplicate-resources-button");
+            removeDuplicateResourcesButtonElement.innerHTML = "Remove duplicates";
+            removeDuplicateResourcesButtonElement.onclick = function () {
+                const currentTextResourcesValue = getTextResources();
+                const duplicateResourceIds = validationResults.duplicateTextResources;
+                const seenIds = new Set();
+                const updatedTextResourcesValue = {
+                    ...currentTextResourcesValue,
+                    resources: currentTextResourcesValue.resources.filter((res) => {
+                        if (duplicateResourceIds.includes(res.id)) {
+                            if (seenIds.has(res.id)) {
+                                return false;
+                            } else {
+                                seenIds.add(res.id);
+                                return true;
+                            }
+                        }
+                        return true;
+                    })
+                };
+                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+                addValueToLocalStorage("textResources", updatedResourcesJson);
+                const textResourcesInputElement = getCodeInputElementForTextResources();
+                updateDataInputElement(textResourcesInputElement);
+                setActiveSidebarElement(textResourcesItemId);
+                closeValidationDialog();
+                renderResults();
+                renderTextResourceStatusIndicators({
+                    ...validationResults,
+                    duplicateTextResources: []
+                });
+            };
+            contentElement.appendChild(removeDuplicateResourcesButtonElement);
         }
 
         openValidationDialog(contentElement);
