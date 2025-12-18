@@ -209,10 +209,12 @@ export function validateResources() {
     }
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const missingResourceBindings = getMissingResourceBindings(allResourceBindings, textResources);
+    const duplicateTextResources = getDuplicateTextResources(textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
     const validationResults = {
         unusedResourceBindings,
         missingResourceBindings,
+        duplicateTextResources,
         emptyTextResources
     };
     return validationResults;
@@ -221,17 +223,20 @@ export function validateResources() {
 /**
  * Renders validation messages based on the provided validation results.
  *
- * @param {Object} validationResults - The results of the validation.
- * @param {string[]} validationResults.missingResourceBindings - Array of resource IDs that are missing.
- * @param {string[]} validationResults.unusedResourceBindings - Array of resource IDs that are unused.
- * @param {string[]} validationResults.emptyTextResources - Array of resource IDs with empty values.
- * @returns {ValidationMessages} An instance of ValidationMessages containing error and info messages.
+ * @param {Object} validationResults - The results of the validation process.
+ * @param {string[]} validationResults.missingResourceBindings - List of resource IDs that are missing.
+ * @param {string[]} validationResults.duplicateTextResources - List of resource IDs that are duplicated.
+ * @param {string[]} validationResults.unusedResourceBindings - List of resource IDs that are unused.
+ * @param {string[]} validationResults.emptyTextResources - List of resource IDs that are empty.
+ * @returns {ValidationMessages} An instance of ValidationMessages containing categorized messages.
  */
 export function renderValidationMessages(validationResults) {
     const validationMessages = new ValidationMessages({
-        error: validationResults.missingResourceBindings.map((resId) => `Missing text resource: ${resId}`),
-        warning: validationResults.unusedResourceBindings.map((resId) => `Unused text resource: ${resId}`),
-        info: validationResults.emptyTextResources.map((resId) => `Text resource with empty value: ${resId}`)
+        error: validationResults.missingResourceBindings
+            .map((resId) => `Missing resource: ${resId}`)
+            .concat(validationResults.duplicateTextResources.map((resId) => `Duplicate resource: ${resId}`)),
+        warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`),
+        info: validationResults.emptyTextResources.map((resId) => `Empty resource: ${resId}`)
     });
     return validationMessages;
 }
