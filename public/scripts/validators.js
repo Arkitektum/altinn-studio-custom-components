@@ -99,7 +99,8 @@ function getUnusedResourceBindings(allResourceBindings, textResources) {
     const unusedResourceBindings = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
     for (const resId of textResourceIds) {
-        if (!allResourceBindings.has(resId)) {
+        if (!allResourceBindings.has(resId) && !resId.startsWith("altinn.")) {
+            // Exclude Altinn specific resources
             unusedResourceBindings.push(resId);
         }
     }
