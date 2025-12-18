@@ -204,15 +204,10 @@ export function renderSidebar() {
         };
         contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
 
-        // If there are no unused resource bindings, open the validation dialog and return
-        if (validationResults.unusedResourceBindings.length === 0) {
-            openValidationDialog(contentElement);
-            return;
-        }
-
-        // Add button to remove unused resources from text resources and update the code input element accordingly
-        const removeUnusedResourcesButtonElement = document.createElement("button");
-        removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
+        if (validationResults.unusedResourceBindings.length) {
+            // Add button to remove unused resources from text resources and update the code input element accordingly
+            const removeUnusedResourcesButtonElement = document.createElement("button");
+            removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
         removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
         removeUnusedResourcesButtonElement.onclick = function () {
             const currentTextResourcesValue = getTextResources();
@@ -231,6 +226,7 @@ export function renderSidebar() {
             renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
         };
         contentElement.appendChild(removeUnusedResourcesButtonElement);
+        }
 
         openValidationDialog(contentElement);
     };
