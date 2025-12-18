@@ -107,6 +107,28 @@ function getUnusedResourceBindings(allResourceBindings, textResources) {
 }
 
 /**
+ * Returns an array of duplicate text resource IDs from the provided text resources object.
+ *
+ * @param {Object} textResources - The object containing text resources.
+ * @param {Array<{id: string}>} textResources.resources - The array of text resource objects, each with an `id` property.
+ * @returns {string[]} An array of resource IDs that appear more than once.
+ */
+function getDuplicateTextResources(textResources) {
+    const duplicateResourceBindings = [];
+    const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
+    const resourceIdCounts = textResourceIds.reduce((acc, id) => {
+        acc[id] = (acc[id] || 0) + 1;
+        return acc;
+    }, {});
+    for (const [resId, count] of Object.entries(resourceIdCounts)) {
+        if (count > 1) {
+            duplicateResourceBindings.push(resId);
+        }
+    }
+    return duplicateResourceBindings;
+}
+
+/**
  * Returns an array of resource binding IDs that are missing from the provided text resources.
  *
  * @param {string[]} allResourceBindings - An array of all resource binding IDs to check.
