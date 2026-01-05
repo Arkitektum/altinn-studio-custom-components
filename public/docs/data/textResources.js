@@ -668,6 +668,14 @@ export default {
             value: "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
         },
         {
+            id: "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
+            value: "Planlagt"
+        },
+        {
+            id: "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet",
+            value: "-"
+        },
+        {
             id: "resource.ansvarsomraadeStatus.title",
             value: "Status for arbeidene"
         },

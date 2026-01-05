@@ -25,7 +25,8 @@ const defaultResourceBindings = {
     },
     planlagteSamsvarKontrollErklaeringer: {
         title: "resource.planlagteSamsvarKontrollErklaeringer.title",
-        emptyFieldText: "resource.emptyFieldText.default"
+        emptyFieldText: "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
+        emptyFieldTextAvsluttet: "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet"
     },
     ansvarsomraadeStatus: {
         title: "resource.ansvarsomraadeStatus.title",
