@@ -115,7 +115,12 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
             },
             planlagteSamsvarKontrollErklaeringer: {
                 title: props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.title || "resource.planlagteSamsvarKontrollErklaeringer.title",
-                emptyFieldText: props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText || "resource.emptyFieldText.default"
+                emptyFieldText:
+                    props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText ||
+                    "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
+                emptyFieldTextAvsluttet:
+                    props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet ||
+                    "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet"
             },
             ansvarsomraadeStatus: {
                 title: props?.resourceBindings?.ansvarsomraadeStatus?.title || "resource.ansvarsomraadeStatus.title",
