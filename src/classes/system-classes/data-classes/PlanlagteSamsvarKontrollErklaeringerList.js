@@ -1,32 +1,48 @@
 // Global functions
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+import { getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 
 /**
- * Represents a list of planned conformity control declarations for various permit stages.
+ * Class representing a list of planned compliance control declarations.
+ *
+ * This class provides methods to generate and format a list of planned compliance control declarations
+ * based on provided properties and resource bindings. It includes logic to handle empty signing date fields
+ * and to localize titles using resource bindings.
  *
  * @class
- * @classdesc
- * This class generates a list of planned conformity control declarations based on provided properties and resource bindings.
- * Each item in the list contains a localized title and an optional signing date, included only if the stage is marked as planned.
- *
- * @param {Object} props - Properties indicating which conformity controls are planned and their signing dates.
- * @param {Object} resourceBindings - Resource bindings used to retrieve localized titles for each stage.
- *
- * @property {Object} resourceValues - Contains the generated list of planned conformity control declarations.
- * @property {Array<Object>} resourceValues.data - The array of planned conformity control declaration objects.
- *
- * @method getPlanlagteSamsvarKontrollErklaeringerList
- * @param {Object} props - The properties indicating which conformity controls are planned and their signing dates.
- * @param {Object} resourceBindings - The resource bindings used to retrieve localized titles for each stage.
- * @returns {Array<Object>} An array of objects, each containing:
- *   - {string} title: The localized title of the planned conformity control declaration.
- *   - {string|undefined} signingDate: The signing date for the declaration, if available.
  */
 export default class PlanlagteSamsvarKontrollErklaeringerList {
     constructor(props, resourceBindings) {
         this.resourceValues = {
             data: this.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)
         };
+    }
+
+    /**
+     * Returns the appropriate text for an empty signing date field based on the status of the responsibility area.
+     *
+     * @param {Object} ansvarsomraadeStatus - The status object of the responsibility area, expected to have a `kodeverdi` property.
+     * @param {Object} resourceBindings - An object containing resource bindings for text resources.
+     * @returns {string} The text resource for the empty signing date field, depending on whether the status is "avsluttet" or not.
+     */
+    getEmptySigningDateFieldText(ansvarsomraadeStatus, resourceBindings) {
+        return ansvarsomraadeStatus?.kodeverdi === "avsluttet"
+            ? getTextResourceFromResourceBinding(resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldTextAvsluttet)
+            : getTextResourceFromResourceBinding(resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText);
+    }
+
+    /**
+     * Returns an object containing signing date data or a placeholder text if the signing date is not provided.
+     *
+     * @param {*} signingDate - The signing date value to check.
+     * @param {*} ansvarsomraadeStatus - The status of the responsibility area, used if signing date is missing.
+     * @param {*} resourceBindings - Resource bindings used to generate the empty field text.
+     * @returns {{ data: *, format?: string }} An object with the signing date and optional format, or a placeholder text.
+     */
+    getSigningDateData(signingDate, ansvarsomraadeStatus, resourceBindings) {
+        const signingDateData = hasValue(signingDate)
+            ? { data: signingDate, format: "date" }
+            : { data: this.getEmptySigningDateFieldText(ansvarsomraadeStatus, resourceBindings) };
+        return signingDateData;
     }
 
     /**
@@ -45,13 +61,21 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
             props?.samsvarKontrollPlanlagtVedRammetillatelse === true
                 ? {
                       title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title) },
-                      signingDate: { data: props?.samsvarKontrollForeliggerVedRammetillatelse, format: "date" }
+                      signingDate: this.getSigningDateData(
+                          props?.samsvarKontrollForeliggerVedRammetillatelse,
+                          props?.ansvarsomraadeStatus,
+                          resourceBindings
+                      )
                   }
                 : null,
             props?.samsvarKontrollPlanlagtVedIgangsettingstillatelse === true
                 ? {
                       title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse?.title) },
-                      signingDate: { data: props?.samsvarKontrollForeliggerVedIgangsettingstillatelse, format: "date" }
+                      signingDate: this.getSigningDateData(
+                          props?.samsvarKontrollForeliggerVedIgangsettingstillatelse,
+                          props?.ansvarsomraadeStatus,
+                          resourceBindings
+                      )
                   }
                 : null,
             props?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse === true
@@ -59,13 +83,21 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
                       title: {
                           data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse?.title)
                       },
-                      signingDate: { data: props?.samsvarKontrollForeliggerVedMidlertidigBrukstillatelse, format: "date" }
+                      signingDate: this.getSigningDateData(
+                          props?.samsvarKontrollForeliggerVedMidlertidigBrukstillatelse,
+                          props?.ansvarsomraadeStatus,
+                          resourceBindings
+                      )
                   }
                 : null,
             props?.samsvarKontrollPlanlagtVedFerdigattest === true
                 ? {
                       title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest?.title) },
-                      signingDate: { data: props?.samsvarKontrollForeliggerVedFerdigattest, format: "date" }
+                      signingDate: this.getSigningDateData(
+                          props?.samsvarKontrollForeliggerVedFerdigattest,
+                          props?.ansvarsomraadeStatus,
+                          resourceBindings
+                      )
                   }
                 : null
         ].filter((item) => item !== null);
