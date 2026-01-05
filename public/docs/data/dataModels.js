@@ -139,7 +139,7 @@ export default [
                         },
                         samsvarKontrollPlanlagtVedRammetillatelse: true,
                         samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
-                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: false,
+                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: true,
                         samsvarKontrollPlanlagtVedFerdigattest: false,
                         samsvarKontrollForeliggerVedRammetillatelse: "2023-05-28",
                         samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-06-28",
@@ -187,7 +187,7 @@ export default [
                         samsvarKontrollForeliggerVedRammetillatelse: "",
                         samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-07-15",
                         samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "2023-08-20",
-                        samsvarKontrollForeliggerVedFerdigattest: "2023-09-30",
+                        samsvarKontrollForeliggerVedFerdigattest: "",
                         ansvarsomraadeStatus: {
                             kodeverdi: "pågående",
                             kodebeskrivelse: "Pågående"
@@ -705,7 +705,7 @@ export default [
                         },
                         samsvarKontrollPlanlagtVedRammetillatelse: true,
                         samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
-                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: false,
+                        samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: true,
                         samsvarKontrollPlanlagtVedFerdigattest: false,
                         samsvarKontrollForeliggerVedRammetillatelse: "2023-05-28",
                         samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-06-28",
@@ -752,7 +752,7 @@ export default [
                         samsvarKontrollPlanlagtVedFerdigattest: true,
                         samsvarKontrollForeliggerVedRammetillatelse: "",
                         samsvarKontrollForeliggerVedIgangsettingstillatelse: "2023-07-15",
-                        samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "2023-08-20",
+                        samsvarKontrollForeliggerVedMidlertidigBrukstillatelse: "",
                         samsvarKontrollForeliggerVedFerdigattest: "2023-09-30",
                         ansvarsomraadeStatus: {
                             kodeverdi: "pågående",
@@ -790,7 +790,7 @@ export default [
                             epost: "kontakt@geotekniskkontroll.no"
                         },
                         samsvarKontrollPlanlagtVedRammetillatelse: true,
-                        samsvarKontrollPlanlagtVedIgangsettingstillatelse: false,
+                        samsvarKontrollPlanlagtVedIgangsettingstillatelse: true,
                         samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: true,
                         samsvarKontrollPlanlagtVedFerdigattest: false,
                         samsvarKontrollForeliggerVedRammetillatelse: "2023-10-10",
