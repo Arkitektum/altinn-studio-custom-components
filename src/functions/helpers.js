@@ -2,18 +2,50 @@
 import customElementTagNames from "../constants/customElementTagNames.js";
 
 /**
- * Checks if the given object has a value.
+ * Checks if the given object has at least one property with a non-empty value.
+ * Uses the `hasValue` function to determine if a property's value is considered content.
  *
- * @param {any} obj - The object to check for a value.
- * @returns {boolean} Returns `true` if the object has a value, otherwise `false`.
+ * @param {Object} obj - The object to check for content.
+ * @returns {boolean} Returns true if at least one property has content, otherwise false.
+ */
+function objectHasContent(obj) {
+    for (let key in obj) {
+        if (hasValue(obj[key])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Checks if the given array contains at least one item that has a value.
+ * Uses the `hasValue` function to determine if an item is considered to have content.
  *
- * The function evaluates the following cases:
- * - `undefined` or `null`: Returns `false`.
- * - `string`: Returns `true` if the string has a length greater than 0.
- * - `number`: Returns `true` if the number is not NaN.
- * - `boolean`: Returns `true` if the value is `true`.
- * - `array`: Returns `true` if the array has a length greater than 0.
- * - `object`: Returns `true` if at least one property has a non-empty string value.
+ * @param {Array} arr - The array to check for content.
+ * @returns {boolean} Returns true if at least one item in the array has content, otherwise false.
+ */
+function arrayHasContent(arr) {
+    for (let item of arr) {
+        if (hasValue(item)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Checks if the provided object has a meaningful value.
+ *
+ * Handles different types:
+ * - `undefined` or `null`: returns false
+ * - `string`: returns true if length > 0
+ * - `number`: returns true if not NaN
+ * - `boolean`: returns true if boolean
+ * - `Array`: returns true if array has content (uses arrayHasContent)
+ * - `Object`: returns true if any property has content (uses objectHasContent)
+ *
+ * @param {*} obj - The object to check for value.
+ * @returns {boolean} True if the object has a value, false otherwise.
  */
 export function hasValue(obj) {
     if (obj === undefined || obj === null) {
@@ -26,14 +58,16 @@ export function hasValue(obj) {
         return !Number.isNaN(obj);
     }
     if (typeof obj === "boolean") {
-        return obj === true;
+        return typeof obj === "boolean";
     }
     if (Array.isArray(obj)) {
-        return obj.length > 0;
+        if (obj.length > 0) {
+            return arrayHasContent(obj);
+        }
     }
     for (let key in obj) {
         if (!!obj?.[key]?.toString().length > 0) {
-            return true;
+            return objectHasContent(obj);
         }
     }
     return false;
