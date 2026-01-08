@@ -832,6 +832,10 @@ export default {
             value: "Ansvarlig søker for tiltaket (for tiltak etter pbl § 20-1)"
         },
         {
+            id: "resource.rammebetingelser.tilknytning.title",
+            value: "Tilknytning til vei og ledningsnett"
+        },
+        {
             id: "resource.rammebetingelser.adkomst.title",
             value: "Adkomst"
         },
