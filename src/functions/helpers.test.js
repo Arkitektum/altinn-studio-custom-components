@@ -40,9 +40,10 @@ describe("hasValue", () => {
         expect(hasValue(123)).toBe(true);
         expect(hasValue(NaN)).toBe(false);
     });
-    it("returns true for true boolean, false for false", () => {
+    it("returns true for true boolean, true for false boolean, false for null", () => {
         expect(hasValue(true)).toBe(true);
-        expect(hasValue(false)).toBe(false);
+        expect(hasValue(false)).toBe(true);
+        expect(hasValue(null)).toBe(false);
     });
     it("returns true for non-empty array, false for empty array", () => {
         expect(hasValue([1])).toBe(true);

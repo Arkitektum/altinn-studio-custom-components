@@ -35,6 +35,7 @@ export default [
     "custom-group-loefteinnretninger",
     "custom-group-nabo-gjenboer-eiendom",
     "custom-group-overvann",
+    "custom-group-rammebetingelser-tilknytninger",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",

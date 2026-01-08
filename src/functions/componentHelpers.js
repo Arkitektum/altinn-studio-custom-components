@@ -34,6 +34,7 @@ import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-c
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
+import CustomGroupRammebetingelserTilknytninger from "../classes/system-classes/component-classes/CustomGroupRammebetingelserTilknytninger.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
@@ -129,6 +130,8 @@ export function instantiateComponent(element) {
             return new CustomGroupNaboGjenboerEiendom(component);
         case "custom-group-overvann":
             return new CustomGroupOvervann(component);
+        case "custom-group-rammebetingelser-tilknytninger":
+            return new CustomGroupRammebetingelserTilknytninger(component);
         case "custom-group-sjekklistekrav":
             return new CustomGroupSjekklistekrav(component);
         case "custom-group-utfall-svar":
