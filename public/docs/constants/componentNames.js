@@ -33,6 +33,7 @@ export default {
     "custom-group-loefteinnretninger": "Løfteinnretninger",
     "custom-group-nabo-gjenboer-eiendom": "Nabo/gjenboer eiendom",
     "custom-group-overvann": "Overvann",
+    "custom-group-rammebetingelser-tilknytninger": "Rammebetingelser tilknytninger",
     "custom-group-sjekklistekrav": "Sjekklistekrav",
     "custom-group-utfall-svar": "Utfall svar",
     "custom-group-utfall-svar-type": "Utfall svar type",
