@@ -559,6 +559,34 @@ export default [
                     ledesOvervannTilTerreng: true,
                     ledesOvervannTilAvloepssystem: false
                 },
+                rammebetingelserTilknytninger: {
+                    adkomst: {
+                        erNyEllerEndretAdkomst: true,
+                        vegtype: {
+                            kodeverdi: "VEGTYPE1",
+                            kodebeskrivelse: "Vegtype 1 beskrivelse"
+                        }
+                    },
+                    avloep: {
+                        harTinglystErklaering: true,
+                        krysserAvloepAnnensGrunn: false,
+                        tilknytningstype: {
+                            kodeverdi: "TILKNYTNINGSTYPE1",
+                            kodebeskrivelse: "Tilknytningstype 1 beskrivelse"
+                        },
+                        ledesOvervannTilAvloepssystem: false,
+                        ledesOvervannTilTerreng: true
+                    },
+                    vannforsyning: {
+                        beskrivelse: "Beskrivelse av vannforsyning",
+                        harTinglystErklaering: false,
+                        krysserVannforsyningAnnensGrunn: true,
+                        tilknytningstype: {
+                            kodeverdi: "VANN_TILKNYTNINGSTYPE1",
+                            kodebeskrivelse: "Vann tilknytningstype 1 beskrivelse"
+                        }
+                    }
+                },
                 sjekklistekrav: {
                     sjekklistepunktsvar: true,
                     sjekklistepunkt: {
