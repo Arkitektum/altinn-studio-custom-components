@@ -1966,9 +1966,9 @@ __metadata:
   linkType: hard
 
 "@sinclair/typebox@npm:^0.34.0":
-  version: 0.34.46
-  resolution: "@sinclair/typebox@npm:0.34.46"
-  checksum: 10c0/1bd0f9822b74bf81d500c4ab9bc736b2131ec07b2c3c5dd849438d4de7b21a226e25c07b3710f5cd45118db23fa263e856a2ab638be2cbbd60da2f298eb7c3a5
+  version: 0.34.47
+  resolution: "@sinclair/typebox@npm:0.34.47"
+  checksum: 10c0/ebe923fe2c26900982634e5639a00471da0b182eee61a5a0436cd1df174f90c5b0fcd7507cc21ad2fca3c326aee387487040badc723bc2599a09bc3e9be09b38
   languageName: node
   linkType: hard
 
@@ -2926,11 +2926,11 @@ __metadata:
   linkType: hard
 
 "baseline-browser-mapping@npm:^2.9.0":
-  version: 2.9.11
-  resolution: "baseline-browser-mapping@npm:2.9.11"
+  version: 2.9.12
+  resolution: "baseline-browser-mapping@npm:2.9.12"
   bin:
     baseline-browser-mapping: dist/cli.js
-  checksum: 10c0/eba49fcc1b33ab994aeeb73a4848f2670e06a0886dd5b903689ae6f60d47e7f1bea9262dbb2548c48179e858f7eda2b82ddf941ae783b862f4dcc51085a246f2
+  checksum: 10c0/15b0ce64e5741c9bbd0ae9328b4cec9e59516b1b839bab949d7ba00c52e6c693bb7c34fc9e79a51957b92a9889d945ff720c73635418c35dbd46c041682df024
   languageName: node
   linkType: hard
 
@@ -3134,9 +3134,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001759":
-  version: 1.0.30001762
-  resolution: "caniuse-lite@npm:1.0.30001762"
-  checksum: 10c0/93707eac5b0240af3f2ce6e2d7ab504a6fefcf9c2f9cd8fb9d488e496a333c61e557dab0472c1b00c17bc386a5dbb792aa4c778cda2d768e17f986617d7aec53
+  version: 1.0.30001763
+  resolution: "caniuse-lite@npm:1.0.30001763"
+  checksum: 10c0/4524f6ae15a18c8510849e43baed01441940c50cab29687cba62dde6354a49549d5bcb7f79b864dadf3f0c8c342038c63131cdb64af382a501593106b1d0028b
   languageName: node
   linkType: hard
 
@@ -8897,8 +8897,8 @@ __metadata:
   linkType: hard
 
 "ws@npm:^8.11.0, ws@npm:^8.18.0":
-  version: 8.18.3
-  resolution: "ws@npm:8.18.3"
+  version: 8.19.0
+  resolution: "ws@npm:8.19.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -8907,7 +8907,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/eac918213de265ef7cb3d4ca348b891a51a520d839aa51cdb8ca93d4fa7ff9f6ccb339ccee89e4075324097f0a55157c89fa3f7147bde9d8d7e90335dc087b53
+  checksum: 10c0/4741d9b9bc3f9c791880882414f96e36b8b254e34d4b503279d6400d9a4b87a033834856dbdd94ee4b637944df17ea8afc4bce0ff4a1560d2166be8855da5b04
   languageName: node
   linkType: hard
 
