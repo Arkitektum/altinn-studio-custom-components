@@ -10,7 +10,8 @@ import customElementTagNames from "../constants/customElementTagNames.js";
  */
 function objectHasContent(obj) {
     for (let key in obj) {
-        if (hasValue(obj[key])) {
+        if (key !== "altinnRowId" && hasValue(obj[key])) {
+            // Exclude altinnRowId from content check
             return true;
         }
     }
@@ -42,7 +43,7 @@ function arrayHasContent(arr) {
  * - `number`: returns true if not NaN
  * - `boolean`: returns true if boolean
  * - `Array`: returns true if array has content (uses arrayHasContent)
- * - `Object`: returns true if any property has content (uses objectHasContent)
+ * - `Object`: returns true if object has content (uses objectHasContent)
  *
  * @param {*} obj - The object to check for value.
  * @returns {boolean} True if the object has a value, false otherwise.
@@ -66,7 +67,8 @@ export function hasValue(obj) {
         }
     }
     for (let key in obj) {
-        if (!!obj?.[key]?.toString().length > 0) {
+        if (!!obj?.[key]?.toString().length > 0 && key !== "altinnRowId") {
+            // Exclude altinnRowId from content check
             return objectHasContent(obj);
         }
     }
