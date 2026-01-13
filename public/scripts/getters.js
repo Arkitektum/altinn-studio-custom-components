@@ -9,6 +9,9 @@ import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { validateResources } from "./validators.js";
 
+// Constants
+import defaultResources from "../data/defaultResources.js";
+
 /**
  * Retrieves data for a given component based on its data model bindings.
  *
@@ -245,4 +248,15 @@ export function getCodeInputElementForTextResources() {
         renderTextResourceStatusIndicators(validationResults);
     };
     return codeInputElement;
+}
+
+/**
+ * Retrieves the default value for a given resource by its ID.
+ *
+ * @param {string} resourceId - The unique identifier of the resource.
+ * @returns {*} The default value of the resource if found; otherwise, null.
+ */
+export function getDefaultValueForResource(resourceId) {
+    const defaultResource = defaultResources.find((res) => res.id === resourceId);
+    return defaultResource ? defaultResource.value : null;
 }
