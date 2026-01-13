@@ -7,6 +7,7 @@ custom-feedback {
         line-height: var(--line-height-default);
         color: var(--color-text-default);
         margin-block: 0;
+        white-space: break-spaces;
         &.error {
             color: var(--color-error-default);
         }
