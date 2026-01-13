@@ -107,8 +107,32 @@ const defaultResourceBindings = {
     ansvarligSoeker: {
         title: "resource.ansvarligSoeker.title"
     },
+    ansvarligSoekerNavn: {
+        title: "resource.ansvarligSoeker.navn.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    ansvarligSoekerTelefonnummer: {
+        title: "resource.ansvarligSoeker.telefonnummer.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    ansvarligSoekerEpost: {
+        title: "resource.ansvarligSoeker.epost.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
     tiltakshaver: {
         title: "resource.tiltakshaver.title"
+    },
+    tiltakshaverNavn: {
+        title: "resource.tiltakshaver.navn.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    tiltakshaverTelefonnummer: {
+        title: "resource.tiltakshaver.telefonnummer.title",
+        emptyFieldText: "resource.emptyFieldText.default"
+    },
+    tiltakshaverEpost: {
+        title: "resource.tiltakshaver.epost.title",
+        emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonAdresse: {
         title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.title",
