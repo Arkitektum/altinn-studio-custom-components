@@ -6,7 +6,13 @@ import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.j
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
-import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
+import {
+    getCodeInputElementForLayoutCode,
+    getCodeInputElementForTextResources,
+    getDataForComponent,
+    getDataModelListElements,
+    getDefaultValueForResource
+} from "./getters.js";
 import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
@@ -96,17 +102,16 @@ export function renderTextResourceStatusIndicators(validationResults) {
 }
 
 /**
- * Renders the sidebar UI, including layout code, text resources, and data model management.
+ * Renders the sidebar UI, including layout code, text resources, data model list, and related actions.
  *
- * - Clears and rebuilds the sidebar element.
- * - Adds buttons for editing layout code and text resources.
- * - Provides validation and management options for text resources, such as:
- *   - Validating resources
- *   - Ordering resources alphabetically by ID
- *   - Removing unused or duplicate resources
- * - Appends data model list elements and an "Add Data Model" button.
+ * The sidebar includes:
+ * - Layout code button to edit layout code.
+ * - Text resources button with validation and management options (validate, order, add defaults, remove unused/duplicates).
+ * - Data model list and button to add new data models.
  *
- * Relies on several helper functions for UI updates and data management:
+ * This function manipulates the DOM directly to construct the sidebar and attaches event handlers for user interactions.
+ *
+ * Dependencies:
  * - getCodeInputElementForLayoutCode
  * - getCodeInputElementForTextResources
  * - updateDataInputElement
@@ -119,6 +124,7 @@ export function renderTextResourceStatusIndicators(validationResults) {
  * - closeValidationDialog
  * - renderResults
  * - renderTextResourceStatusIndicators
+ * - getDefaultValueForResource
  * - openValidationDialog
  * - getDataModelListElements
  * - addDataModel
@@ -201,6 +207,48 @@ export function renderSidebar() {
             renderTextResourceStatusIndicators(validationResults);
         };
         contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
+
+        // Add default values for missing resources
+        if (validationResults.missingResourceBindings?.length) {
+            const addDefaultValuesForMissingResourcesButtonElement = document.createElement("button");
+            addDefaultValuesForMissingResourcesButtonElement.classList.add("add-default-values-for-missing-resources-button");
+            addDefaultValuesForMissingResourcesButtonElement.innerHTML = "Add default values";
+            addDefaultValuesForMissingResourcesButtonElement.onclick = function () {
+                const currentTextResourcesValue = getTextResources();
+                const missingResourceIds = validationResults.missingResourceBindings;
+                const newResources = [];
+                const stillMissingResourceIds = [];
+
+                missingResourceIds.forEach((resId) => {
+                    const defaultValue = getDefaultValueForResource(resId);
+                    if (defaultValue === null) {
+                        stillMissingResourceIds.push(resId);
+                    } else {
+                        newResources.push({
+                            id: resId,
+                            value: defaultValue
+                        });
+                    }
+                });
+
+                const updatedTextResourcesValue = {
+                    ...currentTextResourcesValue,
+                    resources: [...currentTextResourcesValue.resources, ...newResources]
+                };
+                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+                addValueToLocalStorage("textResources", updatedResourcesJson);
+                const textResourcesInputElement = getCodeInputElementForTextResources();
+                updateDataInputElement(textResourcesInputElement);
+                setActiveSidebarElement(textResourcesItemId);
+                closeValidationDialog();
+                renderResults();
+                renderTextResourceStatusIndicators({
+                    ...validationResults,
+                    missingResourceBindings: stillMissingResourceIds
+                });
+            };
+            contentElement.appendChild(addDefaultValuesForMissingResourcesButtonElement);
+        }
 
         if (validationResults.unusedResourceBindings.length) {
             // Add button to remove unused resources from text resources and update the code input element accordingly

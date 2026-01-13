@@ -277,6 +277,15 @@
                             content: "🔤";
                         }
                     }
+                    &.add-default-values-for-missing-resources-button {
+                        background-color: #5cb85c;
+                        &:hover {
+                            background-color: #449d44;
+                        }
+                        &::before {
+                            content: "➕";
+                        }
+                    }
                 }
             }
         }
