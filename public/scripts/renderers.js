@@ -250,30 +250,6 @@ export function renderSidebar() {
             contentElement.appendChild(addDefaultValuesForMissingResourcesButtonElement);
         }
 
-        if (validationResults.unusedResourceBindings.length) {
-            // Add button to remove unused resources from text resources and update the code input element accordingly
-            const removeUnusedResourcesButtonElement = document.createElement("button");
-            removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
-            removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
-            removeUnusedResourcesButtonElement.onclick = function () {
-                const currentTextResourcesValue = getTextResources();
-                const unusedResourceIds = validationResults.unusedResourceBindings;
-                const updatedTextResourcesValue = {
-                    ...currentTextResourcesValue,
-                    resources: currentTextResourcesValue.resources.filter((res) => !unusedResourceIds.includes(res.id))
-                };
-                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-                addValueToLocalStorage("textResources", updatedResourcesJson);
-                const textResourcesInputElement = getCodeInputElementForTextResources();
-                updateDataInputElement(textResourcesInputElement);
-                setActiveSidebarElement(textResourcesItemId);
-                closeValidationDialog();
-                renderResults();
-                renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
-            };
-            contentElement.appendChild(removeUnusedResourcesButtonElement);
-        }
-
         if (validationResults?.duplicateTextResources?.length) {
             const removeDuplicateResourcesButtonElement = document.createElement("button");
             removeDuplicateResourcesButtonElement.classList.add("remove-duplicate-resources-button");
@@ -309,6 +285,30 @@ export function renderSidebar() {
                 });
             };
             contentElement.appendChild(removeDuplicateResourcesButtonElement);
+        }
+
+        if (validationResults.unusedResourceBindings.length) {
+            // Add button to remove unused resources from text resources and update the code input element accordingly
+            const removeUnusedResourcesButtonElement = document.createElement("button");
+            removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
+            removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
+            removeUnusedResourcesButtonElement.onclick = function () {
+                const currentTextResourcesValue = getTextResources();
+                const unusedResourceIds = validationResults.unusedResourceBindings;
+                const updatedTextResourcesValue = {
+                    ...currentTextResourcesValue,
+                    resources: currentTextResourcesValue.resources.filter((res) => !unusedResourceIds.includes(res.id))
+                };
+                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
+                addValueToLocalStorage("textResources", updatedResourcesJson);
+                const textResourcesInputElement = getCodeInputElementForTextResources();
+                updateDataInputElement(textResourcesInputElement);
+                setActiveSidebarElement(textResourcesItemId);
+                closeValidationDialog();
+                renderResults();
+                renderTextResourceStatusIndicators({ ...validationResults, unusedResourceBindings: [] });
+            };
+            contentElement.appendChild(removeUnusedResourcesButtonElement);
         }
 
         openValidationDialog(contentElement);
