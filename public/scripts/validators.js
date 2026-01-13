@@ -6,7 +6,7 @@ import { getLayoutCode, getTextResources } from "./localStorage.js";
 
 // Global functions
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
-import { getDataForComponent } from "./getters.js";
+import { getDataForComponent, getDefaultValueForResource } from "./getters.js";
 
 /**
  * Adds resource bindings from a custom component's properties to a set of all resource bindings.
@@ -229,12 +229,18 @@ export function validateResources() {
  * @param {string[]} validationResults.duplicateTextResources - List of resource IDs that are duplicated.
  * @param {string[]} validationResults.unusedResourceBindings - List of resource IDs that are unused.
  * @param {string[]} validationResults.emptyTextResources - List of resource IDs that are empty.
- * @returns {ValidationMessages} An instance of ValidationMessages containing categorized messages.
+ * @returns {ValidationMessages} An instance of ValidationMessages containing error, warning, and info messages.
  */
 export function renderValidationMessages(validationResults) {
     const validationMessages = new ValidationMessages({
         error: validationResults.missingResourceBindings
-            .map((resId) => `Missing resource: ${resId}`)
+            .map((resId) => {
+                const defaultValue = getDefaultValueForResource(resId);
+                if (defaultValue !== null) {
+                    return `Missing resource: ${resId}\nDefault value: "${defaultValue}"`;
+                }
+                return `Missing resource: ${resId}`;
+            })
             .concat(validationResults.duplicateTextResources.map((resId) => `Duplicate resource: ${resId}`)),
         warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`),
         info: validationResults.emptyTextResources.map((resId) => `Empty resource: ${resId}`)
