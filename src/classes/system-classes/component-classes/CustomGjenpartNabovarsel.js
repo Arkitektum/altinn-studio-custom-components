@@ -195,8 +195,32 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             ansvarligSoeker: {
                 title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
             },
+            ansvarligSoekerNavn: {
+                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.ansvarligSoeker.navn.title",
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            ansvarligSoekerTelefonnummer: {
+                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.ansvarligSoeker.telefonnummer.title",
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            ansvarligSoekerEpost: {
+                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.ansvarligSoeker.epost.title",
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText || "resource.emptyFieldText.default"
+            },
             tiltakshaver: {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
+            },
+            tiltakshaverNavn: {
+                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.tiltakshaver.navn.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverTelefonnummer: {
+                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.tiltakshaver.telefonnummer.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverEpost: {
+                title: props?.resourceBindings?.tiltakshaverEpost?.title || "resource.tiltakshaver.epost.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonAdresse: {
                 title:

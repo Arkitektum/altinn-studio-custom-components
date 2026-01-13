@@ -348,6 +348,9 @@ export function renderMerknaderSendesTilHeaderElement(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for "ansvarligSoeker".
  * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" part.
+ * @param {Object} [component.resourceBindings.ansvarligSoekerNavn] - The resource binding for "ansvarligSoekerNavn".
+ * @param {Object} [component.resourceBindings.ansvarligSoekerTelefonnummer] - The resource binding for "ansvarligSoekerTelefonnummer".
+ * @param {Object} [component.resourceBindings.ansvarligSoekerEpost] - The resource binding for "ansvarligSoekerEpost".
  * @returns {HTMLElement} The custom element representing the "Ansvarlig Søker" part.
  */
 export function renderAnsvarligSoekerElement(component) {
@@ -358,7 +361,19 @@ export function renderAnsvarligSoekerElement(component) {
         size: "h4",
         partType: "ansvarligSoeker",
         resourceBindings: {
-            title: component.resourceBindings?.ansvarligSoeker?.title
+            title: component.resourceBindings?.ansvarligSoeker?.title,
+            navn: {
+                title: component.resourceBindings?.ansvarligSoekerNavn?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText
+            },
+            telefonnummer: {
+                title: component.resourceBindings?.ansvarligSoekerTelefonnummer?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText
+            },
+            epost: {
+                title: component.resourceBindings?.ansvarligSoekerEpost?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText
+            }
         },
         resourceValues: {
             data: data?.ansvarligSoeker
@@ -376,6 +391,9 @@ export function renderAnsvarligSoekerElement(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.tiltakshaver] - The resource binding for "tiltakshaver".
  * @param {string} [component.resourceBindings.tiltakshaver.title] - The title for the "tiltakshaver" part.
+ * @param {Object} [component.resourceBindings.tiltakshaverNavn] - The resource binding for "tiltakshaverNavn".
+ * @param {Object} [component.resourceBindings.tiltakshaverTelefonnummer] - The resource binding for "tiltakshaverTelefonnummer".
+ * @param {Object} [component.resourceBindings.tiltakshaverEpost] - The resource binding for "tiltakshaverEpost".
  * @returns {HTMLElement} The rendered custom element for the "tiltakshaver" part.
  */
 export function renderTiltakshaverElement(component) {
@@ -386,7 +404,19 @@ export function renderTiltakshaverElement(component) {
         size: "h4",
         partType: "tiltakshaver",
         resourceBindings: {
-            title: component.resourceBindings?.tiltakshaver?.title
+            title: component.resourceBindings?.tiltakshaver?.title,
+            navn: {
+                title: component.resourceBindings?.tiltakshaverNavn?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverNavn?.emptyFieldText
+            },
+            telefonnummer: {
+                title: component.resourceBindings?.tiltakshaverTelefonnummer?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText
+            },
+            epost: {
+                title: component.resourceBindings?.tiltakshaverEpost?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverEpost?.emptyFieldText
+            }
         },
         resourceValues: {
             data: data?.tiltakshaver
