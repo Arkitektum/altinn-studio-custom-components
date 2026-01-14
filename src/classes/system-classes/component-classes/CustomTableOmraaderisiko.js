@@ -34,7 +34,8 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.omraadeRisiko?.emptyFieldText) : data
+            title: getTextResourceFromResourceBinding(resourceBindings?.omraaderisiko?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.omraaderisiko?.emptyFieldText) : data
         };
     }
 
@@ -128,6 +129,7 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
      * @param {string} [props.resourceBindings.sikkerhetsklasse.title] - Custom title for 'sikkerhetsklasse'.
      * @param {string} [props.resourceBindings.sikkerhetsklasse.emptyFieldText] - Custom empty field text for 'sikkerhetsklasse'.
      * @param {string} [props.resourceBindings.title] - Custom title for 'omraadeRisiko'.
+     * @param {string} [props.resourceBindings.description] - Custom description for 'omraadeRisiko'.
      * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text for 'omraadeRisiko'.
      * @param {boolean|string} [props.hideTitle] - If true or "true", omraadeRisiko title is hidden.
      * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omraadeRisiko empty field text is hidden.
@@ -145,16 +147,20 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
                     props?.resourceBindings?.sikkerhetsklasse?.title ||
                     "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.sikkerhetsklasse.title",
                 emptyFieldText: props?.resourceBindings?.sikkerhetsklasse?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            omraaderisiko: {
+                description: props?.resourceBindings?.description || "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
-            resourceBindings.omraadeRisiko = {
+            resourceBindings.omraaderisiko = {
+                ...resourceBindings.omraaderisiko,
                 title: props?.resourceBindings?.title || "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
-            resourceBindings.omraadeRisiko = {
-                ...resourceBindings.omraadeRisiko,
+            resourceBindings.omraaderisiko = {
+                ...resourceBindings.omraaderisiko,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
             };
         }

@@ -1,10 +1,10 @@
 // Global functions
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
-import { renderOmraaderisikoTable } from "./renderers.js";
+import { renderHeaderElement, renderOmraaderisikoTable } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -19,6 +19,9 @@ export default customElements.define(
                 componentContainerElement.style.display = "none";
             } else {
                 const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                }
                 const omraaderisikoTableElement = renderOmraaderisikoTable(component);
                 this.appendChild(omraaderisikoTableElement);
                 if (feedbackListElement) {

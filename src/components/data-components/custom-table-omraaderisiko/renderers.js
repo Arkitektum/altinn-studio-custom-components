@@ -2,7 +2,25 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement } from "../../../functions/helpers.js";
+import { createCustomElement, getAdjustedHeaderSize } from "../../../functions/helpers.js";
+
+/**
+ * Renders a custom header element with the specified title and size.
+ *
+ * @param {string} title - The text to display in the header.
+ * @param {string} [size="h2"] - The size of the header (e.g., "h1", "h2", etc.).
+ * @returns {HTMLElement} The created custom header element.
+ */
+export function renderHeaderElement(title, size = "h2") {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        size,
+        resourceValues: {
+            title
+        }
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
 
 /**
  * Renders a custom table for "Omraaderisiko" with specified columns and attributes.
@@ -16,7 +34,7 @@ import { createCustomElement } from "../../../functions/helpers.js";
  * @param {string} [component.resourceBindings.sikkerhetsklasse.title] - Title for "sikkerhetsklasse" column.
  * @param {string} [component.resourceBindings.sikkerhetsklasse.emptyFieldText] - Text to display if "sikkerhetsklasse" field is empty.
  * @param {Object} [component.resourceBindings.omraadeRisiko] - Resource bindings for table title.
- * @param {string} [component.resourceBindings.omraadeRisiko.title] - Title for the table.
+ * @param {string} [component.resourceBindings.omraadeRisiko.description] - Description for the table.
  * @param {string} [component.size] - Size attribute for the table.
  * @param {Object} [component.resourceValues] - Resource values for the table.
  * @returns {HTMLElement} The rendered custom table element.
@@ -41,12 +59,14 @@ export function renderOmraaderisikoTable(component) {
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        size: component?.size,
+        size: getAdjustedHeaderSize(component?.size, 1),
         hideIfEmpty: true,
         isChildComponent: true,
-        resourceValues: component?.resourceValues,
+        resourceValues: {
+            data: component?.resourceValues?.data
+        },
         resourceBindings: {
-            title: component?.resourceBindings?.omraadeRisiko?.title
+            title: component?.resourceBindings?.omraaderisiko?.description
         },
         tableColumns
     });
