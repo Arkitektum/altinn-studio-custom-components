@@ -617,7 +617,7 @@ export default {
         },
         {
             id: "resource.ansvarligSoeker.navn.title",
-            value: "Navn"
+            value: "Ansvarlig søker"
         },
         {
             id: "resource.ansvarligSoeker.telefonnummer.title",
@@ -833,7 +833,7 @@ export default {
         },
         {
             id: "resource.ansvarligSoeker.title",
-            value: "Ansvarlig søker for tiltaket (for tiltak etter pbl § 20-1)"
+            value: "Søker"
         },
         {
             id: "resource.rammebetingelser.tilknytning.title",
