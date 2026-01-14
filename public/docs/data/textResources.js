@@ -413,6 +413,10 @@ export default {
         },
         {
             id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
+            value: "Krav til byggegrunn"
+        },
+        {
+            id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description",
             value: "Oversikt over områderisikoer der byggverket skal plasseres"
         },
         {
