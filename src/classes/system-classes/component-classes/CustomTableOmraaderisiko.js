@@ -34,7 +34,7 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.eiendomByggested?.emptyFieldText) : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.omraadeRisiko?.emptyFieldText) : data
         };
     }
 
