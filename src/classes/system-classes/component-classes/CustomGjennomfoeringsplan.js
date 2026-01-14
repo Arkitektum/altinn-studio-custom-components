@@ -116,6 +116,21 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 title: props?.resourceBindings?.ansvarsomraade?.title || "resource.ansvarsomraade.title",
                 emptyFieldText: props?.resourceBindings?.ansvarsomraade?.emptyFieldText || "resource.emptyFieldText.default"
             },
+            ansvarligSoeker: {
+                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
+            },
+            ansvarligSoekerNavn: {
+                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.ansvarligSoeker.navn.title",
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            ansvarligSoekerTelefonnummer: {
+                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.ansvarligSoeker.telefonnummer.title",
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            ansvarligSoekerEpost: {
+                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.ansvarligSoeker.epost.title",
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText || "resource.emptyFieldText.default"
+            },
             foretak: {
                 title: props?.resourceBindings?.foretak?.title || "resource.foretak.title",
                 emptyFieldText: props?.resourceBindings?.foretak?.emptyFieldText || "resource.emptyFieldText.default"

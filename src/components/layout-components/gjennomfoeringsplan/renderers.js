@@ -205,15 +205,18 @@ export function renderEiendomByggested(component) {
 }
 
 /**
- * Renders the "Ansvarlig Søker" (Responsible Applicant) component as a custom table part.
+ * Renders a custom element for displaying the "Ansvarlig Søker" (responsible applicant) part.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values for the component.
+ * @param {Object} [component.resourceValues] - The resource values associated with the component.
  * @param {Object} [component.resourceValues.data] - The data object containing "ansvarligSoeker".
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.ansvarligSoeker] - The bindings specific to "ansvarligSoeker".
+ * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for "ansvarligSoeker".
  * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" part.
- * @returns {HTMLElement} The custom element representing the "ansvarligSoeker" table part.
+ * @param {Object} [component.resourceBindings.ansvarligSoekerNavn] - The resource binding for "ansvarligSoekerNavn".
+ * @param {Object} [component.resourceBindings.ansvarligSoekerTelefonnummer] - The resource binding for "ansvarligSoekerTelefonnummer".
+ * @param {Object} [component.resourceBindings.ansvarligSoekerEpost] - The resource binding for "ansvarligSoekerEpost".
+ * @returns {HTMLElement} The custom element representing the "Ansvarlig Søker" part.
  */
 export function renderAnsvarligSoeker(component) {
     const data = component?.resourceValues?.data;
@@ -223,7 +226,19 @@ export function renderAnsvarligSoeker(component) {
         size: "h3",
         partType: "ansvarligSoeker",
         resourceBindings: {
-            title: component.resourceBindings?.ansvarligSoeker?.title
+            title: component.resourceBindings?.ansvarligSoeker?.title,
+            navn: {
+                title: component.resourceBindings?.ansvarligSoekerNavn?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText
+            },
+            telefonnummer: {
+                title: component.resourceBindings?.ansvarligSoekerTelefonnummer?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText
+            },
+            epost: {
+                title: component.resourceBindings?.ansvarligSoekerEpost?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText
+            }
         },
         resourceValues: {
             data: data?.ansvarligSoeker
