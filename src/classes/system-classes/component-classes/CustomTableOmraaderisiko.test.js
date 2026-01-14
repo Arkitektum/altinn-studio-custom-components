@@ -178,8 +178,8 @@ describe("CustomTableOmraaderisiko", () => {
             const result = instance.getResourceBindings({});
             expect(result.risikotype.title).toContain("risikotype.title");
             expect(result.sikkerhetsklasse.title).toContain("sikkerhetsklasse.title");
-            expect(result.omraadeRisiko.title).toContain("omraadeRisiko.title");
-            expect(result.omraadeRisiko.emptyFieldText).toContain("emptyFieldText.default");
+            expect(result.omraaderisiko.title).toContain("resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title");
+            expect(result.omraaderisiko.emptyFieldText).toContain("emptyFieldText.default");
         });
 
         it("should use custom resourceBindings if provided", () => {
@@ -197,23 +197,23 @@ describe("CustomTableOmraaderisiko", () => {
             expect(result.risikotype.emptyFieldText).toBe("customEmpty");
             expect(result.sikkerhetsklasse.title).toBe("customSikkerhetsklasse");
             expect(result.sikkerhetsklasse.emptyFieldText).toBe("customEmpty2");
-            expect(result.omraadeRisiko.title).toBe("customOmraadeRisiko");
-            expect(result.omraadeRisiko.emptyFieldText).toBe("customOmraadeEmpty");
+            expect(result.omraaderisiko.title).toBe("customOmraadeRisiko");
+            expect(result.omraaderisiko.emptyFieldText).toBe("customOmraadeEmpty");
         });
 
-        it("should omit omraadeRisiko.title if hideTitle is true", () => {
+        it("should omit omraaderisiko.title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomTableOmraaderisiko({});
             const result = instance.getResourceBindings(props);
-            expect(result.omraadeRisiko).toBeDefined();
-            expect(result.omraadeRisiko.title).toBeUndefined();
+            expect(result.omraaderisiko).toBeDefined();
+            expect(result.omraaderisiko.title).toBeUndefined();
         });
 
-        it("should omit omraadeRisiko.emptyFieldText if hideIfEmpty is true", () => {
+        it("should omit omraaderisiko.emptyFieldText if hideIfEmpty is true", () => {
             const props = { hideIfEmpty: true };
             const instance = new CustomTableOmraaderisiko({});
             const result = instance.getResourceBindings(props);
-            expect(result.omraadeRisiko.emptyFieldText).toBeUndefined();
+            expect(result.omraaderisiko.emptyFieldText).toBeUndefined();
         });
     });
 });
