@@ -519,3 +519,21 @@ export function appendChildren(parent, children) {
     }
     return parent;
 }
+
+/**
+ * Adjusts an HTML header size (e.g., "h2") by a given offset, ensuring the result stays within valid header levels (h1-h6).
+ *
+ * @param {string} initialHeaderSize - The initial header size as a string (e.g., "h2").
+ * @param {number} offset - The amount to adjust the header size by (positive or negative).
+ * @returns {string} The adjusted header size as a string (e.g., "h3"), clamped between "h1" and "h6".
+ */
+export function getAdjustedHeaderSize(initialHeaderSize, offset) {
+    const initialNumber = Number.parseInt(initialHeaderSize.toLowerCase().replace("h", ""), 10);
+    let adjustedNumber = initialNumber + offset;
+    if (adjustedNumber < 1) {
+        adjustedNumber = 1;
+    } else if (adjustedNumber > 6) {
+        adjustedNumber = 6;
+    }
+    return `h${adjustedNumber}`;
+}
