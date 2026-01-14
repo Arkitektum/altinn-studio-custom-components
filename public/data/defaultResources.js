@@ -480,10 +480,6 @@ const defaultResources = [
         value: "Arbeidene vil bli utført innen"
     },
     {
-        id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.header",
-        value: "Krav til byggegrunn"
-    },
-    {
         id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
         value: "Naturpåkjenning"
     },
@@ -493,6 +489,10 @@ const defaultResources = [
     },
     {
         id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
+        value: "Krav til byggegrunn"
+    },
+    {
+        id: "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description",
         value: "Oversikt over områderisikoer der byggverket skal plasseres"
     },
     {
