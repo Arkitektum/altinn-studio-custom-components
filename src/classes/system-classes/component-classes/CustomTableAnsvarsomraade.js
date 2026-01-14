@@ -56,7 +56,7 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
     /**
      * Generates a list of Ansvarsomraade instances from the provided data.
      *
-     * @param {*} data - The input data, expected to be an array of omraaderisiko objects.
+     * @param {*} data - The input data, expected to be an array of ansvarsomraade objects.
      * @param {*} resourceBindings - Resource bindings to be passed to each Ansvarsomraade instance.
      * @returns {Ansvarsomraade[]|undefined} An array of Ansvarsomraade instances if data is valid, otherwise undefined.
      */
@@ -64,7 +64,7 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
         if (!hasValue(data)) {
             return undefined;
         }
-        return Array.isArray(data) ? data.map((omraaderisiko) => new Ansvarsomraade(omraaderisiko, resourceBindings)) : [];
+        return Array.isArray(data) ? data.map((ansvarsomraade) => new Ansvarsomraade(ansvarsomraade, resourceBindings)) : [];
     }
 
     /**
