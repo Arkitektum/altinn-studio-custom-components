@@ -2,7 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -64,8 +64,7 @@ export default class CustomGrouplistEttersending extends CustomComponent {
      * @returns {Array|string} - The validation messages indicating missing text resources.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

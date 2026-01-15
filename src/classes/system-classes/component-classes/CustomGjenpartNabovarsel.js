@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 
 // Global functions
-import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -72,8 +72,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

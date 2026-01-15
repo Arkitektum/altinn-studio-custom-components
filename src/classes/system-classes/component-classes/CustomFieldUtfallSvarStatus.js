@@ -7,7 +7,6 @@ import {
     getComponentDataValue,
     getComponentResourceValue,
     getTextResourceFromResourceBinding,
-    getTextResources,
     getTextResourcesFromResourceBindings,
     hasValue,
     validateTexts
@@ -66,8 +65,7 @@ export default class CustomFieldUtfallSvarStatus extends CustomComponent {
      * @returns {Array|string|boolean} The result of the missing text resources check, which may be an array of messages, a string, or a boolean depending on implementation.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

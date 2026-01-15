@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
 
 /**
@@ -81,8 +81,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
      * @returns {Array|string|boolean} The result of the validation, which may be an array of messages, a string, or a boolean indicating missing resources.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

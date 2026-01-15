@@ -65,8 +65,7 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

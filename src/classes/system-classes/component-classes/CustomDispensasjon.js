@@ -75,8 +75,7 @@ export default class CustomDispensasjon extends CustomComponent {
      * @returns {Array|string|boolean} The result of the hasMissingTextResources function, indicating missing text resources.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**
