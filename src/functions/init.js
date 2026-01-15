@@ -1,21 +1,18 @@
 // Global functions
-import { hasValue } from "./helpers.js";
+import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.js";
 
 /**
- * Initializes custom components by setting up event listeners and fetching necessary data.
+ * Initializes custom components by fetching user profile and text resources.
  *
- * This function is triggered on the `window`'s `load` event. It performs the following:
- * - Extracts the organization (`org`) and application (`app`) identifiers from the URL.
- * - Fetches the user's profile data to determine their language preference.
- * - Fetches text resources for the user's selected language or falls back to a default language if necessary.
- * - Stores the selected language and text resources in the `window` object for global access.
+ * This function listens for the window "load" event, then:
+ * - Parses the current URL to determine the origin, organization, and application.
+ * - Fetches the user's profile to determine their language preference.
+ * - Fetches text resources and default text resources based on the user's language.
+ * - Sets global variables for selected language and text resources.
  *
  * @async
- * @function initCustomComponents
- * @throws {Error} Logs errors to the console if:
- * - The origin, organization, or application cannot be determined from the URL.
- * - The user's language preference cannot be determined.
- * - Text resources for both the selected and fallback languages cannot be retrieved.
+ * @function
+ * @returns {void}
  */
 export default function initCustomComponents() {
     globalThis.addEventListener("load", async () => {
@@ -38,20 +35,7 @@ export default function initCustomComponents() {
         const selectedLanguage = userProfileData?.profileSettingPreference?.language;
         const fallbackLanguage = "nb";
         globalThis.selectedLanguage = selectedLanguage;
-        const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${selectedLanguage}`;
-        const textResourcesData = await fetch(textResourcesApiUrl).then((response) => response.json());
-        if (hasValue(textResourcesData)) {
-            globalThis.textResources = textResourcesData;
-        } else {
-            console.error("Could not retrieve text resources for the selected language.");
-            const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
-            const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) => response.json());
-            if (hasValue(fallbackTextResourcesData)) {
-                globalThis.textResources = fallbackTextResourcesData;
-            } else {
-                console.error("Could not retrieve text resources for the fallback language.");
-                return;
-            }
-        }
+        globalThis.textResources = await fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage);
+        globalThis.defaultTextResources = await fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage);
     });
 }
