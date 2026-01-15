@@ -272,6 +272,15 @@ export function getTextResources() {
 }
 
 /**
+ * Retrieves the default text resources from the global scope.
+ *
+ * @returns {Array} An array of default text resources if available on `globalThis.defaultTextResources`, otherwise an empty array.
+ */
+export function getDefaultTextResources() {
+    return typeof globalThis !== "undefined" && globalThis.defaultTextResources ? globalThis.defaultTextResources : [];
+}
+
+/**
  * Validates the presence of text resources for the given keys in the texts object.
  * If a text resource is missing, it checks for a fallback text and logs a warning.
  *
