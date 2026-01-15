@@ -117,7 +117,7 @@ const defaultResources = [
     },
     {
         id: "resource.ansvarligSoeker.title",
-        value: "Ansvarlig søker for tiltaket (for tiltak etter pbl § 20-1)"
+        value: "Søker"
     },
     {
         id: "resource.ansvarsfordeling.title",
