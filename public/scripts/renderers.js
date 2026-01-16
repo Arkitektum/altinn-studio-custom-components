@@ -208,48 +208,6 @@ export function renderSidebar() {
         };
         contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
 
-        // Add default values for missing resources
-        if (validationResults.missingResourceBindings?.length) {
-            const addDefaultValuesForMissingResourcesButtonElement = document.createElement("button");
-            addDefaultValuesForMissingResourcesButtonElement.classList.add("add-default-values-for-missing-resources-button");
-            addDefaultValuesForMissingResourcesButtonElement.innerHTML = "Add default values";
-            addDefaultValuesForMissingResourcesButtonElement.onclick = function () {
-                const currentTextResourcesValue = getTextResources();
-                const missingResourceIds = validationResults.missingResourceBindings;
-                const newResources = [];
-                const stillMissingResourceIds = [];
-
-                missingResourceIds.forEach((resId) => {
-                    const defaultValue = getDefaultValueForResource(resId);
-                    if (defaultValue === null) {
-                        stillMissingResourceIds.push(resId);
-                    } else {
-                        newResources.push({
-                            id: resId,
-                            value: defaultValue
-                        });
-                    }
-                });
-
-                const updatedTextResourcesValue = {
-                    ...currentTextResourcesValue,
-                    resources: [...currentTextResourcesValue.resources, ...newResources]
-                };
-                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-                addValueToLocalStorage("textResources", updatedResourcesJson);
-                const textResourcesInputElement = getCodeInputElementForTextResources();
-                updateDataInputElement(textResourcesInputElement);
-                setActiveSidebarElement(textResourcesItemId);
-                closeValidationDialog();
-                renderResults();
-                renderTextResourceStatusIndicators({
-                    ...validationResults,
-                    missingResourceBindings: stillMissingResourceIds
-                });
-            };
-            contentElement.appendChild(addDefaultValuesForMissingResourcesButtonElement);
-        }
-
         if (validationResults?.duplicateTextResources?.length) {
             const removeDuplicateResourcesButtonElement = document.createElement("button");
             removeDuplicateResourcesButtonElement.classList.add("remove-duplicate-resources-button");
