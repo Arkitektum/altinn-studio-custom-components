@@ -82,44 +82,12 @@
             "value": "Dokumentet er en forhåndsvisning"
         },
         {
-            "id": "resource.ansvarligSoeker.adresse.title",
-            "value": "Adresse"
-        },
-        {
-            "id": "resource.ansvarligSoeker.epost.title",
-            "value": "E-postadresse"
-        },
-        {
-            "id": "resource.ansvarligSoeker.header",
-            "value": "Søker"
-        },
-        {
-            "id": "resource.ansvarligSoeker.kontaktperson.epost.title",
-            "value": "E-postadresse"
-        },
-        {
-            "id": "resource.ansvarligSoeker.kontaktperson.header",
-            "value": "Kontaktperson for søker"
-        },
-        {
-            "id": "resource.ansvarligSoeker.kontaktperson.navn.title",
-            "value": "Kontaktperson"
-        },
-        {
-            "id": "resource.ansvarligSoeker.kontaktperson.telefonnummer.title",
-            "value": "Telefonnummer"
-        },
-        {
-            "id": "resource.ansvarligSoeker.navn.title",
+            "id": "resource.ansvarligSoeker.title",
             "value": "Ansvarlig søker"
         },
         {
-            "id": "resource.ansvarligSoeker.telefonnummer.title",
-            "value": "Telefonnummer"
-        },
-        {
-            "id": "resource.ansvarligSoeker.title",
-            "value": "Søker"
+            "id": "resource.ansvarligSoeker.kontaktperson.title",
+            "value": "Kontaktperson for søker"
         },
         {
             "id": "resource.ansvarsfordeling.title",
@@ -282,24 +250,8 @@
             "value": "Eiendom/byggested"
         },
         {
-            "id": "resource.eier.adresse.title",
-            "value": "Adresse"
-        },
-        {
-            "id": "resource.eier.epost.title",
-            "value": "E-postadresse"
-        },
-        {
-            "id": "resource.eier.header",
+            "id": "resource.eier.title",
             "value": "Eier/fester av naboeiendom"
-        },
-        {
-            "id": "resource.eier.navn.title",
-            "value": "Navn"
-        },
-        {
-            "id": "resource.eier.telefonnummer.title",
-            "value": "Telefonnummer"
         },
         {
             "id": "resource.emptyFieldText.default",
@@ -334,20 +286,8 @@
             "value": "Vedlegg"
         },
         {
-            "id": "resource.fakturamottaker.adresse.title",
-            "value": "Adresse"
-        },
-        {
-            "id": "resource.fakturamottaker.header",
+            "id": "resource.fakturamottaker.title",
             "value": "Fakturaadresse for tiltakshaver"
-        },
-        {
-            "id": "resource.fakturamottaker.navn.title",
-            "value": "Navn"
-        },
-        {
-            "id": "resource.fakturamottaker.organisasjonsnummer.title",
-            "value": "Organisasjonsnummer"
         },
         {
             "id": "resource.falseText.default",
@@ -436,18 +376,6 @@
         {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
-        },
-        {
-            "id": "resource.kontaktpersonForNabovarselet.epost.title",
-            "value": "E-postadresse"
-        },
-        {
-            "id": "resource.kontaktpersonForNabovarselet.navn.title",
-            "value": "Kontaktperson"
-        },
-        {
-            "id": "resource.kontaktpersonForNabovarselet.telefonnummer.title",
-            "value": "Telefonnummer"
         },
         {
             "id": "resource.kontaktpersonForNabovarselet.title",
@@ -572,6 +500,10 @@
         {
             "id": "resource.part.navn.title",
             "value": "Navn"
+        },
+        {
+            "id": "resource.part.organisasjonsnummer.title",
+            "value": "Organisasjonsnummer"
         },
         {
             "id": "resource.part.telefonnummer.title",
@@ -990,48 +922,16 @@
             "value": "Vertikalnivå"
         },
         {
-            "id": "resource.tiltakshaver.adresse.title",
-            "value": "Adresse"
-        },
-        {
-            "id": "resource.tiltakshaver.epost.title",
-            "value": "E-postadresse"
-        },
-        {
-            "id": "resource.tiltakshaver.header",
-            "value": "Tiltakshaver"
-        },
-        {
-            "id": "resource.tiltakshaver.kontaktperson.epost.title",
-            "value": "E-postadresse"
-        },
-        {
-            "id": "resource.tiltakshaver.kontaktperson.header",
+            "id": "resource.tiltakshaver.kontaktperson.title",
             "value": "Kontaktperson for tiltakshaver"
         },
         {
-            "id": "resource.tiltakshaver.kontaktperson.navn.title",
-            "value": "Kontaktperson"
-        },
-        {
-            "id": "resource.tiltakshaver.kontaktperson.telefonnummer.title",
-            "value": "Telefonnummer"
-        },
-        {
-            "id": "resource.tiltakshaver.navn.title",
+            "id": "resource.tiltakshaver.title",
             "value": "Tiltakshaver"
         },
         {
-            "id": "resource.tiltakshaver.telefonnummer.title",
-            "value": "Telefonnummer"
-        },
-        {
-            "id": "resource.tiltakshaver.title",
-            "value": "Tiltakshaver (bare for tiltak uten ansvarlig søker pbl § 20-4)"
-        },
-        {
             "id": "resource.tiltaksklasse.title",
-            "value": "Titaksklasse"
+            "value": "Tiltaksklasse"
         },
         {
             "id": "resource.tiltakstyper.type.header",
