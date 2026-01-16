@@ -207,7 +207,7 @@ describe("CustomTablePart", () => {
             expect(result.navn.title).toBe("resource.part.navn.title");
             expect(result.telefonnummer.title).toBe("resource.part.telefonnummer.title");
             expect(result.epost.title).toBe("resource.part.epost.title");
-            expect(result.part.title).toBe("resource.tiltakshaver.header");
+            expect(result.part.title).toBe("resource.tiltakshaver.title");
             expect(result.part.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
 
