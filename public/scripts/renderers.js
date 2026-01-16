@@ -10,8 +10,7 @@ import {
     getCodeInputElementForLayoutCode,
     getCodeInputElementForTextResources,
     getDataForComponent,
-    getDataModelListElements,
-    getDefaultValueForResource
+    getDataModelListElements
 } from "./getters.js";
 import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
@@ -75,6 +74,7 @@ export function renderResults() {
  * @param {Object} validationResults - The validation results for text resources.
  * @param {Array} validationResults.missingResourceBindings - List of missing resource bindings.
  * @param {Array} validationResults.unusedResourceBindings - List of unused resource bindings.
+ * @param {Array} validationResults.literalValues - List of literal values.
  * @param {Array} validationResults.emptyTextResources - List of empty text resources.
  */
 export function renderTextResourceStatusIndicators(validationResults) {
@@ -82,7 +82,7 @@ export function renderTextResourceStatusIndicators(validationResults) {
     statusIndicatorsContainerElement.innerHTML = "";
 
     const resourceErrorsCount = validationResults.missingResourceBindings.length + validationResults.duplicateTextResources.length;
-    const resourceWarningsCount = validationResults.unusedResourceBindings.length;
+    const resourceWarningsCount = validationResults.unusedResourceBindings.length + validationResults.literalValues.length;
     const resourceInfoCount = validationResults.emptyTextResources.length;
 
     const resourceErrorsIndicator = document.createElement("span");

@@ -130,26 +130,35 @@ function getDuplicateTextResources(textResources) {
     return duplicateResourceBindings;
 }
 
+
 /**
- * Returns an array of resource binding IDs that are missing from the provided text resources.
+ * Identifies missing resource bindings and literal values from a list of resource binding IDs.
  *
- * @param {string[]} allResourceBindings - An array of all resource binding IDs to check.
- * @param {{ resources: { id: string }[] }} textResources - An object containing an array of text resources with their IDs.
- * @param {{ resources: { id: string }[] }} defaultTextResources - An object containing an array of default text resources with their IDs.
- * @returns {string[]} An array of resource binding IDs that are not found in either the provided or default text resources.
+ * @param {string[]} allResourceBindings - Array of all resource binding IDs to check.
+ * @param {Object} textResources - Object containing text resources, expected to have a `resources` array with `id` properties.
+ * @param {Object} defaultTextResources - Object containing default text resources, expected to have a `resources` array with `id` properties.
+ * @returns {{ missingResourceBindings: string[], literalValues: string[] }} 
+ *   An object containing:
+ *     - missingResourceBindings: IDs not found in either textResources or defaultTextResources and not literal values.
+ *     - literalValues: IDs containing spaces, considered as literal values.
  */
 function getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources) {
     const missingResourceBindings = [];
+    const literalValues = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
     const defaultTextResourceIds = defaultTextResources?.resources?.map((res) => res.id) || [];
     // Combine text resource IDs from both provided and default text resources
     Array.prototype.push.apply(textResourceIds, defaultTextResourceIds);
     for (const resId of allResourceBindings) {
         if (resId.length && !textResourceIds.includes(resId)) {
+            if (resId.includes(" ")) {
+                literalValues.push(resId);
+                continue;
+            }
             missingResourceBindings.push(resId);
         }
     }
-    return missingResourceBindings;
+    return { missingResourceBindings, literalValues };
 }
 
 /**
@@ -213,12 +222,13 @@ export function validateResources() {
         }
     }
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
-    const missingResourceBindings = getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources);
+    const { missingResourceBindings, literalValues } = getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources);
     const duplicateTextResources = getDuplicateTextResources(textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
     const validationResults = {
         unusedResourceBindings,
         missingResourceBindings,
+        literalValues,
         duplicateTextResources,
         emptyTextResources
     };
@@ -232,6 +242,7 @@ export function validateResources() {
  * @param {string[]} validationResults.missingResourceBindings - List of resource IDs that are missing.
  * @param {string[]} validationResults.duplicateTextResources - List of resource IDs that are duplicated.
  * @param {string[]} validationResults.unusedResourceBindings - List of resource IDs that are unused.
+ * @param {string[]} validationResults.literalValues - List of resource IDs that are literal values.
  * @param {string[]} validationResults.emptyTextResources - List of resource IDs that are empty.
  * @returns {ValidationMessages} An instance of ValidationMessages containing error, warning, and info messages.
  */
@@ -246,7 +257,8 @@ export function renderValidationMessages(validationResults) {
                 return `Missing resource: ${resId}`;
             })
             .concat(validationResults.duplicateTextResources.map((resId) => `Duplicate resource: ${resId}`)),
-        warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`),
+        warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`)
+            .concat(validationResults.literalValues.map((resId) => `Literal value: ${resId}`)),
         info: validationResults.emptyTextResources.map((resId) => `Empty resource: ${resId}`)
     });
     return validationMessages;
