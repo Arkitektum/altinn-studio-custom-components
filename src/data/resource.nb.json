@@ -6,88 +6,16 @@
             "value": ""
         },
         {
-            "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
-            "value": "Type tiltak"
-        },
-        {
-            "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal",
-            "value": "Beskrivelse av planlagt formål"
-        },
-        {
-            "id": "resource.varsler-herved.header",
-            "value": "Vi varsler herved om"
-        },
-        {
-            "id": "resource.hvaSkjer.header",
-            "value": "Hva skjer med merknadene dine?"
-        },
-        {
-            "id": "resource.hvaSkjer.paragraph",
-            "value": "Vi som har sendt deg nabovarselet, skal sende inn merknadene til kommunen sammen med byggesøknaden. Vi må beskrive hvordan merknadene er vurdert, og forklare hva som eventuelt er gjort for å ta hensyn til disse. Kommunen vurderer om merknadene fra deg og andre naboer påvirker tiltaket/byggeplanene."
-        },
-        {
-            "id": "resource.hvaSkjer2.paragraph",
-            "value": "Vi kan også velge å endre byggeprosjektet på bakgrunn av merknadene. Dette kan føre til at det blir nødvendig å sende deg et nytt nabovarsel."
-        },
-        {
-            "id": "resource.bestemmelsene.header",
-            "value": "Disse bestemmelsene regulerer eiendommen"
-        },
-        {
-            "id": "resource.kontaktpersonForNabovarselet.header",
-            "value": "Har du spørsmål til nabovarselet?"
-        },
-        {
-            "id": "resource.merknaderNabovarsel.paragraph2",
-            "value": "Merknader til nabovarselet kan leveres via Altinn eller sendes til søker:"
-        },
-        {
-            "id": "resource.merknaderNabovarsel.header",
-            "value": "Har du merknader til nabovarselet?"
-        },
-        {
-            "id": "resource.dispensasjoner.count.title",
-            "value": "Antall dispensasjonssøknader"
-        },
-        {
-            "id": "resource.kontaktpersonForNabovarselet.paragraph",
-            "value": "Spørsmål om innholdet i nabovarselet kan rettes til:"
-        },
-        {
-            "id": "resource.dispensasjoner.header",
-            "value": "Oversikt over omsøkte dispensasjoner"
-        },
-        {
-            "id": "resource.metadata.prosjektnavn",
-            "value": "Prosjektnavn"
-        },
-        {
-            "id": "resource.soeknadensHjemmeside.header",
-            "value": "Se også vår hjemmeside"
-        },
-        {
-            "id": "resource.bygge-endre-rive.header",
-            "value": "Her skal vi bygge, rive eller endre"
-        },
-        {
-            "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal",
-            "value": "Beskrivelse av tidligere formål"
-        },
-        {
-            "id": "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
-            "value": "Formål med tiltaket"
-        },
-        {
             "id": "pdfPreviewText",
             "value": "Dokumentet er en forhåndsvisning"
         },
         {
-            "id": "resource.ansvarligSoeker.title",
-            "value": "Ansvarlig søker"
-        },
-        {
             "id": "resource.ansvarligSoeker.kontaktperson.title",
             "value": "Kontaktperson for søker"
+        },
+        {
+            "id": "resource.ansvarligSoeker.title",
+            "value": "Ansvarlig søker"
         },
         {
             "id": "resource.ansvarsfordeling.title",
@@ -134,6 +62,14 @@
             "value": "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?"
         },
         {
+            "id": "resource.bestemmelsene.header",
+            "value": "Disse bestemmelsene regulerer eiendommen"
+        },
+        {
+            "id": "resource.bygge-endre-rive.header",
+            "value": "Her skal vi bygge, rive eller endre"
+        },
+        {
             "id": "resource.datoFerdigattest.title",
             "value": "Dato for søknad om ferdigattest"
         },
@@ -172,6 +108,14 @@
         {
             "id": "resource.dispensasjonBeskrivelse.beskrivelse.title",
             "value": "Beskrivelse av tiltak"
+        },
+        {
+            "id": "resource.dispensasjoner.count.title",
+            "value": "Antall dispensasjonssøknader"
+        },
+        {
+            "id": "resource.dispensasjoner.header",
+            "value": "Oversikt over omsøkte dispensasjoner"
         },
         {
             "id": "resource.dispensasjonFra.bestemmelserType.title",
@@ -370,12 +314,32 @@
             "value": "Gjenstående arbeider frem mot ferdigattest"
         },
         {
+            "id": "resource.hvaSkjer.header",
+            "value": "Hva skjer med merknadene dine?"
+        },
+        {
+            "id": "resource.hvaSkjer.paragraph",
+            "value": "Vi som har sendt deg nabovarselet, skal sende inn merknadene til kommunen sammen med byggesøknaden. Vi må beskrive hvordan merknadene er vurdert, og forklare hva som eventuelt er gjort for å ta hensyn til disse. Kommunen vurderer om merknadene fra deg og andre naboer påvirker tiltaket/byggeplanene."
+        },
+        {
+            "id": "resource.hvaSkjer2.paragraph",
+            "value": "Vi kan også velge å endre byggeprosjektet på bakgrunn av merknadene. Dette kan føre til at det blir nødvendig å sende deg et nytt nabovarsel."
+        },
+        {
             "id": "resource.innledning",
             "value": "Etter plan- og bygningsloven § 20-3, jf. § 20-1"
         },
         {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
+        },
+        {
+            "id": "resource.kontaktpersonForNabovarselet.header",
+            "value": "Har du spørsmål til nabovarselet?"
+        },
+        {
+            "id": "resource.kontaktpersonForNabovarselet.paragraph",
+            "value": "Spørsmål om innholdet i nabovarselet kan rettes til:"
         },
         {
             "id": "resource.kontaktpersonForNabovarselet.title",
@@ -410,6 +374,10 @@
             "value": "Arbeidene vil bli utført innen"
         },
         {
+            "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description",
+            "value": "Oversikt over områderisikoer der byggverket skal plasseres"
+        },
+        {
             "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
             "value": "Naturpåkjenning"
         },
@@ -422,8 +390,12 @@
             "value": "Krav til byggegrunn"
         },
         {
-            "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description",
-            "value": "Oversikt over områderisikoer der byggverket skal plasseres"
+            "id": "resource.merknaderNabovarsel.header",
+            "value": "Har du merknader til nabovarselet?"
+        },
+        {
+            "id": "resource.merknaderNabovarsel.paragraph2",
+            "value": "Merknader til nabovarselet kan leveres via Altinn eller sendes til søker:"
         },
         {
             "id": "resource.merknaderSendesTil.title",
@@ -436,6 +408,10 @@
         {
             "id": "resource.metadata.prosjekt.title",
             "value": "Prosjekt"
+        },
+        {
+            "id": "resource.metadata.prosjektnavn",
+            "value": "Prosjektnavn"
         },
         {
             "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText",
@@ -830,12 +806,24 @@
             "value": "Søknaden gjelder"
         },
         {
+            "id": "resource.soeknadensHjemmeside.header",
+            "value": "Se også vår hjemmeside"
+        },
+        {
             "id": "resource.soeknadGjelder.bruk.anleggstype.title",
             "value": "Anleggstype"
         },
         {
+            "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal",
+            "value": "Beskrivelse av planlagt formål"
+        },
+        {
             "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
             "value": "Beskrivelse av planlagt formål"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal",
+            "value": "Beskrivelse av tidligere formål"
         },
         {
             "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal.title",
@@ -852,6 +840,10 @@
         {
             "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
             "value": "Næringsgruppe"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
+            "value": "Formål med tiltaket"
         },
         {
             "id": "resource.soeknadGjelder.bruk.tiltaksformaal.title",
@@ -892,6 +884,10 @@
         {
             "id": "resource.soeknadGjelder.type.header",
             "value": "Tiltak/ byggeplaner"
+        },
+        {
+            "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
+            "value": "Type tiltak"
         },
         {
             "id": "resource.soeknadGjelder.type.kode.title",
@@ -1008,6 +1004,10 @@
         {
             "id": "resource.varmesystem.varmefordeling.kode.title",
             "value": "Varmefordeling"
+        },
+        {
+            "id": "resource.varsler-herved.header",
+            "value": "Vi varsler herved om"
         },
         {
             "id": "resource.varsling.antallMerknader.title",
