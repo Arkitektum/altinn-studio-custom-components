@@ -56,7 +56,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**
