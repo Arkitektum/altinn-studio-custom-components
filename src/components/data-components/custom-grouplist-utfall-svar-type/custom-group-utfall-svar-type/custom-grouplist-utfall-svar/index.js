@@ -27,10 +27,10 @@ export default customElements.define(
                     const dividerElement = createCustomElement("custom-divider");
                     this.appendChild(dividerElement);
                 }
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

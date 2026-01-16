@@ -20,15 +20,15 @@ export default customElements.define(
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
             } else {
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const summationArealdisponeringElement = renderSummationArealdisponering(component);
                 if (component?.resourceValues?.title && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
                 this.appendChild(summationArealdisponeringElement);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

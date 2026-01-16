@@ -25,10 +25,10 @@ export default customElements.define(
                     const ansvarsomraadeTypeElement = renderAnsvarsomraadeType(component, ansvarsomraadeTypeKey);
                     this.appendChild(ansvarsomraadeTypeElement);
                 }
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

@@ -21,11 +21,10 @@ export default customElements.define(
             } else {
                 const utfallSvarGroupListElement = renderUtfallSvarGroupList(component);
                 this.appendChild(utfallSvarGroupListElement);
-
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

@@ -38,10 +38,10 @@ export default customElements.define(
                 if (sjekklistekravListElement.lastChild) {
                     sjekklistekravListElement.removeChild(sjekklistekravListElement.lastChild);
                 }
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

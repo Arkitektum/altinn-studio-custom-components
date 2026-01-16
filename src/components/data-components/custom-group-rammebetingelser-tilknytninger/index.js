@@ -33,11 +33,11 @@ export default customElements.define(
                     this.appendChild(renderVannforsyningElement(component));
                     this.appendChild(renderAvloepElement(component));
                     this.appendChild(renderOvervannElement(component));
-                    const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                    if (feedbackListElement) {
-                        this.appendChild(feedbackListElement);
-                    }
                 }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

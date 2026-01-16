@@ -31,11 +31,11 @@ export default customElements.define(
                     this.appendChild(renderTilknytningstypeElement(component));
                     this.appendChild(renderKrysserAvloepAnnensGrunnElement(component));
                     this.appendChild(renderHarTinglystErklaeringElement(component));
-                    const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                    if (feedbackListElement) {
-                        this.appendChild(feedbackListElement);
-                    }
                 }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }
