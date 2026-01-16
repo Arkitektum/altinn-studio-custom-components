@@ -14,18 +14,18 @@ const partType = "tiltakshaver.kontaktperson";
 
 const defaultResourceBindings = {
     navn: {
-        title: `resource.${partType}.navn.title`,
+        title: `resource.part.navn.title`,
         emptyFieldText: "resource.emptyFieldText.default"
     },
     telefonnummer: {
-        title: `resource.${partType}.telefonnummer.title`,
+        title: `resource.part.telefonnummer.title`,
         emptyFieldText: "resource.emptyFieldText.default"
     },
     epost: {
-        title: `resource.${partType}.epost.title`,
+        title: `resource.part.epost.title`,
         emptyFieldText: "resource.emptyFieldText.default"
     },
-    title: `resource.${partType}.header`,
+    title: `resource.${partType}.title`,
     emptyFieldText: "resource.emptyFieldText.default"
 };
 export default { markup, defaultResourceBindings };

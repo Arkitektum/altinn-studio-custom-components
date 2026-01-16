@@ -10,8 +10,7 @@ import {
     getCodeInputElementForLayoutCode,
     getCodeInputElementForTextResources,
     getDataForComponent,
-    getDataModelListElements,
-    getDefaultValueForResource
+    getDataModelListElements
 } from "./getters.js";
 import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
@@ -75,6 +74,7 @@ export function renderResults() {
  * @param {Object} validationResults - The validation results for text resources.
  * @param {Array} validationResults.missingResourceBindings - List of missing resource bindings.
  * @param {Array} validationResults.unusedResourceBindings - List of unused resource bindings.
+ * @param {Array} validationResults.literalValues - List of literal values.
  * @param {Array} validationResults.emptyTextResources - List of empty text resources.
  */
 export function renderTextResourceStatusIndicators(validationResults) {
@@ -82,7 +82,7 @@ export function renderTextResourceStatusIndicators(validationResults) {
     statusIndicatorsContainerElement.innerHTML = "";
 
     const resourceErrorsCount = validationResults.missingResourceBindings.length + validationResults.duplicateTextResources.length;
-    const resourceWarningsCount = validationResults.unusedResourceBindings.length;
+    const resourceWarningsCount = validationResults.unusedResourceBindings.length + validationResults.literalValues.length;
     const resourceInfoCount = validationResults.emptyTextResources.length;
 
     const resourceErrorsIndicator = document.createElement("span");
@@ -207,48 +207,6 @@ export function renderSidebar() {
             renderTextResourceStatusIndicators(validationResults);
         };
         contentElement.appendChild(orderResourcesAlphabeticallyByIdButtonElement);
-
-        // Add default values for missing resources
-        if (validationResults.missingResourceBindings?.length) {
-            const addDefaultValuesForMissingResourcesButtonElement = document.createElement("button");
-            addDefaultValuesForMissingResourcesButtonElement.classList.add("add-default-values-for-missing-resources-button");
-            addDefaultValuesForMissingResourcesButtonElement.innerHTML = "Add default values";
-            addDefaultValuesForMissingResourcesButtonElement.onclick = function () {
-                const currentTextResourcesValue = getTextResources();
-                const missingResourceIds = validationResults.missingResourceBindings;
-                const newResources = [];
-                const stillMissingResourceIds = [];
-
-                missingResourceIds.forEach((resId) => {
-                    const defaultValue = getDefaultValueForResource(resId);
-                    if (defaultValue === null) {
-                        stillMissingResourceIds.push(resId);
-                    } else {
-                        newResources.push({
-                            id: resId,
-                            value: defaultValue
-                        });
-                    }
-                });
-
-                const updatedTextResourcesValue = {
-                    ...currentTextResourcesValue,
-                    resources: [...currentTextResourcesValue.resources, ...newResources]
-                };
-                const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-                addValueToLocalStorage("textResources", updatedResourcesJson);
-                const textResourcesInputElement = getCodeInputElementForTextResources();
-                updateDataInputElement(textResourcesInputElement);
-                setActiveSidebarElement(textResourcesItemId);
-                closeValidationDialog();
-                renderResults();
-                renderTextResourceStatusIndicators({
-                    ...validationResults,
-                    missingResourceBindings: stillMissingResourceIds
-                });
-            };
-            contentElement.appendChild(addDefaultValuesForMissingResourcesButtonElement);
-        }
 
         if (validationResults?.duplicateTextResources?.length) {
             const removeDuplicateResourcesButtonElement = document.createElement("button");

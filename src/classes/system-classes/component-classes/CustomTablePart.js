@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import Part from "../../data-classes/Part.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -74,8 +74,7 @@ export default class CustomTablePart extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**
@@ -155,21 +154,21 @@ export default class CustomTablePart extends CustomComponent {
         const partType = props?.partType || "tiltakshaver";
         const resourceBindings = {
             navn: {
-                title: props?.resourceBindings?.navn?.title || `resource.${partType}.navn.title`,
+                title: props?.resourceBindings?.navn?.title || `resource.part.navn.title`,
                 emptyFieldText: props?.resourceBindings?.navn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             telefonnummer: {
-                title: props?.resourceBindings?.telefonnummer?.title || `resource.${partType}.telefonnummer.title`,
+                title: props?.resourceBindings?.telefonnummer?.title || `resource.part.telefonnummer.title`,
                 emptyFieldText: props?.resourceBindings?.telefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             epost: {
-                title: props?.resourceBindings?.epost?.title || `resource.${partType}.epost.title`,
+                title: props?.resourceBindings?.epost?.title || `resource.part.epost.title`,
                 emptyFieldText: props?.resourceBindings?.epost?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.part = {
-                title: props?.resourceBindings?.title || `resource.${partType}.header`
+                title: props?.resourceBindings?.title || `resource.${partType}.title`
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

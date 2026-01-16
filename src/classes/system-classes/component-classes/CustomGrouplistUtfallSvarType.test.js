@@ -1,5 +1,5 @@
 import CustomGrouplistUtfallSvarType from "./CustomGrouplistUtfallSvarType";
-import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
@@ -73,15 +73,12 @@ describe("CustomGrouplistUtfallSvarType", () => {
     describe("getValidationMessages", () => {
         it("should call hasMissingTextResources with textResources and resourceBindings", () => {
             const instance = new CustomGrouplistUtfallSvarType({});
-            const textResources = { foo: "bar" };
             const resourceBindings = { title: "someTitle" };
-            getTextResources.mockReturnValue(textResources);
             hasMissingTextResources.mockReturnValue(["missing"]);
 
             const result = instance.getValidationMessages(resourceBindings);
 
-            expect(getTextResources).toHaveBeenCalled();
-            expect(hasMissingTextResources).toHaveBeenCalledWith(textResources, resourceBindings);
+            expect(hasMissingTextResources).toHaveBeenCalledWith(resourceBindings);
             expect(result).toEqual(["missing"]);
         });
     });

@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import Overvann from "../../data-classes/Overvann.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -65,8 +65,7 @@ export default class CustomGroupOvervann extends CustomComponent {
      * @returns {Array|string|boolean} - The result of checking for missing text resources, which may be an array of messages, a string, or a boolean depending on implementation.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

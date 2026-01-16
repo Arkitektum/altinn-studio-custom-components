@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
 
 // Global functions
-import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -72,8 +72,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**
@@ -120,15 +119,15 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
             },
             ansvarligSoekerNavn: {
-                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.ansvarligSoeker.navn.title",
+                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerTelefonnummer: {
-                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.ansvarligSoeker.telefonnummer.title",
+                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerEpost: {
-                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.ansvarligSoeker.epost.title",
+                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             foretak: {

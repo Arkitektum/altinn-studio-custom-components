@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import Eiendom from "../../data-classes/Eiendom.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -74,8 +74,7 @@ export default class CustomTableEiendom extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

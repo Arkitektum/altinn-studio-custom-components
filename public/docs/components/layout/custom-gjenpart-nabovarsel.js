@@ -90,15 +90,15 @@ const defaultResourceBindings = {
         emptyFieldText: "resource.emptyFieldText.default"
     },
     kontaktpersonForNabovarseletNavn: {
-        title: "resource.kontaktpersonForNabovarselet.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     kontaktpersonForNabovarseletTelefonnummer: {
-        title: "resource.kontaktpersonForNabovarselet.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     kontaktpersonForNabovarseletEpost: {
-        title: "resource.kontaktpersonForNabovarselet.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     merknaderSendesTil: {
@@ -108,30 +108,30 @@ const defaultResourceBindings = {
         title: "resource.ansvarligSoeker.title"
     },
     ansvarligSoekerNavn: {
-        title: "resource.ansvarligSoeker.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     ansvarligSoekerTelefonnummer: {
-        title: "resource.ansvarligSoeker.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     ansvarligSoekerEpost: {
-        title: "resource.ansvarligSoeker.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     tiltakshaver: {
         title: "resource.tiltakshaver.title"
     },
     tiltakshaverNavn: {
-        title: "resource.tiltakshaver.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     tiltakshaverTelefonnummer: {
-        title: "resource.tiltakshaver.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     tiltakshaverEpost: {
-        title: "resource.tiltakshaver.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonAdresse: {
@@ -163,22 +163,22 @@ const defaultResourceBindings = {
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eier: {
-        title: "resource.eier.header"
+        title: "resource.eier.title"
     },
     eierNavn: {
-        title: "resource.eier.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierTelefonnummer: {
-        title: "resource.eier.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierEpost: {
-        title: "resource.eier.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierAdresse: {
-        title: "resource.eier.adresse.title"
+        title: "resource.part.adresse.title"
     },
     responsNabovarselSendtVia: {
         title: "resource.respons.nabovarselSendtVia.title",

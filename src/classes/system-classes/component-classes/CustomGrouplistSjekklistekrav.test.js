@@ -137,14 +137,11 @@ describe("CustomGrouplistSjekklistekrav", () => {
     });
 
     it("getValidationMessages should call hasMissingTextResources", () => {
-        getTextResources.mockReturnValue(["a", "b"]);
         hasMissingTextResources.mockReturnValue(["missing"]);
         const props = {};
         const instance = new CustomGrouplistSjekklistekrav(props);
         const result = instance.getValidationMessages({ foo: "bar" });
-
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(["a", "b"], { foo: "bar" });
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
         expect(result).toEqual(["missing"]);
     });
 });

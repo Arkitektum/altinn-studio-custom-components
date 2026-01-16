@@ -177,7 +177,7 @@ describe("CustomSummationArealdisponering", () => {
             const instance = new CustomSummationArealdisponering({});
             const result = instance.getValidationMessages({ foo: "bar" });
             const calls = hasMissingTextResources.mock.calls;
-            expect(calls).toEqual(expect.arrayContaining([[undefined, { foo: "bar" }]]));
+            expect(calls).toEqual(expect.arrayContaining([[{ foo: "bar" }]]));
             expect(result).toBe(false);
         });
     });

@@ -74,8 +74,7 @@ describe("CustomGjennomfoeringsplan", () => {
         const instance = new CustomGjennomfoeringsplan({ formData: mockFormData });
         const bindings = { foo: "bar" };
         instance.getValidationMessages(bindings);
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith({ resource: "value" }, bindings);
+        expect(hasMissingTextResources).toHaveBeenCalledWith(bindings);
     });
 
     it("getResourceBindings should return default and overridden bindings", () => {

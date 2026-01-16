@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -56,8 +56,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
      * @returns {boolean} Returns true if there are missing text resources, otherwise false.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

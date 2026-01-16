@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
 
 /**
@@ -81,8 +81,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
      * @returns {Array|string|boolean} The result of the validation, which may be an array of messages, a string, or a boolean indicating missing resources.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**
@@ -171,22 +170,22 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                     props?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eier: {
-                title: props?.resourceBindings?.eier?.title || "resource.eier.header"
+                title: props?.resourceBindings?.eier?.title || "resource.eier.title"
             },
             eierNavn: {
-                title: props?.resourceBindings?.eierNavn?.title || "resource.eier.navn.title",
+                title: props?.resourceBindings?.eierNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
-                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.eier.telefonnummer.title",
+                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierEpost: {
-                title: props?.resourceBindings?.eierEpost?.title || "resource.eier.epost.title",
+                title: props?.resourceBindings?.eierEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.eier.adresse.title"
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.part.adresse.title"
             },
             responsNabovarselSendtVia: {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",

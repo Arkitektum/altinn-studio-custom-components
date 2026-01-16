@@ -1,5 +1,5 @@
 // Global functions
-import { getValueFromDataKey } from "../../src/functions/helpers.js";
+import { getValueFromDataKey, hasValue } from "../../src/functions/helpers.js";
 import { beautifyJson } from "./formatters.js";
 
 // Local functions
@@ -8,9 +8,6 @@ import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from 
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { validateResources } from "./validators.js";
-
-// Constants
-import defaultResources from "../data/defaultResources.js";
 
 /**
  * Retrieves data for a given component based on its data model bindings.
@@ -241,7 +238,7 @@ export function getCodeInputElementForTextResources() {
         const cleanedTextResourcesJson = beautifyJson(JSON.stringify(cleanedTextResources, null, 2));
         codeInputElement.value = cleanedTextResourcesJson;
         addValueToLocalStorage("textResources", cleanedTextResourcesJson);
-        window.textResources = JSON.parse(cleanedTextResourcesJson);
+        globalThis.textResources = JSON.parse(cleanedTextResourcesJson);
         renderResults();
 
         const validationResults = validateResources();
@@ -251,12 +248,32 @@ export function getCodeInputElementForTextResources() {
 }
 
 /**
- * Retrieves the default value for a given resource by its ID.
+ * Fetches the default text resources for a given language.
  *
- * @param {string} resourceId - The unique identifier of the resource.
- * @returns {*} The default value of the resource if found; otherwise, null.
+ * @async
+ * @param {string} language - The language code to fetch resources for (e.g., 'en', 'no').
+ * @returns {Promise<Object|null>} The default text resources object if available, otherwise null.
+ */
+export async function fetchDefaultTextResources(language) {
+    const defaultTextResourcesApiUrl = `data/resource.${language}.json`;
+    const defaultTextResourcesData = await fetch(defaultTextResourcesApiUrl).then((response) => response.json());
+    if (hasValue(defaultTextResourcesData)) {
+        return defaultTextResourcesData;
+    } else {
+        console.error("Could not retrieve default text resources for the selected language.");
+        return null;
+    }
+}
+
+/**
+ * Retrieves the default value for a given resource ID from the global defaultTextResources.
+ *
+ * @param {string} resourceId - The ID of the resource to look up.
+ * @returns {(string|null)} The default value of the resource if found, otherwise null.
  */
 export function getDefaultValueForResource(resourceId) {
+    const defaultResources =
+        globalThis.defaultTextResources && Array.isArray(globalThis.defaultTextResources.resources) ? globalThis.defaultTextResources.resources : [];
     const defaultResource = defaultResources.find((res) => res.id === resourceId);
     return defaultResource ? defaultResource.value : null;
 }

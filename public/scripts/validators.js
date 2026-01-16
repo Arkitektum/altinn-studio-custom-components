@@ -7,6 +7,7 @@ import { getLayoutCode, getTextResources } from "./localStorage.js";
 // Global functions
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
 import { getDataForComponent, getDefaultValueForResource } from "./getters.js";
+import { getDefaultTextResources } from "../../src/functions/helpers.js";
 
 /**
  * Adds resource bindings from a custom component's properties to a set of all resource bindings.
@@ -129,23 +130,35 @@ function getDuplicateTextResources(textResources) {
     return duplicateResourceBindings;
 }
 
+
 /**
- * Returns an array of resource binding IDs that are missing from the provided text resources.
+ * Identifies missing resource bindings and literal values from a list of resource binding IDs.
  *
- * @param {string[]} allResourceBindings - An array of all resource binding IDs to check.
- * @param {Object} textResources - An object containing text resources.
- * @param {Array<{ id: string }>} textResources.resources - An array of text resource objects, each with an `id` property.
- * @returns {string[]} An array of resource binding IDs that are not present in the text resources.
+ * @param {string[]} allResourceBindings - Array of all resource binding IDs to check.
+ * @param {Object} textResources - Object containing text resources, expected to have a `resources` array with `id` properties.
+ * @param {Object} defaultTextResources - Object containing default text resources, expected to have a `resources` array with `id` properties.
+ * @returns {{ missingResourceBindings: string[], literalValues: string[] }} 
+ *   An object containing:
+ *     - missingResourceBindings: IDs not found in either textResources or defaultTextResources and not literal values.
+ *     - literalValues: IDs containing spaces, considered as literal values.
  */
-function getMissingResourceBindings(allResourceBindings, textResources) {
+function getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources) {
     const missingResourceBindings = [];
+    const literalValues = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
+    const defaultTextResourceIds = defaultTextResources?.resources?.map((res) => res.id) || [];
+    // Combine text resource IDs from both provided and default text resources
+    Array.prototype.push.apply(textResourceIds, defaultTextResourceIds);
     for (const resId of allResourceBindings) {
         if (resId.length && !textResourceIds.includes(resId)) {
+            if (resId.includes(" ")) {
+                literalValues.push(resId);
+                continue;
+            }
             missingResourceBindings.push(resId);
         }
     }
-    return missingResourceBindings;
+    return { missingResourceBindings, literalValues };
 }
 
 /**
@@ -167,18 +180,17 @@ function getTextResourcesWithEmptyValue(textResources) {
 }
 
 /**
- * Validates the usage of text resources in the application layout.
+ * Validates resource bindings and text resources used in the application.
  *
- * This function checks for:
- * - Unused resource bindings that are defined but not used in the layout.
- * - Text resources that have empty values.
- * - Missing resource bindings that are used in the layout but not defined in the text resources.
+ * This function collects all resource bindings from both Altinn and custom components,
+ * compares them with the available text resources and default text resources,
+ * and returns validation results including unused, missing, duplicate, and empty text resources.
  *
- * It collects all resource bindings from both Altinn and custom components,
- * compares them with the available text resources, and returns the validation results.
- *
- * @returns {Object} An object containing arrays of unused resource bindings,
- *                   missing resource bindings, and text resources with empty values.
+ * @returns {Object} validationResults - An object containing the following properties:
+ *   @property {Array<string>} unusedResourceBindings - Resource bindings that are not used in text resources.
+ *   @property {Array<string>} missingResourceBindings - Resource bindings that are missing from text resources and default text resources.
+ *   @property {Array<string>} duplicateTextResources - Text resource keys that are duplicated.
+ *   @property {Array<string>} emptyTextResources - Text resource keys that have empty values.
  */
 export function validateResources() {
     const altinnResourceBindings = [
@@ -192,6 +204,7 @@ export function validateResources() {
     const allResourceBindings = new Set(altinnResourceBindings);
     const componentCode = getLayoutCode();
     const textResources = getTextResources();
+    const defaultTextResources = getDefaultTextResources();
     let components = [];
     if (Array.isArray(componentCode)) {
         components = componentCode;
@@ -209,12 +222,13 @@ export function validateResources() {
         }
     }
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
-    const missingResourceBindings = getMissingResourceBindings(allResourceBindings, textResources);
+    const { missingResourceBindings, literalValues } = getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources);
     const duplicateTextResources = getDuplicateTextResources(textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
     const validationResults = {
         unusedResourceBindings,
         missingResourceBindings,
+        literalValues,
         duplicateTextResources,
         emptyTextResources
     };
@@ -228,6 +242,7 @@ export function validateResources() {
  * @param {string[]} validationResults.missingResourceBindings - List of resource IDs that are missing.
  * @param {string[]} validationResults.duplicateTextResources - List of resource IDs that are duplicated.
  * @param {string[]} validationResults.unusedResourceBindings - List of resource IDs that are unused.
+ * @param {string[]} validationResults.literalValues - List of resource IDs that are literal values.
  * @param {string[]} validationResults.emptyTextResources - List of resource IDs that are empty.
  * @returns {ValidationMessages} An instance of ValidationMessages containing error, warning, and info messages.
  */
@@ -242,7 +257,8 @@ export function renderValidationMessages(validationResults) {
                 return `Missing resource: ${resId}`;
             })
             .concat(validationResults.duplicateTextResources.map((resId) => `Duplicate resource: ${resId}`)),
-        warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`),
+        warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`)
+            .concat(validationResults.literalValues.map((resId) => `Literal value: ${resId}`)),
         info: validationResults.emptyTextResources.map((resId) => `Empty resource: ${resId}`)
     });
     return validationMessages;

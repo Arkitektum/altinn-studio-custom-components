@@ -78,8 +78,7 @@ export default class CustomTableNaboGjenboerEiendom extends CustomComponent {
      * @returns {Array} An array of missing text resource messages, if any.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**
