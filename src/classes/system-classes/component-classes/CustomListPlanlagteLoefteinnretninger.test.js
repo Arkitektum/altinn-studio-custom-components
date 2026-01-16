@@ -156,7 +156,7 @@ describe("CustomListPlanlagteLoefteinnretninger", () => {
             hasMissingTextResources.mockReturnValue("missing");
             const instance = new CustomListPlanlagteLoefteinnretninger({});
             const result = instance.getValidationMessages({ foo: "bar" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith([], { foo: "bar" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
             expect(result).toBe("missing");
         });
     });

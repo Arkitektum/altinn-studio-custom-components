@@ -143,8 +143,7 @@ describe("CustomGroupLoefteinnretninger", () => {
         hasMissingTextResources.mockReturnValue(["missing"]);
         const instance = new CustomGroupLoefteinnretninger({});
         const result = instance.getValidationMessages({ foo: "bar" });
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith("resources", { foo: "bar" });
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
         expect(result).toEqual(["missing"]);
     });
 

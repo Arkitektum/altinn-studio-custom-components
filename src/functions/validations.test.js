@@ -1,3 +1,4 @@
+import { getDefaultTextResources } from "./helpers.js";
 import { hasValidationMessages, hasMissingTextResources, validateTableHeadersTextResourceBindings } from "./validations.js";
 
 // Mock ValidationMessages class
@@ -31,7 +32,8 @@ const mockTextResources = {
 };
 
 jest.mock("./helpers.js", () => ({
-    getTextResources: jest.fn(() => mockTextResources)
+    getTextResources: jest.fn(() => mockTextResources),
+    getDefaultTextResources: jest.fn(() => mockTextResources)
 }));
 
 describe("hasValidationMessages", () => {
@@ -67,7 +69,7 @@ describe("hasMissingTextResources", () => {
         const bindings = {
             comp1: { header: "header" }
         };
-        const result = hasMissingTextResources(textResources, bindings);
+        const result = hasMissingTextResources(bindings);
         expect(result.error).toHaveLength(0);
         expect(result.info).toHaveLength(0);
     });
@@ -76,7 +78,7 @@ describe("hasMissingTextResources", () => {
         const bindings = {
             comp1: { missing: "notfound" }
         };
-        const result = hasMissingTextResources(textResources, bindings);
+        const result = hasMissingTextResources(bindings);
         expect(result.error[0]).toMatch(/Missing text resource/);
         expect(result.info).toHaveLength(0);
     });
@@ -85,7 +87,7 @@ describe("hasMissingTextResources", () => {
         const bindings = {
             comp1: { desc: "desc" }
         };
-        const result = hasMissingTextResources(textResources, bindings);
+        const result = hasMissingTextResources(bindings);
         expect(result.error).toHaveLength(0);
         expect(result.info[0]).toMatch(/Empty text resource/);
     });
@@ -94,7 +96,7 @@ describe("hasMissingTextResources", () => {
         const bindings = {
             comp1: { header: "header", desc: "desc", missing: "notfound" }
         };
-        const result = hasMissingTextResources(textResources, bindings);
+        const result = hasMissingTextResources(bindings);
         expect(result.error).toHaveLength(1);
         expect(result.info).toHaveLength(1);
     });
@@ -105,7 +107,7 @@ describe("hasMissingTextResources", () => {
         };
         const customMessages = new ValidationMessages();
         customMessages.error.push("Existing error");
-        const result = hasMissingTextResources(textResources, bindings, customMessages);
+        const result = hasMissingTextResources(bindings, customMessages);
         expect(result.error).toContain("Existing error");
         expect(result.error.length).toBe(2);
     });

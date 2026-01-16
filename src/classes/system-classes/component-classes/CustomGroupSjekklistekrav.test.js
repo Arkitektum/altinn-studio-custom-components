@@ -118,8 +118,7 @@ describe("CustomGroupSjekklistekrav", () => {
         hasMissingTextResources.mockReturnValue(["msg"]);
         const instance = new CustomGroupSjekklistekrav({});
         const result = instance.getValidationMessages({ test: "value" });
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(["res1"], { test: "value" });
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ test: "value" });
         expect(result).toEqual(["msg"]);
     });
 

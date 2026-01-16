@@ -131,7 +131,6 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
         hasMissingTextResources.mockReturnValue(["missing"]);
         const instance = new CustomGroupNaboGjenboerEiendom({});
         expect(instance.getValidationMessages({})).toEqual(["missing"]);
-        expect(getTextResources).toHaveBeenCalled();
         expect(hasMissingTextResources).toHaveBeenCalled();
     });
 

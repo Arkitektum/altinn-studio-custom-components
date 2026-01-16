@@ -63,7 +63,7 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
      * @returns {Array|string} - The validation messages indicating missing text resources.
      */
     getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

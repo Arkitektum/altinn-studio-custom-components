@@ -75,8 +75,7 @@ describe("CustomGroupOvervann", () => {
     it("getValidationMessages should call hasMissingTextResources with textResources and resourceBindings", () => {
         const instance = new CustomGroupOvervann({});
         instance.getValidationMessages({ foo: "bar" });
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(expect.any(Object), { foo: "bar" });
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
     });
 
     it("getValueFromFormData should call getComponentDataValue and construct Overvann", () => {

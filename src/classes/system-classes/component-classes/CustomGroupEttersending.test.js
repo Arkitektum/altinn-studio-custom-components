@@ -75,8 +75,7 @@ describe("CustomGroupEttersending", () => {
             hasMissingTextResources.mockReturnValue(["missing"]);
             const instance = new CustomGroupEttersending({});
             const result = instance.getValidationMessages({ ettersending: {} });
-            expect(getTextResources).toHaveBeenCalled();
-            expect(hasMissingTextResources).toHaveBeenCalledWith(["resource1"], { ettersending: {} });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ ettersending: {} });
             expect(result).toEqual(["missing"]);
         });
     });

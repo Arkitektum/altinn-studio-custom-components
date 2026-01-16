@@ -83,8 +83,7 @@ describe("CustomGjenpartNabovarsel", () => {
         const instance = new CustomGjenpartNabovarsel({});
         const bindings = { foo: "bar" };
         instance.getValidationMessages(bindings);
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(expect.anything(), bindings);
+        expect(hasMissingTextResources).toHaveBeenCalledWith(bindings);
     });
 
     it("getResourceBindings should return default keys if no overrides", () => {

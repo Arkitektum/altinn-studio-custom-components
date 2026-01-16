@@ -98,7 +98,7 @@ describe("CustomFieldUtfallSvarStatus", () => {
             hasMissingTextResources.mockReturnValue(["msg"]);
             const instance = new CustomFieldUtfallSvarStatus({});
             const result = instance.getValidationMessages({ foo: "bar" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith({ a: 1 }, { foo: "bar" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
             expect(result).toEqual(["msg"]);
         });
     });

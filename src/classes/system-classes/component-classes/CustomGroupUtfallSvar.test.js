@@ -123,8 +123,7 @@ describe("CustomGroupUtfallSvar", () => {
         hasMissingTextResources.mockReturnValue("missing");
         const instance = new CustomGroupUtfallSvar({});
         const result = instance.getValidationMessages("bindings");
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith("resources", "bindings");
+        expect(hasMissingTextResources).toHaveBeenCalledWith("bindings");
         expect(result).toBe("missing");
     });
 

@@ -107,7 +107,6 @@ describe("CustomGrouplistEttersending", () => {
         const instance = new CustomGrouplistEttersending({});
         const result = instance.getValidationMessages({ ettersendinger: {} });
         expect(result).toEqual(["missing"]);
-        expect(getTextResources).toHaveBeenCalled();
         expect(hasMissingTextResources).toHaveBeenCalled();
     });
 
