@@ -174,18 +174,16 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarselet?.emptyFieldText || "resource.emptyFieldText.default"
             },
             kontaktpersonForNabovarseletNavn: {
-                title: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.title || "resource.kontaktpersonForNabovarselet.navn.title",
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             kontaktpersonForNabovarseletTelefonnummer: {
-                title:
-                    props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title ||
-                    "resource.kontaktpersonForNabovarselet.telefonnummer.title",
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText:
                     props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             kontaktpersonForNabovarseletEpost: {
-                title: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.title || "resource.kontaktpersonForNabovarselet.epost.title",
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             merknaderSendesTil: {
@@ -195,30 +193,30 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
             },
             ansvarligSoekerNavn: {
-                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.ansvarligSoeker.navn.title",
+                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerTelefonnummer: {
-                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.ansvarligSoeker.telefonnummer.title",
+                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerEpost: {
-                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.ansvarligSoeker.epost.title",
+                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaver: {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
             },
             tiltakshaverNavn: {
-                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.tiltakshaver.navn.title",
+                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverTelefonnummer: {
-                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.tiltakshaver.telefonnummer.title",
+                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverEpost: {
-                title: props?.resourceBindings?.tiltakshaverEpost?.title || "resource.tiltakshaver.epost.title",
+                title: props?.resourceBindings?.tiltakshaverEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonAdresse: {
@@ -275,22 +273,22 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                     props?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eier: {
-                title: props?.resourceBindings?.eier?.title || "resource.eier.header"
+                title: props?.resourceBindings?.eier?.title || "resource.eier.title"
             },
             eierNavn: {
-                title: props?.resourceBindings?.eierNavn?.title || "resource.eier.navn.title",
+                title: props?.resourceBindings?.eierNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
-                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.eier.telefonnummer.title",
+                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierEpost: {
-                title: props?.resourceBindings?.eierEpost?.title || "resource.eier.epost.title",
+                title: props?.resourceBindings?.eierEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.eier.adresse.title"
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.part.adresse.title"
             },
             responsNabovarselSendtVia: {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",

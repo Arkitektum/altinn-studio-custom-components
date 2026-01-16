@@ -168,7 +168,7 @@ export default class CustomTablePart extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.part = {
-                title: props?.resourceBindings?.title || `resource.${partType}.header`
+                title: props?.resourceBindings?.title || `resource.${partType}.title`
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
