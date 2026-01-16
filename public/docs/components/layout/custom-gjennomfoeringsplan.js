@@ -47,15 +47,15 @@ const defaultResourceBindings = {
         title: "resource.ansvarligSoeker.title"
     },
     ansvarligSoekerNavn: {
-        title: "resource.ansvarligSoeker.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     ansvarligSoekerTelefonnummer: {
-        title: "resource.ansvarligSoeker.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     ansvarligSoekerEpost: {
-        title: "resource.ansvarligSoeker.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     foretak: {
