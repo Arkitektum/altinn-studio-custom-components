@@ -1,9 +1,6 @@
 import CustomDispensasjon from "./CustomDispensasjon";
 
 // Mocks
-jest.mock("../CustomComponent.js", () => {
-    return class {};
-});
 jest.mock("../../layout-classes/Dispensasjon.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isDispensasjon: true }));
 });

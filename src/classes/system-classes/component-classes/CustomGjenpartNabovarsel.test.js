@@ -1,6 +1,6 @@
 import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel";
 import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
-import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 // Mocks for dependencies
@@ -91,7 +91,7 @@ describe("CustomGjenpartNabovarsel", () => {
         const result = instance.getResourceBindings({});
         expect(result.gjenpartNabovarsel.title).toBe("resource.gjenpartNabovarsel.title");
         expect(result.adresse.emptyFieldText).toBe("resource.eiendomByggested.eiendom.adresse.emptyFieldText");
-        expect(result.eierNavn.title).toBe("resource.eier.navn.title");
+        expect(result.eierNavn.title).toBe("resource.part.navn.title");
     });
 
     it("should set hasValidationMessages based on hasValidationMessages()", () => {
