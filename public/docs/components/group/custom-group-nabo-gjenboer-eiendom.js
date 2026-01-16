@@ -43,22 +43,22 @@ const defaultResourceBindings = {
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eier: {
-        title: "resource.eier.header"
+        title: "resource.eier.title"
     },
     eierNavn: {
-        title: "resource.eier.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierTelefonnummer: {
-        title: "resource.eier.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierEpost: {
-        title: "resource.eier.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierAdresse: {
-        title: "resource.eier.adresse.title"
+        title: "resource.part.adresse.title"
     },
     responsNabovarselSendtVia: {
         title: "resource.respons.nabovarselSendtVia.title",

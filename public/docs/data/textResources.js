@@ -440,20 +440,8 @@ export default {
             value: "Type plan"
         },
         {
-            id: "resource.tiltakshaver.kontaktperson.header",
+            id: "resource.tiltakshaver.kontaktperson.title",
             value: "Kontaktperson for tiltakshaver"
-        },
-        {
-            id: "resource.tiltakshaver.kontaktperson.navn.title",
-            value: "Kontaktperson"
-        },
-        {
-            id: "resource.tiltakshaver.kontaktperson.telefonnummer.title",
-            value: "Telefonnummer"
-        },
-        {
-            id: "resource.tiltakshaver.kontaktperson.epost.title",
-            value: "E-postadresse"
         },
         {
             id: "resource.customGrouplist.ettersending.title",
@@ -484,24 +472,8 @@ export default {
             value: "Søknaden gjelder"
         },
         {
-            id: "resource.tiltakshaver.header",
+            id: "resource.tiltakshaver.title",
             value: "Søker"
-        },
-        {
-            id: "resource.tiltakshaver.navn.title",
-            value: "Tiltakshaver"
-        },
-        {
-            id: "resource.tiltakshaver.telefonnummer.title",
-            value: "Telefonnummer"
-        },
-        {
-            id: "resource.tiltakshaver.epost.title",
-            value: "E-postadresse"
-        },
-        {
-            id: "resource.tiltakshaver.adresse.title",
-            value: "Adresse"
         },
         {
             id: "resource.dispensasjonBeskrivelse.beskrivelse.title",
@@ -612,24 +584,8 @@ export default {
             value: "Tiltakstyper i søknad om dispensasjon"
         },
         {
-            id: "resource.ansvarligSoeker.header",
+            id: "resource.ansvarligSoeker.title",
             value: "Ansvarlig søker"
-        },
-        {
-            id: "resource.ansvarligSoeker.navn.title",
-            value: "Ansvarlig søker"
-        },
-        {
-            id: "resource.ansvarligSoeker.telefonnummer.title",
-            value: "Telefonnummer"
-        },
-        {
-            id: "resource.ansvarligSoeker.epost.title",
-            value: "E-post"
-        },
-        {
-            id: "resource.ansvarligSoeker.adresse.title",
-            value: "Adresse"
         },
         {
             id: "resource.gjennomfoeringsplan.title",
@@ -708,23 +664,23 @@ export default {
             value: "Følgende naboer har fått tilsendt nabovarsel med tilhørende vedlegg"
         },
         {
-            id: "resource.eier.header",
+            id: "resource.eier.title",
             value: "Eier/fester av naboeiendom"
         },
         {
-            id: "resource.eier.navn.title",
+            id: "resource.part.navn.title",
             value: "Navn"
         },
         {
-            id: "resource.eier.telefonnummer.title",
+            id: "resource.part.telefonnummer.title",
             value: "Telefonnummer"
         },
         {
-            id: "resource.eier.epost.title",
+            id: "resource.part.epost.title",
             value: "E-postadresse"
         },
         {
-            id: "resource.eier.adresse.title",
+            id: "resource.part.adresse.title",
             value: "Adresse"
         },
         {
