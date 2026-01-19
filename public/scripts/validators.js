@@ -130,14 +130,13 @@ function getDuplicateTextResources(textResources) {
     return duplicateResourceBindings;
 }
 
-
 /**
  * Identifies missing resource bindings and literal values from a list of resource binding IDs.
  *
  * @param {string[]} allResourceBindings - Array of all resource binding IDs to check.
  * @param {Object} textResources - Object containing text resources, expected to have a `resources` array with `id` properties.
  * @param {Object} defaultTextResources - Object containing default text resources, expected to have a `resources` array with `id` properties.
- * @returns {{ missingResourceBindings: string[], literalValues: string[] }} 
+ * @returns {{ missingResourceBindings: string[], literalValues: string[] }}
  *   An object containing:
  *     - missingResourceBindings: IDs not found in either textResources or defaultTextResources and not literal values.
  *     - literalValues: IDs containing spaces, considered as literal values.
@@ -257,9 +256,80 @@ export function renderValidationMessages(validationResults) {
                 return `Missing resource: ${resId}`;
             })
             .concat(validationResults.duplicateTextResources.map((resId) => `Duplicate resource: ${resId}`)),
-        warning: validationResults.unusedResourceBindings.map((resId) => `Unused resource: ${resId}`)
+        warning: validationResults.unusedResourceBindings
+            .map((resId) => `Unused resource: ${resId}`)
             .concat(validationResults.literalValues.map((resId) => `Literal value: ${resId}`)),
         info: validationResults.emptyTextResources.map((resId) => `Empty resource: ${resId}`)
     });
     return validationMessages;
+}
+
+/**
+ * Checks if a given resource is used in a custom component.
+ *
+ * @param {Object} component - The component object to check.
+ * @param {Object} resource - The resource object to look for, expected to have an `id` property.
+ * @returns {boolean|undefined} Returns true if the resource is used in the component, false otherwise. Returns undefined if the component is not a custom component.
+ */
+export function resourceIsUsedInComponent(component, resource) {
+    const isCustomComponent = component?.tagName?.length && component?.type === "Custom";
+    if (isCustomComponent) {
+        const allResourceBindings = new Set();
+        addResourceBindingsFromCustomComponent(component, allResourceBindings);
+        return allResourceBindings.has(resource?.id);
+    }
+}
+
+/**
+ * Retrieves all components from a layout that use a specified resource.
+ *
+ * @param {Object} layout - The layout object containing component data.
+ * @param {*} resource - The resource to check for usage within components.
+ * @returns {Array<Object>} An array of components that use the specified resource.
+ */
+export function getResourceUsageForLayout(layout, resource) {
+    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout) && layout.layout.data.layout;
+    const componentsUsingResource = [];
+    if (componentsInLayout) {
+        for (const component of componentsInLayout) {
+            if (resourceIsUsedInComponent(component, resource)) {
+                componentsUsingResource.push(component);
+            }
+        }
+    }
+    return componentsUsingResource;
+}
+
+/**
+ * Retrieves the usage of a specific resource across multiple layouts.
+ *
+ * @param {Array<Object>} layouts - An array of layout objects to search through.
+ * @param {string} resource - The resource identifier to look for in the layouts.
+ * @returns {Array<Object>} An array of objects, each containing:
+ *   - {string} appOwner: The owner of the app.
+ *   - {string} appName: The name of the app.
+ *   - {Array} componentsUsingResource: List of components in the layout that use the specified resource.
+ */
+export function getResourceUsage(layouts, resource) {
+    return layouts
+        .map((layout) => ({
+            appOwner: layout.appOwner,
+            appName: layout.appName,
+            componentsUsingResource: getResourceUsageForLayout(layout, resource)
+        }))
+        .filter((usage) => usage.componentsUsingResource.length > 0);
+}
+
+/**
+ * Returns an array describing the usage of each resource within the provided layouts.
+ *
+ * @param {Object} layouts - The layout definitions to search for resource usage.
+ * @param {Array} resources - An array of resource identifiers to check usage for.
+ * @returns {Array<Object>} An array of objects, each containing a `resource` and its corresponding `usage`.
+ */
+export function getUsageForResources(layouts, resources) {
+    return resources.map((resource) => ({
+        resource,
+        usage: getResourceUsage(layouts, resource)
+    }));
 }
