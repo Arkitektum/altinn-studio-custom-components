@@ -183,6 +183,9 @@
             min-width: 830px;
             height: 100vh;
             overflow: auto;
+            &.admin {
+                flex-basis: 100%;
+            }
         }
         & .page {
             margin: 0.5cm auto;
