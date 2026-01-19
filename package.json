@@ -10,7 +10,8 @@
     ],
     "scripts": {
         "test": "jest",
-        "build": "webpack --mode production",
+        "copy-dist-resources": "copyfiles --flat src/data/resource.nb.json dist",
+        "build": "webpack --mode production && yarn copy-dist-resources",
         "copy-docs-resources": "copyfiles --flat src/data/resource.nb.json docs/data",
         "build-docs": "webpack --mode production --config webpack.config.docs.js && yarn copy-docs-resources",
         "start": "webpack serve --mode development",
