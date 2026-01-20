@@ -6,12 +6,7 @@ import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.j
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
-import {
-    getCodeInputElementForLayoutCode,
-    getCodeInputElementForTextResources,
-    getDataForComponent,
-    getDataModelListElements
-} from "./getters.js";
+import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
 import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
@@ -293,4 +288,62 @@ export function renderSidebar() {
         renderSidebar();
     };
     sidebarElement.appendChild(addDataModelButtonElement);
+}
+
+/**
+ * Renders a component as a collapsible list item using a <details> element.
+ * The summary displays the component's id and tagName, and the details show the component's JSON data.
+ *
+ * @param {Object} component - The component object to render.
+ * @param {string} [component.id] - The unique identifier of the component.
+ * @param {string} [component.tagName] - The tag name of the component.
+ * @returns {HTMLDetailsElement} The constructed <details> element representing the component.
+ */
+function renderComponentUsingResourceListItem(component) {
+    const componentListItemElement = document.createElement("details");
+    const componentSummaryElement = document.createElement("summary");
+    componentSummaryElement.innerHTML = `${component?.id} (${component?.tagName})`;
+
+    componentListItemElement.appendChild(componentSummaryElement);
+
+    const componentJsonDataElement = document.createElement("pre");
+    componentJsonDataElement.innerHTML = JSON.stringify(component, null, 2);
+    componentListItemElement.appendChild(componentJsonDataElement);
+    return componentListItemElement;
+}
+
+/**
+ * Creates a <details> element representing an application's usage details, including
+ * the app name, the number of components using a resource, and a list of those components.
+ *
+ * @param {Object} appUsage - The usage details for an application.
+ * @param {string} [appUsage.appName] - The name of the application.
+ * @param {Array<Object>} [appUsage.componentsUsingResource] - Array of components using the resource.
+ * @returns {HTMLElement} The constructed <details> element containing the app usage information.
+ */
+function renderAppUsageDetailsListItem(appUsage) {
+    const appUsageListItemElement = document.createElement("details");
+    const appName = appUsage?.appName || "Unknown app";
+    const componentUsageNumber = appUsage?.componentsUsingResource?.length || 0;
+    const appUsageSummaryElement = document.createElement("summary");
+    const appUsageSummaryTitleElement = document.createElement("span");
+    appUsageSummaryTitleElement.classList.add("app-usage-summary-title");
+    appUsageSummaryTitleElement.innerHTML = appName;
+
+    const appUsageSummaryCountElement = document.createElement("span");
+    appUsageSummaryCountElement.classList.add("app-usage-summary-count");
+    appUsageSummaryCountElement.innerHTML = `Components: ${componentUsageNumber}`;
+
+    appUsageSummaryElement.appendChild(appUsageSummaryTitleElement);
+    appUsageSummaryElement.appendChild(appUsageSummaryCountElement);
+
+    appUsageListItemElement.appendChild(appUsageSummaryElement);
+
+    const componentUsageListElement = document.createElement("div");
+    componentUsageListElement.classList.add("component-usage-list");
+    appUsage?.componentsUsingResource?.forEach((component) => {
+        componentUsageListElement.appendChild(renderComponentUsingResourceListItem(component));
+    });
+    appUsageListItemElement.appendChild(componentUsageListElement);
+    return appUsageListItemElement;
 }
