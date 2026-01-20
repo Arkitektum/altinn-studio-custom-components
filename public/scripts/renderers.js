@@ -347,3 +347,20 @@ function renderAppUsageDetailsListItem(appUsage) {
     appUsageListItemElement.appendChild(componentUsageListElement);
     return appUsageListItemElement;
 }
+/**
+ * Renders a list of default text resources as a DOM element.
+ *
+ * @param {Array<Object>} textResources - An array of text resource objects to render.
+ * @returns {HTMLDivElement} The DOM element containing the rendered list of text resources.
+ */
+export function renderDefaultTextResourcesList(textResources) {
+    const defaultResourcesListElement = document.createElement("div");
+    defaultResourcesListElement.id = "default-text-resources-list";
+    defaultResourcesListElement.classList.add("default-text-resources-list");
+    defaultResourcesListElement.innerHTML = "";
+    textResources.forEach((textResource) => {
+        const listItemElement = renderDefaultTextResourceListItem(textResource);
+        defaultResourcesListElement.appendChild(listItemElement);
+    });
+    return defaultResourcesListElement;
+}
