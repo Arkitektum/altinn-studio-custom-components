@@ -141,7 +141,7 @@ function getDuplicateTextResources(textResources) {
  *     - missingResourceBindings: IDs not found in either textResources or defaultTextResources and not literal values.
  *     - literalValues: IDs containing spaces, considered as literal values.
  */
-function getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources) {
+export function getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources) {
     const missingResourceBindings = [];
     const literalValues = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
@@ -179,6 +179,73 @@ function getTextResourcesWithEmptyValue(textResources) {
 }
 
 /**
+ * Extracts and adds resource bindings from a component to the provided resourceBindingsSet.
+ *
+ * Depending on the component type (custom or Altinn), it delegates to the appropriate handler
+ * to add resource bindings. It also updates the component's formData property.
+ *
+ * @param {Set} resourceBindingsSet - The set to which resource bindings will be added.
+ * @param {Object} componentProps - The properties of the component, including tagName, type, and others.
+ * @param {string} [componentType="all"] - The type of component to process ("custom", "altinn", or "all").
+ */
+export function getResourceBindingsFromComponent(resourceBindingsSet, componentProps, componentType = "all") {
+    const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";
+    componentProps.formData = getDataForComponent(componentProps);
+
+    if (isCustomComponent && (componentType === "custom" || componentType === "all")) {
+        addResourceBindingsFromCustomComponent(componentProps, resourceBindingsSet);
+    } else if (!isCustomComponent && (componentType === "altinn" || componentType === "all")) {
+        addResourceBindingsFromAltinnComponent(componentProps, resourceBindingsSet);
+    }
+}
+
+/**
+ * Extracts resource bindings from an array of component properties and adds them to the provided Set.
+ *
+ * @param {Set} resourceBindingsSet - A Set to collect unique resource bindings.
+ * @param {Array<Object>} componentsArray - An array of component property objects to process.
+ * @param {string} [componentType="all"] - Optional. The type of components to filter by; defaults to "all".
+ * @returns {Set} The updated Set containing all found resource bindings.
+ */
+export function getResourceBindingsFromComponents(resourceBindingsSet, componentsArray, componentType = "all") {
+    for (const componentProps of componentsArray) {
+        getResourceBindingsFromComponent(resourceBindingsSet, componentProps, componentType);
+    }
+    return resourceBindingsSet;
+}
+
+/**
+ * Extracts resource bindings from a layout and adds them to the provided resourceBindingsSet.
+ *
+ * @param {Set} resourceBindingsSet - A set to collect resource bindings.
+ * @param {Object} layout - The layout object containing component data.
+ * @param {string} [componentType="all"] - The type of components to filter by, or "all" for no filtering.
+ * @returns {Set} The updated set of resource bindings.
+ */
+export function getResourceBindingsFromLayout(resourceBindingsSet, layout, componentType = "all") {
+    const componentsArray = Array.isArray(layout?.layout?.data?.layout) && layout.layout.data.layout;
+    if (componentsArray) {
+        getResourceBindingsFromComponents(resourceBindingsSet, componentsArray, componentType);
+    }
+    return resourceBindingsSet;
+}
+
+/**
+ * Retrieves a set of resource bindings used in the provided applications, optionally filtered by component type.
+ *
+ * @param {Array<Object>} applications - An array of application objects to extract resource bindings from.
+ * @param {string} [componentType="all"] - The type of component to filter resource bindings by. Defaults to "all".
+ * @returns {Set<any>} A set containing the resource bindings found in the applications.
+ */
+export function getResourceBindingsWithUsageFromApplications(applications, componentType = "all") {
+    const resourceBindingsSet = new Set();
+    for (const application of applications) {
+        getResourceBindingsFromLayout(resourceBindingsSet, application, componentType);
+    }
+    return resourceBindingsSet;
+}
+
+/**
  * Validates resource bindings and text resources used in the application.
  *
  * This function collects all resource bindings from both Altinn and custom components,
@@ -192,15 +259,6 @@ function getTextResourcesWithEmptyValue(textResources) {
  *   @property {Array<string>} emptyTextResources - Text resource keys that have empty values.
  */
 export function validateResources() {
-    const altinnResourceBindings = [
-        "signing.summary.title.override",
-        "signing.summary.title",
-        "pdfPreviewText",
-        "appOwner",
-        "appName",
-        "resource.attachmentList.title"
-    ];
-    const allResourceBindings = new Set(altinnResourceBindings);
     const componentCode = getLayoutCode();
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
@@ -210,16 +268,18 @@ export function validateResources() {
     } else {
         components = [componentCode];
     }
-    for (const componentProps of components) {
-        const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";
-        componentProps.formData = getDataForComponent(componentProps);
 
-        if (isCustomComponent) {
-            addResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
-        } else {
-            addResourceBindingsFromAltinnComponent(componentProps, allResourceBindings);
-        }
-    }
+    const altinnResourceBindings = [
+        "signing.summary.title.override",
+        "signing.summary.title",
+        "pdfPreviewText",
+        "appOwner",
+        "appName",
+        "resource.attachmentList.title"
+    ];
+    const resourceBindingsSet = new Set(altinnResourceBindings);
+    const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
+
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const { missingResourceBindings, literalValues } = getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources);
     const duplicateTextResources = getDuplicateTextResources(textResources);
