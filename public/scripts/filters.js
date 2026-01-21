@@ -12,12 +12,13 @@
 export function filterResources(resources, filterValue) {
     switch (filterValue) {
         case "unused":
-            return resources.filter((res) => res?.usage?.length === 0);
+            return resources.filter((res) => res?.usage?.length === 0 && res?.missingFromDefaultTextResources !== true);
         case "used-once":
-            return resources.filter((res) => res?.usage?.length === 1);
+            return resources.filter((res) => res?.usage?.length === 1 && res?.missingFromDefaultTextResources !== true);
         case "missing":
-            return resources.filter((res) => res?.usage === undefined);
+            return resources.filter((res) => res?.missingFromDefaultTextResources === true);
         case "all":
+            return resources.filter((res) => res?.missingFromDefaultTextResources !== true);
         default:
             return resources;
     }
