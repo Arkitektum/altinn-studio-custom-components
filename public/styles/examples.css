@@ -300,6 +300,13 @@
                 box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
                 background-color: #fcfcfc;
 
+                & h4 {
+                    margin: 0 0 5px 0;
+                    font-size: 16px;
+                    font-weight: 600;
+                    color: #333;
+                }
+
                 & .default-text-resource-list-item {
                     margin: 0;
                     &:not(:last-child) {
@@ -323,6 +330,7 @@
                                 font-size: 14px;
                                 font-weight: 600;
                                 color: #333;
+                                line-break: anywhere;
                             }
                             & .resource-value {
                                 font-size: 14px;
@@ -333,7 +341,7 @@
                         & .usage-container {
                             display: flex;
                             gap: 12px;
-                            min-width: 200px;
+                            min-width: 275px;
                             justify-content: flex-end;
                             & span {
                                 font-size: 14px;
@@ -404,6 +412,34 @@
                             }
                         }
                     }
+                    & .duplicate-resources-container {
+                        margin-top: 16px;
+                        & .duplicate-resources-list {
+                            padding: 0px 32px;
+                            margin: 0;
+                            & li {
+                                font-size: 13px;
+                                font-weight: 400;
+                                color: #333;
+                                line-break: anywhere;
+                                padding: 1px 0;
+                            }
+                        }
+                    }
+                }
+            }
+            & .text-resources-filter-container {
+                margin: 16px auto;
+                max-width: 1000px;
+                padding: 0 16px;
+                & label {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-right: 12px;
+                }
+                & input[type="radio"] {
+                    margin-right: 6px;
                 }
             }
         }
