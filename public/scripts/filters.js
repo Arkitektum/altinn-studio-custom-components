@@ -24,15 +24,22 @@ export function filterResources(resources, filterValue) {
 }
 
 /**
- * Returns an array of resources from the given list that have the same `value` property
- * as the specified resource, but a different `id`.
+ * Returns an array of resources from the given list that have the same `resource.value`
+ * as the specified resource, but a different `resource.id`, and are not marked as missing
+ * from default text resources.
  *
  * @param {Array<Object>} resources - The array of resource objects to search through.
  * @param {Object} resource - The resource object to compare against.
- * @returns {Array<Object>} An array of resources with the same value but different id.
+ * @returns {Array<Object>} An array of resources matching the criteria, or an empty array if none found.
  */
 export function getResourcesWithSameValue(resources, resource) {
-    return resources.filter((res) => {
-        return res?.resource?.value === resource?.resource?.value && res?.resource?.id !== resource?.resource?.id;
-    });
+    return Array.isArray(resources) && resources.length > 0
+        ? resources.filter((res) => {
+              return (
+                  res?.resource?.value === resource?.resource?.value &&
+                  res?.resource?.id !== resource?.resource?.id &&
+                  res?.missingFromDefaultTextResources !== true
+              );
+          })
+        : [];
 }
