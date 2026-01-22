@@ -12,7 +12,16 @@ import { filterResources, getResourcesWithSameValue } from "./filters.js";
 function renderComponentUsingResourceListItem(component) {
     const componentListItemElement = document.createElement("details");
     const componentSummaryElement = document.createElement("summary");
-    componentSummaryElement.innerHTML = `${component?.id} (${component?.tagName})`;
+
+    const expandCollapseIconElement = document.createElement("span");
+    expandCollapseIconElement.classList.add("expand-collapse-icon");
+    expandCollapseIconElement.innerHTML = "▶";
+    componentSummaryElement.appendChild(expandCollapseIconElement);
+
+    const componentSummaryTitleElement = document.createElement("span");
+    componentSummaryTitleElement.classList.add("component-summary-title");
+    componentSummaryTitleElement.innerHTML = `${component?.id} (${component?.tagName})`;
+    componentSummaryElement.appendChild(componentSummaryTitleElement);
 
     componentListItemElement.appendChild(componentSummaryElement);
 
@@ -36,6 +45,12 @@ function renderAppUsageDetailsListItem(appUsage) {
     const appName = appUsage?.appName || "Unknown app";
     const componentUsageNumber = appUsage?.componentsUsingResource?.length || 0;
     const appUsageSummaryElement = document.createElement("summary");
+
+    const expandCollapseIconElement = document.createElement("span");
+    expandCollapseIconElement.classList.add("expand-collapse-icon");
+    expandCollapseIconElement.innerHTML = "▶";
+    appUsageSummaryElement.appendChild(expandCollapseIconElement);
+
     const appUsageSummaryTitleElement = document.createElement("span");
     appUsageSummaryTitleElement.classList.add("app-usage-summary-title");
     appUsageSummaryTitleElement.innerHTML = appName;
@@ -58,6 +73,60 @@ function renderAppUsageDetailsListItem(appUsage) {
     return appUsageListItemElement;
 }
 
+/**
+ * Creates and returns a list item element representing a duplicate resource.
+ *
+ * @param {Object} duplicateResource - The duplicate resource object to render.
+ * @param {Object} [duplicateResource.resource] - The resource object within the duplicate resource.
+ * @param {string|number} [duplicateResource.resource.id] - The unique identifier of the resource.
+ * @returns {HTMLLIElement} The list item element representing the duplicate resource.
+ */
+function renderDuplicateResourcesListItem(duplicateResource) {
+    const duplicateResourceElement = document.createElement("li");
+    duplicateResourceElement.classList.add("duplicate-resource-item");
+    duplicateResourceElement.innerHTML = `${duplicateResource?.resource?.id}`;
+    return duplicateResourceElement;
+}
+
+/**
+ * Renders a container element displaying a list of duplicate resources.
+ *
+ * @param {Array<Object>} duplicateResources - An array of duplicate resource objects to be rendered in the list.
+ * @returns {HTMLDivElement} The container div element containing the rendered list of duplicate resources.
+ */
+function renderDuplicateResourcesList(duplicateResources) {
+    const duplicateResourcesContainerElement = document.createElement("div");
+    duplicateResourcesContainerElement.classList.add("duplicate-resources-container");
+
+    const duplicateResourcesTitleElement = document.createElement("h4");
+    duplicateResourcesTitleElement.innerHTML = "Resources with same value";
+    duplicateResourcesContainerElement.appendChild(duplicateResourcesTitleElement);
+
+    const duplicateResourcesListElement = document.createElement("ul");
+    duplicateResourcesListElement.classList.add("duplicate-resources-list");
+    duplicateResourcesContainerElement.appendChild(duplicateResourcesListElement);
+
+    duplicateResources.forEach((duplicateResource) => {
+        const duplicateResourceElement = renderDuplicateResourcesListItem(duplicateResource);
+        duplicateResourcesListElement.appendChild(duplicateResourceElement);
+    });
+
+    duplicateResourcesContainerElement.appendChild(duplicateResourcesListElement);
+    return duplicateResourcesContainerElement;
+}
+
+/**
+ * Renders a default list item element for a text resource, displaying its usage across apps and components,
+ * as well as any duplicate resources with the same value.
+ *
+ * @param {Object} textResource - The text resource object to render.
+ * @param {Object[]} textResource.usage - Array of app usage objects, each representing an app using the resource.
+ * @param {Object} textResource.resource - The resource details.
+ * @param {string} textResource.resource.id - The unique identifier of the resource.
+ * @param {string} textResource.resource.value - The value/content of the resource.
+ * @param {Object[]} allTextResources - Array of all text resource objects, used to find duplicates.
+ * @returns {HTMLElement} The constructed list item element representing the text resource and its usage.
+ */
 export function renderDefaultTextResourceListItem(textResource, allTextResources) {
     const numberOfAppsUsingResource = textResource?.usage?.length;
     const numberOfComponentsUsingResource = textResource?.usage?.reduce((total, app) => total + app?.componentsUsingResource?.length, 0) || 0;
@@ -66,6 +135,11 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
     const listItemElement = document.createElement("details");
     listItemElement.classList.add("default-text-resource-list-item");
     const summaryElement = document.createElement("summary");
+
+    const expandCollapseIconElement = document.createElement("span");
+    expandCollapseIconElement.classList.add("expand-collapse-icon");
+    expandCollapseIconElement.innerHTML = "▶";
+    summaryElement.appendChild(expandCollapseIconElement);
 
     const resourceIdAndValueContainer = document.createElement("div");
     resourceIdAndValueContainer.classList.add("resource-id-and-value");
@@ -127,25 +201,7 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
     }
 
     if (resourcesWithSameValue.length > 0) {
-        const duplicateResourcesContainerElement = document.createElement("div");
-        duplicateResourcesContainerElement.classList.add("duplicate-resources-container");
-
-        const duplicateResourcesTitleElement = document.createElement("h4");
-        duplicateResourcesTitleElement.innerHTML = "Resources with same value";
-        duplicateResourcesContainerElement.appendChild(duplicateResourcesTitleElement);
-
-        const duplicateResourcesListElement = document.createElement("ul");
-        duplicateResourcesListElement.classList.add("duplicate-resources-list");
-        duplicateResourcesContainerElement.appendChild(duplicateResourcesListElement);
-
-        resourcesWithSameValue.forEach((duplicateResource) => {
-            const duplicateResourceElement = document.createElement("li");
-            duplicateResourceElement.classList.add("duplicate-resource-item");
-            duplicateResourceElement.innerHTML = `${duplicateResource?.resource?.id}`;
-            duplicateResourcesListElement.appendChild(duplicateResourceElement);
-        });
-
-        duplicateResourcesContainerElement.appendChild(duplicateResourcesListElement);
+        const duplicateResourcesContainerElement = renderDuplicateResourcesList(resourcesWithSameValue);
         usageDetailsElement.appendChild(duplicateResourcesContainerElement);
     }
 
@@ -172,6 +228,15 @@ export function renderDefaultTextResourcesList(filteredTextResources, allTextRes
     return defaultResourcesListElement;
 }
 
+/**
+ * Renders a set of radio button filters for a list of text resources and attaches them to the given container element.
+ * The filters allow users to view all resources, unused resources, resources used once, or missing resources.
+ * When a filter is selected, the resource list is updated accordingly.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to which the filter controls and filtered list will be appended.
+ * @param {Array<Object>} textResources - The array of text resource objects to be filtered and displayed.
+ * @returns {HTMLElement} The DOM element containing the radio button filters.
+ */
 export function renderRadioButtonsFilterForTextResourcesList(containerElement, textResources) {
     const filterContainerElement = document.createElement("div");
     filterContainerElement.classList.add("text-resources-filter-container");
