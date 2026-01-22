@@ -460,9 +460,11 @@
                     font-weight: 600;
                     color: #333;
                     margin-right: 12px;
+                    cursor: pointer;
                 }
                 & input[type="radio"] {
                     margin-right: 6px;
+                    cursor: pointer;
                 }
             }
         }

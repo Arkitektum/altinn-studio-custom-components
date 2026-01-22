@@ -241,34 +241,42 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     const filterContainerElement = document.createElement("div");
     filterContainerElement.classList.add("text-resources-filter-container");
 
-    const allResourcesLabelElement = document.createElement("label");
-    allResourcesLabelElement.innerHTML = "All";
     const allResourcesRadioElement = document.createElement("input");
+    allResourcesRadioElement.id = "filter-all-resources";
     allResourcesRadioElement.type = "radio";
     allResourcesRadioElement.name = "text-resources-filter";
     allResourcesRadioElement.value = "all";
     allResourcesRadioElement.checked = true;
+    const allResourcesLabelElement = document.createElement("label");
+    allResourcesLabelElement.htmlFor = "filter-all-resources";
+    allResourcesLabelElement.innerHTML = "All";
 
-    const unusedResourcesLabelElement = document.createElement("label");
-    unusedResourcesLabelElement.innerHTML = "Unused";
     const unusedResourcesRadioElement = document.createElement("input");
+    unusedResourcesRadioElement.id = "filter-unused-resources";
     unusedResourcesRadioElement.type = "radio";
     unusedResourcesRadioElement.name = "text-resources-filter";
     unusedResourcesRadioElement.value = "unused";
+    const unusedResourcesLabelElement = document.createElement("label");
+    unusedResourcesLabelElement.htmlFor = "filter-unused-resources";
+    unusedResourcesLabelElement.innerHTML = "Unused";
 
-    const usedOnceResourcesLabelElement = document.createElement("label");
-    usedOnceResourcesLabelElement.innerHTML = "Used once";
     const usedOnceResourcesRadioElement = document.createElement("input");
+    usedOnceResourcesRadioElement.id = "filter-used-once-resources";
     usedOnceResourcesRadioElement.type = "radio";
     usedOnceResourcesRadioElement.name = "text-resources-filter";
     usedOnceResourcesRadioElement.value = "used-once";
+    const usedOnceResourcesLabelElement = document.createElement("label");
+    usedOnceResourcesLabelElement.htmlFor = "filter-used-once-resources";
+    usedOnceResourcesLabelElement.innerHTML = "Used once";
 
-    const missingResourcesLabelElement = document.createElement("label");
-    missingResourcesLabelElement.innerHTML = "Missing";
     const missingResourcesRadioElement = document.createElement("input");
+    missingResourcesRadioElement.id = "filter-missing-resources";
     missingResourcesRadioElement.type = "radio";
     missingResourcesRadioElement.name = "text-resources-filter";
     missingResourcesRadioElement.value = "missing";
+    const missingResourcesLabelElement = document.createElement("label");
+    missingResourcesLabelElement.htmlFor = "filter-missing-resources";
+    missingResourcesLabelElement.innerHTML = "Missing";
 
     const updateResourceListBasedOnFilter = () => {
         const selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
