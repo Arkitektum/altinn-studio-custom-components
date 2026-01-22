@@ -6,12 +6,7 @@ import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.j
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
-import {
-    getCodeInputElementForLayoutCode,
-    getCodeInputElementForTextResources,
-    getDataForComponent,
-    getDataModelListElements
-} from "./getters.js";
+import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
 import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
