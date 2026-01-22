@@ -303,8 +303,28 @@
                 & h4 {
                     margin: 0 0 5px 0;
                     font-size: 16px;
-                    font-weight: 600;
+                    font-weight: 300;
                     color: #333;
+                }
+
+                & p {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #555;
+                    margin: 0 0 16px 0;
+                }
+
+                & .expand-collapse-icon {
+                    display: inline-block;
+                    width: 16px;
+                    text-align: center;
+                    margin-right: 8px;
+                    transition: transform 150ms;
+                    transform: rotate(0deg);
+                    color: #999;
+                }
+                & details:open > summary > .expand-collapse-icon {
+                    transform: rotate(90deg);
                 }
 
                 & .default-text-resource-list-item {
@@ -312,9 +332,9 @@
                     &:not(:last-child) {
                         border-bottom: 1px solid #ccc;
                     }
+
                     & summary {
                         display: flex;
-                        justify-content: space-between;
                         align-items: center;
                         cursor: pointer;
                         padding: 10px;
@@ -326,6 +346,7 @@
                         & .resource-id-and-value {
                             display: flex;
                             flex-direction: column;
+                            width: 100%;
                             & .resource-id {
                                 font-size: 14px;
                                 font-weight: 600;
@@ -345,13 +366,13 @@
                             justify-content: flex-end;
                             & span {
                                 font-size: 14px;
-                                font-weight: 400;
+                                font-weight: 300;
                                 color: #666;
                             }
                         }
                     }
                     & .usage-details {
-                        padding: 10px 20px 20px 20px;
+                        padding: 10px 20px 20px 33px;
                         & .app-usage-details-list {
                             & details {
                                 &:not(:last-child) {
@@ -369,12 +390,14 @@
                                     & .app-usage-summary-title {
                                         font-weight: 600;
                                         color: #333;
+                                        width: 100%;
                                     }
                                     & .app-usage-summary-count {
                                         font-size: 14px;
                                         margin-left: 8px;
-                                        font-weight: 400;
+                                        font-weight: 300;
                                         color: #666;
+                                        width: 122px;
                                     }
                                 }
                                 & .component-usage-list {
