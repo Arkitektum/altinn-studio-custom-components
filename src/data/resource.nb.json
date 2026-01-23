@@ -142,35 +142,31 @@
             "value": "Oversikt over omsøkte dispensasjoner"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.adresse.emptyFieldText",
-            "value": "(Adresse mangler)"
-        },
-        {
-            "id": "resource.eiendomByggested.eiendom.adresse.title",
+            "id": "resource.eiendom.adresse.title",
             "value": "Adresse"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.bolignummer.title",
+            "id": "resource.eiendom.bolignummer.title",
             "value": "Bruksenhets-nummer"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.bygningsnummer.title",
+            "id": "resource.eiendom.bygningsnummer.title",
             "value": "Bygnings-nummer"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",
+            "id": "resource.eiendom.bruksnummer.title",
             "value": "Bruks-nummer"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
+            "id": "resource.eiendom.festenummer.title",
             "value": "Feste-nummer"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
+            "id": "resource.eiendom.gaardsnummer.title",
             "value": "Gårds-nummer"
         },
         {
-            "id": "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title",
+            "id": "resource.eiendom.seksjonsnummer.title",
             "value": "Seksjons-nummer"
         },
         {
@@ -216,10 +212,6 @@
         {
             "id": "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
             "value": "Vedlegg"
-        },
-        {
-            "id": "resource.fakturamottaker.title",
-            "value": "Fakturaadresse for tiltakshaver"
         },
         {
             "id": "resource.falseText.default",
@@ -868,10 +860,6 @@
         {
             "id": "resource.stedfesting.vertikalnivaa.title",
             "value": "Vertikalnivå"
-        },
-        {
-            "id": "resource.tiltakshaver.kontaktperson.title",
-            "value": "Kontaktperson for tiltakshaver"
         },
         {
             "id": "resource.tiltakshaver.title",
