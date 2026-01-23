@@ -29,7 +29,7 @@ export default class CustomListData extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: getComponentResourceValue(props, "title"),
+            title: !props?.hideTitle && getComponentResourceValue(props, "title"),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
     }
@@ -66,6 +66,6 @@ export default class CustomListData extends CustomComponent {
      */
     getValueFromFormData(props) {
         const data = getComponentDataValue(props);
-        return hasValue(props?.itemKey) ? this.getListItemsFromKey(data, props?.itemKey) : data;
+        return props?.itemKey ? this.getListItemsFromKey(data, props?.itemKey) : data;
     }
 }

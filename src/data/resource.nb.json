@@ -1062,6 +1062,42 @@
             "value": "Gjennomføringsplannummer"
         },
         {
+            "id": "resource.funksjon.title",
+            "value": "Funksjon"
+        },
+        {
+            "id": "resource.harSamsvarKontrollVedRammetillatelse.title",
+            "value": "Rammesøknad"
+        },
+        {
+            "id": "resource.harSamsvarKontrollVedIgangsettingstillatelse.title",
+            "value": "Igangsettingstillatelse"
+        },
+        {
+            "id": "resource.harSamsvarKontrollVedMidlertidigBrukstillatelse.title",
+            "value": "Midlertidig brukstillatelse"
+        },
+        {
+            "id": "resource.harSamsvarKontrollVedFerdigattest.title",
+            "value": "Ferdigattest"
+        },
+        {
+            "id": "resource.beskrivelseAvAnsvarsomraadet.title",
+            "value": "Beskrivelse av ansvarsområdet"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.title",
+            "value": "Planlagt samsvars-/kontrollerklæringer"
+        },
+        {
+            "id": "resource.dekkesOmraadeAvSentralGodkjenning.title",
+            "value": "Dekkes av sentral godkjenning"
+        },
+        {
+            "id": "resource.ansvarsomraader.title",
+            "value": "Ansvarsområder"
+        },
+        {
             "id": "signing.summary.title",
             "value": "Søknaden er signert av"
         }
