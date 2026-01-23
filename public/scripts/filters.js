@@ -5,6 +5,7 @@
  * @param {string} filterValue - The filter criteria. Can be one of:
  *   - "unused": Returns resources with no usage.
  *   - "used-once": Returns resources used exactly once.
+ *   - "with-duplicates": Returns resources that have duplicate values.
  *   - "missing": Returns resources with undefined usage.
  *   - "all": Returns all resources (default).
  * @returns {Array<Object>} The filtered array of resources.
@@ -15,6 +16,8 @@ export function filterResources(resources, filterValue) {
             return resources.filter((res) => res?.usage?.length === 0 && res?.missingFromDefaultTextResources !== true);
         case "used-once":
             return resources.filter((res) => res?.usage?.length === 1 && res?.missingFromDefaultTextResources !== true);
+        case "with-duplicates":
+            return resources.filter((res) => getResourcesWithSameValue(resources, res).length > 0 && res?.missingFromDefaultTextResources !== true);
         case "missing":
             return resources.filter((res) => res?.missingFromDefaultTextResources === true);
         case "all":
