@@ -269,6 +269,15 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     usedOnceResourcesLabelElement.htmlFor = "filter-used-once-resources";
     usedOnceResourcesLabelElement.innerHTML = "Used once";
 
+    const withDuplicatesResourcesRadioElement = document.createElement("input");
+    withDuplicatesResourcesRadioElement.id = "filter-with-duplicates-resources";
+    withDuplicatesResourcesRadioElement.type = "radio";
+    withDuplicatesResourcesRadioElement.name = "text-resources-filter";
+    withDuplicatesResourcesRadioElement.value = "with-duplicates";
+    const withDuplicatesResourcesLabelElement = document.createElement("label");
+    withDuplicatesResourcesLabelElement.htmlFor = "filter-with-duplicates-resources";
+    withDuplicatesResourcesLabelElement.innerHTML = "With duplicates";
+
     const missingResourcesRadioElement = document.createElement("input");
     missingResourcesRadioElement.id = "filter-missing-resources";
     missingResourcesRadioElement.type = "radio";
@@ -292,6 +301,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     allResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     unusedResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     usedOnceResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
+    withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
 
     filterContainerElement.appendChild(allResourcesRadioElement);
@@ -300,6 +310,8 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     filterContainerElement.appendChild(unusedResourcesLabelElement);
     filterContainerElement.appendChild(usedOnceResourcesRadioElement);
     filterContainerElement.appendChild(usedOnceResourcesLabelElement);
+    filterContainerElement.appendChild(withDuplicatesResourcesRadioElement);
+    filterContainerElement.appendChild(withDuplicatesResourcesLabelElement);
     filterContainerElement.appendChild(missingResourcesRadioElement);
     filterContainerElement.appendChild(missingResourcesLabelElement);
 

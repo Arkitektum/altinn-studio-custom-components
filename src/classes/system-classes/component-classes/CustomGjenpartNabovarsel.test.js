@@ -90,7 +90,7 @@ describe("CustomGjenpartNabovarsel", () => {
         const instance = new CustomGjenpartNabovarsel({});
         const result = instance.getResourceBindings({});
         expect(result.gjenpartNabovarsel.title).toBe("resource.gjenpartNabovarsel.title");
-        expect(result.adresse.emptyFieldText).toBe("resource.eiendomByggested.eiendom.adresse.emptyFieldText");
+        expect(result.adresse.emptyFieldText).toBe("resource.emptyFieldText.address");
         expect(result.eierNavn.title).toBe("resource.part.navn.title");
     });
 

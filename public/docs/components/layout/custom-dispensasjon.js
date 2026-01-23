@@ -40,10 +40,10 @@ const defaultResourceBindings = {
         title: "resource.tiltakstyper.type.kode.title"
     },
     tiltakshaverAdresse: {
-        title: "resource.tiltakshaver.adresse.title"
+        title: "resource.eiendom.adresse.title"
     },
     ansvarligSoekerAdresse: {
-        title: "resource.ansvarligSoeker.adresse.title"
+        title: "resource.eiendom.adresse.title"
     },
     dispensasjonBeskrivelseBeskrivelse: {
         title: "resource.dispensasjonBeskrivelse.beskrivelse.title"

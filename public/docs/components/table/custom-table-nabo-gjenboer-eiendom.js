@@ -13,31 +13,31 @@ const markup = {
 
 const defaultResourceBindings = {
     adresse: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.title",
-        emptyFieldText: "resource.eiendomByggested.eiendom.adresse.emptyFieldText"
+        title: "resource.eiendom.adresse.title",
+        emptyFieldText: "resource.emptyFieldText.address"
     },
     eiendomsidentifikasjonGaardsnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.gaardsnummer.title",
+        title: "resource.eiendom.gaardsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomsidentifikasjonBruksnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.bruksnummer.title",
+        title: "resource.eiendom.bruksnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomsidentifikasjonSeksjonsnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.seksjonsnummer.title",
+        title: "resource.eiendom.seksjonsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomsidentifikasjonFestenummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.festenummer.title",
+        title: "resource.eiendom.festenummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     bolignummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bolignummer.title",
+        title: "resource.eiendom.bolignummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     bygningsnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bygningsnummer.title",
+        title: "resource.eiendom.bygningsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
