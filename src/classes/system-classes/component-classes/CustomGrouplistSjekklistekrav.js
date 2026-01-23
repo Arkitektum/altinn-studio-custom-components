@@ -98,7 +98,7 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
         const resourceBindings = {
             trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.defaultText.default"
+            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.title = props?.resourceBindings?.title || "resource.krav.sjekklistekrav.title";

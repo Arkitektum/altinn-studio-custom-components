@@ -13,7 +13,7 @@ const markup = {
 const defaultResourceBindings = {
     trueText: "resource.trueText.default",
     falseText: "resource.falseText.default",
-    defaultText: "resource.defaultText.default",
+    defaultText: "resource.emptyFieldText.default",
     title: "resource.krav.sjekklistekrav.title",
     emptyFieldText: "resource.emptyFieldText.default"
 };
