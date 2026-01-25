@@ -185,7 +185,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.part.adresse.title"
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.eiendom.adresse.title"
             },
             responsNabovarselSendtVia: {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",

@@ -414,10 +414,6 @@
             "value": "+"
         },
         {
-            "id": "resource.part.adresse.title",
-            "value": "Adresse"
-        },
-        {
             "id": "resource.part.epost.title",
             "value": "E-postadresse"
         },
