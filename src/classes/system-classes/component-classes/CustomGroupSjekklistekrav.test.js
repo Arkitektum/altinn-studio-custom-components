@@ -1,10 +1,5 @@
 import CustomGroupSjekklistekrav from "./CustomGroupSjekklistekrav";
-import {
-    getComponentDataValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
@@ -46,7 +41,7 @@ describe("CustomGroupSjekklistekrav", () => {
         expect(instance.resourceBindings).toEqual({
             trueText: "resource.trueText.default",
             falseText: "resource.falseText.default",
-            defaultText: "resource.defaultText.default",
+            defaultText: "resource.emptyFieldText.default",
             emptyFieldText: "resource.emptyFieldText.default"
         });
         expect(instance.resourceValues.data).toBe("Empty Field");
@@ -137,7 +132,7 @@ describe("CustomGroupSjekklistekrav", () => {
             sjekklistekrav: {
                 trueText: "resource.trueText.default",
                 falseText: "resource.falseText.default",
-                defaultText: "resource.defaultText.default",
+                defaultText: "resource.emptyFieldText.default",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
         });
