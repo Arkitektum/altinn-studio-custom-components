@@ -742,10 +742,6 @@
             "value": "Arbeidene for å oppnå tilstrekkelig sikkerhetsnivå skal være ferdigstilt innen"
         },
         {
-            "id": "resource.soeknadenGjelder.header",
-            "value": "Søknaden gjelder"
-        },
-        {
             "id": "resource.soeknadensHjemmeside.header",
             "value": "Se også vår hjemmeside"
         },
@@ -812,10 +808,6 @@
         {
             "id": "resource.soeknadGjelder.gjelderHeleTiltaket.true.title",
             "value": "Det søkes om igangsettingstillatelse for hele tiltaket."
-        },
-        {
-            "id": "resource.soeknadGjelder.header",
-            "value": "Søknaden gjelder"
         },
         {
             "id": "resource.soeknadGjelder.title",
