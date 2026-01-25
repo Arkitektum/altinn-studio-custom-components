@@ -31,7 +31,7 @@ const defaultResourceBindings = {
         title: "resource.kommunensSaksnummer.title"
     },
     soeknadGjelderHeader: {
-        title: "resource.soeknadGjelder.header"
+        title: "resource.soeknadGjelder.title"
     },
     tiltakstyperTypeHeader: {
         title: "resource.tiltakstyper.type.header"

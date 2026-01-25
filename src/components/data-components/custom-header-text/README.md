@@ -18,7 +18,7 @@
     "tagName": "custom-header-text",
     "size": "h2",
     "resourceBindings": {
-        "title": "resource.soeknadGjelder.header"
+        "title": "resource.soeknadGjelder.title"
     },
     "styleOverride": {
         "color": "#FF00FF"
