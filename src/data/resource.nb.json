@@ -866,6 +866,10 @@
             "value": "Tiltakshaver"
         },
         {
+            "id": "resource.tiltakshaver.kontaktperson.title",
+            "value": "Kontaktperson for tiltakshaver"
+        },
+        {
             "id": "resource.tiltaksklasse.title",
             "value": "Tiltaksklasse"
         },
