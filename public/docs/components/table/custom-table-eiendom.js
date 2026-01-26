@@ -14,31 +14,31 @@ const markup = {
 
 const defaultResourceBindings = {
     adresse: {
-        title: "resource.eiendomByggested.eiendom.adresse.title",
-        emptyFieldText: "resource.eiendomByggested.eiendom.adresse.emptyFieldText"
+        title: "resource.eiendom.adresse.title",
+        emptyFieldText: "resource.emptyFieldText.address"
     },
     eiendomsidentifikasjonGaardsnummer: {
-        title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.gaardsnummer.title",
+        title: "resource.eiendom.gaardsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomsidentifikasjonBruksnummer: {
-        title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.bruksnummer.title",
+        title: "resource.eiendom.bruksnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomsidentifikasjonSeksjonsnummer: {
-        title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.seksjonsnummer.title",
+        title: "resource.eiendom.seksjonsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomsidentifikasjonFestenummer: {
-        title: "resource.eiendomByggested.eiendom.eiendomsidentifikasjon.festenummer.title",
+        title: "resource.eiendom.festenummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     bolignummer: {
-        title: "resource.eiendomByggested.eiendom.bolignummer.title",
+        title: "resource.eiendom.bolignummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     bygningsnummer: {
-        title: "resource.eiendomByggested.eiendom.bygningsnummer.title",
+        title: "resource.eiendom.bygningsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     title: "resource.eiendomByggested.eiendom.title",

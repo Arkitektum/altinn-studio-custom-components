@@ -110,7 +110,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: "resource.kommunensSaksnummer.title"
             },
             soeknadGjelderHeader: {
-                title: "resource.soeknadGjelder.header"
+                title: "resource.soeknadGjelder.title"
             },
             tiltakstyperTypeHeader: {
                 title: "resource.tiltakstyper.type.header"
@@ -119,10 +119,10 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: "resource.tiltakstyper.type.kode.title"
             },
             tiltakshaverAdresse: {
-                title: "resource.part.adresse.title"
+                title: "resource.eiendom.adresse.title"
             },
             ansvarligSoekerAdresse: {
-                title: "resource.part.adresse.title"
+                title: "resource.eiendom.adresse.title"
             },
             dispensasjonBeskrivelseBeskrivelse: {
                 title: "resource.dispensasjonBeskrivelse.beskrivelse.title"

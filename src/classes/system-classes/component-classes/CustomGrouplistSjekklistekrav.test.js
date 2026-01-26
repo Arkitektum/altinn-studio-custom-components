@@ -87,7 +87,7 @@ describe("CustomGrouplistSjekklistekrav", () => {
 
         expect(bindings.sjekklistekrav.trueText).toBe("resource.trueText.default");
         expect(bindings.sjekklistekrav.falseText).toBe("resource.falseText.default");
-        expect(bindings.sjekklistekrav.defaultText).toBe("resource.defaultText.default");
+        expect(bindings.sjekklistekrav.defaultText).toBe("resource.emptyFieldText.default");
         expect(bindings.sjekklistekrav.title).toBe("resource.krav.sjekklistekrav.title");
         expect(bindings.sjekklistekrav.emptyFieldText).toBe("resource.emptyFieldText.default");
     });

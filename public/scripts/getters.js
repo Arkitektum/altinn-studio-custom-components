@@ -249,14 +249,31 @@ export function getCodeInputElementForTextResources() {
 
 /**
  * Fetches the default text resources for a given language.
+ * If fetching for the specified language fails, attempts to fetch resources for the fallback language ("nb").
  *
  * @async
- * @param {string} language - The language code to fetch resources for (e.g., 'en', 'no').
- * @returns {Promise<Object|null>} The default text resources object if available, otherwise null.
+ * @param {string} language - The language code to fetch text resources for (e.g., "en", "nb").
+ * @returns {Promise<Object|null>} The fetched text resources object if successful, or null if both attempts fail.
  */
 export async function fetchDefaultTextResources(language) {
+    const fallbackLanguage = "nb";
     const defaultTextResourcesApiUrl = `data/resource.${language}.json`;
-    const defaultTextResourcesData = await fetch(defaultTextResourcesApiUrl).then((response) => response.json());
+    let defaultTextResourcesData;
+    try {
+        defaultTextResourcesData = await fetch(defaultTextResourcesApiUrl).then((response) => response.json());
+    } catch (error) {
+        console.error("Could not retrieve default text resources for the selected language.", error);
+        try {
+            const fallbackDefaultTextResourcesApiUrl = `data/resource.${fallbackLanguage}.json`;
+            defaultTextResourcesData = await fetch(fallbackDefaultTextResourcesApiUrl).then((response) => response.json());
+        } catch (fallbackError) {
+            console.error("Could not retrieve default text resources for the fallback language.", fallbackError);
+            return null;
+        }
+    }
+
+    console.log("Fetched default text resources for language:", { defaultTextResourcesData, hasValue: hasValue(defaultTextResourcesData) });
+
     if (hasValue(defaultTextResourcesData)) {
         return defaultTextResourcesData;
     } else {

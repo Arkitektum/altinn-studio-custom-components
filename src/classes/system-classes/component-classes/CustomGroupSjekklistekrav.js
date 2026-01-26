@@ -92,7 +92,7 @@ export default class CustomGroupSjekklistekrav extends CustomComponent {
         const resourceBindings = {
             trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.defaultText.default"
+            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
         };
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";

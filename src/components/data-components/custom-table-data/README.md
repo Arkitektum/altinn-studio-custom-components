@@ -68,7 +68,7 @@
         }
     ],
     "resourceBindings": {
-        "title": "resource.soeknadGjelder.header",
+        "title": "resource.soeknadGjelder.title",
         "emptyFieldText": "resource.eiendomByggested.eiendom.emptyFieldText"
     },
     "styleOverride": {
