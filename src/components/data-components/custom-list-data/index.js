@@ -10,6 +10,7 @@ export default customElements.define(
     class extends HTMLElement {
         connectedCallback() {
             const component = new instantiateComponent(this);
+            console.log("custom-list-data", component);
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";

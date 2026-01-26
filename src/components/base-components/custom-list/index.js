@@ -1,5 +1,4 @@
 // Global functions
-import { addStyle } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
@@ -13,10 +12,7 @@ export default customElements.define(
     class extends HTMLElement {
         connectedCallback() {
             const component = new instantiateComponent(this);
-            this.innerHTML = component?.resourceValues?.title?.length
-                ? renderListFieldElement(component?.resourceValues?.title, component?.resourceValues?.data)
-                : renderListElement(component?.resourceValues?.data);
-            addStyle(this, component?.styleOverride);
+            this.innerHTML = component?.resourceValues?.title?.length ? renderListFieldElement(component) : renderListElement(component);
         }
     }
 );
