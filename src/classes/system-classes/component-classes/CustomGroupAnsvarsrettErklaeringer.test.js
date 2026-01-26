@@ -36,7 +36,6 @@ describe("CustomGroupAnsvarsrettErklaeringer", () => {
             getTextResourceFromResourceBinding.mockReturnValue("Empty Field");
 
             const instance = new CustomGroupAnsvarsrettErklaeringer(props);
-            console.log(instance);
 
             expect(instance.isEmpty).toBe(true);
             expect(instance.validationMessages).toBe(validationMessages);

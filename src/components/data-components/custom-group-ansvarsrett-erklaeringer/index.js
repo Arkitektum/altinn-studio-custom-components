@@ -10,7 +10,8 @@ import {
     renderSOEKTekstElement,
     renderPROTekstElement,
     renderUTFTekstElement,
-    renderKONTROLLTekstElement
+    renderKONTROLLTekstElement,
+    renderEmptyFieldText
 } from "./renderers.js";
 
 export default customElements.define(
@@ -22,10 +23,12 @@ export default customElements.define(
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                let funksjonList = [];
-                component.resourceValues?.data?.forEach((element) => {
-                    funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
-                });
+                if (component.resourceValues?.data !== "-") {
+                    let funksjonList = [];
+                    component.resourceValues?.data?.forEach((element) => {
+                        funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
+                    });
+                }
                 if (hasValue(component?.resourceBindings?.erklaeringer?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceBindings?.erklaeringer?.title, component?.size));
                 }
