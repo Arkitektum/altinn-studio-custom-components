@@ -24,11 +24,6 @@ export default customElements.define(
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                if (component.resourceValues?.data !== "-") {
-                    component.resourceValues?.data?.forEach((element) => {
-                        funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
-                    });
-                }
                 if (hasValue(component?.resourceBindings?.erklaeringer?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceBindings?.erklaeringer?.title, component?.size));
                 }
@@ -36,6 +31,9 @@ export default customElements.define(
                     const emptyFieldTextElement = renderEmptyFieldText(component);
                     this.appendChild(emptyFieldTextElement);
                 } else {
+                    component.resourceValues?.data?.forEach((element) => {
+                        funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
+                    });
                     this.appendChild(renderErklaeringTekstElement(component));
 
                     if (funksjonList.includes("SØK")) {
