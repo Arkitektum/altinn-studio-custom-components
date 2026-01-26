@@ -1030,6 +1030,30 @@
             "value": "Ansvarsområder"
         },
         {
+            "id": "resource.erklaeringer.title",
+            "value": "Erklæring"
+        },
+        {
+            "id": "resource.erklaeringTekst.title",
+            "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss til å stille med riktig kompetanse i byggeprosjektet, jf. SAK10 kapittel 10 og 11."
+        },
+        {
+            "id": "resource.SOEKTekst.title",
+            "value": "Ansvarlig søker bekrefter at hele tiltaket belegges med ansvar, og dekker kravene i plan- og bygningsloven."
+        },
+        {
+            "id": "resource.PROTekst.title",
+            "value": "Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til plan- og bygningsloven, jf. SAK10 § 12-3."
+        },
+        {
+            "id": "resource.UTFTekst.title",
+            "value": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4."
+        },
+        {
+            "id": "resource.KONTROLLTekst.title",
+            "value": "Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5."
+        },
+        {
             "id": "signing.summary.title",
             "value": "Søknaden er signert av"
         }

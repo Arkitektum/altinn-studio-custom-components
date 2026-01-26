@@ -159,7 +159,6 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
                 emptyFieldText: props?.resourceBindings?.harSamsvarKontrollVedFerdigattest?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
-        console.log("props", { hasValue: hasValue(props?.resourceValues?.title), title: props?.resourceValues?.title });
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
             resourceBindings.ansvarsomraader = {
                 title: props?.resourceBindings?.title || "resource.ansvarsomraader.title"

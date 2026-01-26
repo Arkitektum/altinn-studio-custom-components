@@ -1,0 +1,58 @@
+// Global functions
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+
+// Local functions
+import {
+    renderHeaderElement,
+    renderErklaeringTekstElement,
+    renderSOEKTekstElement,
+    renderPROTekstElement,
+    renderUTFTekstElement,
+    renderKONTROLLTekstElement
+} from "./renderers.js";
+
+export default customElements.define(
+    "custom-group-ansvarsrett-erklaeringer",
+    class extends HTMLElement {
+        async connectedCallback() {
+            const component = instantiateComponent(this);
+            const componentContainerElement = getComponentContainerElement(this);
+            if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
+                componentContainerElement.style.display = "none";
+            } else {
+                let funksjonList = [];
+                component.resourceValues?.data?.forEach((element) => {
+                    funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
+                });
+                if (hasValue(component?.resourceBindings?.erklaeringer?.title) && component?.hideTitle !== true) {
+                    this.appendChild(renderHeaderElement(component?.resourceBindings?.erklaeringer?.title, component?.size));
+                }
+                if (component?.isEmpty) {
+                    const emptyFieldTextElement = renderEmptyFieldText(component);
+                    this.appendChild(emptyFieldTextElement);
+                } else {
+                    this.appendChild(renderErklaeringTekstElement(component));
+
+                    if (funksjonList.includes("SØK")) {
+                        this.appendChild(renderSOEKTekstElement(component));
+                    }
+                    if (funksjonList.includes("PRO")) {
+                        this.appendChild(renderPROTekstElement(component));
+                    }
+                    if (funksjonList.includes("UTF")) {
+                        this.appendChild(renderUTFTekstElement(component));
+                    }
+                    if (funksjonList.includes("KONTROLL")) {
+                        this.appendChild(renderKONTROLLTekstElement(component));
+                    }
+                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
+            }
+        }
+    }
+);
