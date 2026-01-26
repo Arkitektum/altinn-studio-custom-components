@@ -9,14 +9,15 @@
         "README.md"
     ],
     "scripts": {
+        "symlinks": "node scripts/create-symlinks.js",
+        "copy-dist-resources": "copyfiles --flat src/data/resource.nb.json dist",
+        "copy-docs-resources": "copyfiles --flat src/data/resource.nb.json docs/data",
         "test": "jest",
         "api": "node api/index.mjs",
-        "copy-dist-resources": "copyfiles --flat src/data/resource.nb.json dist",
-        "build": "webpack --mode production && yarn copy-dist-resources",
-        "copy-docs-resources": "copyfiles --flat src/data/resource.nb.json docs/data",
-        "build-docs": "webpack --mode production --config webpack.config.docs.js && yarn copy-docs-resources",
-        "start": "webpack serve --mode development",
-        "start-docs": "webpack serve --mode development --config webpack.config.docs.js",
+        "build": "yarn symlinks && webpack --mode production && yarn copy-dist-resources",
+        "build-docs": "yarn symlinks && webpack --mode production --config webpack.config.docs.js && yarn copy-docs-resources",
+        "start": "yarn symlinks && webpack serve --mode development",
+        "start-docs": "yarn symlinks && webpack serve --mode development --config webpack.config.docs.js",
         "lint": "eslint src --ext .js"
     },
     "repository": {
