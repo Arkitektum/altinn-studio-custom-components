@@ -20,11 +20,11 @@ export default customElements.define(
         async connectedCallback() {
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
+            let funksjonList = [];
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
                 if (component.resourceValues?.data !== "-") {
-                    let funksjonList = [];
                     component.resourceValues?.data?.forEach((element) => {
                         funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                     });
