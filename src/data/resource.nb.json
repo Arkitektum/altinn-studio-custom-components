@@ -998,19 +998,19 @@
             "value": "Funksjon"
         },
         {
-            "id": "resource.harSamsvarKontrollVedRammetillatelse.title",
+            "id": "resource.Rammetillatelse.title",
             "value": "Rammesøknad"
         },
         {
-            "id": "resource.harSamsvarKontrollVedIgangsettingstillatelse.title",
+            "id": "resource.Igangsettingstillatelse.title",
             "value": "Igangsettingstillatelse"
         },
         {
-            "id": "resource.harSamsvarKontrollVedMidlertidigBrukstillatelse.title",
+            "id": "resource.MidlertidigBrukstillatelse.title",
             "value": "Midlertidig brukstillatelse"
         },
         {
-            "id": "resource.harSamsvarKontrollVedFerdigattest.title",
+            "id": "resource.Ferdigattest.title",
             "value": "Ferdigattest"
         },
         {
@@ -1034,23 +1034,23 @@
             "value": "Erklæring"
         },
         {
-            "id": "resource.erklaeringTekst.title",
+            "id": "resource.ansvarsrettErklaeringTekst.title",
             "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss til å stille med riktig kompetanse i byggeprosjektet, jf. SAK10 kapittel 10 og 11."
         },
         {
-            "id": "resource.SOEKTekst.title",
+            "id": "resource.ansvarsrettSOEKTekst.title",
             "value": "Ansvarlig søker bekrefter at hele tiltaket belegges med ansvar, og dekker kravene i plan- og bygningsloven."
         },
         {
-            "id": "resource.PROTekst.title",
+            "id": "resource.ansvarsrettPROTekst.title",
             "value": "Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til plan- og bygningsloven, jf. SAK10 § 12-3."
         },
         {
-            "id": "resource.UTFTekst.title",
+            "id": "resource.ansvarsrettUTFTekst.title",
             "value": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4."
         },
         {
-            "id": "resource.KONTROLLTekst.title",
+            "id": "resource.ansvarsrettKONTROLLTekst.title",
             "value": "Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5."
         },
         {

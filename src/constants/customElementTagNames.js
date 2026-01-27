@@ -61,6 +61,7 @@ export default [
     "custom-table-omraaderisiko",
     "custom-table-part",
     "custom-table-plan",
+    "custom-table-samsvar-ansvarsomraade",
     "custom-dispensasjon",
     "custom-gjennomfoeringsplan",
     "custom-gjenpart-nabovarsel"

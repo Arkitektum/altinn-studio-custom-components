@@ -5,29 +5,9 @@ import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomra
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.js";
 
-/**
- * CustomTableAnsvarsrettAnsvarsomraade is a custom component class for handling and displaying
- * a table of "ansvarsomraade" (areas of responsibility) data, including resource bindings,
- * validation messages, and resource values for UI rendering.
- *
- * @extends CustomComponent
- *
- * @class
- * @param {Object} props - The properties object containing form data, resource bindings, and configuration flags.
- * @param {Object} [props.resourceBindings] - Optional resource binding overrides for each field.
- * @param {Object} [props.resourceValues] - Optional resource values, used to determine if the title should be included.
- * @param {boolean|string} [props.hideTitle] - If true, omits the 'ansvarsomraader' title from the resource bindings.
- * @param {boolean|string} [props.hideIfEmpty] - If true, omits the 'emptyFieldText' for 'ansvarsomraader'.
- *
- * @property {boolean} isEmpty - Indicates if the component data is empty.
- * @property {Array|string|boolean} validationMessages - Validation messages for the component.
- * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
- * @property {Object} resourceBindings - Resource bindings object for various fields.
- * @property {Object} resourceValues - Resource values for UI rendering, including title and data.
- *
- */
-export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponent {
+export default class CustomTableSamsvarAnsvarsomraade extends CustomComponent {
     constructor(props) {
         super(props);
         const resourceBindings = this.getResourceBindings(props);
@@ -60,17 +40,17 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
     }
 
     /**
-     * Converts input data into a list of AnsvarsrettAnsvarsomraade instances.
+     * Converts input data into a list of SamsvarAnsvarsomraade instances.
      *
      * @param {*} data - The input data, expected to be an array of ansvarsomraade objects.
-     * @param {*} resourceBindings - Resource bindings to be passed to each AnsvarsrettAnsvarsomraade instance.
-     * @returns {AnsvarsrettAnsvarsomraade[]|undefined} An array of AnsvarsrettAnsvarsomraade instances if data is valid, otherwise undefined.
+     * @param {*} resourceBindings - Resource bindings to be passed to each SamsvarAnsvarsomraade instance.
+     * @returns {SamsvarAnsvarsomraade[]|undefined} An array of SamsvarAnsvarsomraade instances if data is valid, otherwise undefined.
      */
     getAnsvarsomraadeListFromData(data, resourceBindings) {
         if (!hasValue(data)) {
             return undefined;
         }
-        return Array.isArray(data) ? data.map((ansvarsomraade) => new AnsvarsrettAnsvarsomraade(ansvarsomraade, resourceBindings)) : [];
+        return Array.isArray(data) ? data.map((ansvarsomraade) => new SamsvarAnsvarsomraade(ansvarsomraade, resourceBindings)) : [];
     }
 
     /**

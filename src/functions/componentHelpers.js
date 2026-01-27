@@ -63,6 +63,7 @@ import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
+import CustomTableSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableSamsvarAnsvarsomraade.js";
 import CustomComponent from "../classes/system-classes/CustomComponent.js";
 
 // Global functions
@@ -202,6 +203,8 @@ export function instantiateComponent(element) {
             return new CustomTablePart(component);
         case "custom-table-plan":
             return new CustomTablePlan(component);
+        case "custom-table-samsvar-ansvarsomraade":
+            return new CustomTableSamsvarAnsvarsomraade(component);
         default:
             console.warn(`Unknown component type: ${tagName}`);
             return null;

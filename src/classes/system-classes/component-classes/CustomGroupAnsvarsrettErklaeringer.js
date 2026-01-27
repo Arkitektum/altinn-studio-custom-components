@@ -90,11 +90,11 @@ export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent 
      *
      * @param {Object} props - The properties object.
      * @param {Object} [props.resourceBindings] - Resource binding overrides for text fields.
-     * @param {Object} [props.resourceBindings.erklaeringTekst] - Overrides for 'erklaeringTekst'.
-     * @param {Object} [props.resourceBindings.SOEKTekst] - Overrides for 'SOEKTekst'.
-     * @param {Object} [props.resourceBindings.PROTekst] - Overrides for 'PROTekst'.
-     * @param {Object} [props.resourceBindings.UTFTekst] - Overrides for 'UTFTekst'.
-     * @param {Object} [props.resourceBindings.KONTROLLTekst] - Overrides for 'KONTROLLTekst'.
+     * @param {Object} [props.resourceBindings.ansvarsrettErklaeringTekst] - Overrides for 'ansvarsrettErklaeringTekst'.
+     * @param {Object} [props.resourceBindings.ansvarsrettSOEKTekst] - Overrides for 'ansvarsrettSOEKTekst'.
+     * @param {Object} [props.resourceBindings.ansvarsrettPROTekst] - Overrides for 'ansvarsrettPROTekst'.
+     * @param {Object} [props.resourceBindings.ansvarsrettUTFTekst] - Overrides for 'ansvarsrettUTFTekst'.
+     * @param {Object} [props.resourceBindings.ansvarsrettKONTROLLTekst] - Overrides for 'ansvarsrettKONTROLLTekst'.
      * @param {string} [props.resourceBindings.title] - Title override for 'erklaeringer'.
      * @param {string} [props.resourceBindings.emptyFieldText] - Empty field text override for 'erklaeringer'.
      * @param {Object} [props.resourceValues] - Resource values, used to check for title presence.
@@ -104,25 +104,25 @@ export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent 
      */
     getResourceBindings(props) {
         const resourceBindings = {
-            erklaeringTekst: {
-                title: props?.resourceBindings?.erklaeringTekst?.title || "resource.erklaeringTekst.title",
-                emptyFieldText: props?.resourceBindings?.erklaeringTekst?.emptyFieldText || "resource.emptyFieldText.default"
+            ansvarsrettErklaeringTekst: {
+                title: props?.resourceBindings?.ansvarsrettErklaeringTekst?.title || "resource.ansvarsrettErklaeringTekst.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsrettErklaeringTekst?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            SOEKTekst: {
-                title: props?.resourceBindings?.SOEKTekst?.title || "resource.SOEKTekst.title",
-                emptyFieldText: props?.resourceBindings?.SOEKTekst?.emptyFieldText || "resource.emptyFieldText.default"
+            ansvarsrettSOEKTekst: {
+                title: props?.resourceBindings?.ansvarsrettSOEKTekst?.title || "resource.ansvarsrettSOEKTekst.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsrettSOEKTekst?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            PROTekst: {
-                title: props?.resourceBindings?.PROTekst?.title || "resource.PROTekst.title",
-                emptyFieldText: props?.resourceBindings?.PROTekst?.emptyFieldText || "resource.emptyFieldText.default"
+            ansvarsrettPROTekst: {
+                title: props?.resourceBindings?.ansvarsrettPROTekst?.title || "resource.ansvarsrettPROTekst.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsrettPROTekst?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            UTFTekst: {
-                title: props?.resourceBindings?.UTFTekst?.title || "resource.UTFTekst.title",
-                emptyFieldText: props?.resourceBindings?.UTFTekst?.emptyFieldText || "resource.emptyFieldText.default"
+            ansvarsrettUTFTekst: {
+                title: props?.resourceBindings?.ansvarsrettUTFTekst?.title || "resource.ansvarsrettUTFTekst.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsrettUTFTekst?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            KONTROLLTekst: {
-                title: props?.resourceBindings?.KONTROLLTekst?.title || "resource.KONTROLLTekst.title",
-                emptyFieldText: props?.resourceBindings?.KONTROLLTekst?.emptyFieldText || "resource.emptyFieldText.default"
+            ansvarsrettKONTROLLTekst: {
+                title: props?.resourceBindings?.ansvarsrettKONTROLLTekst?.title || "resource.ansvarsrettKONTROLLTekst.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsrettKONTROLLTekst?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
