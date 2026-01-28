@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
 
 /**
@@ -50,8 +50,7 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
      * @returns {Array|string|boolean} The result of the validation, which may be an array of messages, a string, or a boolean indicating missing resources.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**

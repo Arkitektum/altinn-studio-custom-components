@@ -1,9 +1,6 @@
 import CustomDispensasjon from "./CustomDispensasjon";
 
 // Mocks
-jest.mock("../CustomComponent.js", () => {
-    return class {};
-});
 jest.mock("../../layout-classes/Dispensasjon.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isDispensasjon: true }));
 });
@@ -22,7 +19,7 @@ const { hasMissingTextResources, hasValidationMessages } = require("../../../fun
 describe("CustomDispensasjon", () => {
     beforeEach(() => {
         jest.clearAllMocks();
-        global.window = {};
+        globalThis.window = {};
     });
 
     describe("constructor", () => {
@@ -92,17 +89,15 @@ describe("CustomDispensasjon", () => {
 
     describe("getValidationMessages", () => {
         it("calls hasMissingTextResources with window.textResources and bindings", () => {
-            global.window.textResources = ["foo"];
             const instance = new CustomDispensasjon({});
             instance.getValidationMessages({ key: "value" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith(["foo"], { key: "value" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ key: "value" });
         });
 
         it("uses empty array if window.textResources is undefined", () => {
-            delete global.window.textResources;
             const instance = new CustomDispensasjon({});
             instance.getValidationMessages({ key: "value" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith([], { key: "value" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ key: "value" });
         });
     });
 

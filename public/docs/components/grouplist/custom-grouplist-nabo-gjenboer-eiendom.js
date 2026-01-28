@@ -15,50 +15,50 @@ const defaultResourceBindings = {
         title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
     },
     eiendomMatrikkelinformasjonAdresse: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.title",
-        emptyFieldText: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText"
+        title: "resource.eiendom.adresse.title",
+        emptyFieldText: "resource.emptyFieldText.address"
     },
     eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.gaardsnummer.title",
+        title: "resource.eiendom.gaardsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.bruksnummer.title",
+        title: "resource.eiendom.bruksnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.seksjonsnummer.title",
+        title: "resource.eiendom.seksjonsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.festenummer.title",
+        title: "resource.eiendom.festenummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonBolignummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bolignummer.title",
+        title: "resource.eiendom.bolignummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eiendomMatrikkelinformasjonBygningsnummer: {
-        title: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bygningsnummer.title",
+        title: "resource.eiendom.bygningsnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eier: {
-        title: "resource.eier.header"
+        title: "resource.eier.title"
     },
     eierNavn: {
-        title: "resource.eier.navn.title",
+        title: "resource.part.navn.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierTelefonnummer: {
-        title: "resource.eier.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierEpost: {
-        title: "resource.eier.epost.title",
+        title: "resource.part.epost.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     eierAdresse: {
-        title: "resource.eier.adresse.title"
+        title: "resource.eiendom.adresse.title"
     },
     responsNabovarselSendtVia: {
         title: "resource.respons.nabovarselSendtVia.title",

@@ -21,6 +21,9 @@ module.exports = {
         minimizer: [`...`, new CssMinimizerPlugin()]
     },
     devServer: {
+        historyApiFallback: {
+            rewrites: [{ from: /^\/admin/, to: "/admin.html" }]
+        },
         static: [
             {
                 directory: path.join(__dirname, "public")

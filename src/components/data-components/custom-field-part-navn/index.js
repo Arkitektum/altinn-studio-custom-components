@@ -2,7 +2,7 @@
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement, getEmptyFieldText } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 export default customElements.define(

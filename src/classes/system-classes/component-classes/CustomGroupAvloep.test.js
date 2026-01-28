@@ -79,8 +79,7 @@ describe("CustomGroupAvloep", () => {
         const instance = new CustomGroupAvloep({});
         const bindings = { test: "value" };
         instance.getValidationMessages(bindings);
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(expect.anything(), bindings);
+        expect(hasMissingTextResources).toHaveBeenCalledWith(bindings);
     });
 
     it("getValueFromFormData should return Avloep instance", () => {

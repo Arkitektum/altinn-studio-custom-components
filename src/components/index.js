@@ -33,6 +33,7 @@ import customGrouplistSjekklistekrav from "./data-components/custom-grouplist-sj
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
 import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
 import customGroupAdkomst from "./data-components/custom-group-adkomst/index.js";
+import customGroupAnsvarsrettErklaeringer from "./data-components/custom-group-ansvarsrett-erklaeringer/index.js";
 import customGroupAvloep from "./data-components/custom-group-avloep/index.js";
 import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.js";
 import customGroupLoefteinnretninger from "./data-components/custom-group-loefteinnretninger/index.js";
@@ -53,6 +54,7 @@ import customSubheaderText from "./data-components/custom-subheader-text/index.j
 import customSummationArealdisponering from "./data-components/custom-summation-arealdisponering/index.js";
 import customSummationData from "./data-components/custom-summation-data/index.js";
 import customTableAnsvarsomraade from "./data-components/custom-table-ansvarsomraade/index.js";
+import customTableAnsvarsrettAnsvarsomraade from "./data-components/custom-table-ansvarsrett-ansvarsomraade/index.js";
 import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
@@ -106,6 +108,7 @@ export {
     customGrouplistUtfallSvar,
     customGrouplistUtfallSvarType,
     customGroupAdkomst,
+    customGroupAnsvarsrettErklaeringer,
     customGroupAvloep,
     customGroupEttersending,
     customGroupLoefteinnretninger,
@@ -127,6 +130,7 @@ export {
     customSummationArealdisponering,
     customSummationData,
     customTableAnsvarsomraade,
+    customTableAnsvarsrettAnsvarsomraade,
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,

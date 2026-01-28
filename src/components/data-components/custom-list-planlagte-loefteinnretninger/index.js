@@ -21,12 +21,12 @@ export default customElements.define(
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
             } else {
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const planlagteLoefteinnretningerListElement = renderPlanlagteLoefteinnretningerList(component);
                 this.appendChild(planlagteLoefteinnretningerListElement);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

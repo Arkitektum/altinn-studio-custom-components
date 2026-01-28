@@ -226,8 +226,8 @@ describe("CustomTableEiendom", () => {
         it("should return default resource bindings if no overrides", () => {
             const instance = new CustomTableEiendom({});
             const result = instance.getResourceBindings({});
-            expect(result.adresse.title).toBe("resource.eiendomByggested.eiendom.adresse.title");
-            expect(result.adresse.emptyFieldText).toBe("resource.eiendomByggested.eiendom.adresse.emptyFieldText");
+            expect(result.adresse.title).toBe("resource.eiendom.adresse.title");
+            expect(result.adresse.emptyFieldText).toBe("resource.emptyFieldText.address");
             expect(result.eiendomByggested.title).toBe("resource.eiendomByggested.eiendom.title");
             expect(result.eiendomByggested.emptyFieldText).toBe("resource.emptyFieldText.default");
         });

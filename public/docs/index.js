@@ -6,7 +6,7 @@ import componentExamples from "./components/index.js";
 import { renderResults, renderSidebar } from "./scripts/renderers.js";
 
 // Global functions
-import { getDataForComponent } from "../scripts/getters.js";
+import { fetchDefaultTextResources, getDataForComponent } from "../scripts/getters.js";
 import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
 import { addContainerElement, createCustomElement, getTextResourcesFromResourceBindings } from "../../src/functions/helpers.js";
 
@@ -85,8 +85,9 @@ export function getResults(componentExamples, dataModels) {
  * @param {Object} dataModels - An object containing data models to be used.
  * @returns {Array|Object} results - The processed results based on the inputs.
  */
-globalThis.onload = function () {
+globalThis.onload = async function () {
     globalThis.textResources = textResources;
+    globalThis.defaultTextResources = await fetchDefaultTextResources("nb");
     const results = getResults(componentExamples, dataModels);
     renderResults(results);
     renderSidebar(results);

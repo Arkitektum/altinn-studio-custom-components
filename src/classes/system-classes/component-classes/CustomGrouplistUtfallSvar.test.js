@@ -164,8 +164,7 @@ describe("CustomGrouplistUtfallSvar", () => {
             hasMissingTextResources.mockReturnValue(["missing"]);
             const instance = new CustomGrouplistUtfallSvar({});
             const result = instance.getValidationMessages({ foo: "bar" });
-            expect(getTextResources).toHaveBeenCalled();
-            expect(hasMissingTextResources).toHaveBeenCalledWith(["resource1"], { foo: "bar" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
             expect(result).toEqual(["missing"]);
         });
     });

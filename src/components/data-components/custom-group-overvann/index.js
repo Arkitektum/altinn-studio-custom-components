@@ -29,11 +29,11 @@ export default customElements.define(
                 } else {
                     this.appendChild(renderLedesOvervannTilTerrengElement(component));
                     this.appendChild(renderLedesOvervannTilAvloepssystemElement(component));
-                    const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                    if (feedbackListElement) {
-                        this.appendChild(feedbackListElement);
-                    }
                 }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

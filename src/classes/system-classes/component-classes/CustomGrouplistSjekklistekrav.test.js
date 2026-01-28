@@ -87,7 +87,7 @@ describe("CustomGrouplistSjekklistekrav", () => {
 
         expect(bindings.sjekklistekrav.trueText).toBe("resource.trueText.default");
         expect(bindings.sjekklistekrav.falseText).toBe("resource.falseText.default");
-        expect(bindings.sjekklistekrav.defaultText).toBe("resource.defaultText.default");
+        expect(bindings.sjekklistekrav.defaultText).toBe("resource.emptyFieldText.default");
         expect(bindings.sjekklistekrav.title).toBe("resource.krav.sjekklistekrav.title");
         expect(bindings.sjekklistekrav.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
@@ -137,14 +137,11 @@ describe("CustomGrouplistSjekklistekrav", () => {
     });
 
     it("getValidationMessages should call hasMissingTextResources", () => {
-        getTextResources.mockReturnValue(["a", "b"]);
         hasMissingTextResources.mockReturnValue(["missing"]);
         const props = {};
         const instance = new CustomGrouplistSjekklistekrav(props);
         const result = instance.getValidationMessages({ foo: "bar" });
-
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith(["a", "b"], { foo: "bar" });
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
         expect(result).toEqual(["missing"]);
     });
 });

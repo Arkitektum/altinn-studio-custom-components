@@ -3,13 +3,7 @@ import Adresse from "../../data-classes/Adresse.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import {
-    getComponentDataValue,
-    getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -96,8 +90,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

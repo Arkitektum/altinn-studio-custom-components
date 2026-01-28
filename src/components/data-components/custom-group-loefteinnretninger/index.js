@@ -31,11 +31,11 @@ export default customElements.define(
                     this.appendChild(renderErLoefteinnretningIBygningElement(component));
                     this.appendChild(renderPlanleggesLoefteinnretningIBygningElement(component));
                     this.appendChild(renderPlanlagteLoefteinnretningerElement(component));
-                    const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                    if (feedbackListElement) {
-                        this.appendChild(feedbackListElement);
-                    }
                 }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

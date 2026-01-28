@@ -18,12 +18,12 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

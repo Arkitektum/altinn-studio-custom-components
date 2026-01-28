@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -60,8 +60,7 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
      * @returns {Array|string|boolean} - The result of checking for missing text resources, which may be an array of messages, a string, or a boolean depending on implementation.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**
@@ -93,63 +92,50 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
                 title: props?.resourceBindings?.eiendom?.title || "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
             },
             eiendomMatrikkelinformasjonAdresse: {
-                title: props?.resourceBindings?.adresse?.title || "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.title",
-                emptyFieldText:
-                    props?.resourceBindings?.adresse?.emptyFieldText ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.adresse.emptyFieldText"
+                title: props?.resourceBindings?.adresse?.title || "resource.eiendom.adresse.title",
+                emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.gaardsnummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title || "resource.eiendom.gaardsnummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.bruksnummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title || "resource.eiendom.bruksnummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.seksjonsnummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title || "resource.eiendom.seksjonsnummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.eiendomsidentifikasjon.festenummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title || "resource.eiendom.festenummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonBolignummer: {
-                title:
-                    props?.resourceBindings?.bolignummer?.title || "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bolignummer.title",
+                title: props?.resourceBindings?.bolignummer?.title || "resource.eiendom.bolignummer.title",
                 emptyFieldText: props?.resourceBindings?.bolignummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonBygningsnummer: {
-                title:
-                    props?.resourceBindings?.bygningsnummer?.title ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.bygningsnummer.title",
+                title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendom.bygningsnummer.title",
                 emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eier: {
-                title: props?.resourceBindings?.eier?.title || "resource.eier.header"
+                title: props?.resourceBindings?.eier?.title || "resource.eier.title"
             },
             eierNavn: {
-                title: props?.resourceBindings?.eierNavn?.title || "resource.eier.navn.title",
+                title: props?.resourceBindings?.eierNavn?.title || "resource.part.navn.title",
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
-                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.eier.telefonnummer.title",
+                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.part.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierEpost: {
-                title: props?.resourceBindings?.eierEpost?.title || "resource.eier.epost.title",
+                title: props?.resourceBindings?.eierEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.eier.adresse.title"
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.eiendom.adresse.title"
             },
             responsNabovarselSendtVia: {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",

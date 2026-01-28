@@ -183,6 +183,9 @@
             min-width: 830px;
             height: 100vh;
             overflow: auto;
+            &.admin {
+                flex-basis: 100%;
+            }
         }
         & .page {
             margin: 0.5cm auto;
@@ -258,15 +261,7 @@
                         margin-right: 8px;
                         font-family: var(--font-family-default);
                     }
-                    &.remove-unused-resources-button {
-                        background-color: var(--color-error-default);
-                        &:hover {
-                            background-color: var(--color-error-light);
-                        }
-                        &::before {
-                            content: "🧹";
-                        }
-                    }
+                    &.remove-unused-resources-button,
                     &.remove-duplicate-resources-button {
                         background-color: var(--color-warning-default);
                         &:hover {
@@ -294,6 +289,182 @@
                             content: "➕";
                         }
                     }
+                }
+            }
+        }
+        &.admin {
+            & .default-text-resources-list {
+                margin: 16px auto;
+                padding: 16px;
+                max-width: 1000px;
+                box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
+                background-color: #fcfcfc;
+
+                & h4 {
+                    margin: 0 0 5px 0;
+                    font-size: 16px;
+                    font-weight: 300;
+                    color: #333;
+                }
+
+                & p {
+                    font-size: 14px;
+                    font-weight: 400;
+                    color: #555;
+                    margin: 0 0 16px 0;
+                }
+
+                & .expand-collapse-icon {
+                    display: inline-block;
+                    width: 16px;
+                    text-align: center;
+                    margin-right: 8px;
+                    transition: transform 150ms;
+                    transform: rotate(0deg);
+                    color: #999;
+                }
+                & details:open > summary > .expand-collapse-icon {
+                    transform: rotate(90deg);
+                }
+
+                & .default-text-resource-list-item {
+                    margin: 0;
+                    &:not(:last-child) {
+                        border-bottom: 1px solid #ccc;
+                    }
+
+                    & summary {
+                        display: flex;
+                        align-items: center;
+                        cursor: pointer;
+                        padding: 10px;
+                        margin: 0;
+                        transition: var(--background-transition-default);
+                        &:hover {
+                            background-color: #f0f0f0;
+                        }
+                        & .resource-id-and-value {
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
+                            & .resource-id {
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #333;
+                                line-break: anywhere;
+                            }
+                            & .resource-value {
+                                font-size: 14px;
+                                font-weight: 400;
+                                color: #555;
+                            }
+                        }
+                        & .usage-container {
+                            display: flex;
+                            gap: 12px;
+                            min-width: 275px;
+                            justify-content: flex-end;
+                            & span {
+                                font-size: 14px;
+                                font-weight: 300;
+                                color: #666;
+                            }
+                        }
+                    }
+                    & .usage-details {
+                        padding: 10px 20px 20px 33px;
+                        & .app-usage-details-list {
+                            & details {
+                                &:not(:last-child) {
+                                    border-bottom: 1px solid #ccc;
+                                }
+                                & summary {
+                                    padding: 8px 12px;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    color: #222;
+                                    cursor: pointer;
+                                    &:hover {
+                                        background-color: #f0f0f0;
+                                    }
+                                    & .app-usage-summary-title {
+                                        font-weight: 600;
+                                        color: #333;
+                                        width: 100%;
+                                    }
+                                    & .app-usage-summary-count {
+                                        font-size: 14px;
+                                        margin-left: 8px;
+                                        font-weight: 300;
+                                        color: #666;
+                                        width: 122px;
+                                    }
+                                }
+                                & .component-usage-list {
+                                    margin: 0 16px 16px;
+                                    & details {
+                                        &:not(:last-child) {
+                                            border-bottom: 1px solid #ccc;
+                                        }
+                                        &:open {
+                                            border-bottom: none;
+                                            margin-bottom: 8px;
+                                        }
+                                        & summary {
+                                            padding: 6px 10px;
+                                            font-size: 13px;
+                                            font-weight: 500;
+                                            color: #333;
+                                            cursor: pointer;
+                                            &:hover {
+                                                background-color: #f0f0f0;
+                                            }
+                                        }
+                                        & pre {
+                                            margin: 0;
+                                            padding: 8px 12px;
+                                            background-color: #272822;
+                                            color: #f8f8f2;
+                                            overflow-x: auto;
+                                            font-size: 13px;
+                                            border-bottom-left-radius: 4px;
+                                            border-bottom-right-radius: 4px;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    & .duplicate-resources-container {
+                        margin-top: 16px;
+                        & .duplicate-resources-list {
+                            padding: 0px 32px;
+                            margin: 0;
+                            & li {
+                                font-size: 13px;
+                                font-weight: 400;
+                                color: #333;
+                                line-break: anywhere;
+                                padding: 1px 0;
+                            }
+                        }
+                    }
+                }
+            }
+            & .text-resources-filter-container {
+                margin: 16px auto;
+                max-width: 1000px;
+                padding: 0 16px;
+                & label {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #333;
+                    margin-right: 12px;
+                    cursor: pointer;
+                }
+                & input[type="radio"] {
+                    margin-right: 6px;
+                    cursor: pointer;
                 }
             }
         }

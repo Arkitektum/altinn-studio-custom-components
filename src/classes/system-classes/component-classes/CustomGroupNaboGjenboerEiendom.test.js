@@ -88,7 +88,7 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
         expect(bindings.eiendomMatrikkelinformasjon.title).toBe(
             "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
         );
-        expect(bindings.eier.title).toBe("resource.eier.header");
+        expect(bindings.eier.title).toBe("resource.eier.title");
         expect(bindings.naboGjenboerEiendom.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 
@@ -131,7 +131,6 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
         hasMissingTextResources.mockReturnValue(["missing"]);
         const instance = new CustomGroupNaboGjenboerEiendom({});
         expect(instance.getValidationMessages({})).toEqual(["missing"]);
-        expect(getTextResources).toHaveBeenCalled();
         expect(hasMissingTextResources).toHaveBeenCalled();
     });
 

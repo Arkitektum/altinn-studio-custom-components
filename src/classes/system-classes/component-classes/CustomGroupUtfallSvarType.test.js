@@ -84,8 +84,7 @@ describe("CustomGroupUtfallSvarType", () => {
         hasMissingTextResources.mockReturnValue("msg");
         const instance = new CustomGroupUtfallSvarType({});
         const result = instance.getValidationMessages({ foo: "bar" });
-        expect(getTextResources).toHaveBeenCalled();
-        expect(hasMissingTextResources).toHaveBeenCalledWith({ a: 1 }, { foo: "bar" });
+        expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
         expect(result).toBe("msg");
     });
 

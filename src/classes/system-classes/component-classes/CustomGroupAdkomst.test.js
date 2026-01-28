@@ -72,7 +72,6 @@ describe("CustomGroupAdkomst", () => {
         const instance = new CustomGroupAdkomst({});
         const bindings = { test: "value" };
         instance.getValidationMessages(bindings);
-        expect(getTextResources).toHaveBeenCalled();
         expect(hasMissingTextResources).toHaveBeenCalled();
     });
 

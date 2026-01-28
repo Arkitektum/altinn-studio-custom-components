@@ -101,15 +101,15 @@ describe("CustomTableOmraaderisiko", () => {
 
     describe("getValidationMessages", () => {
         it("should call hasMissingTextResources with window.textResources", () => {
-            global.window = { textResources: ["a", "b"] };
+            globalThis.window = { textResources: ["a", "b"] };
             hasMissingTextResources.mockReturnValue(true);
             const instance = new CustomTableOmraaderisiko({});
             expect(instance.getValidationMessages({})).toBe(true);
-            delete global.window;
+            delete globalThis.window;
         });
 
         it("should call hasMissingTextResources with empty array if window.textResources is undefined", () => {
-            global.window = {};
+            globalThis.window = {};
             hasMissingTextResources.mockReturnValue(false);
             const instance = new CustomTableOmraaderisiko({});
             expect(instance.getValidationMessages({})).toBe(false);

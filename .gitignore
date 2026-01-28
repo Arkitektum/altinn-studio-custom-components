@@ -134,3 +134,7 @@ dist
 
 # Development
 /testdata
+
+# Symlinks
+public/data/resource.**.json
+public/docs/data/resource.**.json

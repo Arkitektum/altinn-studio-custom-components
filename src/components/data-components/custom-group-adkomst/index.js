@@ -24,11 +24,11 @@ export default customElements.define(
                 } else {
                     this.appendChild(renderErNyEllerEndretAdkomstElement(component));
                     this.appendChild(renderVegtypeElement(component));
-                    const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                    if (feedbackListElement) {
-                        this.appendChild(feedbackListElement);
-                    }
                 }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

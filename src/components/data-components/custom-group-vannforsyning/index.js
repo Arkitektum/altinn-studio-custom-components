@@ -33,11 +33,11 @@ export default customElements.define(
                     this.appendChild(renderBeskrivelseElement(component));
                     this.appendChild(renderKrysserVannforsyningAnnensGrunnElement(component));
                     this.appendChild(renderHarTinglystErklaeringElement(component));
-                    const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                    if (feedbackListElement) {
-                        this.appendChild(feedbackListElement);
-                    }
                 }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

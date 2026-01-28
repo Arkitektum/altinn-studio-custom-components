@@ -154,7 +154,7 @@ describe("CustomTableArbeidsplasser", () => {
             });
             // Find the call with the expected arguments
             const calls = hasMissingTextResources.mock.calls;
-            expect(calls).toContainEqual([undefined, expectedBindings]);
+            expect(calls).toContainEqual([expectedBindings]);
             expect(result).toBe(false);
         });
     });

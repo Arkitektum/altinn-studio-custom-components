@@ -272,6 +272,15 @@ export function getTextResources() {
 }
 
 /**
+ * Retrieves the default text resources from the global scope.
+ *
+ * @returns {Array} An array of default text resources if available on `globalThis.defaultTextResources`, otherwise an empty array.
+ */
+export function getDefaultTextResources() {
+    return typeof globalThis !== "undefined" && globalThis.defaultTextResources ? globalThis.defaultTextResources : [];
+}
+
+/**
  * Validates the presence of text resources for the given keys in the texts object.
  * If a text resource is missing, it checks for a fallback text and logs a warning.
  *
@@ -350,15 +359,20 @@ export function getValueFromDataKey(data, dataKey) {
 }
 
 /**
- * Retrieves the text resource value corresponding to the given resource binding.
- * If the resource is not found, returns the resourceBinding itself.
+ * Retrieves the text resource value associated with the given resource binding.
+ * It first searches in the current text resources, and if not found, falls back to the default text resources.
+ * If the resource is still not found, it returns the resourceBinding itself.
  *
- * @param {string} resourceBinding - The ID of the resource to look up.
+ * @param {string} resourceBinding - The identifier for the text resource to retrieve.
  * @returns {string} The value of the text resource, or the resourceBinding if not found.
  */
 export function getTextResourceFromResourceBinding(resourceBinding) {
     const textResources = getTextResources();
-    const textResource = textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
+    let textResource = textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
+    if (textResource === undefined || textResource === null) {
+        const defaultTextResources = getDefaultTextResources();
+        textResource = defaultTextResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
+    }
     return textResource || resourceBinding;
 }
 

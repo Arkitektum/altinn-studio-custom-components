@@ -82,7 +82,7 @@ describe("CustomGrouplistAnsvarsomraadeType", () => {
             hasMissingTextResources.mockReturnValue(["missing"]);
             const instance = new CustomGrouplistAnsvarsomraadeType({});
             const result = instance.getValidationMessages({ foo: "bar" });
-            expect(hasMissingTextResources).toHaveBeenCalledWith(["res1", "res2"], { foo: "bar" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
             expect(result).toEqual(["missing"]);
         });
     });

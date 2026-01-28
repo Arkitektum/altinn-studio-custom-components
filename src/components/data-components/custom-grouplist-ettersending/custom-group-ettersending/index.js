@@ -26,11 +26,10 @@ export default customElements.define(
                 containerElement.appendChild(renderKommentarElement(component));
                 containerElement.appendChild(renderVedleggslisteElement(component));
                 this.appendChild(containerElement);
-
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }

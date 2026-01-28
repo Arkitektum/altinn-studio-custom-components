@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**
@@ -63,8 +63,7 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
      * @returns {Array|string} - The validation messages indicating missing text resources.
      */
     getValidationMessages(resourceBindings) {
-        const textResources = getTextResources();
-        return hasMissingTextResources(textResources, resourceBindings);
+        return hasMissingTextResources(resourceBindings);
     }
 
     /**
@@ -99,7 +98,7 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
         const resourceBindings = {
             trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.defaultText.default"
+            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.title = props?.resourceBindings?.title || "resource.krav.sjekklistekrav.title";

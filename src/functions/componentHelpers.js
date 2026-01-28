@@ -23,6 +23,7 @@ import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-cla
 import CustomGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomGjennomfoeringsplan.js";
 import CustomGjenpartNabovarsel from "../classes/system-classes/component-classes/CustomGjenpartNabovarsel.js";
 import CustomGroupAdkomst from "../classes/system-classes/component-classes/CustomGroupAdkomst.js";
+import CustomGroupAnsvarsrettErklaeringer from "../classes/system-classes/component-classes/CustomGroupAnsvarsrettErklaeringer.js";
 import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
@@ -54,6 +55,7 @@ import CustomSummationArealdisponering from "../classes/system-classes/component
 import CustomSummationData from "../classes/system-classes/component-classes/CustomSummationData.js";
 import CustomTable from "../classes/system-classes/component-classes/CustomTable.js";
 import CustomTableAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableAnsvarsomraade.js";
+import CustomTableAnsvarsrettAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableAnsvarsrettAnsvarsomraade.js";
 import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
@@ -120,6 +122,8 @@ export function instantiateComponent(element) {
             return new CustomGjenpartNabovarsel(component);
         case "custom-group-adkomst":
             return new CustomGroupAdkomst(component);
+        case "custom-group-ansvarsrett-erklaeringer":
+            return new CustomGroupAnsvarsrettErklaeringer(component);
         case "custom-group-avloep":
             return new CustomGroupAvloep(component);
         case "custom-group-ettersending":
@@ -182,6 +186,8 @@ export function instantiateComponent(element) {
             return new CustomTable(component);
         case "custom-table-ansvarsomraade":
             return new CustomTableAnsvarsomraade(component);
+        case "custom-table-ansvarsrett-ansvarsomraade":
+            return new CustomTableAnsvarsrettAnsvarsomraade(component);
         case "custom-table-arbeidsplasser":
             return new CustomTableArbeidsplasser(component);
         case "custom-table-data":

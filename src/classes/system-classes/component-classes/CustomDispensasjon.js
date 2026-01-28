@@ -75,8 +75,7 @@ export default class CustomDispensasjon extends CustomComponent {
      * @returns {Array|string|boolean} The result of the hasMissingTextResources function, indicating missing text resources.
      */
     getValidationMessages(textResourceBindings) {
-        const textResources = typeof window !== "undefined" && window.textResources ? window.textResources : [];
-        return hasMissingTextResources(textResources, textResourceBindings);
+        return hasMissingTextResources(textResourceBindings);
     }
 
     /**
@@ -111,7 +110,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: "resource.kommunensSaksnummer.title"
             },
             soeknadGjelderHeader: {
-                title: "resource.soeknadGjelder.header"
+                title: "resource.soeknadGjelder.title"
             },
             tiltakstyperTypeHeader: {
                 title: "resource.tiltakstyper.type.header"
@@ -120,10 +119,10 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: "resource.tiltakstyper.type.kode.title"
             },
             tiltakshaverAdresse: {
-                title: "resource.tiltakshaver.adresse.title"
+                title: "resource.eiendom.adresse.title"
             },
             ansvarligSoekerAdresse: {
-                title: "resource.ansvarligSoeker.adresse.title"
+                title: "resource.eiendom.adresse.title"
             },
             dispensasjonBeskrivelseBeskrivelse: {
                 title: "resource.dispensasjonBeskrivelse.beskrivelse.title"

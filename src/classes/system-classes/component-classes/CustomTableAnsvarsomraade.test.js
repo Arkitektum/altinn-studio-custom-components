@@ -142,8 +142,7 @@ describe("CustomTableAnsvarsomraade", () => {
             const instance = new CustomTableAnsvarsomraade({});
             const result = instance.getValidationMessages({ foo: "bar" });
 
-            expect(getTextResources).toHaveBeenCalled();
-            expect(hasMissingTextResources).toHaveBeenCalledWith(["res1", "res2"], { foo: "bar" });
+            expect(hasMissingTextResources).toHaveBeenCalledWith({ foo: "bar" });
             expect(result).toEqual({ missing: true });
         });
     });

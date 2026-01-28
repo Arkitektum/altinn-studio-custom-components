@@ -18,15 +18,15 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                const feedbackListElement = component.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
                 if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
                 const omraaderisikoTableElement = renderOmraaderisikoTable(component);
                 this.appendChild(omraaderisikoTableElement);
-                if (feedbackListElement) {
-                    this.appendChild(feedbackListElement);
-                }
+            }
+            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
+            if (feedbackListElement) {
+                this.appendChild(feedbackListElement);
             }
         }
     }
