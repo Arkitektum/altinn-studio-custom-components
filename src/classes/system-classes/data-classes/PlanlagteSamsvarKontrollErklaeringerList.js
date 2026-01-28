@@ -46,19 +46,21 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
     }
 
     /**
-     * Generates a list of planned compliance control declarations based on provided properties and resource bindings.
+     * Generates a list of planned conformity control declarations based on the provided properties and resource bindings.
      *
-     * Each item in the returned list represents a planned compliance control declaration for a specific permit stage,
-     * including its title (localized using resource bindings) and signing date (formatted as "date").
-     * Only stages marked as planned (`true`) in the `props` object are included.
+     * Each item in the returned list represents a planned conformity control declaration for a specific permit stage,
+     * including its title and signing date information. Only stages that are either explicitly planned or have a value
+     * for their corresponding "foreligger" property are included.
      *
-     * @param {Object} props - The properties indicating which compliance controls are planned and their signing dates.
-     * @param {Object} resourceBindings - The resource bindings used to localize the titles for each compliance control stage.
-     * @returns {Array<Object>} An array of objects, each containing a `title` and `signingDate` for a planned compliance control declaration.
+     * @param {Object} props - The properties containing flags and values for each permit stage.
+     * @param {Object} resourceBindings - The resource bindings used to retrieve localized text resources for titles.
+     * @returns {Array<Object>} An array of objects, each containing:
+     *   - {Object} title: The title object with a localized data property.
+     *   - {Object} signingDate: The signing date data as returned by `getSigningDateData`.
      */
     getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings) {
         return [
-            props?.samsvarKontrollPlanlagtVedRammetillatelse === true
+            props?.samsvarKontrollPlanlagtVedRammetillatelse === true || hasValue(props?.samsvarKontrollForeliggerVedRammetillatelse)
                 ? {
                       title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title) },
                       signingDate: this.getSigningDateData(
@@ -68,7 +70,7 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
                       )
                   }
                 : null,
-            props?.samsvarKontrollPlanlagtVedIgangsettingstillatelse === true
+            props?.samsvarKontrollPlanlagtVedIgangsettingstillatelse === true || hasValue(props?.samsvarKontrollForeliggerVedIgangsettingstillatelse)
                 ? {
                       title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse?.title) },
                       signingDate: this.getSigningDateData(
@@ -78,7 +80,8 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
                       )
                   }
                 : null,
-            props?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse === true
+            props?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse === true ||
+            hasValue(props?.samsvarKontrollForeliggerVedMidlertidigBrukstillatelse)
                 ? {
                       title: {
                           data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse?.title)
@@ -90,7 +93,7 @@ export default class PlanlagteSamsvarKontrollErklaeringerList {
                       )
                   }
                 : null,
-            props?.samsvarKontrollPlanlagtVedFerdigattest === true
+            props?.samsvarKontrollPlanlagtVedFerdigattest === true || hasValue(props?.samsvarKontrollForeliggerVedFerdigattest)
                 ? {
                       title: { data: getTextResourceFromResourceBinding(resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest?.title) },
                       signingDate: this.getSigningDateData(
