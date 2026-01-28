@@ -4,7 +4,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
-import { renderSamsvarAnsvarsomraadeTable } from "./renderers.js";
+import { renderSamsvarAnsvarsomraadeTable, renderAvdekketTable } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -20,6 +20,9 @@ export default customElements.define(
             } else {
                 const samsvarAnsvarsomraadeTableElement = renderSamsvarAnsvarsomraadeTable(component);
                 this.appendChild(samsvarAnsvarsomraadeTableElement);
+
+                const prosjekterendeListTableElement = renderAvdekketTable(component);
+                this.appendChild(prosjekterendeListTableElement);
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

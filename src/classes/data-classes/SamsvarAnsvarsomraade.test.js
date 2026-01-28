@@ -35,7 +35,7 @@ describe("SamsvarAnsvarsomraade", () => {
         expect(instance.beskrivelseAvAnsvarsomraadet).toBe(props.beskrivelseAvAnsvarsomraadet);
 
         expect(ProsjekterendeList).toHaveBeenCalledWith(props.prosjekterende, resourceBindings);
-        expect(instance.prosjekterende).toBeInstanceOf(ProsjekterendeList);
+        expect(instance.prosjekterendeList).toBeInstanceOf(ProsjekterendeList);
 
         expect(Utfoerende).toHaveBeenCalledWith(props.utfoerende, resourceBindings);
         expect(instance.utfoerende).toBeInstanceOf(Utfoerende);
@@ -52,7 +52,7 @@ describe("SamsvarAnsvarsomraade", () => {
         expect(instance.funksjon).toBeFalsy();
         expect(instance.beskrivelseAvAnsvarsomraadet).toBeUndefined();
         expect(ProsjekterendeList).toHaveBeenCalledWith(undefined, resourceBindings);
-        expect(instance.prosjekterende).toBeInstanceOf(ProsjekterendeList);
+        expect(instance.prosjekterendeList).toBeInstanceOf(ProsjekterendeList);
         expect(Utfoerende).toHaveBeenCalledWith(undefined, resourceBindings);
         expect(instance.utfoerende).toBeInstanceOf(Utfoerende);
         expect(instance.datoAnsvarsrettErklaert).toBeUndefined();
@@ -66,7 +66,7 @@ describe("SamsvarAnsvarsomraade", () => {
         expect(instance.funksjon).toBeFalsy();
         expect(instance.beskrivelseAvAnsvarsomraadet).toBeUndefined();
         expect(ProsjekterendeList).toHaveBeenCalledWith(undefined, resourceBindings);
-        expect(instance.prosjekterende).toBeInstanceOf(ProsjekterendeList);
+        expect(instance.prosjekterendeList).toBeInstanceOf(ProsjekterendeList);
         expect(Utfoerende).toHaveBeenCalledWith(undefined, resourceBindings);
         expect(instance.utfoerende).toBeInstanceOf(Utfoerende);
         expect(instance.datoAnsvarsrettErklaert).toBeUndefined();

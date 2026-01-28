@@ -1054,6 +1054,18 @@
             "value": "Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5."
         },
         {
+            "id": "resource.datoAnsvarsrettErklaert.title",
+            "value": "Ansvarsrett ble erklært"
+        },
+        {
+            "id": "resource.erAnsvarsomraadetAvsluttet.title",
+            "value": "Er arbeidet avsluttet?"
+        },
+        {
+            "id": "resource.prosjekterende.title",
+            "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
+        },
+        {
             "id": "signing.summary.title",
             "value": "Søknaden er signert av"
         }

@@ -11,7 +11,7 @@ import Utfoerende from "./Utfoerende.js";
  * @param {Object} resourceBindings - Resource bindings used for initializing nested objects.
  * @property {Kode} funksjon - The function code, wrapped in a Kode instance.
  * @property {string} beskrivelseAvAnsvarsomraadet - Description of the area of responsibility.
- * @property {ProsjekterendeList} prosjekterende - List of designers, initialized with ProsjekterendeList.
+ * @property {ProsjekterendeList} prosjekterendeList - List of designers, initialized with ProsjekterendeList.
  * @property {Utfoerende} utfoerende - The executor, initialized with Utfoerende.
  * @property {string} datoAnsvarsrettErklaert - Date when responsibility was declared.
  * @property {boolean} erAnsvarsomraadetAvsluttet - Indicates if the area of responsibility is closed.
@@ -21,7 +21,7 @@ export default class SamsvarAnsvarsomraade {
     constructor(props, resourceBindings) {
         this.funksjon = props?.funksjon && new Kode(props.funksjon);
         this.beskrivelseAvAnsvarsomraadet = props?.beskrivelseAvAnsvarsomraadet;
-        this.prosjekterende = new ProsjekterendeList(props?.prosjekterende, resourceBindings);
+        this.prosjekterendeList = new ProsjekterendeList(props?.funksjon?.kodeverdi, props?.prosjekterende, resourceBindings);
         this.utfoerende = new Utfoerende(props?.utfoerende, resourceBindings);
         this.datoAnsvarsrettErklaert = props?.datoAnsvarsrettErklaert;
         this.erAnsvarsomraadetAvsluttet = props?.erAnsvarsomraadetAvsluttet;

@@ -35,38 +35,23 @@ export function renderSamsvarAnsvarsomraadeTable(component) {
             }
         },
         {
-            dataKey: "tiltaksklasse.kodebeskrivelse",
+            dataKey: "datoAnsvarsrettErklaert",
             tagName: "custom-field-data",
+            format: "date",
             resourceBindings: {
-                title: component?.resourceBindings?.tiltaksklasse?.title,
-                emptyFieldText: component?.resourceBindings?.tiltaksklasse?.emptyFieldText
-            },
-            styleOverride: {
-                textAlign: "right"
+                title: component?.resourceBindings?.datoAnsvarsrettErklaert?.title,
+                emptyFieldText: component?.resourceBindings?.datoAnsvarsrettErklaert?.emptyFieldText
             }
         },
         {
-            dataKey: "faseSamsvarKontrollList.resourceValues.data",
-            tagName: "custom-list-data",
-            hideTitle: true,
-            resourceBindings: {
-                title: component?.resourceBindings?.faseSamsvarKontroll?.title,
-                emptyFieldText: component?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText
-            },
-            styleOverride: {
-                listStyle: "none",
-                paddingInline: "0"
-            }
-        },
-        {
-            dataKey: "dekkesOmraadeAvSentralGodkjenning",
+            dataKey: "erAnsvarsomraadetAvsluttet",
             tagName: "custom-field-boolean-text",
             hideTitle: true,
             resourceBindings: {
-                title: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.title,
-                trueText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText,
-                falseText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText,
-                defaultText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText
+                title: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title,
+                trueText: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText,
+                falseText: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText,
+                defaultText: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText
             }
         }
     ];
@@ -79,6 +64,37 @@ export function renderSamsvarAnsvarsomraadeTable(component) {
         resourceBindings: {
             title: component?.resourceBindings?.ansvarsomraader?.title,
             emptyFieldText: component?.resourceBindings?.ansvarsomraader?.emptyFieldText
+        },
+        tableColumns
+    });
+    const tableElement = createCustomElement("custom-table-data", htmlAttributes);
+    return tableElement;
+}
+
+export function renderAvdekketTable(component) {
+    const tableColumns = [
+        {
+            dataKey: "prosjekterendeList.resourceValues.data",
+            tagName: "custom-list-data",
+            hideTitle: true,
+            resourceBindings: {
+                title: component?.resourceBindings?.prosjekterende?.title,
+                emptyFieldText: component?.resourceBindings?.prosjekterende?.emptyFieldText
+            },
+            styleOverride: {
+                listStyle: "none"
+            }
+        }
+    ];
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        size: component?.size,
+        hideIfEmpty: true,
+        hideTitle: true,
+        isChildComponent: true,
+        resourceValues: component?.resourceValues,
+        resourceBindings: {
+            title: component?.resourceBindings?.prosjekterende?.title,
+            emptyFieldText: component?.resourceBindings?.prosjekterende?.emptyFieldText
         },
         tableColumns
     });

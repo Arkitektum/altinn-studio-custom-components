@@ -11,27 +11,41 @@ describe("MidlertidigBrukstillatelse", () => {
         Sikkerhet.mockClear();
     });
 
-    it("should set erOkForMidlertidigBrukstillatelse when provided", () => {
+    it("should set erOkForMidlertidigBrukstillatelse from props", () => {
         const instance = new MidlertidigBrukstillatelse({ erOkForMidlertidigBrukstillatelse: true });
         expect(instance.erOkForMidlertidigBrukstillatelse).toBe(true);
     });
 
-    it("should instantiate GjenstaaendeArbeider when gjenstaaendeArbeider is provided", () => {
-        const gaData = { foo: "bar" };
-        new MidlertidigBrukstillatelse({ gjenstaaendeArbeider: gaData });
-        expect(GjenstaaendeArbeider).toHaveBeenCalledWith(gaData);
+    it("should instantiate GjenstaaendeArbeider if props.gjenstaaendeArbeider is provided", () => {
+        const gaProps = { foo: "bar" };
+        const fakeGA = { some: "instance" };
+        GjenstaaendeArbeider.mockImplementation(() => fakeGA);
+
+        const instance = new MidlertidigBrukstillatelse({ gjenstaaendeArbeider: gaProps });
+        expect(GjenstaaendeArbeider).toHaveBeenCalledWith(gaProps);
+        expect(instance.gjenstaaendeArbeider).toBe(fakeGA);
     });
 
-    it("should instantiate Sikkerhet when sikkerhet is provided", () => {
-        const sikkerhetData = { baz: "qux" };
-        new MidlertidigBrukstillatelse({ sikkerhet: sikkerhetData });
-        expect(Sikkerhet).toHaveBeenCalledWith(sikkerhetData);
-    });
-
-    it("should set gjenstaaendeArbeider and sikkerhet to undefined if not provided", () => {
+    it("should not instantiate GjenstaaendeArbeider if props.gjenstaaendeArbeider is not provided", () => {
         const instance = new MidlertidigBrukstillatelse({});
-        expect(instance.gjenstaaendeArbeider).toBeUndefined();
-        expect(instance.sikkerhet).toBeUndefined();
+        expect(GjenstaaendeArbeider).not.toHaveBeenCalled();
+        expect(instance.gjenstaaendeArbeider).toBeFalsy();
+    });
+
+    it("should instantiate Sikkerhet if props.sikkerhet is provided", () => {
+        const sikkerhetProps = { baz: "qux" };
+        const fakeSikkerhet = { another: "instance" };
+        Sikkerhet.mockImplementation(() => fakeSikkerhet);
+
+        const instance = new MidlertidigBrukstillatelse({ sikkerhet: sikkerhetProps });
+        expect(Sikkerhet).toHaveBeenCalledWith(sikkerhetProps);
+        expect(instance.sikkerhet).toBe(fakeSikkerhet);
+    });
+
+    it("should not instantiate Sikkerhet if props.sikkerhet is not provided", () => {
+        const instance = new MidlertidigBrukstillatelse({});
+        expect(Sikkerhet).not.toHaveBeenCalled();
+        expect(instance.sikkerhet).toBeFalsy();
     });
 
     it("should handle undefined props gracefully", () => {

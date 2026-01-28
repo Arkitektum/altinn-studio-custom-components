@@ -1,106 +1,104 @@
 import ProsjekterendeList from "./ProsjekterendeList";
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers";
+import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 
-jest.mock("../../../functions/helpers", () => ({
-    getTextResourceFromResourceBinding: jest.fn()
+// Mock the getTextResourceFromResourceBinding function
+jest.mock("../../../functions/helpers.js", () => ({
+    getTextResourceFromResourceBinding: jest.fn((title) => `text:${title}`)
 }));
 
 describe("ProsjekterendeList", () => {
-    const mockResources = {
-        Rammetillatelse: { title: "rammetillatelse_title" },
-        Igangsettingstillatelse: { title: "igangsettingstillatelse_title" },
-        MidlertidigBrukstillatelse: { title: "midlertidigbrukstillatelse_title" },
-        Ferdigattest: { title: "ferdigattest_title" }
+    const resourceBindings = {
+        Rammetillatelse: { title: "ramme" },
+        Igangsettingstillatelse: { title: "igang" },
+        MidlertidigBrukstillatelse: { title: "midlertidig" },
+        Ferdigattest: { title: "ferdig" }
     };
 
     beforeEach(() => {
         jest.clearAllMocks();
-        getTextResourceFromResourceBinding.mockImplementation((title) => `text_for_${title}`);
     });
 
-    it("returns all text resources when all approvals are true", () => {
+    it("should return correct data for PRO with all approvals true", () => {
         const prosjekterende = {
             erOkForRammetillatelse: true,
             erOkForIgangsettingstillatelse: true,
             erOkForMidlertidigBrukstillatelse: true,
             erOkForFerdigattest: true
         };
-
-        const list = new ProsjekterendeList(prosjekterende, mockResources);
-
-        expect(list.resourceValues.data).toEqual([
-            "text_for_rammetillatelse_title",
-            "text_for_igangsettingstillatelse_title",
-            "text_for_midlertidigbrukstillatelse_title",
-            "text_for_ferdigattest_title"
-        ]);
+        const list = new ProsjekterendeList("PRO", prosjekterende, resourceBindings);
+        expect(list.resourceValues.data).toEqual(["text:ramme", "text:igang", "text:midlertidig", "text:ferdig"]);
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(4);
     });
 
-    it("returns only approved text resources", () => {
+    it("should return correct data for PRO with some approvals false", () => {
         const prosjekterende = {
             erOkForRammetillatelse: false,
             erOkForIgangsettingstillatelse: true,
             erOkForMidlertidigBrukstillatelse: false,
             erOkForFerdigattest: true
         };
-
-        const list = new ProsjekterendeList(prosjekterende, mockResources);
-
-        expect(list.resourceValues.data).toEqual(["text_for_igangsettingstillatelse_title", "text_for_ferdigattest_title"]);
+        const list = new ProsjekterendeList("PRO", prosjekterende, resourceBindings);
+        expect(list.resourceValues.data).toEqual(["text:igang", "text:ferdig"]);
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(2);
     });
 
-    it("returns empty array if no approvals are true", () => {
+    it("should return correct data for UTF with both approvals true", () => {
         const prosjekterende = {
-            erOkForRammetillatelse: false,
-            erOkForIgangsettingstillatelse: false,
-            erOkForMidlertidigBrukstillatelse: false,
-            erOkForFerdigattest: false
+            erOkForMidlertidigBrukstillatelse: true,
+            erOkForFerdigattest: true
         };
-
-        const list = new ProsjekterendeList(prosjekterende, mockResources);
-
-        expect(list.resourceValues.data).toEqual([]);
-        expect(getTextResourceFromResourceBinding).not.toHaveBeenCalled();
+        const list = new ProsjekterendeList("UTF", prosjekterende, resourceBindings);
+        expect(list.resourceValues.data).toEqual(["text:midlertidig", "text:ferdig"]);
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(2);
     });
 
-    it("handles missing prosjekterende object gracefully", () => {
-        const list = new ProsjekterendeList(undefined, mockResources);
-        expect(list.resourceValues.data).toEqual([]);
-        expect(getTextResourceFromResourceBinding).not.toHaveBeenCalled();
+    it("should return correct data for UTF with only ferdigattest true", () => {
+        const prosjekterende = {
+            erOkForMidlertidigBrukstillatelse: false,
+            erOkForFerdigattest: true
+        };
+        const list = new ProsjekterendeList("UTF", prosjekterende, resourceBindings);
+        expect(list.resourceValues.data).toEqual(["text:ferdig"]);
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(1);
     });
 
-    it("handles missing resourceBindings gracefully", () => {
+    it("should return empty data for unknown funksjonKodeverdi", () => {
         const prosjekterende = {
             erOkForRammetillatelse: true,
             erOkForIgangsettingstillatelse: true,
             erOkForMidlertidigBrukstillatelse: true,
             erOkForFerdigattest: true
         };
-
-        const list = new ProsjekterendeList(prosjekterende, undefined);
-
-        expect(list.resourceValues.data).toEqual(["text_for_undefined", "text_for_undefined", "text_for_undefined", "text_for_undefined"]);
-        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(4);
+        const list = new ProsjekterendeList("UNKNOWN", prosjekterende, resourceBindings);
+        expect(list.resourceValues.data).toEqual([]);
+        expect(getTextResourceFromResourceBinding).not.toHaveBeenCalled();
     });
 
-    it("filters out nulls if some resourceBindings are missing", () => {
+    it("should handle missing resourceBindings gracefully", () => {
         const prosjekterende = {
             erOkForRammetillatelse: true,
             erOkForIgangsettingstillatelse: true,
-            erOkForMidlertidigBrukstillatelse: false,
+            erOkForMidlertidigBrukstillatelse: true,
             erOkForFerdigattest: true
         };
-        const partialResources = {
-            Rammetillatelse: { title: "rammetillatelse_title" },
-            // Igangsettingstillatelse missing
-            Ferdigattest: { title: "ferdigattest_title" }
+        const list = new ProsjekterendeList("PRO", prosjekterende, {});
+        expect(list.resourceValues.data).toEqual(["text:undefined", "text:undefined", "text:undefined", "text:undefined"]);
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(4);
+    });
+
+    it("should handle missing prosjekterende gracefully", () => {
+        const list = new ProsjekterendeList("PRO", undefined, resourceBindings);
+        expect(list.resourceValues.data).toEqual([]);
+        expect(getTextResourceFromResourceBinding).not.toHaveBeenCalled();
+    });
+
+    it("should be case-insensitive for funksjonKodeverdi", () => {
+        const prosjekterende = {
+            erOkForMidlertidigBrukstillatelse: true,
+            erOkForFerdigattest: false
         };
-
-        const list = new ProsjekterendeList(prosjekterende, partialResources);
-
-        expect(list.resourceValues.data).toEqual(["text_for_rammetillatelse_title", "text_for_undefined", "text_for_ferdigattest_title"]);
-        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(3);
+        const list = new ProsjekterendeList("utf", prosjekterende, resourceBindings);
+        expect(list.resourceValues.data).toEqual(["text:midlertidig"]);
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledTimes(1);
     });
 });

@@ -1,6 +1,5 @@
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade.js";
 
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
@@ -80,7 +79,7 @@ export default class CustomTableSamsvarAnsvarsomraade extends CustomComponent {
      * @param {Object} [props.resourceBindings] - Optional resource binding overrides for each field.
      * @param {Object} [props.resourceBindings.funksjon] - Resource bindings for 'funksjon' field.
      * @param {Object} [props.resourceBindings.beskrivelseAvAnsvarsomraadet] - Resource bindings for 'beskrivelseAvAnsvarsomraadet' field.
-     * @param {Object} [props.resourceBindings.tiltaksklasse] - Resource bindings for 'tiltaksklasse' field.
+     * @param {Object} [props.resourceBindings.datoAnsvarsrettErklaert] - Resource bindings for 'datoAnsvarsrettErklaert' field.
      * @param {Object} [props.resourceBindings.faseSamsvarKontroll] - Resource bindings for 'faseSamsvarKontroll' field.
      * @param {Object} [props.resourceBindings.dekkesOmraadeAvSentralGodkjenning] - Resource bindings for 'dekkesOmraadeAvSentralGodkjenning' field.
      * @param {Object} [props.resourceBindings.Rammetillatelse] - Resource bindings for 'Rammetillatelse' field.
@@ -102,19 +101,19 @@ export default class CustomTableSamsvarAnsvarsomraade extends CustomComponent {
                 title: props?.resourceBindings?.beskrivelseAvAnsvarsomraadet?.title || "resource.beskrivelseAvAnsvarsomraadet.title",
                 emptyFieldText: props?.resourceBindings?.beskrivelseAvAnsvarsomraadet?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            tiltaksklasse: {
-                title: props?.resourceBindings?.tiltaksklasse?.title || "resource.tiltaksklasse.title",
-                emptyFieldText: props?.resourceBindings?.tiltaksklasse?.emptyFieldText || "resource.emptyFieldText.default"
+            datoAnsvarsrettErklaert: {
+                title: props?.resourceBindings?.datoAnsvarsrettErklaert?.title || "resource.datoAnsvarsrettErklaert.title",
+                emptyFieldText: props?.resourceBindings?.datoAnsvarsrettErklaert?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            faseSamsvarKontroll: {
-                title: props?.resourceBindings?.faseSamsvarKontroll?.title || "resource.faseSamsvarKontroll.title",
-                emptyFieldText: props?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText || "resource.emptyFieldText.default"
+            erAnsvarsomraadetAvsluttet: {
+                title: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title || "resource.erAnsvarsomraadetAvsluttet.title",
+                trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText?.title || "resource.trueText.default",
+                falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText?.title || "resource.falseText.default",
+                defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText || "resource.emptyFieldText.default"
             },
-            dekkesOmraadeAvSentralGodkjenning: {
-                title: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.title || "resource.dekkesOmraadeAvSentralGodkjenning.title",
-                trueText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText?.title || "resource.trueText.default",
-                falseText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText?.title || "resource.falseText.default",
-                defaultText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText || "resource.emptyFieldText.default"
+            prosjekterende: {
+                title: props?.resourceBindings?.prosjekterende?.title || "resource.prosjekterende.title",
+                emptyFieldText: props?.resourceBindings?.prosjekterende?.emptyFieldText || "resource.emptyFieldText.default"
             },
             Rammetillatelse: {
                 title: props?.resourceBindings?.Rammetillatelse?.title || "resource.Rammetillatelse.title",

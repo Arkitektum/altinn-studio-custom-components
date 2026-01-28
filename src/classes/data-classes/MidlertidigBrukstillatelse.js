@@ -1,5 +1,5 @@
-import GjenstaaendeArbeider from "./GjenstaaendeArbeider";
-import Sikkerhet from "./Sikkerhet";
+import GjenstaaendeArbeider from "./GjenstaaendeArbeider.js";
+import Sikkerhet from "./Sikkerhet.js";
 
 /**
  * Represents a temporary usage permit (Midlertidig Brukstillatelse).
