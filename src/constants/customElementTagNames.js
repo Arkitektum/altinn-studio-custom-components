@@ -39,6 +39,7 @@ export default [
     "custom-group-overvann",
     "custom-group-rammebetingelser-tilknytninger",
     "custom-group-samsvar-ansvarsomraade",
+    "custom-group-samsvar-erklaeringer",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",

@@ -42,6 +42,7 @@ import customGroupNaboGjenboerEiendom from "./data-components/custom-grouplist-n
 import customGroupOvervann from "./data-components/custom-group-overvann/index.js";
 import customGroupRammebetingelserTilknytninger from "./data-components/custom-group-rammebetingelser-tilknytninger/index.js";
 import customGroupSamsvarAnsvarsomraade from "./data-components/custom-grouplist-samsvar-ansvarsomraade/custom-group-samsvar-ansvarsomraade/index.js";
+import customGroupSamsvarErklaeringer from "./data-components/custom-group-samsvar-erklaeringer/index.js";
 import customGroupSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
@@ -119,6 +120,7 @@ export {
     customGroupOvervann,
     customGroupRammebetingelserTilknytninger,
     customGroupSamsvarAnsvarsomraade,
+    customGroupSamsvarErklaeringer,
     customGroupSjekklistekrav,
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
