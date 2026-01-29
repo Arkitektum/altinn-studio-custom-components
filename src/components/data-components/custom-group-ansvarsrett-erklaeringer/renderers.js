@@ -33,7 +33,7 @@ export function renderErklaeringTekstElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.erklaeringTekst?.title
+            title: component?.resourceBindings?.ansvarsrettErklaeringTekst?.title
         }
     });
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
@@ -50,7 +50,7 @@ export function renderSOEKTekstElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.SOEKTekst?.title
+            title: component?.resourceBindings?.ansvarsrettSOEKTekst?.title
         }
     });
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
@@ -67,7 +67,7 @@ export function renderPROTekstElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.PROTekst?.title
+            title: component?.resourceBindings?.ansvarsrettPROTekst?.title
         }
     });
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
@@ -84,7 +84,7 @@ export function renderUTFTekstElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.UTFTekst?.title
+            title: component?.resourceBindings?.ansvarsrettUTFTekst?.title
         }
     });
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
@@ -101,7 +101,7 @@ export function renderKONTROLLTekstElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component?.resourceBindings?.KONTROLLTekst?.title
+            title: component?.resourceBindings?.ansvarsrettKONTROLLTekst?.title
         }
     });
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));

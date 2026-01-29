@@ -127,26 +127,26 @@ describe("CustomGroupAnsvarsrettErklaeringer", () => {
         it("should return default resource bindings if no overrides", () => {
             const instance = new CustomGroupAnsvarsrettErklaeringer({});
             const result = instance.getResourceBindings({});
-            expect(result.erklaeringTekst.title).toBe("resource.erklaeringTekst.title");
-            expect(result.SOEKTekst.title).toBe("resource.SOEKTekst.title");
-            expect(result.PROTekst.title).toBe("resource.PROTekst.title");
-            expect(result.UTFTekst.title).toBe("resource.UTFTekst.title");
-            expect(result.KONTROLLTekst.title).toBe("resource.KONTROLLTekst.title");
+            expect(result.ansvarsrettErklaeringTekst.title).toBe("resource.ansvarsrettErklaeringTekst.title");
+            expect(result.ansvarsrettSOEKTekst.title).toBe("resource.ansvarsrettSOEKTekst.title");
+            expect(result.ansvarsrettPROTekst.title).toBe("resource.ansvarsrettPROTekst.title");
+            expect(result.ansvarsrettUTFTekst.title).toBe("resource.ansvarsrettUTFTekst.title");
+            expect(result.ansvarsrettKONTROLLTekst.title).toBe("resource.ansvarsrettKONTROLLTekst.title");
             expect(result.erklaeringer.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
 
         it("should use overrides from props.resourceBindings", () => {
             const props = {
                 resourceBindings: {
-                    erklaeringTekst: { title: "customTitle", emptyFieldText: "customEmpty" },
+                    ansvarsrettErklaeringTekst: { title: "customTitle", emptyFieldText: "customEmpty" },
                     title: "customErklaeringerTitle",
                     emptyFieldText: "customErklaeringerEmpty"
                 }
             };
             const instance = new CustomGroupAnsvarsrettErklaeringer(props);
             const result = instance.getResourceBindings(props);
-            expect(result.erklaeringTekst.title).toBe("customTitle");
-            expect(result.erklaeringTekst.emptyFieldText).toBe("customEmpty");
+            expect(result.ansvarsrettErklaeringTekst.title).toBe("customTitle");
+            expect(result.ansvarsrettErklaeringTekst.emptyFieldText).toBe("customEmpty");
             expect(result.erklaeringer.emptyFieldText).toBe("customErklaeringerEmpty");
         });
 

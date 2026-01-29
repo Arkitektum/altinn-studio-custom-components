@@ -103,10 +103,10 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
      * @param {Object} [props.resourceBindings.tiltaksklasse] - Resource bindings for 'tiltaksklasse' field.
      * @param {Object} [props.resourceBindings.faseSamsvarKontroll] - Resource bindings for 'faseSamsvarKontroll' field.
      * @param {Object} [props.resourceBindings.dekkesOmraadeAvSentralGodkjenning] - Resource bindings for 'dekkesOmraadeAvSentralGodkjenning' field.
-     * @param {Object} [props.resourceBindings.harSamsvarKontrollVedRammetillatelse] - Resource bindings for 'harSamsvarKontrollVedRammetillatelse' field.
-     * @param {Object} [props.resourceBindings.harSamsvarKontrollVedIgangsettingstillatelse] - Resource bindings for 'harSamsvarKontrollVedIgangsettingstillatelse' field.
-     * @param {Object} [props.resourceBindings.harSamsvarKontrollVedMidlertidigBrukstillatelse] - Resource bindings for 'harSamsvarKontrollVedMidlertidigBrukstillatelse' field.
-     * @param {Object} [props.resourceBindings.harSamsvarKontrollVedFerdigattest] - Resource bindings for 'harSamsvarKontrollVedFerdigattest' field.
+     * @param {Object} [props.resourceBindings.Rammetillatelse] - Resource bindings for 'Rammetillatelse' field.
+     * @param {Object} [props.resourceBindings.Igangsettingstillatelse] - Resource bindings for 'Igangsettingstillatelse' field.
+     * @param {Object} [props.resourceBindings.MidlertidigBrukstillatelse] - Resource bindings for 'MidlertidigBrukstillatelse' field.
+     * @param {Object} [props.resourceBindings.Ferdigattest] - Resource bindings for 'Ferdigattest' field.
      * @param {boolean|string} [props.hideTitle] - If true, omits the 'ansvarsomraader' title from the resource bindings.
      * @param {boolean|string} [props.hideIfEmpty] - If true, omits the 'emptyFieldText' for 'ansvarsomraader'.
      * @param {Object} [props.resourceValues] - Optional resource values, used to determine if the title should be included.
@@ -136,27 +136,21 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
                 falseText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText?.title || "resource.falseText.default",
                 defaultText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText || "resource.emptyFieldText.default"
             },
-            harSamsvarKontrollVedRammetillatelse: {
-                title: props?.resourceBindings?.harSamsvarKontrollVedRammetillatelse?.title || "resource.harSamsvarKontrollVedRammetillatelse.title",
-                emptyFieldText: props?.resourceBindings?.harSamsvarKontrollVedRammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            Rammetillatelse: {
+                title: props?.resourceBindings?.Rammetillatelse?.title || "resource.Rammetillatelse.title",
+                emptyFieldText: props?.resourceBindings?.Rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            harSamsvarKontrollVedIgangsettingstillatelse: {
-                title:
-                    props?.resourceBindings?.harSamsvarKontrollVedIgangsettingstillatelse?.title ||
-                    "resource.harSamsvarKontrollVedIgangsettingstillatelse.title",
-                emptyFieldText:
-                    props?.resourceBindings?.harSamsvarKontrollVedIgangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            Igangsettingstillatelse: {
+                title: props?.resourceBindings?.Igangsettingstillatelse?.title || "resource.Igangsettingstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.Igangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            harSamsvarKontrollVedMidlertidigBrukstillatelse: {
-                title:
-                    props?.resourceBindings?.harSamsvarKontrollVedMidlertidigBrukstillatelse?.title ||
-                    "resource.harSamsvarKontrollVedMidlertidigBrukstillatelse.title",
-                emptyFieldText:
-                    props?.resourceBindings?.harSamsvarKontrollVedMidlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            MidlertidigBrukstillatelse: {
+                title: props?.resourceBindings?.MidlertidigBrukstillatelse?.title || "resource.MidlertidigBrukstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.MidlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            harSamsvarKontrollVedFerdigattest: {
-                title: props?.resourceBindings?.harSamsvarKontrollVedFerdigattest?.title || "resource.harSamsvarKontrollVedFerdigattest.title",
-                emptyFieldText: props?.resourceBindings?.harSamsvarKontrollVedFerdigattest?.emptyFieldText || "resource.emptyFieldText.default"
+            Ferdigattest: {
+                title: props?.resourceBindings?.Ferdigattest?.title || "resource.Ferdigattest.title",
+                emptyFieldText: props?.resourceBindings?.Ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
