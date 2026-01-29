@@ -1030,6 +1030,18 @@
             "value": "Ansvarsområder"
         },
         {
+            "id": "resource.ansvarsomraade1.title",
+            "value": "Ansvarsområde"
+        },
+        {
+            "id": "resource.gjenstaaendeArbeider.title",
+            "value": "Gjenstående arbeider"
+        },
+        {
+            "id": "resource.sikkerhetsNivaa.title",
+            "value": "Sikkerhetsnivå og arbeider som vil utføres innen 14 dager"
+        },
+        {
             "id": "resource.erklaeringer.title",
             "value": "Erklæring"
         },
@@ -1062,8 +1074,28 @@
             "value": "Er arbeidet avsluttet?"
         },
         {
-            "id": "resource.prosjekterende.title",
+            "id": "resource.avdekketArbeider.title",
             "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
+        },
+        {
+            "id": "resource.arbeidGjenstaaendeInnenfor.title",
+            "value": "Innenfor den delen av tiltaket det søkes midlertidig brukstillatelse for, gjenstår disse arbeidene av mindre vesentlig betydning"
+        },
+        {
+            "id": "resource.arbeidGjenstaaendeUtenfor.title",
+            "value": "Disse delene av tiltaket søkes det ikke om midlertidig brukstillatelse for nå"
+        },
+        {
+            "id": "resource.tilstrekkeligSikkerhet.title",
+            "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
+        },
+        {
+            "id": "resource.utfoereInnen.title",
+            "value": "Vi vil utføre arbeidene innen"
+        },
+        {
+            "id": "resource.typeArbeider.title",
+            "value": "Vi vil utføre følgende arbeid for å oppnå tilstrekkelig sikkerhetsnivå"
         },
         {
             "id": "signing.summary.title",

@@ -29,6 +29,7 @@ import customFieldUtfallSvarStatus from "./data-components/custom-field-utfall-s
 import customGrouplistAnsvarsomraadeType from "./data-components/custom-grouplist-ansvarsomraade-type/index.js";
 import customGrouplistEttersending from "./data-components/custom-grouplist-ettersending/index.js";
 import customGrouplistNaboGjenboerEiendom from "./data-components/custom-grouplist-nabo-gjenboer-eiendom/index.js";
+import customGrouplistSamsvarAnsvarsomraade from "./data-components/custom-grouplist-samsvar-ansvarsomraade/index.js";
 import customGrouplistSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/index.js";
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
 import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
@@ -40,6 +41,7 @@ import customGroupLoefteinnretninger from "./data-components/custom-group-loefte
 import customGroupNaboGjenboerEiendom from "./data-components/custom-grouplist-nabo-gjenboer-eiendom/custom-group-nabo-gjenboer-eiendom/index.js";
 import customGroupOvervann from "./data-components/custom-group-overvann/index.js";
 import customGroupRammebetingelserTilknytninger from "./data-components/custom-group-rammebetingelser-tilknytninger/index.js";
+import customGroupSamsvarAnsvarsomraade from "./data-components/custom-grouplist-samsvar-ansvarsomraade/custom-group-samsvar-ansvarsomraade/index.js";
 import customGroupSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
@@ -62,7 +64,6 @@ import customTableNaboGjenboerEiendom from "./data-components/custom-table-nabo-
 import customTableOmraaderisiko from "./data-components/custom-table-omraaderisiko/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
 import customTablePlan from "./data-components/custom-table-plan/index.js";
-import customTableSamsvarAnsvarsomraade from "./data-components/custom-table-samsvar-ansvarsomraade/index.js";
 
 // Layout components
 import dispensasjon from "./layout-components/dispensasjon/index.js";
@@ -105,6 +106,7 @@ export {
     customGrouplistAnsvarsomraadeType,
     customGrouplistEttersending,
     customGrouplistNaboGjenboerEiendom,
+    customGrouplistSamsvarAnsvarsomraade,
     customGrouplistSjekklistekrav,
     customGrouplistUtfallSvar,
     customGrouplistUtfallSvarType,
@@ -116,6 +118,7 @@ export {
     customGroupNaboGjenboerEiendom,
     customGroupOvervann,
     customGroupRammebetingelserTilknytninger,
+    customGroupSamsvarAnsvarsomraade,
     customGroupSjekklistekrav,
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
@@ -139,7 +142,6 @@ export {
     customTableOmraaderisiko,
     customTablePart,
     customTablePlan,
-    customTableSamsvarAnsvarsomraade,
     dispensasjon,
     gjennomfoeringsplan,
     gjenpartNabovarsel

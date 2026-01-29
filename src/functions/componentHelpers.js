@@ -29,6 +29,7 @@ import CustomGroupEttersending from "../classes/system-classes/component-classes
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
+import CustomGrouplistSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGrouplistSamsvarAnsvarsomraade.js";
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
@@ -36,6 +37,7 @@ import CustomGroupLoefteinnretninger from "../classes/system-classes/component-c
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
 import CustomGroupRammebetingelserTilknytninger from "../classes/system-classes/component-classes/CustomGroupRammebetingelserTilknytninger.js";
+import CustomGroupSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupSamsvarAnsvarsomraade.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
@@ -63,7 +65,6 @@ import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
-import CustomTableSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableSamsvarAnsvarsomraade.js";
 import CustomComponent from "../classes/system-classes/CustomComponent.js";
 
 // Global functions
@@ -137,6 +138,8 @@ export function instantiateComponent(element) {
             return new CustomGroupOvervann(component);
         case "custom-group-rammebetingelser-tilknytninger":
             return new CustomGroupRammebetingelserTilknytninger(component);
+        case "custom-group-samsvar-ansvarsomraade":
+            return new CustomGroupSamsvarAnsvarsomraade(component);
         case "custom-group-sjekklistekrav":
             return new CustomGroupSjekklistekrav(component);
         case "custom-group-utfall-svar":
@@ -151,6 +154,8 @@ export function instantiateComponent(element) {
             return new CustomGrouplistEttersending(component);
         case "custom-grouplist-nabo-gjenboer-eiendom":
             return new CustomGrouplistNaboGjenboerEiendom(component);
+        case "custom-grouplist-samsvar-ansvarsomraade":
+            return new CustomGrouplistSamsvarAnsvarsomraade(component);
         case "custom-grouplist-sjekklistekrav":
             return new CustomGrouplistSjekklistekrav(component);
         case "custom-grouplist-utfall-svar":
@@ -203,8 +208,6 @@ export function instantiateComponent(element) {
             return new CustomTablePart(component);
         case "custom-table-plan":
             return new CustomTablePlan(component);
-        case "custom-table-samsvar-ansvarsomraade":
-            return new CustomTableSamsvarAnsvarsomraade(component);
         default:
             console.warn(`Unknown component type: ${tagName}`);
             return null;

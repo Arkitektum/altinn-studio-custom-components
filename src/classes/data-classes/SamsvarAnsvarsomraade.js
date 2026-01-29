@@ -21,7 +21,7 @@ export default class SamsvarAnsvarsomraade {
     constructor(props, resourceBindings) {
         this.funksjon = props?.funksjon && new Kode(props.funksjon);
         this.beskrivelseAvAnsvarsomraadet = props?.beskrivelseAvAnsvarsomraadet;
-        this.prosjekterendeList = new ProsjekterendeList(props?.funksjon?.kodeverdi, props?.prosjekterende, resourceBindings);
+        this.prosjekterendeList = new ProsjekterendeList(props?.prosjekterende, resourceBindings);
         this.utfoerende = new Utfoerende(props?.utfoerende, resourceBindings);
         this.datoAnsvarsrettErklaert = props?.datoAnsvarsrettErklaert;
         this.erAnsvarsomraadetAvsluttet = props?.erAnsvarsomraadetAvsluttet;

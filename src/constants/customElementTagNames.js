@@ -26,6 +26,7 @@ export default [
     "custom-grouplist-ansvarsomraade-type",
     "custom-grouplist-ettersending",
     "custom-grouplist-nabo-gjenboer-eiendom",
+    "custom-grouplist-samsvar-ansvarsomraade",
     "custom-grouplist-sjekklistekrav",
     "custom-grouplist-utfall-svar-type",
     "custom-grouplist-utfall-svar",
@@ -37,6 +38,7 @@ export default [
     "custom-group-nabo-gjenboer-eiendom",
     "custom-group-overvann",
     "custom-group-rammebetingelser-tilknytninger",
+    "custom-group-samsvar-ansvarsomraade",
     "custom-group-sjekklistekrav",
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",
@@ -61,7 +63,6 @@ export default [
     "custom-table-omraaderisiko",
     "custom-table-part",
     "custom-table-plan",
-    "custom-table-samsvar-ansvarsomraade",
     "custom-dispensasjon",
     "custom-gjennomfoeringsplan",
     "custom-gjenpart-nabovarsel"
