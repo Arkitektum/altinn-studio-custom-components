@@ -21,11 +21,11 @@ export default customElements.define(
                 const data = component?.resourceValues?.data ?? [];
 
                 data.sort((a, b) => {
-                    const aCode = a?.funksjon?.kodeverdi;
-                    const bCode = b?.funksjon?.kodeverdi;
+                    const aCode = a?.funksjon?.kodeverdi?.toUpperCase();
+                    const bCode = b?.funksjon?.kodeverdi?.toUpperCase();
 
-                    if (aCode === "pro" && bCode !== "pro") return -1;
-                    if (aCode !== "pro" && bCode === "pro") return 1;
+                    if (aCode === "PRO" && bCode !== "PRO") return -1;
+                    if (aCode !== "PRO" && bCode === "PRO") return 1;
                     return 0;
                 });
                 for (const samsvarAnsvarsomraade of data) {
