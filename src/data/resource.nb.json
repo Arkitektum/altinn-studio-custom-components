@@ -1098,6 +1098,18 @@
             "value": "Vi vil utføre følgende arbeid for å oppnå tilstrekkelig sikkerhetsnivå"
         },
         {
+            "id": "resource.samsvarErklaeringTekst.title",
+            "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi bekrefter at kvalitetssikring er utført og dokumentert i henhold til erklæring om ansvarsrett og foretakets kvalitetssikring."
+        },
+        {
+            "id": "resource.samsvarPROTekst.title",
+            "value": "Ansvarlig prosjekterende bekrefter at prosjekteringen er i samsvar med ytelser i TEK10 og preaksepterte ytelser (VTEK), eller ved analyse som viser at forskriftens (TEK10) funksjonkrav er oppfylt."
+        },
+        {
+            "id": "resource.samsvarUTFTekst.title",
+            "value": "Ansvarlig utførende bekrefter at utførelsen er i samsvar med produksjonsunderlaget."
+        },
+        {
             "id": "signing.summary.title",
             "value": "Søknaden er signert av"
         }
