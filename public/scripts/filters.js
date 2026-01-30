@@ -28,6 +28,22 @@ export function filterResources(resources, filterValue) {
 }
 
 /**
+ * Filters a list of resources to include only those used by a specific application.
+ *
+ * @param {Array<Object>} resources - The array of resource objects to filter.
+ * @param {string} appName - The name of the application to filter resources by.
+ * @returns {Array<Object>} The filtered array of resources used by the specified application.
+ */
+export function filterResourcesByApplication(resources, appName) {
+    if (!appName) {
+        return resources;
+    }
+    return resources.filter((res) => {
+        return res?.usage?.some((usage) => usage.appName === appName);
+    });
+}
+
+/**
  * Returns an array of resources from the given list that have the same `resource.value`
  * as the specified resource, but a different `resource.id`, and are not marked as missing
  * from default text resources.
