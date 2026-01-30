@@ -1,7 +1,11 @@
 // Local functions
 import { fetchDisplayLayouts } from "./apiHelpers.js";
 import { fetchDefaultTextResources } from "./getters.js";
-import { renderDefaultTextResourcesList, renderRadioButtonsFilterForTextResourcesList } from "./textResourceUsageRenderers.js";
+import {
+    renderDefaultTextResourcesList,
+    renderRadioButtonsFilterForTextResourcesList,
+    renderSelectApplicationFilterForTextResourcesList
+} from "./textResourceUsageRenderers.js";
 import { getMissingResourceBindings, getResourceBindingsWithUsageFromApplications, getUsageForResources } from "./validators.js";
 
 globalThis.onload = async function () {
@@ -23,5 +27,6 @@ globalThis.onload = async function () {
 
     const mainAdminElement = document.getElementById("admin-main");
     mainAdminElement.appendChild(renderRadioButtonsFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
+    mainAdminElement.appendChild(renderSelectApplicationFilterForTextResourcesList(mainAdminElement, allTextResourceUsage, layouts));
     mainAdminElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
 };
