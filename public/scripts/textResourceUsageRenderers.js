@@ -1,4 +1,4 @@
-import { filterResources, getResourcesWithSameValue } from "./filters.js";
+import { filterResources, filterResourcesByApplication, getResourcesWithSameValue } from "./filters.js";
 
 /**
  * Renders a component as a collapsible list item using a <details> element.
@@ -316,4 +316,58 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     filterContainerElement.appendChild(missingResourcesLabelElement);
 
     return filterContainerElement;
+}
+
+/**
+ * Renders a select dropdown for filtering text resources by application and attaches it to the given container element.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to which the filter select will be appended.
+ * @param {Array<Object>} textResources - The list of text resource objects to be filtered and displayed.
+ * @param {Array<Object>} applications - The list of application objects used to populate the select options.
+ * @returns {HTMLDivElement} The container div element containing the application filter select dropdown.
+ */
+export function renderSelectApplicationFilterForTextResourcesList(containerElement, textResources, applications) {
+    const selectContainerElement = document.createElement("div");
+    selectContainerElement.classList.add("text-resources-application-filter-container");
+
+    const applicationSelectLabelElement = document.createElement("label");
+    applicationSelectLabelElement.htmlFor = "application-filter-select";
+    applicationSelectLabelElement.innerHTML = "Application: ";
+    selectContainerElement.appendChild(applicationSelectLabelElement);
+
+    const applicationSelectElement = document.createElement("select");
+    applicationSelectElement.id = "application-filter-select";
+
+    const defaultOptionElement = document.createElement("option");
+    defaultOptionElement.value = "";
+    defaultOptionElement.innerHTML = "All applications";
+    applicationSelectElement.appendChild(defaultOptionElement);
+
+    applications.forEach((app) => {
+        const appOptionElement = document.createElement("option");
+        appOptionElement.value = app?.appName;
+        appOptionElement.innerHTML = app?.appName;
+        applicationSelectElement.appendChild(appOptionElement);
+    });
+
+    const updateResourceListBasedOnApplicationFilter = () => {
+        const selectedAppName = applicationSelectElement.value;
+
+        const filteredResourcesByApp = filterResourcesByApplication(textResources, selectedAppName);
+        const selectedFilter = globalThis.selectedFilter || "all";
+        const filteredResources = filterResources(filteredResourcesByApp, selectedFilter);
+        const existingListElement = containerElement.querySelector("#default-text-resources-list");
+        if (existingListElement) {
+            existingListElement.remove();
+        }
+        const newListElement = renderDefaultTextResourcesList(filteredResources, textResources);
+        globalThis.selectedAppName = selectedAppName;
+        containerElement.appendChild(newListElement);
+    };
+
+    applicationSelectElement.onchange = updateResourceListBasedOnApplicationFilter;
+
+    selectContainerElement.appendChild(applicationSelectElement);
+
+    return selectContainerElement;
 }
