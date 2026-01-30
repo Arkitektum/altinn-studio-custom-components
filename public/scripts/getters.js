@@ -272,8 +272,6 @@ export async function fetchDefaultTextResources(language) {
         }
     }
 
-    console.log("Fetched default text resources for language:", { defaultTextResourcesData, hasValue: hasValue(defaultTextResourcesData) });
-
     if (hasValue(defaultTextResourcesData)) {
         return defaultTextResourcesData;
     } else {
