@@ -230,10 +230,10 @@ export function renderDefaultTextResourcesList(filteredTextResources, allTextRes
 
 /**
  * Renders a set of radio button filters for a list of text resources and attaches them to the given container element.
- * The filters allow users to view all resources, unused resources, resources used once, or missing resources.
+ * The filters allow users to view all resources, unused resources, resources used once, resources with duplicates, or missing resources.
  * When a filter is selected, the resource list is updated accordingly.
  *
- * @param {HTMLElement} containerElement - The DOM element to which the filter controls and filtered list will be appended.
+ * @param {HTMLElement} containerElement - The DOM element to which the filter controls and filtered resource list will be appended.
  * @param {Array<Object>} textResources - The array of text resource objects to be filtered and displayed.
  * @returns {HTMLElement} The DOM element containing the radio button filters.
  */
@@ -290,11 +290,13 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     const updateResourceListBasedOnFilter = () => {
         const selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
         const filteredResources = filterResources(textResources, selectedFilter);
+        const filteredResourcesByApp = filterResourcesByApplication(filteredResources, globalThis.selectedAppName);
         const existingListElement = containerElement.querySelector("#default-text-resources-list");
         if (existingListElement) {
             existingListElement.remove();
         }
-        const newListElement = renderDefaultTextResourcesList(filteredResources, textResources);
+        const newListElement = renderDefaultTextResourcesList(filteredResourcesByApp, textResources);
+        globalThis.selectedFilter = selectedFilter;
         containerElement.appendChild(newListElement);
     };
 
