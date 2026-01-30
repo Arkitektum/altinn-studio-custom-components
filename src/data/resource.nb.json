@@ -422,6 +422,10 @@
             "value": "Navn"
         },
         {
+            "id": "resource.part.organisasjonsnummer.title",
+            "value": "Organisasjonsnummer"
+        },
+        {
             "id": "resource.part.telefonnummer.title",
             "value": "Telefonnummer"
         },
@@ -852,6 +856,10 @@
         {
             "id": "resource.tiltakshaver.title",
             "value": "Tiltakshaver"
+        },
+        {
+            "id": "resource.tiltakshaver.fakturamottaker.title",
+            "value": "Fakturaadresse for tiltakshaver"
         },
         {
             "id": "resource.tiltakshaver.kontaktperson.title",
