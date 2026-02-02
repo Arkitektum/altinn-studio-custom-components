@@ -4,7 +4,8 @@ import { fetchDefaultTextResources } from "./getters.js";
 import {
     renderDefaultTextResourcesList,
     renderRadioButtonsFilterForTextResourcesList,
-    renderSelectApplicationFilterForTextResourcesList
+    renderSelectApplicationFilterForTextResourcesList,
+    renderTextInputFilterForTextResourcesList
 } from "./textResourceUsageRenderers.js";
 import { getMissingResourceBindings, getResourceBindingsWithUsageFromApplications, getUsageForResources } from "./validators.js";
 
@@ -28,5 +29,6 @@ globalThis.onload = async function () {
     const mainAdminElement = document.getElementById("admin-main");
     mainAdminElement.appendChild(renderRadioButtonsFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
     mainAdminElement.appendChild(renderSelectApplicationFilterForTextResourcesList(mainAdminElement, allTextResourceUsage, layouts));
+    mainAdminElement.appendChild(renderTextInputFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
     mainAdminElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
 };
