@@ -50,6 +50,10 @@
             "value": "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?"
         },
         {
+            "id": "resource.beksrivelse.title",
+            "value": "Beskrivelse"
+        },
+        {
             "id": "resource.bestemmelsene.header",
             "value": "Disse bestemmelsene regulerer eiendommen"
         },
@@ -60,10 +64,6 @@
         {
             "id": "resource.datoFerdigattest.title",
             "value": "Dato for søknad om ferdigattest"
-        },
-        {
-            "id": "resource.delsoeknader.delsoeknad.delAvTiltaket.title",
-            "value": "Beskrivelse"
         },
         {
             "id": "resource.delsoeknader.delsoeknad.delsoeknadsnummer.title",
@@ -646,10 +646,6 @@
             "value": "Tilknytning til vei og ledningsnett"
         },
         {
-            "id": "resource.rammebetingelser.vannforsyning.beskrivelse.title",
-            "value": "Beskrivelse"
-        },
-        {
             "id": "resource.rammebetingelser.vannforsyning.harTinglystErklaering.title",
             "value": "Foreligger rettighet ved tinglyst erklæring?"
         },
@@ -788,10 +784,6 @@
         {
             "id": "resource.soeknadGjelder.bruk.tiltaksformaal.title",
             "value": "Formål"
-        },
-        {
-            "id": "resource.soeknadGjelder.delAvTiltaket.title",
-            "value": "Beskrivelse"
         },
         {
             "id": "resource.soeknadGjelder.delsoeknadsnummer.title",

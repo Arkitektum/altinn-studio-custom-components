@@ -88,7 +88,7 @@ export default class CustomGroupVannforsyning extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             beskrivelse: {
-                title: props?.resourceBindings?.beskrivelse?.title || `resource.rammebetingelser.vannforsyning.beskrivelse.title`
+                title: props?.resourceBindings?.beskrivelse?.title || `resource.beskrivelse.title`
             },
             harTinglystErklaering: {
                 title: props?.resourceBindings?.harTinglystErklaering?.title || `resource.rammebetingelser.vannforsyning.harTinglystErklaering.title`,

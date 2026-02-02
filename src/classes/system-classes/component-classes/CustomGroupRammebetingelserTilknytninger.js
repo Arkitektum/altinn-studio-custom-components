@@ -149,7 +149,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 emptyFieldText: props?.resourceBindings?.vannforsyning?.emptyFieldText || "resource.emptyFieldText.default"
             },
             vannforsyningBeskrivelse: {
-                title: props?.resourceBindings?.vannforsyning?.beskrivelse?.title || "resource.rammebetingelser.vannforsyning.beskrivelse.title"
+                title: props?.resourceBindings?.vannforsyning?.beskrivelse?.title || "resource.beskrivelse.title"
             },
             vannforsyningHarTinglystErklaering: {
                 title:
