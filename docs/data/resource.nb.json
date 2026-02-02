@@ -422,6 +422,10 @@
             "value": "Navn"
         },
         {
+            "id": "resource.part.organisasjonsnummer.title",
+            "value": "Organisasjonsnummer"
+        },
+        {
             "id": "resource.part.telefonnummer.title",
             "value": "Telefonnummer"
         },
@@ -854,6 +858,10 @@
             "value": "Tiltakshaver"
         },
         {
+            "id": "resource.tiltakshaver.fakturamottaker.title",
+            "value": "Fakturaadresse for tiltakshaver"
+        },
+        {
             "id": "resource.tiltakshaver.kontaktperson.title",
             "value": "Kontaktperson for tiltakshaver"
         },
@@ -998,19 +1006,19 @@
             "value": "Funksjon"
         },
         {
-            "id": "resource.harSamsvarKontrollVedRammetillatelse.title",
+            "id": "resource.Rammetillatelse.title",
             "value": "Rammesøknad"
         },
         {
-            "id": "resource.harSamsvarKontrollVedIgangsettingstillatelse.title",
+            "id": "resource.Igangsettingstillatelse.title",
             "value": "Igangsettingstillatelse"
         },
         {
-            "id": "resource.harSamsvarKontrollVedMidlertidigBrukstillatelse.title",
+            "id": "resource.MidlertidigBrukstillatelse.title",
             "value": "Midlertidig brukstillatelse"
         },
         {
-            "id": "resource.harSamsvarKontrollVedFerdigattest.title",
+            "id": "resource.Ferdigattest.title",
             "value": "Ferdigattest"
         },
         {
@@ -1030,28 +1038,84 @@
             "value": "Ansvarsområder"
         },
         {
+            "id": "resource.ansvarsomraade1.title",
+            "value": "Ansvarsområde"
+        },
+        {
+            "id": "resource.gjenstaaendeArbeider.title",
+            "value": "Gjenstående arbeider"
+        },
+        {
+            "id": "resource.sikkerhetsNivaa.title",
+            "value": "Sikkerhetsnivå og arbeider som vil utføres innen 14 dager"
+        },
+        {
             "id": "resource.erklaeringer.title",
             "value": "Erklæring"
         },
         {
-            "id": "resource.erklaeringTekst.title",
+            "id": "resource.ansvarsrettErklaeringTekst.title",
             "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss til å stille med riktig kompetanse i byggeprosjektet, jf. SAK10 kapittel 10 og 11."
         },
         {
-            "id": "resource.SOEKTekst.title",
+            "id": "resource.ansvarsrettSOEKTekst.title",
             "value": "Ansvarlig søker bekrefter at hele tiltaket belegges med ansvar, og dekker kravene i plan- og bygningsloven."
         },
         {
-            "id": "resource.PROTekst.title",
+            "id": "resource.ansvarsrettPROTekst.title",
             "value": "Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til plan- og bygningsloven, jf. SAK10 § 12-3."
         },
         {
-            "id": "resource.UTFTekst.title",
+            "id": "resource.ansvarsrettUTFTekst.title",
             "value": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4."
         },
         {
-            "id": "resource.KONTROLLTekst.title",
+            "id": "resource.ansvarsrettKONTROLLTekst.title",
             "value": "Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5."
+        },
+        {
+            "id": "resource.datoAnsvarsrettErklaert.title",
+            "value": "Ansvarsrett ble erklært"
+        },
+        {
+            "id": "resource.erAnsvarsomraadetAvsluttet.title",
+            "value": "Er arbeidet avsluttet?"
+        },
+        {
+            "id": "resource.avdekketArbeider.title",
+            "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
+        },
+        {
+            "id": "resource.arbeidGjenstaaendeInnenfor.title",
+            "value": "Innenfor den delen av tiltaket det søkes midlertidig brukstillatelse for, gjenstår disse arbeidene av mindre vesentlig betydning"
+        },
+        {
+            "id": "resource.arbeidGjenstaaendeUtenfor.title",
+            "value": "Disse delene av tiltaket søkes det ikke om midlertidig brukstillatelse for nå"
+        },
+        {
+            "id": "resource.tilstrekkeligSikkerhet.title",
+            "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
+        },
+        {
+            "id": "resource.utfoereInnen.title",
+            "value": "Vi vil utføre arbeidene innen"
+        },
+        {
+            "id": "resource.typeArbeider.title",
+            "value": "Vi vil utføre følgende arbeid for å oppnå tilstrekkelig sikkerhetsnivå"
+        },
+        {
+            "id": "resource.samsvarErklaeringTekst.title",
+            "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi bekrefter at kvalitetssikring er utført og dokumentert i henhold til erklæring om ansvarsrett og foretakets kvalitetssikring."
+        },
+        {
+            "id": "resource.samsvarPROTekst.title",
+            "value": "Ansvarlig prosjekterende bekrefter at prosjekteringen er i samsvar med ytelser i TEK10 og preaksepterte ytelser (VTEK), eller ved analyse som viser at forskriftens (TEK10) funksjonkrav er oppfylt."
+        },
+        {
+            "id": "resource.samsvarUTFTekst.title",
+            "value": "Ansvarlig utførende bekrefter at utførelsen er i samsvar med produksjonsunderlaget."
         },
         {
             "id": "signing.summary.title",
