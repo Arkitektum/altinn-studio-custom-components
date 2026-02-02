@@ -96,7 +96,7 @@ describe("CustomGrouplistSamsvarAnsvarsomraade", () => {
         const instance = new CustomGrouplistSamsvarAnsvarsomraade({});
 
         expect(instance.resourceBindings.funksjon.title).toBe("resource.funksjon.title");
-        expect(instance.resourceBindings.ansvarsomraade.title).toBe("resource.ansvarsomraade1.title");
+        expect(instance.resourceBindings.ansvarsomraade.title).toBe("resource.ansvarsomraade.title");
     });
 
     it("should override resource bindings if provided in props", () => {
@@ -143,7 +143,7 @@ describe("CustomGrouplistSamsvarAnsvarsomraade", () => {
         const instance = Object.create(CustomGrouplistSamsvarAnsvarsomraade.prototype);
         const result = instance.getResourceBindings({});
         expect(result.funksjon.title).toBe("resource.funksjon.title");
-        expect(result.ansvarsomraade.title).toBe("resource.ansvarsomraade1.title");
+        expect(result.ansvarsomraade.title).toBe("resource.ansvarsomraade.title");
         expect(result.Ferdigattest.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 });

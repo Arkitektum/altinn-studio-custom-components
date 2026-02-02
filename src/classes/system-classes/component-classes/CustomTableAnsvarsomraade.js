@@ -105,7 +105,7 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltaksklasse?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarsomraade: {
-                title: props?.resourceBindings?.ansvarsomraade?.title || "resource.ansvarsomraade.title",
+                title: props?.resourceBindings?.ansvarsomraade?.title || "resource.beskrivelseAvAnsvarsomraadet.title",
                 emptyFieldText: props?.resourceBindings?.ansvarsomraade?.emptyFieldText || "resource.emptyFieldText.default"
             },
             foretak: {

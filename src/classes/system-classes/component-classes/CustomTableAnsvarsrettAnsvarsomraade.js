@@ -155,7 +155,8 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
             resourceBindings.ansvarsomraader = {
-                title: props?.resourceBindings?.title || "resource.ansvarsomraader.title"
+                titleSingle: props?.resourceBindings?.titleSingle || "resource.ansvarsomraade.title",
+                titlePlural: props?.resourceBindings?.titlePlural || "resource.ansvarsomraader.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

@@ -15,7 +15,7 @@ const defaultResourceBindings = {
         emptyFieldText: "resource.emptyFieldText.default"
     },
     ansvarsomraade: {
-        title: "resource.ansvarsomraade.title",
+        title: "resource.beskrivelseAvAnsvarsomraadet.title",
         emptyFieldText: "resource.emptyFieldText.default"
     },
     foretak: {

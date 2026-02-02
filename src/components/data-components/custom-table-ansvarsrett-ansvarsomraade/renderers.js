@@ -70,6 +70,7 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
             }
         }
     ];
+
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: component?.size,
         hideIfEmpty: true,
@@ -77,7 +78,10 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
         isChildComponent: true,
         resourceValues: component?.resourceValues,
         resourceBindings: {
-            title: component?.resourceBindings?.ansvarsomraader?.title,
+            title:
+                component.resourceValues.data.length == 1
+                    ? component?.resourceBindings?.ansvarsomraader?.titleSingle
+                    : component?.resourceBindings?.ansvarsomraader?.titlePlural,
             emptyFieldText: component?.resourceBindings?.ansvarsomraader?.emptyFieldText
         },
         tableColumns

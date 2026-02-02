@@ -162,7 +162,7 @@ describe("CustomGrouplistAnsvarsomraadeType", () => {
             const instance = new CustomGrouplistAnsvarsomraadeType(props);
             const bindings = instance.getResourceBindings(props);
             expect(bindings.tiltaksklasse.title).toBe("resource.tiltaksklasse.title");
-            expect(bindings.ansvarsomraade.title).toBe("resource.ansvarsomraade.title");
+            expect(bindings.ansvarsomraade.title).toBe("resource.beskrivelseAvAnsvarsomraadet.title");
             expect(bindings.ansvarsfordeling.title).toBe("resource.ansvarsfordeling.title");
             expect(bindings.ansvarsfordeling.emptyFieldText).toBe("resource.emptyFieldText.default");
         });

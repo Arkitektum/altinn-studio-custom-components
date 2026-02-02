@@ -116,7 +116,7 @@ export default class CustomGrouplistSamsvarAnsvarsomraade extends CustomComponen
                 emptyFieldText: props?.resourceBindings?.Ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarsomraade: {
-                title: props?.resourceBindings?.ansvarsomraade?.title || "resource.ansvarsomraade1.title",
+                title: props?.resourceBindings?.ansvarsomraade?.title || "resource.ansvarsomraade.title",
                 emptyFieldText: props?.resourceBindings?.ansvarsomraade?.emptyFieldText || "resource.emptyFieldText.default"
             },
             gjenstaaendeArbeider: {

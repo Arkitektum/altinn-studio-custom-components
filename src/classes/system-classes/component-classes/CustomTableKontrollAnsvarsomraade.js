@@ -146,7 +146,7 @@ export default class CustomTableKontrollAnsvarsomraade extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
             resourceBindings.ansvarsomraade = {
-                title: props?.resourceBindings?.title || "resource.ansvarsomraade1.title"
+                title: props?.resourceBindings?.title || "resource.ansvarsomraade.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
