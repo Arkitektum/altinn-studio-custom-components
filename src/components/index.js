@@ -61,6 +61,7 @@ import customTableAnsvarsrettAnsvarsomraade from "./data-components/custom-table
 import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
+import customTableKontrollAnsvarsomraade from "./data-components/custom-table-kontroll-ansvarsomraade/index.js";
 import customTableNaboGjenboerEiendom from "./data-components/custom-table-nabo-gjenboer-eiendom/index.js";
 import customTableOmraaderisiko from "./data-components/custom-table-omraaderisiko/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
@@ -140,6 +141,7 @@ export {
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
+    customTableKontrollAnsvarsomraade,
     customTableNaboGjenboerEiendom,
     customTableOmraaderisiko,
     customTablePart,
