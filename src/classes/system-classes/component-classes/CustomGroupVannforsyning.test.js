@@ -137,7 +137,7 @@ describe("CustomGroupVannforsyning", () => {
     it("getResourceBindings returns defaults if not provided", () => {
         const instance = new CustomGroupVannforsyning({});
         const bindings = instance.getResourceBindings({});
-        expect(bindings.beskrivelse.title).toBe("resource.rammebetingelser.vannforsyning.beskrivelse.title");
+        expect(bindings.beskrivelse.title).toBe("resource.beskrivelse.title");
         expect(bindings.vannforsyning.title).toBe("resource.rammebetingelser.vannforsyning.title");
         expect(bindings.vannforsyning.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
