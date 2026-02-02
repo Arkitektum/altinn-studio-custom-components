@@ -44,6 +44,29 @@ export function filterResourcesByApplication(resources, appName) {
 }
 
 /**
+ * Filters an array of text resource objects based on a text input and a matching criterion.
+ *
+ * @param {Array<Object>} resources - The array of resource objects to filter.
+ * @param {string} textFilter - The text input to filter resources by.
+ * @param {'id'|'value'} matchBy - The property to match the filter against ('id' or 'value').
+ * @returns {Array<Object>} The filtered array of resource objects.
+ */
+export function filterTextResourcesByTextInput(resources, textFilter, matchBy) {
+    if (!textFilter?.length) {
+        return resources;
+    }
+    const lowerCaseTextFilter = textFilter.toLowerCase();
+    return resources.filter((res) => {
+        if (matchBy === "id") {
+            return res?.resource?.id?.toString().toLowerCase().includes(lowerCaseTextFilter);
+        } else if (matchBy === "value") {
+            return res?.resource?.value?.toLowerCase().includes(lowerCaseTextFilter);
+        }
+        return false;
+    });
+}
+
+/**
  * Returns an array of resources from the given list that have the same `resource.value`
  * as the specified resource, but a different `resource.id`, and are not marked as missing
  * from default text resources.
