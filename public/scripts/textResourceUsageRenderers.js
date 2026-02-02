@@ -1,4 +1,4 @@
-import { filterResources, filterResourcesByApplication, getResourcesWithSameValue } from "./filters.js";
+import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters.js";
 
 /**
  * Renders a component as a collapsible list item using a <details> element.
@@ -229,13 +229,37 @@ export function renderDefaultTextResourcesList(filteredTextResources, allTextRes
 }
 
 /**
- * Renders a set of radio button filters for a list of text resources and attaches them to the given container element.
- * The filters allow users to view all resources, unused resources, resources used once, resources with duplicates, or missing resources.
- * When a filter is selected, the resource list is updated accordingly.
+ * Handles changes to the text resource filter and updates the rendered list accordingly.
  *
- * @param {HTMLElement} containerElement - The DOM element to which the filter controls and filtered resource list will be appended.
- * @param {Array<Object>} textResources - The array of text resource objects to be filtered and displayed.
- * @returns {HTMLElement} The DOM element containing the radio button filters.
+ * This function retrieves filter criteria from global variables, applies a series of filters
+ * to the provided text resources, and updates the DOM to display the filtered results.
+ *
+ * @param {HTMLElement} containerElement - The DOM element that contains the text resources list.
+ * @param {Array<Object>} textResources - The array of text resource objects to be filtered and rendered.
+ */
+function handleFilterChange(containerElement, textResources) {
+    const textFilter = globalThis.textFilter || "";
+    const matchBy = globalThis.matchBy || "id";
+    const selectedFilter = globalThis.selectedFilter || "all";
+    const selectedAppName = globalThis.selectedAppName || "";
+    let filteredResources = filterTextResourcesByTextInput(textResources, textFilter, matchBy);
+    filteredResources = filterResources(filteredResources, selectedFilter);
+    filteredResources = filterResourcesByApplication(filteredResources, selectedAppName);
+
+    const existingListElement = containerElement.querySelector("#default-text-resources-list");
+    if (existingListElement) {
+        existingListElement.remove();
+    }
+    const newListElement = renderDefaultTextResourcesList(filteredResources, textResources);
+    containerElement.appendChild(newListElement);
+}
+
+/**
+ * Renders a set of radio button filters for a text resources list.
+ *
+ * @param {HTMLElement} containerElement - The container element where the filter will be rendered. (Currently unused)
+ * @param {Array} textResources - The list of text resources to filter. (Currently unused)
+ * @returns {HTMLDivElement} The DOM element containing the radio button filters.
  */
 export function renderRadioButtonsFilterForTextResourcesList(containerElement, textResources) {
     const filterContainerElement = document.createElement("div");
@@ -288,16 +312,8 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     missingResourcesLabelElement.innerHTML = "Missing";
 
     const updateResourceListBasedOnFilter = () => {
-        const selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
-        const filteredResources = filterResources(textResources, selectedFilter);
-        const filteredResourcesByApp = filterResourcesByApplication(filteredResources, globalThis.selectedAppName);
-        const existingListElement = containerElement.querySelector("#default-text-resources-list");
-        if (existingListElement) {
-            existingListElement.remove();
-        }
-        const newListElement = renderDefaultTextResourcesList(filteredResourcesByApp, textResources);
-        globalThis.selectedFilter = selectedFilter;
-        containerElement.appendChild(newListElement);
+        globalThis.selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
+        handleFilterChange(containerElement, textResources);
     };
 
     allResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
@@ -321,12 +337,12 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
 }
 
 /**
- * Renders a select dropdown for filtering text resources by application and attaches it to the given container element.
+ * Renders a select dropdown for filtering a list of text resources by application.
  *
- * @param {HTMLElement} containerElement - The DOM element to which the filter select will be appended.
- * @param {Array<Object>} textResources - The list of text resource objects to be filtered and displayed.
- * @param {Array<Object>} applications - The list of application objects used to populate the select options.
- * @returns {HTMLDivElement} The container div element containing the application filter select dropdown.
+ * @param {HTMLElement} containerElement - The container element where the filter will be rendered. (Currently unused)
+ * @param {Array} textResources - The list of text resources to be filtered. (Currently unused)
+ * @param {Array<{ appName: string }>} applications - The list of applications to populate the filter dropdown.
+ * @returns {HTMLElement} The DOM element containing the application filter select dropdown.
  */
 export function renderSelectApplicationFilterForTextResourcesList(containerElement, textResources, applications) {
     const selectContainerElement = document.createElement("div");
@@ -353,18 +369,8 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
     });
 
     const updateResourceListBasedOnApplicationFilter = () => {
-        const selectedAppName = applicationSelectElement.value;
-
-        const filteredResourcesByApp = filterResourcesByApplication(textResources, selectedAppName);
-        const selectedFilter = globalThis.selectedFilter || "all";
-        const filteredResources = filterResources(filteredResourcesByApp, selectedFilter);
-        const existingListElement = containerElement.querySelector("#default-text-resources-list");
-        if (existingListElement) {
-            existingListElement.remove();
-        }
-        const newListElement = renderDefaultTextResourcesList(filteredResources, textResources);
-        globalThis.selectedAppName = selectedAppName;
-        containerElement.appendChild(newListElement);
+        globalThis.selectedAppName = applicationSelectElement.value;
+        handleFilterChange(containerElement, textResources);
     };
 
     applicationSelectElement.onchange = updateResourceListBasedOnApplicationFilter;
@@ -372,4 +378,55 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
     selectContainerElement.appendChild(applicationSelectElement);
 
     return selectContainerElement;
+}
+
+/**
+ * Renders a filter UI for a list of text resources, including a text input and a select dropdown
+ * to filter by either resource ID or value. The filter values are stored globally and trigger
+ * a filter change handler when updated.
+ *
+ * @param {HTMLElement} containerElement - The container element where the filter UI could be rendered (currently unused).
+ * @param {Array<Object>} textResources - The list of text resources to be filtered (currently unused).
+ * @returns {HTMLDivElement} The DOM element containing the filter UI.
+ */
+export function renderTextInputFilterForTextResourcesList(containerElement, textResources) {
+    const textInputContainerElement = document.createElement("div");
+    textInputContainerElement.classList.add("text-resources-text-input-filter-container");
+
+    const textInputLabelElement = document.createElement("label");
+    textInputLabelElement.htmlFor = "text-filter-input";
+    textInputLabelElement.innerHTML = "Filter by text: ";
+    textInputContainerElement.appendChild(textInputLabelElement);
+
+    const textFilterInputElement = document.createElement("input");
+    textFilterInputElement.id = "text-filter-input";
+    textFilterInputElement.type = "text";
+    textFilterInputElement.placeholder = "Enter text to filter resources";
+    textInputContainerElement.appendChild(textFilterInputElement);
+
+    const matchBySelectElement = document.createElement("select");
+    matchBySelectElement.id = "match-by-select";
+
+    const matchByIdOptionElement = document.createElement("option");
+    matchByIdOptionElement.value = "id";
+    matchByIdOptionElement.innerHTML = "Match by ID";
+    matchBySelectElement.appendChild(matchByIdOptionElement);
+
+    const matchByValueOptionElement = document.createElement("option");
+    matchByValueOptionElement.value = "value";
+    matchByValueOptionElement.innerHTML = "Match by Value";
+    matchBySelectElement.appendChild(matchByValueOptionElement);
+
+    textInputContainerElement.appendChild(matchBySelectElement);
+
+    const updateResourceListBasedOnTextInputFilter = () => {
+        globalThis.textFilter = textFilterInputElement.value;
+        globalThis.matchBy = matchBySelectElement.value;
+        handleFilterChange(containerElement, textResources);
+    };
+
+    textFilterInputElement.oninput = updateResourceListBasedOnTextInputFilter;
+    matchBySelectElement.onchange = updateResourceListBasedOnTextInputFilter;
+
+    return textInputContainerElement;
 }
