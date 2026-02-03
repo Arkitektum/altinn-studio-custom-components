@@ -201,8 +201,6 @@ body {
                 font-weight: var(--font-weight-default);
                 line-height: var(--line-height-default);
                 font-size: 1.1rem;
-                cursor: default;
-                pointer-events: none;
             }
         }
     }

@@ -15,7 +15,7 @@
         },
         {
             "id": "resource.ansvarsomraade.title",
-            "value": "Beskrivelse av ansvarsområde"
+            "value": "Ansvarsområde"
         },
         {
             "id": "resource.ansvarsomraadeStatus.title",
@@ -123,7 +123,7 @@
         },
         {
             "id": "resource.dispensasjonOversikt.dispensasjon.bestemmelserType.title",
-            "value": "Dispensansjon fra"
+            "value": "Dispensasjon fra"
         },
         {
             "id": "resource.dispensasjonOversikt.dispensasjon.count.title",
@@ -790,10 +790,6 @@
             "value": "Igangsettingssøknad nummer"
         },
         {
-            "id": "resource.soeknadGjelder.ferdigattest.header",
-            "value": "Ferdigattest"
-        },
-        {
             "id": "resource.soeknadGjelder.foelgebrev.header",
             "value": "Følgebrev"
         },
@@ -1010,7 +1006,7 @@
             "value": "Midlertidig brukstillatelse"
         },
         {
-            "id": "resource.Ferdigattest.title",
+            "id": "resource.ferdigattest.title",
             "value": "Ferdigattest"
         },
         {
@@ -1028,10 +1024,6 @@
         {
             "id": "resource.ansvarsomraader.title",
             "value": "Ansvarsområder"
-        },
-        {
-            "id": "resource.ansvarsomraade1.title",
-            "value": "Ansvarsområde"
         },
         {
             "id": "resource.gjenstaaendeArbeider.title",
@@ -1076,14 +1068,6 @@
         {
             "id": "resource.avdekketArbeider.title",
             "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
-        },
-        {
-            "id": "resource.arbeidGjenstaaendeInnenfor.title",
-            "value": "Innenfor den delen av tiltaket det søkes midlertidig brukstillatelse for, gjenstår disse arbeidene av mindre vesentlig betydning"
-        },
-        {
-            "id": "resource.arbeidGjenstaaendeUtenfor.title",
-            "value": "Disse delene av tiltaket søkes det ikke om midlertidig brukstillatelse for nå"
         },
         {
             "id": "resource.tilstrekkeligSikkerhet.title",
