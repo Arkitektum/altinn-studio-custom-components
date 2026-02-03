@@ -8,10 +8,10 @@ jest.mock("../../../functions/helpers.js", () => ({
 
 describe("ProsjekterendeList", () => {
     const resourceBindings = {
-        Rammetillatelse: { title: "ramme" },
-        Igangsettingstillatelse: { title: "igang" },
-        MidlertidigBrukstillatelse: { title: "midlertidig" },
-        Ferdigattest: { title: "ferdig" }
+        rammetillatelse: { title: "ramme" },
+        igangsettingstillatelse: { title: "igang" },
+        midlertidigBrukstillatelse: { title: "midlertidig" },
+        ferdigattest: { title: "ferdig" }
     };
 
     beforeEach(() => {
@@ -68,7 +68,7 @@ describe("ProsjekterendeList", () => {
         };
 
         const partialBindings = {
-            Rammetillatelse: { title: "ramme" }
+            rammetillatelse: { title: "ramme" }
             // others missing
         };
 

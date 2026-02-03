@@ -79,6 +79,10 @@ export function renderAvdekketGjenstaaendePROElement(component) {
         },
         resourceValues: {
             data: component?.resourceValues?.data?.prosjekterendeList?.resourceValues?.data
+        },
+        styleOverride: {
+            listStyle: "none",
+            paddingInline: "0"
         }
     });
     return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
@@ -94,6 +98,10 @@ export function renderAvdekketGjenstaaendeUTFElement(component) {
         },
         resourceValues: {
             data: component?.resourceValues?.data?.utfoerende?.utfoerendeList?.resourceValues?.data
+        },
+        styleOverride: {
+            listStyle: "none",
+            paddingInline: "0"
         }
     });
     return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));

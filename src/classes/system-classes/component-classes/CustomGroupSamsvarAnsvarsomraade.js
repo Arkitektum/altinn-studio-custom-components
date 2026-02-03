@@ -103,21 +103,21 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
                 title: props?.resourceBindings?.avdekketArbeider?.title || "resource.avdekketArbeider.title",
                 emptyFieldText: props?.resourceBindings?.avdekketArbeider?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            Rammetillatelse: {
-                title: props?.resourceBindings?.Rammetillatelse?.title || "resource.Rammetillatelse.title",
-                emptyFieldText: props?.resourceBindings?.Rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            rammetillatelse: {
+                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammetillatelse.title",
+                emptyFieldText: props?.resourceBindings?.rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            Igangsettingstillatelse: {
-                title: props?.resourceBindings?.Igangsettingstillatelse?.title || "resource.Igangsettingstillatelse.title",
-                emptyFieldText: props?.resourceBindings?.Igangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            igangsettingstillatelse: {
+                title: props?.resourceBindings?.igangsettingstillatelse?.title || "resource.igangsettingstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.igangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            MidlertidigBrukstillatelse: {
-                title: props?.resourceBindings?.MidlertidigBrukstillatelse?.title || "resource.MidlertidigBrukstillatelse.title",
-                emptyFieldText: props?.resourceBindings?.MidlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            midlertidigBrukstillatelse: {
+                title: props?.resourceBindings?.midlertidigBrukstillatelse?.title || "resource.midlertidigBrukstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.midlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            Ferdigattest: {
-                title: props?.resourceBindings?.Ferdigattest?.title || "resource.ferdigattest.title",
-                emptyFieldText: props?.resourceBindings?.Ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
+            ferdigattest: {
+                title: props?.resourceBindings?.ferdigattest?.title || "resource.ferdigattest.title",
+                emptyFieldText: props?.resourceBindings?.ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarsomraade: {
                 title: props?.resourceBindings?.ansvarsomraade?.title || "resource.ansvarsomraade.title",

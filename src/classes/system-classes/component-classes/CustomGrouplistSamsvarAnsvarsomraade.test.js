@@ -143,6 +143,6 @@ describe("CustomGrouplistSamsvarAnsvarsomraade", () => {
         const result = instance.getResourceBindings({});
         expect(result.funksjon.title).toBe("resource.funksjon.title");
         expect(result.ansvarsomraade.title).toBe("resource.ansvarsomraade.title");
-        expect(result.Ferdigattest.emptyFieldText).toBe("resource.emptyFieldText.default");
+        expect(result.ferdigattest.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 });
