@@ -123,7 +123,7 @@
         },
         {
             "id": "resource.dispensasjonOversikt.dispensasjon.bestemmelserType.title",
-            "value": "Dispensansjon fra"
+            "value": "Dispensasjon fra"
         },
         {
             "id": "resource.dispensasjonOversikt.dispensasjon.count.title",
@@ -790,10 +790,6 @@
             "value": "Igangsettingssøknad nummer"
         },
         {
-            "id": "resource.soeknadGjelder.ferdigattest.header",
-            "value": "Ferdigattest"
-        },
-        {
             "id": "resource.soeknadGjelder.foelgebrev.header",
             "value": "Følgebrev"
         },
@@ -1010,7 +1006,7 @@
             "value": "Midlertidig brukstillatelse"
         },
         {
-            "id": "resource.Ferdigattest.title",
+            "id": "resource.ferdigattest.title",
             "value": "Ferdigattest"
         },
         {
