@@ -146,11 +146,11 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
                 defaultText: props?.resourceBindings?.tilstrekkeligSikkerhet?.defaultText || "resource.emptyFieldText.default"
             },
             arbeidGjenstaaendeInnenfor: {
-                title: props?.resourceBindings?.arbeidGjenstaaendeInnenfor?.title || "resource.arbeidGjenstaaendeInnenfor.title",
+                title: props?.resourceBindings?.arbeidGjenstaaendeInnenfor?.title || "resource.gjenstaaendeArbeider.gjenstaaendeInnenfor.title",
                 emptyFieldText: props?.resourceBindings?.arbeidGjenstaaendeInnenfor?.emptyFieldText || "resource.emptyFieldText.default"
             },
             arbeidGjenstaaendeUtenfor: {
-                title: props?.resourceBindings?.arbeidGjenstaaendeUtenfor?.title || "resource.arbeidGjenstaaendeUtenfor.title",
+                title: props?.resourceBindings?.arbeidGjenstaaendeUtenfor?.title || "resource.gjenstaaendeArbeider.gjenstaaendeUtenfor.title",
                 emptyFieldText: props?.resourceBindings?.arbeidGjenstaaendeUtenfor?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };

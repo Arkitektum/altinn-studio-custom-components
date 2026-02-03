@@ -1070,14 +1070,6 @@
             "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
         },
         {
-            "id": "resource.arbeidGjenstaaendeInnenfor.title",
-            "value": "Innenfor den delen av tiltaket det søkes midlertidig brukstillatelse for, gjenstår disse arbeidene av mindre vesentlig betydning"
-        },
-        {
-            "id": "resource.arbeidGjenstaaendeUtenfor.title",
-            "value": "Disse delene av tiltaket søkes det ikke om midlertidig brukstillatelse for nå"
-        },
-        {
             "id": "resource.tilstrekkeligSikkerhet.title",
             "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
         },
