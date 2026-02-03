@@ -994,15 +994,15 @@
             "value": "Funksjon"
         },
         {
-            "id": "resource.Rammetillatelse.title",
+            "id": "resource.rammetillatelse.title",
             "value": "Rammesøknad"
         },
         {
-            "id": "resource.Igangsettingstillatelse.title",
+            "id": "resource.igangsettingstillatelse.title",
             "value": "Igangsettingstillatelse"
         },
         {
-            "id": "resource.MidlertidigBrukstillatelse.title",
+            "id": "resource.midlertidigBrukstillatelse.title",
             "value": "Midlertidig brukstillatelse"
         },
         {
@@ -1094,6 +1094,14 @@
             "value": "Ansvarlig utførende bekrefter at utførelsen er i samsvar med produksjonsunderlaget."
         },
         {
+            "id": "resource.kontrollErklaeringTekst.title",
+            "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger."
+        },
+        {
+            "id": "resource.kontrollKONTROLLTekst.title",
+            "value": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert."
+        },
+        {
             "id": "resource.sluttrapport.title",
             "value": "Sluttrapport for kontroll"
         },
@@ -1114,8 +1122,16 @@
             "value": "Er det funnet avvik og er disse lukket?"
         },
         {
-            "id": "signing.summary.title",
-            "value": "Søknaden er signert av"
+            "id": "resource.ftpbReferanseId.title",
+            "value": "Innsendingens referanse"
+        },
+        {
+            "id": "resource.harSentralGodkjenning.booleanText.title",
+            "value": "Har foretaket sentral godkjenning?"
+        },
+        {
+            "id": "resource.ansvarligForetak.kontaktperson.title",
+            "value": "Kontaktperson"
         }
     ]
 }

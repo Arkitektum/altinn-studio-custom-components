@@ -8,10 +8,10 @@ jest.mock("../../../functions/helpers.js", () => ({
 
 describe("FaseSamsvarKontrollList", () => {
     const resourceBindings = {
-        Rammetillatelse: { title: "rammetillatelse" },
-        Igangsettingstillatelse: { title: "igangsettingstillatelse" },
-        MidlertidigBrukstillatelse: { title: "midlertidigBrukstillatelse" },
-        Ferdigattest: { title: "ferdigattest" }
+        rammetillatelse: { title: "rammetillatelse" },
+        igangsettingstillatelse: { title: "igangsettingstillatelse" },
+        midlertidigBrukstillatelse: { title: "midlertidigBrukstillatelse" },
+        ferdigattest: { title: "ferdigattest" }
     };
 
     beforeEach(() => {
@@ -77,7 +77,7 @@ describe("FaseSamsvarKontrollList", () => {
             harSamsvarKontrollVedFerdigattest: false
         };
         const partialResourceBindings = {
-            Rammetillatelse: { title: "rammetillatelse" }
+            rammetillatelse: { title: "rammetillatelse" }
             // missing others
         };
         const list = new FaseSamsvarKontrollList(faseSamsvarKontroll, partialResourceBindings);

@@ -18,16 +18,16 @@ export default class UtfoerendeList {
      * @param {boolean} erOkForFerdigattest - Indicates if the item is valid for "Ferdigattest".
      * @param {boolean} erOkForMidlertidigBrukstillatelse - Indicates if the item is valid for "Midlertidig Brukstillatelse".
      * @param {Object} resourceBindings - An object containing resource bindings for text resources.
-     * @param {Object} [resourceBindings.MidlertidigBrukstillatelse] - Resource binding for "Midlertidig Brukstillatelse".
-     * @param {Object} [resourceBindings.Ferdigattest] - Resource binding for "Ferdigattest".
+     * @param {Object} [resourceBindings.midlertidigBrukstillatelse] - Resource binding for "Midlertidig Brukstillatelse".
+     * @param {Object} [resourceBindings.ferdigattest] - Resource binding for "Ferdigattest".
      * @returns {Array<string>} An array of text resources, filtered to exclude null values.
      */
     getUtfoerendeItems(erOkForFerdigattest, erOkForMidlertidigBrukstillatelse, resourceBindings) {
         return [
             erOkForMidlertidigBrukstillatelse === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.MidlertidigBrukstillatelse?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.midlertidigBrukstillatelse?.title)
                 : null,
-            erOkForFerdigattest === true ? getTextResourceFromResourceBinding(resourceBindings?.Ferdigattest?.title) : null
+            erOkForFerdigattest === true ? getTextResourceFromResourceBinding(resourceBindings?.ferdigattest?.title) : null
         ].filter((item) => item !== null);
     }
 }

@@ -103,10 +103,10 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
      * @param {Object} [props.resourceBindings.tiltaksklasse] - Resource bindings for 'tiltaksklasse' field.
      * @param {Object} [props.resourceBindings.faseSamsvarKontroll] - Resource bindings for 'faseSamsvarKontroll' field.
      * @param {Object} [props.resourceBindings.dekkesOmraadeAvSentralGodkjenning] - Resource bindings for 'dekkesOmraadeAvSentralGodkjenning' field.
-     * @param {Object} [props.resourceBindings.Rammetillatelse] - Resource bindings for 'Rammetillatelse' field.
-     * @param {Object} [props.resourceBindings.Igangsettingstillatelse] - Resource bindings for 'Igangsettingstillatelse' field.
-     * @param {Object} [props.resourceBindings.MidlertidigBrukstillatelse] - Resource bindings for 'MidlertidigBrukstillatelse' field.
-     * @param {Object} [props.resourceBindings.Ferdigattest] - Resource bindings for 'Ferdigattest' field.
+     * @param {Object} [props.resourceBindings.rammetillatelse] - Resource bindings for 'rammetillatelse' field.
+     * @param {Object} [props.resourceBindings.igangsettingstillatelse] - Resource bindings for 'igangsettingstillatelse' field.
+     * @param {Object} [props.resourceBindings.midlertidigBrukstillatelse] - Resource bindings for 'midlertidigBrukstillatelse' field.
+     * @param {Object} [props.resourceBindings.ferdigattest] - Resource bindings for 'ferdigattest' field.
      * @param {boolean|string} [props.hideTitle] - If true, omits the 'ansvarsomraader' title from the resource bindings.
      * @param {boolean|string} [props.hideIfEmpty] - If true, omits the 'emptyFieldText' for 'ansvarsomraader'.
      * @param {Object} [props.resourceValues] - Optional resource values, used to determine if the title should be included.
@@ -136,21 +136,21 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
                 falseText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText?.title || "resource.falseText.default",
                 defaultText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText || "resource.emptyFieldText.default"
             },
-            Rammetillatelse: {
-                title: props?.resourceBindings?.Rammetillatelse?.title || "resource.Rammetillatelse.title",
-                emptyFieldText: props?.resourceBindings?.Rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            rammetillatelse: {
+                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammetillatelse.title",
+                emptyFieldText: props?.resourceBindings?.rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            Igangsettingstillatelse: {
-                title: props?.resourceBindings?.Igangsettingstillatelse?.title || "resource.Igangsettingstillatelse.title",
-                emptyFieldText: props?.resourceBindings?.Igangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            igangsettingstillatelse: {
+                title: props?.resourceBindings?.igangsettingstillatelse?.title || "resource.igangsettingstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.igangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            MidlertidigBrukstillatelse: {
-                title: props?.resourceBindings?.MidlertidigBrukstillatelse?.title || "resource.MidlertidigBrukstillatelse.title",
-                emptyFieldText: props?.resourceBindings?.MidlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            midlertidigBrukstillatelse: {
+                title: props?.resourceBindings?.midlertidigBrukstillatelse?.title || "resource.midlertidigBrukstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.midlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            Ferdigattest: {
-                title: props?.resourceBindings?.Ferdigattest?.title || "resource.ferdigattest.title",
-                emptyFieldText: props?.resourceBindings?.Ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
+            ferdigattest: {
+                title: props?.resourceBindings?.ferdigattest?.title || "resource.ferdigattest.title",
+                emptyFieldText: props?.resourceBindings?.ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {

@@ -31,16 +31,16 @@ export default class FaseSamsvarKontrollList {
     getFaseSamsvarKontrollItems(faseSamsvarKontroll, resourceBindings) {
         return [
             faseSamsvarKontroll?.harSamsvarKontrollVedRammetillatelse === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.Rammetillatelse?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.rammetillatelse?.title)
                 : null,
             faseSamsvarKontroll?.harSamsvarKontrollVedIgangsettingstillatelse === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.Igangsettingstillatelse?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.igangsettingstillatelse?.title)
                 : null,
             faseSamsvarKontroll?.harSamsvarKontrollVedMidlertidigBrukstillatelse === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.MidlertidigBrukstillatelse?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.midlertidigBrukstillatelse?.title)
                 : null,
             faseSamsvarKontroll?.harSamsvarKontrollVedFerdigattest === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.Ferdigattest?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.ferdigattest?.title)
                 : null
         ].filter((item) => item !== null);
     }

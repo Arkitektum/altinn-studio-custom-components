@@ -20,22 +20,22 @@ export default class ProsjekterendeList {
      *
      * @param {Object} prosjekterende - The object containing boolean flags for different permissions.
      * @param {Object} resourceBindings - An object containing resource bindings for each permission type.
-     * @param {Object} [resourceBindings.Rammetillatelse] - Resource binding for "Rammetillatelse".
-     * @param {Object} [resourceBindings.Igangsettingstillatelse] - Resource binding for "Igangsettingstillatelse".
-     * @param {Object} [resourceBindings.MidlertidigBrukstillatelse] - Resource binding for "MidlertidigBrukstillatelse".
-     * @param {Object} [resourceBindings.Ferdigattest] - Resource binding for "Ferdigattest".
+     * @param {Object} [resourceBindings.rammetillatelse] - Resource binding for "Rammetillatelse".
+     * @param {Object} [resourceBindings.igangsettingstillatelse] - Resource binding for "Igangsettingstillatelse".
+     * @param {Object} [resourceBindings.midlertidigBrukstillatelse] - Resource binding for "MidlertidigBrukstillatelse".
+     * @param {Object} [resourceBindings.ferdigattest] - Resource binding for "Ferdigattest".
      * @returns {Array<string>} An array of text resources for the permissions that are set to `true`.
      */
     getProsjekterendeItems(prosjekterende, resourceBindings) {
         return [
-            prosjekterende?.erOkForRammetillatelse === true ? getTextResourceFromResourceBinding(resourceBindings?.Rammetillatelse?.title) : null,
+            prosjekterende?.erOkForRammetillatelse === true ? getTextResourceFromResourceBinding(resourceBindings?.rammetillatelse?.title) : null,
             prosjekterende?.erOkForIgangsettingstillatelse === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.Igangsettingstillatelse?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.igangsettingstillatelse?.title)
                 : null,
             prosjekterende?.erOkForMidlertidigBrukstillatelse === true
-                ? getTextResourceFromResourceBinding(resourceBindings?.MidlertidigBrukstillatelse?.title)
+                ? getTextResourceFromResourceBinding(resourceBindings?.midlertidigBrukstillatelse?.title)
                 : null,
-            prosjekterende?.erOkForFerdigattest === true ? getTextResourceFromResourceBinding(resourceBindings?.Ferdigattest?.title) : null
+            prosjekterende?.erOkForFerdigattest === true ? getTextResourceFromResourceBinding(resourceBindings?.ferdigattest?.title) : null
         ].filter((item) => item !== null);
     }
 }
