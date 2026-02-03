@@ -140,8 +140,8 @@ describe("CustomFieldAdresse", () => {
             const instance = new CustomFieldAdresse({});
             expect(instance.getResourceBindings({})).toEqual({
                 adresse: {
-                    title: "resource.adresse.title",
-                    emptyFieldText: "resource.adresse.emptyFieldText.default"
+                    title: "resource.eiendom.adresse.title",
+                    emptyFieldText: "resource.emptyFieldText.address"
                 }
             });
         });
@@ -165,7 +165,7 @@ describe("CustomFieldAdresse", () => {
             const instance = new CustomFieldAdresse(props);
             expect(instance.getResourceBindings(props)).toEqual({
                 adresse: {
-                    emptyFieldText: "resource.adresse.emptyFieldText.default"
+                    emptyFieldText: "resource.emptyFieldText.address"
                 }
             });
         });
@@ -174,7 +174,7 @@ describe("CustomFieldAdresse", () => {
             const instance = new CustomFieldAdresse(props);
             expect(instance.getResourceBindings(props)).toEqual({
                 adresse: {
-                    title: "resource.adresse.title"
+                    title: "resource.eiendom.adresse.title"
                 }
             });
         });
