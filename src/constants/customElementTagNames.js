@@ -35,6 +35,7 @@ export default [
     "custom-group-avloep",
     "custom-group-ettersending",
     "custom-group-kontroll-ansvarsomraade",
+    "custom-group-kontroll-erklaeringer",
     "custom-group-loefteinnretninger",
     "custom-group-nabo-gjenboer-eiendom",
     "custom-group-overvann",

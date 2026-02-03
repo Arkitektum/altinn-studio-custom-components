@@ -27,6 +27,7 @@ import CustomGroupAnsvarsrettErklaeringer from "../classes/system-classes/compon
 import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGroupKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupKontrollAnsvarsomraade.js";
+import CustomGroupKontrollErklaeringer from "../classes/system-classes/component-classes/CustomGroupKontrollErklaeringer.js";
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
@@ -134,6 +135,8 @@ export function instantiateComponent(element) {
             return new CustomGroupEttersending(component);
         case "custom-group-kontroll-ansvarsomraade":
             return new CustomGroupKontrollAnsvarsomraade(component);
+        case "custom-group-kontroll-erklaeringer":
+            return new CustomGroupKontrollErklaeringer(component);
         case "custom-group-loefteinnretninger":
             return new CustomGroupLoefteinnretninger(component);
         case "custom-group-nabo-gjenboer-eiendom":

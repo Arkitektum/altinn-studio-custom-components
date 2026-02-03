@@ -17,8 +17,8 @@ describe("UtfoerendeList", () => {
         getTextResourceFromResourceBinding.mockImplementationOnce(() => midlertidigTitle).mockImplementationOnce(() => ferdigattestTitle);
 
         const resourceBindings = {
-            MidlertidigBrukstillatelse: { title: "midlertidig_key" },
-            Ferdigattest: { title: "ferdigattest_key" }
+            midlertidigBrukstillatelse: { title: "midlertidig_key" },
+            ferdigattest: { title: "ferdigattest_key" }
         };
 
         const list = new UtfoerendeList(true, true, resourceBindings);
@@ -32,8 +32,8 @@ describe("UtfoerendeList", () => {
         getTextResourceFromResourceBinding.mockImplementationOnce(() => ferdigattestTitle);
 
         const resourceBindings = {
-            MidlertidigBrukstillatelse: { title: "midlertidig_key" },
-            Ferdigattest: { title: "ferdigattest_key" }
+            midlertidigBrukstillatelse: { title: "midlertidig_key" },
+            ferdigattest: { title: "ferdigattest_key" }
         };
 
         const list = new UtfoerendeList(true, false, resourceBindings);
@@ -46,8 +46,8 @@ describe("UtfoerendeList", () => {
         getTextResourceFromResourceBinding.mockImplementationOnce(() => midlertidigTitle);
 
         const resourceBindings = {
-            MidlertidigBrukstillatelse: { title: "midlertidig_key" },
-            Ferdigattest: { title: "ferdigattest_key" }
+            midlertidigBrukstillatelse: { title: "midlertidig_key" },
+            ferdigattest: { title: "ferdigattest_key" }
         };
 
         const list = new UtfoerendeList(false, true, resourceBindings);
@@ -58,8 +58,8 @@ describe("UtfoerendeList", () => {
 
     it("returns empty array when both flags are false", () => {
         const resourceBindings = {
-            MidlertidigBrukstillatelse: { title: "midlertidig_key" },
-            Ferdigattest: { title: "ferdigattest_key" }
+            midlertidigBrukstillatelse: { title: "midlertidig_key" },
+            ferdigattest: { title: "ferdigattest_key" }
         };
 
         const list = new UtfoerendeList(false, false, resourceBindings);
@@ -80,8 +80,8 @@ describe("UtfoerendeList", () => {
         getTextResourceFromResourceBinding.mockImplementation(() => null);
 
         const list = new UtfoerendeList(true, true, {
-            MidlertidigBrukstillatelse: { title: "midlertidig_key" },
-            Ferdigattest: { title: "ferdigattest_key" }
+            midlertidigBrukstillatelse: { title: "midlertidig_key" },
+            ferdigattest: { title: "ferdigattest_key" }
         });
 
         expect(list.resourceValues.data).toEqual([]);
