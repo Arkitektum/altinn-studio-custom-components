@@ -472,26 +472,18 @@ export function getComponentBooleanDataValues(component) {
 }
 
 /**
- * Retrieves the boolean text values (trueText, falseText, defaultText) for a given component.
- * It prioritizes values from `component.resourceValues`, and falls back to values
- * obtained via `getTextResourceFromResourceBinding` using the corresponding resource bindings.
+ * Retrieves boolean text values (true, false, default) for a component, prioritizing direct resource values,
+ * and falling back to resource bindings if not present.
  *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - Direct text values for true, false, and default states.
- * @param {string} [component.resourceValues.trueText] - Text to display for the true state.
- * @param {string} [component.resourceValues.falseText] - Text to display for the false state.
- * @param {string} [component.resourceValues.defaultText] - Text to display for the default state.
- * @param {Object} [component.resourceBindings] - Resource bindings for true, false, and default states.
- * @param {string} [component.resourceBindings.trueText] - Resource binding for the true state.
- * @param {string} [component.resourceBindings.falseText] - Resource binding for the false state.
- * @param {string} [component.resourceBindings.defaultText] - Resource binding for the default state.
- * @returns {Object} An object containing `trueText`, `falseText`, and `defaultText` properties.
+ * @param {Object} component - The component object containing resource values.
+ * @param {Object} resourceBindings - The resource bindings object for fallback text resources.
+ * @returns {Object} An object containing `trueText`, `falseText`, and `defaultText` strings.
  */
-export function getComponentBooleanTextValues(component) {
+export function getComponentBooleanTextValues(component, resourceBindings) {
     return {
-        trueText: component.resourceValues?.trueText || getTextResourceFromResourceBinding(component?.resourceBindings?.trueText),
-        falseText: component.resourceValues?.falseText || getTextResourceFromResourceBinding(component?.resourceBindings?.falseText),
-        defaultText: component.resourceValues?.defaultText || getTextResourceFromResourceBinding(component?.resourceBindings?.defaultText)
+        trueText: component.resourceValues?.trueText || getTextResourceFromResourceBinding(resourceBindings?.trueText),
+        falseText: component.resourceValues?.falseText || getTextResourceFromResourceBinding(resourceBindings?.falseText),
+        defaultText: component.resourceValues?.defaultText || getTextResourceFromResourceBinding(resourceBindings?.defaultText)
     };
 }
 
