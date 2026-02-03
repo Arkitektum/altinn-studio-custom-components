@@ -167,13 +167,13 @@ export default class CustomFieldAdresse extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.adresse = {
-                title: props?.resourceBindings?.title || "resource.adresse.title"
+                title: props?.resourceBindings?.title || "resource.eiendom.adresse.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.adresse = {
                 ...resourceBindings?.adresse,
-                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.adresse.emptyFieldText.default"
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.address"
             };
         }
         return resourceBindings;
