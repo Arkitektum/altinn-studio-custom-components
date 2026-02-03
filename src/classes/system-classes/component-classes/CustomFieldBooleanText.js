@@ -6,8 +6,8 @@ import {
     getComponentBooleanTextValues,
     getComponentDataValue,
     getComponentResourceValue,
-    hasValue,
-    validateTexts
+    getTextResourceFromResourceBinding,
+    hasValue
 } from "../../../functions/helpers.js";
 
 /**
@@ -30,13 +30,14 @@ import {
 export default class CustomFieldBooleanText extends CustomComponent {
     constructor(props) {
         super(props);
-        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
+        const data = this.getValueFromFormData(props, resourceBindings?.booleanText);
         const isEmpty = !this.hasContent(data);
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
             title: !props?.hideTitle && getComponentResourceValue(props, "title"),
-            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.booleanText?.emptyFieldText) : data
         };
     }
 
@@ -51,35 +52,50 @@ export default class CustomFieldBooleanText extends CustomComponent {
     }
 
     /**
-     * Retrieves the appropriate text value based on the boolean condition from the component's form data.
+     * Retrieves the appropriate boolean text value from form data based on the component's condition.
      *
      * @param {Object} component - The component object containing form data and configuration.
-     * @param {string} [component.id] - The unique identifier for the component.
-     * @returns {string} The text value corresponding to the boolean condition ("trueText", "falseText", or "defaultText").
-     *
-     * @throws {Error} If the text values are invalid as determined by `validateTexts`.
+     * @param {Object} resourceBindings - The resource bindings used to resolve text values.
+     * @returns {string} The text corresponding to the boolean value: trueText, falseText, or defaultText.
      */
-    getValueFromFormData(component) {
-        const componentName = component?.id || "custom-field-boolean-text";
+    getValueFromFormData(component, resourceBindings) {
         const condition = getComponentDataValue(component);
-        const booleanTextValues = getComponentBooleanTextValues(component);
-        const textKeys = ["trueText", "falseText", "defaultText"];
-        const fallbackTexts = {
-            trueText: "Ja",
-            falseText: "Nei",
-            defaultText: ""
-        };
-        validateTexts(booleanTextValues, fallbackTexts, textKeys, componentName);
+        const booleanTextValues = getComponentBooleanTextValues(component, resourceBindings);
         if (condition === true || condition === "true") {
-            return booleanTextValues?.trueText !== undefined && booleanTextValues.trueText !== null
-                ? booleanTextValues.trueText
-                : fallbackTexts.trueText;
+            return booleanTextValues?.trueText;
         } else if (condition === false || condition === "false") {
-            return booleanTextValues?.falseText !== undefined && booleanTextValues.falseText !== null
-                ? booleanTextValues.falseText
-                : fallbackTexts.falseText;
+            return booleanTextValues?.falseText;
         } else {
-            return booleanTextValues?.defaultText ? booleanTextValues.defaultText : fallbackTexts.defaultText;
+            return booleanTextValues?.defaultText;
         }
+    }
+
+    /**
+     * Generates resource bindings for boolean text fields based on provided props.
+     *
+     * @param {Object} props - The properties object.
+     * @param {Object} [props.resourceBindings] - Resource bindings for text values.
+     * @param {string} [props.resourceBindings.trueText] - Text to display for true value.
+     * @param {string} [props.resourceBindings.falseText] - Text to display for false value.
+     * @param {string} [props.resourceBindings.defaultText] - Default text to display.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when field is empty.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, hides the empty field text.
+     * @returns {Object} Resource bindings object for boolean text.
+     */
+    getResourceBindings(props) {
+        const resourceBindings = {
+            booleanText: {
+                trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
+                defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
+            }
+        };
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.booleanText = {
+                ...resourceBindings.booleanText,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
     }
 }
