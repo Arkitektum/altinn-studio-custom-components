@@ -790,10 +790,6 @@
             "value": "Igangsettingssøknad nummer"
         },
         {
-            "id": "resource.soeknadGjelder.ferdigattest.header",
-            "value": "Ferdigattest"
-        },
-        {
             "id": "resource.soeknadGjelder.foelgebrev.header",
             "value": "Følgebrev"
         },
@@ -1010,7 +1006,7 @@
             "value": "Midlertidig brukstillatelse"
         },
         {
-            "id": "resource.Ferdigattest.title",
+            "id": "resource.ferdigattest.title",
             "value": "Ferdigattest"
         },
         {
