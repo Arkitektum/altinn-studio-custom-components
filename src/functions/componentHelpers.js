@@ -26,6 +26,7 @@ import CustomGroupAdkomst from "../classes/system-classes/component-classes/Cust
 import CustomGroupAnsvarsrettErklaeringer from "../classes/system-classes/component-classes/CustomGroupAnsvarsrettErklaeringer.js";
 import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
+import CustomGroupKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupKontrollAnsvarsomraade.js";
 import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
 import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
 import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
@@ -62,7 +63,6 @@ import CustomTableAnsvarsrettAnsvarsomraade from "../classes/system-classes/comp
 import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.js";
 import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.js";
 import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.js";
-import CustomTableKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableKontrollAnsvarsomraade.js";
 import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomTableNaboGjenboerEiendom.js";
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
@@ -132,6 +132,8 @@ export function instantiateComponent(element) {
             return new CustomGroupAvloep(component);
         case "custom-group-ettersending":
             return new CustomGroupEttersending(component);
+        case "custom-group-kontroll-ansvarsomraade":
+            return new CustomGroupKontrollAnsvarsomraade(component);
         case "custom-group-loefteinnretninger":
             return new CustomGroupLoefteinnretninger(component);
         case "custom-group-nabo-gjenboer-eiendom":
@@ -200,8 +202,6 @@ export function instantiateComponent(element) {
             return new CustomTableAnsvarsrettAnsvarsomraade(component);
         case "custom-table-arbeidsplasser":
             return new CustomTableArbeidsplasser(component);
-        case "custom-table-kontroll-ansvarsomraade":
-            return new CustomTableKontrollAnsvarsomraade(component);
         case "custom-table-data":
             return new CustomTableData(component);
         case "custom-table-eiendom":

@@ -37,6 +37,7 @@ import customGroupAdkomst from "./data-components/custom-group-adkomst/index.js"
 import customGroupAnsvarsrettErklaeringer from "./data-components/custom-group-ansvarsrett-erklaeringer/index.js";
 import customGroupAvloep from "./data-components/custom-group-avloep/index.js";
 import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.js";
+import customGroupKontrollAnsvarsomraade from "./data-components/custom-group-kontroll-ansvarsomraade/index.js";
 import customGroupLoefteinnretninger from "./data-components/custom-group-loefteinnretninger/index.js";
 import customGroupNaboGjenboerEiendom from "./data-components/custom-grouplist-nabo-gjenboer-eiendom/custom-group-nabo-gjenboer-eiendom/index.js";
 import customGroupOvervann from "./data-components/custom-group-overvann/index.js";
@@ -61,7 +62,6 @@ import customTableAnsvarsrettAnsvarsomraade from "./data-components/custom-table
 import customTableArbeidsplasser from "./data-components/custom-table-arbeidsplasser/index.js";
 import customTableData from "./data-components/custom-table-data/index.js";
 import customTableEiendom from "./data-components/custom-table-eiendom/index.js";
-import customTableKontrollAnsvarsomraade from "./data-components/custom-table-kontroll-ansvarsomraade/index.js";
 import customTableNaboGjenboerEiendom from "./data-components/custom-table-nabo-gjenboer-eiendom/index.js";
 import customTableOmraaderisiko from "./data-components/custom-table-omraaderisiko/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
@@ -117,6 +117,7 @@ export {
     customGroupAvloep,
     customGroupEttersending,
     customGroupLoefteinnretninger,
+    customGroupKontrollAnsvarsomraade,
     customGroupNaboGjenboerEiendom,
     customGroupOvervann,
     customGroupRammebetingelserTilknytninger,
@@ -141,7 +142,6 @@ export {
     customTableArbeidsplasser,
     customTableData,
     customTableEiendom,
-    customTableKontrollAnsvarsomraade,
     customTableNaboGjenboerEiendom,
     customTableOmraaderisiko,
     customTablePart,
