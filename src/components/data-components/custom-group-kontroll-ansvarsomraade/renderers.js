@@ -75,7 +75,7 @@ export function renderFunnetAvvikElement(component) {
         hideIfEmpty: true,
         resourceBindings: { title: component?.resourceBindings?.erDetFunnetAvvik?.title },
         resourceValues: {
-            data: component?.resourceValues?.data?.kontrollerendeList.resourceValues?.data
+            data: component?.resourceValues?.data?.kontrollerendeList?.resourceValues?.data
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
