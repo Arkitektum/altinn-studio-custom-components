@@ -350,12 +350,38 @@ describe("getComponentBooleanTextValues", () => {
         };
         expect(getComponentBooleanTextValues(comp)).toEqual({ trueText: "Y", falseText: "N", defaultText: "M" });
     });
-    it("falls back to resourceBindings", () => {
+
+    it("returns text from resourceBindings if resourceValues are missing", () => {
         const comp = {
             resourceValues: {},
             resourceBindings: { trueText: "trueText", falseText: "falseText", defaultText: "defaultText" }
         };
-        expect(getComponentBooleanTextValues(comp)).toEqual({ trueText: "Yes", falseText: "No", defaultText: "Maybe" });
+        expect(getComponentBooleanTextValues(comp, comp.resourceBindings)).toEqual({
+            trueText: "Yes",
+            falseText: "No",
+            defaultText: "Maybe"
+        });
+    });
+
+    it("returns undefined if neither resourceValues nor resourceBindings provide text", () => {
+        const comp = {
+            resourceValues: {},
+            resourceBindings: { trueText: "missingTrue", falseText: "missingFalse", defaultText: "missingDefault" }
+        };
+        expect(getComponentBooleanTextValues(comp, comp.resourceBindings)).toEqual({
+            trueText: "missingTrue",
+            falseText: "missingFalse",
+            defaultText: "missingDefault"
+        });
+    });
+
+    it("handles missing resourceBindings argument gracefully", () => {
+        const comp = { resourceValues: {} };
+        expect(getComponentBooleanTextValues(comp)).toEqual({
+            trueText: undefined,
+            falseText: undefined,
+            defaultText: undefined
+        });
     });
 });
 
