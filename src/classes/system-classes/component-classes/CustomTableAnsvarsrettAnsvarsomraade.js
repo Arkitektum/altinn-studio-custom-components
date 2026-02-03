@@ -149,7 +149,7 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
                 emptyFieldText: props?.resourceBindings?.MidlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
             Ferdigattest: {
-                title: props?.resourceBindings?.Ferdigattest?.title || "resource.Ferdigattest.title",
+                title: props?.resourceBindings?.Ferdigattest?.title || "resource.ferdigattest.title",
                 emptyFieldText: props?.resourceBindings?.Ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
             }
         };
