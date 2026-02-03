@@ -1106,6 +1106,26 @@
             "value": "Ansvarlig utførende bekrefter at utførelsen er i samsvar med produksjonsunderlaget."
         },
         {
+            "id": "resource.sluttrapport.title",
+            "value": "Sluttrapport for kontroll"
+        },
+        {
+            "id": "resource.harObserverteAvvik.title",
+            "value": "Observerte avvik er lukket"
+        },
+        {
+            "id": "resource.harAapneAvvik.title",
+            "value": "Åpne avvik er rapportert til kommunen"
+        },
+        {
+            "id": "resource.harIngenAvvik.title",
+            "value": "Ingen avvik er funnet"
+        },
+        {
+            "id": "resource.erDetFunnetAvvik.title",
+            "value": "Er det funnet avvik og er disse lukket?"
+        },
+        {
             "id": "signing.summary.title",
             "value": "Søknaden er signert av"
         }

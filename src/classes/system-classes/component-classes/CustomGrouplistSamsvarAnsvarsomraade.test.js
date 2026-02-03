@@ -1,5 +1,4 @@
 import CustomGrouplistSamsvarAnsvarsomraade from "./CustomGrouplistSamsvarAnsvarsomraade.js";
-import CustomComponent from "../CustomComponent.js";
 
 // Mock all imported helpers and validations
 jest.mock("../../../functions/helpers.js", () => ({
