@@ -15,7 +15,7 @@
         },
         {
             "id": "resource.ansvarsomraade.title",
-            "value": "Beskrivelse av ansvarsområde"
+            "value": "Ansvarsområde"
         },
         {
             "id": "resource.ansvarsomraadeStatus.title",
@@ -1028,10 +1028,6 @@
         {
             "id": "resource.ansvarsomraader.title",
             "value": "Ansvarsområder"
-        },
-        {
-            "id": "resource.ansvarsomraade1.title",
-            "value": "Ansvarsområde"
         },
         {
             "id": "resource.gjenstaaendeArbeider.title",
