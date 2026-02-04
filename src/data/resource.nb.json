@@ -290,10 +290,6 @@
             "value": "Ansvarlig foretak"
         },
         {
-            "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.false.title",
-            "value": "Nei"
-        },
-        {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
             "value": "Ikke-søknadspliktige justeringer"
         },
@@ -306,10 +302,6 @@
             "value": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
         },
         {
-            "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.title",
-            "value": "Ja"
-        },
-        {
             "id": "resource.ftpbReferanseId.title",
             "value": "Innsendingens referanse"
         },
@@ -318,16 +310,8 @@
             "value": "Funksjon"
         },
         {
-            "id": "resource.generelleVilkaar.beroererArbeidsplasser.false.title",
-            "value": "Nei"
-        },
-        {
             "id": "resource.generelleVilkaar.beroererArbeidsplasser.title",
             "value": "Berører tiltaket eksisterende eller fremtidige arbeidsplasser?"
-        },
-        {
-            "id": "resource.generelleVilkaar.beroererArbeidsplasser.true.title",
-            "value": "Ja"
         },
         {
             "id": "resource.generelleVilkaar.norskSvenskDansk.header",
@@ -438,16 +422,8 @@
             "value": "Vi sender kommunen en bekreftelse på at arbeidene er utført innen"
         },
         {
-            "id": "resource.kravFerdigattest.tilfredsstillerTiltaketKraveneFerdigattest.false.title",
-            "value": "Nei"
-        },
-        {
             "id": "resource.kravFerdigattest.tilfredsstillerTiltaketKraveneFerdigattest.title",
             "value": "Tilfredsstiller tiltaket kravene til ferdigattest?"
-        },
-        {
-            "id": "resource.kravFerdigattest.tilfredsstillerTiltaketKraveneFerdigattest.true.title",
-            "value": "Ja"
         },
         {
             "id": "resource.kravFerdigattest.typeArbeider.title",
@@ -842,16 +818,8 @@
             "value": "Vi sender kommunen en bekreftelse på at tiltaket har tilstrekkelig sikkerhetsnivå innen"
         },
         {
-            "id": "resource.sikkerhetsnivaa.harTilstrekkeligSikkerhet.false.title",
-            "value": "Nei"
-        },
-        {
             "id": "resource.sikkerhetsnivaa.harTilstrekkeligSikkerhet.title",
             "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk i dag?"
-        },
-        {
-            "id": "resource.sikkerhetsnivaa.harTilstrekkeligSikkerhet.true.title",
-            "value": "Ja"
         },
         {
             "id": "resource.sikkerhetsnivaa.header",
@@ -1086,10 +1054,6 @@
             "value": "Antall merknader fra naboer eller gjenboere"
         },
         {
-            "id": "resource.varsling.fritattFraNabovarsling.false.title",
-            "value": "Ja"
-        },
-        {
             "id": "resource.varsling.fritattFraNabovarsling.falseText",
             "value": "Ja"
         },
@@ -1098,20 +1062,12 @@
             "value": "Er tiltaket nabovarslet?"
         },
         {
-            "id": "resource.varsling.fritattFraNabovarsling.true.title",
-            "value": "Nei"
-        },
-        {
             "id": "resource.varsling.fritattFraNabovarsling.trueText",
             "value": "Nei"
         },
         {
             "id": "resource.varsling.harPengeheftelser.title",
             "value": "Er de som eventuelt har tinglyste pengeheftelser på eiendommen blitt varslet?"
-        },
-        {
-            "id": "resource.varsling.header",
-            "value": "Nabovarsling"
         },
         {
             "id": "resource.varsling.redegjorelseFritak.title",
