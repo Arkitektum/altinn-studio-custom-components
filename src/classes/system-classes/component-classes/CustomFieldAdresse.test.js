@@ -191,7 +191,7 @@ describe("CustomFieldAdresse", () => {
             expect(instance.hasValidationMessages).toBe(false);
             expect(instance.resourceValues.data).toBe("A\n1234 Oslo");
             expect(instance.isEmpty).toBe(false);
-            expect(instance.resourceValues.title).toBe("custom.title");
+            expect(instance.resourceValues.title).toBe("text:custom.title");
         });
         it("sets isEmpty true and uses emptyFieldText if no address data", () => {
             const props = {
