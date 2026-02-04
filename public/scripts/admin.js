@@ -1,18 +1,16 @@
 // Local functions
-import { fetchDisplayLayouts } from "./apiHelpers.js";
+import { renderAdminSidebar } from "./adminRenderers.js";
+import { fetchDisplayLayouts, fetchPackageVersions } from "./apiHelpers.js";
 import { fetchDefaultTextResources } from "./getters.js";
-import {
-    renderDefaultTextResourcesList,
-    renderRadioButtonsFilterForTextResourcesList,
-    renderSelectApplicationFilterForTextResourcesList,
-    renderTextInputFilterForTextResourcesList
-} from "./textResourceUsageRenderers.js";
 import { getMissingResourceBindings, getResourceBindingsWithUsageFromApplications, getUsageForResources } from "./validators.js";
 
 globalThis.onload = async function () {
     const defaultTextResources = await fetchDefaultTextResources("nb");
     globalThis.defaultTextResources = defaultTextResources;
     const layouts = await fetchDisplayLayouts();
+    globalThis.displayLayouts = layouts;
+    const packageVersions = await fetchPackageVersions();
+    globalThis.packageVersions = packageVersions;
     const resourceBindingsInApplications = getResourceBindingsWithUsageFromApplications(layouts, "custom");
     const { missingResourceBindings } = getMissingResourceBindings(resourceBindingsInApplications, globalThis.defaultTextResources);
     const missingTextResourceBindingsUsage = getUsageForResources(
@@ -23,12 +21,15 @@ globalThis.onload = async function () {
         missingFromDefaultTextResources: true
     }));
     const textResourceUsage = getUsageForResources(layouts, globalThis.defaultTextResources?.resources);
-
     const allTextResourceUsage = [...textResourceUsage, ...missingTextResourceBindingsUsage];
+    globalThis.allTextResourceUsage = allTextResourceUsage;
 
-    const mainAdminElement = document.getElementById("admin-main");
+    renderAdminSidebar();
+
+    /*const mainAdminElement = document.getElementById("admin-main");
     mainAdminElement.appendChild(renderRadioButtonsFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
     mainAdminElement.appendChild(renderSelectApplicationFilterForTextResourcesList(mainAdminElement, allTextResourceUsage, layouts));
     mainAdminElement.appendChild(renderTextInputFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
     mainAdminElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
+    console.log("Fetched package versions:", packageVersions);*/
 };

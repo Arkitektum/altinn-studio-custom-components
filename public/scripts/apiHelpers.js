@@ -20,3 +20,18 @@ export async function fetchDisplayLayouts() {
             throw error;
         });
 }
+
+export async function fetchPackageVersions() {
+    const url = `http://localhost:9001/api/packageVersions`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch package.json files: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching package.json files:", error);
+            throw error;
+        });
+}

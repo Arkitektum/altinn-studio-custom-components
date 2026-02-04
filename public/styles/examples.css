@@ -292,6 +292,25 @@
                 }
             }
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 16px;
+            & th,
+            & td {
+                border: 1px solid #ccc;
+                padding: 8px;
+                text-align: left;
+                font-size: 14px;
+            }
+            & th {
+                background-color: #f5f5f5;
+                font-weight: 600;
+            }
+            & tr:nth-child(even) {
+                background-color: #fafafa;
+            }
+        }
         &.admin {
             & .default-text-resources-list {
                 margin: 16px auto;
