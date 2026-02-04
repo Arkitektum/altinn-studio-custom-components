@@ -18,7 +18,7 @@ export default class KontrollAnsvarsomraade {
     constructor(props, resourceBindings) {
         this.funksjon = props?.funksjon && new Kode(props.funksjon);
         this.beskrivelseAvAnsvarsomraadet = props?.beskrivelseAvAnsvarsomraadet;
-        this.kontrollerendeList = new KontrollerendeList(props.kontrollerende, resourceBindings);
+        this.kontrollerendeList = new KontrollerendeList(props?.kontrollerende, resourceBindings);
         this.datoAnsvarsrettErklaert = props?.datoAnsvarsrettErklaert;
         this.erAnsvarsomraadetAvsluttet = props?.erAnsvarsomraadetAvsluttet;
         this.soeknadssystemetsReferanse = props?.soeknadssystemetsReferanse;
