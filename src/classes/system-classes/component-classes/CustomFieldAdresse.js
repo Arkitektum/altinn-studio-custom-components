@@ -39,7 +39,10 @@ export default class CustomFieldAdresse extends CustomComponent {
 
         this.isEmpty = isEmpty;
         this.resourceValues = {
-            title: !props?.hideTitle && getComponentResourceValue(props, "title"),
+            title:
+                !props?.hideTitle && hasValue(props?.resourceValues?.title)
+                    ? props?.resourceValues?.title
+                    : getTextResourceFromResourceBinding(resourceBindings?.adresse?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.adresse?.emptyFieldText) : data
         };
     }
