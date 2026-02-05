@@ -114,10 +114,6 @@
             "value": "Nr."
         },
         {
-            "id": "resource.delsoeknader.delsoeknad.header",
-            "value": "Tidligere igangsettingssøknader"
-        },
-        {
             "id": "resource.delsoeknader.delsoeknad.kommentar.title",
             "value": "Kommentar"
         },
@@ -886,20 +882,8 @@
             "value": "Formål"
         },
         {
-            "id": "resource.soeknadGjelder.delsoeknadsnummer.title",
-            "value": "Igangsettingssøknad nummer"
-        },
-        {
             "id": "resource.soeknadGjelder.foelgebrev.header",
             "value": "Følgebrev"
-        },
-        {
-            "id": "resource.soeknadGjelder.gjelderHeleTiltaket.false.title",
-            "value": "Det søkes om igangsettingstillatelse for deler av tiltaket."
-        },
-        {
-            "id": "resource.soeknadGjelder.gjelderHeleTiltaket.true.title",
-            "value": "Det søkes om igangsettingstillatelse for hele tiltaket."
         },
         {
             "id": "resource.soeknadGjelder.title",
