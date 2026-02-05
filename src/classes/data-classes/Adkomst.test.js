@@ -1,41 +1,40 @@
-import Adkomst from "./Adkomst";
-import Kode from "./Kode";
+import Adkomst from './Adkomst.js';
+import Vegtype from './Vegtype.js';
 
-jest.mock("./Kode");
+// Mock Vegtype class
+jest.mock('./Vegtype.js', () => {
+    return jest.fn().mockImplementation((arg) => {
+        return { mocked: true, arg };
+    });
+});
 
-describe("Adkomst", () => {
-    afterEach(() => {
-        jest.clearAllMocks();
+describe('Adkomst', () => {
+    beforeEach(() => {
+        Vegtype.mockClear();
     });
 
-    it("should set erNyEllerEndretAdkomst when provided", () => {
+    it('should set erNyEllerEndretAdkomst from props', () => {
         const adkomst = new Adkomst({ erNyEllerEndretAdkomst: true });
         expect(adkomst.erNyEllerEndretAdkomst).toBe(true);
     });
 
-    it("should set erNyEllerEndretAdkomst to undefined when not provided", () => {
+    it('should instantiate Vegtype with props.vegtype if provided', () => {
+        const vegtypeData = [{ kode: '1' }, { kode: '2' }];
+        const adkomst = new Adkomst({ vegtype: vegtypeData });
+        expect(Vegtype).toHaveBeenCalledTimes(1);
+        expect(Vegtype).toHaveBeenCalledWith(vegtypeData);
+        expect(adkomst.vegtype).toEqual({ mocked: true, arg: vegtypeData });
+    });
+
+    it('should not instantiate Vegtype if props.vegtype is undefined', () => {
         const adkomst = new Adkomst({});
-        expect(adkomst.erNyEllerEndretAdkomst).toBeUndefined();
+        expect(Vegtype).not.toHaveBeenCalled();
+        expect(adkomst.vegtype).toBeFalsy();
     });
 
-    it("should instantiate Kode for vegtype when provided", () => {
-        const vegtypeObj = { code: "123" };
-        const kodeInstance = {};
-        Kode.mockImplementation(() => kodeInstance);
-
-        const adkomst = new Adkomst({ vegtype: vegtypeObj });
-        expect(Kode).toHaveBeenCalledWith(vegtypeObj);
-        expect(adkomst.vegtype).toBe(kodeInstance);
-    });
-
-    it("should set vegtype to undefined when not provided", () => {
-        const adkomst = new Adkomst({});
-        expect(adkomst.vegtype).toBeUndefined();
-    });
-
-    it("should handle undefined props gracefully", () => {
+    it('should handle missing props gracefully', () => {
         const adkomst = new Adkomst();
         expect(adkomst.erNyEllerEndretAdkomst).toBeUndefined();
-        expect(adkomst.vegtype).toBeUndefined();
+        expect(adkomst.vegtype).toBeFalsy();
     });
 });

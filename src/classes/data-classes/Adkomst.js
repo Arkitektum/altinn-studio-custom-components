@@ -1,5 +1,5 @@
 // Classes
-import Kode from "./Kode.js";
+import Vegtype from "./Vegtype.js";
 
 /**
  * Represents an Adkomst (access) object.
@@ -7,11 +7,11 @@ import Kode from "./Kode.js";
  * @class
  * @param {Object} props - Properties to initialize the Adkomst instance.
  * @param {boolean} [props.erNyEllerEndretAdkomst] - Indicates if the access is new or changed.
- * @param {Object} [props.vegtype] - The type of road, passed to the Kode constructor.
+ * @param {Array<Object>} [props.vegtype] - Array of vegtype items to be mapped to Vegtype instances.
  */
 export default class Adkomst {
     constructor(props) {
         this.erNyEllerEndretAdkomst = props?.erNyEllerEndretAdkomst;
-        this.vegtype = props?.vegtype ? new Kode(props.vegtype) : undefined;
+        this.vegtype = props?.vegtype && new Vegtype(props.vegtype);
     }
 }
