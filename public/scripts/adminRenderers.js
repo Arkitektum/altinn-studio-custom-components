@@ -65,6 +65,40 @@ function renderPackageVersionsPage(containerElement) {
     containerElement.appendChild(tableElement);
 }
 
+function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAppName, selectedAppOwner) {
+    const formElement = document.createElement("form");
+    formElement.classList.add("filter-container");
+    const labelElement = document.createElement("label");
+    labelElement.textContent = "Select Application: ";
+    labelElement.setAttribute("for", "select-display-layout-application");
+
+    const selectElement = document.createElement("select");
+    selectElement.id = "select-display-layout-application";
+
+    globalThis.displayLayouts.forEach((layout) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = `${layout.appOwner}/${layout.appName}`;
+        optionElement.textContent = `${layout.appOwner}/${layout.appName}`;
+        if (layout.appName === selectedAppName && layout.appOwner === selectedAppOwner) {
+            optionElement.selected = true;
+        }
+        selectElement.appendChild(optionElement);
+    });
+
+    selectElement.onchange = (event) => {
+        const [appOwner, appName] = event.target.value.split("/");
+        globalThis.selectedDisplayLayoutAppOwner = appOwner;
+        globalThis.selectedDisplayLayoutAppName = appName;
+        const mainElement = document.getElementById("admin-main");
+        mainElement.innerHTML = "";
+        renderDisplayLayoutsPage(mainElement);
+    };
+
+    formElement.appendChild(labelElement);
+    formElement.appendChild(selectElement);
+    containerElement.appendChild(formElement);
+}
+
 function renderDisplayLayoutsPage(containerElement) {
     const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName
         ? globalThis.selectedDisplayLayoutAppName
@@ -72,6 +106,7 @@ function renderDisplayLayoutsPage(containerElement) {
     const selectedDisplayLayoutAppOwner = globalThis.selectedDisplayLayoutAppOwner
         ? globalThis.selectedDisplayLayoutAppOwner
         : globalThis.displayLayouts[0].appOwner;
+    renderSelectDisplayLayoutApplicationFilter(containerElement, selectedDisplayLayoutAppName, selectedDisplayLayoutAppOwner);
 
     const displayLayout = globalThis.displayLayouts.find(
         (layout) => layout.appName === selectedDisplayLayoutAppName && layout.appOwner === selectedDisplayLayoutAppOwner
@@ -127,27 +162,37 @@ export function renderAdminSidebar() {
     const mainElement = document.getElementById("admin-main");
     const sidebarElement = document.getElementById("sidebar");
 
+    const sidebarList = document.createElement("ul");
+
+    const resourceUsageListItem = document.createElement("li");
     const resourceUsageButton = document.createElement("button");
     resourceUsageButton.textContent = "Resource Usage";
     resourceUsageButton.onclick = () => {
         mainElement.innerHTML = "";
         renderResourceUsagePage(mainElement);
     };
-    sidebarElement.appendChild(resourceUsageButton);
+    resourceUsageListItem.appendChild(resourceUsageButton);
+    sidebarList.appendChild(resourceUsageListItem);
 
+    const packageVersionsListItem = document.createElement("li");
     const packageVersionsButton = document.createElement("button");
     packageVersionsButton.textContent = "Package Versions";
     packageVersionsButton.onclick = () => {
         mainElement.innerHTML = "";
         renderPackageVersionsPage(mainElement);
     };
-    sidebarElement.appendChild(packageVersionsButton);
+    packageVersionsListItem.appendChild(packageVersionsButton);
+    sidebarList.appendChild(packageVersionsListItem);
 
+    const displayLayoutsListItem = document.createElement("li");
     const displayLayoutsButton = document.createElement("button");
     displayLayoutsButton.textContent = "Display Layouts";
     displayLayoutsButton.onclick = () => {
         mainElement.innerHTML = "";
         renderDisplayLayoutsPage(mainElement);
     };
-    sidebarElement.appendChild(displayLayoutsButton);
+    displayLayoutsListItem.appendChild(displayLayoutsButton);
+    sidebarList.appendChild(displayLayoutsListItem);
+
+    sidebarElement.appendChild(sidebarList);
 }

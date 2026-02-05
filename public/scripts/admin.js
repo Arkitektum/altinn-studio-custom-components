@@ -25,11 +25,4 @@ globalThis.onload = async function () {
     globalThis.allTextResourceUsage = allTextResourceUsage;
 
     renderAdminSidebar();
-
-    /*const mainAdminElement = document.getElementById("admin-main");
-    mainAdminElement.appendChild(renderRadioButtonsFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
-    mainAdminElement.appendChild(renderSelectApplicationFilterForTextResourcesList(mainAdminElement, allTextResourceUsage, layouts));
-    mainAdminElement.appendChild(renderTextInputFilterForTextResourcesList(mainAdminElement, allTextResourceUsage));
-    mainAdminElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
-    console.log("Fetched package versions:", packageVersions);*/
 };
