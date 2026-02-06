@@ -58,17 +58,21 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
                 paddingInline: "0"
             }
         },
-        {
-            dataKey: "dekkesOmraadeAvSentralGodkjenning",
-            tagName: "custom-field-boolean-text",
-            hideTitle: true,
-            resourceBindings: {
-                title: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.title,
-                trueText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText,
-                falseText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText,
-                defaultText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText
-            }
-        }
+        ...(component?.resourceValues?.simpleBinding == "true"
+            ? [
+                  {
+                      dataKey: "dekkesOmraadeAvSentralGodkjenning",
+                      tagName: "custom-field-boolean-text",
+                      hideTitle: true,
+                      resourceBindings: {
+                          title: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.title,
+                          trueText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText,
+                          falseText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText,
+                          defaultText: component?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText
+                      }
+                  }
+              ]
+            : [])
     ];
 
     const htmlAttributes = new CustomElementHtmlAttributes({
