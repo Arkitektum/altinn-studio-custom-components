@@ -124,6 +124,5 @@ function setFunksjonListe(component) {
     component?.resourceValues?.data?.forEach((element) => {
         funksjonListe.push(element?.funksjon?.kodeverdi.toUpperCase());
     });
-    console.log("funksjonListe: ", funksjonListe);
     return funksjonListe;
 }
