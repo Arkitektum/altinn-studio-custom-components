@@ -107,7 +107,7 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
      * @param {Object} [props.resourceBindings.funksjon] - Resource bindings for 'funksjon' field.
      * @param {Object} [props.resourceBindings.beskrivelseAvAnsvarsomraadet] - Resource bindings for 'beskrivelseAvAnsvarsomraadet' field.
      * @param {Object} [props.resourceBindings.tiltaksklasse] - Resource bindings for 'tiltaksklasse' field.
-     * @param {Object} [props.resourceBindings.faseSamsvarKontroll] - Resource bindings for 'faseSamsvarKontroll' field.
+     * @param {Object} [props.resourceBindings.faseSamsvarKontroll] - Resource bindings for 'faseSamsvarKontrollKontroll' field.
      * @param {Object} [props.resourceBindings.dekkesOmraadeAvSentralGodkjenning] - Resource bindings for 'dekkesOmraadeAvSentralGodkjenning' field.
      * @param {Object} [props.resourceBindings.rammetillatelse] - Resource bindings for 'rammetillatelse' field.
      * @param {Object} [props.resourceBindings.igangsettingstillatelse] - Resource bindings for 'igangsettingstillatelse' field.
@@ -133,7 +133,9 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
                 emptyFieldText: props?.resourceBindings?.tiltaksklasse?.emptyFieldText || "resource.emptyFieldText.default"
             },
             faseSamsvarKontroll: {
-                title: props?.resourceBindings?.faseSamsvarKontroll?.title || "resource.faseSamsvarKontroll.title",
+                titleKontroll: props?.resourceBindings?.faseSamsvarKontroll?.titleKontroll || "resource.faseSamsvarKontroll.titleKontroll",
+                titleMix: props?.resourceBindings?.faseSamsvarKontroll?.titleMix || "resource.faseSamsvarKontroll.titleMix",
+                titleProUtf: props?.resourceBindings?.faseSamsvarKontroll?.titleProUtf || "resource.faseSamsvarKontroll.titleProUtf",
                 emptyFieldText: props?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText || "resource.emptyFieldText.default"
             },
             dekkesOmraadeAvSentralGodkjenning: {
