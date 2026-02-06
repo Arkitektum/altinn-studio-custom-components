@@ -14,6 +14,9 @@ import { createCustomElement } from "../../../functions/helpers.js";
  * @returns {HTMLElement} The rendered custom table element.
  */
 export function renderAnsvarsrettAnsvarsomraadeTable(component) {
+    const funksjonListe = setFunksjonListe(component);
+    const titleFaseSamsvarKontroll = setErklaeringTitle(component, funksjonListe);
+
     const tableColumns = [
         {
             dataKey: "funksjon.kodeverdi",
@@ -21,9 +24,6 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.funksjon?.title,
                 emptyFieldText: component?.resourceBindings?.funksjon?.emptyFieldText
-            },
-            styleOverride: {
-                textAlign: "right"
             }
         },
         {
@@ -40,25 +40,26 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
             resourceBindings: {
                 title: component?.resourceBindings?.tiltaksklasse?.title,
                 emptyFieldText: component?.resourceBindings?.tiltaksklasse?.emptyFieldText
-            },
-            styleOverride: {
-                textAlign: "right"
             }
         },
-        {
-            dataKey: "faseSamsvarKontrollList.resourceValues.data",
-            tagName: "custom-list-data",
-            hideTitle: true,
-            resourceBindings: {
-                title: component?.resourceBindings?.faseSamsvarKontroll?.title,
-                emptyFieldText: component?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText
-            },
-            styleOverride: {
-                listStyle: "none",
-                paddingInline: "0"
-            }
-        },
-        ...(component?.resourceValues?.simpleBinding == "true"
+        ...(funksjonListe.includes("PRO") || funksjonListe.includes("UTF") || funksjonListe.includes("KONTROLL")
+            ? [
+                  {
+                      dataKey: "faseSamsvarKontrollList.resourceValues.data",
+                      tagName: "custom-list-data",
+                      hideTitle: true,
+                      resourceBindings: {
+                          title: titleFaseSamsvarKontroll,
+                          emptyFieldText: component?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText
+                      },
+                      styleOverride: {
+                          listStyle: "none",
+                          paddingInline: "0"
+                      }
+                  }
+              ]
+            : []),
+        ...(component?.resourceValues?.simpleBinding == "true" || component?.resourceValues?.simpleBinding === true
             ? [
                   {
                       dataKey: "dekkesOmraadeAvSentralGodkjenning",
@@ -92,4 +93,37 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
     });
     const tableElement = createCustomElement("custom-table-data", htmlAttributes);
     return tableElement;
+}
+
+function setErklaeringTitle(component, funksjonListe) {
+    let titleFaseSamsvarKontroll = component?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText;
+
+    const hasKontroll = funksjonListe.includes("KONTROLL");
+    const hasPro = funksjonListe.includes("PRO");
+    const hasUtf = funksjonListe.includes("UTF");
+
+    const onlyKontroll = hasKontroll && !hasPro && !hasUtf;
+
+    const onlyProUtf = !hasKontroll && (hasPro || hasUtf);
+
+    const mixKontrollProUtf = hasKontroll && (hasPro || hasUtf);
+
+    if (onlyKontroll) {
+        titleFaseSamsvarKontroll = component?.resourceBindings?.faseSamsvarKontroll?.titleKontroll;
+    } else if (onlyProUtf) {
+        titleFaseSamsvarKontroll = component?.resourceBindings?.faseSamsvarKontroll?.titleProUtf;
+    } else if (mixKontrollProUtf) {
+        titleFaseSamsvarKontroll = component?.resourceBindings?.faseSamsvarKontroll?.titleMix;
+    }
+    return titleFaseSamsvarKontroll;
+}
+
+function setFunksjonListe(component) {
+    const funksjonListe = [];
+
+    component?.resourceValues?.data?.forEach((element) => {
+        funksjonListe.push(element?.funksjon?.kodeverdi.toUpperCase());
+    });
+    console.log("funksjonListe: ", funksjonListe);
+    return funksjonListe;
 }

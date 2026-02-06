@@ -270,8 +270,16 @@
             "value": "Nei"
         },
         {
-            "id": "resource.faseSamsvarKontroll.title",
+            "id": "resource.faseSamsvarKontroll.titleKontroll",
+            "value": "Planlagt kontrollerklæringer"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleMix",
             "value": "Planlagt samsvars-/kontrollerklæringer"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleProUtf",
+            "value": "Planlagt samsvarserklæring"
         },
         {
             "id": "resource.FDV.paragraph.title",
