@@ -161,12 +161,12 @@ export function renderResponsErMerknadEllerSamtykkeMottattElement(component) {
     const data = component?.resourceValues?.data;
     const erMerknadMottatt = data?.respons?.erMerknadMottatt;
     const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
-    let value = "";
-    if (erMerknadMottatt === "false" && erSamtykkeMottatt === "false") {
+    let value = "🦡";
+    if (erMerknadMottatt === false && erSamtykkeMottatt === false) {
         value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.falseText);
-    } else if (erMerknadMottatt === "true" && erSamtykkeMottatt === "false") {
+    } else if (erMerknadMottatt === true && erSamtykkeMottatt === false) {
         value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErMerknadMottatt?.trueText);
-    } else if (erMerknadMottatt === "false" && erSamtykkeMottatt === "true") {
+    } else if (erMerknadMottatt === false && erSamtykkeMottatt === true) {
         value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErSamtykkeMottatt?.trueText);
     }
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -190,8 +190,8 @@ export function renderResponsErMerknadEllerSamtykkeMottattElement(component) {
  * @param {Object} component.resourceValues - Contains the data for the component.
  * @param {Object} component.resourceValues.data - The data object with response information.
  * @param {Object} component.resourceValues.data.respons - The response object.
- * @param {string} component.resourceValues.data.respons.erMerknadMottatt - Indicates if a remark was received ("true"/"false").
- * @param {string} component.resourceValues.data.respons.erSamtykkeMottatt - Indicates if consent was received ("true"/"false").
+ * @param {boolean} component.resourceValues.data.respons.erMerknadMottatt - Indicates if a remark was received (true/false).
+ * @param {boolean} component.resourceValues.data.respons.erSamtykkeMottatt - Indicates if consent was received (true/false).
  * @param {string} [component.resourceValues.data.respons.merknadMottattDato] - The date a remark was received.
  * @param {string} [component.resourceValues.data.respons.samtykkeMottattDato] - The date consent was received.
  * @param {Object} component.resourceBindings - Contains title bindings for the fields.
@@ -205,10 +205,10 @@ export function renderResponsSamtykkeEllerMerknadMottattElement(component) {
     const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
     let value;
     let title;
-    if (erMerknadMottatt === "true" && erSamtykkeMottatt === "false") {
+    if (erMerknadMottatt === true && erSamtykkeMottatt === false) {
         value = data?.respons?.merknadMottattDato;
         title = component?.resourceBindings?.responsMerknadMottattDato?.title;
-    } else if (erMerknadMottatt === "false" && erSamtykkeMottatt === "true") {
+    } else if (erMerknadMottatt === false && erSamtykkeMottatt === true) {
         value = data?.respons?.samtykkeMottattDato;
         title = component?.resourceBindings?.responsSamtykkeMottattDato?.title;
     }
