@@ -32,19 +32,12 @@ export default customElements.define(
                     component.resourceValues?.data?.forEach((element) => {
                         funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                     });
-                    const harErklaeringAnsvarligProsjekterende =
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligProsjekterende === true ||
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligProsjekterende === "true";
-
-                    const harErklaeringAnsvarligUtfoerende =
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligUtfoerende === true ||
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligUtfoerende === "true";
 
                     this.appendChild(renderErklaeringTekstElement(component));
-                    if (funksjonList.includes("PRO") && harErklaeringAnsvarligProsjekterende) {
+                    if (funksjonList.includes("PRO")) {
                         this.appendChild(renderPROTekstElement(component));
                     }
-                    if (funksjonList.includes("UTF") && harErklaeringAnsvarligUtfoerende) {
+                    if (funksjonList.includes("UTF")) {
                         this.appendChild(renderUTFTekstElement(component));
                     }
                 }

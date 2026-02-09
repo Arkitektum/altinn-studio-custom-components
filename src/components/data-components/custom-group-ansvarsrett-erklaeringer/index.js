@@ -34,29 +34,18 @@ export default customElements.define(
                     component.resourceValues?.data?.forEach((element) => {
                         funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                     });
-                    const harErklaeringAnsvarligProsjekterende =
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligProsjekterende === true ||
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligProsjekterende === "true";
-
-                    const harErklaeringAnsvarligUtfoerende =
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligUtfoerende === true ||
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligUtfoerende === "true";
-
-                    const harErklaeringAnsvarligKontrollerende =
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligKontrollerende === true ||
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligKontrollerende === "true";
 
                     this.appendChild(renderErklaeringTekstElement(component));
 
                     this.appendChild(renderSOEKTekstElement(component));
 
-                    if (funksjonList.includes("PRO") && harErklaeringAnsvarligProsjekterende) {
+                    if (funksjonList.includes("PRO")) {
                         this.appendChild(renderPROTekstElement(component));
                     }
-                    if (funksjonList.includes("UTF") && harErklaeringAnsvarligUtfoerende) {
+                    if (funksjonList.includes("UTF")) {
                         this.appendChild(renderUTFTekstElement(component));
                     }
-                    if (funksjonList.includes("KONTROLL") && harErklaeringAnsvarligKontrollerende) {
+                    if (funksjonList.includes("KONTROLL")) {
                         this.appendChild(renderKONTROLLTekstElement(component));
                     }
                 }

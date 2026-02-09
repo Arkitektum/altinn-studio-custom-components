@@ -71,12 +71,8 @@ describe("CustomGroupAnsvarsrettErklaeringer", () => {
 
             const instance = new CustomGroupAnsvarsrettErklaeringer(props);
             const result = instance.getValueFromFormData(props, resourceBindings);
-            const { simpleBinding, ...formDataWithoutSimpleBinding } = props.formData ?? {};
-            const cleanedProps = {
-                ...props,
-                formData: formDataWithoutSimpleBinding
-            };
-            expect(getComponentDataValue).toHaveBeenCalledWith(cleanedProps);
+
+            expect(getComponentDataValue).toHaveBeenCalledWith(props);
             expect(Array.isArray(result)).toBe(true);
             expect(result[0]).toHaveProperty("data", { a: 1 });
         });

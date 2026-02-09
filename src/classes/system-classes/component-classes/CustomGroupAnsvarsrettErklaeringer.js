@@ -33,8 +33,7 @@ export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent 
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
             title: props?.resourceValues?.title,
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.erklaeringer?.emptyFieldText) : data,
-            simpleBinding: props?.formData?.simpleBinding
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.erklaeringer?.emptyFieldText) : data
         };
     }
 
@@ -46,12 +45,7 @@ export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent 
      * @returns {Array} The list of "ansvarsomraade" values extracted from the form data.
      */
     getValueFromFormData(props, resourceBindings) {
-        const { simpleBinding, ...formDataWithoutSimpleBinding } = props.formData ?? {};
-        const cleanedProps = {
-            ...props,
-            formData: formDataWithoutSimpleBinding
-        };
-        const data = getComponentDataValue(cleanedProps);
+        const data = getComponentDataValue(props);
         const ansvarsomraadeList = this.getAnsvarsomraadeListFromData(data, resourceBindings);
         return ansvarsomraadeList;
     }

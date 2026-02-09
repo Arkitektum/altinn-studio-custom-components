@@ -22,13 +22,10 @@ export default customElements.define(
                     const emptyFieldTextElement = renderEmptyFieldText(component);
                     this.appendChild(emptyFieldTextElement);
                 } else {
-                    const harErklaeringAnsvarligKontrollerende =
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligKontrollerende === true ||
-                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligKontrollerende === "true";
                     this.appendChild(renderErklaeringTekstElement(component));
 
                     let funksjon = component.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
-                    if (funksjon === "KONTROLL" && harErklaeringAnsvarligKontrollerende) {
+                    if (funksjon === "KONTROLL") {
                         this.appendChild(renderKONTROLLTekstElement(component));
                     }
                 }
