@@ -34,18 +34,29 @@ export default customElements.define(
                     component.resourceValues?.data?.forEach((element) => {
                         funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                     });
+                    const harErklaeringAnsvarligProsjekterende =
+                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligProsjekterende === true ||
+                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligProsjekterende === "true";
+
+                    const harErklaeringAnsvarligUtfoerende =
+                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligUtfoerende === true ||
+                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligUtfoerende === "true";
+
+                    const harErklaeringAnsvarligKontrollerende =
+                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligKontrollerende === true ||
+                        component?.resourceValues?.simpleBinding?.harErklaeringAnsvarligKontrollerende === "true";
+
                     this.appendChild(renderErklaeringTekstElement(component));
 
-                    if (funksjonList.includes("SØK")) {
-                        this.appendChild(renderSOEKTekstElement(component));
-                    }
-                    if (funksjonList.includes("PRO")) {
+                    this.appendChild(renderSOEKTekstElement(component));
+
+                    if (funksjonList.includes("PRO") && harErklaeringAnsvarligProsjekterende) {
                         this.appendChild(renderPROTekstElement(component));
                     }
-                    if (funksjonList.includes("UTF")) {
+                    if (funksjonList.includes("UTF") && harErklaeringAnsvarligUtfoerende) {
                         this.appendChild(renderUTFTekstElement(component));
                     }
-                    if (funksjonList.includes("KONTROLL")) {
+                    if (funksjonList.includes("KONTROLL") && harErklaeringAnsvarligKontrollerende) {
                         this.appendChild(renderKONTROLLTekstElement(component));
                     }
                 }

@@ -33,7 +33,8 @@ export default class CustomGroupKontrollErklaeringer extends CustomComponent {
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
             title: props?.resourceValues?.title,
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.erklaeringer?.emptyFieldText) : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.erklaeringer?.emptyFieldText) : data,
+            simpleBinding: props?.formData?.simpleBinding
         };
     }
 
@@ -45,7 +46,12 @@ export default class CustomGroupKontrollErklaeringer extends CustomComponent {
      * @returns {KontrollAnsvarsomraade} An instance of KontrollAnsvarsomraade initialized with the extracted data and resource bindings.
      */
     getValueFromFormData(props, resourceBindings) {
-        const data = getComponentDataValue(props);
+        const { simpleBinding, ...formDataWithoutSimpleBinding } = props.formData ?? {};
+        const cleanedProps = {
+            ...props,
+            formData: formDataWithoutSimpleBinding
+        };
+        const data = getComponentDataValue(cleanedProps);
         const kontrollAnsvarsomraade = new KontrollAnsvarsomraade(data, resourceBindings);
         return kontrollAnsvarsomraade;
     }
