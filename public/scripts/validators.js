@@ -457,7 +457,7 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
                     missingResourceUsage.push({
                         resource,
                         usage: [usageEntry],
-                        presence: "missingValue"
+                        presence: "missing"
                     });
                 }
         }
