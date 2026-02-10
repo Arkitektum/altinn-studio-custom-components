@@ -14,9 +14,10 @@ import { validateResources } from "./validators.js";
  *
  * @param {Object} component - The component object containing data model bindings.
  * @param {Array<Object>} [dataModels] - Optional array of data model objects. If not provided, `getDataModels()` will be called to retrieve them.
+ * @param {string} [dataType] - Optional data type to filter the data models. If provided, the function will look for a data model with a matching `dataType` property.
  * @returns {Object} An object mapping each binding key to its corresponding data value.
  */
-export function getDataForComponent(component, dataModels) {
+export function getDataForComponent(component, dataModels, dataType) {
     if (!dataModels) {
         dataModels = getDataModels();
     }
@@ -25,7 +26,10 @@ export function getDataForComponent(component, dataModels) {
         Object.keys(component?.dataModelBindings).forEach((key) => {
             const dataModelBinding = component.dataModelBindings[key];
             if (typeof dataModelBinding === "string") {
-                const index = 0;
+                let index = 0;
+                if (dataType) {
+                    index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataType);
+                }
                 const dataModel = dataModels[index]?.data;
                 const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
                 data[key] = dataModelData;
