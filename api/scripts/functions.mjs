@@ -1,3 +1,6 @@
+// Dependencies
+import { JSDOM } from "jsdom";
+
 // Data
 import altinnStudioApps from "../data/altinnStudioApps.mjs";
 import subforms from "../data/subforms.mjs";
@@ -77,6 +80,24 @@ export async function getDisplayLayouts() {
     const allLayouts = layouts.filter((layout) => layout !== null).concat(subforms);
     return allLayouts;
 }
+
+/**
+ * Fetches the package.json file from an Altinn Studio app repository and extracts the version information.
+ *
+ * @async
+ * @function
+ * @param {string} appOwner - The owner of the application repository.
+ * @param {string} appName - The name of the application repository.
+ * @returns {Promise<Object>} An object containing the version information from the package.json file.
+ * @throws {Error} If fetching or parsing the package.json file fails.
+ */
+async function fetchPackageJsonFromAltinnStudio(appOwner, appName) {
+    const filePath = "App/wwwroot/altinn-studio-custom-components/package.json";
+    const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    const jsonResponse = JSON.parse(fileContent);
+    return jsonResponse;
+}
+
 /**
  * Fetches the resource file for a given app and language from Gitea.
  *
@@ -122,4 +143,92 @@ export async function getAppResourceValues(language) {
 
     const resources = await Promise.all(appResourcePromises);
     return resources.filter((resource) => resource !== null);
+}
+
+/**
+ * Fetches the Index.cshtml file from an Altinn Studio app repository, which typically contains references to frontend assets.
+ * This function is used to extract the versions of the altinn-app-frontend CSS and JS files referenced in the Index.cshtml.
+ * @param {string} appOwner - The owner of the application repository.
+ * @param {string} appName - The name of the application repository.
+ * @returns {Promise<string>} The content of the Index.cshtml file as a string.
+ * @throws {Error} If fetching the Index.cshtml file fails.
+ */
+async function fetchAltinnAppIndexHtml(appOwner, appName) {
+    const filePath = "App/views/Home/Index.cshtml";
+    const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    return fileContent;
+}
+
+/**
+ * Extracts the versions of the altinn-app-frontend CSS and JS files referenced in the given HTML string.
+ * @param {string} htmlString - The HTML content of the Index.cshtml file.
+ * @returns {Object} An object containing the extracted CSS and JS versions.
+ */
+function extractAltinnAppFrontendVersions(htmlString) {
+    const dom = new JSDOM(htmlString);
+    const doc = dom.window.document;
+
+    const result = {
+        css: new Set(),
+        js: new Set()
+    };
+
+    const cssRegex = /altinn-app-frontend\/([^/]+)\/altinn-app-frontend\.css$/;
+    const jsRegex = /altinn-app-frontend\/([^/]+)\/altinn-app-frontend\.js$/;
+
+    doc.querySelectorAll('link[rel="stylesheet"][href]').forEach((link) => {
+        const match = link.href.match(cssRegex);
+        if (match) {
+            result.css.add(match[1]);
+        }
+    });
+
+    doc.querySelectorAll("script[src]").forEach((script) => {
+        const match = script.src.match(jsRegex);
+        if (match) {
+            result.js.add(match[1]);
+        }
+    });
+    return {
+        css: result.css.size > 0 ? Array.from(result.css)[0] : null,
+        js: result.js.size > 0 ? Array.from(result.js)[0] : null
+    };
+}
+
+/**
+ * Fetches and returns the versions of the altinn-studio-custom-components package and the altinn-app-frontend assets for all Altinn Studio apps.
+ *
+ * Iterates over the list of Altinn Studio applications, fetches their package.json files and Index.cshtml files to extract version information,
+ * and returns an array of objects containing the app owner, app name, and version details. If fetching version information fails for an app, it logs
+ * the error and skips that app.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of objects with version information for each app.
+ */
+export async function getPackageVersions() {
+    const versionPromises = altinnStudioApps.map(async ({ appOwner, appName }) => {
+        try {
+            const [packageJson, indexHtml] = await Promise.all([
+                fetchPackageJsonFromAltinnStudio(appOwner, appName),
+                fetchAltinnAppIndexHtml(appOwner, appName)
+            ]);
+            const altinnAppFrontendVersions = extractAltinnAppFrontendVersions(indexHtml);
+            return {
+                appOwner,
+                appName,
+                packageVersions: {
+                    altinnStudioCustomComponents: packageJson.version,
+                    altinnAppFrontendCSS: altinnAppFrontendVersions.css,
+                    altinnAppFrontendJS: altinnAppFrontendVersions.js
+                }
+            };
+        } catch (error) {
+            console.error(`Error fetching package versions for ${appOwner}/${appName}:`, error);
+            return null;
+        }
+    });
+
+    const versions = await Promise.all(versionPromises);
+    return versions.filter((version) => version !== null);
 }
