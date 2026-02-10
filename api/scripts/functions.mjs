@@ -92,3 +92,34 @@ async function fetchAppResourceFile(appOwner, appName, language = "nb") {
     const jsonResponse = JSON.parse(fileContent);
     return jsonResponse;
 }
+
+/**
+ * Fetches resource values for all Altinn Studio apps for a given language.
+ *
+ * Iterates over the list of Altinn Studio apps, fetches the resource file for each app in the specified language,
+ * and returns an array of objects containing the app owner, app name, and the fetched resource values.
+ * If fetching fails for an app, it logs the error and excludes that app from the result.
+ *
+ * @async
+ * @param {string} language - The language code for which to fetch resource values (e.g., 'en', 'nb').
+ * @returns {Promise<Array<{ appOwner: string, appName: string, resourceValues: any }>>}
+ *   A promise that resolves to an array of resource value objects for each app.
+ */
+export async function getAppResourceValues(language) {
+    const appResourcePromises = altinnStudioApps.map(async ({ appOwner, appName }) => {
+        try {
+            const resourceValues = await fetchAppResourceFile(appOwner, appName, language);
+            return {
+                appOwner,
+                appName,
+                resourceValues
+            };
+        } catch (error) {
+            console.error(`Error fetching resource values for ${appOwner}/${appName}:`, error);
+            return null;
+        }
+    });
+
+    const resources = await Promise.all(appResourcePromises);
+    return resources.filter((resource) => resource !== null);
+}
