@@ -38,7 +38,11 @@ function renderPackageVersionsPage(containerElement) {
     titleElement.textContent = "Package Versions";
     containerElement.appendChild(titleElement);
 
+    const contentContainerElement = document.createElement("div");
+    contentContainerElement.classList.add("content-container");
+
     const tableElement = document.createElement("table");
+    const tableHeaderElement = document.createElement("thead");
     const headerRow = document.createElement("tr");
     const appHeader = document.createElement("th");
     appHeader.textContent = "Application";
@@ -53,7 +57,10 @@ function renderPackageVersionsPage(containerElement) {
     headerRow.appendChild(altinnStudioCustomComponentsHeader);
     headerRow.appendChild(altinnAppFrontendCSSHeader);
     headerRow.appendChild(altinnAppFrontendJSHeader);
-    tableElement.appendChild(headerRow);
+    tableHeaderElement.appendChild(headerRow);
+    tableElement.appendChild(tableHeaderElement);
+
+    const tableBodyElement = document.createElement("tbody");
 
     globalThis.packageVersions.forEach((app) => {
         const row = document.createElement("tr");
@@ -70,10 +77,12 @@ function renderPackageVersionsPage(containerElement) {
         row.appendChild(altinnStudioCustomComponentsCell);
         row.appendChild(altinnAppFrontendCSSCell);
         row.appendChild(altinnAppFrontendJSCell);
-        tableElement.appendChild(row);
+        tableBodyElement.appendChild(row);
     });
 
-    containerElement.appendChild(tableElement);
+    tableElement.appendChild(tableBodyElement);
+    contentContainerElement.appendChild(tableElement);
+    containerElement.appendChild(contentContainerElement);
 }
 
 /** Renders a filter for selecting an application and displays the corresponding display layout components.

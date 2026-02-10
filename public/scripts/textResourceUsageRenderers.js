@@ -219,7 +219,7 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
 export function renderDefaultTextResourcesList(filteredTextResources, allTextResources) {
     const defaultResourcesListElement = document.createElement("div");
     defaultResourcesListElement.id = "default-text-resources-list";
-    defaultResourcesListElement.classList.add("default-text-resources-list");
+    defaultResourcesListElement.classList.add("paper");
     defaultResourcesListElement.innerHTML = "";
     filteredTextResources.forEach((textResource) => {
         const listItemElement = renderDefaultTextResourceListItem(textResource, allTextResources);
