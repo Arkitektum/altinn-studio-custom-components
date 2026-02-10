@@ -263,7 +263,7 @@ function handleFilterChange(containerElement, textResources) {
  */
 export function renderRadioButtonsFilterForTextResourcesList(containerElement, textResources) {
     const filterContainerElement = document.createElement("div");
-    filterContainerElement.classList.add("text-resources-filter-container");
+    filterContainerElement.classList.add("filter-container");
 
     const allResourcesRadioElement = document.createElement("input");
     allResourcesRadioElement.id = "filter-all-resources";
@@ -331,7 +331,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingWithLocalValueResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-
+    
     filterContainerElement.appendChild(allResourcesRadioElement);
     filterContainerElement.appendChild(allResourcesLabelElement);
     filterContainerElement.appendChild(unusedResourcesRadioElement);
@@ -358,7 +358,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
  */
 export function renderSelectApplicationFilterForTextResourcesList(containerElement, textResources, applications) {
     const selectContainerElement = document.createElement("div");
-    selectContainerElement.classList.add("text-resources-application-filter-container");
+    selectContainerElement.classList.add("filter-container");
 
     const applicationSelectLabelElement = document.createElement("label");
     applicationSelectLabelElement.htmlFor = "application-filter-select";
@@ -403,7 +403,7 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
  */
 export function renderTextInputFilterForTextResourcesList(containerElement, textResources) {
     const textInputContainerElement = document.createElement("div");
-    textInputContainerElement.classList.add("text-resources-text-input-filter-container");
+    textInputContainerElement.classList.add("filter-container");
 
     const textInputLabelElement = document.createElement("label");
     textInputLabelElement.htmlFor = "text-filter-input";

@@ -451,24 +451,7 @@
                     }
                 }
             }
-            & .text-resources-filter-container {
-                margin: 16px auto;
-                max-width: 1000px;
-                padding: 0 16px;
-                & label {
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: #333;
-                    margin-right: 12px;
-                    cursor: pointer;
-                }
-                & input[type="radio"] {
-                    margin-right: 6px;
-                    cursor: pointer;
-                }
-            }
-            & .text-resources-application-filter-container,
-            & .text-resources-text-input-filter-container {
+            & .filter-container {
                 margin: 16px auto;
                 max-width: 1000px;
                 padding: 0 16px;
@@ -484,6 +467,10 @@
                     padding: 4px 8px;
                     border-radius: 4px;
                     border: 1px solid #ccc;
+                    cursor: pointer;
+                }
+                & input[type="radio"] {
+                    margin-right: 6px;
                     cursor: pointer;
                 }
                 & input[type="text"] {
