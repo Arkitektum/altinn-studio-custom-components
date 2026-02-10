@@ -544,8 +544,8 @@ export default [
                         epost: "nabo@naboen.no"
                     },
                     respons: {
-                        erMerknadMottatt: "true",
-                        erSamtykkeMottatt: "false",
+                        erMerknadMottatt: true,
+                        erSamtykkeMottatt: false,
                         nabovarselSendt: "2024-03-10",
                         nabovarselSendtVia: {
                             kodeverdi: "POST",
@@ -949,8 +949,8 @@ export default [
                                 kodebeskrivelse: "Fellestjenester Bygg"
                             },
                             nabovarselSendt: "2024-02-28",
-                            erMerknadMottatt: "true",
-                            erSamtykkeMottatt: "false",
+                            erMerknadMottatt: true,
+                            erSamtykkeMottatt: false,
                             samtykkeMottattDato: null
                         }
                     },
@@ -1002,8 +1002,8 @@ export default [
                                 kodebeskrivelse: "E-post"
                             },
                             nabovarselSendt: "2024-04-01",
-                            erMerknadMottatt: "false",
-                            erSamtykkeMottatt: "true",
+                            erMerknadMottatt: false,
+                            erSamtykkeMottatt: true,
                             samtykkeMottattDato: "2024-04-10"
                         }
                     }
@@ -1698,8 +1698,8 @@ export default [
                                         kodebeskrivelse: "Post"
                                     },
                                     nabovarselSendt: "2024-06-15T10:30:00",
-                                    erMerknadMottatt: "true",
-                                    erSamtykkeMottatt: "false",
+                                    erMerknadMottatt: true,
+                                    erSamtykkeMottatt: false,
                                     merknadMottattDato: "2024-06-20T14:45:00",
                                     samtykkeMottattDato: null
                                 }
@@ -1773,8 +1773,8 @@ export default [
                                         kodebeskrivelse: "E-post"
                                     },
                                     nabovarselSendt: "2024-06-16T11:00:00",
-                                    erMerknadMottatt: "false",
-                                    erSamtykkeMottatt: "true",
+                                    erMerknadMottatt: false,
+                                    erSamtykkeMottatt: true,
                                     merknadMottattDato: null,
                                     samtykkeMottattDato: "2024-06-22T09:15:00"
                                 }
