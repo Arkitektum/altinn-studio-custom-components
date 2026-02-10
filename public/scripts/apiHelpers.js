@@ -67,3 +67,27 @@ export async function fetchAppResources(language) {
             throw error;
         });
 }
+
+/**
+ * Fetches example data from the local API endpoint.
+ *
+ * @async
+ * @function fetchExampleData
+ * @returns {Promise<Object>} A promise that resolves to the example data as a JSON object.
+ * @throws {Error} If the network request fails or the response is not OK.
+ */
+export async function fetchExampleData() {
+    const url = `http://localhost:9001/api/exampleData`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch example data: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching example data:", error);
+            throw error;
+        });
+}
+
