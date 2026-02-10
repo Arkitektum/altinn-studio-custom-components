@@ -115,6 +115,17 @@ function renderDuplicateResourcesList(duplicateResources) {
     return duplicateResourcesContainerElement;
 }
 
+function getPresenceLabel(presence) {
+    switch (presence) {
+        case "missing":
+            return "Missing";
+        case "localValue":
+            return "Local";
+        default:
+            return "";
+    }
+}
+
 /**
  * Renders a default list item element for a text resource, displaying its usage across apps and components,
  * as well as any duplicate resources with the same value.
@@ -148,6 +159,20 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
     resourceIdElement.classList.add("resource-id");
     resourceIdElement.innerHTML = `${textResource?.resource?.id}`;
     resourceIdAndValueContainer.appendChild(resourceIdElement);
+
+    if (textResource?.presence?.length > 0) {
+        // Add a badge or indicator for missing resources or resources with local value
+        const presenceIndicatorElement = document.createElement("span");
+        presenceIndicatorElement.classList.add("indicator", `indicator-${textResource.presence}`);
+        presenceIndicatorElement.innerHTML = getPresenceLabel(textResource.presence);
+        resourceIdElement.appendChild(presenceIndicatorElement);
+    }
+    if (textResource?.usage?.length === 0) {
+        const unusedIndicatorElement = document.createElement("span");
+        unusedIndicatorElement.classList.add("indicator", "indicator-unused");
+        unusedIndicatorElement.innerHTML = "Unused";
+        resourceIdElement.appendChild(unusedIndicatorElement);
+    }
 
     const resourceValueElement = document.createElement("div");
     resourceValueElement.classList.add("resource-value");
@@ -331,7 +356,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingWithLocalValueResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    
+
     filterContainerElement.appendChild(allResourcesRadioElement);
     filterContainerElement.appendChild(allResourcesLabelElement);
     filterContainerElement.appendChild(unusedResourcesRadioElement);
