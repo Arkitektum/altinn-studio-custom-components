@@ -22,6 +22,11 @@ import {
 function renderResourceUsagePage(containerElement) {
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const displayLayouts = globalThis.displayLayouts;
+
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = "Resource usage";
+
+    containerElement.appendChild(titleElement);
     containerElement.appendChild(renderRadioButtonsFilterForTextResourcesList(containerElement, allTextResourceUsage));
     containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement, allTextResourceUsage, displayLayouts));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement, allTextResourceUsage));
@@ -130,6 +135,10 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
  */
 function renderDisplayLayoutsPage(containerElement) {
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = "Display Layouts";
+    containerElement.appendChild(titleElement);
+
     const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName
         ? globalThis.selectedDisplayLayoutAppName
         : globalThis.displayLayouts[0].appName;
@@ -141,10 +150,6 @@ function renderDisplayLayoutsPage(containerElement) {
     const displayLayout = globalThis.displayLayouts.find(
         (layout) => layout.appName === selectedDisplayLayoutAppName && layout.appOwner === selectedDisplayLayoutAppOwner
     );
-
-    const titleElement = document.createElement("h2");
-    titleElement.textContent = `Display Layout: ${selectedDisplayLayoutAppOwner}/${selectedDisplayLayoutAppName}`;
-    containerElement.appendChild(titleElement);
 
     if (!displayLayout) {
         const errorElement = document.createElement("p");

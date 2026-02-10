@@ -182,7 +182,7 @@
             flex-basis: 830px;
             min-width: 830px;
             height: 100vh;
-            overflow: auto;
+            overflow: auto scroll;
             &.admin {
                 flex-basis: 100%;
             }
@@ -348,7 +348,6 @@
             & .paper {
                 margin: 16px auto;
                 padding: 16px;
-                max-width: 1000px;
                 box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
                 background-color: #fcfcfc;
             }
@@ -505,8 +504,7 @@
             }
             & .filter-container {
                 margin: 16px auto;
-                max-width: 1000px;
-                padding: 0 16px;
+                padding: 0;
                 & label {
                     font-size: 14px;
                     font-weight: 600;
