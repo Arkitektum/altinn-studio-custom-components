@@ -1,5 +1,9 @@
 const altinnStudioApps = [
     {
+        appOwner: "dat",
+        appName: "byggesak-samtykke-v3"
+    },
+    {
         appOwner: "dibk",
         appName: "an-v2"
     },
