@@ -4,7 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 
 // Local functions
-import { getAppResourceValues, getDisplayLayouts, getPackageVersions } from "./scripts/functions.mjs";
+import { getAppResourceValues, getDisplayLayouts, getExampleData, getPackageVersions } from "./scripts/functions.mjs";
 
 const app = express();
 const port = process.env.API_PORT;
@@ -42,5 +42,15 @@ app.get("/api/appResources", async (req, res) => {
     } catch (error) {
         console.error("Error fetching app resource values:", error);
         res.status(500).json({ error: "Failed to fetch app resource values" });
+    }
+});
+
+app.get("/api/exampleData", (req, res) => {
+    try {
+        const exampleData = getExampleData();
+        res.json(exampleData);
+    } catch (error) {
+        console.error("Error fetching example data:", error);
+        res.status(500).json({ error: "Failed to fetch example data" });
     }
 });

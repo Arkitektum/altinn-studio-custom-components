@@ -4,6 +4,7 @@ import { JSDOM } from "jsdom";
 // Data
 import altinnStudioApps from "../data/altinnStudioApps.mjs";
 import subforms from "../data/subforms.mjs";
+import exampleData from "../data/exampleData.mjs";
 
 /**
  * Fetches the content of a file from a Gitea repository using the Altinn Studio API.
@@ -231,4 +232,13 @@ export async function getPackageVersions() {
 
     const versions = await Promise.all(versionPromises);
     return versions.filter((version) => version !== null);
+}
+
+/**
+ * Retrieves the example data.
+ *
+ * @returns {*} The example data.
+ */
+export function getExampleData() {
+    return exampleData;
 }
