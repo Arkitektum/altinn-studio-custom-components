@@ -242,3 +242,23 @@ export async function getPackageVersions() {
 export function getExampleData() {
     return exampleData;
 }
+
+
+/**
+ * Retrieves a combined list of Altinn Studio applications and subforms.
+ *
+ * This function maps over the `subforms` array to extract relevant properties
+ * (`appOwner`, `appName`, `dataType`) from each subform, then merges these with
+ * the existing `altinnStudioApps` array to produce a single array containing all apps.
+ *
+ * @returns {Array<Object>} An array of objects representing both Altinn Studio apps and subforms.
+ */
+export function getAltinnStudioForms() {
+    const supFormApps = subforms?.map((subform) => ({
+        appOwner: subform?.appOwner,
+        appName: subform?.appName,
+        dataType: subform?.dataType
+    }));
+    const allApps = [...altinnStudioApps, ...supFormApps];
+    return allApps;
+}
