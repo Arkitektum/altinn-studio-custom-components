@@ -21,7 +21,7 @@ const altinnStudioApps = [
     },
     {
         appOwner: "dibk",
-        appName: "fts-v3"
+        appName: "fts-v1"
     },
     {
         appOwner: "dibk",
