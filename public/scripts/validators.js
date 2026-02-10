@@ -131,6 +131,17 @@ function getDuplicateTextResources(textResources) {
 }
 
 /**
+ * Checks if a given resource ID exists in the provided app resource values.
+ *
+ * @param {string} resourceId - The ID of the resource to check for.
+ * @param {Array<{id: string}>} appResourceValues - An array of app resource objects, each expected to have an `id` property.
+ * @returns {boolean} Returns true if the resource ID is found in the app resource values, otherwise false.
+ */
+function hasAppResourceValue(resourceId, appResourceValues) {
+    return appResourceValues?.some((res) => res.id === resourceId);
+}
+
+/**
  * Identifies missing resource bindings and literal values from a list of resource binding IDs.
  *
  * @param {string[]} allResourceBindings - Array of all resource binding IDs to check.
