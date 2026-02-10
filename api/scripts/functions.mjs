@@ -77,3 +77,18 @@ export async function getDisplayLayouts() {
     const allLayouts = layouts.filter((layout) => layout !== null).concat(subforms);
     return allLayouts;
 }
+/**
+ * Fetches the resource file for a given app and language from Gitea.
+ *
+ * @async
+ * @param {string} appOwner - The owner of the app repository.
+ * @param {string} appName - The name of the app repository.
+ * @param {string} [language="nb"] - The language code for the resource file (default is "nb").
+ * @returns {Promise<Object>} The parsed JSON content of the resource file.
+ */
+async function fetchAppResourceFile(appOwner, appName, language = "nb") {
+    const filePath = `App/config/texts/resource.${language}.json`;
+    const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    const jsonResponse = JSON.parse(fileContent);
+    return jsonResponse;
+}
