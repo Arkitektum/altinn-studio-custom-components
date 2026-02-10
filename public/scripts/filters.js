@@ -7,6 +7,7 @@
  *   - "used-once": Returns resources used exactly once.
  *   - "with-duplicates": Returns resources that have duplicate values.
  *   - "missing": Returns resources with undefined usage.
+ *   - "missing-with-local-value": Returns resources that are missing but have a local value.
  *   - "all": Returns all resources (default).
  * @returns {Array<Object>} The filtered array of resources.
  */
@@ -19,7 +20,9 @@ export function filterResources(resources, filterValue) {
         case "with-duplicates":
             return resources.filter((res) => getResourcesWithSameValue(resources, res).length > 0 && res?.missingFromDefaultTextResources !== true);
         case "missing":
-            return resources.filter((res) => res?.missingFromDefaultTextResources === true);
+            return resources.filter((res) => res?.presence === "missing");
+        case "missing-with-local-value":
+            return resources.filter((res) => res?.presence === "localValue");
         case "all":
             return resources.filter((res) => res?.missingFromDefaultTextResources !== true);
         default:

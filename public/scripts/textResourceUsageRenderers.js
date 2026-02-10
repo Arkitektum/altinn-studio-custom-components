@@ -311,6 +311,15 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     missingResourcesLabelElement.htmlFor = "filter-missing-resources";
     missingResourcesLabelElement.innerHTML = "Missing";
 
+    const missingWithLocalValueResourcesRadioElement = document.createElement("input");
+    missingWithLocalValueResourcesRadioElement.id = "filter-missing-with-local-value-resources";
+    missingWithLocalValueResourcesRadioElement.type = "radio";
+    missingWithLocalValueResourcesRadioElement.name = "text-resources-filter";
+    missingWithLocalValueResourcesRadioElement.value = "missing-with-local-value";
+    const missingWithLocalValueResourcesLabelElement = document.createElement("label");
+    missingWithLocalValueResourcesLabelElement.htmlFor = "filter-missing-with-local-value-resources";
+    missingWithLocalValueResourcesLabelElement.innerHTML = "Missing with local value";
+
     const updateResourceListBasedOnFilter = () => {
         globalThis.selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
         handleFilterChange(containerElement, textResources);
@@ -321,6 +330,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     usedOnceResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
+    missingWithLocalValueResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
 
     filterContainerElement.appendChild(allResourcesRadioElement);
     filterContainerElement.appendChild(allResourcesLabelElement);
@@ -332,6 +342,8 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     filterContainerElement.appendChild(withDuplicatesResourcesLabelElement);
     filterContainerElement.appendChild(missingResourcesRadioElement);
     filterContainerElement.appendChild(missingResourcesLabelElement);
+    filterContainerElement.appendChild(missingWithLocalValueResourcesRadioElement);
+    filterContainerElement.appendChild(missingWithLocalValueResourcesLabelElement);
 
     return filterContainerElement;
 }
