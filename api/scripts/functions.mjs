@@ -69,9 +69,9 @@ async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
  * @returns {Promise<Array<Object>>} A promise that resolves to an array of layout objects for each app and subform.
  */
 export async function getDisplayLayouts() {
-    const layoutPromises = altinnStudioApps.map(({ appOwner, appName }) =>
+    const layoutPromises = altinnStudioApps.map(({ appOwner, appName, dataType }) =>
         fetchDisplayLayoutFromAltinnStudio(appOwner, appName)
-            .then((layout) => ({ appOwner, appName, layout }))
+            .then((layout) => ({ appOwner, appName, dataType, layout }))
             .catch((error) => {
                 console.error(`Error fetching layout for ${appOwner}/${appName}:`, error);
                 return null;
