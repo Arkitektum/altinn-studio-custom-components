@@ -4,7 +4,7 @@ import cors from "cors";
 import "dotenv/config";
 
 // Local functions
-import { getDisplayLayouts } from "./scripts/functions.mjs";
+import { getAltinnStudioForms, getAppResourceValues, getDisplayLayouts, getJsonExampleData, getPackageVersions } from "./scripts/functions.mjs";
 
 const app = express();
 const port = process.env.API_PORT;
@@ -22,5 +22,45 @@ app.get("/api/displayLayouts", async (req, res) => {
     } catch (error) {
         console.error("Error fetching display layouts:", error);
         res.status(500).json({ error: "Failed to fetch display layouts" });
+    }
+});
+
+app.get("/api/packageVersions", async (req, res) => {
+    try {
+        const packageVersions = await getPackageVersions();
+        res.json(packageVersions);
+    } catch (error) {
+        console.error("Error fetching package.json files:", error);
+        res.status(500).json({ error: "Failed to fetch package.json files" });
+    }
+});
+
+app.get("/api/appResources", async (req, res) => {
+    try {
+        const appResources = await getAppResourceValues("nb");
+        res.json(appResources);
+    } catch (error) {
+        console.error("Error fetching app resource values:", error);
+        res.status(500).json({ error: "Failed to fetch app resource values" });
+    }
+});
+
+app.get("/api/altinnStudioForms", (req, res) => {
+    try {
+        const altinnStudioApps = getAltinnStudioForms();
+        res.json(altinnStudioApps);
+    } catch (error) {
+        console.error("Error fetching Altinn Studio apps:", error);
+        res.status(500).json({ error: "Failed to fetch Altinn Studio apps" });
+    }
+});
+
+app.get("/api/exampleData", async (req, res) => {
+    try {
+        const exampleData = await getJsonExampleData();
+        res.json(exampleData);
+    } catch (error) {
+        console.error("Error fetching example data:", error);
+        res.status(500).json({ error: "Failed to fetch example data" });
     }
 });

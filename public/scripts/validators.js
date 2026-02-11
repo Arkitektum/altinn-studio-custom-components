@@ -131,6 +131,17 @@ function getDuplicateTextResources(textResources) {
 }
 
 /**
+ * Checks if a given resource ID exists in the provided app resource values.
+ *
+ * @param {string} resourceId - The ID of the resource to check for.
+ * @param {Array<{id: string}>} appResourceValues - An array of app resource objects, each expected to have an `id` property.
+ * @returns {boolean} Returns true if the resource ID is found in the app resource values, otherwise false.
+ */
+function hasAppResourceValue(resourceId, appResourceValues) {
+    return appResourceValues?.some((res) => res.id === resourceId);
+}
+
+/**
  * Identifies missing resource bindings and literal values from a list of resource binding IDs.
  *
  * @param {string[]} allResourceBindings - Array of all resource binding IDs to check.
@@ -392,4 +403,88 @@ export function getUsageForResources(layouts, resources) {
         resource,
         usage: getResourceUsage(layouts, resource)
     }));
+}
+
+/**
+ * Retrieves a specific resource from the app resource values that matches the given layout and resource.
+ *
+ * @param {Object} layout - The layout object containing appName and appOwner properties.
+ * @param {Object} resource - The resource object containing an id property.
+ * @param {Array<Object>} appResourceValues - An array of app resource value objects, each containing appName, appOwner, and resourceValues.
+ * @returns {Object|undefined} The matching resource object if found, otherwise undefined.
+ */
+function getAppResourceForLayout(layout, resource, appResourceValues) {
+    const appResourceForLayout = appResourceValues?.find((res) => res.appName === layout.appName && res.appOwner === layout.appOwner) || null;
+    return appResourceForLayout?.resourceValues?.resources?.find((res) => res.id === resource.id);
+}
+
+/**
+ * Analyzes the usage of a specific resource across multiple layouts and identifies
+ * where the resource is missing or has a local value.
+ *
+ * @param {Array<Object>} layouts - The list of layout objects to check for resource usage.
+ * @param {Object} resource - The resource object to check for usage and presence.
+ * @param {Object} appResourceValues - An object containing resource values for each layout.
+ * @returns {Object} An object containing two arrays:
+ *   - missingResourceUsageWithLocalValue: Entries where the resource has a local value.
+ *   - missingResourceUsage: Entries where the resource is missing.
+ */
+function getMissingResourceUsage(layouts, resource, appResourceValues) {
+    const missingResourceUsage = [];
+    const missingResourceUsageWithLocalValue = [];
+    layouts.forEach((layout) => {
+        const appOwner = layout.appOwner;
+        const appName = layout.appName;
+        const componentsUsingResource = getResourceUsageForLayout(layout, resource);
+        const localAppResource = getAppResourceForLayout(layout, resource, appResourceValues);
+        if (componentsUsingResource.length > 0) {
+            const usageEntry = {
+                appOwner,
+                appName,
+                componentsUsingResource
+            };
+            // if resource with same id and value is already pushed to missingResourceUsage or missingResourceUsageWithLocalValue, update that entry with the new usage, otherwise create a new entry
+                let existingEntry = missingResourceUsageWithLocalValue.find((entry) => entry.resource.id === resource.id && entry.resource.value === localAppResource?.value);
+                if (existingEntry) {
+                    existingEntry.usage.push(usageEntry);
+                } else if (localAppResource) {
+                    missingResourceUsageWithLocalValue.push({
+                        resource: localAppResource,
+                        usage: [usageEntry],
+                        presence: "localValue"
+                    });
+                } else {
+                    missingResourceUsage.push({
+                        resource,
+                        usage: [usageEntry],
+                        presence: "missing"
+                    });
+                }
+        }
+    });
+    return { missingResourceUsageWithLocalValue, missingResourceUsage };
+}
+
+/**
+ * Retrieves usage information for missing resources within the provided layouts.
+ *
+ * Iterates over each missing resource binding and collects usage data, including
+ * usages where a local value is present.
+ *
+ * @param {Object} layouts - The layout definitions to search for resource usage.
+ * @param {Array} missingResourceBindings - An array of resource identifiers that are missing.
+ * @param {Object} appResourceValues - An object containing application resource values.
+ * @returns {Object} An object containing:
+ *   - {Array} missingResourcesUsage: Usages of missing resources.
+ *   - {Array} missingResourcesWithLocalValueUsage: Usages of missing resources that have a local value.
+ */
+export function getUsageForMissingResources(layouts, missingResourceBindings, appResourceValues) {
+    const missingResourcesUsage = [];
+    const missingResourcesWithLocalValueUsage = [];
+    missingResourceBindings.forEach((resource) => {
+        const { missingResourceUsageWithLocalValue, missingResourceUsage } = getMissingResourceUsage(layouts, resource, appResourceValues);
+        missingResourcesUsage.push(...missingResourceUsage);
+        missingResourcesWithLocalValueUsage.push(...missingResourceUsageWithLocalValue);
+    });
+    return { missingResourcesUsage, missingResourcesWithLocalValueUsage };
 }

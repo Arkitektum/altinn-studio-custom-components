@@ -115,6 +115,17 @@ function renderDuplicateResourcesList(duplicateResources) {
     return duplicateResourcesContainerElement;
 }
 
+function getPresenceLabel(presence) {
+    switch (presence) {
+        case "missing":
+            return "Missing";
+        case "localValue":
+            return "Local";
+        default:
+            return "";
+    }
+}
+
 /**
  * Renders a default list item element for a text resource, displaying its usage across apps and components,
  * as well as any duplicate resources with the same value.
@@ -148,6 +159,20 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
     resourceIdElement.classList.add("resource-id");
     resourceIdElement.innerHTML = `${textResource?.resource?.id}`;
     resourceIdAndValueContainer.appendChild(resourceIdElement);
+
+    if (textResource?.presence?.length > 0) {
+        // Add a badge or indicator for missing resources or resources with local value
+        const presenceIndicatorElement = document.createElement("span");
+        presenceIndicatorElement.classList.add("indicator", `indicator-${textResource.presence}`);
+        presenceIndicatorElement.innerHTML = getPresenceLabel(textResource.presence);
+        resourceIdElement.appendChild(presenceIndicatorElement);
+    }
+    if (textResource?.usage?.length === 0) {
+        const unusedIndicatorElement = document.createElement("span");
+        unusedIndicatorElement.classList.add("indicator", "indicator-unused");
+        unusedIndicatorElement.innerHTML = "Unused";
+        resourceIdElement.appendChild(unusedIndicatorElement);
+    }
 
     const resourceValueElement = document.createElement("div");
     resourceValueElement.classList.add("resource-value");
@@ -219,7 +244,7 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
 export function renderDefaultTextResourcesList(filteredTextResources, allTextResources) {
     const defaultResourcesListElement = document.createElement("div");
     defaultResourcesListElement.id = "default-text-resources-list";
-    defaultResourcesListElement.classList.add("default-text-resources-list");
+    defaultResourcesListElement.classList.add("paper");
     defaultResourcesListElement.innerHTML = "";
     filteredTextResources.forEach((textResource) => {
         const listItemElement = renderDefaultTextResourceListItem(textResource, allTextResources);
@@ -263,7 +288,7 @@ function handleFilterChange(containerElement, textResources) {
  */
 export function renderRadioButtonsFilterForTextResourcesList(containerElement, textResources) {
     const filterContainerElement = document.createElement("div");
-    filterContainerElement.classList.add("text-resources-filter-container");
+    filterContainerElement.classList.add("filter-container");
 
     const allResourcesRadioElement = document.createElement("input");
     allResourcesRadioElement.id = "filter-all-resources";
@@ -311,6 +336,15 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     missingResourcesLabelElement.htmlFor = "filter-missing-resources";
     missingResourcesLabelElement.innerHTML = "Missing";
 
+    const missingWithLocalValueResourcesRadioElement = document.createElement("input");
+    missingWithLocalValueResourcesRadioElement.id = "filter-missing-with-local-value-resources";
+    missingWithLocalValueResourcesRadioElement.type = "radio";
+    missingWithLocalValueResourcesRadioElement.name = "text-resources-filter";
+    missingWithLocalValueResourcesRadioElement.value = "missing-with-local-value";
+    const missingWithLocalValueResourcesLabelElement = document.createElement("label");
+    missingWithLocalValueResourcesLabelElement.htmlFor = "filter-missing-with-local-value-resources";
+    missingWithLocalValueResourcesLabelElement.innerHTML = "Missing with local value";
+
     const updateResourceListBasedOnFilter = () => {
         globalThis.selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
         handleFilterChange(containerElement, textResources);
@@ -321,6 +355,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     usedOnceResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
+    missingWithLocalValueResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
 
     filterContainerElement.appendChild(allResourcesRadioElement);
     filterContainerElement.appendChild(allResourcesLabelElement);
@@ -332,6 +367,8 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     filterContainerElement.appendChild(withDuplicatesResourcesLabelElement);
     filterContainerElement.appendChild(missingResourcesRadioElement);
     filterContainerElement.appendChild(missingResourcesLabelElement);
+    filterContainerElement.appendChild(missingWithLocalValueResourcesRadioElement);
+    filterContainerElement.appendChild(missingWithLocalValueResourcesLabelElement);
 
     return filterContainerElement;
 }
@@ -346,7 +383,7 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
  */
 export function renderSelectApplicationFilterForTextResourcesList(containerElement, textResources, applications) {
     const selectContainerElement = document.createElement("div");
-    selectContainerElement.classList.add("text-resources-application-filter-container");
+    selectContainerElement.classList.add("filter-container");
 
     const applicationSelectLabelElement = document.createElement("label");
     applicationSelectLabelElement.htmlFor = "application-filter-select";
@@ -363,8 +400,8 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
 
     applications.forEach((app) => {
         const appOptionElement = document.createElement("option");
-        appOptionElement.value = app?.appName;
-        appOptionElement.innerHTML = app?.appName;
+        appOptionElement.value = `${app?.appOwner}/${app?.appName}`;
+        appOptionElement.textContent = `${app?.appOwner}/${app?.appName}`;
         applicationSelectElement.appendChild(appOptionElement);
     });
 
@@ -391,7 +428,7 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
  */
 export function renderTextInputFilterForTextResourcesList(containerElement, textResources) {
     const textInputContainerElement = document.createElement("div");
-    textInputContainerElement.classList.add("text-resources-text-input-filter-container");
+    textInputContainerElement.classList.add("filter-container");
 
     const textInputLabelElement = document.createElement("label");
     textInputLabelElement.htmlFor = "text-filter-input";

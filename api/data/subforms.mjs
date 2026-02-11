@@ -8,18 +8,21 @@ export default [
         appOwner: "dibk",
         appName: "dispensasjonssoeknad-v1",
         isSubform: true,
+        dataType: "DispensasjonssoeknadDataV1",
         layout: DispensasjonssoeknadDataV1
     },
     {
         appOwner: "dibk",
         appName: "gjenpart-nabovarsel-v3",
         isSubform: true,
+        dataType: "GjenpartNabovarselDataV3",
         layout: GjenpartNabovarselDataV3
     },
     {
         appOwner: "dibk",
         appName: "gjennomfoeringsplan-v7",
         isSubform: true,
+        dataType: "GjennomfoeringsplanDataV7",
         layout: GjennomfoeringsplanDataV7
     }
 ];
