@@ -29,12 +29,12 @@ async function fetchGiteaFileContent(appOwner, appName, filePath) {
     try {
         const response = await fetch(url, options);
         if (!response.ok) {
-            throw new Error(`Failed to fetch file content: ${response.statusText}`);
+            throw new Error(`Failed to fetch file content from ${url}: ${response.statusText}`);
         }
         const content = await response.text();
         return content;
     } catch (error) {
-        console.error("Error fetching file content:", error);
+        console.error(`Error fetching file content from ${url}:`, error);
         throw error;
     }
 }
