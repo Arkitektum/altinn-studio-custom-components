@@ -253,3 +253,39 @@ export function renderAdminSidebar() {
 
     sidebarElement.appendChild(sidebarList);
 }
+
+/**
+ * Displays a loading indicator with a progress percentage based on the completion of provided data fetch promises.
+ * The indicator is appended to the document body and removed when all promises are resolved.
+ *
+ * @param {Promise<any>[]} dataFetchPromises - An array of promises representing data fetch operations.
+ */
+export function showLoadingIndicator(dataFetchPromises) {
+    const loadingIndicator = document.createElement("div");
+    loadingIndicator.classList.add("progress-indicator");
+
+    const spinner = document.createElement("div");
+    spinner.classList.add("spinner");
+    loadingIndicator.appendChild(spinner);
+
+    const loadingText = document.createElement("span");
+    loadingText.textContent = "Loading... 0%";
+    loadingIndicator.appendChild(loadingText);
+
+    document.body.appendChild(loadingIndicator);
+
+    let completedFetches = 0;
+    const totalFetches = dataFetchPromises.length;
+
+    dataFetchPromises.forEach((promise) => {
+        promise.then(() => {
+            completedFetches++;
+            const progress = Math.round((completedFetches / totalFetches) * 100);
+            loadingText.textContent = `Loading... ${progress}%`;
+
+            if (completedFetches === totalFetches) {
+                loadingIndicator.remove();
+            }
+        });
+    });
+}
