@@ -91,3 +91,28 @@ export async function fetchExampleData() {
         });
 }
 
+/**
+ * Fetches Altinn Studio forms from the local API.
+ *
+ * Makes a GET request to the `/api/altinnStudioForms` endpoint on localhost.
+ * Throws an error if the request fails or the response is not OK.
+ *
+ * @async
+ * @function fetchAltinnStudioForms
+ * @returns {Promise<Object[]>} A promise that resolves to an array of Altinn Studio form objects.
+ * @throws {Error} If the fetch operation fails or the response is not OK.
+ */
+export async function fetchAltinnStudioForms() {
+    const url = `http://localhost:9001/api/altinnStudioForms`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch Altinn Studio forms: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching Altinn Studio forms:", error);
+            throw error;
+        });
+}
