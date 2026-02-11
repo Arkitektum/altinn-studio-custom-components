@@ -100,7 +100,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
-    labelElement.textContent = "Select Application: ";
+    labelElement.textContent = "Application: ";
     labelElement.setAttribute("for", "select-display-layout-application");
 
     const selectElement = document.createElement("select");
