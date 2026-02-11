@@ -34,11 +34,11 @@ export default customElements.define(
                     component.resourceValues?.data?.forEach((element) => {
                         funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                     });
+
                     this.appendChild(renderErklaeringTekstElement(component));
 
-                    if (funksjonList.includes("SØK")) {
-                        this.appendChild(renderSOEKTekstElement(component));
-                    }
+                    this.appendChild(renderSOEKTekstElement(component));
+
                     if (funksjonList.includes("PRO")) {
                         this.appendChild(renderPROTekstElement(component));
                     }

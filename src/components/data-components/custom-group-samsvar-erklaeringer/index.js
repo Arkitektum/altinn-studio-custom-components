@@ -32,8 +32,8 @@ export default customElements.define(
                     component.resourceValues?.data?.forEach((element) => {
                         funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                     });
-                    this.appendChild(renderErklaeringTekstElement(component));
 
+                    this.appendChild(renderErklaeringTekstElement(component));
                     if (funksjonList.includes("PRO")) {
                         this.appendChild(renderPROTekstElement(component));
                     }

@@ -114,10 +114,6 @@
             "value": "Nr."
         },
         {
-            "id": "resource.delsoeknader.delsoeknad.header",
-            "value": "Tidligere igangsettingssøknader"
-        },
-        {
             "id": "resource.delsoeknader.delsoeknad.kommentar.title",
             "value": "Kommentar"
         },
@@ -274,8 +270,16 @@
             "value": "Nei"
         },
         {
-            "id": "resource.faseSamsvarKontroll.title",
+            "id": "resource.faseSamsvarKontroll.titleKontroll",
+            "value": "Planlagt kontrollerklæringer"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleMix",
             "value": "Planlagt samsvars-/kontrollerklæringer"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleProUtf",
+            "value": "Planlagt samsvarserklæring"
         },
         {
             "id": "resource.FDV.paragraph.title",
@@ -886,20 +890,8 @@
             "value": "Formål"
         },
         {
-            "id": "resource.soeknadGjelder.delsoeknadsnummer.title",
-            "value": "Igangsettingssøknad nummer"
-        },
-        {
             "id": "resource.soeknadGjelder.foelgebrev.header",
             "value": "Følgebrev"
-        },
-        {
-            "id": "resource.soeknadGjelder.gjelderHeleTiltaket.false.title",
-            "value": "Det søkes om igangsettingstillatelse for deler av tiltaket."
-        },
-        {
-            "id": "resource.soeknadGjelder.gjelderHeleTiltaket.true.title",
-            "value": "Det søkes om igangsettingstillatelse for hele tiltaket."
         },
         {
             "id": "resource.soeknadGjelder.title",

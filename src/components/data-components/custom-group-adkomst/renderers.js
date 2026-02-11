@@ -65,14 +65,15 @@ export function renderVegtypeElement(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        itemKey: "kodebeskrivelse",
         resourceBindings: {
             title: component?.resourceBindings?.vegtype?.title
         },
         resourceValues: {
-            data: data?.vegtype?.kodebeskrivelse
+            data: data?.vegtype?.kode
         }
     });
-    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
 }
 
 /**
