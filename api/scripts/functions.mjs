@@ -1,10 +1,13 @@
 // Dependencies
 import { JSDOM } from "jsdom";
+import fs from "fs";
 
 // Data
 import altinnStudioApps from "../data/altinnStudioApps.mjs";
 import subforms from "../data/subforms.mjs";
 
+// Utils
+import { convertXmlToJson } from "../utils/xmlToJsonConverter.mjs";
 
 /**
  * Fetches the content of a file from a Gitea repository using the Altinn Studio API.
@@ -251,4 +254,85 @@ export function getAltinnStudioForms() {
     }));
     const allApps = [...altinnStudioApps, ...supFormApps];
     return allApps;
+}
+
+/**
+ * Fetches the XML schema (XSD) file content for a given data type from an Altinn Studio app repository.
+ *
+ * @async
+ * @param {string} appOwner - The owner of the Altinn Studio app.
+ * @param {string} appName - The name of the Altinn Studio app.
+ * @param {string} dataType - The data type whose XML schema should be fetched.
+ * @returns {Promise<string>} The content of the XML schema file as a string.
+ */
+async function fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType) {
+    const filePath = `App/models/${dataType}.xsd`;
+    const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    return fileContent;
+}
+
+/**
+ * Retrieves the app owner and app name for a given data type.
+ *
+ * Searches through the `altinnStudioApps` array for an app matching the provided `dataType`.
+ * If not found, searches the `subforms` array for a subform matching the `dataType`.
+ * Returns an object containing `appOwner` and `appName` if a match is found.
+ * Throws an error if no matching app or subform is found.
+ *
+ * @param {string} dataType - The data type to search for.
+ * @returns {{ appOwner: string, appName: string }} The app owner and app name associated with the data type.
+ * @throws {Error} If no app or subform is found for the given data type.
+ */
+function getAppOwnerAndNameFromDataType(dataType) {
+    const app = altinnStudioApps.find((app) => app.dataType === dataType);
+    if (app) {
+        return { appOwner: app.appOwner, appName: app.appName };
+    }
+    const subform = subforms.find((sub) => sub.dataType === dataType);
+    if (subform) {
+        return { appOwner: subform.appOwner, appName: subform.appName };
+    }
+    throw new Error(`No app or subform found for data type: ${dataType}`);
+}
+
+/**
+ * Reads example data from the local file system, converts XML files to JSON using their corresponding XML schemas,
+ * and organizes the data by data type.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array<{ dataType: string, data: Record<string, any> }>>} 
+ *   A promise that resolves to an array of objects, each containing a dataType and a data object mapping file names to their JSON content.
+ *
+ * @throws {Error} If reading directories or files fails.
+ *
+ * @example
+ * const exampleData = await getJsonExampleData();
+ * console.log(exampleData);
+ */
+export async function getJsonExampleData() {
+    const exampleDataDir = "./api/data/exampleData";
+    const folders = fs.readdirSync(exampleDataDir, { withFileTypes: true }).filter((dirent) => dirent.isDirectory());
+
+    const result = [];
+
+    for (const folder of folders) {
+        const dataType = folder.name;
+        const folderPath = `${exampleDataDir}/${dataType}`;
+        const files = fs.readdirSync(folderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+
+        for (const file of files) {
+            const filePath = `${folderPath}/${file.name}`;
+            const content = fs.readFileSync(filePath, "utf8");
+            const { appOwner, appName } = getAppOwnerAndNameFromDataType(dataType);
+            const xmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType);
+            const existing = result.find((r) => r.dataType === dataType);
+            if (existing) {
+                existing.data[file.name] = convertXmlToJson(content, xmlSchema);
+            } else {
+                result.push({ dataType, data: { [file.name]: convertXmlToJson(content, xmlSchema) } });
+            }
+        }
+    }
+    return result;
 }
