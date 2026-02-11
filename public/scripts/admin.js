@@ -1,21 +1,37 @@
 // Local functions
-import { renderAdminSidebar } from "./adminRenderers.js";
-import { fetchAppResources, fetchDisplayLayouts, fetchPackageVersions } from "./apiHelpers.js";
+import { renderAdminSidebar, showLoadingIndicator } from "./adminRenderers.js";
+import { fetchAppResources, fetchDisplayLayouts, fetchExampleData, fetchPackageVersions } from "./apiHelpers.js";
 import { fetchDefaultTextResources } from "./getters.js";
-import { getMissingResourceBindings, getResourceBindingsWithUsageFromApplications, getUsageForMissingResources, getUsageForResources } from "./validators.js";
+import {
+    getMissingResourceBindings,
+    getResourceBindingsWithUsageFromApplications,
+    getUsageForMissingResources,
+    getUsageForResources
+} from "./validators.js";
 
 globalThis.onload = async function () {
-    const defaultTextResources = await fetchDefaultTextResources("nb");
+    const defaultTextResourcesPromise = fetchDefaultTextResources("nb");
+    const layoutsPromise = fetchDisplayLayouts();
+    const packageVersionsPromise = fetchPackageVersions();
+    const appResourceValuesPromise = fetchAppResources("nb");
+    const exampleDataPromise = fetchExampleData();
+
+    showLoadingIndicator([defaultTextResourcesPromise, layoutsPromise, packageVersionsPromise, appResourceValuesPromise, exampleDataPromise]);
+
+    const defaultTextResources = await defaultTextResourcesPromise;
     globalThis.defaultTextResources = defaultTextResources;
-    const layouts = await fetchDisplayLayouts();
+    const layouts = await layoutsPromise;
     globalThis.displayLayouts = layouts;
-    const packageVersions = await fetchPackageVersions();
+    const packageVersions = await packageVersionsPromise;
     globalThis.packageVersions = packageVersions;
-    const appResourceValues = await fetchAppResources("nb");
+    const appResourceValues = await appResourceValuesPromise;
     globalThis.appResourceValues = appResourceValues;
+    const exampleData = await exampleDataPromise;
+    globalThis.exampleData = exampleData;
+
     const resourceBindingsInApplications = getResourceBindingsWithUsageFromApplications(layouts, "custom");
     const { missingResourceBindings } = getMissingResourceBindings(resourceBindingsInApplications, null, globalThis.defaultTextResources);
-    const {missingResourcesUsage, missingResourcesWithLocalValueUsage} = getUsageForMissingResources(
+    const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getUsageForMissingResources(
         layouts,
         missingResourceBindings.map((res) => ({ id: res })),
         appResourceValues
