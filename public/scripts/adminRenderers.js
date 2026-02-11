@@ -3,6 +3,7 @@ import CustomElementHtmlAttributes from "../../src/classes/system-classes/Custom
 
 // Global functions
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
+import { fetchAltinnStudioForms, fetchExampleData } from "./apiHelpers.js";
 
 // Local functions
 import { getDataForComponent } from "./getters.js";
@@ -116,13 +117,68 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
         selectElement.appendChild(optionElement);
     });
 
-    selectElement.onchange = (event) => {
+    selectElement.onchange = async (event) => {
         const [appOwner, appName] = event.target.value.split("/");
         globalThis.selectedDisplayLayoutAppOwner = appOwner;
         globalThis.selectedDisplayLayoutAppName = appName;
+        const exampleData = globalThis.exampleData || (await fetchExampleData());
+        globalThis.exampleData = exampleData;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        renderDisplayLayoutsPage(mainElement);
+        await renderDisplayLayoutsPage(mainElement, exampleData);
+    };
+
+    formElement.appendChild(labelElement);
+    formElement.appendChild(selectElement);
+    containerElement.appendChild(formElement);
+}
+
+function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileName, appData) {
+    if (!displayLayout) {
+        return;
+    }
+
+    const dataType = displayLayout?.dataType;
+    const appExampleData = appData.find((app) => app.dataType === dataType);
+    if (!appExampleData) {
+        return;
+    }
+
+    const files = Object.keys(appExampleData.data);
+
+    if (files.length === 0) {
+        return;
+    }
+
+    const formElement = document.createElement("form");
+    formElement.classList.add("filter-container");
+    const labelElement = document.createElement("label");
+    labelElement.textContent = "Data: ";
+    labelElement.setAttribute("for", "select-display-layout-file");
+
+    const selectElement = document.createElement("select");
+    selectElement.id = "select-display-layout-file";
+
+    const defaultOptionElement = document.createElement("option");
+    defaultOptionElement.value = "";
+    defaultOptionElement.textContent = "Select a file";
+    selectElement.appendChild(defaultOptionElement);
+
+    files.forEach((file) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = file;
+        optionElement.textContent = file;
+        if (file === selectedFileName) {
+            optionElement.selected = true;
+        }
+        selectElement.appendChild(optionElement);
+    });
+
+    selectElement.onchange = async (event) => {
+        const fileName = event.target.value;
+        const mainElement = document.getElementById("admin-main");
+        mainElement.innerHTML = "";
+        await renderDisplayLayoutsPage(mainElement, appData, fileName);
     };
 
     formElement.appendChild(labelElement);
@@ -244,9 +300,11 @@ export function renderAdminSidebar() {
     const displayLayoutsListItem = document.createElement("li");
     const displayLayoutsButton = document.createElement("button");
     displayLayoutsButton.textContent = "Display Layouts";
-    displayLayoutsButton.onclick = () => {
+    displayLayoutsButton.onclick = async () => {
         mainElement.innerHTML = "";
-        renderDisplayLayoutsPage(mainElement);
+        const exampleData = globalThis.exampleData || (await fetchExampleData());
+        globalThis.exampleData = exampleData;
+        renderDisplayLayoutsPage(mainElement, exampleData);
     };
     displayLayoutsListItem.appendChild(displayLayoutsButton);
     sidebarList.appendChild(displayLayoutsListItem);
