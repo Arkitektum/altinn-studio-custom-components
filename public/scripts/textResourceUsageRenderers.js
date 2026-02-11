@@ -400,8 +400,8 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
 
     applications.forEach((app) => {
         const appOptionElement = document.createElement("option");
-        appOptionElement.value = app?.appName;
-        appOptionElement.innerHTML = app?.appName;
+        appOptionElement.value = `${app?.appOwner}/${app?.appName}`;
+        appOptionElement.textContent = `${app?.appOwner}/${app?.appName}`;
         applicationSelectElement.appendChild(appOptionElement);
     });
 
