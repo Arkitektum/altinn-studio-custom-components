@@ -133,8 +133,9 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
 /** Renders the display layouts page, showing the components of the selected application's display layout.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
+ * @param {Object} appData - The application data containing resource values and other relevant information for rendering the components.
  */
-function renderDisplayLayoutsPage(containerElement) {
+async function renderDisplayLayoutsPage(containerElement, appData, selectedFileName) {
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Display Layouts";
     containerElement.appendChild(titleElement);
@@ -158,6 +159,8 @@ function renderDisplayLayoutsPage(containerElement) {
         return;
     }
 
+    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileName, appData);
+
     const components = displayLayout?.layout?.data?.layout || [];
 
     const pageElement = document.createElement("div");
@@ -170,15 +173,23 @@ function renderDisplayLayoutsPage(containerElement) {
         containerElement.appendChild(noComponentsElement);
         return;
     }
+
+    const altinnStudioForms = globalThis.altinnStudioForms || (await fetchAltinnStudioForms());
+    globalThis.altinnStudioForms = altinnStudioForms;
+
+    const dataType = altinnStudioForms.find(
+        (app) => app.appName === selectedDisplayLayoutAppName && app.appOwner === selectedDisplayLayoutAppOwner
+    )?.dataType;
+
     const resultsElements = components
         .map((component) => {
             if (!component?.tagName) {
                 return;
             }
-            const data = getDataForComponent(component);
+            const formData = getDataForComponent(component, appData, dataType, selectedFileName);
             const htmlAttributes = new CustomElementHtmlAttributes({
                 ...component,
-                formData: data
+                formData
             });
             const containerElement = addContainerElement(createCustomElement(component?.tagName, htmlAttributes));
             if (component?.tagName === "custom-header-text") {
