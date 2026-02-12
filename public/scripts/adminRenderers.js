@@ -121,6 +121,11 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
     const selectElement = document.createElement("select");
     selectElement.id = "select-display-layout-application";
 
+    const defaultOptionElement = document.createElement("option");
+    defaultOptionElement.value = "";
+    defaultOptionElement.textContent = "Select an application";
+    selectElement.appendChild(defaultOptionElement);
+
     globalThis.displayLayouts.forEach((layout) => {
         const optionElement = document.createElement("option");
         optionElement.value = `${layout.appOwner}/${layout.appName}`;
@@ -240,12 +245,8 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
     titleElement.textContent = "Display layouts";
     containerElement.appendChild(titleElement);
 
-    const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName
-        ? globalThis.selectedDisplayLayoutAppName
-        : globalThis.displayLayouts[0].appName;
-    const selectedDisplayLayoutAppOwner = globalThis.selectedDisplayLayoutAppOwner
-        ? globalThis.selectedDisplayLayoutAppOwner
-        : globalThis.displayLayouts[0].appOwner;
+    const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName && globalThis.selectedDisplayLayoutAppName;
+    const selectedDisplayLayoutAppOwner = globalThis.selectedDisplayLayoutAppOwner && globalThis.selectedDisplayLayoutAppOwner;
     renderSelectDisplayLayoutApplicationFilter(containerElement, selectedDisplayLayoutAppName, selectedDisplayLayoutAppOwner);
 
     const displayLayout = globalThis.displayLayouts.find(
