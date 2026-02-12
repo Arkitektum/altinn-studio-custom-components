@@ -212,6 +212,17 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
     containerElement.appendChild(formElement);
 }
 
+function getDisplayLayoutMainHeading(displayLayout) {
+    const localAppResources = globalThis.textResources;
+    const headingElement = document.createElement("h1");
+    const headingResourceId = "appName";
+    const headingText = localAppResources?.resources?.length
+        ? localAppResources.resources.find((res) => res.id === headingResourceId)?.value
+        : "Display layout";
+    headingElement.textContent = headingText;
+    return headingElement;
+}
+
 /** Renders the display layouts page, showing the components of the selected application's display layout.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
@@ -282,6 +293,8 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         .filter((attr) => attr !== undefined);
     appendChildren(codeResultsElement, resultsElements);
 
+    const mainHeadingElement = getDisplayLayoutMainHeading(displayLayout);
+    pageElement.appendChild(mainHeadingElement);
     pageElement.appendChild(codeResultsElement);
     containerElement.appendChild(pageElement);
 }
