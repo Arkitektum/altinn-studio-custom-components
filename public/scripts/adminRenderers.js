@@ -134,6 +134,16 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
     containerElement.appendChild(formElement);
 }
 
+/**
+ * Renders a select dropdown to filter display layouts by filename.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
+ * @param {Object} displayLayout - The current display layout object, expected to have a `dataType` property.
+ * @param {string} selectedFileName - The filename that should be selected by default in the dropdown.
+ * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ *
+ * @returns {void}
+ */
 function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileName, appData) {
     if (!displayLayout) {
         return;
