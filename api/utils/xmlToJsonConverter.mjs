@@ -61,7 +61,7 @@ export function convertXmlToJson(xmlContent, xsdContent) {
     const arrayPathList = [...arrayPaths];
 
     const parser = new XMLParser({
-        ignoreAttributes: false,
+        ignoreAttributes: true,
         attributeNamePrefix: "@",
         parseTagValue: true,
         parseAttributeValue: true,
