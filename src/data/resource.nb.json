@@ -382,10 +382,6 @@
             "value": "Igangsettingstillatelse"
         },
         {
-            "id": "resource.innledning",
-            "value": "Etter plan- og bygningsloven § 20-3, jf. § 20-1"
-        },
-        {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
         },
