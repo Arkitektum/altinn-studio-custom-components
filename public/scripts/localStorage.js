@@ -96,3 +96,14 @@ export function addDataModel() {
     dataModels.push({ data: "", dataType: "", expanded: true });
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
 }
+
+/**
+ * Adds properties from the provided data object to the globalThis object.
+ *
+ * @param {Object} data - An object containing key-value pairs to be added to globalThis.
+ */
+export function addDataToGlobalThis(data) {
+    for (const [key, value] of Object.entries(data)) {
+        globalThis[key] = value;
+    }
+}
