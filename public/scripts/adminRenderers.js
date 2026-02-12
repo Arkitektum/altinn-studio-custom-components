@@ -212,7 +212,14 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
     containerElement.appendChild(formElement);
 }
 
-function getDisplayLayoutMainHeading(displayLayout) {
+/**
+ * Creates and returns an <h1> element containing the main heading for the display layout.
+ * The heading text is retrieved from the global text resources using the resource ID "appName".
+ * If the resource is not found, it defaults to "Display layout".
+ *
+ * @returns {HTMLHeadingElement} The <h1> element with the appropriate heading text.
+ */
+function getDisplayLayoutMainHeading() {
     const localAppResources = globalThis.textResources;
     const headingElement = document.createElement("h1");
     const headingResourceId = "appName";
