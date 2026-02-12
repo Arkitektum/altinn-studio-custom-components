@@ -18,6 +18,14 @@
     }
 }
 
+@page {
+    size: A4 portrait;
+    margin-top: 1cm;
+    margin-bottom: 1.5cm;
+    margin-left: 1.25cm;
+    margin-right: 1.25cm;
+}
+
 & * {
     box-sizing: border-box;
 }
@@ -239,6 +247,9 @@
             padding-top: 1cm;
             padding-right: 1.25cm;
             padding-bottom: 1cm;
+            & > h1 {
+                margin-bottom: 22px;
+            }
         }
         dialog.dialog {
             position: fixed;
@@ -415,20 +426,6 @@
                 padding: 16px;
                 box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);
                 background-color: #fcfcfc;
-            }
-
-            & h4 {
-                margin: 0 0 5px 0;
-                font-size: 16px;
-                font-weight: 300;
-                color: #333;
-            }
-
-            & p {
-                font-size: 14px;
-                font-weight: 400;
-                color: #555;
-                margin: 0 0 16px 0;
             }
 
             & .expand-collapse-icon {
@@ -656,5 +653,19 @@
     }
     html {
         font-size: inherit !important;
+    }
+    .page-container {
+        main {
+            & > :not(.page) {
+                display: none;
+            }
+            & .page {
+                margin: 0;
+                box-shadow: none;
+                & > h1 {
+                    margin-bottom: 22px;
+                }
+            }
+        }
     }
 }
