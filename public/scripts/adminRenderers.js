@@ -3,10 +3,11 @@ import CustomElementHtmlAttributes from "../../src/classes/system-classes/Custom
 
 // Global functions
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
-import { fetchAltinnStudioForms, fetchExampleData } from "./apiHelpers.js";
 
 // Local functions
+import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
 import { getDataForComponent } from "./getters.js";
+import { addDataToGlobalThis, addValuesToLocalStorage, addValueToLocalStorage } from "./localStorage.js";
 import {
     renderDefaultTextResourcesList,
     renderRadioButtonsFilterForTextResourcesList,
@@ -346,4 +347,58 @@ export function showLoadingIndicator(dataFetchPromises) {
             }
         });
     });
+}
+
+/**
+ * Renders a "Synchronize data" button and last updated timestamp in the sidebar.
+ *
+ * When the button is clicked, it fetches updated API data, stores it in localStorage,
+ * updates the global context, and refreshes the last updated timestamp.
+ *
+ * Dependencies:
+ * - Assumes existence of `getUpdatedApiData`, `addValueToLocalStorage`, `addValuesToLocalStorage`, and `addDataToGlobalThis` functions.
+ * - Uses `globalThis.lastUpdated` for initial timestamp display.
+ * - Expects an element with id "sidebar" to exist in the DOM.
+ */
+export function renderSynchronizeButton() {
+    const sidebarElement = document.getElementById("sidebar");
+
+    const synchronizeElementsContainer = document.createElement("div");
+    synchronizeElementsContainer.classList.add("synchronize-container");
+
+    sidebarElement.appendChild(synchronizeElementsContainer);
+
+    const synchronizeButton = document.createElement("button");
+
+    const lastUpdatedElement = document.createElement("span");
+    lastUpdatedElement.classList.add("last-updated");
+    const lastUpdated = globalThis.lastUpdated ? new Date(globalThis.lastUpdated) : null;
+    lastUpdatedElement.textContent = lastUpdated ? `Last updated: ${lastUpdated.toLocaleString()}` : "Last updated: N/A";
+    synchronizeElementsContainer.appendChild(lastUpdatedElement);
+
+    synchronizeButton.textContent = "Synchronize data";
+    synchronizeButton.onclick = async () => {
+        const [defaultTextResources, displayLayouts, packageVersions, appResourceValues, exampleData] = await getUpdatedApiData();
+
+        const lastUpdated = new Date().toISOString();
+        addValueToLocalStorage("lastUpdated", lastUpdated);
+        addValuesToLocalStorage({
+            defaultTextResources,
+            displayLayouts,
+            packageVersions,
+            appResourceValues,
+            exampleData
+        });
+        addDataToGlobalThis({
+            defaultTextResources,
+            displayLayouts,
+            packageVersions,
+            appResourceValues,
+            exampleData,
+            lastUpdated
+        });
+
+        lastUpdatedElement.textContent = `Last updated: ${new Date(lastUpdated).toLocaleString()}`;
+    };
+    synchronizeElementsContainer.appendChild(synchronizeButton);
 }

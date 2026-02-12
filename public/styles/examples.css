@@ -164,6 +164,38 @@
                     background-color: #393b3d;
                 }
             }
+            & .synchronize-container {
+                margin: 16px 8px 16px 8px;
+                padding: 12px;
+                background-color: #202224;
+                border-radius: 4px;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                & button {
+                    width: 100%;
+                    background-color: #287fff;
+                    color: #fff;
+                    border: none;
+                    cursor: pointer;
+                    padding: 10px 0;
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-size: 16px;
+                    border-radius: 4px;
+                    font-family: var(--font-family-default);
+                    transition: var(--background-transition-default);
+                    &:hover {
+                        background-color: #3d9bff;
+                    }
+                }
+                & span.last-updated {
+                    font-size: 0.8rem;
+                    margin-top: 8px;
+                    color: #ccc;
+                }
+            }
         }
         & section.data-input {
             padding: 0;
