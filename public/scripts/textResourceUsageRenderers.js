@@ -287,8 +287,12 @@ function handleFilterChange(containerElement, textResources) {
  * @returns {HTMLDivElement} The DOM element containing the radio button filters.
  */
 export function renderRadioButtonsFilterForTextResourcesList(containerElement, textResources) {
-    const filterContainerElement = document.createElement("div");
+    const filterContainerElement = document.createElement("fieldset");
     filterContainerElement.classList.add("filter-container");
+
+    const filterLegendElement = document.createElement("legend");
+    filterLegendElement.innerHTML = "Filter by usage:";
+    filterContainerElement.appendChild(filterLegendElement);
 
     const allResourcesRadioElement = document.createElement("input");
     allResourcesRadioElement.id = "filter-all-resources";
@@ -387,7 +391,7 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
 
     const applicationSelectLabelElement = document.createElement("label");
     applicationSelectLabelElement.htmlFor = "application-filter-select";
-    applicationSelectLabelElement.innerHTML = "Application: ";
+    applicationSelectLabelElement.innerHTML = "Application";
     selectContainerElement.appendChild(applicationSelectLabelElement);
 
     const applicationSelectElement = document.createElement("select");
@@ -432,7 +436,7 @@ export function renderTextInputFilterForTextResourcesList(containerElement, text
 
     const textInputLabelElement = document.createElement("label");
     textInputLabelElement.htmlFor = "text-filter-input";
-    textInputLabelElement.innerHTML = "Filter by text: ";
+    textInputLabelElement.innerHTML = "Filter by text";
     textInputContainerElement.appendChild(textInputLabelElement);
 
     const textFilterInputElement = document.createElement("input");

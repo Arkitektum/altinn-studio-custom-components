@@ -42,7 +42,7 @@ function renderResourceUsagePage(containerElement) {
  */
 function renderPackageVersionsPage(containerElement) {
     const titleElement = document.createElement("h2");
-    titleElement.textContent = "Package Versions";
+    titleElement.textContent = "Package versions";
     containerElement.appendChild(titleElement);
 
     const contentContainerElement = document.createElement("div");
@@ -115,7 +115,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
-    labelElement.textContent = "Application: ";
+    labelElement.textContent = "Application";
     labelElement.setAttribute("for", "select-display-layout-application");
 
     const selectElement = document.createElement("select");
@@ -179,7 +179,7 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
-    labelElement.textContent = "Data: ";
+    labelElement.textContent = "Data";
     labelElement.setAttribute("for", "select-display-layout-file");
 
     const selectElement = document.createElement("select");
@@ -219,7 +219,7 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
  */
 async function renderDisplayLayoutsPage(containerElement, appData, selectedFileName) {
     const titleElement = document.createElement("h2");
-    titleElement.textContent = "Display Layouts";
+    titleElement.textContent = "Display layouts";
     containerElement.appendChild(titleElement);
 
     const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName
@@ -305,7 +305,7 @@ export function renderAdminSidebar() {
 
     const resourceUsageListItem = document.createElement("li");
     const resourceUsageButton = document.createElement("button");
-    resourceUsageButton.textContent = "Resource Usage";
+    resourceUsageButton.textContent = "Resource usage";
     resourceUsageButton.onclick = () => {
         mainElement.innerHTML = "";
         renderResourceUsagePage(mainElement);
@@ -315,7 +315,7 @@ export function renderAdminSidebar() {
 
     const packageVersionsListItem = document.createElement("li");
     const packageVersionsButton = document.createElement("button");
-    packageVersionsButton.textContent = "Package Versions";
+    packageVersionsButton.textContent = "Package versions";
     packageVersionsButton.onclick = () => {
         mainElement.innerHTML = "";
         renderPackageVersionsPage(mainElement);
@@ -325,7 +325,7 @@ export function renderAdminSidebar() {
 
     const displayLayoutsListItem = document.createElement("li");
     const displayLayoutsButton = document.createElement("button");
-    displayLayoutsButton.textContent = "Display Layouts";
+    displayLayoutsButton.textContent = "Display layouts";
     displayLayoutsButton.onclick = async () => {
         mainElement.innerHTML = "";
         const exampleData = globalThis.exampleData || (await fetchExampleData());
