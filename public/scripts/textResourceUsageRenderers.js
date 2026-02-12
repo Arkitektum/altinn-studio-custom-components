@@ -42,7 +42,7 @@ function renderComponentUsingResourceListItem(component) {
  */
 function renderAppUsageDetailsListItem(appUsage) {
     const appUsageListItemElement = document.createElement("details");
-    const appName = appUsage?.appName || "Unknown app";
+    const appName = `${appUsage?.appOwner}/${appUsage?.appName}` || "Unknown app";
     const componentUsageNumber = appUsage?.componentsUsingResource?.length || 0;
     const appUsageSummaryElement = document.createElement("summary");
 
@@ -410,7 +410,10 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
     });
 
     const updateResourceListBasedOnApplicationFilter = () => {
-        globalThis.selectedAppName = applicationSelectElement.value;
+        const selectElementValue = applicationSelectElement.value;
+        const [appOwner, appName] = selectElementValue.split("/");
+        globalThis.selectedAppOwner = appOwner || "";
+        globalThis.selectedAppName = appName || "";
         handleFilterChange(containerElement, textResources);
     };
 
