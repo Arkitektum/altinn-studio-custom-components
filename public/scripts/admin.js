@@ -1,7 +1,13 @@
 // Local functions
-import { renderAdminSidebar, showLoadingIndicator } from "./adminRenderers.js";
-import { fetchAppResources, fetchDisplayLayouts, fetchExampleData, fetchPackageVersions } from "./apiHelpers.js";
-import { fetchDefaultTextResources } from "./getters.js";
+import { renderAdminSidebar, renderSynchronizeButton } from "./adminRenderers.js";
+import { getUpdatedApiData } from "./apiHelpers.js";
+import {
+    addDataToGlobalThis,
+    addValuesToLocalStorage,
+    addValueToLocalStorage,
+    getValueFromLocalStorage,
+    getValuesFromLocalStorage
+} from "./localStorage.js";
 import {
     getMissingResourceBindings,
     getResourceBindingsWithUsageFromApplications,
@@ -9,35 +15,60 @@ import {
     getUsageForResources
 } from "./validators.js";
 
-globalThis.onload = async function () {
-    const defaultTextResourcesPromise = fetchDefaultTextResources("nb");
-    const layoutsPromise = fetchDisplayLayouts();
-    const packageVersionsPromise = fetchPackageVersions();
-    const appResourceValuesPromise = fetchAppResources("nb");
-    const exampleDataPromise = fetchExampleData();
+function getDataFromLocalStorage() {
+    const lastUpdated = getValueFromLocalStorage("lastUpdated");
+    return {
+        lastUpdated,
+        ...getValuesFromLocalStorage(["defaultTextResources", "displayLayouts", "packageVersions", "appResourceValues", "exampleData"])
+    };
+}
 
-    showLoadingIndicator([defaultTextResourcesPromise, layoutsPromise, packageVersionsPromise, appResourceValuesPromise, exampleDataPromise]);
-
-    const defaultTextResources = await defaultTextResourcesPromise;
-    globalThis.defaultTextResources = defaultTextResources;
-    const layouts = await layoutsPromise;
-    globalThis.displayLayouts = layouts;
-    const packageVersions = await packageVersionsPromise;
-    globalThis.packageVersions = packageVersions;
-    const appResourceValues = await appResourceValuesPromise;
-    globalThis.appResourceValues = appResourceValues;
-    const exampleData = await exampleDataPromise;
-    globalThis.exampleData = exampleData;
-
-    const resourceBindingsInApplications = getResourceBindingsWithUsageFromApplications(layouts, "custom");
-    const { missingResourceBindings } = getMissingResourceBindings(resourceBindingsInApplications, null, globalThis.defaultTextResources);
+function getMissingResourceBindingsWithUsage(displayLayouts, appResourceValues, defaultTextResources) {
+    const resourceBindingsInApplications = getResourceBindingsWithUsageFromApplications(displayLayouts, "custom");
+    const { missingResourceBindings } = getMissingResourceBindings(resourceBindingsInApplications, null, defaultTextResources);
     const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getUsageForMissingResources(
-        layouts,
+        displayLayouts,
         missingResourceBindings.map((res) => ({ id: res })),
         appResourceValues
     );
-    const textResourceUsage = getUsageForResources(layouts, globalThis.defaultTextResources?.resources);
-    const allTextResourceUsage = [...textResourceUsage, ...missingResourcesUsage, ...missingResourcesWithLocalValueUsage];
-    globalThis.allTextResourceUsage = allTextResourceUsage;
+    return { missingResourceBindings, missingResourcesUsage, missingResourcesWithLocalValueUsage };
+}
+
+function getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextResources) {
+    const textResourceUsage = getUsageForResources(displayLayouts, defaultTextResources?.resources);
+    const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getMissingResourceBindingsWithUsage(
+        displayLayouts,
+        appResourceValues,
+        defaultTextResources
+    );
+    return [...textResourceUsage, ...missingResourcesUsage, ...missingResourcesWithLocalValueUsage];
+}
+
+globalThis.onload = async function () {
+    let { defaultTextResources, displayLayouts, packageVersions, appResourceValues, exampleData, lastUpdated } = getDataFromLocalStorage();
+    if (!defaultTextResources || !displayLayouts || !packageVersions || !appResourceValues || !exampleData) {
+        [defaultTextResources, displayLayouts, packageVersions, appResourceValues, exampleData] = await getUpdatedApiData();
+        lastUpdated = new Date().toISOString();
+        addValueToLocalStorage("lastUpdated", lastUpdated);
+    }
+    addValuesToLocalStorage({
+        defaultTextResources,
+        displayLayouts,
+        packageVersions,
+        appResourceValues,
+        exampleData
+    });
+    const allTextResourceUsage = getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextResources);
+    addDataToGlobalThis({
+        defaultTextResources,
+        displayLayouts,
+        packageVersions,
+        appResourceValues,
+        exampleData,
+        allTextResourceUsage,
+        lastUpdated
+    });
+
     renderAdminSidebar();
+    renderSynchronizeButton();
 };
