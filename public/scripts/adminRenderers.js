@@ -92,6 +92,19 @@ function renderPackageVersionsPage(containerElement) {
     containerElement.appendChild(contentContainerElement);
 }
 
+/**
+ * Retrieves the local text resources for a specific application based on its name and owner.
+ *
+ * @param {string} appName - The name of the application.
+ * @param {string} appOwner - The owner of the application.
+ * @param {Array<{ appName: string, appOwner: string, resourceValues: Array }>} appResourceValues -
+ *   An array of objects containing application names, owners, and their associated resource values.
+ * @returns {Array} The resource values for the specified application, or an empty array if not found.
+ */
+function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
+    return appResourceValues.find((app) => app.appName === appName && app.appOwner === appOwner)?.resourceValues || [];
+}
+
 /** Renders a filter for selecting an application and displays the corresponding display layout components.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
@@ -124,6 +137,8 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
         globalThis.selectedDisplayLayoutAppName = appName;
         const exampleData = globalThis.exampleData || (await fetchExampleData());
         globalThis.exampleData = exampleData;
+        const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
+        globalThis.textResources = localTextResources;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
         await renderDisplayLayoutsPage(mainElement, exampleData);
