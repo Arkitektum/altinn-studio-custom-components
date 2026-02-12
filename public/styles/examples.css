@@ -593,30 +593,56 @@
             & .filter-container {
                 margin: 16px auto;
                 padding: 0;
+                border: none;
+                & legend {
+                    padding: 0;
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #333;
+                }
                 & label {
                     font-size: 14px;
                     font-weight: 600;
                     color: #333;
-                    margin-right: 12px;
                     cursor: pointer;
+                    display: block;
                 }
                 & select {
                     font-size: 14px;
-                    padding: 4px 8px;
+                    padding: 6px 8px;
                     border-radius: 4px;
                     border: 1px solid #ccc;
                     cursor: pointer;
+                    &:hover {
+                        outline: 1px solid #999;
+                        outline-style: auto;
+                    }
                 }
                 & input[type="radio"] {
-                    margin-right: 6px;
+                    width: 16px;
+                    height: 16px;
                     cursor: pointer;
+                    vertical-align: text-top;
+                    &:hover {
+                        outline: 1px solid #999;
+                        outline-style: auto;
+                    }
+                    & + label {
+                        display: inline-block;
+                        margin: 0 16px 0 4px;
+                        vertical-align: bottom;
+                    }
                 }
                 & input[type="text"] {
                     font-size: 14px;
-                    padding: 4px 8px;
+                    padding: 7px 12px;
                     border-radius: 4px;
                     border: 1px solid #ccc;
                     width: 300px;
+                    &:hover {
+                        outline: 1px solid #999;
+                        outline-style: auto;
+                    }
                 }
             }
         }
