@@ -78,7 +78,9 @@ export function renderAvloepElement(component) {
             title: component?.resourceBindings?.avloep?.title,
             harTinglystErklaering: component?.resourceBindings?.avloepHarTinglystErklaering,
             krysserAvloepAnnensGrunn: component?.resourceBindings?.avloepKrysserAvloepAnnensGrunn,
-            tilknytningstype: component?.resourceBindings?.avloepTilknytningstype
+            tilknytningstype: component?.resourceBindings?.avloepTilknytningstype,
+            skalInstallereVannklosett: component?.resourceBindings?.avloepSkalInstallereVannklosett,
+            harUtslippstillatelse: component?.resourceBindings?.avloepHarUtslippstillatelse
         },
         resourceValues: {
             data: data?.avloep

@@ -6,7 +6,9 @@ describe("Avloep", () => {
         const props = {
             harTinglystErklaering: true,
             krysserAvloepAnnensGrunn: false,
-            tilknytningstype: { kodeverdi: "A", kodebeskrivelse: "Test" }
+            tilknytningstype: { kodeverdi: "A", kodebeskrivelse: "Test" },
+            skalInstallereVannklosett: true,
+            harUtslippstillatelse: false
         };
         const avloep = new Avloep(props);
 
@@ -15,6 +17,8 @@ describe("Avloep", () => {
         expect(avloep.tilknytningstype).toBeInstanceOf(Kode);
         expect(avloep.tilknytningstype.kodeverdi).toBe("A");
         expect(avloep.tilknytningstype.kodebeskrivelse).toBe("Test");
+        expect(avloep.skalInstallereVannklosett).toBe(true);
+        expect(avloep.harUtslippstillatelse).toBe(false);
     });
 
     it("should handle missing tilknytningstype", () => {
@@ -27,6 +31,8 @@ describe("Avloep", () => {
         expect(avloep.harTinglystErklaering).toBe(false);
         expect(avloep.krysserAvloepAnnensGrunn).toBe(true);
         expect(avloep.tilknytningstype).toBeUndefined();
+        expect(avloep.skalInstallereVannklosett).toBeUndefined();
+        expect(avloep.harUtslippstillatelse).toBeUndefined();
     });
 
     it("should handle undefined props", () => {
@@ -35,5 +41,7 @@ describe("Avloep", () => {
         expect(avloep.harTinglystErklaering).toBeUndefined();
         expect(avloep.krysserAvloepAnnensGrunn).toBeUndefined();
         expect(avloep.tilknytningstype).toBeUndefined();
+        expect(avloep.skalInstallereVannklosett).toBeUndefined();
+        expect(avloep.harUtslippstillatelse).toBeUndefined();
     });
 });

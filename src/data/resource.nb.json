@@ -646,6 +646,14 @@
             "value": "Tilknytning"
         },
         {
+            "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
+            "value": "Skal det installeres vannklosett?"
+        },
+        {
+            "id": "resource.rammebetingelser.avloep.harUtslippstillatelse.title",
+            "value": "Foreligger utslippstillatelse?"
+        },
+        {
             "id": "resource.rammebetingelser.avloep.title",
             "value": "Avløp"
         },
