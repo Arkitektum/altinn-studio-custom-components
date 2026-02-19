@@ -92,7 +92,7 @@ const altinnStudioApps = [
     {
         appOwner: "dibk",
         appName: "uttalelse-varselplanoppstart",
-        dataType: "Planuttalelse"
+        dataType: "planuttalelse"
     },
     {
         appOwner: "dibk",
