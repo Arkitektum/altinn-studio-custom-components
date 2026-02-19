@@ -134,14 +134,6 @@
             "value": "Beskrivelse av tiltak"
         },
         {
-            "id": "resource.dispensasjoner.count.title",
-            "value": "Antall dispensasjonssøknader"
-        },
-        {
-            "id": "resource.dispensasjoner.header",
-            "value": "Oversikt over omsøkte dispensasjoner"
-        },
-        {
             "id": "resource.dispensasjonFra.bestemmelserType.title",
             "value": "Bestemmelsestype"
         },
@@ -388,10 +380,6 @@
         {
             "id": "resource.igangsettingstillatelse.title",
             "value": "Igangsettingstillatelse"
-        },
-        {
-            "id": "resource.innledning",
-            "value": "Etter plan- og bygningsloven § 20-3, jf. § 20-1"
         },
         {
             "id": "resource.kommunensSaksnummer.title",
@@ -852,10 +840,6 @@
         {
             "id": "resource.soeknadGjelder.bruk.anleggstype.title",
             "value": "Anleggstype"
-        },
-        {
-            "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal",
-            "value": "Beskrivelse av planlagt formål"
         },
         {
             "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
