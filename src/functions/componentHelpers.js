@@ -35,6 +35,7 @@ import CustomGrouplistSamsvarAnsvarsomraade from "../classes/system-classes/comp
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
+import CustomGrouplistVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGrouplistVegtypeTillatelse.js";
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
@@ -171,6 +172,8 @@ export function instantiateComponent(element) {
             return new CustomGrouplistUtfallSvar(component);
         case "custom-grouplist-utfall-svar-type":
             return new CustomGrouplistUtfallSvarType(component);
+        case "custom-grouplist-vegtype-tillatelse":
+            return new CustomGrouplistVegtypeTillatelse(component);
         case "custom-header":
             return new CustomHeader(component);
         case "custom-header-text":
