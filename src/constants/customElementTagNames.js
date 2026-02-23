@@ -46,6 +46,7 @@ export default [
     "custom-group-utfall-svar-type",
     "custom-group-utfall-svar",
     "custom-group-vannforsyning",
+    "custom-group-vegtype-tillatelse",
     "custom-header-text",
     "custom-header-text-data",
     "custom-list-data",
