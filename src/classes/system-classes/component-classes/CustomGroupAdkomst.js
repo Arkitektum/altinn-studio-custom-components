@@ -115,7 +115,7 @@ export default class CustomGroupAdkomst extends CustomComponent {
                 title: props?.resourceBindings?.erTillatelseGitt?.title || "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
                 trueText: props?.resourceBindings?.erTillatelseGitt?.trueText || "resource.trueText.default",
                 falseText: props?.resourceBindings?.erTillatelseGitt?.falseText || "resource.falseText.default",
-                defaultText: props?.resourceBindings?.erTillatelseGitt?.defaultText || "resource.defaultText.default"
+                defaultText: props?.resourceBindings?.erTillatelseGitt?.defaultText || "resource.emptyFieldText.default"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
