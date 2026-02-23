@@ -730,6 +730,22 @@
             "value": "Er vann- og avløpsledninger i konflikt med tiltaket?"
         },
         {
+            "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
+            "value": "Er tiltaket innenfor byggegrensen?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandNabogrense.title",
+            "value": "Hva er minste avstand til nabogrense?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilMidtenAvVei.title",
+            "value": "Hva er minste avstand til midten av vei?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilAnnenBygning.title",
+            "value": "Hva er minste avstand til annen bygning?"
+        },
+        {
             "id": "resource.rammebetingelser.plassering.title",
             "value": "Plassering av tiltaket"
         },
