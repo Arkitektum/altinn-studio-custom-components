@@ -30,6 +30,7 @@ export default [
     "custom-grouplist-sjekklistekrav",
     "custom-grouplist-utfall-svar-type",
     "custom-grouplist-utfall-svar",
+    "custom-grouplist-vegtype-tillatelse",
     "custom-group-adkomst",
     "custom-group-ansvarsrett-erklaeringer",
     "custom-group-avloep",
