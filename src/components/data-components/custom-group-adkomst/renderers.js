@@ -50,30 +50,29 @@ export function renderErNyEllerEndretAdkomstElement(component) {
 }
 
 /**
- * Renders a custom field data element for "vegtype" using provided component data.
+ * Renders a custom element for displaying vegtype and tillatelse information.
  *
- * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} component - The component object containing resource bindings and values.
  * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing vegtype information.
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.vegtype] - The vegtype resource binding.
- * @param {string} [component.resourceBindings.vegtype.title] - The title for the vegtype field.
- * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
+ * @param {string} [component.resourceBindings.adkomstVegtype] - The resource binding for vegtype.
+ * @param {string} [component.resourceBindings.adkomstErTillatelseGitt] - The resource binding for tillatelse.
+ * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
-export function renderVegtypeElement(component) {
+export function renderVegtypeTillatelseElement(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        itemKey: "kodebeskrivelse",
         resourceBindings: {
-            title: component?.resourceBindings?.vegtype?.title
+            vegtype: component?.resourceBindings?.adkomstVegtype,
+            erTillatelseGitt: component?.resourceBindings?.adkomstErTillatelseGitt
         },
         resourceValues: {
-            data: data?.vegtype?.kode
+            data: data
         }
     });
-    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
+    return addContainerElement(createCustomElement("custom-grouplist-vegtype-tillatelse", htmlAttributes));
 }
 
 /**
