@@ -50,6 +50,7 @@ import customGroupSjekklistekrav from "./group/custom-group-sjekklistekrav.js";
 import customGroupUtfallSvar from "./group/custom-group-utfall-svar.js";
 import customGroupUtfallSvarType from "./group/custom-group-utfall-svar-type.js";
 import customGroupVannforsyning from "./group/custom-group-vannforsyning.js";
+import customGroupVegtypeTillatelse from "./group/custom-group-vegtype-tillatelse.js";
 
 // Grouplist
 import customGrouplistAnsvarsomraadeType from "./grouplist/custom-grouplist-ansvarsomraade-type.js";
@@ -58,6 +59,7 @@ import customGrouplistNaboGjenboerEiendom from "./grouplist/custom-grouplist-nab
 import customGrouplistSjekklistekrav from "./grouplist/custom-grouplist-sjekklistekrav.js";
 import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
 import customGrouplistUtfallSvar from "./grouplist/custom-grouplist-utfall-svar.js";
+import customGrouplistVegtypeTillatelse from "./grouplist/custom-grouplist-vegtype-tillatelse.js";
 
 // Layout
 import customDispensasjon from "./layout/custom-dispensasjon.js";
@@ -112,7 +114,8 @@ export const group = {
     customGroupSjekklistekrav,
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
-    customGroupVannforsyning
+    customGroupVannforsyning,
+    customGroupVegtypeTillatelse
 };
 
 export const grouplist = {
@@ -121,7 +124,8 @@ export const grouplist = {
     customGrouplistNaboGjenboerEiendom,
     customGrouplistSjekklistekrav,
     customGrouplistUtfallSvarType,
-    customGrouplistUtfallSvar
+    customGrouplistUtfallSvar,
+    customGrouplistVegtypeTillatelse
 };
 
 export const layout = { customDispensasjon, customGjennomfoeringsplan, customGjenpartNabovarsel };

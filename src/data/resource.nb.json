@@ -578,6 +578,10 @@
             "value": "Skal tiltaket gi ny eller endret adkomst?"
         },
         {
+            "id": "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+            "value": "Er tillatelse gitt for endringen?"
+        },
+        {
             "id": "resource.rammebetingelser.adkomst.title",
             "value": "Adkomst"
         },
