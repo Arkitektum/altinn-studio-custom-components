@@ -33,6 +33,7 @@ import customGrouplistSamsvarAnsvarsomraade from "./data-components/custom-group
 import customGrouplistSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/index.js";
 import customGrouplistUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/index.js";
 import customGrouplistUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/index.js";
+import customGrouplistVegtypeTillatelse from "./data-components/custom-grouplist-vegtype-tillatelse/index.js";
 import customGroupAdkomst from "./data-components/custom-group-adkomst/index.js";
 import customGroupAnsvarsrettErklaeringer from "./data-components/custom-group-ansvarsrett-erklaeringer/index.js";
 import customGroupAvloep from "./data-components/custom-group-avloep/index.js";
@@ -49,6 +50,7 @@ import customGroupSjekklistekrav from "./data-components/custom-grouplist-sjekkl
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
 import customGroupVannforsyning from "./data-components/custom-group-vannforsyning/index.js";
+import customGroupVegtypeTillatelse from "./data-components/custom-grouplist-vegtype-tillatelse/custom-group-vegtype-tillatelse/index.js";
 import customHeaderText from "./data-components/custom-header-text/index.js";
 import customHeaderTextData from "./data-components/custom-header-text-data/index.js";
 import customListData from "./data-components/custom-list-data/index.js";
@@ -113,6 +115,7 @@ export {
     customGrouplistSjekklistekrav,
     customGrouplistUtfallSvar,
     customGrouplistUtfallSvarType,
+    customGrouplistVegtypeTillatelse,
     customGroupAdkomst,
     customGroupAnsvarsrettErklaeringer,
     customGroupAvloep,
@@ -129,6 +132,7 @@ export {
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
     customGroupVannforsyning,
+    customGroupVegtypeTillatelse,
     customHeaderText,
     customHeaderTextData,
     customListData,
