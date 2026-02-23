@@ -90,6 +90,11 @@ export default class CustomGroupAdkomst extends CustomComponent {
      * @param {string} [props.resourceBindings.erNyEllerEndretAdkomst.falseText] - Custom false text.
      * @param {Object} [props.resourceBindings.vegtype] - Resource bindings for 'vegtype'.
      * @param {string} [props.resourceBindings.vegtype.title] - Custom title for 'vegtype'.
+     * @param {Object} [props.resourceBindings.erTillatelseGitt] - Resource bindings for 'erTillatelseGitt'.
+     * @param {string} [props.resourceBindings.erTillatelseGitt.title] - Custom title for 'erTillatelseGitt'.
+     * @param {string} [props.resourceBindings.erTillatelseGitt.trueText] - Custom true text for 'erTillatelseGitt'.
+     * @param {string} [props.resourceBindings.erTillatelseGitt.falseText] - Custom false text for 'erTillatelseGitt'.
+     * @param {string} [props.resourceBindings.erTillatelseGitt.defaultText] - Custom default text for 'erTillatelseGitt'.
      * @param {string} [props.resourceBindings.title] - Custom title for 'adkomst'.
      * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text for 'adkomst'.
      * @param {boolean|string} [props.hideTitle] - If true, hides the 'adkomst' title.
@@ -105,6 +110,12 @@ export default class CustomGroupAdkomst extends CustomComponent {
             },
             vegtype: {
                 title: props?.resourceBindings?.vegtype?.title || `resource.rammebetingelser.adkomst.vegtype.title`
+            },
+            erTillatelseGitt: {
+                title: props?.resourceBindings?.erTillatelseGitt?.title || "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+                trueText: props?.resourceBindings?.erTillatelseGitt?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.erTillatelseGitt?.falseText || "resource.falseText.default",
+                defaultText: props?.resourceBindings?.erTillatelseGitt?.defaultText || "resource.emptyFieldText.default"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
