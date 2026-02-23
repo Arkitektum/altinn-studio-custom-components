@@ -502,6 +502,18 @@
             "value": "Organisasjonsnummer"
         },
         {
+            "id": "resource.part.bestillerreferanse.title",
+            "value": "Bestiller referanse"
+        },
+        {
+            "id": "resource.part.fakturareferanse.title",
+            "value": "Fakturareferanse"
+        },
+        {
+            "id": "resource.part.prosjektnummer.title",
+            "value": "Prosjektnummer"
+        },
+        {
             "id": "resource.part.telefonnummer.title",
             "value": "Telefonnummer"
         },
@@ -564,6 +576,10 @@
         {
             "id": "resource.rammebetingelser.adkomst.erNyEllerEndretAdkomst.title",
             "value": "Skal tiltaket gi ny eller endret adkomst?"
+        },
+        {
+            "id": "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+            "value": "Er tillatelse gitt for endringen?"
         },
         {
             "id": "resource.rammebetingelser.adkomst.title",
@@ -712,6 +728,22 @@
         {
             "id": "resource.rammebetingelser.plassering.erKonfliktMedVannOgAvloep.title",
             "value": "Er vann- og avløpsledninger i konflikt med tiltaket?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
+            "value": "Er tiltaket innenfor byggegrensen?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandNabogrense.title",
+            "value": "Hva er minste avstand til nabogrense?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilMidtenAvVei.title",
+            "value": "Hva er minste avstand til midten av vei?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilAnnenBygning.title",
+            "value": "Hva er minste avstand til annen bygning?"
         },
         {
             "id": "resource.rammebetingelser.plassering.title",
