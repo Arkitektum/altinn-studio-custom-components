@@ -106,6 +106,12 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
             adkomstVegtype: {
                 title: props?.resourceBindings?.adkomst?.vegtype?.title || "resource.rammebetingelser.adkomst.vegtype.title"
             },
+            adkomstErTillatelseGitt: {
+                title: props?.resourceBindings?.adkomst?.erTillatelseGitt?.title || "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+                trueText: props?.resourceBindings?.adkomst?.erTillatelseGitt?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.adkomst?.erTillatelseGitt?.falseText || "resource.falseText.default",
+                defaultText: props?.resourceBindings?.adkomst?.erTillatelseGitt?.defaultText || "resource.emptyFieldText.default"
+            },
             avloep: {
                 title: props?.resourceBindings?.avloep?.title || "resource.rammebetingelser.avloep.title",
                 emptyFieldText: props?.resourceBindings?.avloep?.emptyFieldText || "resource.emptyFieldText.default"
