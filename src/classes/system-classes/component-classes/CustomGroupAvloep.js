@@ -114,6 +114,17 @@ export default class CustomGroupAvloep extends CustomComponent {
             },
             tilknytningstype: {
                 title: props?.resourceBindings?.tilknytningstype?.title || `resource.rammebetingelser.avloep.tilknytningstype.title`
+            },
+            skalInstallereVannklosett: {
+                title:
+                    props?.resourceBindings?.skalInstallereVannklosett?.title || `resource.rammebetingelser.avloep.skalInstallereVannklosett.title`,
+                trueText: props?.resourceBindings?.skalInstallereVannklosett?.trueText || `resource.trueText.default`,
+                falseText: props?.resourceBindings?.skalInstallereVannklosett?.falseText || `resource.falseText.default`
+            },
+            harUtslippstillatelse: {
+                title: props?.resourceBindings?.harUtslippstillatelse?.title || `resource.rammebetingelser.avloep.harUtslippstillatelse.title`,
+                trueText: props?.resourceBindings?.harUtslippstillatelse?.trueText || `resource.trueText.default`,
+                falseText: props?.resourceBindings?.harUtslippstillatelse?.falseText || `resource.falseText.default`
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {

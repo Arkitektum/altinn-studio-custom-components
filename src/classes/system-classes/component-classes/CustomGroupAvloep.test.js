@@ -95,6 +95,8 @@ describe("CustomGroupAvloep", () => {
                 harTinglystErklaering: { title: "customTitle", trueText: "yes", falseText: "no" },
                 krysserAvloepAnnensGrunn: { title: "otherTitle", trueText: "yup", falseText: "nope" },
                 tilknytningstype: { title: "typeTitle" },
+                skalInstallereVannklosett: { title: "vannTitle", trueText: "yup", falseText: "nope" },
+                harUtslippstillatelse: { title: "utslippTitle", trueText: "yup", falseText: "nope" },
                 title: "mainTitle",
                 emptyFieldText: "emptyText"
             }
@@ -107,6 +109,12 @@ describe("CustomGroupAvloep", () => {
         expect(instance.resourceBindings.krysserAvloepAnnensGrunn.trueText).toBe("yup");
         expect(instance.resourceBindings.krysserAvloepAnnensGrunn.falseText).toBe("nope");
         expect(instance.resourceBindings.tilknytningstype.title).toBe("typeTitle");
+        expect(instance.resourceBindings.skalInstallereVannklosett.title).toBe("vannTitle");
+        expect(instance.resourceBindings.skalInstallereVannklosett.trueText).toBe("yup");
+        expect(instance.resourceBindings.skalInstallereVannklosett.falseText).toBe("nope");
+        expect(instance.resourceBindings.harUtslippstillatelse.title).toBe("utslippTitle");
+        expect(instance.resourceBindings.harUtslippstillatelse.trueText).toBe("yup");
+        expect(instance.resourceBindings.harUtslippstillatelse.falseText).toBe("nope");
         expect(instance.resourceBindings.avloep.title).toBe("mainTitle");
         expect(instance.resourceBindings.avloep.emptyFieldText).toBe("emptyText");
     });

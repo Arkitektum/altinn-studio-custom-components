@@ -9,7 +9,9 @@ import {
     renderHarTinglystErklaeringElement,
     renderHeaderElement,
     renderKrysserAvloepAnnensGrunnElement,
-    renderTilknytningstypeElement
+    renderTilknytningstypeElement,
+    renderSkalInstallereVannklosettElement,
+    renderHarUtslippstillatelseElement
 } from "./renderers.js";
 
 export default customElements.define(
@@ -29,6 +31,8 @@ export default customElements.define(
                     this.appendChild(emptyFieldTextElement);
                 } else {
                     this.appendChild(renderTilknytningstypeElement(component));
+                    this.appendChild(renderSkalInstallereVannklosettElement(component));
+                    this.appendChild(renderHarUtslippstillatelseElement(component));
                     this.appendChild(renderKrysserAvloepAnnensGrunnElement(component));
                     this.appendChild(renderHarTinglystErklaeringElement(component));
                 }
