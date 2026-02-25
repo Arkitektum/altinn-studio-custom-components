@@ -429,8 +429,11 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         .filter((attr) => attr !== undefined);
     appendChildren(codeResultsElement, resultsElements);
 
-    const mainHeadingElement = getDisplayLayoutMainHeading();
-    pageElement.appendChild(mainHeadingElement);
+    if (selectedFormType === "main") {
+        const mainHeadingElement = getDisplayLayoutMainHeading();
+        pageElement.appendChild(mainHeadingElement);
+    }
+
     pageElement.appendChild(codeResultsElement);
     containerElement.appendChild(pageElement);
 }
