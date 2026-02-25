@@ -383,9 +383,14 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         return;
     }
 
-    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileName, appData);
+    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, appData);
+    renderSelectFormTypeFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData);
+    renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData);
 
-    const components = displayLayout?.layout?.data?.layout || [];
+    const components =
+        selectedFormType === "main"
+            ? displayLayout?.layout?.data?.layout || []
+            : displayLayout?.subForms?.find((form) => form.appName === selectedFormType)?.layout?.data?.layout || [];
 
     const pageElement = document.createElement("div");
     pageElement.classList.add("page");
@@ -410,7 +415,7 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
             if (!component?.tagName) {
                 return;
             }
-            const formData = getDataForComponent(component, appData, dataType, selectedFileName);
+            const formData = getDataForComponent(component, appData, dataType, selectedFileNames);
             const htmlAttributes = new CustomElementHtmlAttributes({
                 ...component,
                 formData
@@ -424,7 +429,7 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         .filter((attr) => attr !== undefined);
     appendChildren(codeResultsElement, resultsElements);
 
-    const mainHeadingElement = getDisplayLayoutMainHeading(displayLayout);
+    const mainHeadingElement = getDisplayLayoutMainHeading();
     pageElement.appendChild(mainHeadingElement);
     pageElement.appendChild(codeResultsElement);
     containerElement.appendChild(pageElement);
