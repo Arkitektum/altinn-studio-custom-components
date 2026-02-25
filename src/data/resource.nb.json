@@ -490,8 +490,16 @@
             "value": "+"
         },
         {
+            "id": "resource.part.bestillerreferanse.title",
+            "value": "Bestiller referanse"
+        },
+        {
             "id": "resource.part.epost.title",
             "value": "E-postadresse"
+        },
+        {
+            "id": "resource.part.fakturareferanse.title",
+            "value": "Fakturareferanse"
         },
         {
             "id": "resource.part.navn.title",
@@ -500,14 +508,6 @@
         {
             "id": "resource.part.organisasjonsnummer.title",
             "value": "Organisasjonsnummer"
-        },
-        {
-            "id": "resource.part.bestillerreferanse.title",
-            "value": "Bestiller referanse"
-        },
-        {
-            "id": "resource.part.fakturareferanse.title",
-            "value": "Fakturareferanse"
         },
         {
             "id": "resource.part.prosjektnummer.title",
@@ -654,36 +654,52 @@
             "value": "Foreligger rettighet ved tinglyst erklæring?"
         },
         {
-            "id": "resource.rammebetingelser.avloep.krysserAvloepAnnensGrunn.title",
-            "value": "Krysser avløpsanlegg annens grunn?"
+            "id": "resource.rammebetingelser.avloep.harUtslippstillatelse.title",
+            "value": "Foreligger det en utslippstillatelse?"
         },
         {
-            "id": "resource.rammebetingelser.avloep.tilknytningstype.title",
-            "value": "Tilknytning"
+            "id": "resource.rammebetingelser.avloep.krysserAvloepAnnensGrunn.title",
+            "value": "Krysser avløpsanlegg annens grunn?"
         },
         {
             "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
             "value": "Skal det installeres vannklosett?"
         },
         {
-            "id": "resource.rammebetingelser.avloep.harUtslippstillatelse.title",
-            "value": "Foreligger utslippstillatelse?"
+            "id": "resource.rammebetingelser.avloep.tilknytningstype.title",
+            "value": "Tilknytning"
         },
         {
             "id": "resource.rammebetingelser.avloep.title",
             "value": "Avløp"
         },
         {
-            "id": "resource.rammebetingelser.generellInformasjon.oppfyllerVilkaarForTreukersfrist.false",
-            "value": "Tiltaket oppfyller ikke kravene for 3 ukers saksbehandling, jf. § 21-7 annet ledd."
+            "id": "resource.rammebetingelser.generellInformasjon.beroererArbeidsplasser.title",
+            "value": "Berører tiltaket framtidige eller eksisterende arbeidsplasser?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
+            "value": "Berører tiltaket byggverk oppført før 1850?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.erAvhengigAvTillatelse.title",
+            "value": "Er tiltaket avhenging av tillatelse fra annen myndighet?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.erForhaandskonferanseAvholdt.title",
+            "value": "Er det avholdt en forhåndskonferanse med kommunen?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.erPaalagtUavhengigKontroll.title",
+            "value": "Er det obligatorisk uavhengig kontroll?"
         },
         {
             "id": "resource.rammebetingelser.generellInformasjon.oppfyllerVilkaarForTreukersfrist.title",
-            "value": "Vilkår for 3 ukers saksbehandling"
+            "value": "Oppfyller søknaden vilkår for 3 ukers saksbehandling?"
         },
         {
-            "id": "resource.rammebetingelser.generellInformasjon.oppfyllerVilkaarForTreukersfrist.true",
-            "value": "Tiltaket oppfyller kravene for 3 ukers saksbehandling, jf. § 21-7 annet ledd."
+            "id": "resource.rammebetingelser.generellInformasjon.skalUtarbeideAvfallsplan.title",
+            "value": "Skal det utarbeides avfallsplan?"
         },
         {
             "id": "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
@@ -730,6 +746,10 @@
             "value": "Overvann"
         },
         {
+            "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
+            "value": "Er tiltaket innenfor byggegrensen?"
+        },
+        {
             "id": "resource.rammebetingelser.plassering.erKonfliktMedHoeyspentkraftlinje.title",
             "value": "Er det strømførende linje/kabel eller nettstasjon/transformator i, over eller i nærheten av tiltaket?"
         },
@@ -738,20 +758,16 @@
             "value": "Er vann- og avløpsledninger i konflikt med tiltaket?"
         },
         {
-            "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
-            "value": "Er tiltaket innenfor byggegrensen?"
-        },
-        {
             "id": "resource.rammebetingelser.plassering.minsteAvstandNabogrense.title",
             "value": "Hva er minste avstand til nabogrense?"
         },
         {
-            "id": "resource.rammebetingelser.plassering.minsteAvstandTilMidtenAvVei.title",
-            "value": "Hva er minste avstand til midten av vei?"
-        },
-        {
             "id": "resource.rammebetingelser.plassering.minsteAvstandTilAnnenBygning.title",
             "value": "Hva er minste avstand til annen bygning?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilMidtenAvVei.title",
+            "value": "Hva er minste avstand til midten av vei?"
         },
         {
             "id": "resource.rammebetingelser.plassering.title",
