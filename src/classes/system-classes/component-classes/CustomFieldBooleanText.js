@@ -85,9 +85,18 @@ export default class CustomFieldBooleanText extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             booleanText: {
-                trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
-                falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-                defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
+                trueText:
+                    props?.resourceBindings?.trueText !== undefined && props?.resourceBindings?.trueText !== null
+                        ? props?.resourceBindings?.trueText
+                        : "resource.trueText.default",
+                falseText:
+                    props?.resourceBindings?.falseText !== undefined && props?.resourceBindings?.falseText !== null
+                        ? props?.resourceBindings?.falseText
+                        : "resource.falseText.default",
+                defaultText:
+                    props?.resourceBindings?.defaultText !== undefined && props?.resourceBindings?.defaultText !== null
+                        ? props?.resourceBindings?.defaultText
+                        : "resource.emptyFieldText.default"
             }
         };
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

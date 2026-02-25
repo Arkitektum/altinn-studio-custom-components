@@ -35,6 +35,7 @@ import CustomGrouplistSamsvarAnsvarsomraade from "../classes/system-classes/comp
 import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
 import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
 import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
+import CustomGrouplistVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGrouplistVegtypeTillatelse.js";
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
@@ -45,6 +46,7 @@ import CustomGroupSjekklistekrav from "../classes/system-classes/component-class
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
 import CustomGroupVannforsyning from "../classes/system-classes/component-classes/CustomGroupVannforsyning.js";
+import CustomGroupVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGroupVegtypeTillatelse.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomHeaderTextData from "../classes/system-classes/component-classes/CustomHeaderTextData.js";
@@ -157,6 +159,8 @@ export function instantiateComponent(element) {
             return new CustomGroupUtfallSvarType(component);
         case "custom-group-vannforsyning":
             return new CustomGroupVannforsyning(component);
+        case "custom-group-vegtype-tillatelse":
+            return new CustomGroupVegtypeTillatelse(component);
         case "custom-grouplist-ansvarsomraade-type":
             return new CustomGrouplistAnsvarsomraadeType(component);
         case "custom-grouplist-ettersending":
@@ -171,6 +175,8 @@ export function instantiateComponent(element) {
             return new CustomGrouplistUtfallSvar(component);
         case "custom-grouplist-utfall-svar-type":
             return new CustomGrouplistUtfallSvarType(component);
+        case "custom-grouplist-vegtype-tillatelse":
+            return new CustomGrouplistVegtypeTillatelse(component);
         case "custom-header":
             return new CustomHeader(component);
         case "custom-header-text":

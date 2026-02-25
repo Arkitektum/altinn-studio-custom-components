@@ -24,6 +24,12 @@ const defaultResourceBindings = {
     adkomstVegtype: {
         title: "resource.rammebetingelser.adkomst.vegtype.title"
     },
+    adkomstErTillatelseGitt: {
+        title: "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+        trueText: "resource.trueText.default",
+        falseText: "resource.falseText.default",
+        defaultText: "resource.emptyFieldText.default"
+    },
     avloep: {
         title: "resource.rammebetingelser.avloep.title",
         emptyFieldText: "resource.emptyFieldText.default"

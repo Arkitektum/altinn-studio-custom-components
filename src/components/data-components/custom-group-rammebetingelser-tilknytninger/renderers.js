@@ -36,6 +36,7 @@ export function renderHeaderElement(title, size = "h2") {
  * @param {string} [component.resourceBindings.adkomst.title] - The title for the adkomst element.
  * @param {string} [component.resourceBindings.adkomstErNyEllerEndretAdkomst] - Indicates if the adkomst is new or changed.
  * @param {string} [component.resourceBindings.adkomstVegtype] - The type of road (vegtype) for the adkomst.
+ * @param {string} [component.resourceBindings.adkomstErTillatelseGitt] - Indicates if the adkomst has been granted permission.
  * @returns {HTMLElement} The rendered custom "adkomst" element wrapped in a container.
  */
 export function renderAdkomstElement(component) {
@@ -46,7 +47,8 @@ export function renderAdkomstElement(component) {
         resourceBindings: {
             title: component?.resourceBindings?.adkomst?.title,
             erNyEllerEndretAdkomst: component?.resourceBindings?.adkomstErNyEllerEndretAdkomst,
-            vegtype: component?.resourceBindings?.adkomstVegtype
+            vegtype: component?.resourceBindings?.adkomstVegtype,
+            erTillatelseGitt: component?.resourceBindings?.adkomstErTillatelseGitt
         },
         resourceValues: {
             data: data?.adkomst

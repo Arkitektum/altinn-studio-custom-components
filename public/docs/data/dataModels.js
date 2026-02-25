@@ -697,6 +697,13 @@ export default [
                             }
                         ]
                     }
+                },
+                vegtypeTillatelse: {
+                    kode: {
+                        kodeverdi: "KommunalVeg",
+                        kodebeskrivelse: "Kommunal vei"
+                    },
+                    erTillatelseGitt: true
                 }
             },
             customGrouplist: {
@@ -1133,7 +1140,24 @@ export default [
                             ]
                         }
                     }
-                ]
+                ],
+                vegtypeTillatelse: {
+                    vegtype: {
+                        kode: [
+                            {
+                                kodeverdi: "KommunalVeg",
+                                kodebeskrivelse: "Kommunal vei"
+                            },
+                            {
+                                kodeverdi: "PrivatVeg",
+                                kodebeskrivelse: "Privat vei"
+                            }
+                        ]
+                    },
+                    erTillatelseGittRiksFylkesveg: false,
+                    erTillatelseGittKommunalVeg: true,
+                    erTillatelseGittPrivatVeg: false
+                }
             },
             dispensasjonOversikt: {
                 dispensasjon: [

@@ -19,6 +19,12 @@ const defaultResourceBindings = {
     },
     vegtype: {
         title: `resource.rammebetingelser.adkomst.vegtype.title`
+    },
+    erTillatelseGitt: {
+        title: "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+        trueText: "resource.trueText.default",
+        falseText: "resource.falseText.default",
+        defaultText: "resource.emptyFieldText.default"
     }
 };
 

@@ -4,7 +4,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
-import { renderEmptyFieldText, renderErNyEllerEndretAdkomstElement, renderHeaderElement, renderVegtypeElement } from "./renderers.js";
+import { renderEmptyFieldText, renderErNyEllerEndretAdkomstElement, renderHeaderElement, renderVegtypeTillatelseElement } from "./renderers.js";
 
 export default customElements.define(
     "custom-group-adkomst",
@@ -23,7 +23,7 @@ export default customElements.define(
                     this.appendChild(emptyFieldTextElement);
                 } else {
                     this.appendChild(renderErNyEllerEndretAdkomstElement(component));
-                    this.appendChild(renderVegtypeElement(component));
+                    this.appendChild(renderVegtypeTillatelseElement(component));
                 }
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
