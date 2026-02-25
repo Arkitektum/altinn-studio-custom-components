@@ -359,14 +359,17 @@ function getDisplayLayoutMainHeading() {
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
  * @param {Object} appData - The application data containing resource values and other relevant information for rendering the components.
+ * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the filename filter dropdown.
+ * @param {string} selectedFormType - The form type that should be selected by default in the form type filter dropdown (e.g., "main" for main form or the name of a subform).
+ * @returns {Promise<void>} A promise that resolves when the display layouts page has been rendered.
  */
-async function renderDisplayLayoutsPage(containerElement, appData, selectedFileName) {
+async function renderDisplayLayoutsPage(containerElement, appData, selectedFileNames, selectedFormType = "main") {
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Display layouts";
     containerElement.appendChild(titleElement);
 
-    const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName && globalThis.selectedDisplayLayoutAppName;
-    const selectedDisplayLayoutAppOwner = globalThis.selectedDisplayLayoutAppOwner && globalThis.selectedDisplayLayoutAppOwner;
+    const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName;
+    const selectedDisplayLayoutAppOwner = globalThis.selectedDisplayLayoutAppOwner;
     renderSelectDisplayLayoutApplicationFilter(containerElement, selectedDisplayLayoutAppName, selectedDisplayLayoutAppOwner);
 
     const displayLayout = globalThis.displayLayouts.find(
