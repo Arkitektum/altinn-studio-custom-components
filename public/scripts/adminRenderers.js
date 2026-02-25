@@ -216,6 +216,63 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
     formElement.appendChild(selectElement);
     containerElement.appendChild(formElement);
 }
+
+/**
+ * Renders a select dropdown to filter display layouts by form type (main form or subform).
+ * The options in the dropdown are generated based on the `subForms` property of the provided `displayLayout` object.
+ * When the selected form type changes, the display layouts page is re-rendered to show the components of the selected form type.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
+ * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
+ * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
+ * @param {string} selectedFormType - The form type that should be selected by default in the dropdown (e.g., "main" for main form or the name of a subform).
+ * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ *
+ * @return {void}
+ *
+ */
+
+function renderSelectFormTypeFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData) {
+    if (!displayLayout?.subForms || displayLayout.subForms.length === 0) {
+        return;
+    }
+
+    const formElement = document.createElement("form");
+    formElement.classList.add("filter-container");
+    const labelElement = document.createElement("label");
+    labelElement.textContent = "Form type";
+    labelElement.setAttribute("for", "select-form-type");
+
+    const selectElement = document.createElement("select");
+    selectElement.id = "select-form-type";
+
+    const mainFormOptionElement = document.createElement("option");
+    mainFormOptionElement.value = "main";
+    mainFormOptionElement.textContent = "Main form";
+    selectElement.appendChild(mainFormOptionElement);
+
+    displayLayout.subForms.forEach((subForm) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = subForm.appName;
+        optionElement.textContent = subForm.appName;
+        if (subForm.appName === selectedFormType) {
+            optionElement.selected = true;
+        }
+        selectElement.appendChild(optionElement);
+    });
+
+    selectElement.onchange = async (event) => {
+        const formType = event.target.value;
+        const mainElement = document.getElementById("admin-main");
+        mainElement.innerHTML = "";
+        if (formType === "main") {
+            await renderDisplayLayoutsPage(mainElement, appData, selectedFileNames, "main");
+        } else {
+            const subForm = displayLayout.subForms.find((form) => form.appName === formType);
+            if (subForm) {
+                await renderDisplayLayoutsPage(mainElement, appData, selectedFileNames, formType);
+            }
+        }
     };
 
     formElement.appendChild(labelElement);
