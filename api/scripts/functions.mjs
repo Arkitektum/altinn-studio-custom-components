@@ -296,6 +296,20 @@ function getAppOwnerAndNameFromDataType(dataType) {
 }
 
 /**
+ * Retrieves the subforms associated with a given data type from the altinnStudioApps collection.
+ *
+ * @param {string} dataType - The data type to search for in the altinnStudioApps array.
+ * @returns {Array} An array of subforms if found; otherwise, an empty array.
+ */
+function getSubformsFromDataType(dataType) {
+    const app = altinnStudioApps.find((app) => app.dataType === dataType);
+    if (app?.subForms) {
+        return app.subForms;
+    }
+    return [];
+}
+
+/**
  * Reads example data from the local file system, converts XML files to JSON using their corresponding XML schemas,
  * and organizes the data by data type.
  *
