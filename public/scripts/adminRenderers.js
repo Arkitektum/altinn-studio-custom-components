@@ -159,12 +159,12 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
  *
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `dataType` property.
- * @param {string} selectedFileName - The filename that should be selected by default in the dropdown.
+ * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
  *
  * @returns {void}
  */
-function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileName, appData) {
+function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, appData) {
     if (!displayLayout) {
         return;
     }
@@ -199,7 +199,7 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
         const optionElement = document.createElement("option");
         optionElement.value = file;
         optionElement.textContent = file;
-        if (file === selectedFileName) {
+        if (file === selectedFileNames?.[dataType]) {
             optionElement.selected = true;
         }
         selectElement.appendChild(optionElement);
@@ -209,7 +209,13 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
         const fileName = event.target.value;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, appData, fileName);
+        await renderDisplayLayoutsPage(mainElement, appData, { ...selectedFileNames, [dataType]: fileName });
+    };
+
+    formElement.appendChild(labelElement);
+    formElement.appendChild(selectElement);
+    containerElement.appendChild(formElement);
+}
     };
 
     formElement.appendChild(labelElement);
