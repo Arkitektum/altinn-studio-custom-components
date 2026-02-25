@@ -361,15 +361,86 @@ function getSubformsFromDataType(dataType) {
 }
 
 /**
- * Fetches example data for all forms and subforms from the local file system, converts XML content to JSON using the corresponding XML schemas,
- * and returns an array of objects containing the data type and the example data for each form and subform.
- * The function iterates through the example data directories for forms and subforms, reads the XML files, retrieves the associated XML schemas from Altinn Studio,
- * converts the XML content to JSON, and organizes the data by data type. It also handles subforms by checking for their associated data types and fetching their example data accordingly.
+ * Reads example files for a given data type from a specified folder, converts their XML content to JSON using the corresponding XML schema,
+ * and adds the results to the provided result array. Also handles subforms by delegating to the handleSubForms function.
+ *
+ * @async
+ * @param {string} dataType - The data type identifier to process.
+ * @param {string} folderPath - The path to the folder containing example files.
+ * @param {Array<Object>} result - The array to which the processed data will be added.
+ * @param {string} subformsExampleDataDir - The directory containing example data for subforms.
+ * @returns {Promise<void>} Resolves when all files and subforms have been processed.
+ */
+async function readExampleFilesForDataType(dataType, folderPath, result, subformsExampleDataDir) {
+    const files = fs.readdirSync(folderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+    const { appOwner, appName } = getAppOwnerAndNameFromDataType(dataType);
+    if (!appOwner || !appName) {
+        console.warn(`No app owner or app name found for data type: ${dataType}. Skipping folder: ${folderPath}`);
+        return;
+    }
+    const xmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType);
+
+    for (const file of files) {
+        const filePath = `${folderPath}/${file.name}`;
+        const content = fs.readFileSync(filePath, "utf8");
+        const existing = result.find((r) => r.dataType === dataType);
+        if (existing) {
+            existing.data[file.name] = convertXmlToJson(content, xmlSchema);
+        } else {
+            result.push({ dataType, data: { [file.name]: convertXmlToJson(content, xmlSchema) } });
+        }
+    }
+
+    await handleSubForms(dataType, appOwner, appName, result, subformsExampleDataDir);
+}
+
+/**
+ * Processes subforms for a given data type by reading example data files from the specified directory,
+ * converting their XML content to JSON, and updating the result array accordingly.
+ *
+ * @async
+ * @param {string} dataType - The main data type to process subforms for.
+ * @param {string} appOwner - The owner of the Altinn Studio application.
+ * @param {string} appName - The name of the Altinn Studio application.
+ * @param {Array<Object>} result - The array to update with subform data. Each object should have a `dataType` and `data` property.
+ * @param {string} subformsExampleDataDir - The directory path containing example data for subforms.
+ * @returns {Promise<void>} Resolves when all subforms have been processed and the result array is updated.
+ */
+async function handleSubForms(dataType, appOwner, appName, result, subformsExampleDataDir) {
+    const subForms = getSubformsFromDataType(dataType);
+    for (const subForm of subForms) {
+        const subFormDataType = subForm.dataType;
+        const subFormFolderPath = `${subformsExampleDataDir}/${subFormDataType}`;
+        const existingSubForm = result.find((r) => r.dataType === subFormDataType);
+        if (existingSubForm) {
+            continue;
+        }
+        if (fs.existsSync(subFormFolderPath)) {
+            const subFormFiles = fs.readdirSync(subFormFolderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+            const subXmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, subFormDataType);
+            for (const subFormFile of subFormFiles) {
+                const subFormFilePath = `${subFormFolderPath}/${subFormFile.name}`;
+                const subFormContent = fs.readFileSync(subFormFilePath, "utf8");
+                const existing = result.find((r) => r.dataType === subFormDataType);
+                if (existing) {
+                    existing.data[subFormFile.name] = convertXmlToJson(subFormContent, subXmlSchema);
+                } else {
+                    result.push({ dataType: subFormDataType, data: { [subFormFile.name]: convertXmlToJson(subFormContent, subXmlSchema) } });
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Asynchronously retrieves example JSON data for forms and subforms.
+ *
+ * Reads directories containing example data for forms and subforms,
+ * processes each data type folder, and aggregates the results.
  *
  * @async
  * @function
- * @returns {Promise<Array<{ dataType: string, data: Object }>>} A promise that resolves to an array of objects, each containing a data type and its corresponding example data in JSON format.
- * @throws {Error} If there is an issue reading the files, fetching the XML schemas, or converting the XML to JSON.
+ * @returns {Promise<Array>} A promise that resolves to an array containing the aggregated example data.
  */
 export async function getJsonExampleData() {
     const formsExampleDataDir = "./api/data/exampleData/forms";
@@ -381,47 +452,7 @@ export async function getJsonExampleData() {
     for (const folder of formsFolders) {
         const dataType = folder.name;
         const folderPath = `${formsExampleDataDir}/${dataType}`;
-        const files = fs.readdirSync(folderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
-
-        for (const file of files) {
-            const filePath = `${folderPath}/${file.name}`;
-            const content = fs.readFileSync(filePath, "utf8");
-            const { appOwner, appName } = getAppOwnerAndNameFromDataType(dataType);
-            if (!appOwner || !appName) {
-                console.warn(`No app owner or app name found for data type: ${dataType}. Skipping file: ${filePath}`);
-                continue;
-            }
-            const xmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType);
-            const existing = result.find((r) => r.dataType === dataType);
-            if (existing) {
-                existing.data[file.name] = convertXmlToJson(content, xmlSchema);
-            } else {
-                result.push({ dataType, data: { [file.name]: convertXmlToJson(content, xmlSchema) } });
-            }
-
-            const subForms = getSubformsFromDataType(dataType);
-            for (const subForm of subForms) {
-                const subFormDataType = subForm.dataType;
-                const subFormFolderPath = `${subformsExampleDataDir}/${subFormDataType}`;
-                const existingSubForm = result.find((r) => r.dataType === subFormDataType);
-                if (existingSubForm) {
-                    continue;
-                }
-                if (fs.existsSync(subFormFolderPath)) {
-                    const subFormFiles = fs.readdirSync(subFormFolderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
-                    for (const subFormFile of subFormFiles) {
-                        const subFormFilePath = `${subFormFolderPath}/${subFormFile.name}`;
-                        const subFormContent = fs.readFileSync(subFormFilePath, "utf8");
-                        const subXmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, subFormDataType);
-                        if (existing) {
-                            existing.data[subFormFile.name] = convertXmlToJson(subFormContent, subXmlSchema);
-                        } else {
-                            result.push({ dataType: subFormDataType, data: { [subFormFile.name]: convertXmlToJson(subFormContent, subXmlSchema) } });
-                        }
-                    }
-                }
-            }
-        }
+        await readExampleFilesForDataType(dataType, folderPath, result, subformsExampleDataDir);
     }
 
     return result;
