@@ -78,21 +78,54 @@ async function fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subF
 }
 
 /**
- * Fetches and returns display layouts for all Altinn Studio apps.
+ * Fetches the display layouts for all Altinn Studio apps and their associated subforms, and returns them as an array of layout objects.
  *
- * Iterates over the list of Altinn Studio applications, fetches their display layouts,
- * and returns an array of layout objects. If fetching a layout fails for an app, it logs
- * the error and skips that app. The resulting array also includes any additional layouts
- * from the `subforms` array.
+ * This function iterates over the list of Altinn Studio apps, fetches the main display layout for each app, and if the app has associated subforms,
+ * it also fetches the display layouts for those subforms. The resulting array contains layout objects for both main forms and subforms, each including
+ * the app owner, app name, data type, layout, and any associated subforms.
  *
  * @async
  * @function
- * @returns {Promise<Array<Object>>} A promise that resolves to an array of layout objects for each app and subform.
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of display layout objects for all Altinn Studio apps and their subforms.
+ * @throws {Error} If fetching or parsing any of the display layouts fails.
  */
 export async function getDisplayLayouts() {
-    const layoutPromises = altinnStudioApps.map(({ appOwner, appName, dataType }) =>
+    const layoutPromises = altinnStudioApps.map(({ appOwner, appName, dataType, subForms }) =>
         fetchDisplayLayoutFromAltinnStudio(appOwner, appName)
-            .then((layout) => ({ appOwner, appName, dataType, layout }))
+            .then(async (layout) => {
+                if (!layout) {
+                    throw new Error(`No layout found for ${appOwner}/${appName}`);
+                }
+                if (subForms) {
+                    subForms = await Promise.all(
+                        subForms.map(async (subForm) => {
+                            const subFormDataType = subForm.dataType;
+                            const subFormLayout = await fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subFormDataType)
+                                .then((subLayout) => {
+                                    if (!subLayout) {
+                                        throw new Error(`No layout found for subform ${subFormDataType} in ${appOwner}/${appName}`);
+                                    }
+                                    return subLayout;
+                                })
+                                .catch((error) => {
+                                    console.error(`Error fetching layout for subform ${subFormDataType} in ${appOwner}/${appName}:`, error);
+                                    return null;
+                                });
+                            return {
+                                ...subForm,
+                                layout: subFormLayout
+                            };
+                        })
+                    );
+                }
+                return {
+                    appOwner,
+                    appName,
+                    dataType,
+                    layout,
+                    subForms
+                };
+            })
             .catch((error) => {
                 console.error(`Error fetching layout for ${appOwner}/${appName}:`, error);
                 return null;
