@@ -12,22 +12,66 @@ const altinnStudioApps = [
     {
         appOwner: "dibk",
         appName: "disp-v1",
-        dataType: "DS"
+        dataType: "DS",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            },
+            {
+                appName: "gjenpart-nabovarsel-v3",
+                dataType: "GjenpartNabovarselDataV3"
+            }
+        ]
     },
     {
         appOwner: "dibk",
         appName: "es-v2",
-        dataType: "ES"
+        dataType: "ES",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            },
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            },
+            {
+                appName: "gjenpart-nabovarsel-v3",
+                dataType: "GjenpartNabovarselDataV3"
+            }
+        ]
     },
     {
         appOwner: "dibk",
         appName: "et-v4",
-        dataType: "ET"
+        dataType: "ET",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            },
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            },
+            {
+                appName: "gjenpart-nabovarsel-v3",
+                dataType: "GjenpartNabovarselDataV3"
+            }
+        ]
     },
     {
         appOwner: "dibk",
         appName: "fa-v3",
-        dataType: "FA"
+        dataType: "FA",
+        subForms: [
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            }
+        ]
     },
     {
         appOwner: "dibk",
@@ -37,7 +81,13 @@ const altinnStudioApps = [
     {
         appOwner: "dibk",
         appName: "ig-v3",
-        dataType: "IG"
+        dataType: "IG",
+        subForms: [
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            }
+        ]
     },
     {
         appOwner: "dibk",
@@ -52,7 +102,13 @@ const altinnStudioApps = [
     {
         appOwner: "dibk",
         appName: "mb-v3",
-        dataType: "MB"
+        dataType: "MB",
+        subForms: [
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            }
+        ]
     },
     {
         appOwner: "dibk",
@@ -62,12 +118,32 @@ const altinnStudioApps = [
     {
         appOwner: "dibk",
         appName: "nabovarsel-v5",
-        dataType: "NV"
+        dataType: "NV",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            }
+        ]
     },
     {
         appOwner: "dibk",
         appName: "rs-v4",
-        dataType: "RS"
+        dataType: "RS",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            },
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            },
+            {
+                appName: "gjenpart-nabovarsel-v3",
+                dataType: "GjenpartNabovarselDataV3"
+            }
+        ]
     },
     {
         appOwner: "dibk",
@@ -77,12 +153,40 @@ const altinnStudioApps = [
     {
         appOwner: "dibk",
         appName: "su-v2",
-        dataType: "SU"
+        dataType: "SU",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            },
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            },
+            {
+                appName: "gjenpart-nabovarsel-v3",
+                dataType: "GjenpartNabovarselDataV3"
+            }
+        ]
     },
     {
         appOwner: "dibk",
         appName: "ta-v4",
-        dataType: "TA"
+        dataType: "TA",
+        subForms: [
+            {
+                appName: "dispensasjonssoeknad-v1",
+                dataType: "DispensasjonssoeknadDataV1"
+            },
+            {
+                appName: "gjennomfoeringsplan-v7",
+                dataType: "GjennomfoeringsplanDataV7"
+            },
+            {
+                appName: "gjenpart-nabovarsel-v3",
+                dataType: "GjenpartNabovarselDataV3"
+            }
+        ]
     },
     {
         appOwner: "dibk",
