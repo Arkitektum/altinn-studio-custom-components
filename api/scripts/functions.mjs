@@ -292,7 +292,7 @@ function getAppOwnerAndNameFromDataType(dataType) {
     if (subform) {
         return { appOwner: subform.appOwner, appName: subform.appName };
     }
-    throw new Error(`No app or subform found for data type: ${dataType}`);
+    return { appOwner: null, appName: null };
 }
 
 /**
