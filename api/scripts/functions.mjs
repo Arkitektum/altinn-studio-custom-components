@@ -60,6 +60,24 @@ async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
 }
 
 /**
+ * Fetches the display layout JSON for a subform from an Altinn Studio app repository.
+ *
+ * @async
+ * @function
+ * @param {string} appOwner - The owner of the application repository.
+ * @param {string} appName - The name of the application repository.
+ * @param {string} subFormDataType - The data type of the subform for which to fetch the display layout.
+ * @returns {Promise<Object>} The parsed JSON content of the subform display layout.
+ * @throws {Error} If fetching or parsing the subform display layout fails.
+ */
+async function fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subFormDataType) {
+    const filePath = `App/ui//subform-${subFormDataType}/layouts/${subFormDataType}.json`;
+    const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    const jsonResponse = JSON.parse(fileContent);
+    return jsonResponse;
+}
+
+/**
  * Fetches and returns display layouts for all Altinn Studio apps.
  *
  * Iterates over the list of Altinn Studio applications, fetches their display layouts,
