@@ -132,6 +132,19 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
             avloepTilknytningstype: {
                 title: props?.resourceBindings?.avloep?.tilknytningstype?.title || "resource.rammebetingelser.avloep.tilknytningstype.title"
             },
+            avloepSkalInstallereVannklosett: {
+                title:
+                    props?.resourceBindings?.avloep?.skalInstallereVannklosett?.title ||
+                    "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
+                trueText: props?.resourceBindings?.avloep?.skalInstallereVannklosett?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.avloep?.skalInstallereVannklosett?.falseText || "resource.falseText.default"
+            },
+            avloepHarUtslippstillatelse: {
+                title:
+                    props?.resourceBindings?.avloep?.harUtslippstillatelse?.title || "resource.rammebetingelser.avloep.harUtslippstillatelse.title",
+                trueText: props?.resourceBindings?.avloep?.harUtslippstillatelse?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.avloep?.harUtslippstillatelse?.falseText || "resource.falseText.default"
+            },
             overvann: {
                 title: props?.resourceBindings?.overvann?.title || "resource.rammebetingelser.overvann.title",
                 emptyFieldText: props?.resourceBindings?.overvann?.emptyFieldText || "resource.emptyFieldText.default"

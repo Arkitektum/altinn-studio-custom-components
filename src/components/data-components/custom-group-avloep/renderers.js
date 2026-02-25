@@ -147,6 +147,78 @@ export function renderHarTinglystErklaeringElement(component) {
 }
 
 /**
+ * Renders a custom boolean text field element for "Skal Installere Vannklosett".
+ *
+ * This function creates a custom element with specific HTML attributes and resource bindings,
+ * based on the provided component's data and resource bindings. It is intended to be used
+ * as a renderer for a boolean field indicating whether a water closet will be installed.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} component.resourceValues - The resource values for the component.
+ * @param {Object} component.resourceValues.data - The data object containing field values.
+ * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} component.resourceBindings.skalInstallereVannklosett - Resource bindings for the specific field.
+ * @param {string} component.resourceBindings.skalInstallereVannklosett.title - The title for the field.
+ * @param {string} component.resourceBindings.skalInstallereVannklosett.trueText - Text to display when value is true.
+ * @param {string} component.resourceBindings.skalInstallereVannklosett.falseText - Text to display when value is false.
+ * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
+ */
+export function renderSkalInstallereVannklosettElement(component) {
+    const data = component?.resourceValues?.data;
+
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.skalInstallereVannklosett?.title,
+            trueText: component?.resourceBindings?.skalInstallereVannklosett?.trueText,
+            falseText: component?.resourceBindings?.skalInstallereVannklosett?.falseText,
+            defaultText: ""
+        },
+        resourceValues: {
+            data: data?.skalInstallereVannklosett
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-boolean-text", htmlAttributes));
+}
+
+/**
+ * Renders a custom boolean text field element for "Har Utslippstillatelse".
+ *
+ * This function creates a custom element with specific HTML attributes and resource bindings,
+ * based on the provided component's data and resource bindings. It is intended to be used
+ * as a renderer for a boolean field indicating whether a discharge permit exists.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} component.resourceValues - The resource values for the component.
+ * @param {Object} component.resourceValues.data - The data object containing field values.
+ * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} component.resourceBindings.harUtslippstillatelse - Resource bindings for the specific field.
+ * @param {string} component.resourceBindings.harUtslippstillatelse.title - The title for the field.
+ * @param {string} component.resourceBindings.harUtslippstillatelse.trueText - Text to display when value is true.
+ * @param {string} component.resourceBindings.harUtslippstillatelse.falseText - Text to display when value is false.
+ * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
+ */
+export function renderHarUtslippstillatelseElement(component) {
+    const data = component?.resourceValues?.data;
+
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.harUtslippstillatelse?.title,
+            trueText: component?.resourceBindings?.harUtslippstillatelse?.trueText,
+            falseText: component?.resourceBindings?.harUtslippstillatelse?.falseText,
+            defaultText: ""
+        },
+        resourceValues: {
+            data: data?.harUtslippstillatelse
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-boolean-text", htmlAttributes));
+}
+
+/**
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
