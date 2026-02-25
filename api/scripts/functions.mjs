@@ -361,35 +361,36 @@ function getSubformsFromDataType(dataType) {
 }
 
 /**
- * Reads example data from the local file system, converts XML files to JSON using their corresponding XML schemas,
- * and organizes the data by data type.
+ * Fetches example data for all forms and subforms from the local file system, converts XML content to JSON using the corresponding XML schemas,
+ * and returns an array of objects containing the data type and the example data for each form and subform.
+ * The function iterates through the example data directories for forms and subforms, reads the XML files, retrieves the associated XML schemas from Altinn Studio,
+ * converts the XML content to JSON, and organizes the data by data type. It also handles subforms by checking for their associated data types and fetching their example data accordingly.
  *
  * @async
  * @function
- * @returns {Promise<Array<{ dataType: string, data: Record<string, any> }>>} 
- *   A promise that resolves to an array of objects, each containing a dataType and a data object mapping file names to their JSON content.
- *
- * @throws {Error} If reading directories or files fails.
- *
- * @example
- * const exampleData = await getJsonExampleData();
- * console.log(exampleData);
+ * @returns {Promise<Array<{ dataType: string, data: Object }>>} A promise that resolves to an array of objects, each containing a data type and its corresponding example data in JSON format.
+ * @throws {Error} If there is an issue reading the files, fetching the XML schemas, or converting the XML to JSON.
  */
 export async function getJsonExampleData() {
-    const exampleDataDir = "./api/data/exampleData";
-    const folders = fs.readdirSync(exampleDataDir, { withFileTypes: true }).filter((dirent) => dirent.isDirectory());
+    const formsExampleDataDir = "./api/data/exampleData/forms";
+    const subformsExampleDataDir = "./api/data/exampleData/subforms";
+    const formsFolders = fs.readdirSync(formsExampleDataDir, { withFileTypes: true }).filter((dirent) => dirent.isDirectory());
 
     const result = [];
 
-    for (const folder of folders) {
+    for (const folder of formsFolders) {
         const dataType = folder.name;
-        const folderPath = `${exampleDataDir}/${dataType}`;
+        const folderPath = `${formsExampleDataDir}/${dataType}`;
         const files = fs.readdirSync(folderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
 
         for (const file of files) {
             const filePath = `${folderPath}/${file.name}`;
             const content = fs.readFileSync(filePath, "utf8");
             const { appOwner, appName } = getAppOwnerAndNameFromDataType(dataType);
+            if (!appOwner || !appName) {
+                console.warn(`No app owner or app name found for data type: ${dataType}. Skipping file: ${filePath}`);
+                continue;
+            }
             const xmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType);
             const existing = result.find((r) => r.dataType === dataType);
             if (existing) {
@@ -397,7 +398,31 @@ export async function getJsonExampleData() {
             } else {
                 result.push({ dataType, data: { [file.name]: convertXmlToJson(content, xmlSchema) } });
             }
+
+            const subForms = getSubformsFromDataType(dataType);
+            for (const subForm of subForms) {
+                const subFormDataType = subForm.dataType;
+                const subFormFolderPath = `${subformsExampleDataDir}/${subFormDataType}`;
+                const existingSubForm = result.find((r) => r.dataType === subFormDataType);
+                if (existingSubForm) {
+                    continue;
+                }
+                if (fs.existsSync(subFormFolderPath)) {
+                    const subFormFiles = fs.readdirSync(subFormFolderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+                    for (const subFormFile of subFormFiles) {
+                        const subFormFilePath = `${subFormFolderPath}/${subFormFile.name}`;
+                        const subFormContent = fs.readFileSync(subFormFilePath, "utf8");
+                        const subXmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, subFormDataType);
+                        if (existing) {
+                            existing.data[subFormFile.name] = convertXmlToJson(subFormContent, subXmlSchema);
+                        } else {
+                            result.push({ dataType: subFormDataType, data: { [subFormFile.name]: convertXmlToJson(subFormContent, subXmlSchema) } });
+                        }
+                    }
+                }
+            }
         }
     }
+
     return result;
 }
