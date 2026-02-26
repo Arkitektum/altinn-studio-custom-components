@@ -132,7 +132,7 @@ export async function getDisplayLayouts() {
             })
     );
     const layouts = await Promise.all(layoutPromises);
-    const allLayouts = layouts.filter((layout) => layout !== null);
+    const allLayouts = layouts.filter((layout) => layout !== null).concat(subforms);
     return allLayouts;
 }
 

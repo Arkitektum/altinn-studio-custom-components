@@ -126,7 +126,9 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
     defaultOptionElement.textContent = "Select an application";
     selectElement.appendChild(defaultOptionElement);
 
-    globalThis.displayLayouts.forEach((layout) => {
+    const mainFormDisplayLayouts = globalThis.displayLayouts.filter((layout) => !layout.isSubform);
+
+    mainFormDisplayLayouts.forEach((layout) => {
         const optionElement = document.createElement("option");
         optionElement.value = `${layout.appOwner}/${layout.appName}`;
         optionElement.textContent = `${layout.appOwner}/${layout.appName}`;
