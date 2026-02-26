@@ -355,6 +355,38 @@ function getDisplayLayoutMainHeading() {
     return headingElement;
 }
 
+/**
+ * Sets the default selected file name for the display layout filters based on the provided display layout, selected file names, application data, and selected form type.
+ *
+ * This function checks if there is a selected file name for the data type associated with the display layout. If not, it retrieves the example data for the display layout's data type and sets the default selected file name to the first file in the example data.
+ *
+ * @param {Object} displayLayout - The display layout object, expected to have a `dataType` property and optionally a `subForms` property which is an array of subform objects.
+ * @param {Object} selectedFileNames - An object mapping data types to the filenames that are currently selected in the filters.
+ * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {string} selectedFormType - The form type that is currently selected in the form type filter dropdown (e.g., "main" for main form or the name of a subform).
+ *
+ * @returns {Object} An updated object mapping data types to the filenames that should be selected by default.
+ */
+function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, selectedFileNames, appData, selectedFormType) {
+    const dataType =
+        selectedFormType === "main" ? displayLayout?.dataType : displayLayout?.subForms?.find((form) => form.appName === selectedFormType)?.dataType;
+    if (!dataType) {
+        return selectedFileNames;
+    }
+    const appExampleData = appData.find((app) => app.dataType === dataType);
+    if (!appExampleData) {
+        return selectedFileNames;
+    }
+    const files = Object.keys(appExampleData.data);
+    if (files.length === 0) {
+        return selectedFileNames;
+    }
+    if (!selectedFileNames?.[dataType]) {
+        return { ...selectedFileNames, [dataType]: files[0] };
+    }
+    return selectedFileNames;
+}
+
 /** Renders the display layouts page, showing the components of the selected application's display layout.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
@@ -382,6 +414,8 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         containerElement.appendChild(errorElement);
         return;
     }
+
+    selectedFileNames = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, selectedFileNames, appData, selectedFormType);
 
     renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, appData);
     renderSelectFormTypeFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData);
