@@ -134,14 +134,6 @@
 		<andreRelevanteKrav>andreRelevanteKrav</andreRelevanteKrav>
 	</planer>
 	<rammebetingelser>
-		<generellInformasjon>
-			<oppfyllerVilkaarForTreukersfrist>true</oppfyllerVilkaarForTreukersfrist>
-			<erPaalagtUavhengigKontroll>false</erPaalagtUavhengigKontroll>
-			<erForhaandskonferanseAvholdt>true</erForhaandskonferanseAvholdt>
-			<skalUtarbeideAvfallsplan>false</skalUtarbeideAvfallsplan>
-			<erAvhengigAvTillatelse>false</erAvhengigAvTillatelse>
-			<beroererByggEldreEnn1850>false</beroererByggEldreEnn1850>
-		</generellInformasjon>
 		<adkomst>
 			<erNyEllerEndretAdkomst>false</erNyEllerEndretAdkomst>
 			<vegtype>
@@ -167,27 +159,6 @@
 		   <arealSumByggesak>136.65</arealSumByggesak>
 		   <beregnetGradAvUtnytting>136.65</beregnetGradAvUtnytting>
 		</arealdisponering> 
-		<vannforsyning>
-			<tilknytningstype>
-				<kodeverdi>TilknyttetOffVannverk</kodeverdi>
-				<kodebeskrivelse>Offentlig vannverk</kodebeskrivelse>
-			</tilknytningstype>
-			<beskrivelse>beskrivelse</beskrivelse>
-			<krysserVannforsyningAnnensGrunn>false</krysserVannforsyningAnnensGrunn>
-			<harTinglystErklaering>true</harTinglystErklaering>
-		</vannforsyning>
-		<avloep>
-			<tilknytningstype>
-				<kodeverdi>OffentligKloakk</kodeverdi>
-				<kodebeskrivelse>Offentlig avløpsanlegg</kodebeskrivelse>
-			</tilknytningstype>
-			<skalInstallereVannklosett>false</skalInstallereVannklosett>
-			<harUtslippstillatelse>false</harUtslippstillatelse>
-			<krysserAvloepAnnensGrunn>true</krysserAvloepAnnensGrunn>
-			<harTinglystErklaering>true</harTinglystErklaering>
-			<ledesOvervannTilTerreng>true</ledesOvervannTilTerreng>
-			<ledesOvervannTilAvloepssystem>true</ledesOvervannTilAvloepssystem>
-		</avloep>
 		<kravTilByggegrunn>
 			<muligeOmraadeRisikoer>
 				<omraadeRisiko>

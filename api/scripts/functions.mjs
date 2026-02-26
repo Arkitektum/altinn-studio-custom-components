@@ -60,21 +60,72 @@ async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
 }
 
 /**
- * Fetches and returns display layouts for all Altinn Studio apps.
- *
- * Iterates over the list of Altinn Studio applications, fetches their display layouts,
- * and returns an array of layout objects. If fetching a layout fails for an app, it logs
- * the error and skips that app. The resulting array also includes any additional layouts
- * from the `subforms` array.
+ * Fetches the display layout JSON for a subform from an Altinn Studio app repository.
  *
  * @async
  * @function
- * @returns {Promise<Array<Object>>} A promise that resolves to an array of layout objects for each app and subform.
+ * @param {string} appOwner - The owner of the application repository.
+ * @param {string} appName - The name of the application repository.
+ * @param {string} subFormDataType - The data type of the subform for which to fetch the display layout.
+ * @returns {Promise<Object>} The parsed JSON content of the subform display layout.
+ * @throws {Error} If fetching or parsing the subform display layout fails.
+ */
+async function fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subFormDataType) {
+    const filePath = `App/ui//subform-${subFormDataType}/layouts/${subFormDataType}.json`;
+    const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    const jsonResponse = JSON.parse(fileContent);
+    return jsonResponse;
+}
+
+/**
+ * Fetches the display layouts for all Altinn Studio apps and their associated subforms, and returns them as an array of layout objects.
+ *
+ * This function iterates over the list of Altinn Studio apps, fetches the main display layout for each app, and if the app has associated subforms,
+ * it also fetches the display layouts for those subforms. The resulting array contains layout objects for both main forms and subforms, each including
+ * the app owner, app name, data type, layout, and any associated subforms.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array<Object>>} A promise that resolves to an array of display layout objects for all Altinn Studio apps and their subforms.
+ * @throws {Error} If fetching or parsing any of the display layouts fails.
  */
 export async function getDisplayLayouts() {
-    const layoutPromises = altinnStudioApps.map(({ appOwner, appName, dataType }) =>
+    const layoutPromises = altinnStudioApps.map(({ appOwner, appName, dataType, subForms }) =>
         fetchDisplayLayoutFromAltinnStudio(appOwner, appName)
-            .then((layout) => ({ appOwner, appName, dataType, layout }))
+            .then(async (layout) => {
+                if (!layout) {
+                    throw new Error(`No layout found for ${appOwner}/${appName}`);
+                }
+                if (subForms) {
+                    subForms = await Promise.all(
+                        subForms.map(async (subForm) => {
+                            const subFormDataType = subForm.dataType;
+                            const subFormLayout = await fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subFormDataType)
+                                .then((subLayout) => {
+                                    if (!subLayout) {
+                                        throw new Error(`No layout found for subform ${subFormDataType} in ${appOwner}/${appName}`);
+                                    }
+                                    return subLayout;
+                                })
+                                .catch((error) => {
+                                    console.error(`Error fetching layout for subform ${subFormDataType} in ${appOwner}/${appName}:`, error);
+                                    return null;
+                                });
+                            return {
+                                ...subForm,
+                                layout: subFormLayout
+                            };
+                        })
+                    );
+                }
+                return {
+                    appOwner,
+                    appName,
+                    dataType,
+                    layout,
+                    subForms
+                };
+            })
             .catch((error) => {
                 console.error(`Error fetching layout for ${appOwner}/${appName}:`, error);
                 return null;
@@ -292,47 +343,117 @@ function getAppOwnerAndNameFromDataType(dataType) {
     if (subform) {
         return { appOwner: subform.appOwner, appName: subform.appName };
     }
-    throw new Error(`No app or subform found for data type: ${dataType}`);
+    return { appOwner: null, appName: null };
 }
 
 /**
- * Reads example data from the local file system, converts XML files to JSON using their corresponding XML schemas,
- * and organizes the data by data type.
+ * Retrieves the subforms associated with a given data type from the altinnStudioApps collection.
+ *
+ * @param {string} dataType - The data type to search for in the altinnStudioApps array.
+ * @returns {Array} An array of subforms if found; otherwise, an empty array.
+ */
+function getSubformsFromDataType(dataType) {
+    const app = altinnStudioApps.find((app) => app.dataType === dataType);
+    if (app?.subForms) {
+        return app.subForms;
+    }
+    return [];
+}
+
+/**
+ * Reads example files for a given data type from a specified folder, converts their XML content to JSON using the corresponding XML schema,
+ * and adds the results to the provided result array. Also handles subforms by delegating to the handleSubForms function.
  *
  * @async
- * @function
- * @returns {Promise<Array<{ dataType: string, data: Record<string, any> }>>} 
- *   A promise that resolves to an array of objects, each containing a dataType and a data object mapping file names to their JSON content.
- *
- * @throws {Error} If reading directories or files fails.
- *
- * @example
- * const exampleData = await getJsonExampleData();
- * console.log(exampleData);
+ * @param {string} dataType - The data type identifier to process.
+ * @param {string} folderPath - The path to the folder containing example files.
+ * @param {Array<Object>} result - The array to which the processed data will be added.
+ * @param {string} subformsExampleDataDir - The directory containing example data for subforms.
+ * @returns {Promise<void>} Resolves when all files and subforms have been processed.
  */
-export async function getJsonExampleData() {
-    const exampleDataDir = "./api/data/exampleData";
-    const folders = fs.readdirSync(exampleDataDir, { withFileTypes: true }).filter((dirent) => dirent.isDirectory());
+async function readExampleFilesForDataType(dataType, folderPath, result, subformsExampleDataDir) {
+    const files = fs.readdirSync(folderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+    const { appOwner, appName } = getAppOwnerAndNameFromDataType(dataType);
+    if (!appOwner || !appName) {
+        console.warn(`No app owner or app name found for data type: ${dataType}. Skipping folder: ${folderPath}`);
+        return;
+    }
+    const xmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType);
 
-    const result = [];
+    for (const file of files) {
+        const filePath = `${folderPath}/${file.name}`;
+        const content = fs.readFileSync(filePath, "utf8");
+        const existing = result.find((r) => r.dataType === dataType);
+        if (existing) {
+            existing.data[file.name] = convertXmlToJson(content, xmlSchema);
+        } else {
+            result.push({ dataType, data: { [file.name]: convertXmlToJson(content, xmlSchema) } });
+        }
+    }
 
-    for (const folder of folders) {
-        const dataType = folder.name;
-        const folderPath = `${exampleDataDir}/${dataType}`;
-        const files = fs.readdirSync(folderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+    await handleSubForms(dataType, appOwner, appName, result, subformsExampleDataDir);
+}
 
-        for (const file of files) {
-            const filePath = `${folderPath}/${file.name}`;
-            const content = fs.readFileSync(filePath, "utf8");
-            const { appOwner, appName } = getAppOwnerAndNameFromDataType(dataType);
-            const xmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, dataType);
-            const existing = result.find((r) => r.dataType === dataType);
-            if (existing) {
-                existing.data[file.name] = convertXmlToJson(content, xmlSchema);
-            } else {
-                result.push({ dataType, data: { [file.name]: convertXmlToJson(content, xmlSchema) } });
+/**
+ * Processes subforms for a given data type by reading example data files from the specified directory,
+ * converting their XML content to JSON, and updating the result array accordingly.
+ *
+ * @async
+ * @param {string} dataType - The main data type to process subforms for.
+ * @param {string} appOwner - The owner of the Altinn Studio application.
+ * @param {string} appName - The name of the Altinn Studio application.
+ * @param {Array<Object>} result - The array to update with subform data. Each object should have a `dataType` and `data` property.
+ * @param {string} subformsExampleDataDir - The directory path containing example data for subforms.
+ * @returns {Promise<void>} Resolves when all subforms have been processed and the result array is updated.
+ */
+async function handleSubForms(dataType, appOwner, appName, result, subformsExampleDataDir) {
+    const subForms = getSubformsFromDataType(dataType);
+    for (const subForm of subForms) {
+        const subFormDataType = subForm.dataType;
+        const subFormFolderPath = `${subformsExampleDataDir}/${subFormDataType}`;
+        const existingSubForm = result.find((r) => r.dataType === subFormDataType);
+        if (existingSubForm) {
+            continue;
+        }
+        if (fs.existsSync(subFormFolderPath)) {
+            const subFormFiles = fs.readdirSync(subFormFolderPath, { withFileTypes: true }).filter((dirent) => dirent.isFile());
+            const subXmlSchema = await fetchXmlSchemaFromAltinnStudio(appOwner, appName, subFormDataType);
+            for (const subFormFile of subFormFiles) {
+                const subFormFilePath = `${subFormFolderPath}/${subFormFile.name}`;
+                const subFormContent = fs.readFileSync(subFormFilePath, "utf8");
+                const existing = result.find((r) => r.dataType === subFormDataType);
+                if (existing) {
+                    existing.data[subFormFile.name] = convertXmlToJson(subFormContent, subXmlSchema);
+                } else {
+                    result.push({ dataType: subFormDataType, data: { [subFormFile.name]: convertXmlToJson(subFormContent, subXmlSchema) } });
+                }
             }
         }
     }
+}
+
+/**
+ * Asynchronously retrieves example JSON data for forms and subforms.
+ *
+ * Reads directories containing example data for forms and subforms,
+ * processes each data type folder, and aggregates the results.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array>} A promise that resolves to an array containing the aggregated example data.
+ */
+export async function getJsonExampleData() {
+    const formsExampleDataDir = "./api/data/exampleData/forms";
+    const subformsExampleDataDir = "./api/data/exampleData/subforms";
+    const formsFolders = fs.readdirSync(formsExampleDataDir, { withFileTypes: true }).filter((dirent) => dirent.isDirectory());
+
+    const result = [];
+
+    for (const folder of formsFolders) {
+        const dataType = folder.name;
+        const folderPath = `${formsExampleDataDir}/${dataType}`;
+        await readExampleFilesForDataType(dataType, folderPath, result, subformsExampleDataDir);
+    }
+
     return result;
 }

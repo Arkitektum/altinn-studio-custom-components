@@ -143,27 +143,6 @@
       <arealSumByggesak xsi:nil="true" />
       <beregnetGradAvUtnytting xsi:nil="true" />
     </arealdisponering>
-    <vannforsyning>
-      <tilknytningstype>
-        <kodeverdi xsi:nil="true" />
-        <kodebeskrivelse xsi:nil="true" />
-      </tilknytningstype>
-      <beskrivelse></beskrivelse>
-      <krysserVannforsyningAnnensGrunn xsi:nil="true" />
-      <harTinglystErklaering xsi:nil="true" />
-    </vannforsyning>
-    <avloep>
-      <tilknytningstype>
-        <kodeverdi></kodeverdi>
-        <kodebeskrivelse></kodebeskrivelse>
-      </tilknytningstype>
-      <skalInstallereVannklosett xsi:nil="true" />
-      <harUtslippstillatelse xsi:nil="true" />
-      <krysserAvloepAnnensGrunn xsi:nil="true" />
-      <harTinglystErklaering xsi:nil="true" />
-      <ledesOvervannTilTerreng xsi:nil="true" />
-      <ledesOvervannTilAvloepssystem xsi:nil="true" />
-    </avloep>
     <kravTilByggegrunn>
       <muligeOmraadeRisikoer>
         <omraadeRisiko>

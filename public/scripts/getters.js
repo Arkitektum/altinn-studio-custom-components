@@ -15,9 +15,10 @@ import { validateResources } from "./validators.js";
  * @param {Object} component - The component object containing data model bindings.
  * @param {Array<Object>} [dataModels] - Optional array of data model objects. If not provided, `getDataModels()` will be called to retrieve them.
  * @param {string} [dataType] - Optional data type to filter the data models. If provided, the function will look for a data model with a matching `dataType` property.
+ * @param {Object} [selectedFileNames] - Optional object mapping data types to selected file names. If provided, the function will attempt to retrieve data from the specified file for the matching data type.
  * @returns {Object} An object mapping each binding key to its corresponding data value.
  */
-export function getDataForComponent(component, dataModels, dataType, name) {
+export function getDataForComponent(component, dataModels, dataType, selectedFileNames) {
     if (!dataModels) {
         dataModels = getDataModels();
     }
@@ -30,12 +31,16 @@ export function getDataForComponent(component, dataModels, dataType, name) {
                 if (dataType) {
                     index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataType);
                 }
-                const dataModel = name?.length ? dataModels[index]?.data?.[name] : dataModels[index]?.data;
+                const dataModel = selectedFileNames?.[dataType]?.length
+                    ? dataModels[index]?.data?.[selectedFileNames[dataType]]
+                    : dataModels[index]?.data;
                 const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
                 data[key] = dataModelData;
             } else if (typeof dataModelBinding === "object") {
                 const index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataModelBinding?.dataType);
-                const dataModel = name?.length ? dataModels[index]?.data?.[name] : dataModels[index]?.data;
+                const dataModel = selectedFileNames?.[dataModelBinding?.dataType]?.length
+                    ? dataModels[index]?.data?.[selectedFileNames[dataModelBinding?.dataType]]
+                    : dataModels[index]?.data;
                 const dataModelData = getValueFromDataKey(dataModel, dataModelBinding?.field);
                 data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding?.data;
             }
