@@ -3,6 +3,18 @@
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * Generates language-specific resource files from a JSON input file.
+ *
+ * Reads an array of resource objects from the input file, organizes them by language,
+ * and writes separate JSON files for each language to the specified output directory.
+ *
+ * @param {string} inputFilePath - Path to the input JSON file containing resource definitions.
+ * @param {string} outputDir - Directory where the generated language resource files will be saved.
+ *
+ * @throws {TypeError} If the input JSON is not an array.
+ * @throws {Error} If the input file does not exist or cannot be read.
+ */
 function generateLanguageResourceFiles(inputFilePath, outputDir) {
     try {
         if (!fs.existsSync(inputFilePath)) {
@@ -54,9 +66,7 @@ function generateLanguageResourceFiles(inputFilePath, outputDir) {
     }
 }
 
-/* ======================
-   CLI handling
-====================== */
+// CLI handling
 
 const args = process.argv.slice(2);
 
