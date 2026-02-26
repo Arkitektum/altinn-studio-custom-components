@@ -12,8 +12,6 @@
         "symlinks": "node scripts/create-symlinks.js",
         "copy-dist-resources": "copyfiles --flat src/data/resource.nb.json dist",
         "copy-docs-resources": "copyfiles --flat src/data/resource.nb.json docs/data",
-        "generate-resource-files": "node scripts/generate-resource-files.js src/data/resources.json ./src/data",
-        "generate-resource-files:watch": "node scripts/generate-resource-files.js src/data/resources.json ./src/data --watch",
         "test": "jest",
         "api": "node api/index.mjs",
         "build": "yarn symlinks && webpack --mode production && yarn copy-dist-resources",
