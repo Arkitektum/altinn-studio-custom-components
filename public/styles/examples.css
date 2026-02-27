@@ -490,10 +490,31 @@
                                 }
                             }
                         }
-                        & .resource-value {
-                            font-size: 14px;
-                            font-weight: 400;
-                            color: #555;
+                        & dl.resource-values-list {
+                            margin: 4px 0 0;
+                            padding: 0;
+                            & dt {
+                                font-size: 13px;
+                                font-weight: 600;
+                                color: #666;
+                                float: left;
+                                clear: left;
+                                &::after {
+                                    content: ":";
+                                }
+                            }
+                            & dd {
+                                font-size: 13px;
+                                font-weight: 400;
+                                color: #333;
+                                margin: 0 0 4px 24px;
+                                &::after {
+                                    content: "";
+                                    display: block;
+                                    height: 0;
+                                    clear: both;
+                                }
+                            }
                         }
                     }
                     & .usage-container {

@@ -46,3 +46,5 @@ function ensureFile(targetFromRoot, linkFromRoot) {
 ensureFile("src/data/resource.nb.json", "public/docs/data/resource.nb.json");
 
 ensureFile("src/data/resource.nb.json", "public/data/resource.nb.json");
+
+ensureFile("src/data/resources.json", "api/data/resources.json");

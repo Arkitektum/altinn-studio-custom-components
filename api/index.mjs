@@ -4,7 +4,14 @@ import cors from "cors";
 import "dotenv/config";
 
 // Local functions
-import { getAltinnStudioForms, getAppResourceValues, getDisplayLayouts, getJsonExampleData, getPackageVersions } from "./scripts/functions.mjs";
+import {
+    getAltinnStudioForms,
+    getAppResourceValues,
+    getDefaultTextResources,
+    getDisplayLayouts,
+    getJsonExampleData,
+    getPackageVersions
+} from "./scripts/functions.mjs";
 
 const app = express();
 const port = process.env.API_PORT;
@@ -37,11 +44,21 @@ app.get("/api/packageVersions", async (req, res) => {
 
 app.get("/api/appResources", async (req, res) => {
     try {
-        const appResources = await getAppResourceValues("nb");
+        const appResources = await getAppResourceValues();
         res.json(appResources);
     } catch (error) {
         console.error("Error fetching app resource values:", error);
         res.status(500).json({ error: "Failed to fetch app resource values" });
+    }
+});
+
+app.get("/api/resources", async (req, res) => {
+    try {
+        const defaultTextResources = await getDefaultTextResources();
+        res.json(defaultTextResources);
+    } catch (error) {
+        console.error("Error fetching default text resources:", error);
+        res.status(500).json({ error: "Failed to fetch default text resources" });
     }
 });
 

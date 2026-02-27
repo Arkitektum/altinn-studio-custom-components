@@ -9,6 +9,8 @@ import subforms from "../data/subforms.mjs";
 // Utils
 import { convertXmlToJson } from "../utils/xmlToJsonConverter.mjs";
 
+const resourceValueLanguages = ["nb", "nn"];
+
 /**
  * Fetches the content of a file from a Gitea repository using the Altinn Studio API.
  *
@@ -37,6 +39,10 @@ async function fetchGiteaFileContent(appOwner, appName, filePath) {
         const content = await response.text();
         return content;
     } catch (error) {
+        if (error.message.includes("404")) {
+            console.warn(`File not found at ${url}, returning null.`);
+            return null;
+        }
         console.error(`Error fetching file content from ${url}:`, error);
         throw error;
     }
@@ -55,6 +61,9 @@ async function fetchGiteaFileContent(appOwner, appName, filePath) {
 async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
     const filePath = "App/ui/form/layouts/DisplayLayout.json";
     const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    if (!fileContent) {
+        return null;
+    }
     const jsonResponse = JSON.parse(fileContent);
     return jsonResponse;
 }
@@ -73,6 +82,9 @@ async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
 async function fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subFormDataType) {
     const filePath = `App/ui//subform-${subFormDataType}/layouts/${subFormDataType}.json`;
     const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    if (!fileContent) {
+        return null;
+    }
     const jsonResponse = JSON.parse(fileContent);
     return jsonResponse;
 }
@@ -170,6 +182,33 @@ async function fetchAppResourceFile(appOwner, appName, language = "nb") {
 }
 
 /**
+ * Merges multiple resource files into a single array of resource objects,
+ * grouping values by their resource ID and language.
+ *
+ * @param {...Object} files - The resource files to merge. Each file should have a `language` property (string)
+ *   and a `resources` property (array of objects with `id` and `value`).
+ * @returns {Array<Object>} An array of merged resource objects, each with an `id` and a `values` object
+ *   mapping language codes to their respective values.
+ */
+function mergeResourceFiles(...files) {
+    const resultMap = {};
+
+    files.forEach((file) => {
+        const { language, resources } = file;
+
+        resources.forEach(({ id, value }) => {
+            if (!resultMap[id]) {
+                resultMap[id] = { id, values: {} };
+            }
+
+            resultMap[id].values[language] = value;
+        });
+    });
+
+    return Object.values(resultMap);
+}
+
+/**
  * Fetches resource values for all Altinn Studio apps for a given language.
  *
  * Iterates over the list of Altinn Studio apps, fetches the resource file for each app in the specified language,
@@ -181,10 +220,29 @@ async function fetchAppResourceFile(appOwner, appName, language = "nb") {
  * @returns {Promise<Array<{ appOwner: string, appName: string, resourceValues: any }>>}
  *   A promise that resolves to an array of resource value objects for each app.
  */
-export async function getAppResourceValues(language) {
+export async function getAppResourceValues() {
     const appResourcePromises = altinnStudioApps.map(async ({ appOwner, appName }) => {
         try {
-            const resourceValues = await fetchAppResourceFile(appOwner, appName, language);
+            const resourceFiles = await Promise.all(
+                resourceValueLanguages.map((lang) =>
+                    fetchAppResourceFile(appOwner, appName, lang)
+                        .then((file) => ({ language: lang, resources: file.resources }))
+                        .catch((error) => {
+                            console.warn(`Resource file for language '${lang}' not found for ${appOwner}/${appName}. Skipping this language.`, error);
+                            return null;
+                        })
+                )
+            );
+
+            const validResourceFiles = resourceFiles.filter((file) => file !== null);
+
+            if (validResourceFiles.length === 0) {
+                console.warn(`No valid resource files found for ${appOwner}/${appName}. Skipping this app.`);
+                return null;
+            }
+
+            const resourceValues = mergeResourceFiles(...validResourceFiles);
+
             return {
                 appOwner,
                 appName,
@@ -198,6 +256,28 @@ export async function getAppResourceValues(language) {
 
     const resources = await Promise.all(appResourcePromises);
     return resources.filter((resource) => resource !== null);
+}
+
+/**
+ * Fetches the default text resources from a local JSON file.
+ *
+ * This function reads the content of the 'resources.json' file located in the './api/data/' directory,
+ * parses it as JSON, and returns the resulting object. If there is an error during file reading or parsing,
+ * it logs the error and returns null.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Object|null>} A promise that resolves to the parsed JSON object containing default text resources,
+ *   or null if an error occurs.
+ */
+export async function getDefaultTextResources() {
+    try {
+        const fileContent = fs.readFileSync("./api/data/resources.json", "utf8");
+        return JSON.parse(fileContent);
+    } catch (error) {
+        console.error("Error reading default text resources:", error);
+        return null;
+    }
 }
 
 /**

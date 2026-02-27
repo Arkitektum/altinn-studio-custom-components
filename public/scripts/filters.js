@@ -63,14 +63,14 @@ export function filterTextResourcesByTextInput(resources, textFilter, matchBy) {
         if (matchBy === "id") {
             return res?.resource?.id?.toString().toLowerCase().includes(lowerCaseTextFilter);
         } else if (matchBy === "value") {
-            return res?.resource?.value?.toLowerCase().includes(lowerCaseTextFilter);
+            return Object.values(res?.resource?.values || {}).some((value) => value?.toString().toLowerCase().includes(lowerCaseTextFilter));
         }
         return false;
     });
 }
 
 /**
- * Returns an array of resources from the given list that have the same `resource.value`
+ * Returns an array of resources from the given list that have the same `resource.values.nb`
  * as the specified resource, but a different `resource.id`, and are not marked as missing
  * from default text resources.
  *
@@ -82,7 +82,8 @@ export function getResourcesWithSameValue(resources, resource) {
     return Array.isArray(resources) && resources.length > 0
         ? resources.filter((res) => {
               return (
-                  res?.resource?.value === resource?.resource?.value &&
+                  resource?.resource?.values?.nb?.length > 0 &&
+                  res?.resource?.values?.nb === resource?.resource?.values?.nb &&
                   res?.resource?.id !== resource?.resource?.id &&
                   res?.missingFromDefaultTextResources !== true
               );

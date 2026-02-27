@@ -35,7 +35,7 @@ function getMissingResourceBindingsWithUsage(displayLayouts, appResourceValues, 
 }
 
 function getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextResources) {
-    const textResourceUsage = getUsageForResources(displayLayouts, defaultTextResources?.resources);
+    const textResourceUsage = getUsageForResources(displayLayouts, defaultTextResources);
     const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getMissingResourceBindingsWithUsage(
         displayLayouts,
         appResourceValues,
