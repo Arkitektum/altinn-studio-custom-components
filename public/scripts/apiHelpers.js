@@ -1,6 +1,5 @@
 // Local functions
 import { showLoadingIndicator } from "./adminRenderers.js";
-import { fetchDefaultTextResources } from "./getters.js";
 
 /**
  * Fetches display layouts from the local API endpoint.
@@ -155,10 +154,10 @@ export async function fetchAltinnStudioForms() {
  *   [defaultTextResources, layouts, packageVersions, appResourceValues, exampleData]
  */
 export async function getUpdatedApiData() {
-    const defaultTextResourcesPromise = fetchDefaultTextResources("nb");
+    const defaultTextResourcesPromise = fetchDefaultTextResources();
     const layoutsPromise = fetchDisplayLayouts();
     const packageVersionsPromise = fetchPackageVersions();
-    const appResourceValuesPromise = fetchAppResources("nb");
+    const appResourceValuesPromise = fetchAppResources();
     const exampleDataPromise = fetchExampleData();
 
     showLoadingIndicator([defaultTextResourcesPromise, layoutsPromise, packageVersionsPromise, appResourceValuesPromise, exampleDataPromise]);
