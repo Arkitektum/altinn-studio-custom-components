@@ -151,15 +151,27 @@ export async function fetchAltinnStudioForms() {
  * @async
  * @function
  * @returns {Promise<Array>} A promise that resolves to an array containing:
- *   [defaultTextResources, layouts, packageVersions, appResourceValues, exampleData]
+ *   [multilingualDefaultTextResources, layouts, packageVersions, multilingualAppResourceValues, exampleData]
  */
 export async function getUpdatedApiData() {
-    const defaultTextResourcesPromise = fetchDefaultTextResources();
+    const multilingualDefaultTextResourcesPromise = fetchDefaultTextResources();
     const layoutsPromise = fetchDisplayLayouts();
     const packageVersionsPromise = fetchPackageVersions();
-    const appResourceValuesPromise = fetchAppResources();
+    const multilingualAppResourceValuesPromise = fetchAppResources();
     const exampleDataPromise = fetchExampleData();
 
-    showLoadingIndicator([defaultTextResourcesPromise, layoutsPromise, packageVersionsPromise, appResourceValuesPromise, exampleDataPromise]);
-    return Promise.all([defaultTextResourcesPromise, layoutsPromise, packageVersionsPromise, appResourceValuesPromise, exampleDataPromise]);
+    showLoadingIndicator([
+        multilingualDefaultTextResourcesPromise,
+        layoutsPromise,
+        packageVersionsPromise,
+        multilingualAppResourceValuesPromise,
+        exampleDataPromise
+    ]);
+    return Promise.all([
+        multilingualDefaultTextResourcesPromise,
+        layoutsPromise,
+        packageVersionsPromise,
+        multilingualAppResourceValuesPromise,
+        exampleDataPromise
+    ]);
 }

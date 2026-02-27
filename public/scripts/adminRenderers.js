@@ -102,7 +102,7 @@ function renderPackageVersionsPage(containerElement) {
  * @returns {Array} The resource values for the specified application, or an empty array if not found.
  */
 function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
-    return appResourceValues.find((app) => app.appName === appName && app.appOwner === appOwner)?.resourceValues || [];
+    return appResourceValues.find((app) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
 }
 
 /** Renders a filter for selecting an application and displays the corresponding display layout components.
@@ -591,22 +591,23 @@ export function renderSynchronizeButton() {
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
-        const [defaultTextResources, displayLayouts, packageVersions, appResourceValues, exampleData] = await getUpdatedApiData();
+        const [multilingualDefaultTextResources, displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] =
+            await getUpdatedApiData();
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
         addValuesToLocalStorage({
-            defaultTextResources,
+            multilingualDefaultTextResources,
             displayLayouts,
             packageVersions,
-            appResourceValues,
+            multilingualAppResourceValues,
             exampleData
         });
         addDataToGlobalThis({
-            defaultTextResources,
+            multilingualDefaultTextResources,
             displayLayouts,
             packageVersions,
-            appResourceValues,
+            multilingualAppResourceValues,
             exampleData,
             lastUpdated
         });

@@ -1,6 +1,7 @@
 // Local functions
 import { renderAdminSidebar, renderSynchronizeButton } from "./adminRenderers.js";
 import { getUpdatedApiData } from "./apiHelpers.js";
+import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "./getters.js";
 import {
     addDataToGlobalThis,
     addValuesToLocalStorage,
@@ -19,7 +20,13 @@ function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
     return {
         lastUpdated,
-        ...getValuesFromLocalStorage(["defaultTextResources", "displayLayouts", "packageVersions", "appResourceValues", "exampleData"])
+        ...getValuesFromLocalStorage([
+            "multilingualDefaultTextResources",
+            "displayLayouts",
+            "packageVersions",
+            "multilingualAppResourceValues",
+            "exampleData"
+        ])
     };
 }
 
@@ -45,25 +52,32 @@ function getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextR
 }
 
 globalThis.onload = async function () {
-    let { defaultTextResources, displayLayouts, packageVersions, appResourceValues, exampleData, lastUpdated } = getDataFromLocalStorage();
-    if (!defaultTextResources || !displayLayouts || !packageVersions || !appResourceValues || !exampleData) {
-        [defaultTextResources, displayLayouts, packageVersions, appResourceValues, exampleData] = await getUpdatedApiData();
+    let { multilingualDefaultTextResources, displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, lastUpdated } =
+        getDataFromLocalStorage();
+    if (!multilingualDefaultTextResources || !displayLayouts || !packageVersions || !multilingualAppResourceValues || !exampleData) {
+        [multilingualDefaultTextResources, displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] = await getUpdatedApiData();
         lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
     }
+    const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, "nb");
+    const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, "nb");
     addValuesToLocalStorage({
         defaultTextResources,
+        multilingualDefaultTextResources,
         displayLayouts,
         packageVersions,
         appResourceValues,
+        multilingualAppResourceValues,
         exampleData
     });
-    const allTextResourceUsage = getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextResources);
+    const allTextResourceUsage = getAllTextResourceUsage(displayLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
     addDataToGlobalThis({
         defaultTextResources,
+        multilingualDefaultTextResources,
         displayLayouts,
         packageVersions,
         appResourceValues,
+        multilingualAppResourceValues,
         exampleData,
         allTextResourceUsage,
         lastUpdated
