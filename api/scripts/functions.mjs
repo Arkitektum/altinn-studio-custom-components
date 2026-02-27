@@ -39,6 +39,10 @@ async function fetchGiteaFileContent(appOwner, appName, filePath) {
         const content = await response.text();
         return content;
     } catch (error) {
+        if (error.message.includes("404")) {
+            console.warn(`File not found at ${url}, returning null.`);
+            return null;
+        }
         console.error(`Error fetching file content from ${url}:`, error);
         throw error;
     }
@@ -57,6 +61,9 @@ async function fetchGiteaFileContent(appOwner, appName, filePath) {
 async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
     const filePath = "App/ui/form/layouts/DisplayLayout.json";
     const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    if (!fileContent) {
+        return null;
+    }
     const jsonResponse = JSON.parse(fileContent);
     return jsonResponse;
 }
@@ -75,6 +82,9 @@ async function fetchDisplayLayoutFromAltinnStudio(appOwner, appName) {
 async function fetchSubFormDisplayLayoutFromAltinnStudio(appOwner, appName, subFormDataType) {
     const filePath = `App/ui//subform-${subFormDataType}/layouts/${subFormDataType}.json`;
     const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
+    if (!fileContent) {
+        return null;
+    }
     const jsonResponse = JSON.parse(fileContent);
     return jsonResponse;
 }
