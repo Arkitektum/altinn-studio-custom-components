@@ -73,6 +73,29 @@ export async function fetchAppResources(language) {
 }
 
 /**
+ * Fetches default text resources from the local API endpoint.
+ *
+ * @async
+ * @function fetchDefaultTextResources
+ * @returns {Promise<Object>} A promise that resolves to the default text resources as a JSON object.
+ * @throws {Error} If the fetch request fails or the response is not OK.
+ */
+export async function fetchDefaultTextResources() {
+    const url = `http://localhost:9001/api/resources`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch default text resources: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching default text resources:", error);
+            throw error;
+        });
+}
+
+/**
  * Fetches example data from the local API endpoint.
  *
  * @async
