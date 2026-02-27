@@ -201,6 +201,28 @@ export async function getAppResourceValues(language) {
 }
 
 /**
+ * Fetches the default text resources from a local JSON file.
+ *
+ * This function reads the content of the 'resources.json' file located in the './api/data/' directory,
+ * parses it as JSON, and returns the resulting object. If there is an error during file reading or parsing,
+ * it logs the error and returns null.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Object|null>} A promise that resolves to the parsed JSON object containing default text resources,
+ *   or null if an error occurs.
+ */
+export async function getDefaultTextResources() {
+    try {
+        const fileContent = fs.readFileSync("./api/data/resources.json", "utf8");
+        return JSON.parse(fileContent);
+    } catch (error) {
+        console.error("Error reading default text resources:", error);
+        return null;
+    }
+}
+
+/**
  * Fetches the Index.cshtml file from an Altinn Studio app repository, which typically contains references to frontend assets.
  * This function is used to extract the versions of the altinn-app-frontend CSS and JS files referenced in the Index.cshtml.
  * @param {string} appOwner - The owner of the application repository.
