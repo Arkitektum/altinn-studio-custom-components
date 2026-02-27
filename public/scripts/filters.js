@@ -63,7 +63,7 @@ export function filterTextResourcesByTextInput(resources, textFilter, matchBy) {
         if (matchBy === "id") {
             return res?.resource?.id?.toString().toLowerCase().includes(lowerCaseTextFilter);
         } else if (matchBy === "value") {
-            return res?.resource?.value?.toLowerCase().includes(lowerCaseTextFilter);
+            return Object.values(res?.resource?.values || {}).some((value) => value?.toString().toLowerCase().includes(lowerCaseTextFilter));
         }
         return false;
     });
