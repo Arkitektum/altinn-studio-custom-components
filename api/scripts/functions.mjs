@@ -9,6 +9,8 @@ import subforms from "../data/subforms.mjs";
 // Utils
 import { convertXmlToJson } from "../utils/xmlToJsonConverter.mjs";
 
+const resourceValueLanguages = ["nb", "nn"];
+
 /**
  * Fetches the content of a file from a Gitea repository using the Altinn Studio API.
  *
@@ -181,10 +183,29 @@ async function fetchAppResourceFile(appOwner, appName, language = "nb") {
  * @returns {Promise<Array<{ appOwner: string, appName: string, resourceValues: any }>>}
  *   A promise that resolves to an array of resource value objects for each app.
  */
-export async function getAppResourceValues(language) {
+export async function getAppResourceValues() {
     const appResourcePromises = altinnStudioApps.map(async ({ appOwner, appName }) => {
         try {
-            const resourceValues = await fetchAppResourceFile(appOwner, appName, language);
+            const resourceFiles = await Promise.all(
+                resourceValueLanguages.map((lang) =>
+                    fetchAppResourceFile(appOwner, appName, lang)
+                        .then((file) => ({ language: lang, resources: file.resources }))
+                        .catch((error) => {
+                            console.warn(`Resource file for language '${lang}' not found for ${appOwner}/${appName}. Skipping this language.`, error);
+                            return null;
+                        })
+                )
+            );
+
+            const validResourceFiles = resourceFiles.filter((file) => file !== null);
+
+            if (validResourceFiles.length === 0) {
+                console.warn(`No valid resource files found for ${appOwner}/${appName}. Skipping this app.`);
+                return null;
+            }
+
+            const resourceValues = mergeResourceFiles(...validResourceFiles);
+
             return {
                 appOwner,
                 appName,
