@@ -134,7 +134,7 @@ function getPresenceLabel(presence) {
  * @param {Object[]} textResource.usage - Array of app usage objects, each representing an app using the resource.
  * @param {Object} textResource.resource - The resource details.
  * @param {string} textResource.resource.id - The unique identifier of the resource.
- * @param {string} textResource.resource.value - The value/content of the resource.
+ * @param {Object<string, string>} textResource.resource.values - The values of the resource in different languages.
  * @param {Object[]} allTextResources - Array of all text resource objects, used to find duplicates.
  * @returns {HTMLElement} The constructed list item element representing the text resource and its usage.
  */
@@ -161,7 +161,6 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
     resourceIdAndValueContainer.appendChild(resourceIdElement);
 
     if (textResource?.presence?.length > 0) {
-        // Add a badge or indicator for missing resources or resources with local value
         const presenceIndicatorElement = document.createElement("span");
         presenceIndicatorElement.classList.add("indicator", `indicator-${textResource.presence}`);
         presenceIndicatorElement.innerHTML = getPresenceLabel(textResource.presence);
@@ -174,10 +173,23 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
         resourceIdElement.appendChild(unusedIndicatorElement);
     }
 
-    const resourceValueElement = document.createElement("div");
-    resourceValueElement.classList.add("resource-value");
-    resourceValueElement.innerHTML = `${textResource?.resource?.value}`;
-    resourceIdAndValueContainer.appendChild(resourceValueElement);
+    const resourceValuesListElement = document.createElement("dl");
+    resourceValuesListElement.classList.add("resource-values-list");
+
+    textResource?.resource?.values &&
+        Object.entries(textResource?.resource?.values).forEach(([language, value]) => {
+            const languageElement = document.createElement("dt");
+            languageElement.classList.add("resource-value-language");
+            languageElement.innerHTML = `${language}`;
+            resourceValuesListElement.appendChild(languageElement);
+
+            const valueElement = document.createElement("dd");
+            valueElement.classList.add("resource-value");
+            valueElement.innerHTML = `${value}`;
+            resourceValuesListElement.appendChild(valueElement);
+        });
+
+    resourceIdAndValueContainer.appendChild(resourceValuesListElement);
 
     summaryElement.appendChild(resourceIdAndValueContainer);
 
@@ -238,7 +250,8 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
 /**
  * Renders a list of default text resources as a DOM element.
  *
- * @param {Array<Object>} textResources - An array of text resource objects to render.
+ * @param {Array<Object>} filteredTextResources - The array of text resource objects to render, already filtered based on criteria.
+ * @param {Array<Object>} allTextResources - The array of all text resource objects, used to find duplicates for each resource.
  * @returns {HTMLDivElement} The DOM element containing the rendered list of text resources.
  */
 export function renderDefaultTextResourcesList(filteredTextResources, allTextResources) {
