@@ -415,7 +415,7 @@ export function getUsageForResources(layouts, resources) {
  */
 function getAppResourceForLayout(layout, resource, appResourceValues) {
     const appResourceForLayout = appResourceValues?.find((res) => res.appName === layout.appName && res.appOwner === layout.appOwner) || null;
-    return appResourceForLayout?.resourceValues?.resources?.find((res) => res.id === resource.id);
+    return appResourceForLayout?.resourceValues?.find((res) => res.id === resource.id);
 }
 
 /**
@@ -443,23 +443,24 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
                 appName,
                 componentsUsingResource
             };
-            // if resource with same id and value is already pushed to missingResourceUsage or missingResourceUsageWithLocalValue, update that entry with the new usage, otherwise create a new entry
-                let existingEntry = missingResourceUsageWithLocalValue.find((entry) => entry.resource.id === resource.id && entry.resource.value === localAppResource?.value);
-                if (existingEntry) {
-                    existingEntry.usage.push(usageEntry);
-                } else if (localAppResource) {
-                    missingResourceUsageWithLocalValue.push({
-                        resource: localAppResource,
-                        usage: [usageEntry],
-                        presence: "localValue"
-                    });
-                } else {
-                    missingResourceUsage.push({
-                        resource,
-                        usage: [usageEntry],
-                        presence: "missing"
-                    });
-                }
+            let existingEntry = missingResourceUsageWithLocalValue.find(
+                (entry) => entry.resource.id === resource.id && entry.resource.values?.nb === localAppResource?.values?.nb
+            );
+            if (existingEntry) {
+                existingEntry.usage.push(usageEntry);
+            } else if (localAppResource) {
+                missingResourceUsageWithLocalValue.push({
+                    resource: localAppResource,
+                    usage: [usageEntry],
+                    presence: "localValue"
+                });
+            } else {
+                missingResourceUsage.push({
+                    resource,
+                    usage: [usageEntry],
+                    presence: "missing"
+                });
+            }
         }
     });
     return { missingResourceUsageWithLocalValue, missingResourceUsage };
