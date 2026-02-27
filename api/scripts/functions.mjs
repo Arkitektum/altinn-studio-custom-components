@@ -182,6 +182,33 @@ async function fetchAppResourceFile(appOwner, appName, language = "nb") {
 }
 
 /**
+ * Merges multiple resource files into a single array of resource objects,
+ * grouping values by their resource ID and language.
+ *
+ * @param {...Object} files - The resource files to merge. Each file should have a `language` property (string)
+ *   and a `resources` property (array of objects with `id` and `value`).
+ * @returns {Array<Object>} An array of merged resource objects, each with an `id` and a `values` object
+ *   mapping language codes to their respective values.
+ */
+function mergeResourceFiles(...files) {
+    const resultMap = {};
+
+    files.forEach((file) => {
+        const { language, resources } = file;
+
+        resources.forEach(({ id, value }) => {
+            if (!resultMap[id]) {
+                resultMap[id] = { id, values: {} };
+            }
+
+            resultMap[id].values[language] = value;
+        });
+    });
+
+    return Object.values(resultMap);
+}
+
+/**
  * Fetches resource values for all Altinn Studio apps for a given language.
  *
  * Iterates over the list of Altinn Studio apps, fetches the resource file for each app in the specified language,
