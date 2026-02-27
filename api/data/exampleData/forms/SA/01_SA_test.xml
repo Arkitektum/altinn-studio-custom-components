@@ -137,12 +137,12 @@
               <sikkerhet>
                   <harTilstrekkeligSikkerhet>false</harTilstrekkeligSikkerhet>
                   <typeArbeider>Typearbeid</typeArbeider>
-                  <utfoertInnen>2026-06-28T00:00:00</utfoertInnen>
+                  <utfoertInnen>2026-06-28</utfoertInnen>
               </sikkerhet>
           </midlertidigBrukstillatelse>
           <erOkForFerdigattest>false</erOkForFerdigattest>
         </utfoerende>
-        <datoAnsvarsrettErklaert>2026-02-28T00:00:00</datoAnsvarsrettErklaert>
+        <datoAnsvarsrettErklaert>2026-02-28</datoAnsvarsrettErklaert>
         <erAnsvarsomraadetAvsluttet>false</erAnsvarsomraadetAvsluttet>
         <soeknadssystemetsReferanse>67a20b95-1eeb-44e3-a105-f2a5286358ee</soeknadssystemetsReferanse>
       </ansvarsomraade>
@@ -168,12 +168,12 @@
               <sikkerhet>
                   <harTilstrekkeligSikkerhet>true</harTilstrekkeligSikkerhet>
                   <typeArbeider>Typearbeid</typeArbeider>
-                  <utfoertInnen>2026-06-28T00:00:00</utfoertInnen>
+                  <utfoertInnen>2026-06-28</utfoertInnen>
               </sikkerhet>
           </midlertidigBrukstillatelse>
           <erOkForFerdigattest>true</erOkForFerdigattest>
         </utfoerende>
-        <datoAnsvarsrettErklaert>2026-02-28T00:00:00</datoAnsvarsrettErklaert>
+        <datoAnsvarsrettErklaert>2026-02-28</datoAnsvarsrettErklaert>
         <erAnsvarsomraadetAvsluttet>false</erAnsvarsomraadetAvsluttet>
         <soeknadssystemetsReferanse>67a20b95-1eeb-44e3-a105-f2a5286358ee</soeknadssystemetsReferanse>
       </ansvarsomraade>
