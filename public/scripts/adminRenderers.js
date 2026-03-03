@@ -7,6 +7,7 @@ import { addContainerElement, appendChildren, createCustomElement } from "../../
 // Local functions
 import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
 import { getAppResourceValuesForLanguage, getDataForComponent, getResourcesForLanguage } from "./getters.js";
+import { languages } from "./languages.js";
 import { addDataToGlobalThis, addValuesToLocalStorage, addValueToLocalStorage } from "./localStorage.js";
 import {
     renderDefaultTextResourcesList,
@@ -97,7 +98,7 @@ function renderPackageVersionsPage(containerElement) {
  *
  * @param {string} appName - The name of the application.
  * @param {string} appOwner - The owner of the application.
- * @param {Array<{ appName: string, appOwner: string, resourceValues: Array }>} appResourceValues -
+ * @param {Array<{ appName: string, appOwner: string, resources: Array }>} appResourceValues -
  *   An array of objects containing application names, owners, and their associated resource values.
  * @returns {Array} The resource values for the specified application, or an empty array if not found.
  */
@@ -114,7 +115,6 @@ function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
  * @return {void}
  */
 function renderSelectLanguageForResources(containerElement, multilingualDefaultTextResources, multilingualAppResourceValues, selectedOptions) {
-    const resourceValueLanguages = ["nb", "nn", "en"];
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
@@ -124,11 +124,11 @@ function renderSelectLanguageForResources(containerElement, multilingualDefaultT
     const selectElement = document.createElement("select");
     selectElement.id = "select-language-for-resources";
 
-    resourceValueLanguages.forEach((language) => {
+    languages.forEach((language) => {
         const optionElement = document.createElement("option");
-        optionElement.value = language;
-        optionElement.textContent = language;
-        if (language === selectedOptions.language) {
+        optionElement.value = language.code;
+        optionElement.textContent = language.name;
+        if (language.code === selectedOptions.language) {
             optionElement.selected = true;
         }
         selectElement.appendChild(optionElement);
