@@ -1008,12 +1008,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.generellInformasjon.beroererArbeidsplasser.title",
-        "values": {
-            "nb": "Berører tiltaket framtidige eller eksisterende arbeidsplasser?"
-        }
-    },
-    {
         "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
         "values": {
             "nb": "Berører tiltaket byggverk oppført før 1850?"
