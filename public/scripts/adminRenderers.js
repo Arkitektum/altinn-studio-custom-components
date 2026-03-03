@@ -6,7 +6,7 @@ import { addContainerElement, appendChildren, createCustomElement } from "../../
 
 // Local functions
 import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
-import { getDataForComponent } from "./getters.js";
+import { getAppResourceValuesForLanguage, getDataForComponent, getResourcesForLanguage } from "./getters.js";
 import { addDataToGlobalThis, addValuesToLocalStorage, addValueToLocalStorage } from "./localStorage.js";
 import {
     renderDefaultTextResourcesList,
@@ -162,10 +162,9 @@ function renderSelectLanguageForResources(containerElement, multilingualDefaultT
 /** Renders a filter for selecting an application and displays the corresponding display layout components.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
- * @param {string} selectedAppName - The name of the currently selected application (optional).
- * @param {string} selectedAppOwner - The owner of the currently selected application (optional).
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  */
-function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAppName, selectedAppOwner) {
+function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOptions) {
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
@@ -186,7 +185,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
         const optionElement = document.createElement("option");
         optionElement.value = `${layout.appOwner}/${layout.appName}`;
         optionElement.textContent = `${layout.appOwner}/${layout.appName}`;
-        if (layout.appName === selectedAppName && layout.appOwner === selectedAppOwner) {
+        if (layout.appName === selectedOptions.displayLayoutAppName && layout.appOwner === selectedOptions.displayLayoutAppOwner) {
             optionElement.selected = true;
         }
         selectElement.appendChild(optionElement);
@@ -194,15 +193,17 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
 
     selectElement.onchange = async (event) => {
         const [appOwner, appName] = event.target.value.split("/");
-        globalThis.selectedDisplayLayoutAppOwner = appOwner;
-        globalThis.selectedDisplayLayoutAppName = appName;
+        selectedOptions.displayLayoutAppName = appName;
+        selectedOptions.displayLayoutAppOwner = appOwner;
         const exampleData = globalThis.exampleData || (await fetchExampleData());
-        globalThis.exampleData = exampleData;
         const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
-        globalThis.textResources = localTextResources;
+        addDataToGlobalThis({
+            exampleData,
+            textResources: localTextResources
+        });
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, exampleData);
+        await renderDisplayLayoutsPage(mainElement, exampleData, selectedOptions);
     };
 
     formElement.appendChild(labelElement);
@@ -220,7 +221,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedAp
  *
  * @returns {void}
  */
-function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, appData) {
+function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData) {
     if (!displayLayout) {
         return;
     }
@@ -255,7 +256,7 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
         const optionElement = document.createElement("option");
         optionElement.value = file;
         optionElement.textContent = file;
-        if (file === selectedFileNames?.[dataType]) {
+        if (file === selectedOptions?.fileNames?.[dataType]) {
             optionElement.selected = true;
         }
         selectElement.appendChild(optionElement);
@@ -265,7 +266,10 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
         const fileName = event.target.value;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, appData, { ...selectedFileNames, [dataType]: fileName });
+        await renderDisplayLayoutsPage(mainElement, appData, {
+            ...selectedOptions,
+            fileNames: { ...selectedOptions.fileNames, [dataType]: fileName }
+        });
     };
 
     formElement.appendChild(labelElement);
@@ -280,13 +284,12 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
  *
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
- * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
- * @param {string} selectedFormType - The form type that should be selected by default in the dropdown (e.g., "main" for main form or the name of a subform).
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
  *
  * @return {void}
  */
-function renderSelectFormTypeFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData) {
+function renderSelectFormTypeFilter(containerElement, displayLayout, selectedOptions, appData) {
     if (!displayLayout?.subForms || displayLayout.subForms.length === 0) {
         return;
     }
@@ -309,7 +312,7 @@ function renderSelectFormTypeFilter(containerElement, displayLayout, selectedFil
         const optionElement = document.createElement("option");
         optionElement.value = subForm.appName;
         optionElement.textContent = subForm.appName;
-        if (subForm.appName === selectedFormType) {
+        if (subForm.appName === selectedOptions.formType) {
             optionElement.selected = true;
         }
         selectElement.appendChild(optionElement);
@@ -320,11 +323,11 @@ function renderSelectFormTypeFilter(containerElement, displayLayout, selectedFil
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
         if (formType === "main") {
-            await renderDisplayLayoutsPage(mainElement, appData, selectedFileNames, "main");
+            await renderDisplayLayoutsPage(mainElement, appData, { ...selectedOptions, formType });
         } else {
             const subForm = displayLayout.subForms.find((form) => form.appName === formType);
             if (subForm) {
-                await renderDisplayLayoutsPage(mainElement, appData, selectedFileNames, formType);
+                await renderDisplayLayoutsPage(mainElement, appData, { ...selectedOptions, formType });
             }
         }
     };
@@ -339,17 +342,16 @@ function renderSelectFormTypeFilter(containerElement, displayLayout, selectedFil
  * The options in the dropdown are generated based on the available example data files for the selected subform's data type. When the selected file changes, the display layouts page is re-rendered to show the components of the selected subform with data from the selected file.
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
- * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
- * @param {string} selectedFormType - The form type that should be selected by default in the form type filter dropdown (e.g., "main" for main form or the name of a subform).
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
  *
  * @return {void}
  */
-function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData) {
-    if (selectedFormType === "main") {
+function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData) {
+    if (selectedOptions.formType === "main") {
         return;
     }
-    const subForm = displayLayout.subForms.find((form) => form.appName === selectedFormType);
+    const subForm = displayLayout.subForms.find((form) => form.appName === selectedOptions.formType);
     if (!subForm) {
         return;
     }
@@ -377,7 +379,7 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
         const optionElement = document.createElement("option");
         optionElement.value = file;
         optionElement.textContent = file;
-        if (file === selectedFileNames?.[dataType]) {
+        if (file === selectedOptions.fileNames?.[dataType]) {
             optionElement.selected = true;
         }
         selectElement.appendChild(optionElement);
@@ -386,7 +388,10 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
         const fileName = event.target.value;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, appData, { ...selectedFileNames, [dataType]: fileName }, selectedFormType);
+        await renderDisplayLayoutsPage(mainElement, appData, {
+            ...selectedOptions,
+            fileNames: { ...selectedOptions.fileNames, [dataType]: fileName }
+        });
     };
     formElement.appendChild(labelElement);
     formElement.appendChild(selectElement);
@@ -412,53 +417,67 @@ function getDisplayLayoutMainHeading() {
 }
 
 /**
- * Sets the default selected file name for the display layout filters based on the provided display layout, selected file names, application data, and selected form type.
+ * Sets the default selected file name for the display layout filters based on the provided display layout, selected options, application data, and selected form type.
  *
  * This function checks if there is a selected file name for the data type associated with the display layout. If not, it retrieves the example data for the display layout's data type and sets the default selected file name to the first file in the example data.
  *
  * @param {Object} displayLayout - The display layout object, expected to have a `dataType` property and optionally a `subForms` property which is an array of subform objects.
- * @param {Object} selectedFileNames - An object mapping data types to the filenames that are currently selected in the filters.
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
- * @param {string} selectedFormType - The form type that is currently selected in the form type filter dropdown (e.g., "main" for main form or the name of a subform).
  *
  * @returns {Object} An updated object mapping data types to the filenames that should be selected by default.
  */
-function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, selectedFileNames, appData, selectedFormType) {
+function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions) {
     const dataType =
-        selectedFormType === "main" ? displayLayout?.dataType : displayLayout?.subForms?.find((form) => form.appName === selectedFormType)?.dataType;
+        selectedOptions.formType === "main"
+            ? displayLayout?.dataType
+            : displayLayout?.subForms?.find((form) => form.appName === selectedOptions.formType)?.dataType;
     if (!dataType) {
-        return selectedFileNames;
+        return selectedOptions.fileNames;
     }
     const appExampleData = appData.find((app) => app.dataType === dataType);
     if (!appExampleData) {
-        return selectedFileNames;
+        return selectedOptions.fileNames;
     }
     const files = Object.keys(appExampleData.data);
     if (files.length === 0) {
-        return selectedFileNames;
+        return selectedOptions.fileNames;
     }
-    if (!selectedFileNames?.[dataType]) {
-        return { ...selectedFileNames, [dataType]: files[0] };
+    if (!selectedOptions.fileNames?.[dataType]) {
+        return { ...selectedOptions.fileNames, [dataType]: files[0] };
     }
-    return selectedFileNames;
+    return selectedOptions.fileNames;
 }
 
 /** Renders the display layouts page, showing the components of the selected application's display layout.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
  * @param {Object} appData - The application data containing resource values and other relevant information for rendering the components.
- * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the filename filter dropdown.
- * @param {string} selectedFormType - The form type that should be selected by default in the form type filter dropdown (e.g., "main" for main form or the name of a subform).
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @returns {Promise<void>} A promise that resolves when the display layouts page has been rendered.
  */
-async function renderDisplayLayoutsPage(containerElement, appData, selectedFileNames, selectedFormType = "main") {
+async function renderDisplayLayoutsPage(containerElement, appData, selectedOptions) {
+    selectedOptions = {
+        fileNames: selectedOptions?.fileNames || {},
+        formType: selectedOptions?.formType || "main",
+        language: selectedOptions?.language || "nb",
+        displayLayoutAppName: selectedOptions?.displayLayoutAppName || null,
+        displayLayoutAppOwner: selectedOptions?.displayLayoutAppOwner || null
+    };
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Display layouts";
     containerElement.appendChild(titleElement);
 
-    const selectedDisplayLayoutAppName = globalThis.selectedDisplayLayoutAppName;
-    const selectedDisplayLayoutAppOwner = globalThis.selectedDisplayLayoutAppOwner;
-    renderSelectDisplayLayoutApplicationFilter(containerElement, selectedDisplayLayoutAppName, selectedDisplayLayoutAppOwner);
+    renderSelectLanguageForResources(
+        containerElement,
+        globalThis.multilingualDefaultTextResources,
+        globalThis.multilingualAppResourceValues,
+        selectedOptions
+    );
+
+    const selectedDisplayLayoutAppName = selectedOptions.displayLayoutAppName;
+    const selectedDisplayLayoutAppOwner = selectedOptions.displayLayoutAppOwner;
+    renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOptions);
 
     const displayLayout = globalThis.displayLayouts.find(
         (layout) => layout.appName === selectedDisplayLayoutAppName && layout.appOwner === selectedDisplayLayoutAppOwner
@@ -471,16 +490,16 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         return;
     }
 
-    selectedFileNames = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, selectedFileNames, appData, selectedFormType);
+    selectedOptions.fileNames = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions);
 
-    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, appData);
-    renderSelectFormTypeFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData);
-    renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedFileNames, selectedFormType, appData);
+    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData);
+    renderSelectFormTypeFilter(containerElement, displayLayout, selectedOptions, appData);
+    renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData);
 
     const components =
-        selectedFormType === "main"
+        selectedOptions.formType === "main"
             ? displayLayout?.layout?.data?.layout || []
-            : displayLayout?.subForms?.find((form) => form.appName === selectedFormType)?.layout?.data?.layout || [];
+            : displayLayout?.subForms?.find((form) => form.appName === selectedOptions.formType)?.layout?.data?.layout || [];
 
     const pageElement = document.createElement("div");
     pageElement.classList.add("page");
@@ -505,7 +524,7 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
             if (!component?.tagName) {
                 return;
             }
-            const formData = getDataForComponent(component, appData, dataType, selectedFileNames);
+            const formData = getDataForComponent(component, appData, dataType, selectedOptions.fileNames);
             const htmlAttributes = new CustomElementHtmlAttributes({
                 ...component,
                 formData
@@ -519,7 +538,7 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedFileN
         .filter((attr) => attr !== undefined);
     appendChildren(codeResultsElement, resultsElements);
 
-    if (selectedFormType === "main") {
+    if (selectedOptions.formType === "main") {
         const mainHeadingElement = getDisplayLayoutMainHeading();
         pageElement.appendChild(mainHeadingElement);
     }
