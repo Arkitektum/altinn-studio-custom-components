@@ -8,6 +8,9 @@
  *   - "with-duplicates": Returns resources that have duplicate values.
  *   - "missing": Returns resources with undefined usage.
  *   - "missing-with-local-value": Returns resources that are missing but have a local value.
+ *   - "missing-nb-translations": Returns resources missing Norwegian Bokmål translations.
+ *   - "missing-nn-translations": Returns resources missing Norwegian Nynorsk translations.
+ *   - "missing-en-translations": Returns resources missing English translations.
  *   - "all": Returns all resources (default).
  * @returns {Array<Object>} The filtered array of resources.
  */
@@ -23,6 +26,12 @@ export function filterResources(resources, filterValue) {
             return resources.filter((res) => res?.presence === "missing");
         case "missing-with-local-value":
             return resources.filter((res) => res?.presence === "localValue");
+        case "missing-nb-translations":
+            return resources.filter((res) => !res?.resource?.values?.nb);
+        case "missing-nn-translations":
+            return resources.filter((res) => !res?.resource?.values?.nn);
+        case "missing-en-translations":
+            return resources.filter((res) => !res?.resource?.values?.en);
         case "all":
             return resources.filter((res) => res?.missingFromDefaultTextResources !== true);
         default:
