@@ -39,7 +39,7 @@ export default class CustomTableData extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-
+        this.sortKey = props?.sortKey;
         this.resourceValues = {
             title: hasValue(props?.resourceValues?.title)
                 ? props?.resourceValues?.title
@@ -59,12 +59,35 @@ export default class CustomTableData extends CustomComponent {
         if (!hasValue(data)) {
             return null;
         }
+
         const tableHeaders = this.getTableHeadersFromProps(props);
-        const tableRows = this.getTableRowsFromProps(props, data);
+
+        console.log("rows before sorting", data);
+
+        let sortedRows = data;
+        if (this.sortKey && Array.isArray(data)) {
+            console.log("Sorting table rows by key:", this.sortKey);
+            sortedRows = this.sortRowsByKey(this.sortKey, data);
+        }
+
+        console.log("rows after sorting", sortedRows);
+
+        const tableRows = this.getTableRowsFromProps(props, sortedRows);
         return {
             tableHeaders,
             tableRows
         };
+    }
+
+    sortRowsByKey(sortKey, sortedRows) {
+        sortedRows.sort((a, b) => {
+            const aValue = a[sortKey];
+            const bValue = b[sortKey];
+            if (aValue < bValue) return -1;
+            if (aValue > bValue) return 1;
+            return 0;
+        });
+        return sortedRows;
     }
 
     /**
