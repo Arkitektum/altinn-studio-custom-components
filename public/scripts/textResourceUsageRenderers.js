@@ -294,135 +294,84 @@ function handleFilterChange(containerElement, textResources) {
 }
 
 /**
- * Renders a set of radio button filters for a text resources list.
+ * Renders a set of usage filters for a text resources list.
  *
  * @param {HTMLElement} containerElement - The container element where the filter will be rendered. (Currently unused)
  * @param {Array} textResources - The list of text resources to filter. (Currently unused)
- * @returns {HTMLDivElement} The DOM element containing the radio button filters.
+ * @returns {HTMLDivElement} The DOM element containing the rendered usage filters for the text resources list.
  */
-export function renderRadioButtonsFilterForTextResourcesList(containerElement, textResources) {
-    const filterContainerElement = document.createElement("fieldset");
+export function renderUsageFilterForTextResourcesList(containerElement, textResources) {
+    const filterContainerElement = document.createElement("form");
     filterContainerElement.classList.add("filter-container");
 
-    const filterLegendElement = document.createElement("legend");
-    filterLegendElement.innerHTML = "Filter by usage:";
-    filterContainerElement.appendChild(filterLegendElement);
+    const filterLabelElement = document.createElement("label");
+    filterLabelElement.innerHTML = "Filter by usage:";
+    filterContainerElement.appendChild(filterLabelElement);
 
-    const allResourcesRadioElement = document.createElement("input");
-    allResourcesRadioElement.id = "filter-all-resources";
-    allResourcesRadioElement.type = "radio";
-    allResourcesRadioElement.name = "text-resources-filter";
-    allResourcesRadioElement.value = "all";
-    allResourcesRadioElement.checked = true;
-    const allResourcesLabelElement = document.createElement("label");
-    allResourcesLabelElement.htmlFor = "filter-all-resources";
-    allResourcesLabelElement.innerHTML = "All";
+    const filterSelectElement = document.createElement("select");
 
-    const unusedResourcesRadioElement = document.createElement("input");
-    unusedResourcesRadioElement.id = "filter-unused-resources";
-    unusedResourcesRadioElement.type = "radio";
-    unusedResourcesRadioElement.name = "text-resources-filter";
-    unusedResourcesRadioElement.value = "unused";
-    const unusedResourcesLabelElement = document.createElement("label");
-    unusedResourcesLabelElement.htmlFor = "filter-unused-resources";
-    unusedResourcesLabelElement.innerHTML = "Unused";
+    const allResourcesOptionElement = document.createElement("option");
+    allResourcesOptionElement.id = "filter-all-resources";
+    allResourcesOptionElement.value = "all";
+    allResourcesOptionElement.textContent = "All";
+    allResourcesOptionElement.selected = true;
 
-    const usedOnceResourcesRadioElement = document.createElement("input");
-    usedOnceResourcesRadioElement.id = "filter-used-once-resources";
-    usedOnceResourcesRadioElement.type = "radio";
-    usedOnceResourcesRadioElement.name = "text-resources-filter";
-    usedOnceResourcesRadioElement.value = "used-once";
-    const usedOnceResourcesLabelElement = document.createElement("label");
-    usedOnceResourcesLabelElement.htmlFor = "filter-used-once-resources";
-    usedOnceResourcesLabelElement.innerHTML = "Used once";
+    const unusedResourcesOptionElement = document.createElement("option");
+    unusedResourcesOptionElement.id = "filter-unused-resources";
+    unusedResourcesOptionElement.value = "unused";
+    unusedResourcesOptionElement.textContent = "Unused";
 
-    const withDuplicatesResourcesRadioElement = document.createElement("input");
-    withDuplicatesResourcesRadioElement.id = "filter-with-duplicates-resources";
-    withDuplicatesResourcesRadioElement.type = "radio";
-    withDuplicatesResourcesRadioElement.name = "text-resources-filter";
-    withDuplicatesResourcesRadioElement.value = "with-duplicates";
-    const withDuplicatesResourcesLabelElement = document.createElement("label");
-    withDuplicatesResourcesLabelElement.htmlFor = "filter-with-duplicates-resources";
-    withDuplicatesResourcesLabelElement.innerHTML = "With duplicates";
+    const usedOnceResourcesOptionElement = document.createElement("option");
+    usedOnceResourcesOptionElement.id = "filter-used-once-resources";
+    usedOnceResourcesOptionElement.value = "used-once";
+    usedOnceResourcesOptionElement.textContent = "Used once";
 
-    const missingResourcesRadioElement = document.createElement("input");
-    missingResourcesRadioElement.id = "filter-missing-resources";
-    missingResourcesRadioElement.type = "radio";
-    missingResourcesRadioElement.name = "text-resources-filter";
-    missingResourcesRadioElement.value = "missing";
-    const missingResourcesLabelElement = document.createElement("label");
-    missingResourcesLabelElement.htmlFor = "filter-missing-resources";
-    missingResourcesLabelElement.innerHTML = "Missing";
+    const withDuplicatesResourcesOptionElement = document.createElement("option");
+    withDuplicatesResourcesOptionElement.id = "filter-with-duplicates-resources";
+    withDuplicatesResourcesOptionElement.value = "with-duplicates";
+    withDuplicatesResourcesOptionElement.textContent = "With duplicates";
 
-    const missingWithLocalValueResourcesRadioElement = document.createElement("input");
-    missingWithLocalValueResourcesRadioElement.id = "filter-missing-with-local-value-resources";
-    missingWithLocalValueResourcesRadioElement.type = "radio";
-    missingWithLocalValueResourcesRadioElement.name = "text-resources-filter";
-    missingWithLocalValueResourcesRadioElement.value = "missing-with-local-value";
-    const missingWithLocalValueResourcesLabelElement = document.createElement("label");
-    missingWithLocalValueResourcesLabelElement.htmlFor = "filter-missing-with-local-value-resources";
-    missingWithLocalValueResourcesLabelElement.innerHTML = "Missing with local value";
+    const missingResourcesOptionElement = document.createElement("option");
+    missingResourcesOptionElement.id = "filter-missing-resources";
+    missingResourcesOptionElement.value = "missing";
+    missingResourcesOptionElement.textContent = "Missing";
 
-    const missingNbTranslationsRadioElement = document.createElement("input");
-    missingNbTranslationsRadioElement.id = "filter-missing-nb-translations-resources";
-    missingNbTranslationsRadioElement.type = "radio";
-    missingNbTranslationsRadioElement.name = "text-resources-filter";
-    missingNbTranslationsRadioElement.value = "missing-nb-translations";
-    const missingNbTranslationsLabelElement = document.createElement("label");
-    missingNbTranslationsLabelElement.htmlFor = "filter-missing-nb-translations-resources";
-    missingNbTranslationsLabelElement.innerHTML = `Missing translation for ${getLanguageNameFromCode("nb")}`;
+    const missingWithLocalValueResourcesOptionElement = document.createElement("option");
+    missingWithLocalValueResourcesOptionElement.id = "filter-missing-with-local-value-resources";
+    missingWithLocalValueResourcesOptionElement.value = "missing-with-local-value";
+    missingWithLocalValueResourcesOptionElement.textContent = "Missing with local value";
 
-    const missingNnTranslationsRadioElement = document.createElement("input");
-    missingNnTranslationsRadioElement.id = "filter-missing-nn-translations-resources";
-    missingNnTranslationsRadioElement.type = "radio";
-    missingNnTranslationsRadioElement.name = "text-resources-filter";
-    missingNnTranslationsRadioElement.value = "missing-nn-translations";
-    const missingNnTranslationsLabelElement = document.createElement("label");
-    missingNnTranslationsLabelElement.htmlFor = "filter-missing-nn-translations-resources";
-    missingNnTranslationsLabelElement.innerHTML = `Missing translation for ${getLanguageNameFromCode("nn")}`;
+    const missingNbTranslationsOptionElement = document.createElement("option");
+    missingNbTranslationsOptionElement.id = "filter-missing-nb-translations-resources";
+    missingNbTranslationsOptionElement.value = "missing-nb-translations";
+    missingNbTranslationsOptionElement.textContent = `Missing translation for ${getLanguageNameFromCode("nb")}`;
 
-    const missingEnTranslationsRadioElement = document.createElement("input");
-    missingEnTranslationsRadioElement.id = "filter-missing-en-translations-resources";
-    missingEnTranslationsRadioElement.type = "radio";
-    missingEnTranslationsRadioElement.name = "text-resources-filter";
-    missingEnTranslationsRadioElement.value = "missing-en-translations";
-    const missingEnTranslationsLabelElement = document.createElement("label");
-    missingEnTranslationsLabelElement.htmlFor = "filter-missing-en-translations-resources";
-    missingEnTranslationsLabelElement.innerHTML = `Missing translation for ${getLanguageNameFromCode("en")}`;
+    const missingNnTranslationsOptionElement = document.createElement("option");
+    missingNnTranslationsOptionElement.id = "filter-missing-nn-translations-resources";
+    missingNnTranslationsOptionElement.value = "missing-nn-translations";
+    missingNnTranslationsOptionElement.textContent = `Missing translation for ${getLanguageNameFromCode("nn")}`;
 
-    const updateResourceListBasedOnFilter = () => {
-        globalThis.selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
+    const missingEnTranslationsOptionElement = document.createElement("option");
+    missingEnTranslationsOptionElement.id = "filter-missing-en-translations-resources";
+    missingEnTranslationsOptionElement.value = "missing-en-translations";
+    missingEnTranslationsOptionElement.textContent = `Missing translation for ${getLanguageNameFromCode("en")}`;
+
+    filterSelectElement.onchange = () => {
+        globalThis.selectedFilter = filterSelectElement.value;
         handleFilterChange(containerElement, textResources);
     };
 
-    allResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    unusedResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    usedOnceResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    missingWithLocalValueResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
-    missingNbTranslationsRadioElement.onchange = updateResourceListBasedOnFilter;
-    missingNnTranslationsRadioElement.onchange = updateResourceListBasedOnFilter;
-    missingEnTranslationsRadioElement.onchange = updateResourceListBasedOnFilter;
+    filterSelectElement.appendChild(allResourcesOptionElement);
+    filterSelectElement.appendChild(unusedResourcesOptionElement);
+    filterSelectElement.appendChild(usedOnceResourcesOptionElement);
+    filterSelectElement.appendChild(withDuplicatesResourcesOptionElement);
+    filterSelectElement.appendChild(missingResourcesOptionElement);
+    filterSelectElement.appendChild(missingWithLocalValueResourcesOptionElement);
+    filterSelectElement.appendChild(missingNbTranslationsOptionElement);
+    filterSelectElement.appendChild(missingNnTranslationsOptionElement);
+    filterSelectElement.appendChild(missingEnTranslationsOptionElement);
 
-    filterContainerElement.appendChild(allResourcesRadioElement);
-    filterContainerElement.appendChild(allResourcesLabelElement);
-    filterContainerElement.appendChild(unusedResourcesRadioElement);
-    filterContainerElement.appendChild(unusedResourcesLabelElement);
-    filterContainerElement.appendChild(usedOnceResourcesRadioElement);
-    filterContainerElement.appendChild(usedOnceResourcesLabelElement);
-    filterContainerElement.appendChild(withDuplicatesResourcesRadioElement);
-    filterContainerElement.appendChild(withDuplicatesResourcesLabelElement);
-    filterContainerElement.appendChild(missingResourcesRadioElement);
-    filterContainerElement.appendChild(missingResourcesLabelElement);
-    filterContainerElement.appendChild(missingWithLocalValueResourcesRadioElement);
-    filterContainerElement.appendChild(missingWithLocalValueResourcesLabelElement);
-    filterContainerElement.appendChild(missingNbTranslationsRadioElement);
-    filterContainerElement.appendChild(missingNbTranslationsLabelElement);
-    filterContainerElement.appendChild(missingNnTranslationsRadioElement);
-    filterContainerElement.appendChild(missingNnTranslationsLabelElement);
-    filterContainerElement.appendChild(missingEnTranslationsRadioElement);
-    filterContainerElement.appendChild(missingEnTranslationsLabelElement);
+    filterContainerElement.appendChild(filterSelectElement);
 
     return filterContainerElement;
 }

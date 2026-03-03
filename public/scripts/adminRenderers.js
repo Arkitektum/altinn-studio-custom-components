@@ -11,7 +11,7 @@ import { languages } from "./languages.js";
 import { addDataToGlobalThis, addValuesToLocalStorage, addValueToLocalStorage } from "./localStorage.js";
 import {
     renderDefaultTextResourcesList,
-    renderRadioButtonsFilterForTextResourcesList,
+    renderUsageFilterForTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
     renderTextInputFilterForTextResourcesList
 } from "./textResourceUsageRenderers.js";
@@ -30,7 +30,7 @@ function renderResourceUsagePage(containerElement) {
     titleElement.textContent = "Resource usage";
 
     containerElement.appendChild(titleElement);
-    containerElement.appendChild(renderRadioButtonsFilterForTextResourcesList(containerElement, allTextResourceUsage));
+    containerElement.appendChild(renderUsageFilterForTextResourcesList(containerElement, allTextResourceUsage));
     containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement, allTextResourceUsage, displayLayouts));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement, allTextResourceUsage));
     containerElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
