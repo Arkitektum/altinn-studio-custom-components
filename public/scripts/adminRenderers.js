@@ -105,6 +105,60 @@ function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
     return appResourceValues.find((app) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
 }
 
+/**
+ * Renders a select dropdown to filter text resources by language. When the selected language changes, the display layouts page is re-rendered with the text resources for the selected language.
+ * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
+ * @param {Array} multilingualDefaultTextResources - An array of default text resources for multiple languages.
+ * @param {Array} multilingualAppResourceValues - An array of application resource values for multiple languages.
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
+ * @return {void}
+ */
+function renderSelectLanguageForResources(containerElement, multilingualDefaultTextResources, multilingualAppResourceValues, selectedOptions) {
+    const resourceValueLanguages = ["nb", "nn", "en"];
+    const formElement = document.createElement("form");
+    formElement.classList.add("filter-container");
+    const labelElement = document.createElement("label");
+    labelElement.textContent = "Language";
+    labelElement.setAttribute("for", "select-language-for-resources");
+
+    const selectElement = document.createElement("select");
+    selectElement.id = "select-language-for-resources";
+
+    resourceValueLanguages.forEach((language) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = language;
+        optionElement.textContent = language;
+        if (language === selectedOptions.language) {
+            optionElement.selected = true;
+        }
+        selectElement.appendChild(optionElement);
+    });
+
+    selectElement.onchange = async (event) => {
+        const selectedLanguage = event.target.value;
+        const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, selectedLanguage);
+        const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, selectedLanguage);
+        const textResources = getLocalTextResourcesForApp(
+            selectedOptions.displayLayoutAppName,
+            selectedOptions.displayLayoutAppOwner,
+            appResourceValues
+        );
+        addDataToGlobalThis({
+            defaultTextResources,
+            appResourceValues,
+            textResources
+        });
+        selectedOptions.language = selectedLanguage;
+        const mainElement = document.getElementById("admin-main");
+        mainElement.innerHTML = "";
+        await renderDisplayLayoutsPage(mainElement, globalThis.exampleData, selectedOptions);
+    };
+
+    formElement.appendChild(labelElement);
+    formElement.appendChild(selectElement);
+    containerElement.appendChild(formElement);
+}
+
 /** Renders a filter for selecting an application and displays the corresponding display layout components.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
