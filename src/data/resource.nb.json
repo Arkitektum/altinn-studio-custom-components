@@ -674,10 +674,6 @@
             "value": "Avløp"
         },
         {
-            "id": "resource.rammebetingelser.generellInformasjon.beroererArbeidsplasser.title",
-            "value": "Berører tiltaket framtidige eller eksisterende arbeidsplasser?"
-        },
-        {
             "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
             "value": "Berører tiltaket byggverk oppført før 1850?"
         },
