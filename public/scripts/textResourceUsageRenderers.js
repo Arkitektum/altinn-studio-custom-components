@@ -1,4 +1,5 @@
 import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters.js";
+import { getLanguageNameFromCode } from "./languages.js";
 
 /**
  * Renders a component as a collapsible list item using a <details> element.
@@ -362,6 +363,33 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     missingWithLocalValueResourcesLabelElement.htmlFor = "filter-missing-with-local-value-resources";
     missingWithLocalValueResourcesLabelElement.innerHTML = "Missing with local value";
 
+    const missingNbTranslationsRadioElement = document.createElement("input");
+    missingNbTranslationsRadioElement.id = "filter-missing-nb-translations-resources";
+    missingNbTranslationsRadioElement.type = "radio";
+    missingNbTranslationsRadioElement.name = "text-resources-filter";
+    missingNbTranslationsRadioElement.value = "missing-nb-translations";
+    const missingNbTranslationsLabelElement = document.createElement("label");
+    missingNbTranslationsLabelElement.htmlFor = "filter-missing-nb-translations-resources";
+    missingNbTranslationsLabelElement.innerHTML = `Missing translation for ${getLanguageNameFromCode("nb")}`;
+
+    const missingNnTranslationsRadioElement = document.createElement("input");
+    missingNnTranslationsRadioElement.id = "filter-missing-nn-translations-resources";
+    missingNnTranslationsRadioElement.type = "radio";
+    missingNnTranslationsRadioElement.name = "text-resources-filter";
+    missingNnTranslationsRadioElement.value = "missing-nn-translations";
+    const missingNnTranslationsLabelElement = document.createElement("label");
+    missingNnTranslationsLabelElement.htmlFor = "filter-missing-nn-translations-resources";
+    missingNnTranslationsLabelElement.innerHTML = `Missing translation for ${getLanguageNameFromCode("nn")}`;
+
+    const missingEnTranslationsRadioElement = document.createElement("input");
+    missingEnTranslationsRadioElement.id = "filter-missing-en-translations-resources";
+    missingEnTranslationsRadioElement.type = "radio";
+    missingEnTranslationsRadioElement.name = "text-resources-filter";
+    missingEnTranslationsRadioElement.value = "missing-en-translations";
+    const missingEnTranslationsLabelElement = document.createElement("label");
+    missingEnTranslationsLabelElement.htmlFor = "filter-missing-en-translations-resources";
+    missingEnTranslationsLabelElement.innerHTML = `Missing translation for ${getLanguageNameFromCode("en")}`;
+
     const updateResourceListBasedOnFilter = () => {
         globalThis.selectedFilter = filterContainerElement.querySelector('input[name="text-resources-filter"]:checked').value;
         handleFilterChange(containerElement, textResources);
@@ -373,6 +401,9 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     withDuplicatesResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
     missingWithLocalValueResourcesRadioElement.onchange = updateResourceListBasedOnFilter;
+    missingNbTranslationsRadioElement.onchange = updateResourceListBasedOnFilter;
+    missingNnTranslationsRadioElement.onchange = updateResourceListBasedOnFilter;
+    missingEnTranslationsRadioElement.onchange = updateResourceListBasedOnFilter;
 
     filterContainerElement.appendChild(allResourcesRadioElement);
     filterContainerElement.appendChild(allResourcesLabelElement);
@@ -386,6 +417,12 @@ export function renderRadioButtonsFilterForTextResourcesList(containerElement, t
     filterContainerElement.appendChild(missingResourcesLabelElement);
     filterContainerElement.appendChild(missingWithLocalValueResourcesRadioElement);
     filterContainerElement.appendChild(missingWithLocalValueResourcesLabelElement);
+    filterContainerElement.appendChild(missingNbTranslationsRadioElement);
+    filterContainerElement.appendChild(missingNbTranslationsLabelElement);
+    filterContainerElement.appendChild(missingNnTranslationsRadioElement);
+    filterContainerElement.appendChild(missingNnTranslationsLabelElement);
+    filterContainerElement.appendChild(missingEnTranslationsRadioElement);
+    filterContainerElement.appendChild(missingEnTranslationsLabelElement);
 
     return filterContainerElement;
 }
