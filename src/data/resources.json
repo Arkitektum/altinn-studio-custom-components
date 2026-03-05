@@ -488,13 +488,13 @@
     {
         "id": "resource.gjenpartNabovarsel.description",
         "values": {
-            "nb": "(Gjenpart av nabovarsel) Pbl § 21-3 inneholder opplysninger gitt i nabovarsel og kvittering for nabovarsel."
+            "nb": "Etter pbl § 21-3"
         }
     },
     {
         "id": "resource.gjenpartNabovarsel.title",
         "values": {
-            "nb": "Gjenpart nabovarsel"
+            "nb": "Opplysninger gitt i nabovarsel"
         }
     },
     {
