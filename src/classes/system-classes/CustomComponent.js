@@ -53,5 +53,8 @@ export default class CustomComponent {
         if (props?.enableLinks) {
             this.enableLinks = props.enableLinks;
         }
+        if (props?.order) {
+            this.order = props.order;
+        }
     }
 }

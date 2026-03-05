@@ -31,6 +31,10 @@ import { hasValidationMessages, validateTableHeadersTextResourceBindings } from 
 export default class CustomTableData extends CustomComponent {
     constructor(props) {
         super(props);
+        this.order = {
+            key: props?.order?.key || null,
+            direction: props?.order?.direction || "asc"
+        };
         const data = this.getValueFromFormData(props);
 
         const isEmpty = !this.hasContent(data);
@@ -39,7 +43,6 @@ export default class CustomTableData extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-
         this.resourceValues = {
             title: hasValue(props?.resourceValues?.title)
                 ? props?.resourceValues?.title
@@ -59,12 +62,45 @@ export default class CustomTableData extends CustomComponent {
         if (!hasValue(data)) {
             return null;
         }
+
         const tableHeaders = this.getTableHeadersFromProps(props);
-        const tableRows = this.getTableRowsFromProps(props, data);
+
+        let sortedRows = data;
+        if (this.order.key && Array.isArray(data)) {
+            sortedRows = this.sortRowsByKey(this.order.key, this.order?.direction, data);
+        }
+
+        const tableRows = this.getTableRowsFromProps(props, sortedRows);
         return {
             tableHeaders,
             tableRows
         };
+    }
+
+    sortRowsByKey(sortKey, direction, sortedRows) {
+        sortedRows.sort((a, b) => {
+            let aValue = a[sortKey];
+            let bValue = b[sortKey];
+
+            const aNum = parseFloat(aValue);
+            const bNum = parseFloat(bValue);
+
+            const aIsNum = !isNaN(aNum);
+            const bIsNum = !isNaN(bNum);
+
+            if (aIsNum && bIsNum) {
+                if (aNum < bNum) return direction === "asc" ? -1 : 1;
+                if (aNum > bNum) return direction === "asc" ? 1 : -1;
+                return 0;
+            }
+
+            // fallback to string comparison
+            if (aValue < bValue) return direction === "asc" ? -1 : 1;
+            if (aValue > bValue) return direction === "asc" ? 1 : -1;
+            return 0;
+        });
+
+        return sortedRows;
     }
 
     /**
