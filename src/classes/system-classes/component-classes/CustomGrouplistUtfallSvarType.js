@@ -65,25 +65,41 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
     }
 
     /**
-     * Groups an array of items by the `utfallType.kodeverdi` property.
+     * Groups an array of items by the `utfallType.kodeverdi` property
+     * and sorts items inside each group by utfall status.
      *
-     * @param {Array} array - The array of items to be grouped.
-     * @returns {Object} An object where each key is a unique `utfallType.kodeverdi` and the value is an array of `UtfallSvar` instances.
+     * Order:
+     * 1. besvares nå
+     * 2. besvares senere
+     * 3. besvart tidligere
      */
     groupArrayItemsByUtfallType(array) {
-        return hasValue(array)
-            ? array.reduce((acc, obj) => {
-                  const key = obj?.utfallType?.kodeverdi;
-                  if (!key?.length) {
-                      return acc;
-                  }
-                  if (!acc[key]) {
-                      acc[key] = [];
-                  }
-                  acc[key].push(new UtfallSvar(obj));
-                  return acc;
-              }, {})
-            : {};
+        if (!hasValue(array)) return {};
+
+        const grouped = array.reduce((acc, obj) => {
+            const key = obj?.utfallType?.kodeverdi;
+            if (!key?.length) return acc;
+
+            if (!acc[key]) {
+                acc[key] = [];
+            }
+
+            acc[key].push(new UtfallSvar(obj));
+
+            return acc;
+        }, {});
+
+        const getSortPriority = (item) => {
+            if (item.erUtfallBesvart) return 2; // besvart tidligere
+            if (item.erUtfallBesvaresSenere) return 1; // besvares senere
+            return 0; // besvares nå
+        };
+
+        Object.values(grouped).forEach((group) => {
+            group.sort((a, b) => getSortPriority(a) - getSortPriority(b));
+        });
+
+        return grouped;
     }
 
     /**
