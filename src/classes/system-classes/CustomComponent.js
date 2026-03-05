@@ -53,8 +53,8 @@ export default class CustomComponent {
         if (props?.enableLinks) {
             this.enableLinks = props.enableLinks;
         }
-        if (props?.sortKey) {
-            this.sortKey = props.sortKey;
+        if (props?.order) {
+            this.order = props.order;
         }
     }
 }

@@ -31,6 +31,7 @@ import { hasValue } from "./helpers.js";
  *   @property {Object} resourceValues - Resource values for the element.
  *   @property {string} partType - The type of part defined for the element.
  *   @property {boolean} enableLinks - Whether to enable links in the field value.
+ *   @property {string} sortKey - The sort key associated with the element.
  *   @property {string} endSymbol - The end symbol for the element.
  */
 export function getPropsFromElementAttributes(element) {
@@ -58,7 +59,8 @@ export function getPropsFromElementAttributes(element) {
         resourceBindings: getResourceBindings(element),
         resourceValues: getResourceValues(element),
         partType: getPartType(element),
-        enableLinks: getEnableLinks(element)
+        enableLinks: getEnableLinks(element),
+        order: getOrder(element)
     };
 }
 
@@ -201,6 +203,18 @@ function getFeedbackType(element) {
 function getItemKey(element) {
     const itemKey = element?.getAttribute("itemKey");
     return hasValue(itemKey) && itemKey;
+}
+
+/**
+ * Retrieves the value of the "sortKey" attribute from the given HTML element.
+ * Returns the value only if it exists and is considered valid by the hasValue function.
+ *
+ * @param {HTMLElement} element - The HTML element from which to retrieve the "sortKey" attribute.
+ * @returns {Object|false} The order object if valid, otherwise false.
+ */
+function getOrder(element) {
+    const order = JSON.parse(element?.getAttribute("order") || "{}");
+    return hasValue(order) && order;
 }
 
 /**

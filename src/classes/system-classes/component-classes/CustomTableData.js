@@ -31,6 +31,10 @@ import { hasValidationMessages, validateTableHeadersTextResourceBindings } from 
 export default class CustomTableData extends CustomComponent {
     constructor(props) {
         super(props);
+        this.order = {
+            key: props?.order?.key || null,
+            direction: props?.order?.direction || "asc"
+        };
         const data = this.getValueFromFormData(props);
 
         const isEmpty = !this.hasContent(data);
@@ -39,7 +43,6 @@ export default class CustomTableData extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.sortKey = props?.sortKey;
         this.resourceValues = {
             title: hasValue(props?.resourceValues?.title)
                 ? props?.resourceValues?.title
@@ -62,15 +65,10 @@ export default class CustomTableData extends CustomComponent {
 
         const tableHeaders = this.getTableHeadersFromProps(props);
 
-        console.log("rows before sorting", data);
-
         let sortedRows = data;
-        if (this.sortKey && Array.isArray(data)) {
-            console.log("Sorting table rows by key:", this.sortKey);
-            sortedRows = this.sortRowsByKey(this.sortKey, data);
+        if (this.order.key && Array.isArray(data)) {
+            sortedRows = this.sortRowsByKey(this.order.key, this.order?.direction, data);
         }
-
-        console.log("rows after sorting", sortedRows);
 
         const tableRows = this.getTableRowsFromProps(props, sortedRows);
         return {
@@ -79,14 +77,29 @@ export default class CustomTableData extends CustomComponent {
         };
     }
 
-    sortRowsByKey(sortKey, sortedRows) {
+    sortRowsByKey(sortKey, direction, sortedRows) {
         sortedRows.sort((a, b) => {
-            const aValue = a[sortKey];
-            const bValue = b[sortKey];
-            if (aValue < bValue) return -1;
-            if (aValue > bValue) return 1;
+            let aValue = a[sortKey];
+            let bValue = b[sortKey];
+
+            const aNum = parseFloat(aValue);
+            const bNum = parseFloat(bValue);
+
+            const aIsNum = !isNaN(aNum);
+            const bIsNum = !isNaN(bNum);
+
+            if (aIsNum && bIsNum) {
+                if (aNum < bNum) return direction === "asc" ? -1 : 1;
+                if (aNum > bNum) return direction === "asc" ? 1 : -1;
+                return 0;
+            }
+
+            // fallback to string comparison
+            if (aValue < bValue) return direction === "asc" ? -1 : 1;
+            if (aValue > bValue) return direction === "asc" ? 1 : -1;
             return 0;
         });
+
         return sortedRows;
     }
 

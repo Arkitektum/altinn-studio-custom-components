@@ -34,6 +34,8 @@ export default class CustomElementHtmlAttributes {
      * @param {Object} [props.resourceBindings] - Text resource bindings for the component.
      * @param {Object} [props.resourceValues] - Resource values associated with the component.
      * @param {boolean} [props.enableLinks] - Indicates if links should be enabled in the component.
+     * @param {string} [props.text] - The text content for the component.
+     * @param {string} [props.sortKey] - The key used for sorting data in the component.
      */
     constructor(props) {
         const isChildComponent = this.getIsChildComponentAttributeFromProps(props);
@@ -62,6 +64,7 @@ export default class CustomElementHtmlAttributes {
         const resourceValues = this.getResourceValuesFromProps(props);
         const enableLinks = this.getEnableLinksFromProps(props);
         const text = this.getTextAttributeFromProps(props);
+        const order = this.getOrderAttributeFromProps(props);
 
         if (isChildComponent) {
             this.isChildComponent = isChildComponent;
@@ -140,6 +143,9 @@ export default class CustomElementHtmlAttributes {
         }
         if (text) {
             this.text = text;
+        }
+        if (order) {
+            this.order = order;
         }
     }
 
@@ -454,5 +460,15 @@ export default class CustomElementHtmlAttributes {
      */
     getTextAttributeFromProps(props) {
         return hasValue(props?.text) && props?.text;
+    }
+
+    /**
+     * Retrieves the 'sortKey' attribute from the provided props object if it has a value.
+     *
+     * @param {Object} props - The properties object that may contain a 'sortKey' attribute.
+     * @returns {*} The value of 'order' if it exists and passes the hasValue check; otherwise, returns false or undefined.
+     */
+    getOrderAttributeFromProps(props) {
+        return hasValue(props?.order) ? JSON.stringify(props?.order) : undefined;
     }
 }
