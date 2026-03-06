@@ -6,6 +6,26 @@ import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.js";
 import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
+/**
+ * CustomDispensasjonsvarsel is a custom component class that extends the base CustomComponent class. It is designed to represent a "dispensasjonsvarsel" (dispensation notice) in a user interface, providing functionality to determine if the component has content, retrieve values from form data, and manage resource bindings and validation messages.
+ *
+ * The class includes methods to check if the component has content, extract values from form data, validate text resources, and determine specific types of dispensation cases based on the provided data. It also defines the resource bindings for various text elements that may be displayed within the component.
+ *
+ * This class is intended to be used in conjunction with a corresponding custom element definition that renders the visual representation of the dispensation notice based on the properties and methods defined here.
+ *
+ * @class
+ * @extends CustomComponent
+ * @param {Object} props - The properties object containing form data and configuration for the component.
+ * @param {*} props.formData - The form data to be validated and used for instantiation.
+ * @property {boolean} isEmpty - Indicates if the component has no content.
+ * @property {boolean} isPlanBestemmelsesType - Indicates if the data corresponds to a specific type of dispensation case.
+ * @property {boolean} isAndrePlanbestemmelser - Indicates if the data corresponds to "Andre Planbestemmelser" type.
+ * @property {Array|string|boolean} validationMessages - Validation messages for missing text resources.
+ * @property {boolean} hasValidationMessages - Indicates if there are any validation messages.
+ * @property {Object} resourceBindings - An object containing resource binding keys for localization.
+ * @property {Object} resourceValues - An object containing values for resource bindings, including fallback for empty data.
+ * @returns {CustomDispensasjonsvarsel} An instance of the CustomDispensasjonsvarsel class with properties and methods for managing dispensation notice data and behavior.
+ */
 export default class CustomDispensasjonsvarsel extends CustomComponent {
     constructor(props) {
         super(props);
@@ -87,22 +107,35 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
         return data?.dispensasjonstema?.kodeverdi?.toUpperCase() === "ANDREPLANBESTEMMELSER";
     }
 
+    /**
+     * Retrieves the resource bindings for the CustomDispensasjonsvarsel component, providing default values if specific bindings are not present in the props.
+     *
+     * @returns {Object} An object containing the resource bindings for various text elements in the component, with default values as fallbacks.
+     */
     getResourceBindings() {
         return {
-            emne: {
-                title: "resource.emne.title"
+            bestemmelse: {
+                title: props?.resourceBindings?.bestemmelse?.title || "resource.dispensasjonsvarsel.bestemmelse.title"
             },
             dispensasjonsvarsel: {
-                title: "resource.dispensasjonsvarsel.title"
+                title: props?.resourceBindings?.dispensasjonsvarsel?.title || "resource.dispensasjonsvarsel.title"
             },
-            bestemmelse: {
-                title: "resource.dispensasjonsvarsel.bestemmelse.title"
+            dispVarselBeskrivelse: {
+                title: props?.resourceBindings?.dispVarselBeskrivelse?.title || "resource.dispensasjonsvarsel.dispVarselBeskrivelse.title"
+            },
+            emne: {
+                title: props?.resourceBindings?.emne?.title || "resource.emne.title"
             },
             plannavn: {
-                title: "resource.dispensasjonsvarsel.plannavn.title"
+                title: props?.resourceBindings?.plannavn?.title || "resource.dispensasjonsvarsel.plannavn.title"
             },
             paragrafnummer: {
-                title: "resource.dispensasjonsvarsel.paragrafnummer.title"
+                title: props?.resourceBindings?.paragrafnummer?.title || "resource.dispensasjonsvarsel.paragrafnummer.title"
+            },
+            spoersmaalOmDispensasjonssoeknaden: {
+                title:
+                    props?.resourceBindings?.spoersmaalOmDispensasjonssoeknaden?.title ||
+                    "resource.dispensasjonsvarsel.spoersmaalOmDispensasjonssoeknaden.title"
             }
         };
     }
