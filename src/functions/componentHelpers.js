@@ -2,6 +2,7 @@
 import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.js";
 import CustomDescriptionListData from "../classes/system-classes/component-classes/CustomDescriptionListData.js";
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
+import CustomDispensasjonsvarsel from "../classes/system-classes/component-classes/CustomDispensasjonsvarsel.js";
 import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.js";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.js";
 import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.js";
@@ -87,6 +88,8 @@ export function instantiateComponent(element) {
             return new CustomDescriptionListData(component);
         case "custom-dispensasjon":
             return new CustomDispensasjon(component);
+        case "custom-dispensasjonsvarsel":
+            return new CustomDispensasjonsvarsel(component);
         case "custom-divider":
             return new CustomDivider(component);
         case "custom-feedback":
