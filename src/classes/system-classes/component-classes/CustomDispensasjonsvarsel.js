@@ -30,7 +30,7 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getResourceBindings();
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const isPlanBestemmelsesType = this.dataIsPlanBestemmelsesType(data);
@@ -110,9 +110,10 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
     /**
      * Retrieves the resource bindings for the CustomDispensasjonsvarsel component, providing default values if specific bindings are not present in the props.
      *
+     * @param {Object} props - The properties object that may contain resource bindings.
      * @returns {Object} An object containing the resource bindings for various text elements in the component, with default values as fallbacks.
      */
-    getResourceBindings() {
+    getResourceBindings(props) {
         return {
             bestemmelse: {
                 title: props?.resourceBindings?.bestemmelse?.title || "resource.dispensasjonsvarsel.bestemmelse.title"
