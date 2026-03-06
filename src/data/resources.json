@@ -264,6 +264,12 @@
         }
     },
     {
+        "id": "resource.dispensasjonsvarsel.dispVarselBeskrivelse.title",
+        "values": {
+            "nb": "Bakgrunn for dispensasjonssøknaden"
+        }
+    },
+    {
         "id": "resource.dispensasjonsvarsel.plannavn.title",
         "values": {
             "nb": "Kommunedelplan"
@@ -273,6 +279,12 @@
         "id": "resource.dispensasjonsvarsel.paragrafnummer.title",
         "values": {
             "nb": "Plan- og bygningsloven"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsvarsel.spoersmaalOmDispensasjonssoeknaden.title",
+        "values": {
+            "nb": "Spørsmål om dispensasjonssøknaden må rettes til kontaktpersonen oppgitt under \"Har du spørsmål til nabovarselet?\""
         }
     },
     {
