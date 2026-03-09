@@ -38,7 +38,7 @@ jobs:
       # ------------------------------
       - name: Install ESLint and SARIF formatter
         run: |
-          npm install eslint@9.34.0 @microsoft/eslint-formatter-sarif@3.1.0
+          npm install eslint@10.0.1 @microsoft/eslint-formatter-sarif@3.1.0
 
       # ------------------------------
       # 4. Run ESLint (Flat Config)
