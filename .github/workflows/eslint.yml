@@ -68,7 +68,7 @@ jobs:
       # 6. Upload SARIF to GitHub Security tab
       # ------------------------------
       - name: Upload analysis results to GitHub
-        if: ${{ hashFiles('eslint-results.sarif') != '' }}
+        if: ${{ always() }}
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: eslint-results.sarif
