@@ -1,5 +1,4 @@
 import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade";
-import CustomComponent from "../CustomComponent.js";
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 import * as helpers from "../../../functions/helpers.js";
 import * as validations from "../../../functions/validations.js";

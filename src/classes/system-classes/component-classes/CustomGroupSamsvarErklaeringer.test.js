@@ -1,5 +1,5 @@
 import CustomGroupSamsvarErklaeringer from "./CustomGroupSamsvarErklaeringer";
-const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
+const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({

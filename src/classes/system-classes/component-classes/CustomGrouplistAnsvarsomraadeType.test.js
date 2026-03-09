@@ -14,9 +14,6 @@ jest.mock("../../../functions/validations.js", () => ({
 
 const { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } = require("../../../functions/helpers.js");
 
-// Dummy parent class
-class CustomComponent {}
-
 describe("CustomGrouplistAnsvarsomraadeType", () => {
     beforeEach(() => {
         jest.clearAllMocks();

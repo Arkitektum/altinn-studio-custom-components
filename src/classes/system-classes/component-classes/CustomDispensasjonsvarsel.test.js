@@ -8,8 +8,6 @@ jest.mock("../../layout-classes/Dispensasjonsvarsel", () => {
 
 const mockHasValue = jest.fn((val) => val !== undefined && val !== null && val !== "");
 const mockHasMissingTextResources = jest.fn((bindings) => Object.keys(bindings).length === 0);
-const mockGetComponentResourceValue = jest.fn((props, key) => `mocked_${key}`);
-const mockHasValidationMessages = jest.fn((messages) => Array.isArray(messages) && messages.length > 0);
 
 // Patch prototype for dependency injection
 CustomDispensasjonsvarsel.prototype.hasContent = mockHasValue;
