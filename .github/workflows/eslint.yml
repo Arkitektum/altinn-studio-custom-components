@@ -57,11 +57,11 @@ jobs:
       # ------------------------------
       # 5. Check if SARIF exists
       # ------------------------------
-      - name: Check if SARIF exists
+      - name: Ensure SARIF exists
         run: |
           if [ ! -f eslint-results.sarif ]; then
-            echo "No SARIF file generated. Skipping upload."
-            exit 0
+            echo "No SARIF file generated. Creating empty SARIF."
+            echo '{"version":"2.1.0","runs":[]}' > eslint-results.sarif
           fi
 
       # ------------------------------
