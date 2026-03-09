@@ -67,12 +67,12 @@ jobs:
           # Check if SARIF has results
           if grep -q '"results":\[' eslint-results.sarif; then
             if grep -q '"results":\[\]' eslint-results.sarif; then
-              echo "::set-output name=has_results::false"
+              echo "has_results=false" >> "$GITHUB_OUTPUT"
             else
-              echo "::set-output name=has_results::true"
+              echo "has_results=true" >> "$GITHUB_OUTPUT"
             fi
           else
-            echo "::set-output name=has_results::false"
+            echo "has_results=false" >> "$GITHUB_OUTPUT"
           fi
 
       # ------------------------------
