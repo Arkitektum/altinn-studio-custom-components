@@ -2,22 +2,8 @@ export default {
     language: "nb",
     resources: [
         {
-            id: "signing.summary.title.override",
-            value: "Denne har signert på vegne av {0}",
-            variables: [
-                {
-                    key: "instanceOwnerName",
-                    dataSource: "instanceContext"
-                }
-            ]
-        },
-        {
             id: "resource.customField.data.title",
             value: "Label for datafelt"
-        },
-        {
-            id: "resource.adresse.title",
-            value: "Adresse"
         },
         {
             id: "resource.customField.booleanData.title",
@@ -28,18 +14,6 @@ export default {
             value: "Label for boolean-text felt"
         },
         {
-            id: "resource.customField.booleanText.true.title",
-            value: "Ja"
-        },
-        {
-            id: "resource.customField.booleanText.false.title",
-            value: "Nei"
-        },
-        {
-            id: "resource.customField.booleanText.default.title",
-            value: "-"
-        },
-        {
             id: "resource.customField.countData.title",
             value: "Label for count-data felt"
         },
@@ -48,24 +22,8 @@ export default {
             value: "Label for kodefelt"
         },
         {
-            id: "resource.customField.kommunensSaksnummer.title",
-            value: "Kommunens saksnummer"
-        },
-        {
             id: "resource.customField.part.navn.title",
             value: "Organisasjon"
-        },
-        {
-            id: "resource.customField.prosjekt.title",
-            value: "Prosjekt"
-        },
-        {
-            id: "resource.customField.telefonnummer.title",
-            value: "Telefonnummer"
-        },
-        {
-            id: "resource.customField.utfallSvar.status.title",
-            value: "Status"
         },
         {
             id: "resource.utfallBesvarelse.utfallSvar.svv.header",
@@ -160,20 +118,12 @@ export default {
             value: "Ingen data registrert"
         },
         {
-            id: "resource.customTable.data.navn.title",
-            value: "Navn"
-        },
-        {
             id: "resource.customTable.data.dato.title",
             value: "Dato"
         },
         {
             id: "resource.customTable.data.kommentar.title",
             value: "Kommentar"
-        },
-        {
-            id: "resource.customTable.eiendom.title",
-            value: "Eiendom/byggested"
         },
         {
             id: "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.emptyFieldText",
@@ -190,18 +140,6 @@ export default {
         {
             id: "resource.customDescriptionList.data.title",
             value: "Arrangementer"
-        },
-        {
-            id: "resource.kontaktpersonForNabovarselet.navn.title",
-            value: "Kontaktperson"
-        },
-        {
-            id: "resource.kontaktpersonForNabovarselet.telefonnummer.title",
-            value: "Telefonnummer"
-        },
-        {
-            id: "resource.kontaktpersonForNabovarselet.epost.title",
-            value: "E-postadresse"
         }
     ]
 };

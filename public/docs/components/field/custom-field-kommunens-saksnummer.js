@@ -9,7 +9,7 @@ const markup = {
         data: "customField.kommunensSaksnummer"
     },
     resourceBindings: {
-        title: "resource.customField.kommunensSaksnummer.title",
+        title: "resource.kommunensSaksnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };

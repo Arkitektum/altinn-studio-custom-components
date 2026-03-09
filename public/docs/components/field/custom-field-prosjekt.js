@@ -8,7 +8,7 @@ const markup = {
         data: "customField.prosjekt"
     },
     resourceBindings: {
-        title: "resource.customField.prosjekt.title",
+        title: "resource.metadata.prosjekt.title",
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };

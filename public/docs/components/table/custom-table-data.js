@@ -13,7 +13,7 @@ const markup = {
             dataKey: "navn",
             tagName: "custom-field-data",
             resourceBindings: {
-                title: "resource.customTable.data.navn.title",
+                title: "resource.part.navn.title",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
         },

@@ -9,12 +9,15 @@ const markup = {
         simpleBinding: "customField.booleanText.condition"
     },
     resourceBindings: {
-        title: "resource.customField.booleanText.title",
-        trueText: "resource.customField.booleanText.true.title",
-        falseText: "resource.customField.booleanText.false.title",
-        defaultText: "resource.customField.booleanText.default.title",
-        emptyFieldText: "resource.emptyFieldText.default"
+        title: "resource.customField.booleanText.title"
     }
 };
 
-export default { markup };
+const defaultResourceBindings = {
+    trueText: "resource.trueText.default",
+    falseText: "resource.falseText.default",
+    defaultText: "resource.emptyFieldText.default",
+    emptyFieldText: "resource.emptyFieldText.default"
+};
+
+export default { markup, defaultResourceBindings };

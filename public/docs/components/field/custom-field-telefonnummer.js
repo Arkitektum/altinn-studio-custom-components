@@ -8,7 +8,7 @@ const markup = {
         data: "customField.part"
     },
     resourceBindings: {
-        title: "resource.customField.telefonnummer.title",
+        title: "resource.part.telefonnummer.title",
         emptyFieldText: "resource.emptyFieldText.default"
     }
 };

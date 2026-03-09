@@ -6,9 +6,6 @@ const markup = {
     hideIfEmpty: false,
     dataModelBindings: {
         data: "customField.utfallSvarStatus"
-    },
-    resourceBindings: {
-        title: "resource.customField.utfallSvar.status.title"
     }
 };
 

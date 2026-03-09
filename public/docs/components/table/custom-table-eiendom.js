@@ -8,7 +8,7 @@ const markup = {
         data: "customTable.eiendom"
     },
     resourceBindings: {
-        title: "resource.customTable.eiendom.title"
+        title: "resource.eiendomByggested.eiendom.title"
     }
 };
 
