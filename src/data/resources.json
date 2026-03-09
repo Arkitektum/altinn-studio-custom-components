@@ -258,6 +258,42 @@
         }
     },
     {
+        "id": "resource.dispensasjonsvarsel.bestemmelse.title",
+        "values": {
+            "nb": "Dette søkes det dispensasjon fra"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsvarsel.dispVarselBeskrivelse.title",
+        "values": {
+            "nb": "Bakgrunn for dispensasjonssøknaden"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsvarsel.plannavn.title",
+        "values": {
+            "nb": "Kommunedelplan"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsvarsel.paragrafnummer.title",
+        "values": {
+            "nb": "Plan- og bygningsloven"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsvarsel.spoersmaalOmDispensasjonssoeknaden.title",
+        "values": {
+            "nb": "Spørsmål om dispensasjonssøknaden må rettes til kontaktpersonen oppgitt under \"Har du spørsmål til nabovarselet?\""
+        }
+    },
+    {
+        "id": "resource.dispensasjonsvarsel.title",
+        "values": {
+            "nb": "Varsel om dispensasjonssøknad"
+        }
+    },
+    {
         "id": "resource.eiendom.adresse.title",
         "values": {
             "nb": "Adresse"
@@ -309,6 +345,12 @@
         "id": "resource.eier.title",
         "values": {
             "nb": "Eier/fester av naboeiendom"
+        }
+    },
+    {
+        "id": "resource.emne.title",
+        "values": {
+            "nb": "Emne"
         }
     },
     {

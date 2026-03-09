@@ -69,6 +69,7 @@ export default [
     "custom-table-part",
     "custom-table-plan",
     "custom-dispensasjon",
+    "custom-dispensasjonsvarsel",
     "custom-gjennomfoeringsplan",
     "custom-gjenpart-nabovarsel"
 ];

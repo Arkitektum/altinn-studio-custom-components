@@ -292,7 +292,11 @@ export function validateResources() {
     const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
 
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
-    const { missingResourceBindings, literalValues } = getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources);
+    const { missingResourceBindings, literalValues } = getMissingResourceBindings(
+        allResourceBindings,
+        textResources,
+        defaultTextResources?.resources
+    );
     const duplicateTextResources = getDuplicateTextResources(textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
     const validationResults = {
