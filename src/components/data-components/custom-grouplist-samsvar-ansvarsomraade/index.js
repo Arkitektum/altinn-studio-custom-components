@@ -1,5 +1,5 @@
 // Global functions
-import { createCustomElement, getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
+import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 

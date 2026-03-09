@@ -11,7 +11,7 @@ export default customElements.define(
     "custom-list",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new instantiateComponent(this);
+            const component = instantiateComponent(this);
             this.innerHTML = component?.resourceValues?.title?.length ? renderListFieldElement(component) : renderListElement(component);
         }
     }

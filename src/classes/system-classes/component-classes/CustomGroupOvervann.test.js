@@ -20,7 +20,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn((messages) => !!messages)
 }));
 
-const { getComponentDataValue, getTextResources, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue, hasValue } = require("../../../functions/helpers.js");
 
 describe("CustomGroupOvervann", () => {
     beforeEach(() => {

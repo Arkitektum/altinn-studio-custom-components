@@ -19,7 +19,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
-const { getComponentDataValue, getTextResources, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue, hasValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 describe("CustomGroupAdkomst", () => {

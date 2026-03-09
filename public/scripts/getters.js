@@ -344,7 +344,7 @@ export function getAppResourceValuesForLanguage(appResourceValues, language) {
         return {
             appName: app?.appName,
             appOwner: app?.appOwner,
-            resources: getResourcesForLanguage(app?.resourceValues || [], language) || []
+            resources: getResourcesForLanguage(app?.resourceValues || [], language)
         };
     });
 }

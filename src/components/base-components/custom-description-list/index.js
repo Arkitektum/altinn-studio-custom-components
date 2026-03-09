@@ -11,7 +11,7 @@ export default customElements.define(
     "custom-description-list",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new instantiateComponent(this);
+            const component = instantiateComponent(this);
             this.innerHTML = component?.resourceValues?.title?.length
                 ? renderListFieldElement(component?.resourceValues?.title, component?.resourceValues?.data, component?.styleOverride)
                 : renderListElement(component?.resourceValues?.data, component?.styleOverride);

@@ -67,7 +67,7 @@ export function hasValue(obj) {
         }
     }
     for (let key in obj) {
-        if (!!obj?.[key]?.toString().length > 0 && key !== "altinnRowId") {
+        if (obj?.[key]?.toString().length > 0 && key !== "altinnRowId") {
             // Exclude altinnRowId from content check
             return objectHasContent(obj);
         }

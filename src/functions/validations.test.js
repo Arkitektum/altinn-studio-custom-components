@@ -1,4 +1,3 @@
-import { getDefaultTextResources } from "./helpers.js";
 import { hasValidationMessages, hasMissingTextResources, validateTableHeadersTextResourceBindings } from "./validations.js";
 
 // Mock ValidationMessages class
@@ -58,13 +57,6 @@ describe("hasValidationMessages", () => {
 });
 
 describe("hasMissingTextResources", () => {
-    const textResources = {
-        resources: [
-            { id: "header", value: "Header text" },
-            { id: "desc", value: "" }
-        ]
-    };
-
     it("returns no errors or info if all resources exist and are not empty", () => {
         const bindings = {
             comp1: { header: "header" }
