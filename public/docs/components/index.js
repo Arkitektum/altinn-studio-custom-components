@@ -63,6 +63,7 @@ import customGrouplistVegtypeTillatelse from "./grouplist/custom-grouplist-vegty
 
 // Layout
 import customDispensasjon from "./layout/custom-dispensasjon.js";
+import customDispensasjonsvarsel from "./layout/custom-dispensasjonsvarsel.js";
 import customGjennomfoeringsplan from "./layout/custom-gjennomfoeringsplan.js";
 import customGjenpartNabovarsel from "./layout/custom-gjenpart-nabovarsel.js";
 
@@ -128,7 +129,7 @@ export const grouplist = {
     customGrouplistVegtypeTillatelse
 };
 
-export const layout = { customDispensasjon, customGjennomfoeringsplan, customGjenpartNabovarsel };
+export const layout = { customDispensasjon, customDispensasjonsvarsel, customGjennomfoeringsplan, customGjenpartNabovarsel };
 
 export default {
     typography,

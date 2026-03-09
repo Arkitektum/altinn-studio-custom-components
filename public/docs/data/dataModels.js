@@ -1407,6 +1407,24 @@ export default [
                         norskSvenskDansk: true
                     }
                 },
+                dispensasjonsvarsel: {
+                    annetTema: "Felling av hul eik",
+                    bestemmelsesoverskrift: "Bevaring av hul eik",
+                    bestemmelsestekst:
+                        "Garasje skal ligge minst 5 m fra tomtegrense mot vei når garasjen ligger vinkelrett på boliggate og tilsvarende minst 1 m fra tomtegrensen når garasjen ligger parallelt med boliggate.",
+                    bestemmelsestype: {
+                        kodeverdi: "REG",
+                        kodebeskrivelse: "Friluftsloven"
+                    },
+                    dispensasjonstema: {
+                        kodeverdi: "hoyde",
+                        kodebeskrivelse: "Byggverkets høyde"
+                    },
+                    dispVarselBeskrivelse:
+                        "Jeg ønsker å bygge en ny garasje på min tomt. For å få plass til den, må vi fjerne et hult eiketre. Det er viktig å ta vare på det biologiske mangfoldet i Stavern, men det burde ikke inkludere halvråtne trær bare fordi de er en hul eik.",
+                    paragrafnummer: "§ 3.1",
+                    plannavn: "Reguleringsplan for Stavern sentrum"
+                },
                 gjennomfoeringsplan: {
                     versjon: "1.0",
                     gjennomfoeringsplan: {

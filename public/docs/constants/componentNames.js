@@ -47,6 +47,7 @@ export default {
     "custom-grouplist-utfall-svar": "Utfall svar",
     "custom-grouplist-vegtype-tillatelse": "Vegtype tillatelse",
     "custom-dispensasjon": "Dispensasjonssøknad",
+    "custom-dispensasjonsvarsel": "Dispensasjonsvarsel",
     "custom-gjennomfoeringsplan": "Gjennomføringsplan",
     "custom-gjenpart-nabovarsel": "Gjenpart nabovarsel"
 };
