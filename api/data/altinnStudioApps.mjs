@@ -121,8 +121,8 @@ const altinnStudioApps = [
         dataType: "NV",
         subForms: [
             {
-                appName: "dispensasjonssoeknad-v1",
-                dataType: "DispensasjonssoeknadDataV1"
+                appName: "dispensasjonsvarsel-v1",
+                dataType: "DispensasjonsvarselDataV1"
             }
         ]
     },
