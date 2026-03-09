@@ -12,7 +12,7 @@ export default customElements.define(
     "custom-header-text-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new instantiateComponent(this);
+            const component = instantiateComponent(this);
             if (!component?.isChildComponent) {
                 const containerElement = getComponentContainerElement(this);
                 addStyle(containerElement, {

@@ -12,7 +12,7 @@ export default customElements.define(
     "custom-summation",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new instantiateComponent(this);
+            const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
 
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {

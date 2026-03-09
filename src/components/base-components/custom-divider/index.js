@@ -11,7 +11,7 @@ export default customElements.define(
     "custom-divider",
     class extends HTMLElement {
         connectedCallback() {
-            const component = new instantiateComponent(this);
+            const component = instantiateComponent(this);
             const dividerElement = document.createElement("hr");
             addStyle(dividerElement, component?.styleOverride);
             this.innerHTML = "";
