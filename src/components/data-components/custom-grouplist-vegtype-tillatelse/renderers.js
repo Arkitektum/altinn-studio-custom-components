@@ -9,7 +9,7 @@ import { addContainerElement, createCustomElement } from "../../../functions/hel
  *
  * @param {Object} component - The component configuration object, potentially containing resource bindings.
  * @param {Object} vegtypeTillatelse - The data object representing the "vegtype tillatelse" to be rendered.
- * @returns {HTMLElement} The rendered custom group element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom group element.
  */
 export function renderVegtypeTillatelseElement(component, vegtypeTillatelse) {
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -23,7 +23,7 @@ export function renderVegtypeTillatelseElement(component, vegtypeTillatelse) {
             data: vegtypeTillatelse
         }
     });
-    return addContainerElement(createCustomElement("custom-group-vegtype-tillatelse", htmlAttributes));
+    return createCustomElement("custom-group-vegtype-tillatelse", htmlAttributes);
 }
 
 /**

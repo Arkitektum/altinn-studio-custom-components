@@ -26,7 +26,7 @@ export function renderHeaderElement(title, size = "h2") {
  * Renders a custom "adkomst" element for a given component.
  *
  * This function extracts relevant resource bindings and values from the provided component,
- * constructs the necessary HTML attributes, and returns the custom element wrapped in a container.
+ * constructs the necessary HTML attributes, and returns the custom element.
  *
  * @param {Object} component - The component object containing resource bindings and values.
  * @param {Object} [component.resourceValues] - The resource values associated with the component.
@@ -37,7 +37,7 @@ export function renderHeaderElement(title, size = "h2") {
  * @param {string} [component.resourceBindings.adkomstErNyEllerEndretAdkomst] - Indicates if the adkomst is new or changed.
  * @param {string} [component.resourceBindings.adkomstVegtype] - The type of road (vegtype) for the adkomst.
  * @param {string} [component.resourceBindings.adkomstErTillatelseGitt] - Indicates if the adkomst has been granted permission.
- * @returns {HTMLElement} The rendered custom "adkomst" element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom "adkomst" element.
  */
 export function renderAdkomstElement(component) {
     const data = component?.resourceValues?.data;
@@ -54,7 +54,7 @@ export function renderAdkomstElement(component) {
             data: data?.adkomst
         }
     });
-    return addContainerElement(createCustomElement("custom-group-adkomst", htmlAttributes));
+    return createCustomElement("custom-group-adkomst", htmlAttributes);
 }
 
 /**
@@ -69,7 +69,7 @@ export function renderAdkomstElement(component) {
  * @param {string} [component.resourceBindings.avloepHarTinglystErklaering] - Binding for "har tinglyst erklæring".
  * @param {string} [component.resourceBindings.avloepKrysserAvloepAnnensGrunn] - Binding for "krysser avløp annens grunn".
  * @param {string} [component.resourceBindings.avloepTilknytningstype] - Binding for "tilknytningstype".
- * @returns {HTMLElement} The rendered custom group avløp element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom group avløp element.
  */
 export function renderAvloepElement(component) {
     const data = component?.resourceValues?.data;
@@ -88,7 +88,7 @@ export function renderAvloepElement(component) {
             data: data?.avloep
         }
     });
-    return addContainerElement(createCustomElement("custom-group-avloep", htmlAttributes));
+    return createCustomElement("custom-group-avloep", htmlAttributes);
 }
 
 /**
@@ -102,7 +102,7 @@ export function renderAvloepElement(component) {
  * @param {string} [component.resourceBindings.overvann.title] - The title for the "overvann" section.
  * @param {string} [component.resourceBindings.overvannLedesOvervannTilAvloepssystem] - Binding for "ledesOvervannTilAvloepssystem".
  * @param {string} [component.resourceBindings.overvannLedesOvervannTilTerreng] - Binding for "ledesOvervannTilTerreng".
- * @returns {HTMLElement} The rendered custom "overvann" element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom "overvann" element.
  */
 export function renderOvervannElement(component) {
     const data = component?.resourceValues?.data;
@@ -118,7 +118,7 @@ export function renderOvervannElement(component) {
             data: data?.overvann
         }
     });
-    return addContainerElement(createCustomElement("custom-group-overvann", htmlAttributes));
+    return createCustomElement("custom-group-overvann", htmlAttributes);
 }
 
 /**
@@ -134,7 +134,7 @@ export function renderOvervannElement(component) {
  * @param {string} [component.resourceBindings.vannforsyningHarTinglystErklaering] - Indicates if there is a registered declaration.
  * @param {string} [component.resourceBindings.vannforsyningKrysserVannforsyningAnnensGrunn] - Indicates if the water supply crosses another's property.
  * @param {string} [component.resourceBindings.vannforsyningTilknytningstype] - The type of connection for vannforsyning.
- * @returns {HTMLElement} The rendered vannforsyning custom element wrapped in a container.
+ * @returns {HTMLElement} The rendered vannforsyning custom element.
  */
 export function renderVannforsyningElement(component) {
     const data = component?.resourceValues?.data;
@@ -152,7 +152,7 @@ export function renderVannforsyningElement(component) {
             data: data?.vannforsyning
         }
     });
-    return addContainerElement(createCustomElement("custom-group-vannforsyning", htmlAttributes));
+    return createCustomElement("custom-group-vannforsyning", htmlAttributes);
 }
 
 /**
