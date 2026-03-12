@@ -894,6 +894,14 @@
             "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk i dag?"
         },
         {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.header",
+            "value": "Krav til byggegrunn"
+        },
+        {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
+        },
+        {
             "id": "resource.sikkerhetsnivaa.header",
             "value": "Sikkerhetsnivå"
         },
