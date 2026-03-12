@@ -62,6 +62,10 @@
             "value": "Begrunnelse"
         },
         {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
+        },
+        {
             "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
             "value": "Hensynet bak bestemmelse"
         },
@@ -892,10 +896,6 @@
         {
             "id": "resource.sikkerhetsnivaa.harTilstrekkeligSikkerhet.title",
             "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk i dag?"
-        },
-        {
-            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
-            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
         },
         {
             "id": "resource.sikkerhetsnivaa.header",
