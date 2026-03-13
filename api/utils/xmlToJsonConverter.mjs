@@ -1,6 +1,6 @@
 // Dependencies
-import libxml from "libxmljs2";
 import { XMLParser } from "fast-xml-parser";
+import libxml from "libxmljs2";
 
 /**
  * Extracts the dot-separated paths of all elements in an XSD document that are defined as arrays.
@@ -69,7 +69,7 @@ export function convertXmlToJson(xmlContent, xsdContent) {
 
         isArray: (tagName, jpath) => {
             // Example jpath: Order.Item or Order.Item.Sku
-            const normalized = jpath.replace(/\.\@.*$/, "").split(".");
+            const normalized = jpath.replace(/\.@.*$/, "").split(".");
 
             return arrayPathList.some((xsdPath) => {
                 const xsdParts = xsdPath.split(".");
