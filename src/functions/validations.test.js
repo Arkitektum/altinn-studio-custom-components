@@ -1,4 +1,4 @@
-import { hasValidationMessages, hasMissingTextResources, validateTableHeadersTextResourceBindings } from "./validations.js";
+import { hasMissingTextResources, hasValidationMessages, validateTableHeadersTextResourceBindings } from "./validations.js";
 
 // Mock ValidationMessages class
 export class ValidationMessages {

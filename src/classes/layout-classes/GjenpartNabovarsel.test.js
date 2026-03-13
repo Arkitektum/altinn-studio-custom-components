@@ -1,7 +1,7 @@
-import GjenpartNabovarsel from "./GjenpartNabovarsel";
-import Part from "../data-classes/Part";
 import EiendomByggested from "../data-classes/EiendomByggested";
+import GjenpartNabovarsel from "./GjenpartNabovarsel";
 import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer";
+import Part from "../data-classes/Part";
 import Planer from "../data-classes/Planer";
 
 describe("GjenpartNabovarsel", () => {

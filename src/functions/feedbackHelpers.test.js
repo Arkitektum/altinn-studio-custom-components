@@ -1,6 +1,6 @@
-import { renderFeedbackListElement } from "./feedbackHelpers";
 import CustomElementHtmlAttributes from "../classes/system-classes/CustomElementHtmlAttributes";
 import { createCustomElement } from "./helpers";
+import { renderFeedbackListElement } from "./feedbackHelpers";
 
 jest.mock("../classes/system-classes/CustomElementHtmlAttributes");
 jest.mock("./helpers");

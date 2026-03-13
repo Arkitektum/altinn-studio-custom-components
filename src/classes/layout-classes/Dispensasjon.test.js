@@ -1,5 +1,5 @@
-import Dispensasjon from "./Dispensasjon";
 import Begrunnelse from "../data-classes/Begrunnelse.js";
+import Dispensasjon from "./Dispensasjon";
 import DispensasjonBeskrivelse from "../data-classes/DispensasjonBeskrivelse.js";
 import DispensasjonFra from "../data-classes/DispensasjonFra.js";
 import EiendomByggested from "../data-classes/EiendomByggested.js";

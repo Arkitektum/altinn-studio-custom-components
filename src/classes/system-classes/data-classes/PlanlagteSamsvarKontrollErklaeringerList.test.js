@@ -1,5 +1,5 @@
-import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList";
 import { getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList";
 
 // Mock the helper functions
 jest.mock("../../../functions/helpers.js", () => ({
