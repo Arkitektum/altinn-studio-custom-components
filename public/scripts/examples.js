@@ -1,7 +1,7 @@
 // Local functions
+import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
 import { fetchDefaultTextResources } from "./getters.js";
 import { getTextResources } from "./localStorage.js";
-import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
 import { validateResources } from "./validators.js";
 
 /**

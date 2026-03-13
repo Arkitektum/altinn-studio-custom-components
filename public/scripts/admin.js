@@ -1,20 +1,20 @@
 // Local functions
-import { renderAdminSidebar, renderSynchronizeButton } from "./adminRenderers.js";
-import { getUpdatedApiData } from "./apiHelpers.js";
-import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "./getters.js";
 import {
     addDataToGlobalThis,
-    addValuesToLocalStorage,
     addValueToLocalStorage,
+    addValuesToLocalStorage,
     getValueFromLocalStorage,
     getValuesFromLocalStorage
 } from "./localStorage.js";
+import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "./getters.js";
 import {
     getMissingResourceBindings,
     getResourceBindingsWithUsageFromApplications,
     getUsageForMissingResources,
     getUsageForResources
 } from "./validators.js";
+import { renderAdminSidebar, renderSynchronizeButton } from "./adminRenderers.js";
+import { getUpdatedApiData } from "./apiHelpers.js";
 
 function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
