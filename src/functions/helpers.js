@@ -385,7 +385,7 @@ export function getTextResourceFromResourceBinding(resourceBinding) {
  * @param {Object} resourceBindings - An object where each key maps to a resource binding.
  * @returns {Object} An object mapping each key to its corresponding text resource.
  */
-export function getTextResourcesFromResourceBindings(resourceBindings, defaultResourceBindings) {
+export function getTextResourcesFromResourceBindings(resourceBindings) {
     const texts = {};
     for (const key in resourceBindings) {
         texts[key] =
