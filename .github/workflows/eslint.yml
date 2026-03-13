@@ -57,29 +57,18 @@ jobs:
       # ------------------------------
       # 5. Check if SARIF exists
       # ------------------------------
-      - name: Ensure SARIF exists
-        id: check_sarif
+      - name: Check if SARIF exists
         run: |
           if [ ! -f eslint-results.sarif ]; then
-            echo "No SARIF file generated. Creating empty SARIF."
-            echo '{"version":"2.1.0","runs":[]}' > eslint-results.sarif
-          fi
-          # Check if SARIF has results
-          if grep -q '"results":\[' eslint-results.sarif; then
-            if grep -q '"results":\[\]' eslint-results.sarif; then
-              echo "has_results=false" >> "$GITHUB_OUTPUT"
-            else
-              echo "has_results=true" >> "$GITHUB_OUTPUT"
+            echo "No SARIF file generated. Skipping upload."
+            exit 0
             fi
-          else
-            echo "has_results=false" >> "$GITHUB_OUTPUT"
-          fi
 
       # ------------------------------
       # 6. Upload SARIF to GitHub Security tab
       # ------------------------------
       - name: Upload analysis results to GitHub
-        if: ${{ !contains(fromJson(steps.check_sarif.outputs.has_results), 'false') }}
+        if: ${{ hashFiles('eslint-results.sarif') != '' }}
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: eslint-results.sarif
