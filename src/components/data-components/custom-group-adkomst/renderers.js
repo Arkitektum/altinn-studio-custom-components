@@ -57,7 +57,7 @@ export function renderErNyEllerEndretAdkomstElement(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {string} [component.resourceBindings.adkomstVegtype] - The resource binding for vegtype.
  * @param {string} [component.resourceBindings.adkomstErTillatelseGitt] - The resource binding for tillatelse.
- * @returns {HTMLElement} The rendered custom element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom element.
  */
 export function renderVegtypeTillatelseElement(component) {
     const data = component?.resourceValues?.data;
@@ -72,7 +72,7 @@ export function renderVegtypeTillatelseElement(component) {
             data: data
         }
     });
-    return addContainerElement(createCustomElement("custom-grouplist-vegtype-tillatelse", htmlAttributes));
+    return createCustomElement("custom-grouplist-vegtype-tillatelse", htmlAttributes);
 }
 
 /**
