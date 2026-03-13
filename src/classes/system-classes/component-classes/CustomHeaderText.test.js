@@ -1,6 +1,6 @@
-import CustomHeaderText from "./CustomHeaderText";
-import CustomComponent from "../CustomComponent";
 import * as helpers from "../../../functions/helpers";
+import CustomComponent from "../CustomComponent";
+import CustomHeaderText from "./CustomHeaderText";
 
 describe("CustomHeaderText", () => {
     const mockGetComponentResourceValue = jest.spyOn(helpers, "getComponentResourceValue");

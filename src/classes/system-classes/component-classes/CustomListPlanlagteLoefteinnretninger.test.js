@@ -1,6 +1,6 @@
-import CustomListPlanlagteLoefteinnretninger from "./CustomListPlanlagteLoefteinnretninger";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomListPlanlagteLoefteinnretninger from "./CustomListPlanlagteLoefteinnretninger";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

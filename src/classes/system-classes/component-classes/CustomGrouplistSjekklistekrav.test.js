@@ -1,6 +1,6 @@
-import CustomGrouplistSjekklistekrav from "./CustomGrouplistSjekklistekrav";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGrouplistSjekklistekrav from "./CustomGrouplistSjekklistekrav";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

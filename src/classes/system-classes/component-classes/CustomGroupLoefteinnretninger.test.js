@@ -1,4 +1,3 @@
-import CustomGroupLoefteinnretninger from "./CustomGroupLoefteinnretninger";
 import {
     getComponentDataValue,
     getTextResourceFromResourceBinding,
@@ -6,6 +5,7 @@ import {
     hasValue
 } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGroupLoefteinnretninger from "./CustomGroupLoefteinnretninger";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

@@ -1,6 +1,6 @@
-import CustomHeader from "./CustomHeader";
-import CustomComponent from "../CustomComponent";
 import * as helpers from "../../../functions/helpers";
+import CustomComponent from "../CustomComponent";
+import CustomHeader from "./CustomHeader";
 
 describe("CustomHeader", () => {
     beforeEach(() => {

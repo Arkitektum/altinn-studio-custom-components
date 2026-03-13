@@ -1,6 +1,6 @@
-import CustomTablePlan from "./CustomTablePlan";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomTablePlan from "./CustomTablePlan";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

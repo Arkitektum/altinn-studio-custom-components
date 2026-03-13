@@ -1,6 +1,6 @@
+import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import CustomListVedlegg from "./CustomListVedlegg";
 import Vedlegg from "../../data-classes/Vedlegg";
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 
 // Mocks for global functions
 jest.mock("../../../functions/helpers.js", () => ({

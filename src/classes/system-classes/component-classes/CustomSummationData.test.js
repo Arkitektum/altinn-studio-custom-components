@@ -1,10 +1,10 @@
-import CustomSummationData from "./CustomSummationData";
 import {
     getComponentDataValue,
     getTextResourceFromResourceBinding,
     getTextResourcesFromResourceBindings,
     hasValue
 } from "../../../functions/helpers.js";
+import CustomSummationData from "./CustomSummationData";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({

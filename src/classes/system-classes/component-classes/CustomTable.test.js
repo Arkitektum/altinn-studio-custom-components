@@ -1,6 +1,6 @@
-import CustomTable from "./CustomTable";
-import CustomComponent from "../CustomComponent";
 import * as helpers from "../../../functions/helpers";
+import CustomComponent from "../CustomComponent";
+import CustomTable from "./CustomTable";
 
 describe("CustomTable", () => {
     beforeEach(() => {

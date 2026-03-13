@@ -1,6 +1,6 @@
-import CustomGroupVegtypeTillatelse from "./CustomGroupVegtypeTillatelse";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGroupVegtypeTillatelse from "./CustomGroupVegtypeTillatelse";
 
 // Mock dependencies
 jest.mock("../CustomComponent.js", () => {

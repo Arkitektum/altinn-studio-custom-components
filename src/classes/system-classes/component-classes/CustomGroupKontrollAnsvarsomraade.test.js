@@ -1,7 +1,7 @@
-import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade";
-import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 import * as helpers from "../../../functions/helpers.js";
 import * as validations from "../../../functions/validations.js";
+import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade";
+import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 
 // Mocks
 jest.mock("../CustomComponent.js");

@@ -1,6 +1,6 @@
-import CustomTableAnsvarsomraade from "./CustomTableAnsvarsomraade";
 import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomTableAnsvarsomraade from "./CustomTableAnsvarsomraade";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

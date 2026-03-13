@@ -1,7 +1,7 @@
-import CustomGroupKontrollErklaeringer from "./CustomGroupKontrollErklaeringer";
-import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGroupKontrollErklaeringer from "./CustomGroupKontrollErklaeringer";
+import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade";
 
 // Mock dependencies
 jest.mock("../CustomComponent.js", () => {

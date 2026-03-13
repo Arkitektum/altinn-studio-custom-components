@@ -1,6 +1,6 @@
-import CustomGroupSjekklistekrav from "./CustomGroupSjekklistekrav";
 import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGroupSjekklistekrav from "./CustomGroupSjekklistekrav";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Mocks

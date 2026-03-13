@@ -1,5 +1,5 @@
-import CustomGroupNaboGjenboerEiendom from "./CustomGroupNaboGjenboerEiendom";
 import CustomComponent from "../CustomComponent";
+import CustomGroupNaboGjenboerEiendom from "./CustomGroupNaboGjenboerEiendom";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom";
 
 // Mock helpers and validations

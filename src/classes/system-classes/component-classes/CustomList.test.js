@@ -1,5 +1,5 @@
-import CustomList from "./CustomList";
 import CustomComponent from "../CustomComponent";
+import CustomList from "./CustomList";
 import { hasValue } from "../../../functions/helpers";
 
 // Mock hasValue helper

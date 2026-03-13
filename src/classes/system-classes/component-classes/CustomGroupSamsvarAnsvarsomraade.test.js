@@ -1,5 +1,5 @@
-import CustomGroupSamsvarAnsvarsomraade from "./CustomGroupSamsvarAnsvarsomraade";
 import CustomComponent from "../CustomComponent";
+import CustomGroupSamsvarAnsvarsomraade from "./CustomGroupSamsvarAnsvarsomraade";
 import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade";
 
 // Mock dependencies

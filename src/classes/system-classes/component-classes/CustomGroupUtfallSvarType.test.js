@@ -1,6 +1,6 @@
-import CustomGroupUtfallSvarType from "./CustomGroupUtfallSvarType";
 import { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGroupUtfallSvarType from "./CustomGroupUtfallSvarType";
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({

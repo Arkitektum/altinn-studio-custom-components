@@ -1,5 +1,5 @@
-import CustomParagraphText from "./CustomParagraphText";
 import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import CustomParagraphText from "./CustomParagraphText";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({

@@ -1,6 +1,6 @@
-import CustomSubHeaderText from "./CustomSubheaderText";
 import * as helpers from "../../../functions/helpers";
 import CustomComponent from "../CustomComponent";
+import CustomSubHeaderText from "./CustomSubheaderText";
 
 describe("CustomSubHeaderText", () => {
     const mockProps = { title: "Test Title", otherProp: "value" };

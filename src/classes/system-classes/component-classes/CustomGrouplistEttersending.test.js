@@ -1,6 +1,6 @@
-import CustomGrouplistEttersending from "./CustomGrouplistEttersending";
 import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGrouplistEttersending from "./CustomGrouplistEttersending";
 
 // Mocks for global functions and dependencies
 jest.mock("../../../functions/helpers.js", () => ({
