@@ -262,12 +262,8 @@ export function validateResources() {
     const componentCode = getLayoutCode();
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
-    let components = [];
-    if (Array.isArray(componentCode)) {
-        components = componentCode;
-    } else {
-        components = [componentCode];
-    }
+
+    const components = Array.isArray(componentCode) ? componentCode : [componentCode];
 
     const altinnResourceBindings = [
         "signing.summary.title.override",
