@@ -22,13 +22,13 @@ jobs:
       # 1. Checkout repository
       # ------------------------------
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # ------------------------------
       # 2. Setup Node.js (for caching)
       # ------------------------------
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: "npm"
@@ -38,7 +38,7 @@ jobs:
       # ------------------------------
       - name: Install ESLint and SARIF formatter
         run: |
-          npm install eslint@10.0.1 @microsoft/eslint-formatter-sarif@3.1.0
+          npm install eslint@10.0.3 @microsoft/eslint-formatter-sarif@3.1.0
 
       # ------------------------------
       # 4. Run ESLint (Flat Config)
@@ -62,7 +62,7 @@ jobs:
           if [ ! -f eslint-results.sarif ]; then
             echo "No SARIF file generated. Skipping upload."
             exit 0
-            fi
+          fi
 
       # ------------------------------
       # 6. Upload SARIF to GitHub Security tab
