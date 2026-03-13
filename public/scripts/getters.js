@@ -3,8 +3,8 @@ import { getValueFromDataKey, hasValue } from "../../src/functions/helpers.js";
 import { beautifyJson } from "./formatters.js";
 
 // Local functions
-import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
 import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.js";
+import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { validateResources } from "./validators.js";

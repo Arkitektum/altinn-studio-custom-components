@@ -1,6 +1,6 @@
 // Global functions
-import { isValidHeaderSize } from "./dataFormatHelpers.js";
 import { hasValue } from "./helpers.js";
+import { isValidHeaderSize } from "./dataFormatHelpers.js";
 
 /**
  * Extracts a set of properties from the given HTML element by invoking various helper functions.

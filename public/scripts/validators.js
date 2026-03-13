@@ -5,9 +5,9 @@ import ValidationMessages from "../../src/classes/system-classes/ValidationMessa
 import { getLayoutCode, getTextResources } from "./localStorage.js";
 
 // Global functions
-import { instantiateComponent } from "../../src/functions/componentHelpers.js";
 import { getDataForComponent, getDefaultValueForResource } from "./getters.js";
 import { getDefaultTextResources } from "../../src/functions/helpers.js";
+import { instantiateComponent } from "../../src/functions/componentHelpers.js";
 
 /**
  * Adds resource bindings from a custom component's properties to a set of all resource bindings.
@@ -262,12 +262,8 @@ export function validateResources() {
     const componentCode = getLayoutCode();
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
-    let components = [];
-    if (Array.isArray(componentCode)) {
-        components = componentCode;
-    } else {
-        components = [componentCode];
-    }
+
+    const components = Array.isArray(componentCode) ? componentCode : [componentCode];
 
     const altinnResourceBindings = [
         "signing.summary.title.override",

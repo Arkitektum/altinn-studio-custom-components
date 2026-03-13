@@ -1,3 +1,4 @@
+// Global functions
 import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 
 /**

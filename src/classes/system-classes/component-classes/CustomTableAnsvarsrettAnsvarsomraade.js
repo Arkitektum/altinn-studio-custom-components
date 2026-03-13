@@ -1,6 +1,6 @@
 // Classes
-import CustomComponent from "../CustomComponent.js";
 import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade.js";
+import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
@@ -55,7 +55,7 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
      * @returns {Array} The list of "ansvarsomraade" values extracted from the form data.
      */
     getValueFromFormData(props, resourceBindings) {
-        const { simpleBinding, ...formDataWithoutSimpleBinding } = props.formData ?? {};
+        const { ...formDataWithoutSimpleBinding } = props.formData ?? {};
         const cleanedProps = {
             ...props,
             formData: formDataWithoutSimpleBinding

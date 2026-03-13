@@ -1,4 +1,5 @@
 // Classes
+import CustomComponent from "../classes/system-classes/CustomComponent.js";
 import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.js";
 import CustomDescriptionListData from "../classes/system-classes/component-classes/CustomDescriptionListData.js";
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";
@@ -29,14 +30,6 @@ import CustomGroupAvloep from "../classes/system-classes/component-classes/Custo
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGroupKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupKontrollAnsvarsomraade.js";
 import CustomGroupKontrollErklaeringer from "../classes/system-classes/component-classes/CustomGroupKontrollErklaeringer.js";
-import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
-import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
-import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
-import CustomGrouplistSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGrouplistSamsvarAnsvarsomraade.js";
-import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
-import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
-import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
-import CustomGrouplistVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGrouplistVegtypeTillatelse.js";
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
@@ -48,6 +41,14 @@ import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/C
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
 import CustomGroupVannforsyning from "../classes/system-classes/component-classes/CustomGroupVannforsyning.js";
 import CustomGroupVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGroupVegtypeTillatelse.js";
+import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.js";
+import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.js";
+import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.js";
+import CustomGrouplistSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGrouplistSamsvarAnsvarsomraade.js";
+import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.js";
+import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.js";
+import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.js";
+import CustomGrouplistVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGrouplistVegtypeTillatelse.js";
 import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.js";
 import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.js";
 import CustomHeaderTextData from "../classes/system-classes/component-classes/CustomHeaderTextData.js";
@@ -71,7 +72,6 @@ import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
-import CustomComponent from "../classes/system-classes/CustomComponent.js";
 
 // Global functions
 import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";

@@ -1,6 +1,6 @@
 // Local functions
-import { removeTrailingOrLeadingComma } from "./formatters.js";
 import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage.js";
+import { removeTrailingOrLeadingComma } from "./formatters.js";
 
 /**
  * Handles the change event for the data model type input element at the specified index.

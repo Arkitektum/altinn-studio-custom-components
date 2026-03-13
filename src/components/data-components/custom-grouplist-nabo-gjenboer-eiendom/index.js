@@ -4,7 +4,7 @@ import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
-import { renderNaboGjenboerEiendomGroup, renderEmptyFieldText, renderHeaderElement, renderDivider } from "./renderers.js";
+import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderNaboGjenboerEiendomGroup } from "./renderers.js";
 
 export default customElements.define(
     "custom-grouplist-nabo-gjenboer-eiendom",

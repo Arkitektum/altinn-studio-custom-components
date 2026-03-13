@@ -1,8 +1,8 @@
 // Global functions
-import { instantiateComponent } from "../../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers.js";
 import { getComponentContainerElement } from "../../../../functions/helpers.js";
+import { instantiateComponent } from "../../../../functions/componentHelpers.js";
 import { renderEmptyFieldText } from "../../custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/renderers.js";
+import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers.js";
 
 // Local functions
 import { renderUtfallSvarGroupList } from "./renderers.js";

@@ -5,16 +5,16 @@ import CustomElementHtmlAttributes from "../../src/classes/system-classes/Custom
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
+import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "./localStorage.js";
 import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
 import { getAppResourceValuesForLanguage, getDataForComponent, getResourcesForLanguage } from "./getters.js";
-import { languages } from "./languages.js";
-import { addDataToGlobalThis, addValuesToLocalStorage, addValueToLocalStorage } from "./localStorage.js";
 import {
     renderDefaultTextResourcesList,
-    renderUsageFilterForTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
-    renderTextInputFilterForTextResourcesList
+    renderTextInputFilterForTextResourcesList,
+    renderUsageFilterForTextResourcesList
 } from "./textResourceUsageRenderers.js";
+import { languages } from "./languages.js";
 
 /**
  * Renders the resource usage page by appending various filter controls and the default text resources list

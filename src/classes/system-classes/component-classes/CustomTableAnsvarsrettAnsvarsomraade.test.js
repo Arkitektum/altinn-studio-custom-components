@@ -1,7 +1,7 @@
-import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade";
-import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade";
 import * as helpers from "../../../functions/helpers";
 import * as validations from "../../../functions/validations";
+import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade";
+import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade";
 
 // Mock dependencies
 jest.mock("../../data-classes/AnsvarsrettAnsvarsomraade");
@@ -60,7 +60,7 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
 
     describe("getValueFromFormData", () => {
         it("should call getComponentDataValue and getAnsvarsomraadeListFromData", () => {
-            const props = { formData: { a: 1, simpleBinding: "x" } };
+            const props = { formData: { a: 1 } };
             const resourceBindings = {};
             const fakeData = [{ foo: "bar" }];
             const fakeList = ["ansvarsomraade1"];

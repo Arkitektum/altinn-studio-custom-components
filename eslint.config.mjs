@@ -8,7 +8,15 @@ export default defineConfig([
         plugins: { js },
         extends: ["js/recommended"],
         languageOptions: { globals: { ...globals.browser, ...globals.node } },
-        ignores: ["dist/", "docs/", "node_modules/", "**/vendor/*.js"]
+        ignores: ["dist/", "docs/", "node_modules/", "**/vendor/*.js"],
+        rules: {
+            "sort-imports": [
+                "error",
+                {
+                    allowSeparatedGroups: true
+                }
+            ]
+        }
     },
     {
         files: ["**/*.test.js", "**/*.spec.js"], // 👈 Only apply to test files

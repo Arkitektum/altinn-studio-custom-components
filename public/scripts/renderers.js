@@ -6,9 +6,9 @@ import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.j
 import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
 
 // Local functions
-import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
 import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
+import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
 
 /**
@@ -31,12 +31,9 @@ import { renderValidationMessages, validateResources } from "./validators.js";
  */
 export function renderResults() {
     const componentCode = getLayoutCode();
-    let components = [];
-    if (Array.isArray(componentCode)) {
-        components = componentCode;
-    } else {
-        components = [componentCode];
-    }
+
+    const components = Array.isArray(componentCode) ? componentCode : [componentCode];
+
     const containerElement = document.getElementById("code-results");
     containerElement.innerHTML = "";
     const resultsElements = components

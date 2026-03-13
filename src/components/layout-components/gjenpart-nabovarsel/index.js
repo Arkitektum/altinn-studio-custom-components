@@ -1,7 +1,7 @@
 // Global functions
+import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
 import {
@@ -13,9 +13,9 @@ import {
     renderKontaktpersonForNabovarseletElement,
     renderMerknaderSendesTilHeaderElement,
     renderNaboGjenboerEiendom,
+    renderPlanGjeldendePlanNavnElement,
     renderPlanerGjeldendePlanHeaderElement,
     renderPlanerGjeldendePlanPlantypeElement,
-    renderPlanGjeldendePlanNavnElement,
     renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement,
     renderSoeknadGjelderBrukTiltaksformaalElement,
     renderSoeknadGjelderHeader,

@@ -1,17 +1,17 @@
 // Global functions
+import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
 import {
-    renderHeaderElement,
+    renderEmptyFieldText,
     renderErklaeringTekstElement,
-    renderSOEKTekstElement,
-    renderPROTekstElement,
-    renderUTFTekstElement,
+    renderHeaderElement,
     renderKONTROLLTekstElement,
-    renderEmptyFieldText
+    renderPROTekstElement,
+    renderSOEKTekstElement,
+    renderUTFTekstElement
 } from "./renderers.js";
 
 export default customElements.define(

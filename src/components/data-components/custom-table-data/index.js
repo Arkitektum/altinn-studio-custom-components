@@ -2,8 +2,8 @@
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
 import { renderTableElement } from "./renderers.js";

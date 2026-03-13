@@ -1,5 +1,6 @@
-import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.js";
+// Classes
 import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.js";
+import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.js";
 
 /**
  * Represents an executing entity with temporary usage permission and attestation status.

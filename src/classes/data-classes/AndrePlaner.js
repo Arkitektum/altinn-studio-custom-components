@@ -1,6 +1,8 @@
 // Classes
-import { hasValue } from "../../functions/helpers.js";
 import Plan from "./Plan.js";
+
+// Global functions
+import { hasValue } from "../../functions/helpers.js";
 
 /**
  * Class representing additional plans (AndrePlaner).

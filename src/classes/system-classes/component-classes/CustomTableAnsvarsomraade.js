@@ -1,6 +1,6 @@
 // Classes
-import CustomComponent from "../CustomComponent.js";
 import Ansvarsomraade from "../../data-classes/Ansvarsomraade.js";
+import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";

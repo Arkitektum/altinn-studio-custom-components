@@ -1,6 +1,6 @@
 // Global functions
-import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
 import { addStyle, generateUniqueId, hasValue } from "../../../functions/helpers.js";
+import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
 
 /**
  * Creates and returns a span element representing a field title.
