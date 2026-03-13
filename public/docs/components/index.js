@@ -13,8 +13,8 @@ import customFieldUtfallSvarStatus from "./field/custom-field-utfall-svar-status
 
 // Typography
 import customHeaderText from "./typography/custom-header-text.js";
-import customSubheaderText from "./typography/custom-subheader-text.js";
 import customParagraphText from "./typography/custom-paragraph-text.js";
+import customSubheaderText from "./typography/custom-subheader-text.js";
 
 // List
 import customListData from "./list/custom-list-data.js";
@@ -57,8 +57,8 @@ import customGrouplistAnsvarsomraadeType from "./grouplist/custom-grouplist-ansv
 import customGrouplistEttersending from "./grouplist/custom-grouplist-ettersending.js";
 import customGrouplistNaboGjenboerEiendom from "./grouplist/custom-grouplist-nabo-gjenboer-eiendom.js";
 import customGrouplistSjekklistekrav from "./grouplist/custom-grouplist-sjekklistekrav.js";
-import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
 import customGrouplistUtfallSvar from "./grouplist/custom-grouplist-utfall-svar.js";
+import customGrouplistUtfallSvarType from "./grouplist/custom-grouplist-utfall-svar-type.js";
 import customGrouplistVegtypeTillatelse from "./grouplist/custom-grouplist-vegtype-tillatelse.js";
 
 // Layout

@@ -1,7 +1,7 @@
 // Data
 import DispensasjonssoeknadDataV1 from "./subforms/DispensasjonssoeknadDataV1.mjs";
-import GjenpartNabovarselDataV3 from "./subforms/GjenpartNabovarselDataV3.mjs";
 import GjennomfoeringsplanDataV7 from "./subforms/GjennomfoeringsplanDataV7.mjs";
+import GjenpartNabovarselDataV3 from "./subforms/GjenpartNabovarselDataV3.mjs";
 
 export default [
     {
