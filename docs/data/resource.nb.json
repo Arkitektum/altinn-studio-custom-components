@@ -62,6 +62,10 @@
             "value": "Begrunnelse"
         },
         {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
+        },
+        {
             "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
             "value": "Hensynet bak bestemmelse"
         },
