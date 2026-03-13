@@ -1,5 +1,5 @@
-import CustomFieldKommunensSaksnummer from "./CustomFieldKommunensSaksnummer";
 import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import CustomFieldKommunensSaksnummer from "./CustomFieldKommunensSaksnummer";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

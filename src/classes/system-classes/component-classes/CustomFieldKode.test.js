@@ -1,5 +1,5 @@
-import CustomFieldKode from "./CustomFieldKode";
 import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import CustomFieldKode from "./CustomFieldKode";
 import Kode from "../../data-classes/Kode.js";
 
 // Mocks

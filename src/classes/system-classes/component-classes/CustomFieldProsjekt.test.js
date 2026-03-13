@@ -1,5 +1,5 @@
-import CustomFieldProsjekt from "./CustomFieldProsjekt";
 import { getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import CustomFieldProsjekt from "./CustomFieldProsjekt";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

@@ -1,6 +1,6 @@
-import CustomGroupAnsvarsrettErklaeringer from "./CustomGroupAnsvarsrettErklaeringer";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGroupAnsvarsrettErklaeringer from "./CustomGroupAnsvarsrettErklaeringer";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

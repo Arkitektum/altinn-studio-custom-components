@@ -1,5 +1,5 @@
-import CustomFieldTelefonnummer from "./CustomFieldTelefonnummer";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import CustomFieldTelefonnummer from "./CustomFieldTelefonnummer";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

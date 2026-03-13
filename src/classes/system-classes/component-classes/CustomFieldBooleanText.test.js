@@ -1,5 +1,5 @@
-import CustomFieldBooleanText from "./CustomFieldBooleanText";
 import CustomComponent from "../CustomComponent";
+import CustomFieldBooleanText from "./CustomFieldBooleanText";
 
 // Mock helper functions
 jest.mock("../../../functions/helpers.js", () => ({

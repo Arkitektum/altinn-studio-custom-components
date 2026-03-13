@@ -1,5 +1,5 @@
-import CustomFieldData from "./CustomFieldData.js";
 import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import CustomFieldData from "./CustomFieldData.js";
 import { formatString } from "../../../functions/dataFormatHelpers.js";
 
 // Mocks

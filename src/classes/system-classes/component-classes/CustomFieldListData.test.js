@@ -1,5 +1,5 @@
-import CustomFieldListData from "./CustomFieldListData";
 import { getComponentDataValue, hasValue } from "../../../functions/helpers.js";
+import CustomFieldListData from "./CustomFieldListData";
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({

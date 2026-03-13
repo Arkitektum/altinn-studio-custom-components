@@ -1,7 +1,7 @@
-import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel";
-import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel";
+import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {

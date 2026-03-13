@@ -1,5 +1,5 @@
-import CustomFeedbackData from "./CustomFeedbackData";
 import { getComponentDataValue, hasValue } from "../../../functions/helpers.js";
+import CustomFeedbackData from "./CustomFeedbackData";
 
 // Mocks
 jest.mock("../../../functions/helpers.js", () => ({

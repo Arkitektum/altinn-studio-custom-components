@@ -1,5 +1,5 @@
-import CustomFieldPartNavn from "./CustomFieldPartNavn";
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import CustomFieldPartNavn from "./CustomFieldPartNavn";
 
 // Mocks
 jest.mock("../../../functions/helpers.js", () => ({

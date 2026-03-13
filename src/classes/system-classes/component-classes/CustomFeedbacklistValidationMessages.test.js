@@ -1,7 +1,7 @@
-import CustomFeedbacklistValidationMessages from "./CustomFeedbacklistValidationMessages";
-import CustomComponent from "../CustomComponent";
-import ValidationMessages from "../ValidationMessages";
 import * as helpers from "../../../functions/helpers";
+import CustomComponent from "../CustomComponent";
+import CustomFeedbacklistValidationMessages from "./CustomFeedbacklistValidationMessages";
+import ValidationMessages from "../ValidationMessages";
 
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn(),
