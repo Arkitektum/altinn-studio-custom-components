@@ -1,5 +1,5 @@
-import Vegtype from "./Vegtype.js";
 import Kode from "./Kode.js";
+import Vegtype from "./Vegtype.js";
 
 jest.mock("./Kode.js"); // Mock the Kode class
 

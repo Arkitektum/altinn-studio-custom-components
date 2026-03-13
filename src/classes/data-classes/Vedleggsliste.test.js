@@ -1,5 +1,5 @@
-import Vedleggsliste from "./Vedleggsliste";
 import Vedlegg from "./Vedlegg";
+import Vedleggsliste from "./Vedleggsliste";
 
 // Import the class to test
 

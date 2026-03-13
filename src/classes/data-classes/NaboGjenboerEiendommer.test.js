@@ -1,5 +1,5 @@
-import NaboGjenboerEiendommer from "./NaboGjenboerEiendommer";
 import NaboGjenboerEiendom from "./NaboGjenboerEiendom";
+import NaboGjenboerEiendommer from "./NaboGjenboerEiendommer";
 
 jest.mock("./NaboGjenboerEiendom");
 

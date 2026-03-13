@@ -1,5 +1,5 @@
-import Eiendom from "./Eiendom";
 import Adresse from "./Adresse";
+import Eiendom from "./Eiendom";
 import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon";
 
 jest.mock("./Adresse");

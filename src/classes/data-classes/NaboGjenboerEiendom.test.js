@@ -1,5 +1,5 @@
-import NaboGjenboerEiendom from "./NaboGjenboerEiendom";
 import GjenboerEiendomByggested from "./GjenboerEiendomByggested";
+import NaboGjenboerEiendom from "./NaboGjenboerEiendom";
 import Part from "./Part";
 import Respons from "./Respons";
 

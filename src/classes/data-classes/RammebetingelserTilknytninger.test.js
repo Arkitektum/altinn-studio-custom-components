@@ -1,7 +1,7 @@
-import RammebetingelserTilknytninger from "./RammebetingelserTilknytninger";
 import Adkomst from "./Adkomst";
 import Avloep from "./Avloep";
 import Overvann from "./Overvann";
+import RammebetingelserTilknytninger from "./RammebetingelserTilknytninger";
 import Vannforsyning from "./Vannforsyning";
 
 jest.mock("./Adkomst");

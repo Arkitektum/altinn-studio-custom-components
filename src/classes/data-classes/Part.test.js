@@ -1,5 +1,5 @@
-import Part from "./Part";
 import Adresse from "./Adresse";
+import Part from "./Part";
 import { hasValue } from "../../functions/helpers";
 
 jest.mock("./Adresse");

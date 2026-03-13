@@ -1,5 +1,5 @@
-import UtfallSvar from "./UtfallSvar";
 import Kode from "./Kode";
+import UtfallSvar from "./UtfallSvar";
 import UtfallType from "./UtfallType";
 import Vedleggsliste from "./Vedleggsliste";
 

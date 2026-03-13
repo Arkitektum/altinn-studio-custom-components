@@ -1,5 +1,5 @@
-import GjenboerEiendomByggested from './GjenboerEiendomByggested.js';
 import GjenboerEiendom from './GjenboerEiendom.js';
+import GjenboerEiendomByggested from './GjenboerEiendomByggested.js';
 
 jest.mock('./GjenboerEiendom.js');
 

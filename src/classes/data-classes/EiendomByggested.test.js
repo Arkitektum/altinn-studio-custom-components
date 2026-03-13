@@ -1,5 +1,5 @@
-import EiendomByggested from "./EiendomByggested";
 import Eiendom from "./Eiendom";
+import EiendomByggested from "./EiendomByggested";
 
 // Import the class to test
 

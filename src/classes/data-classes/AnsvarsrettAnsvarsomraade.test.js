@@ -1,6 +1,6 @@
 import AnsvarsrettAnsvarsomraade from "./AnsvarsrettAnsvarsomraade";
-import Kode from "./Kode";
 import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList";
+import Kode from "./Kode";
 
 jest.mock("./Kode");
 jest.mock("../system-classes/data-classes/FaseSamsvarKontrollList");

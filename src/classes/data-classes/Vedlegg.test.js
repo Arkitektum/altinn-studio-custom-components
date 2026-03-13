@@ -1,5 +1,5 @@
-import Vedlegg from "./Vedlegg";
 import Kode from "./Kode";
+import Vedlegg from "./Vedlegg";
 
 jest.mock("./Kode");
 

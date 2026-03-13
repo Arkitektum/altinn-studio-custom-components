@@ -1,5 +1,5 @@
-import Sjekklistekrav from "./Sjekklistekrav";
 import Kode from "./Kode";
+import Sjekklistekrav from "./Sjekklistekrav";
 
 jest.mock("./Kode");
 

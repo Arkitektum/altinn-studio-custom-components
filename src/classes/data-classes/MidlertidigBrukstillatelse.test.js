@@ -1,5 +1,5 @@
-import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse";
 import GjenstaaendeArbeider from "./GjenstaaendeArbeider";
+import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse";
 import Sikkerhet from "./Sikkerhet";
 
 jest.mock("./GjenstaaendeArbeider");

@@ -1,5 +1,5 @@
-import Tiltakstyper from "./Tiltakstyper";
 import Kode from "./Kode";
+import Tiltakstyper from "./Tiltakstyper";
 import { hasValue } from "../../functions/helpers";
 
 jest.mock("./Kode");

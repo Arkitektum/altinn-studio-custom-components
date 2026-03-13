@@ -1,5 +1,5 @@
-import Posisjon from "./Posisjon";
 import Kode from "./Kode";
+import Posisjon from "./Posisjon";
 
 jest.mock("./Kode");
 
