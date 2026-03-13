@@ -55,7 +55,7 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
      * @returns {Array} The list of "ansvarsomraade" values extracted from the form data.
      */
     getValueFromFormData(props, resourceBindings) {
-        const { simpleBinding, ...formDataWithoutSimpleBinding } = props.formData ?? {};
+        const { ...formDataWithoutSimpleBinding } = props.formData ?? {};
         const cleanedProps = {
             ...props,
             formData: formDataWithoutSimpleBinding

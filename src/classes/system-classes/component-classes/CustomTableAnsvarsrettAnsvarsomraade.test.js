@@ -60,7 +60,7 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
 
     describe("getValueFromFormData", () => {
         it("should call getComponentDataValue and getAnsvarsomraadeListFromData", () => {
-            const props = { formData: { a: 1, simpleBinding: "x" } };
+            const props = { formData: { a: 1 } };
             const resourceBindings = {};
             const fakeData = [{ foo: "bar" }];
             const fakeList = ["ansvarsomraade1"];
