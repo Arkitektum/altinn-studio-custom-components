@@ -22,13 +22,13 @@ jobs:
       # 1. Checkout repository
       # ------------------------------
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # ------------------------------
       # 2. Setup Node.js (for caching)
       # ------------------------------
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: "npm"
@@ -38,7 +38,7 @@ jobs:
       # ------------------------------
       - name: Install ESLint and SARIF formatter
         run: |
-          npm install eslint@10.0.1 @microsoft/eslint-formatter-sarif@3.1.0
+          npm install eslint@10.0.3 @microsoft/eslint-formatter-sarif@3.1.0
 
       # ------------------------------
       # 4. Run ESLint (Flat Config)
@@ -57,29 +57,18 @@ jobs:
       # ------------------------------
       # 5. Check if SARIF exists
       # ------------------------------
-      - name: Ensure SARIF exists
-        id: check_sarif
+      - name: Check if SARIF exists
         run: |
           if [ ! -f eslint-results.sarif ]; then
-            echo "No SARIF file generated. Creating empty SARIF."
-            echo '{"version":"2.1.0","runs":[]}' > eslint-results.sarif
-          fi
-          # Check if SARIF has results
-          if grep -q '"results":\[' eslint-results.sarif; then
-            if grep -q '"results":\[\]' eslint-results.sarif; then
-              echo "has_results=false" >> "$GITHUB_OUTPUT"
-            else
-              echo "has_results=true" >> "$GITHUB_OUTPUT"
-            fi
-          else
-            echo "has_results=false" >> "$GITHUB_OUTPUT"
+            echo "No SARIF file generated. Skipping upload."
+            exit 0
           fi
 
       # ------------------------------
       # 6. Upload SARIF to GitHub Security tab
       # ------------------------------
       - name: Upload analysis results to GitHub
-        if: ${{ !contains(fromJson(steps.check_sarif.outputs.has_results), 'false') }}
+        if: ${{ hashFiles('eslint-results.sarif') != '' }}
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: eslint-results.sarif
