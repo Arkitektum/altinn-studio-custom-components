@@ -1,6 +1,6 @@
 // Classes
-import CustomComponent from "../CustomComponent.js";
 import AndrePlaner from "../../data-classes/AndrePlaner.js";
+import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";

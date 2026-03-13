@@ -1,7 +1,7 @@
 // Classes
-import CustomComponent from "../CustomComponent.js";
 import Arealdisponering from "../../data-classes/Arealdisponering.js";
 import ArealdisponeringSummation from "../data-classes/ArealdisponeringSummation.js";
+import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";

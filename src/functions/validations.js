@@ -1,5 +1,7 @@
 // Classes
 import ValidationMessages from "../classes/system-classes/ValidationMessages.js";
+
+// Global functions
 import { getDefaultTextResources, getTextResources } from "./helpers.js";
 
 /**

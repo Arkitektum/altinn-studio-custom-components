@@ -1,6 +1,6 @@
 // Classes
-import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
 import Kode from "./Kode.js";
+import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
 
 /**
  * Constructs a new KontrollAnsvarsomraade instance.

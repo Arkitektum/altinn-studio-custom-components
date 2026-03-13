@@ -2,18 +2,18 @@
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
 import {
+    renderBestemmelseHeader,
+    renderBestemmelsestekst,
+    renderDispVarselBeskrivelse,
+    renderDispVarselBeskrivelseHeader,
     renderDispensasjonsvarselHeader,
     renderEmne,
-    renderBestemmelseHeader,
     renderPlannavnParagrafnummer,
-    renderBestemmelsestekst,
-    renderDispVarselBeskrivelseHeader,
-    renderDispVarselBeskrivelse,
     renderSpoersmaalOmDispensasjonssoeknaden
 } from "./renderers.js";
 

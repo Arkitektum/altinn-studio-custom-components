@@ -1,7 +1,7 @@
 // Classes
-import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList.js";
 import Kode from "./Kode.js";
 import Part from "./Part.js";
+import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList.js";
 
 /**
  * Class representing a responsibility area.

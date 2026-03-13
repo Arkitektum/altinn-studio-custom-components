@@ -2,11 +2,13 @@
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 import { appendChildren, getComponentContainerElement, hasValue, renderLayoutContainerElement } from "../../../functions/helpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
 import {
+    renderAnsvarligSoekerAdresse,
+    renderAnsvarligSoekerTable,
     renderBegrunnelseFordeler,
     renderBegrunnelseHeader,
     renderBegrunnelseHensynBakBestemmelsen,
@@ -15,9 +17,9 @@ import {
     renderBegrunnelseVurderingHensynBakBestemmelsen,
     renderBegrunnelseVurderingHensynOverordnet,
     renderBestemmelserType,
-    renderDispensasjonHeader,
     renderDispensasjonBeskrivelse,
     renderDispensasjonFraHeader,
+    renderDispensasjonHeader,
     renderDispensasjonPlanBestemmelseNavn,
     renderDispensasjonReferanse,
     renderEiendomTable,
@@ -36,8 +38,6 @@ import {
     renderStedfestingVertikalnivaa,
     renderTiltakshaverAdresse,
     renderTiltakshaverTable,
-    renderAnsvarligSoekerTable,
-    renderAnsvarligSoekerAdresse,
     renderTiltakstyperTypeHeader,
     renderTiltakstyperTypeKode,
     renderVarighetHeader

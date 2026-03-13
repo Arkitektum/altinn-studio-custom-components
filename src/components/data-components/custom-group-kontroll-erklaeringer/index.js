@@ -1,10 +1,10 @@
 // Global functions
+import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-import { getComponentContainerElement, hasValue } from "../../../functions/helpers.js";
 
 // Local functions
-import { renderHeaderElement, renderErklaeringTekstElement, renderKONTROLLTekstElement, renderEmptyFieldText } from "./renderers.js";
+import { renderEmptyFieldText, renderErklaeringTekstElement, renderHeaderElement, renderKONTROLLTekstElement } from "./renderers.js";
 
 export default customElements.define(
     "custom-group-kontroll-erklaeringer",

@@ -1,6 +1,6 @@
 // Global functions
-import { isValidHeaderSize } from "../../functions/dataFormatHelpers.js";
 import { hasValue } from "../../functions/helpers.js";
+import { isValidHeaderSize } from "../../functions/dataFormatHelpers.js";
 
 /**
  * Class representing CustomElementHtmlAttributes.
