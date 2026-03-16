@@ -2,13 +2,23 @@
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.js";
 
 /**
- * Initializes custom components by fetching user profile and text resources.
+ * Loads a script asynchronously by creating a script element and appending it to the document body.
  *
- * This function listens for the window "load" event, then:
- * - Parses the current URL to determine the origin, organization, and application.
- * - Fetches the user's profile to determine their language preference.
- * - Fetches text resources and default text resources based on the user's language.
- * - Sets global variables for selected language and text resources.
+ * @param {string} src - The source URL of the script to load.
+ * @returns {Promise<HTMLScriptElement>} A promise that resolves with the script element when the script is loaded, or rejects with an error if the script fails to load.
+ */
+function loadScriptAsync(src) {
+    return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = () => {
+            console.log(`${src} loaded`);
+            resolve(script);
+        };
+        script.onerror = () => reject(new Error(`Script load error for ${src}`));
+        document.body.appendChild(script);
+    });
+}
  *
  * @async
  * @function
