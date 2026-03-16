@@ -8,7 +8,6 @@ export default defineConfig([
         plugins: { js },
         extends: ["js/recommended"],
         languageOptions: { globals: { ...globals.browser, ...globals.node } },
-        ignores: ["dist/**", "docs/**", "node_modules/", "**/vendor/*.js"],
         rules: {
             "sort-imports": [
                 "error",
@@ -17,6 +16,9 @@ export default defineConfig([
                 }
             ]
         }
+    },
+    {
+        ignores: ["dist/**", "docs/**", "node_modules/", "**/vendor/*.js"]
     },
     {
         files: ["**/*.test.js", "**/*.spec.js"], // 👈 Only apply to test files
