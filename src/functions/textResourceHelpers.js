@@ -45,21 +45,25 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
  */
 export const fetchDefaultTextResources = async (origin, org, app, language, fallbackLanguage) => {
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
-    try {
-        const response = await fetch(defaultTextResourcesApiUrl);
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error fetching default text resources:", error);
-        const fallbackDefaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${fallbackLanguage}.json`;
-        const fallbackResponse = await fetch(fallbackDefaultTextResourcesApiUrl);
-        if (fallbackResponse.ok) {
-            return await fallbackResponse.json();
+    return await fetch(defaultTextResourcesApiUrl).then(async (response) => {
+        if (response.ok && response?.json) {
+            return await response?.json().catch(async () => {
+                if (fallbackLanguage) {
+                    console.error(
+                        `Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`
+                    );
+                    return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
+                } else {
+                    console.error(`Could not retrieve default text resources for language: ${language}`);
+                    return null;
+                }
+            });
+        } else if (fallbackLanguage) {
+            console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
+            return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
         } else {
-            console.error("Could not retrieve default text resources for the fallback language.");
+            console.error(`Could not retrieve default text resources for language: ${language}`);
             return null;
         }
-    }
+    });
 };
