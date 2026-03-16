@@ -19,33 +19,49 @@ function loadScriptAsync(src) {
         document.body.appendChild(script);
     });
 }
+
+/**
+ * Initializes custom components by fetching user profile data, determining language preferences, loading text resources, and dispatching a DOMContentLoaded event.
+ * This function is intended to be called once when the application starts to set up the necessary environment for custom components to function correctly.
  *
  * @async
- * @function
- * @returns {void}
+ * @returns {Promise<void>} A promise that resolves when initialization is complete.
+ * @throws {Error} Throws an error if the origin, organization, or application cannot be determined from the URL, or if user profile data cannot be fetched.
  */
-export default function initCustomComponents() {
-    globalThis.addEventListener("load", async () => {
-        const appId = globalThis.location.pathname.split("/");
-        const origin = globalThis.location.origin;
-        const org = appId?.[1];
-        const app = appId?.[2];
-        if (![origin?.length, org?.length, app?.length].every(Boolean)) {
-            console.error("Could not determine the origin, organization, or application from the URL.");
-            return;
-        }
+export default async function initCustomComponents() {
+    const appId = globalThis.location.pathname.split("/");
+    const origin = globalThis.location.origin;
+    const org = appId?.[1];
+    const app = appId?.[2];
+    if (![origin?.length, org?.length, app?.length].every(Boolean)) {
+        console.error("Could not determine the origin, organization, or application from the URL.");
+        return;
+    }
 
-        const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
-        const userProfileData = await fetch(userProfileApiUrl).then((response) => response.json());
-        if (!userProfileData?.profileSettingPreference?.language) {
-            console.error("Could not determine the user's language preference.");
-            return;
-        }
+    const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
+    const userProfileData = await fetch(userProfileApiUrl).then((response) => response.json());
+    if (!userProfileData?.profileSettingPreference?.language) {
+        console.error("Could not determine the user's language preference.");
+        return;
+    }
 
-        const selectedLanguage = userProfileData?.profileSettingPreference?.language;
-        const fallbackLanguage = "nb";
-        globalThis.selectedLanguage = selectedLanguage;
-        globalThis.textResources = await fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage);
-        globalThis.defaultTextResources = await fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage);
+    const selectedLanguage = userProfileData?.profileSettingPreference?.language;
+    const fallbackLanguage = "nb";
+
+    const [textResources, defaultTextResources] = await Promise.all([
+        fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage),
+        fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage)
+    ]);
+
+    globalThis.selectedLanguage = selectedLanguage;
+    globalThis.textResources = textResources;
+    globalThis.defaultTextResources = defaultTextResources;
+    await loadScriptAsync("https://altinncdn.no/toolkits/altinn-app-frontend/4.25.3/altinn-app-frontend.js");
+
+    const domContentLoadedEvent = new Event("DOMContentLoaded", {
+        bubbles: true, // Event bubbles up through the DOM
+        cancelable: false // The native event is not cancelable
     });
+
+    document.dispatchEvent(domContentLoadedEvent);
 }
