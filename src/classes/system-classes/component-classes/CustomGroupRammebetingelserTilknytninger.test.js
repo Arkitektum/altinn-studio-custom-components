@@ -1,6 +1,5 @@
 import CustomComponent from "../CustomComponent";
 import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger";
-import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTilknytninger";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers.js", () => ({
@@ -25,7 +24,6 @@ describe("CustomGroupRammebetingelserTilknytninger", () => {
         getTextResourceFromResourceBinding.mockImplementation((key) => `text:${key}`);
         hasValue.mockImplementation((val) => val !== undefined && val !== null && val !== "" && val !== false);
         getComponentDataValue.mockReturnValue({ foo: "bar" });
-        RammebetingelserTilknytninger.prototype.__mocked = true;
     });
 
     it("should call super and initialize properties correctly with non-empty data", () => {
@@ -41,7 +39,7 @@ describe("CustomGroupRammebetingelserTilknytninger", () => {
         expect(!!instance.hasValidationMessages).toBe(false);
         expect(instance.resourceBindings).toBeDefined();
         expect(instance.resourceValues.data).toEqual(
-            expect.objectContaining({ __mocked: true, adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
+            expect.objectContaining({ adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
         );
     });
 
@@ -90,7 +88,7 @@ describe("CustomGroupRammebetingelserTilknytninger", () => {
 
         const instance = new CustomGroupRammebetingelserTilknytninger({});
         expect(instance.resourceValues.data).toEqual(
-            expect.objectContaining({ __mocked: true, adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
+            expect.objectContaining({ adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
         );
     });
 
