@@ -149,17 +149,17 @@ export async function getDisplayLayouts() {
 }
 
 /**
- * Fetches the package.json file from an Altinn Studio app repository and extracts the version information.
+ * Fetches the package-lock.json file from an Altinn Studio app repository and extracts the version information.
  *
  * @async
  * @function
  * @param {string} appOwner - The owner of the application repository.
  * @param {string} appName - The name of the application repository.
- * @returns {Promise<Object>} An object containing the version information from the package.json file.
- * @throws {Error} If fetching or parsing the package.json file fails.
+ * @returns {Promise<Object>} An object containing the version information from the package-lock.json file.
+ * @throws {Error} If fetching or parsing the package-lock.json file fails.
  */
-async function fetchPackageJsonFromAltinnStudio(appOwner, appName) {
-    const filePath = "App/wwwroot/altinn-studio-custom-components/package.json";
+async function fetchPackageLockFromAltinnStudio(appOwner, appName) {
+    const filePath = "App/package-lock.json";
     const fileContent = await fetchGiteaFileContent(appOwner, appName, filePath);
     const jsonResponse = JSON.parse(fileContent);
     return jsonResponse;
@@ -295,6 +295,21 @@ async function fetchAltinnAppIndexHtml(appOwner, appName) {
 }
 
 /**
+ * Extracts the version of the altinn-studio-custom-components package from the given package-lock.json content.
+ * @param {Object} packageLock - The parsed JSON content of the package-lock.json file.
+ * @returns {string} The version of the altinn-studio-custom-components package.
+ * @throws {Error} If the altinn-studio-custom-components package is not found in the package-lock.json.
+ */
+function extractAltinnStudioCustomComponentsVersion(packageLock) {
+    const dependencies = packageLock?.packages || {};
+    const altinnStudioCustomComponents = dependencies?.["node_modules/@arkitektum/altinn-studio-custom-components"];
+    if (altinnStudioCustomComponents?.version) {
+        return altinnStudioCustomComponents.version;
+    }
+    throw new Error("altinn-studio-custom-components not found in package-lock.json");
+}
+
+/**
  * Extracts the versions of the altinn-app-frontend CSS and JS files referenced in the given HTML string.
  * @param {string} htmlString - The HTML content of the Index.cshtml file.
  * @returns {Object} An object containing the extracted CSS and JS versions.
@@ -333,7 +348,7 @@ function extractAltinnAppFrontendVersions(htmlString) {
 /**
  * Fetches and returns the versions of the altinn-studio-custom-components package and the altinn-app-frontend assets for all Altinn Studio apps.
  *
- * Iterates over the list of Altinn Studio applications, fetches their package.json files and Index.cshtml files to extract version information,
+ * Iterates over the list of Altinn Studio applications, fetches their package-lock.json files and Index.cshtml files to extract version information,
  * and returns an array of objects containing the app owner, app name, and version details. If fetching version information fails for an app, it logs
  * the error and skips that app.
  *
@@ -344,16 +359,17 @@ function extractAltinnAppFrontendVersions(htmlString) {
 export async function getPackageVersions() {
     const versionPromises = altinnStudioApps.map(async ({ appOwner, appName }) => {
         try {
-            const [packageJson, indexHtml] = await Promise.all([
-                fetchPackageJsonFromAltinnStudio(appOwner, appName),
+            const [packageLock, indexHtml] = await Promise.all([
+                fetchPackageLockFromAltinnStudio(appOwner, appName),
                 fetchAltinnAppIndexHtml(appOwner, appName)
             ]);
+            const altinnStudioCustomComponentsVersion = extractAltinnStudioCustomComponentsVersion(packageLock);
             const altinnAppFrontendVersions = extractAltinnAppFrontendVersions(indexHtml);
             return {
                 appOwner,
                 appName,
                 packageVersions: {
-                    altinnStudioCustomComponents: packageJson.version,
+                    altinnStudioCustomComponents: altinnStudioCustomComponentsVersion,
                     altinnAppFrontendCSS: altinnAppFrontendVersions.css,
                     altinnAppFrontendJS: altinnAppFrontendVersions.js
                 }
