@@ -46,7 +46,7 @@ function getPreviewElement(component, data) {
  * @returns {Array<Object>} An array of result objects, each containing:
  *   - {string} type: The component type.
  *   - {Array<Object>} components: An array of component result objects, each with:
- *       - {React.ReactElement} element: The preview element for the component.
+ *       - {HTMLElement} element: The preview element for the component.
  *       - {Object} markup: The markup definition of the component.
  *       - {Object} data: The data generated for the component.
  *       - {Object} resources: The text resources associated with the component.
