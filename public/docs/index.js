@@ -46,7 +46,7 @@ function getPreviewElement(component, data) {
  * @returns {Array<Object>} An array of result objects, each containing:
  *   - {string} type: The component type.
  *   - {Array<Object>} components: An array of component result objects, each with:
- *       - {React.ReactElement} element: The preview element for the component.
+ *       - {HTMLElement} element: The preview element for the component.
  *       - {Object} markup: The markup definition of the component.
  *       - {Object} data: The data generated for the component.
  *       - {Object} resources: The text resources associated with the component.
@@ -79,11 +79,13 @@ export function getResults(componentExamples, dataModels) {
 }
 
 /**
- * Retrieves the results based on the provided component examples and data models.
+ * Initializes the documentation page when the window has finished loading.
  *
- * @param {Object} componentExamples - An object containing examples of components.
- * @param {Object} dataModels - An object containing data models to be used.
- * @returns {Array|Object} results - The processed results based on the inputs.
+ * Fetches default text resources, computes component results using the
+ * imported `componentExamples` and `dataModels`, renders the results and
+ * sidebar, and applies syntax highlighting to code blocks.
+ *
+ * @returns {Promise<void>} A promise that resolves when initialization is complete.
  */
 globalThis.onload = async function () {
     globalThis.textResources = textResources;
