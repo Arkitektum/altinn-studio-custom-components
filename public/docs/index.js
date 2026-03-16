@@ -79,11 +79,13 @@ export function getResults(componentExamples, dataModels) {
 }
 
 /**
- * Retrieves the results based on the provided component examples and data models.
+ * Initializes the documentation page when the window has finished loading.
  *
- * @param {Object} componentExamples - An object containing examples of components.
- * @param {Object} dataModels - An object containing data models to be used.
- * @returns {Array|Object} results - The processed results based on the inputs.
+ * Fetches default text resources, computes component results using the
+ * imported `componentExamples` and `dataModels`, renders the results and
+ * sidebar, and applies syntax highlighting to code blocks.
+ *
+ * @returns {Promise<void>} A promise that resolves when initialization is complete.
  */
 globalThis.onload = async function () {
     globalThis.textResources = textResources;
