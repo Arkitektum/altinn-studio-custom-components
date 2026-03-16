@@ -40,7 +40,7 @@ describe("CustomGroupRammebetingelserTilknytninger", () => {
         expect(!!instance.hasValidationMessages).toBe(false);
         expect(instance.resourceBindings).toBeDefined();
         expect(instance.resourceValues.data).toEqual(
-            expect.objectContaining({ __mocked: true, adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
+            expect.objectContaining({ adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
         );
     });
 
@@ -89,7 +89,7 @@ describe("CustomGroupRammebetingelserTilknytninger", () => {
 
         const instance = new CustomGroupRammebetingelserTilknytninger({});
         expect(instance.resourceValues.data).toEqual(
-            expect.objectContaining({ __mocked: true, adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
+            expect.objectContaining({ adkomst: undefined, avloep: undefined, overvann: undefined, vannforsyning: undefined })
         );
     });
 
