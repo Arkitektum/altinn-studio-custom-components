@@ -47,15 +47,17 @@ describe("CustomGroupSamsvarAnsvarsomraade", () => {
             const spy = jest.spyOn(CustomGroupSamsvarAnsvarsomraade.prototype, "getResourceBindings");
             spy.mockReturnValue(fakeResourceBindings);
 
-            const instance = new CustomGroupSamsvarAnsvarsomraade(props);
+            try {
+                const instance = new CustomGroupSamsvarAnsvarsomraade(props);
 
-            expect(instance.isEmpty).toBe(true);
-            expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("emptyKey");
-            expect(instance.resourceValues.data).toBe("EMPTY_TEXT");
-            expect(instance.validationMessages).toEqual([]);
-            expect(instance.hasValidationMessages).toBe(false);
-
-            spy.mockRestore();
+                expect(instance.isEmpty).toBe(true);
+                expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("emptyKey");
+                expect(instance.resourceValues.data).toBe("EMPTY_TEXT");
+                expect(instance.validationMessages).toEqual([]);
+                expect(instance.hasValidationMessages).toBe(false);
+            } finally {
+                spy.mockRestore();
+            }
         });
 
         it("should set isEmpty to false and resourceValues.data to data when data is present", () => {
@@ -74,15 +76,17 @@ describe("CustomGroupSamsvarAnsvarsomraade", () => {
             const spy = jest.spyOn(CustomGroupSamsvarAnsvarsomraade.prototype, "getResourceBindings");
             spy.mockReturnValue(fakeResourceBindings);
 
-            const instance = new CustomGroupSamsvarAnsvarsomraade(props);
+            try {
+                const instance = new CustomGroupSamsvarAnsvarsomraade(props);
 
-            expect(instance.isEmpty).toBe(false);
-            expect(getTextResourceFromResourceBinding).not.toHaveBeenCalled();
-            expect(instance.resourceValues.data).toBe(samsvarInstance);
-            expect(instance.validationMessages).toEqual(["msg"]);
-            expect(instance.hasValidationMessages).toBe(true);
-
-            spy.mockRestore();
+                expect(instance.isEmpty).toBe(false);
+                expect(getTextResourceFromResourceBinding).not.toHaveBeenCalled();
+                expect(instance.resourceValues.data).toBe(samsvarInstance);
+                expect(instance.validationMessages).toEqual(["msg"]);
+                expect(instance.hasValidationMessages).toBe(true);
+            } finally {
+                spy.mockRestore();
+            }
         });
     });
 
