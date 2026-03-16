@@ -73,7 +73,9 @@ describe("CustomTableData", () => {
             getTextResourceFromResourceBinding.mockImplementation((key) => `resource:${key}`);
 
             // getValueFromFormData returns tableData
-            CustomTableData.prototype.getValueFromFormData = jest.fn().mockReturnValue(tableData);
+            const getValueFromFormDataSpy = jest
+                .spyOn(CustomTableData.prototype, "getValueFromFormData")
+                .mockReturnValue(tableData);
 
             const instance = new CustomTableData(props);
 
