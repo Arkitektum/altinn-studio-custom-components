@@ -25,7 +25,6 @@ describe("CustomGroupRammebetingelserTilknytninger", () => {
         getTextResourceFromResourceBinding.mockImplementation((key) => `text:${key}`);
         hasValue.mockImplementation((val) => val !== undefined && val !== null && val !== "" && val !== false);
         getComponentDataValue.mockReturnValue({ foo: "bar" });
-        RammebetingelserTilknytninger.prototype.__mocked = true;
     });
 
     it("should call super and initialize properties correctly with non-empty data", () => {
