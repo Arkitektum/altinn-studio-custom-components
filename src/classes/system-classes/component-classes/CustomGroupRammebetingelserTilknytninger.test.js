@@ -1,6 +1,5 @@
 import CustomComponent from "../CustomComponent";
 import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger";
-import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTilknytninger";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers.js", () => ({
