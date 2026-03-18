@@ -1,8 +1,11 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldListData is a custom component class for handling and transforming

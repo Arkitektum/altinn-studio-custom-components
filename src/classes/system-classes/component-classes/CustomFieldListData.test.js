@@ -1,9 +1,12 @@
-import { getComponentDataValue, hasValue } from "../../../functions/helpers.js";
 import CustomFieldListData from "./CustomFieldListData";
+import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn((props) => props.data),
+    getComponentDataValue: jest.fn((props) => props.data)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => {
         if (Array.isArray(val)) return val.length > 0;
         return val !== undefined && val !== null && val !== "";

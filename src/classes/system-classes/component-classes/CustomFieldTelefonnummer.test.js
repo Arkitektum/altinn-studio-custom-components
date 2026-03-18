@@ -1,5 +1,6 @@
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import CustomFieldTelefonnummer from "./CustomFieldTelefonnummer";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -12,7 +13,9 @@ jest.mock("../../data-classes/Telefonnumre.js", () => {
 });
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

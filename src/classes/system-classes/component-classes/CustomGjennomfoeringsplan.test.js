@@ -1,12 +1,14 @@
-import { getComponentResourceValue, getTextResources, hasValue } from "../../../functions/helpers";
+import { getComponentResourceValue, getTextResources } from "../../../functions/helpers";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations";
 import CustomGjennomfoeringsplan from "./CustomGjennomfoeringsplan";
 import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("../../layout-classes/Gjennomfoeringsplan");
 jest.mock("../CustomComponent");
 jest.mock("../../../functions/helpers");
 jest.mock("../../../functions/validations");
+jest.mock("@arkitektum/altinn-studio-custom-components-utils");
 
 describe("CustomGjennomfoeringsplan", () => {
     beforeEach(() => {

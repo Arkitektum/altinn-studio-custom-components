@@ -1,10 +1,13 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 
 // Global functions
-import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
  * CustomGjenpartNabovarsel is a custom component class for handling "Gjenpart Nabovarsel" logic.
@@ -108,21 +111,15 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonBruksnummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title ||
-                    "resource.eiendom.bruksnummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title || "resource.eiendom.bruksnummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonSeksjonsnummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title ||
-                    "resource.eiendom.seksjonsnummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title || "resource.eiendom.seksjonsnummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonFestenummer: {
-                title:
-                    props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title ||
-                    "resource.eiendom.festenummer.title",
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title || "resource.eiendom.festenummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             bolignummer: {

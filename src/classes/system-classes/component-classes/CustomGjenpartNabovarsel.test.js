@@ -1,7 +1,8 @@
-import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel";
 import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
+import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {
@@ -12,7 +13,9 @@ jest.mock("../../layout-classes/GjenpartNabovarsel.js", () => {
 });
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentResourceValue: jest.fn(() => "EMPTY_FIELD_TEXT"),
-    getTextResources: jest.fn(() => ({ mock: "resources" })),
+    getTextResources: jest.fn(() => ({ mock: "resources" }))
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((data) => !!data && data.hasContent)
 }));
 jest.mock("../../../functions/validations.js", () => ({
