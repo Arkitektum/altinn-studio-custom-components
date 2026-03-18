@@ -16,7 +16,6 @@ import {
     getTextResourceFromResourceBinding,
     getTextResources,
     getTextResourcesFromResourceBindings,
-    hasValue,
     isNumberLargerThanZero,
     renderLayoutContainerElement,
     validateFormData,
@@ -25,35 +24,6 @@ import {
 
 // Mock for customElementTagNames
 jest.mock("../constants/customElementTagNames.js", () => ["custom-tag", "another-tag"]);
-
-describe("hasValue", () => {
-    it("returns false for undefined and null", () => {
-        expect(hasValue(undefined)).toBe(false);
-        expect(hasValue(null)).toBe(false);
-    });
-    it("returns true for non-empty string, false for empty string", () => {
-        expect(hasValue("hello")).toBe(true);
-        expect(hasValue("")).toBe(false);
-    });
-    it("returns true for valid number, false for NaN", () => {
-        expect(hasValue(123)).toBe(true);
-        expect(hasValue(NaN)).toBe(false);
-    });
-    it("returns true for true boolean, true for false boolean, false for null", () => {
-        expect(hasValue(true)).toBe(true);
-        expect(hasValue(false)).toBe(true);
-        expect(hasValue(null)).toBe(false);
-    });
-    it("returns true for non-empty array, false for empty array", () => {
-        expect(hasValue([1])).toBe(true);
-        expect(hasValue([])).toBe(false);
-    });
-    it("returns true for object with non-empty string property", () => {
-        expect(hasValue({ a: "x" })).toBe(true);
-        expect(hasValue({ a: "" })).toBe(false);
-        expect(hasValue({})).toBe(false);
-    });
-});
 
 describe("isNumberLargerThanZero", () => {
     it("returns true for numbers > 0", () => {
