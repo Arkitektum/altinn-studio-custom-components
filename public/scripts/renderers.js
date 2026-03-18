@@ -1,15 +1,20 @@
 // Dependencies
-import { addContainerElement, appendChildren, createCustomElement, getDataForComponent } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Classes
-import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
-import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.js";
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    appendChildren,
+    createCustomElement,
+    getDataForComponent
+} from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
 import { addDataModel, addValueToLocalStorage, getDataModels, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataModelListElements } from "./getters.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
+
+// Global functions
+import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.js";
 
 /**
  * Renders the results by generating and displaying custom components based on the current layout code.

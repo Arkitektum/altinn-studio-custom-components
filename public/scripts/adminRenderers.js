@@ -1,8 +1,11 @@
 // Dependencies
-import { addContainerElement, appendChildren, createCustomElement, getDataForComponent } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Classes
-import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    appendChildren,
+    createCustomElement,
+    getDataForComponent
+} from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
 import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "./localStorage.js";

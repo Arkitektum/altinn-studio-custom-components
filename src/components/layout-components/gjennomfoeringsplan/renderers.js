@@ -1,8 +1,5 @@
 // Dependencies
-import { addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Classes
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header element for the "gjennomfoeringsplan" component.

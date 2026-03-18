@@ -1,5 +1,6 @@
 // Dependencies
 import {
+    CustomElementHtmlAttributes,
     addContainerElement,
     createCustomElement,
     getDataForComponent,
@@ -7,9 +8,6 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
-
-// Classes
-import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Local functions
 import { renderResults, renderSidebar } from "./scripts/renderers.js";
