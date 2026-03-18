@@ -1,12 +1,12 @@
 // Dependencies
-import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };

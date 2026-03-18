@@ -1,11 +1,8 @@
 // Dependencies
-import { addContainerElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomElementHtmlAttributes from "../../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { createCustomElement } from "../../../../functions/helpers.js";
 
 /**
  * Renders a custom field data element for "vegtype" using provided component data.
