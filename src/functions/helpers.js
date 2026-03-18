@@ -1,5 +1,5 @@
 // Dependencies
-import { hasValue, isValidTagName } from "@arkitektum/altinn-studio-custom-components-utils";
+import { hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Constants
 import customElementTagNames from "../constants/customElementTagNames.js";
@@ -26,18 +26,6 @@ export function isNumberLargerThanZero(value) {
 export function addStyle(element, style) {
     for (let key in style) {
         element.style[key] = style[key];
-    }
-}
-
-/**
- * Sets multiple attributes on a given HTML element.
- *
- * @param {HTMLElement} element - The element on which to set the attributes.
- * @param {Object} attributes - An object containing key-value pairs of attributes to set.
- */
-function setAttributes(element, attributes) {
-    for (const key in attributes) {
-        element.setAttribute(key, attributes[key]);
     }
 }
 
