@@ -23,9 +23,6 @@ import {
     validateTexts
 } from "./helpers";
 
-// Mock for customElementTagNames
-jest.mock("../constants/customElementTagNames.js", () => ["custom-tag", "another-tag"]);
-
 describe("isNumberLargerThanZero", () => {
     it("returns true for numbers > 0", () => {
         expect(isNumberLargerThanZero(1)).toBe(true);
