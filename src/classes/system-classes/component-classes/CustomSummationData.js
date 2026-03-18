@@ -1,11 +1,15 @@
 // Dependencies
-import { getTextResourcesFromResourceBindings, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import {
+    getTextResourceFromResourceBinding,
+    getTextResourcesFromResourceBindings,
+    hasValue
+} from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomSummationData is a custom component class that processes form data,

@@ -1,14 +1,14 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGroupSamsvarErklaeringer from "./CustomGroupSamsvarErklaeringer";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(() => [{ id: 1 }, { id: 2 }]),
-    getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`)
+    getComponentDataValue: jest.fn(() => [{ id: 1 }, { id: 2 }])
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
+    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== ""),
+    getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`)
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(() => []),
@@ -23,7 +23,7 @@ jest.mock(
         }
 );
 
-const { getComponentDataValue, getTextResourceFromResourceBinding } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 
 describe("CustomGroupSamsvarErklaeringer", () => {
     beforeEach(() => {

@@ -1,13 +1,13 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomGroupNaboGjenboerEiendom is a custom component class for handling

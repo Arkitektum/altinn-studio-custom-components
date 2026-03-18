@@ -1,5 +1,5 @@
 // Dependencies
-import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Checks if the given value is a number larger than zero.
@@ -148,24 +148,6 @@ export function getComponentContainerElement(component) {
     } else {
         return null;
     }
-}
-
-/**
- * Retrieves the text resource value associated with the given resource binding.
- * It first searches in the current text resources, and if not found, falls back to the default text resources.
- * If the resource is still not found, it returns the resourceBinding itself.
- *
- * @param {string} resourceBinding - The identifier for the text resource to retrieve.
- * @returns {string} The value of the text resource, or the resourceBinding if not found.
- */
-export function getTextResourceFromResourceBinding(resourceBinding) {
-    const textResources = getTextResources();
-    let textResource = textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
-    if (textResource === undefined || textResource === null) {
-        const defaultTextResources = getDefaultTextResources();
-        textResource = defaultTextResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
-    }
-    return textResource || resourceBinding;
 }
 
 /**

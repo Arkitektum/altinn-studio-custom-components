@@ -1,8 +1,8 @@
 import PlanlagteLoefteinnretningerList from "./PlanlagteLoefteinnretningerList";
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock getTextResourceFromResourceBinding
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn((resource) => `Text for ${resource}`)
 }));
 

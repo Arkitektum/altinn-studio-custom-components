@@ -1,15 +1,16 @@
 import * as helpers from "../../../functions/helpers";
 import * as validations from "../../../functions/validations";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade";
 import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock dependencies
 jest.mock("../../data-classes/AnsvarsrettAnsvarsomraade");
 jest.mock("../../../functions/helpers");
 jest.mock("../../../functions/validations");
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 
 describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
@@ -188,12 +189,12 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
                 .spyOn(CustomTableAnsvarsrettAnsvarsomraade.prototype, "getValidationMessages")
                 .mockReturnValue(fakeValidationMessages);
             validations.hasValidationMessages.mockReturnValue(fakeHasValidationMessages);
-            helpers.getTextResourceFromResourceBinding.mockReturnValue("EMPTY_TEXT");
+            getTextResourceFromResourceBinding.mockReturnValue("EMPTY_TEXT");
 
             const instance = new CustomTableAnsvarsrettAnsvarsomraade(props);
 
             expect(instance.resourceValues.data).toBe("EMPTY_TEXT");
-            expect(helpers.getTextResourceFromResourceBinding).toHaveBeenCalledWith("emptyKey");
+            expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("emptyKey");
 
             getResourceBindings.mockRestore();
             getValueFromFormData.mockRestore();

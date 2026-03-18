@@ -5,11 +5,11 @@ const { getComponentDataValue } = require("../../../functions/helpers");
 // Mock the global function getComponentDataValue
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 
 describe("CustomGrouplistNaboGjenboerEiendom.getValueFromFormData", () => {

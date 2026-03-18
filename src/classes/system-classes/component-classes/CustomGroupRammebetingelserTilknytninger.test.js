@@ -1,22 +1,22 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent";
 import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources } = require("../../../functions/helpers.js");
+const { getComponentDataValue, getTextResources } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomGroupRammebetingelserTilknytninger", () => {

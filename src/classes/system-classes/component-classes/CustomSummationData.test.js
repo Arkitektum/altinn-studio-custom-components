@@ -1,16 +1,20 @@
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
-import { getTextResourcesFromResourceBindings, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import {
+    getTextResourceFromResourceBinding,
+    getTextResourcesFromResourceBindings,
+    hasValue
+} from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent.js";
 import CustomSummationData from "./CustomSummationData";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn()
+    getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
-    getTextResourcesFromResourceBindings: jest.fn()
+    getTextResourcesFromResourceBindings: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 
 // Mock CustomComponent base class

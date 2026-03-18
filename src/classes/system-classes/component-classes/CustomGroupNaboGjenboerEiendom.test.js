@@ -1,23 +1,23 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent";
 import CustomGroupNaboGjenboerEiendom from "./CustomGroupNaboGjenboerEiendom";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 jest.mock("../../../functions/validations", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources } = require("../../../functions/helpers");
+const { getComponentDataValue, getTextResources } = require("../../../functions/helpers");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations");
 
 jest.mock("../../data-classes/NaboGjenboerEiendom");

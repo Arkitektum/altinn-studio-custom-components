@@ -1,5 +1,5 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import Arealdisponering from "../../data-classes/Arealdisponering.js";
@@ -7,8 +7,8 @@ import ArealdisponeringSummation from "../data-classes/ArealdisponeringSummation
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomSummationArealdisponering is a custom component class for handling area disposition summation logic.

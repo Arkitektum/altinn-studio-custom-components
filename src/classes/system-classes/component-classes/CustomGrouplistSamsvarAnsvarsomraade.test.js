@@ -1,20 +1,20 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGrouplistSamsvarAnsvarsomraade from "./CustomGrouplistSamsvarAnsvarsomraade.js";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock all imported helpers and validations
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn()
+    getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue, getTextResourceFromResourceBinding } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomGrouplistSamsvarAnsvarsomraade", () => {

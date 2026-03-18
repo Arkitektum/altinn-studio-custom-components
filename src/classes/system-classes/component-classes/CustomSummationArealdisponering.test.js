@@ -1,5 +1,5 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomSummationArealdisponering from "./CustomSummationArealdisponering";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {
@@ -18,18 +18,18 @@ jest.mock("../data-classes/ArealdisponeringSummation.js", () => {
 });
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn() // Add this line to mock getTextResources
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue, getTextResourceFromResourceBinding } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomSummationArealdisponering", () => {

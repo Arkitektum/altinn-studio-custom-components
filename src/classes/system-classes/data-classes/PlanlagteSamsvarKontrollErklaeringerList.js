@@ -1,6 +1,5 @@
-// Global functions
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+// Dependencies
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Class representing a list of planned compliance control declarations.

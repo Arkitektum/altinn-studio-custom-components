@@ -1,12 +1,9 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList";
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the helper functions
-jest.mock("../../../functions/helpers.js", () => ({
-    getTextResourceFromResourceBinding: jest.fn((resource) => (resource === undefined ? undefined : resource || "mocked-resource"))
-}));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    getTextResourceFromResourceBinding: jest.fn((resource) => (resource === undefined ? undefined : resource || "mocked-resource")),
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
 

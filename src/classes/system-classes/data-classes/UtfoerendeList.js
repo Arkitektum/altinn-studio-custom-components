@@ -1,5 +1,5 @@
-// Global functions
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+// Dependencies
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Constructs an instance of the class and initializes resource values.
