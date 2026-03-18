@@ -30,7 +30,7 @@ const mockTextResources = {
     ]
 };
 
-jest.mock("./helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResources: jest.fn(() => mockTextResources),
     getDefaultTextResources: jest.fn(() => mockTextResources)
 }));

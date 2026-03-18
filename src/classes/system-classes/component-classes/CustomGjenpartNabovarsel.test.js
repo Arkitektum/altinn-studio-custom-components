@@ -12,11 +12,11 @@ jest.mock("../../layout-classes/GjenpartNabovarsel.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, _isGjenpartNabovarsel: true }));
 });
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentResourceValue: jest.fn(() => "EMPTY_FIELD_TEXT"),
-    getTextResources: jest.fn(() => ({ mock: "resources" }))
+    getComponentResourceValue: jest.fn(() => "EMPTY_FIELD_TEXT")
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn((data) => !!data && data.hasContent)
+    hasValue: jest.fn((data) => !!data && data.hasContent),
+    getTextResources: jest.fn(() => ({ mock: "resources" }))
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(() => false),

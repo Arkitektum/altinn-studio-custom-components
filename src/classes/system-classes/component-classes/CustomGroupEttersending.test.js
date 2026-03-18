@@ -1,11 +1,10 @@
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGroupEttersending from "./CustomGroupEttersending";
 import Ettersending from "../../data-classes/Ettersending";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResources: jest.fn()
+    getComponentDataValue: jest.fn()
 }));
 jest.mock("../../../functions/validations", () => ({
     hasMissingTextResources: jest.fn(),
@@ -14,10 +13,11 @@ jest.mock("../../../functions/validations", () => ({
 jest.mock("../../data-classes/Ettersending");
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn()
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResources: jest.fn()
 }));
 
-const { getComponentDataValue, getTextResources } = require("../../../functions/helpers");
+const { getComponentDataValue } = require("../../../functions/helpers");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations");
 
 describe("CustomGroupEttersending", () => {

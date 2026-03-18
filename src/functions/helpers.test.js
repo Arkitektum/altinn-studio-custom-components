@@ -4,6 +4,7 @@ import {
     calculateFlexWidth,
     createCustomElement,
     getTextResourceFromResourceBinding,
+    getTextResources,
     getTextResourcesFromResourceBindings
 } from "@arkitektum/altinn-studio-custom-components-utils";
 import {
@@ -16,7 +17,6 @@ import {
     getComponentResourceValue,
     getEmptyFieldText,
     getRowNumberTitle,
-    getTextResources,
     isNumberLargerThanZero,
     renderLayoutContainerElement,
     validateFormData,

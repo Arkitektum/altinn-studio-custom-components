@@ -4,12 +4,12 @@ import Omraaderisiko from "../../data-classes/Omraaderisiko";
 
 // Mocks for helpers and validations
 jest.mock("../../../functions/helpers", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResources: jest.fn()
+    getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn()
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations", () => ({
     hasMissingTextResources: jest.fn(),

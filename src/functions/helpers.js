@@ -77,15 +77,6 @@ export function renderLayoutContainerElement() {
 }
 
 /**
- * Retrieves the global text resources from the window object if available.
- *
- * @returns {Array} An array of text resources if `window.textResources` exists, otherwise an empty array.
- */
-export function getTextResources() {
-    return typeof globalThis !== "undefined" && globalThis.textResources ? globalThis.textResources : [];
-}
-
-/**
  * Validates the presence of text resources for the given keys in the texts object.
  * If a text resource is missing, it checks for a fallback text and logs a warning.
  *

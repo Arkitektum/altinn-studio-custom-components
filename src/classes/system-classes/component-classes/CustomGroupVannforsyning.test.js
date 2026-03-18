@@ -11,12 +11,12 @@ jest.mock("../../data-classes/Vannforsyning.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isVannforsyning: true }));
 });
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn((props) => props.formData || null),
-    getTextResources: jest.fn(() => ({ a: "A", b: "B" }))
+    getComponentDataValue: jest.fn((props) => props.formData || null)
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== ""),
-    getTextResourceFromResourceBinding: jest.fn((key) => `RES_${key}`)
+    getTextResourceFromResourceBinding: jest.fn((key) => `RES_${key}`),
+    getTextResources: jest.fn(() => ({ a: "A", b: "B" }))
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(() => false),

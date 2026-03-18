@@ -13,11 +13,11 @@ jest.mock("../../data-classes/UtfallSvar.js", () => {
 });
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getComponentResourceValue: jest.fn(),
-    getTextResources: jest.fn()
+    getComponentResourceValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn()

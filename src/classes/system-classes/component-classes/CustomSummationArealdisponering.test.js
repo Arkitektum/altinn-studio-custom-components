@@ -17,12 +17,12 @@ jest.mock("../data-classes/ArealdisponeringSummation.js", () => {
     }));
 });
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResources: jest.fn() // Add this line to mock getTextResources
+    getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn()
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
