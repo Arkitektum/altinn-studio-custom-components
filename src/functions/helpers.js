@@ -1,5 +1,5 @@
 // Dependencies
-import { addStyle, hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, calculateFlexWidth, hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Constants
 import customElementTagNames from "../constants/customElementTagNames.js";
@@ -72,32 +72,6 @@ export function createCustomElement(tagName, htmlAttributes) {
     const customFieldElement = document.createElement(tagName);
     setAttributes(customFieldElement, { ...htmlAttributes, tagName });
     return customFieldElement;
-}
-
-/**
- * Calculates the flex width percentage based on a grid configuration.
- * The function considers the grid breakpoints (xs, sm, md, lg, xl) and returns
- * the smallest width percentage among them, defaulting to 100% if no grid is provided.
- *
- * @param {Object} [grid] - The grid configuration object.
- * @param {number} [grid.xs=12] - Number of columns for extra small screens.
- * @param {number} [grid.sm=grid.xs] - Number of columns for small screens.
- * @param {number} [grid.md=grid.sm] - Number of columns for medium screens.
- * @param {number} [grid.lg=grid.md] - Number of columns for large screens.
- * @param {number} [grid.xl=grid.lg] - Number of columns for extra large screens.
- * @returns {number} The minimum flex width percentage for the given grid configuration.
- */
-export function calculateFlexWidth(grid) {
-    if (grid) {
-        const xs = grid.xs || 12;
-        const sm = grid.sm || xs;
-        const md = grid.md || sm;
-        const lg = grid.lg || md;
-        const xl = grid.xl || lg;
-        return Math.min((xs / 12) * 100, (sm / 12) * 100, (md / 12) * 100, (lg / 12) * 100, (xl / 12) * 100);
-    } else {
-        return 100;
-    }
 }
 
 /**
