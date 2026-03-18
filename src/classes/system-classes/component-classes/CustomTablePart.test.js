@@ -1,19 +1,22 @@
 import CustomTablePart from "./CustomTablePart";
 import Part from "../../data-classes/Part";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks for global functions
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn(),
     getTextResources: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
 }));
 jest.mock("../../../functions/validations", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } = require("../../../functions/helpers");
+const { getComponentDataValue, getTextResourceFromResourceBinding } = require("../../../functions/helpers");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations");
 
 describe("CustomTablePart", () => {

@@ -1,6 +1,7 @@
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import CustomTablePlan from "./CustomTablePlan";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -14,8 +15,10 @@ jest.mock("../../data-classes/AndrePlaner.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn(),
     getTextResources: jest.fn() // Add this mock to prevent TypeError
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
