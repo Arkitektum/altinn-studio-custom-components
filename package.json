@@ -56,5 +56,8 @@
         "webpack-cli": "^7.0.0",
         "webpack-dev-server": "^5.2.3"
     },
-    "packageManager": "yarn@4.10.3"
+    "packageManager": "yarn@4.10.3",
+    "dependencies": {
+        "@arkitektum/altinn-studio-custom-components-utils": "^1.1.0"
+    }
 }
