@@ -1,11 +1,15 @@
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 import CustomListVedlegg from "./CustomListVedlegg";
 import Vedlegg from "../../data-classes/Vedlegg";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks for global functions
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getComponentResourceValue: jest.fn(),
+    getComponentResourceValue: jest.fn()
+}));
+
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

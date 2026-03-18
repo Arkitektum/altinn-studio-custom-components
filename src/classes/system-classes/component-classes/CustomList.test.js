@@ -1,9 +1,9 @@
 import CustomComponent from "../CustomComponent";
 import CustomList from "./CustomList";
-import { hasValue } from "../../../functions/helpers";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock hasValue helper
-jest.mock("../../../functions/helpers", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

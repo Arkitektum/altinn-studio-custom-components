@@ -1,10 +1,14 @@
-import * as helpers from "../../../functions/helpers";
 import CustomComponent from "../CustomComponent";
 import CustomHeader from "./CustomHeader";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
+}));
 
 describe("CustomHeader", () => {
     beforeEach(() => {
-        jest.spyOn(helpers, "hasValue");
+        jest.clearAllMocks();
     });
 
     afterEach(() => {
@@ -27,38 +31,38 @@ describe("CustomHeader", () => {
     });
 
     it("should set isEmpty to false when title has value", () => {
-        helpers.hasValue.mockReturnValue(true);
+        hasValue.mockReturnValue(true);
         const props = { resourceValues: { title: "Header Title" } };
         const header = new CustomHeader(props);
         expect(header.isEmpty).toBe(false);
-        expect(helpers.hasValue).toHaveBeenCalledWith("Header Title");
+        expect(hasValue).toHaveBeenCalledWith("Header Title");
     });
 
     it("should set isEmpty to true when title is missing", () => {
-        helpers.hasValue.mockReturnValue(false);
+        hasValue.mockReturnValue(false);
         const props = { resourceValues: {} };
         const header = new CustomHeader(props);
         expect(header.isEmpty).toBe(true);
-        expect(helpers.hasValue).toHaveBeenCalledWith(undefined);
+        expect(hasValue).toHaveBeenCalledWith(undefined);
     });
 
     it("should set isEmpty to true when resourceValues is undefined", () => {
-        helpers.hasValue.mockReturnValue(false);
+        hasValue.mockReturnValue(false);
         const props = {};
         const header = new CustomHeader(props);
         expect(header.isEmpty).toBe(true);
-        expect(helpers.hasValue).toHaveBeenCalledWith(undefined);
+        expect(hasValue).toHaveBeenCalledWith(undefined);
     });
 
     describe("hasContent", () => {
         it("returns true if hasValue returns true", () => {
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const header = new CustomHeader({});
             expect(header.hasContent({ resourceValues: { title: "Title" } })).toBe(true);
         });
 
         it("returns false if hasValue returns false", () => {
-            helpers.hasValue.mockReturnValue(false);
+            hasValue.mockReturnValue(false);
             const header = new CustomHeader({});
             expect(header.hasContent({ resourceValues: { title: "" } })).toBe(false);
         });

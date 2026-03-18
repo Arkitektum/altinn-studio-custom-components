@@ -1,6 +1,10 @@
-import * as helpers from "../../../functions/helpers";
 import CustomComponent from "../CustomComponent";
 import CustomTable from "./CustomTable";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
+}));
 
 describe("CustomTable", () => {
     beforeEach(() => {
@@ -24,14 +28,14 @@ describe("CustomTable", () => {
     });
 
     it("should set isEmpty to false if resourceValues.data has value", () => {
-        jest.spyOn(helpers, "hasValue").mockReturnValue(true);
+        hasValue.mockReturnValue(true);
         const props = { resourceValues: { data: "abc" } };
         const table = new CustomTable(props);
         expect(table.isEmpty).toBe(false);
     });
 
     it("should set isEmpty to true if resourceValues.data is missing", () => {
-        jest.spyOn(helpers, "hasValue").mockReturnValue(false);
+        hasValue.mockReturnValue(false);
         const props = { resourceValues: { data: null } };
         const table = new CustomTable(props);
         expect(table.isEmpty).toBe(true);
@@ -39,19 +43,19 @@ describe("CustomTable", () => {
 
     describe("hasContent", () => {
         it("should return true if hasValue returns true", () => {
-            jest.spyOn(helpers, "hasValue").mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const table = new CustomTable({});
             expect(table.hasContent({ resourceValues: { data: "abc" } })).toBe(true);
         });
 
         it("should return false if hasValue returns false", () => {
-            jest.spyOn(helpers, "hasValue").mockReturnValue(false);
+            hasValue.mockReturnValue(false);
             const table = new CustomTable({});
             expect(table.hasContent({ resourceValues: { data: null } })).toBe(false);
         });
 
         it("should handle missing resourceValues gracefully", () => {
-            jest.spyOn(helpers, "hasValue").mockReturnValue(false);
+            hasValue.mockReturnValue(false);
             const table = new CustomTable({});
             expect(table.hasContent({})).toBe(false);
         });

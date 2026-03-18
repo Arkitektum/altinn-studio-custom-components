@@ -1,8 +1,11 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getRowNumberTitle, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getRowNumberTitle, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
