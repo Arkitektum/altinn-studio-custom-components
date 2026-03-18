@@ -1,7 +1,6 @@
 import {
     addContainerElement,
     addStyle,
-    appendChildren,
     calculateFlexWidth,
     createCustomElement,
     generateUniqueId,
@@ -92,10 +91,10 @@ describe("generateUniqueId", () => {
 
 describe("createCustomElement", () => {
     it("creates element with valid tag and attributes", () => {
-        const el = createCustomElement("custom-tag", { foo: "bar" });
-        expect(el.tagName.toLowerCase()).toBe("custom-tag");
+        const el = createCustomElement("custom-field-data", { foo: "bar" });
+        expect(el.tagName.toLowerCase()).toBe("custom-field-data");
         expect(el.getAttribute("foo")).toBe("bar");
-        expect(el.getAttribute("tagName")).toBe("custom-tag");
+        expect(el.getAttribute("tagName")).toBe("custom-field-data");
     });
     it("throws error for invalid tag", () => {
         expect(() => createCustomElement("invalid-tag", {})).toThrow(/Invalid tag name/);
@@ -347,21 +346,5 @@ describe("getComponentResourceValue", () => {
     it("returns resourceBinding if no resourceValues", () => {
         const comp = { resourceValues: {}, resourceBindings: { foo: "foo" } };
         expect(getComponentResourceValue(comp, "foo")).toBe("bar");
-    });
-});
-
-describe("appendChildren", () => {
-    it("appends HTMLElements and strings", () => {
-        const parent = document.createElement("div");
-        const child1 = document.createElement("span");
-        const child2 = "<b>hi</b>";
-        appendChildren(parent, [child1, child2]);
-        expect(parent.querySelector("span")).toStrictEqual(child1);
-        expect(parent.innerHTML).toContain("<b>hi</b>");
-    });
-    it("filters out falsy children", () => {
-        const parent = document.createElement("div");
-        appendChildren(parent, [null, undefined, false, "ok"]);
-        expect(parent.innerHTML).toContain("ok");
     });
 });
