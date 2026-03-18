@@ -7,6 +7,7 @@ import { getLayoutCode, getTextResources } from "./localStorage.js";
 // Global functions
 import { getDataForComponent, getDefaultValueForResource } from "./getters.js";
 import { getDefaultTextResources } from "../../src/functions/helpers.js";
+import { getDefaultValueForResource } from "./getters.js";
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
 
 /**

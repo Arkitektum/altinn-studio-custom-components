@@ -337,28 +337,6 @@ export function getComponentContainerElement(component) {
 }
 
 /**
- * Retrieves a value from a nested data object based on a given data key.
- *
- * @param {Object} data - The data object to retrieve the value from.
- * @param {string} dataKey - The key representing the path to the value in the data object.
- *                           The key can be a dot-separated string or an array-like string with brackets.
- * @returns {*} - The value found at the specified data key path, or the original data if no data key is provided.
- */
-export function getValueFromDataKey(data, dataKey) {
-    if (!dataKey) {
-        return data;
-    }
-    if (data == null) {
-        return undefined;
-    }
-    if (/(\.\.|^\.)/.test(dataKey)) {
-        return undefined; // Invalid dataKey
-    }
-    const keys = dataKey.split(/[.[\]]/).filter(Boolean);
-    return keys.reduce((acc, key) => acc?.[key], data);
-}
-
-/**
  * Retrieves the text resource value associated with the given resource binding.
  * It first searches in the current text resources, and if not found, falls back to the default text resources.
  * If the resource is still not found, it returns the resourceBinding itself.

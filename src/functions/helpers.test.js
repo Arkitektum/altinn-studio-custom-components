@@ -16,7 +16,6 @@ import {
     getTextResourceFromResourceBinding,
     getTextResources,
     getTextResourcesFromResourceBindings,
-    getValueFromDataKey,
     hasValue,
     isNumberLargerThanZero,
     renderLayoutContainerElement,
@@ -232,24 +231,6 @@ describe("getComponentContainerElement", () => {
     it("returns null if no grandparent", () => {
         const el = document.createElement("div");
         expect(getComponentContainerElement(el)).toBeNull();
-    });
-});
-
-describe("getValueFromDataKey", () => {
-    it("returns data if no dataKey", () => {
-        expect(getValueFromDataKey({ a: 1 }, "")).toEqual({ a: 1 });
-    });
-    it("returns undefined if data is null", () => {
-        expect(getValueFromDataKey(null, "a")).toBeUndefined();
-    });
-    it("returns undefined for invalid dataKey", () => {
-        expect(getValueFromDataKey({ a: 1 }, ".a")).toBeUndefined();
-        expect(getValueFromDataKey({ a: 1 }, "a..b")).toBeUndefined();
-    });
-    it("returns nested value for dot/bracket notation", () => {
-        const data = { a: { b: [{ c: 42 }] } };
-        expect(getValueFromDataKey(data, "a.b[0].c")).toBe(42);
-        expect(getValueFromDataKey(data, "a.b")).toEqual([{ c: 42 }]);
     });
 });
 
