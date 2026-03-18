@@ -1,8 +1,5 @@
 // Dependencies
-import { createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Classes
-import CustomElementHtmlAttributes from "../../../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header element if the text is provided.

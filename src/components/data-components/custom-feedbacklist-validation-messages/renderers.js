@@ -1,8 +1,5 @@
 // Dependencies
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Classes
-import { createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
 import { getTitleForFeedbackType } from "./functions.js";

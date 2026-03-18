@@ -1,8 +1,5 @@
 // Dependencies
-import { addStyle, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Classes
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { CustomElementHtmlAttributes, addStyle, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
 import { getEmptyFieldText } from "../../../functions/helpers.js";
