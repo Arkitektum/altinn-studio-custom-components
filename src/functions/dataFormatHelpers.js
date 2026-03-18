@@ -1,9 +1,5 @@
-// Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-
 // Constants
 import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.js";
-import validSizeValues from "../constants/validSizeValues.js";
 
 /**
  * Returns the provided language if it is included in the list of available date-time languages.
@@ -188,16 +184,6 @@ export function formatString(string, format, language = "default") {
         default:
             return string;
     }
-}
-
-/**
- * Checks if the provided header size is valid.
- *
- * @param {string} size - The header size to validate.
- * @returns {boolean} Returns `true` if the size is valid, otherwise `false`.
- */
-export function isValidHeaderSize(size) {
-    return hasValue(size) && validSizeValues.includes(size.toLowerCase());
 }
 
 /**

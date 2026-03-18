@@ -1,8 +1,5 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Global functions
-import { isValidHeaderSize } from "./dataFormatHelpers.js";
+import { hasValue, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Extracts a set of properties from the given HTML element by invoking various helper functions.

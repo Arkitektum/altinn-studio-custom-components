@@ -1,8 +1,5 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Global functions
-import { isValidHeaderSize } from "../../functions/dataFormatHelpers.js";
+import { hasValue, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Class representing CustomElementHtmlAttributes.
