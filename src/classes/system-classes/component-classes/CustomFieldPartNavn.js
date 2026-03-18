@@ -1,12 +1,12 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Part from "../../data-classes/Part.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldPartNavn is a custom component class for handling and formatting part names,

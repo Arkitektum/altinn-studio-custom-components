@@ -1,12 +1,9 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Prosjekt from "../../data-classes/Prosjekt.js";
-
-// Global functions
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldProsjekt is a custom component class for handling and displaying project-related form data.

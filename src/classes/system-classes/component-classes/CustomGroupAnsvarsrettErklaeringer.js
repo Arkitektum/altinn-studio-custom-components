@@ -1,13 +1,13 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * Initializes a new instance of the CustomGroupAnsvarsrettErklaeringer class.

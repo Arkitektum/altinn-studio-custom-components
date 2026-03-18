@@ -1,17 +1,17 @@
-import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomFieldPartNavn from "./CustomFieldPartNavn";
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mocks
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn()
+    getComponentDataValue: jest.fn()
 }));
 jest.mock("../../data-classes/Part.js", () => {
     return jest.fn().mockImplementation((data) => data);
 });
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn()
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 
 describe("CustomFieldPartNavn", () => {

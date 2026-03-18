@@ -11,11 +11,11 @@ jest.mock("../../data-classes/Adkomst.js", () => {
 });
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn((props) => props.mockData || null),
-    getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),
     getTextResources: jest.fn(() => ({ resource1: "value1" }))
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: jest.fn((val) => val !== null && val !== undefined && val !== "")
+    hasValue: jest.fn((val) => val !== null && val !== undefined && val !== ""),
+    getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`)
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(() => ["missing resource"]),
