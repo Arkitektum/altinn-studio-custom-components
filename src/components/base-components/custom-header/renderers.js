@@ -1,8 +1,5 @@
 // Dependencies
-import { isValidHeaderSize } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Global functions
-import { addStyle } from "../../../functions/helpers.js";
+import { addStyle, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a header HTML element based on the provided component configuration.

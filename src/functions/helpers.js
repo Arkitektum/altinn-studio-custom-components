@@ -1,5 +1,5 @@
 // Dependencies
-import { hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Constants
 import customElementTagNames from "../constants/customElementTagNames.js";
@@ -15,18 +15,6 @@ import customElementTagNames from "../constants/customElementTagNames.js";
 export function isNumberLargerThanZero(value) {
     const num = typeof value === "number" ? value : Number(value);
     return typeof num === "number" && !Number.isNaN(num) && num > 0;
-}
-
-/**
- * Adds the specified styles to the given HTML element.
- *
- * @param {HTMLElement} element - The HTML element to which the styles will be applied.
- * @param {Object} style - An object containing CSS property-value pairs.
- */
-export function addStyle(element, style) {
-    for (let key in style) {
-        element.style[key] = style[key];
-    }
 }
 
 /**

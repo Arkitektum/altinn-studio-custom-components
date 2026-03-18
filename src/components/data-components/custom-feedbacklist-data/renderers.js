@@ -1,8 +1,11 @@
+// Dependencies
+import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { addStyle, createCustomElement } from "../../../functions/helpers.js";
+import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a feedback list element with the given title, feedback messages, feedback type, and optional style override.
@@ -18,7 +21,7 @@ export function renderFeedbackListElement(title, feedbackMessages, feedbackType,
     feedbackDetailsElement.classList.add("feedback-details");
     feedbackDetailsElement.classList.add(feedbackType);
     feedbackDetailsElement.setAttribute("open", true);
-    addStyle(styleOverride);
+    addStyle(feedbackDetailsElement, styleOverride);
 
     const summaryElement = document.createElement("summary");
     summaryElement.classList.add("feedback-summary");

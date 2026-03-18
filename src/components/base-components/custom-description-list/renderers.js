@@ -1,5 +1,8 @@
+// Dependencies
+import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
-import { addStyle, generateUniqueId } from "../../../functions/helpers.js";
+import { generateUniqueId } from "../../../functions/helpers.js";
 
 /**
  * Creates a span element representing a field title with a specific class and optional ID.

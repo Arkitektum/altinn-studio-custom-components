@@ -1,8 +1,8 @@
+// Dependencies
+import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
-
-// Global functions
-import { addStyle } from "../../../functions/helpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
