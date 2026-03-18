@@ -401,28 +401,6 @@ export function getComponentResourceValue(component, resourceKey) {
 }
 
 /**
- * Appends an array of children to a parent element. If a child is an instance of HTMLElement,
- * it is appended using `appendChild`. Otherwise, the child's content is appended to the parent's
- * innerHTML.
- *
- * @param {HTMLElement} parent - The parent element to which the children will be appended.
- * @param {Array<HTMLElement|string>} children - An array of children to append. Each child can be
- * either an HTMLElement or a string.
- * @returns {HTMLElement} The parent element after appending the children.
- */
-export function appendChildren(parent, children) {
-    const filteredChildren = children.filter((child) => !!child);
-    for (const child of filteredChildren) {
-        if (child instanceof HTMLElement) {
-            parent.appendChild(child);
-        } else {
-            parent.innerHTML += child;
-        }
-    }
-    return parent;
-}
-
-/**
  * Adjusts an HTML header size (e.g., "h2") by a given offset, ensuring the result stays within valid header levels (h1-h6).
  *
  * @param {string} initialHeaderSize - The initial header size as a string (e.g., "h2").
