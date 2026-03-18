@@ -1,5 +1,5 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { hasValue, isValidTagName } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Constants
 import customElementTagNames from "../constants/customElementTagNames.js";
@@ -15,17 +15,6 @@ import customElementTagNames from "../constants/customElementTagNames.js";
 export function isNumberLargerThanZero(value) {
     const num = typeof value === "number" ? value : Number(value);
     return typeof num === "number" && !Number.isNaN(num) && num > 0;
-}
-
-/**
- * Checks if the provided tag name is valid.
- *
- * @param {string} tagName - The tag name to validate.
- * @returns {boolean} True if the tag name is valid, false otherwise.
- */
-function isValidTagName(tagName) {
-    const validTagNames = customElementTagNames;
-    return validTagNames.includes(tagName);
 }
 
 /**
