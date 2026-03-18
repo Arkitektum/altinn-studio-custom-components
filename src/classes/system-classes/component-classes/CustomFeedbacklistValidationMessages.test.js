@@ -2,9 +2,12 @@ import * as helpers from "../../../functions/helpers";
 import CustomComponent from "../CustomComponent";
 import CustomFeedbacklistValidationMessages from "./CustomFeedbacklistValidationMessages";
 import ValidationMessages from "../ValidationMessages";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("../../../functions/helpers", () => ({
-    getComponentDataValue: jest.fn(),
+    getComponentDataValue: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 
@@ -17,7 +20,7 @@ describe("CustomFeedbacklistValidationMessages", () => {
 
     beforeEach(() => {
         helpers.getComponentDataValue.mockClear();
-        helpers.hasValue.mockClear();
+        hasValue.mockClear();
         ValidationMessages.mockClear();
     });
 
@@ -28,7 +31,7 @@ describe("CustomFeedbacklistValidationMessages", () => {
 
     it("should initialize isEmpty and resourceValues correctly when data has content", () => {
         helpers.getComponentDataValue.mockReturnValue(mockData);
-        helpers.hasValue.mockReturnValue(true);
+        hasValue.mockReturnValue(true);
         ValidationMessages.mockImplementation((data) => {
             expect(data).toBe(mockData);
             return mockValidationMessagesInstance;
@@ -42,7 +45,7 @@ describe("CustomFeedbacklistValidationMessages", () => {
 
     it("should set isEmpty to true when data has no content", () => {
         helpers.getComponentDataValue.mockReturnValue(null);
-        helpers.hasValue.mockReturnValue(false);
+        hasValue.mockReturnValue(false);
         ValidationMessages.mockImplementation((data) => {
             expect(data).toBe(null);
             return mockValidationMessagesInstance;
@@ -56,10 +59,10 @@ describe("CustomFeedbacklistValidationMessages", () => {
 
     describe("hasContent", () => {
         it("should call hasValue with the provided data", () => {
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const instance = new CustomFeedbacklistValidationMessages(mockProps);
             const result = instance.hasContent("test");
-            expect(helpers.hasValue).toHaveBeenCalledWith("test");
+            expect(hasValue).toHaveBeenCalledWith("test");
             expect(result).toBe(true);
         });
     });

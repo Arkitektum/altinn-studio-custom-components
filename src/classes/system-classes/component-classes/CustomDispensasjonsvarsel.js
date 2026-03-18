@@ -1,10 +1,13 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.js";
 
 // Global functions
-import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
  * CustomDispensasjonsvarsel is a custom component class that extends the base CustomComponent class. It is designed to represent a "dispensasjonsvarsel" (dispensation notice) in a user interface, providing functionality to determine if the component has content, retrieve values from form data, and manage resource bindings and validation messages.

@@ -1,20 +1,22 @@
 import CustomFieldBooleanData from "./CustomFieldBooleanData";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentBooleanDataValues: jest.fn(),
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
-    hasValue: jest.fn(),
     isNumberLargerThanZero: jest.fn(),
     validateFormData: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
 }));
 
 const {
     getComponentBooleanDataValues,
     getComponentDataValue,
     getComponentResourceValue,
-    hasValue,
     isNumberLargerThanZero,
     validateFormData
 } = require("../../../functions/helpers.js");

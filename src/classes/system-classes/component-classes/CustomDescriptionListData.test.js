@@ -1,10 +1,14 @@
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 import CustomDescriptionListData from "./CustomDescriptionListData";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getComponentResourceValue: jest.fn(),
+    getComponentResourceValue: jest.fn()
+}));
+
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

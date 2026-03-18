@@ -1,9 +1,9 @@
 import Adresse from "./Adresse";
 import Part from "./Part";
-import { hasValue } from "../../functions/helpers";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("./Adresse");
-jest.mock("../../functions/helpers");
+jest.mock("@arkitektum/altinn-studio-custom-components-utils");
 
 describe("Part", () => {
     beforeEach(() => {

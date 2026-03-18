@@ -1,8 +1,8 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import Adresse from "./Adresse.js";
-
-// Global functions
-import { hasValue } from "../../functions/helpers.js";
 
 /**
  * Class representing a Part.

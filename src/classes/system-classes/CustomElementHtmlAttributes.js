@@ -1,5 +1,7 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
-import { hasValue } from "../../functions/helpers.js";
 import { isValidHeaderSize } from "../../functions/dataFormatHelpers.js";
 
 /**

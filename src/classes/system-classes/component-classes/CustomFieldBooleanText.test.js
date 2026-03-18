@@ -1,12 +1,15 @@
 import CustomComponent from "../CustomComponent";
 import CustomFieldBooleanText from "./CustomFieldBooleanText";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock helper functions
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentBooleanTextValues: jest.fn(),
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 
@@ -14,8 +17,7 @@ const {
     getComponentBooleanTextValues,
     getComponentDataValue,
     getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    hasValue
+    getTextResourceFromResourceBinding
 } = require("../../../functions/helpers.js");
 
 describe("CustomFieldBooleanText", () => {

@@ -1,12 +1,12 @@
 import CustomElementHtmlAttributes from "./CustomElementHtmlAttributes";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { isValidHeaderSize } = require("../../functions/dataFormatHelpers.js");
-const { hasValue } = require("../../functions/helpers.js");
 
 // Mock the imported helpers
 jest.mock("../../functions/dataFormatHelpers.js", () => ({
     isValidHeaderSize: jest.fn((size) => ["h1", "h2", "h3", "h4", "h5", "h6"].includes((size || "").toLowerCase()))
 }));
-jest.mock("../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
 

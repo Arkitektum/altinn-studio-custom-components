@@ -1,9 +1,9 @@
 import Kode from "./Kode";
 import Tiltakstyper from "./Tiltakstyper";
-import { hasValue } from "../../functions/helpers";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("./Kode");
-jest.mock("../../functions/helpers");
+jest.mock("@arkitektum/altinn-studio-custom-components-utils");
 
 describe("Tiltakstyper", () => {
     beforeEach(() => {

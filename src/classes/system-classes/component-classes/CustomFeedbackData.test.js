@@ -1,12 +1,14 @@
-import { getComponentDataValue, hasValue } from "../../../functions/helpers.js";
 import CustomFeedbackData from "./CustomFeedbackData";
+import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
+    getComponentDataValue: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
-
 
 describe("CustomFeedbackData", () => {
     beforeEach(() => {

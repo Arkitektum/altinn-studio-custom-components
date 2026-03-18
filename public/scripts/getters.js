@@ -1,6 +1,8 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
 import { beautifyJson } from "./formatters.js";
-import { hasValue } from "../../src/functions/helpers.js";
 
 // Local functions
 import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage.js";

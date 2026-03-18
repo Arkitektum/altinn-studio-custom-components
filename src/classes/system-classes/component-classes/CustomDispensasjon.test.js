@@ -1,11 +1,14 @@
 import CustomDispensasjon from "./CustomDispensasjon";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../../layout-classes/Dispensasjon.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isDispensasjon: true }));
 });
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentResourceValue: jest.fn((props, key) => `resourceValue:${key}`),
+    getComponentResourceValue: jest.fn((props, key) => `resourceValue:${key}`)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
 jest.mock("../../../functions/validations.js", () => ({
@@ -13,7 +16,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
-const { getComponentResourceValue, hasValue } = require("../../../functions/helpers.js");
+const { getComponentResourceValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomDispensasjon", () => {
@@ -35,9 +38,7 @@ describe("CustomDispensasjon", () => {
             hasValue.mockReturnValue(true);
             const instance = new CustomDispensasjon({ formData: { foo: "bar" } });
             expect(instance.isEmpty).toBe(false);
-            expect(instance.resourceValues.data).toEqual(
-                expect.objectContaining({ foo: "bar", __isDispensasjon: true })
-            );
+            expect(instance.resourceValues.data).toEqual(expect.objectContaining({ foo: "bar", __isDispensasjon: true }));
         });
 
         it("should set validationMessages and hasValidationMessages", () => {

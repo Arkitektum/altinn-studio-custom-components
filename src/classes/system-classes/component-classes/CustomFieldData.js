@@ -1,8 +1,11 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 import { formatString } from "../../../functions/dataFormatHelpers.js";
 
 /**

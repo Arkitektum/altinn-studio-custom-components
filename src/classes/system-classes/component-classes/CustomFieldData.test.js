@@ -1,6 +1,7 @@
-import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 import CustomFieldData from "./CustomFieldData.js";
 import { formatString } from "../../../functions/dataFormatHelpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -9,11 +10,13 @@ jest.mock("../CustomComponent.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataTitle: jest.fn(),
     getComponentDataValue: jest.fn(),
-    getComponentResourceValue: jest.fn(),
-    hasValue: jest.fn()
+    getComponentResourceValue: jest.fn()
 }));
 jest.mock("../../../functions/dataFormatHelpers.js", () => ({
     formatString: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
 }));
 
 describe("CustomFieldData", () => {

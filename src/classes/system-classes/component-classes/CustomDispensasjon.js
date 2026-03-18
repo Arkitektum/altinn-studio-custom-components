@@ -1,10 +1,13 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Dispensasjon from "../../layout-classes/Dispensasjon.js";
 
 // Global functions
-import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
  * CustomDispensasjon is a custom component class for handling "dispensasjon" (exemption) data and logic.
