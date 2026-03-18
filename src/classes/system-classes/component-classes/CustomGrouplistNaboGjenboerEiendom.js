@@ -1,9 +1,12 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
 
 /**
@@ -117,12 +120,8 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                     "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
             },
             eiendomMatrikkelinformasjonAdresse: {
-                title:
-                    props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title ||
-                    "resource.eiendom.adresse.title",
-                emptyFieldText:
-                    props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.emptyFieldText ||
-                    "resource.emptyFieldText.address"
+                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.eiendom.adresse.title",
+                emptyFieldText: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
                 title:
@@ -157,15 +156,11 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                     "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonBolignummer: {
-                title:
-                    props?.resourceBindings?.eiendomMatrikkelinformasjonBolignummer?.title ||
-                    "resource.eiendom.bolignummer.title",
+                title: props?.resourceBindings?.eiendomMatrikkelinformasjonBolignummer?.title || "resource.eiendom.bolignummer.title",
                 emptyFieldText: props?.resourceBindings?.eiendomMatrikkelinformasjonBolignummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomMatrikkelinformasjonBygningsnummer: {
-                title:
-                    props?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer?.title ||
-                    "resource.eiendom.bygningsnummer.title",
+                title: props?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer?.title || "resource.eiendom.bygningsnummer.title",
                 emptyFieldText:
                     props?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },

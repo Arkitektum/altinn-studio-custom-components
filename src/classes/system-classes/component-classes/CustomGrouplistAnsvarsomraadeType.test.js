@@ -1,18 +1,21 @@
 import CustomGrouplistAnsvarsomraadeType from "./CustomGrouplistAnsvarsomraadeType";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 // Mocks for global functions and CustomComponent
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
-    getTextResources: jest.fn(),
+    getTextResources: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn()
 }));
 
-const { getComponentDataValue, getComponentResourceValue, getTextResources, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue, getComponentResourceValue, getTextResources } = require("../../../functions/helpers.js");
 
 describe("CustomGrouplistAnsvarsomraadeType", () => {
     beforeEach(() => {

@@ -1,8 +1,11 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 
@@ -69,12 +72,11 @@ export default class CustomGroupKontrollAnsvarsomraade extends CustomComponent {
         return kontrollAnsvarsomraade;
     }
 
-
     /**
      * Generates an object containing resource binding configurations for various fields.
      *
-     * Each field contains localized resource keys for titles, empty field texts, and, where applicable, 
-     * true/false/default texts. If a specific resource binding is not provided in `props`, a default 
+     * Each field contains localized resource keys for titles, empty field texts, and, where applicable,
+     * true/false/default texts. If a specific resource binding is not provided in `props`, a default
      * resource key is used.
      *
      * @param {Object} props - The properties object containing optional resourceBindings.

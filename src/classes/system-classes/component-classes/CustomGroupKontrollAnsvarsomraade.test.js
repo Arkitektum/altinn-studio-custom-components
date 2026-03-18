@@ -2,13 +2,16 @@ import * as helpers from "../../../functions/helpers.js";
 import * as validations from "../../../functions/validations.js";
 import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade";
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../CustomComponent.js");
 jest.mock("../../data-classes/KontrollAnsvarsomraade.js");
 jest.mock("../../../functions/helpers.js");
 jest.mock("../../../functions/validations.js");
-
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
+}));
 describe("CustomGroupKontrollAnsvarsomraade", () => {
     beforeEach(() => {
         jest.clearAllMocks();
@@ -17,7 +20,7 @@ describe("CustomGroupKontrollAnsvarsomraade", () => {
     describe("constructor", () => {
         it("should set isEmpty to true and use emptyFieldText when data is empty", () => {
             helpers.getComponentDataValue.mockReturnValue(undefined);
-            helpers.hasValue.mockReturnValue(false);
+            hasValue.mockReturnValue(false);
             helpers.getTextResourceFromResourceBinding.mockReturnValue("Empty Field");
             validations.hasMissingTextResources.mockReturnValue([]);
             validations.hasValidationMessages.mockReturnValue(false);
@@ -42,7 +45,7 @@ describe("CustomGroupKontrollAnsvarsomraade", () => {
         it("should set isEmpty to false and use data when data is present", () => {
             const kontrollInstance = { kontrollerende: "test" };
             helpers.getComponentDataValue.mockReturnValue({ kontrollerende: "test" });
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             validations.hasMissingTextResources.mockReturnValue([]);
             validations.hasValidationMessages.mockReturnValue(false);
 
@@ -61,7 +64,7 @@ describe("CustomGroupKontrollAnsvarsomraade", () => {
 
         it("should set validationMessages and hasValidationMessages correctly", () => {
             helpers.getComponentDataValue.mockReturnValue(undefined);
-            helpers.hasValue.mockReturnValue(false);
+            hasValue.mockReturnValue(false);
             helpers.getTextResourceFromResourceBinding.mockReturnValue("Empty Field");
             validations.hasMissingTextResources.mockReturnValue(["Missing"]);
             validations.hasValidationMessages.mockReturnValue(true);
@@ -82,11 +85,11 @@ describe("CustomGroupKontrollAnsvarsomraade", () => {
 
     describe("hasContent", () => {
         it("should call hasValue with data", () => {
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const instance = new CustomGroupKontrollAnsvarsomraade({});
             const data = { foo: "bar" };
             instance.hasContent(data);
-            expect(helpers.hasValue).toHaveBeenCalledWith(data);
+            expect(hasValue).toHaveBeenCalledWith(data);
         });
     });
 

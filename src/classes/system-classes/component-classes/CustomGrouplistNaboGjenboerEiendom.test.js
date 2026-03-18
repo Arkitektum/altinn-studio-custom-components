@@ -6,7 +6,9 @@ const { getComponentDataValue } = require("../../../functions/helpers");
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    getTextResources: jest.fn(),
+    getTextResources: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

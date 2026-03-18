@@ -1,4 +1,5 @@
 import CustomGroupAdkomst from "./CustomGroupAdkomst";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const Adkomst = require("../../data-classes/Adkomst.js");
 
 // Mocks
@@ -11,7 +12,9 @@ jest.mock("../../data-classes/Adkomst.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn((props) => props.mockData || null),
     getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),
-    getTextResources: jest.fn(() => ({ resource1: "value1" })),
+    getTextResources: jest.fn(() => ({ resource1: "value1" }))
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== null && val !== undefined && val !== "")
 }));
 jest.mock("../../../functions/validations.js", () => ({
@@ -19,7 +22,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
-const { getComponentDataValue, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 describe("CustomGroupAdkomst", () => {
