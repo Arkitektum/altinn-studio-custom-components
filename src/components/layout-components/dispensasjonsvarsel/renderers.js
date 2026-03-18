@@ -1,8 +1,11 @@
+// Dependencies
+import { addContainerElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
+import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  *

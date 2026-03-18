@@ -1,8 +1,11 @@
-// Classes
+// Dependencies
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
+// Classes
+import { addContainerElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
-import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
+import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a custom group element for "vegtype tillatelse" using the provided component and data.

@@ -1,5 +1,5 @@
+import { addContainerElement, addStyle, calculateFlexWidth } from "@arkitektum/altinn-studio-custom-components-utils";
 import {
-    addContainerElement,
     createCustomElement,
     generateUniqueId,
     getComponentBooleanDataValues,
@@ -18,7 +18,6 @@ import {
     validateFormData,
     validateTexts
 } from "./helpers";
-import { addStyle, calculateFlexWidth } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock for customElementTagNames
 jest.mock("../constants/customElementTagNames.js", () => ["custom-tag", "another-tag"]);

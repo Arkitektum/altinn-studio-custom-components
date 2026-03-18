@@ -1,8 +1,9 @@
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
+import { addContainerElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
+import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a custom header element with the specified title and size.

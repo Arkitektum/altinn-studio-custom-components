@@ -1,5 +1,5 @@
 // Dependencies
-import { addStyle, calculateFlexWidth, hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Constants
 import customElementTagNames from "../constants/customElementTagNames.js";
@@ -72,40 +72,6 @@ export function createCustomElement(tagName, htmlAttributes) {
     const customFieldElement = document.createElement(tagName);
     setAttributes(customFieldElement, { ...htmlAttributes, tagName });
     return customFieldElement;
-}
-
-/**
- * Creates a container element with a nested form content element, applies flex and padding styles,
- * and sets the width based on the provided grid value.
- *
- * @param {HTMLElement} component - The component to be wrapped inside the container.
- * @param {Object} grid - The grid configuration object to determine the width.
- * @returns {HTMLDivElement} The styled container element containing the component.
- */
-export function addContainerElement(component, grid) {
-    const containerElement = document.createElement("div");
-    const formContentElement = document.createElement("div");
-    formContentElement.appendChild(component);
-    containerElement.appendChild(formContentElement);
-
-    const flexStyle = {
-        flexBasis: "100%",
-        maxWidth: "100%"
-    };
-
-    if (hasValue(grid)) {
-        const flexWidth = calculateFlexWidth(grid);
-        flexStyle.flexBasis = `${flexWidth}%`;
-        flexStyle.maxWidth = `${flexWidth}%`;
-        flexStyle.flexGrow = "0";
-    }
-
-    addStyle(containerElement, {
-        ...flexStyle,
-        padding: "0.75rem 0px"
-    });
-
-    return containerElement;
 }
 
 /**
