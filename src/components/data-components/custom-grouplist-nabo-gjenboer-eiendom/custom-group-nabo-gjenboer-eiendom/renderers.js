@@ -1,11 +1,11 @@
 // Dependencies
-import { addContainerElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomElementHtmlAttributes from "../../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getTextResourceFromResourceBinding } from "../../../../functions/helpers.js";
+import { getTextResourceFromResourceBinding } from "../../../../functions/helpers.js";
 
 /**
  * Renders a custom element for displaying "Nabo Gjenboer Eiendom" data.
