@@ -1,11 +1,7 @@
-import {
-    getComponentDataValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getTextResourceFromResourceBinding, getTextResources } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import CustomGroupLoefteinnretninger from "./CustomGroupLoefteinnretninger";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -17,7 +13,9 @@ jest.mock("../../data-classes/Loefteinnretninger.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    getTextResources: jest.fn(),
+    getTextResources: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
@@ -81,9 +79,7 @@ describe("CustomGroupLoefteinnretninger", () => {
         const props = {};
         const instance = new CustomGroupLoefteinnretninger(props);
 
-        expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith(
-            "resource.rammebetingelser.loefteinnretninger.title"
-        );
+        expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("resource.rammebetingelser.loefteinnretninger.title");
         expect(instance.resourceValues.title).toBe("fallbackTitle");
     });
 

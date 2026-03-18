@@ -1,4 +1,5 @@
 import CustomGroupOvervann from "./CustomGroupOvervann";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 const Overvann = require("../../data-classes/Overvann.js");
 
@@ -12,7 +13,9 @@ jest.mock("../../data-classes/Overvann.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn((props) => props?.formData || {}),
     getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),
-    getTextResources: jest.fn(() => ({ a: "A", b: "B" })),
+    getTextResources: jest.fn(() => ({ a: "A", b: "B" }))
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
 jest.mock("../../../functions/validations.js", () => ({
@@ -20,7 +23,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn((messages) => !!messages)
 }));
 
-const { getComponentDataValue, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 
 describe("CustomGroupOvervann", () => {
     beforeEach(() => {

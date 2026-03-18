@@ -1,4 +1,5 @@
 import CustomGroupVannforsyning from "./CustomGroupVannforsyning";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 const Vannforsyning = require("../../data-classes/Vannforsyning.js");
 
@@ -12,7 +13,9 @@ jest.mock("../../data-classes/Vannforsyning.js", () => {
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn((props) => props.formData || null),
     getTextResourceFromResourceBinding: jest.fn((key) => `RES_${key}`),
-    getTextResources: jest.fn(() => ({ a: "A", b: "B" })),
+    getTextResources: jest.fn(() => ({ a: "A", b: "B" }))
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
 jest.mock("../../../functions/validations.js", () => ({
@@ -20,7 +23,7 @@ jest.mock("../../../functions/validations.js", () => ({
     hasValidationMessages: jest.fn((messages) => !!messages)
 }));
 
-const { getComponentDataValue, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 
 describe("CustomGroupVannforsyning", () => {
     beforeEach(() => {
