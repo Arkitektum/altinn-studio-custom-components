@@ -1,18 +1,12 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourcesFromResourceBindings, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
 
 // Global functions
-import {
-    getComponentDataValue,
-    getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    getTextResourcesFromResourceBindings,
-    validateTexts
-} from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, getTextResourceFromResourceBinding, validateTexts } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 
 /**

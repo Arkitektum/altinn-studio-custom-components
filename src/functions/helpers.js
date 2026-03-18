@@ -169,26 +169,6 @@ export function getTextResourceFromResourceBinding(resourceBinding) {
 }
 
 /**
- * Retrieves text resources from the given resource bindings object.
- *
- * Iterates over each key in the resourceBindings object and uses
- * getTextResourceFromResourceBinding to extract the corresponding text resource.
- *
- * @param {Object} resourceBindings - An object where each key maps to a resource binding.
- * @returns {Object} An object mapping each key to its corresponding text resource.
- */
-export function getTextResourcesFromResourceBindings(resourceBindings) {
-    const texts = {};
-    for (const key in resourceBindings) {
-        texts[key] =
-            typeof resourceBindings[key] === "object"
-                ? getTextResourcesFromResourceBindings(resourceBindings[key])
-                : getTextResourceFromResourceBinding(resourceBindings[key]);
-    }
-    return texts;
-}
-
-/**
  * Retrieves the data value from a component object.
  *
  * If the component is a child component, it returns the value from `component.resourceValues.data`.
