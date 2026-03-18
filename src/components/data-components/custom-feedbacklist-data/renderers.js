@@ -1,11 +1,8 @@
 // Dependencies
-import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a feedback list element with the given title, feedback messages, feedback type, and optional style override.

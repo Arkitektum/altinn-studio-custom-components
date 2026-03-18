@@ -1,11 +1,11 @@
 // Dependencies
-import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addStyle, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
 
 // Global functions
-import { createCustomElement, getEmptyFieldText } from "../../../functions/helpers.js";
+import { getEmptyFieldText } from "../../../functions/helpers.js";
 
 /**
  * Creates a table header (th) element with the specified text and style.

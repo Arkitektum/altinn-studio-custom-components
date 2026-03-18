@@ -1,9 +1,8 @@
+// Dependencies
+import { addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import { addContainerElement } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Global functions
-import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a custom field data element by creating a custom HTML element
