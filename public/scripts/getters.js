@@ -1,52 +1,13 @@
 // Global functions
-import { getValueFromDataKey, hasValue } from "../../src/functions/helpers.js";
 import { beautifyJson } from "./formatters.js";
+import { hasValue } from "../../src/functions/helpers.js";
 
 // Local functions
-import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.js";
+import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage.js";
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { validateResources } from "./validators.js";
-
-/**
- * Retrieves data for a given component based on its data model bindings.
- *
- * @param {Object} component - The component object containing data model bindings.
- * @param {Array<Object>} [dataModels] - Optional array of data model objects. If not provided, `getDataModels()` will be called to retrieve them.
- * @param {string} [dataType] - Optional data type to filter the data models. If provided, the function will look for a data model with a matching `dataType` property.
- * @param {Object} [selectedFileNames] - Optional object mapping data types to selected file names. If provided, the function will attempt to retrieve data from the specified file for the matching data type.
- * @returns {Object} An object mapping each binding key to its corresponding data value.
- */
-export function getDataForComponent(component, dataModels, dataType, selectedFileNames) {
-    if (!dataModels) {
-        dataModels = getDataModels();
-    }
-    const data = {};
-    component?.dataModelBindings &&
-        Object.keys(component?.dataModelBindings).forEach((key) => {
-            const dataModelBinding = component.dataModelBindings[key];
-            if (typeof dataModelBinding === "string") {
-                let index = 0;
-                if (dataType) {
-                    index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataType);
-                }
-                const dataModel = selectedFileNames?.[dataType]?.length
-                    ? dataModels[index]?.data?.[selectedFileNames[dataType]]
-                    : dataModels[index]?.data;
-                const dataModelData = getValueFromDataKey(dataModel, dataModelBinding);
-                data[key] = dataModelData;
-            } else if (typeof dataModelBinding === "object") {
-                const index = dataModels.findIndex((dataModel) => dataModel?.dataType === dataModelBinding?.dataType);
-                const dataModel = selectedFileNames?.[dataModelBinding?.dataType]?.length
-                    ? dataModels[index]?.data?.[selectedFileNames[dataModelBinding?.dataType]]
-                    : dataModels[index]?.data;
-                const dataModelData = getValueFromDataKey(dataModel, dataModelBinding?.field);
-                data[key] = dataModelData !== undefined ? dataModelData : dataModelBinding?.data;
-            }
-        });
-    return data;
-}
 
 /**
  * Generates a summary text for a data model based on its type and index.

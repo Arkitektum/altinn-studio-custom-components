@@ -1,3 +1,6 @@
+// Dependencies
+import { getDataForComponent } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
 import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.js";
@@ -8,7 +11,7 @@ import { addContainerElement, appendChildren, createCustomElement } from "../../
 // Local functions
 import { addDataModel, addValueToLocalStorage, getDataModels, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
-import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
+import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataModelListElements } from "./getters.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
 
 /**

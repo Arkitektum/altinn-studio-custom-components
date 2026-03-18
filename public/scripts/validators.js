@@ -1,3 +1,6 @@
+// Dependencies
+import { getDataForComponent } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import ValidationMessages from "../../src/classes/system-classes/ValidationMessages.js";
 
@@ -5,7 +8,6 @@ import ValidationMessages from "../../src/classes/system-classes/ValidationMessa
 import { getDataModels, getLayoutCode, getTextResources } from "./localStorage.js";
 
 // Global functions
-import { getDataForComponent, getDefaultValueForResource } from "./getters.js";
 import { getDefaultTextResources } from "../../src/functions/helpers.js";
 import { getDefaultValueForResource } from "./getters.js";
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
