@@ -1,8 +1,5 @@
 // Dependencies
-import { addStyle, hasValue, isValidTagName, setAttributes } from "@arkitektum/altinn-studio-custom-components-utils";
-
-// Constants
-import customElementTagNames from "../constants/customElementTagNames.js";
+import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Checks if the given value is a number larger than zero.
@@ -55,23 +52,6 @@ export function generateUniqueId(prefix = "") {
     const timestamp = Date.now().toString(36); // base36 for compactness
     const random = Math.random().toString(36).substring(2, 10); // skip "0."
     return `${prefix}${timestamp}${random}`;
-}
-
-/**
- * Creates a custom HTML element with the specified tag name and attributes.
- *
- * @param {string} tagName - The name of the HTML tag to create.
- * @param {Object} htmlAttributes - An object containing key-value pairs of attributes to set on the created element.
- * @throws {Error} Throws an error if the provided tag name is invalid.
- * @returns {HTMLElement} The created custom HTML element with the specified attributes.
- */
-export function createCustomElement(tagName, htmlAttributes) {
-    if (!isValidTagName(tagName)) {
-        throw new Error(`Invalid tag name ${tagName}. Must be one of: ${customElementTagNames.join(", ")}`);
-    }
-    const customFieldElement = document.createElement(tagName);
-    setAttributes(customFieldElement, { ...htmlAttributes, tagName });
-    return customFieldElement;
 }
 
 /**

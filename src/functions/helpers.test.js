@@ -1,6 +1,5 @@
-import { addContainerElement, addStyle, calculateFlexWidth } from "@arkitektum/altinn-studio-custom-components-utils";
+import { addContainerElement, addStyle, calculateFlexWidth, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 import {
-    createCustomElement,
     generateUniqueId,
     getComponentBooleanDataValues,
     getComponentBooleanTextValues,

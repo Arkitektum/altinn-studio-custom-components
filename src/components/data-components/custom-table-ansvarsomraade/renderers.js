@@ -1,8 +1,8 @@
+// Dependencies
+import { createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { createCustomElement } from "../../../functions/helpers.js";
 
 /**
  * Renders a custom table for "Ansvarsomraade" with specified columns and attributes.

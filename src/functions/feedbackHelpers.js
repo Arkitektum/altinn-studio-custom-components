@@ -1,8 +1,8 @@
+// Dependencies
+import { createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomElementHtmlAttributes from "../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { createCustomElement } from "./helpers.js";
 
 /**
  * Renders a custom feedback list element containing validation messages.
