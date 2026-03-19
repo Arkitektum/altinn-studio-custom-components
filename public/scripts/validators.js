@@ -287,8 +287,7 @@ export function validateResources() {
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
 
-    const componentsValue = componentCode ?? [];
-    const components = Array.isArray(componentsValue) ? componentsValue : [componentsValue];
+    const components = Array.isArray(componentCode ?? []) ? (componentCode ?? []) : [componentCode];
 
     const resourceBindingsSet = new Set(ALTINN_RESOURCE_BINDINGS);
     const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
