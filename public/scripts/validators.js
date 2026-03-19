@@ -227,7 +227,9 @@ export function getResourceBindingsFromComponents(resourceBindingsSet, component
  * @returns {Set} The updated set of resource bindings.
  */
 export function getResourceBindingsFromLayout(resourceBindingsSet, layout, componentType = "all") {
-    const componentsArray = Array.isArray(layout?.layout?.data?.layout) && layout.layout.data.layout;
+    const componentsArray = Array.isArray(layout?.layout?.data?.layout)
+        ? layout.layout.data.layout
+        : null;
     if (componentsArray) {
         getResourceBindingsFromComponents(resourceBindingsSet, componentsArray, componentType);
     }
