@@ -344,7 +344,7 @@ export function renderValidationMessages(validationResults) {
  *
  * @param {Object} component - The component object to check.
  * @param {Object} resource - The resource object to look for, expected to have an `id` property.
- * @returns {boolean|undefined} Returns true if the resource is used in the component, false otherwise. Returns undefined if the component is not a custom component.
+ * @returns {boolean} Returns true if the resource is used in the component, false otherwise (including when the component is not a custom component).
  */
 export function resourceIsUsedInComponent(component, resource) {
     const isCustomComponent = component?.tagName?.length && component?.type === "Custom";
@@ -353,7 +353,7 @@ export function resourceIsUsedInComponent(component, resource) {
         addResourceBindingsFromCustomComponent(component, allResourceBindings);
         return allResourceBindings.has(resource?.id);
     }
-    return undefined;
+    return false;
 }
 
 /**
