@@ -86,12 +86,14 @@ describe("CustomTableData", () => {
     });
 
     describe("getTableHeadersFromProps", () => {
-        const instance = new CustomTableData({
-            resourceBindings: { title: "titleKey" },
-            tableColumns: []
+        it("should return empty array when tableColumns is empty", () => {
+            const instance = new CustomTableData({
+                resourceBindings: { title: "titleKey" },
+                tableColumns: []
+            });
+            const result = instance.getTableHeadersFromProps({});
+            expect(result).toEqual([]);
         });
-        const result = instance.getTableHeadersFromProps({});
-        expect(result).toEqual([]);
     });
 
     it("should return headers from getTableHeaders", () => {
@@ -150,18 +152,20 @@ describe("CustomTableData", () => {
     });
 
     describe("removeEmptyTableRows", () => {
-        // Table rows contain cells with an isEmpty property used by removeEmptyTableRows
-        instantiateComponent.mockImplementation((cell) => cell);
-        const tableRows = [
-            [{ isEmpty: true }, { isEmpty: true }],
-            [{ isEmpty: false }, { isEmpty: true }],
-            [{ isEmpty: false }, { isEmpty: false }]
-        ];
-        const instance = new CustomTableData({});
-        const result = instance.removeEmptyTableRows(tableRows);
-        expect(result.length).toBe(2);
-        expect(result[0][0].isEmpty).toBe(false);
-        expect(result[1][0].isEmpty).toBe(false);
+        it("should remove rows where all cells are empty", () => {
+            // Table rows contain cells with an isEmpty property used by removeEmptyTableRows
+            instantiateComponent.mockImplementation((cell) => cell);
+            const tableRows = [
+                [{ isEmpty: true }, { isEmpty: true }],
+                [{ isEmpty: false }, { isEmpty: true }],
+                [{ isEmpty: false }, { isEmpty: false }]
+            ];
+            const instance = new CustomTableData({});
+            const result = instance.removeEmptyTableRows(tableRows);
+            expect(result.length).toBe(2);
+            expect(result[0][0].isEmpty).toBe(false);
+            expect(result[1][0].isEmpty).toBe(false);
+        });
     });
 
     describe("hasContent", () => {
