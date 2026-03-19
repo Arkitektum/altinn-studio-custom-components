@@ -149,8 +149,7 @@ describe("CustomTableData", () => {
     });
 
     describe("removeEmptyTableRows", () => {
-        it("should remove rows where all cells are empty", () => {
-            // Simulate instantiateComponent returning objects with isEmpty property
+            // Table rows contain cells with an isEmpty property used by removeEmptyTableRows
             instantiateComponent.mockImplementation((cell) => cell);
             const tableRows = [
                 [{ isEmpty: true }, { isEmpty: true }],
