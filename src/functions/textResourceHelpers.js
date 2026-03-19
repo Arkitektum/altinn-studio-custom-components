@@ -18,13 +18,15 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
     if (hasValue(textResourcesData)) {
         return textResourcesData;
     } else {
-        console.error("Could not retrieve text resources for the selected language.");
+        console.error(`Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'.`);
         const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
         const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) => response.json());
         if (hasValue(fallbackTextResourcesData)) {
             return fallbackTextResourcesData;
         } else {
-            console.error("Could not retrieve text resources for the fallback language.");
+            console.error(
+                `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL: ${fallbackTextResourcesApiUrl}.`
+            );
             return null;
         }
     }
@@ -46,7 +48,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
     return await fetch(defaultTextResourcesApiUrl).then(async (response) => {
         if (response.ok && response?.json) {
-            return await response?.json().catch(async () => {
+            if (response.ok) {
                 if (fallbackLanguage) {
                     console.error(
                         `Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`
@@ -56,7 +58,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
                     console.error(`Could not retrieve default text resources for language: ${language}`);
                     return null;
                 }
-            });
+            }
         } else if (fallbackLanguage) {
             console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
             return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
