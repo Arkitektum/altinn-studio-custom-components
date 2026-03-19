@@ -152,7 +152,7 @@ export function getMissingResourceBindings(allResourceBindings, textResources, d
     textResourceIds.push(...defaultTextResourceIds);
     const textResourceIdSet = new Set(textResourceIds);
     for (const resId of allResourceBindings) {
-        if (resId.length && !textResourceIdSet.has(resId)) {
+        if (typeof resId === "string" && resId.length > 0 && !textResourceIdSet.has(resId)) {
             if (resId.includes(" ")) {
                 literalValues.push(resId);
                 continue;
@@ -227,7 +227,9 @@ export function getResourceBindingsFromComponents(resourceBindingsSet, component
  * @returns {Set} The updated set of resource bindings.
  */
 export function getResourceBindingsFromLayout(resourceBindingsSet, layout, componentType = "all") {
-    const componentsArray = Array.isArray(layout?.layout?.data?.layout) && layout.layout.data.layout;
+    const componentsArray = Array.isArray(layout?.layout?.data?.layout)
+        ? layout.layout.data.layout
+        : null;
     if (componentsArray) {
         getResourceBindingsFromComponents(resourceBindingsSet, componentsArray, componentType);
     }
@@ -353,7 +355,9 @@ export function resourceIsUsedInComponent(component, resource) {
  * @returns {Array<Object>} An array of components that use the specified resource.
  */
 export function getResourceUsageForLayout(layout, resource) {
-    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout) && layout.layout.data.layout;
+    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout)
+        ? layout.layout.data.layout
+        : null;
     const componentsUsingResource = [];
     if (componentsInLayout) {
         for (const component of componentsInLayout) {
