@@ -460,7 +460,8 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
                     ? "nb"
                     : (valueKeys.length > 0 ? valueKeys[0] : undefined);
                 const dedupValue = languageCodeForDedup ? values[languageCodeForDedup] : "";
-                const key = `${resource.id}:${dedupValue ?? ""}`;
+                // Use a structured, JSON-stringified key to avoid collisions from delimiter characters.
+                const key = JSON.stringify({ id: resource.id, value: dedupValue ?? "" });
                 let existingEntry = missingResourceUsageWithLocalValueMap.get(key);
                 if (existingEntry) {
                     existingEntry.usage.push(usageEntry);
