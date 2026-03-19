@@ -53,9 +53,6 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
         );
     }
 
-    return null;
-};
-
 /**
  * Fetches the default text resources for a given app and language.
  * If the resources for the specified language cannot be fetched, attempts to fetch resources for a fallback language.
