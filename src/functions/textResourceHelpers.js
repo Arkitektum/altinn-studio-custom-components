@@ -46,11 +46,15 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
                 console.error(
                     `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`
                 );
-            }
+                    return fallbackTextResourcesData;
         } catch (error) {
-            console.error(
+            } else {
                 `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}':`,
                 error
+                    `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`
+                );
+    } else {
+        console.error("No valid fallback language provided; skipping fallback text resources fetch.");
             );
         }
     } else {
