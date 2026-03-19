@@ -476,6 +476,7 @@ export function getUsageForMissingResources(layouts, missingResourceBindings, ap
     const missingResourcesWithLocalValueUsage = [];
     missingResourceBindings.forEach((resourceId) => {
         const resource = { id: resourceId };
+        const resource = { id: resourceId };
         const { missingResourceUsageWithLocalValue, missingResourceUsage } = getMissingResourceUsage(layouts, resource, appResourceValues);
         missingResourcesUsage.push(...missingResourceUsage);
         missingResourcesWithLocalValueUsage.push(...missingResourceUsageWithLocalValue);
