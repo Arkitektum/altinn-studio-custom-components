@@ -82,61 +82,9 @@ the build, and all assets will be copied into
 
 Components are grouped by category and tailored to display domain-specific data according to standards from **Direktoratet for Byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
 
-### **Typography**
+For a full list of available components and examples, see the documentation site:
 
-- **Header** -- Displays a header text from a resource.
-- **Subheader** -- Displays a subheader from a resource.
-- **Paragraph** -- Displays a paragraph from a resource.
-- **Paragraph Text Data** -- Combines resource text with data text.
-
-### **Fields**
-
-- **Data** -- Field with label and value.
-- **Boolean Data** -- Displays model values based on boolean.
-- **Boolean Text** -- Displays resource text based on boolean.
-- **Count Data** -- Counts items in an array.
-- **Feedback** -- Single feedback message.
-- **Adresse** -- Full address object.
-- **Part-navn** -- Part name, optionally with org number.
-- **Kode** -- Standardized code value.
-- **Kommunens saksnummer** -- Composite case number (year + sequence).
-- **Prosjekt** -- Composite project number and name.
-- **Telefonnummer** -- All phone numbers for a part object.
-- **Utfallbesvarelse** -- Displays status from an `Utfallbesvarelse` object.
-
-### **Lists**
-
-- **Data** -- Values from an array.
-- **Planlagte løfteinnretninger** -- List of `PlanlagteLoefteinnretningerList`.
-- **Vedlegg** -- Attachment list.
-- **Feedback** -- List of feedback messages by type.
-- **ValidationMessages** -- Combined validation feedback.
-
-### **Description Lists**
-
-- **Data** -- Produces a description list from array values.
-
-### **Group Lists**
-
-- **Ansvarsområde** -- Displays `Ansvarsomraade` groups.
-- **Ettersending** -- Displays `Ettersending` groups.
-- **Sjekklistekrav** -- Displays `Sjekklistekrav` groups.
-- **Utfall svar** -- Displays `Utfallsvar` groups.
-
-### **Summation**
-
-- **Data** -- Sums numerical values from an array.
-- **Arealdisponering** -- Sums area allocation values from an `Arealdisponering` object.
-
-### **Tables**
-
-- **Data** -- Configurable data table.
-- **Ansvarsområde** -- Table displaying responsibility areas.
-- **Arbeidsplasser** -- Table listing workplaces.
-- **Eiendom** -- Table showing property information.
-- **Områderisiko** -- Table for area risk assessments.
-- **Part** -- Table of parties involved.
-- **Plan** -- Table of plans.
+[Component Documentation & Gallery](https://arkitektum.github.io/altinn-studio-custom-components-docs/)
 
 ---
 
