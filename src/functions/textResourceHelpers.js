@@ -14,25 +14,39 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
  */
 export const fetchTextResources = async (origin, org, app, language, fallbackLanguage) => {
     const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
-    const primaryResponse = await fetch(textResourcesApiUrl);
-    if (primaryResponse.ok) {
-        const textResourcesData = await primaryResponse.json();
-        if (hasValue(textResourcesData)) {
-            return textResourcesData;
+    try {
+        const primaryResponse = await fetch(textResourcesApiUrl);
+        if (primaryResponse.ok) {
+            const textResourcesData = await primaryResponse.json();
+            if (hasValue(textResourcesData)) {
+                return textResourcesData;
+            }
+        } else {
+            console.error(
+                `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
+            );
         }
-    } else {
+    } catch (error) {
         console.error(
-            `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
+            `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`,
+            error
         );
     }
 
     const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
-    const fallbackResponse = await fetch(fallbackTextResourcesApiUrl);
-    if (fallbackResponse.ok) {
-        const fallbackTextResourcesData = await fallbackResponse.json();
-        if (hasValue(fallbackTextResourcesData)) {
-            return fallbackTextResourcesData;
+    try {
+        const fallbackResponse = await fetch(fallbackTextResourcesApiUrl);
+        if (fallbackResponse.ok) {
+            const fallbackTextResourcesData = await fallbackResponse.json();
+            if (hasValue(fallbackTextResourcesData)) {
+                return fallbackTextResourcesData;
+            }
         }
+    } catch (error) {
+        console.error(
+            `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}':`,
+            error
+        );
     }
 
     console.error(
