@@ -53,9 +53,6 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
         );
     }
 
-    console.error(
-        `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL: ${fallbackTextResourcesApiUrl}.`
-    );
     return null;
 };
 
