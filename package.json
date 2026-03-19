@@ -12,7 +12,6 @@
         "symlinks": "node scripts/create-symlinks.js",
         "copy-dist-resources": "copyfiles --flat src/data/resource.*.json src/data/resources.json dist",
         "test": "jest",
-        "api": "node api/index.mjs",
         "build": "yarn symlinks && webpack --mode production && yarn copy-dist-resources",
         "start": "yarn symlinks && webpack serve --mode development --config webpack.config.dev.js",
         "lint": "eslint src --ext .js"
