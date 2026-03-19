@@ -116,18 +116,6 @@ For a full list of available components and examples, see the documentation site
     yarn start
     ```
 
-5. Start the documentation site (for local docs development):
-
-    ```bash
-    yarn start-docs
-    ```
-
-6. Build the documentation site (static output):
-
-    ```bash
-    yarn build-docs
-    ```
-
 ### Testing
 
 Run unit tests:
