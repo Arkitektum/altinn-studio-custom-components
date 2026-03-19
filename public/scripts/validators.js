@@ -11,6 +11,16 @@ import { getDataModels, getLayoutCode, getTextResources } from "./localStorage.j
 import { getDefaultValueForResource } from "./getters.js";
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
 
+// Altinn-specific resource bindings used across validation logic
+const ALTINN_RESOURCE_BINDINGS = [
+    "signing.summary.title.override",
+    "signing.summary.title",
+    "pdfPreviewText",
+    "appOwner",
+    "appName",
+    "resource.attachmentList.title"
+];
+
 /**
  * Adds resource bindings from a custom component's properties to a set of all resource bindings.
  *
@@ -278,15 +288,7 @@ export function validateResources() {
 
     const components = Array.isArray(componentCode) ? componentCode : [componentCode];
 
-    const altinnResourceBindings = [
-        "signing.summary.title.override",
-        "signing.summary.title",
-        "pdfPreviewText",
-        "appOwner",
-        "appName",
-        "resource.attachmentList.title"
-    ];
-    const resourceBindingsSet = new Set(altinnResourceBindings);
+    const resourceBindingsSet = new Set(ALTINN_RESOURCE_BINDINGS);
     const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
 
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
@@ -437,6 +439,7 @@ function getAppResourceForLayout(layout, resource, appResourceValues) {
 function getMissingResourceUsage(layouts, resource, appResourceValues) {
     const missingResourceUsage = [];
     const missingResourceUsageWithLocalValue = [];
+    const missingResourceUsageWithLocalValueMap = new Map();
     layouts.forEach((layout) => {
         const appOwner = layout.appOwner;
         const appName = layout.appName;
@@ -448,17 +451,20 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
                 appName,
                 componentsUsingResource
             };
-            let existingEntry = missingResourceUsageWithLocalValue.find(
-                (entry) => entry.resource.id === resource.id && entry.resource.values?.nb === localAppResource?.values?.nb
-            );
-            if (existingEntry) {
-                existingEntry.usage.push(usageEntry);
-            } else if (localAppResource) {
-                missingResourceUsageWithLocalValue.push({
-                    resource: localAppResource,
-                    usage: [usageEntry],
-                    presence: "localValue"
-                });
+            if (localAppResource) {
+                const key = `${resource.id}:${localAppResource.values?.nb ?? ""}`;
+                let existingEntry = missingResourceUsageWithLocalValueMap.get(key);
+                if (existingEntry) {
+                    existingEntry.usage.push(usageEntry);
+                } else {
+                    const newEntry = {
+                        resource: localAppResource,
+                        usage: [usageEntry],
+                        presence: "localValue"
+                    };
+                    missingResourceUsageWithLocalValue.push(newEntry);
+                    missingResourceUsageWithLocalValueMap.set(key, newEntry);
+                }
             } else {
                 missingResourceUsage.push({
                     resource,
