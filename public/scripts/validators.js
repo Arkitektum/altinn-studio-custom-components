@@ -31,7 +31,7 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
 
     // Add resource bindings from table columns if applicable
     if (componentProps?.tableColumns) {
-        allResourceBindings = addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
+        addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
     }
 
     // Add resource bindings from the getResourceBindings function
@@ -146,10 +146,10 @@ function getDuplicateTextResources(textResources) {
 export function getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources) {
     const missingResourceBindings = [];
     const literalValues = [];
-    const textResourceIds = Array.isArray(textResources) && textResources?.map((res) => res.id) || [];
-    const defaultTextResourceIds = Array.isArray(defaultTextResources) && defaultTextResources?.map((res) => res.id) || [];
+    const textResourceIds = Array.isArray(textResources) ? textResources.map((res) => res.id) : [];
+    const defaultTextResourceIds = Array.isArray(defaultTextResources) ? defaultTextResources.map((res) => res.id) : [];
     // Combine text resource IDs from both provided and default text resources
-    Array.prototype.push.apply(textResourceIds, defaultTextResourceIds);
+    textResourceIds.push(...defaultTextResourceIds);
     for (const resId of allResourceBindings) {
         if (resId.length && !textResourceIds.includes(resId)) {
             if (resId.includes(" ")) {
@@ -282,7 +282,7 @@ export function validateResources() {
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const { missingResourceBindings, literalValues } = getMissingResourceBindings(
         allResourceBindings,
-        textResources,
+        textResources?.resources,
         defaultTextResources?.resources
     );
     const duplicateTextResources = getDuplicateTextResources(textResources);
@@ -474,7 +474,8 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
 export function getUsageForMissingResources(layouts, missingResourceBindings, appResourceValues) {
     const missingResourcesUsage = [];
     const missingResourcesWithLocalValueUsage = [];
-    missingResourceBindings.forEach((resource) => {
+    missingResourceBindings.forEach((resourceId) => {
+        const resource = { id: resourceId };
         const { missingResourceUsageWithLocalValue, missingResourceUsage } = getMissingResourceUsage(layouts, resource, appResourceValues);
         missingResourcesUsage.push(...missingResourceUsage);
         missingResourcesWithLocalValueUsage.push(...missingResourceUsageWithLocalValue);
