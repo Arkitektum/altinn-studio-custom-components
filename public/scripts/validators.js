@@ -43,16 +43,14 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
 
     // Add resource bindings from the getResourceBindings function
-    const resourceBindingsToIterate =
-        resourceBindings && typeof resourceBindings === "object" && !Array.isArray(resourceBindings)
-            ? resourceBindings
-            : {};
-    for (const bindingCategory of Object.values(resourceBindingsToIterate)) {
-        if (!bindingCategory || typeof bindingCategory !== "object" || Array.isArray(bindingCategory)) {
-            continue;
-        }
-        for (const bindingValue of Object.values(bindingCategory)) {
-            allResourceBindings.add(bindingValue);
+    if (resourceBindings && typeof resourceBindings === "object" && !Array.isArray(resourceBindings)) {
+        for (const bindingCategory of Object.values(resourceBindings)) {
+            if (!bindingCategory || typeof bindingCategory !== "object" || Array.isArray(bindingCategory)) {
+                continue;
+            }
+            for (const bindingValue of Object.values(bindingCategory)) {
+                allResourceBindings.add(bindingValue);
+            }
         }
     }
 }
