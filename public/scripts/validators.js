@@ -453,9 +453,10 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
             if (localAppResource) {
                 const values = localAppResource.values || {};
                 // Prefer 'nb' for backward compatibility, otherwise use the first available language code.
+                const valueKeys = Object.keys(values);
                 const languageCodeForDedup = Object.prototype.hasOwnProperty.call(values, "nb")
                     ? "nb"
-                    : Object.keys(values)[0];
+                    : (valueKeys.length > 0 ? valueKeys[0] : undefined);
                 const dedupValue = languageCodeForDedup ? values[languageCodeForDedup] : "";
                 const key = `${resource.id}:${dedupValue ?? ""}`;
                 let existingEntry = missingResourceUsageWithLocalValueMap.get(key);
