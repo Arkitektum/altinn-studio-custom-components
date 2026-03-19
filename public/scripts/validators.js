@@ -437,6 +437,7 @@ function getAppResourceForLayout(layout, resource, appResourceValues) {
 function getMissingResourceUsage(layouts, resource, appResourceValues) {
     const missingResourceUsage = [];
     const missingResourceUsageWithLocalValue = [];
+    const missingResourceUsageWithLocalValueMap = new Map();
     layouts.forEach((layout) => {
         const appOwner = layout.appOwner;
         const appName = layout.appName;
@@ -448,17 +449,20 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
                 appName,
                 componentsUsingResource
             };
-            let existingEntry = missingResourceUsageWithLocalValue.find(
-                (entry) => entry.resource.id === resource.id && entry.resource.values?.nb === localAppResource?.values?.nb
-            );
-            if (existingEntry) {
-                existingEntry.usage.push(usageEntry);
-            } else if (localAppResource) {
-                missingResourceUsageWithLocalValue.push({
-                    resource: localAppResource,
-                    usage: [usageEntry],
-                    presence: "localValue"
-                });
+            if (localAppResource) {
+                const key = `${resource.id}:${localAppResource.values?.nb ?? ""}`;
+                let existingEntry = missingResourceUsageWithLocalValueMap.get(key);
+                if (existingEntry) {
+                    existingEntry.usage.push(usageEntry);
+                } else {
+                    const newEntry = {
+                        resource: localAppResource,
+                        usage: [usageEntry],
+                        presence: "localValue"
+                    };
+                    missingResourceUsageWithLocalValue.push(newEntry);
+                    missingResourceUsageWithLocalValueMap.set(key, newEntry);
+                }
             } else {
                 missingResourceUsage.push({
                     resource,
