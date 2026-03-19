@@ -94,23 +94,23 @@ describe("CustomTableData", () => {
             const result = instance.getTableHeadersFromProps({});
             expect(result).toEqual([]);
         });
-    });
 
-    it("should return headers from getTableHeaders", () => {
-        getTableHeaders.mockReturnValue([{ text: "A" }]);
-        const props = { tableColumns: [{ header: "A" }] };
-        const instance = new CustomTableData({});
-        const result = instance.getTableHeadersFromProps(props);
-        expect(result).toEqual([{ text: "A" }]);
-    });
+        it("should return headers from getTableHeaders", () => {
+            getTableHeaders.mockReturnValue([{ text: "A" }]);
+            const props = { tableColumns: [{ header: "A" }] };
+            const instance = new CustomTableData({});
+            const result = instance.getTableHeadersFromProps(props);
+            expect(result).toEqual([{ text: "A" }]);
+        });
 
-    it("should prepend row number header if showRowNumbers is true", () => {
-        getTableHeaders.mockReturnValue([{ text: "A" }]);
-        getRowNumberTitle.mockReturnValue("Row #");
-        const props = { tableColumns: [{ header: "A" }], showRowNumbers: true };
-        const instance = new CustomTableData({});
-        const result = instance.getTableHeadersFromProps(props);
-        expect(result[0]).toEqual({ text: "Row #", styleOverride: { textAlign: "right" } });
+        it("should prepend row number header if showRowNumbers is true", () => {
+            getTableHeaders.mockReturnValue([{ text: "A" }]);
+            getRowNumberTitle.mockReturnValue("Row #");
+            const props = { tableColumns: [{ header: "A" }], showRowNumbers: true };
+            const instance = new CustomTableData({});
+            const result = instance.getTableHeadersFromProps(props);
+            expect(result[0]).toEqual({ text: "Row #", styleOverride: { textAlign: "right" } });
+        });
     });
 
     describe("getTableRowsFromProps", () => {
