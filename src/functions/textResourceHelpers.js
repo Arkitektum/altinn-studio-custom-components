@@ -52,8 +52,6 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
             error
         );
     }
-
-    return null;
 };
 
 /**
@@ -77,9 +75,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
             return await response.json();
         } else if (fallbackLanguage) {
             // Failed to retrieve resources for the primary language, try the fallback language
-            console.error(
-                `Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`
-            );
+            console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
             return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
         } else {
             // No fallback language available, give up
