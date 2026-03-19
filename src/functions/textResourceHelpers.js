@@ -33,24 +33,28 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
         );
     }
 
-    const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
-    try {
-        const fallbackResponse = await fetch(fallbackTextResourcesApiUrl);
-        if (fallbackResponse.ok) {
-            const fallbackTextResourcesData = await fallbackResponse.json();
-            if (hasValue(fallbackTextResourcesData)) {
-                return fallbackTextResourcesData;
+    if (hasValue(fallbackLanguage)) {
+        const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
+        try {
+            const fallbackResponse = await fetch(fallbackTextResourcesApiUrl);
+            if (fallbackResponse.ok) {
+                const fallbackTextResourcesData = await fallbackResponse.json();
+                if (hasValue(fallbackTextResourcesData)) {
+                    return fallbackTextResourcesData;
+                }
+            } else {
+                console.error(
+                    `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`
+                );
             }
-        } else {
+        } catch (error) {
             console.error(
-                `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`
+                `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}':`,
+                error
             );
         }
-    } catch (error) {
-        console.error(
-            `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}':`,
-            error
-        );
+    } else {
+        console.error("No valid fallback language provided; skipping fallback text resources fetch.");
     }
 
     return null;
