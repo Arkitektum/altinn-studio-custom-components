@@ -1,10 +1,13 @@
+// Dependencies
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Global functions
-import { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomGrouplistSjekklistekrav is a custom component class for handling grouped checklist requirements.

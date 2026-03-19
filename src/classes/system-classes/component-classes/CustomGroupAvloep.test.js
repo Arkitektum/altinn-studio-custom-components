@@ -1,4 +1,5 @@
 import CustomGroupAvloep from "./CustomGroupAvloep";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 // Mocks
@@ -9,17 +10,19 @@ jest.mock("../../data-classes/Avloep.js", () => {
     return jest.fn().mockImplementation((data) => ({ mockAvloep: true, data }));
 });
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn((props) => props?.formData || null),
+    getComponentDataValue: jest.fn((props) => props?.formData || null)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn((val) => val !== null && val !== undefined && val !== ""),
     getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),
-    getTextResources: jest.fn(() => ({ resource1: "text1" })),
-    hasValue: jest.fn((val) => val !== null && val !== undefined && val !== "")
+    getTextResources: jest.fn(() => ({ resource1: "text1" }))
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(() => ["missing resource"]),
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
-const { getComponentDataValue, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 
 describe("CustomGroupAvloep", () => {
     beforeEach(() => {

@@ -1,8 +1,8 @@
 import CustomDescriptionList from "./CustomDescriptionList";
-import { hasValue } from "../../../functions/helpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the hasValue function
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

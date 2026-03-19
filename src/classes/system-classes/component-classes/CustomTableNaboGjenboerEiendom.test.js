@@ -1,3 +1,4 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomTableNaboGjenboerEiendom from "./CustomTableNaboGjenboerEiendom";
 
 // Mocks
@@ -10,16 +11,18 @@ jest.mock("../../data-classes/Eiendom.js", () => {
     };
 });
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn((props) => props.formData),
-    getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),
-    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
+    getComponentDataValue: jest.fn((props) => props.formData)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== ""),
+    getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`)
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(() => ["missing-resource"]),
     hasValidationMessages: jest.fn((messages) => messages && messages.length > 0)
 }));
 
-const { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomTableNaboGjenboerEiendom", () => {

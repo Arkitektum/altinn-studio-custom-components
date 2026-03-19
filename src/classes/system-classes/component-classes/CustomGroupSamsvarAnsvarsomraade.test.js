@@ -1,12 +1,15 @@
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent";
 import CustomGroupSamsvarAnsvarsomraade from "./CustomGroupSamsvarAnsvarsomraade";
 import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+    getComponentDataValue: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
@@ -14,7 +17,7 @@ jest.mock("../../../functions/validations.js", () => ({
 }));
 jest.mock("../../data-classes/SamsvarAnsvarsomraade");
 
-const { getComponentDataValue, getTextResourceFromResourceBinding, hasValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.js");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 describe("CustomGroupSamsvarAnsvarsomraade", () => {

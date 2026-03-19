@@ -1,8 +1,8 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import Kode from "./Kode.js";
-
-// Global functions
-import { hasValue } from "../../functions/helpers.js";
 
 /**
  * Represents a Plan with a name and type.

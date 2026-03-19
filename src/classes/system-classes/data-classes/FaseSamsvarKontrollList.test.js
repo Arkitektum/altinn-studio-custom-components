@@ -1,8 +1,8 @@
 import FaseSamsvarKontrollList from "./FaseSamsvarKontrollList";
-const { getTextResourceFromResourceBinding } = require("../../../functions/helpers.js");
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the getTextResourceFromResourceBinding function
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn((title) => `text-for-${title}`)
 }));
 

@@ -1,9 +1,13 @@
 import {
     addContainerElement,
     addStyle,
-    appendChildren,
     calculateFlexWidth,
     createCustomElement,
+    getTextResourceFromResourceBinding,
+    getTextResources,
+    getTextResourcesFromResourceBindings
+} from "@arkitektum/altinn-studio-custom-components-utils";
+import {
     generateUniqueId,
     getComponentBooleanDataValues,
     getComponentBooleanTextValues,
@@ -13,48 +17,11 @@ import {
     getComponentResourceValue,
     getEmptyFieldText,
     getRowNumberTitle,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    getTextResourcesFromResourceBindings,
-    getValueFromDataKey,
-    hasValue,
     isNumberLargerThanZero,
     renderLayoutContainerElement,
     validateFormData,
     validateTexts
 } from "./helpers";
-
-// Mock for customElementTagNames
-jest.mock("../constants/customElementTagNames.js", () => ["custom-tag", "another-tag"]);
-
-describe("hasValue", () => {
-    it("returns false for undefined and null", () => {
-        expect(hasValue(undefined)).toBe(false);
-        expect(hasValue(null)).toBe(false);
-    });
-    it("returns true for non-empty string, false for empty string", () => {
-        expect(hasValue("hello")).toBe(true);
-        expect(hasValue("")).toBe(false);
-    });
-    it("returns true for valid number, false for NaN", () => {
-        expect(hasValue(123)).toBe(true);
-        expect(hasValue(NaN)).toBe(false);
-    });
-    it("returns true for true boolean, true for false boolean, false for null", () => {
-        expect(hasValue(true)).toBe(true);
-        expect(hasValue(false)).toBe(true);
-        expect(hasValue(null)).toBe(false);
-    });
-    it("returns true for non-empty array, false for empty array", () => {
-        expect(hasValue([1])).toBe(true);
-        expect(hasValue([])).toBe(false);
-    });
-    it("returns true for object with non-empty string property", () => {
-        expect(hasValue({ a: "x" })).toBe(true);
-        expect(hasValue({ a: "" })).toBe(false);
-        expect(hasValue({})).toBe(false);
-    });
-});
 
 describe("isNumberLargerThanZero", () => {
     it("returns true for numbers > 0", () => {
@@ -123,10 +90,10 @@ describe("generateUniqueId", () => {
 
 describe("createCustomElement", () => {
     it("creates element with valid tag and attributes", () => {
-        const el = createCustomElement("custom-tag", { foo: "bar" });
-        expect(el.tagName.toLowerCase()).toBe("custom-tag");
+        const el = createCustomElement("custom-field-data", { foo: "bar" });
+        expect(el.tagName.toLowerCase()).toBe("custom-field-data");
         expect(el.getAttribute("foo")).toBe("bar");
-        expect(el.getAttribute("tagName")).toBe("custom-tag");
+        expect(el.getAttribute("tagName")).toBe("custom-field-data");
     });
     it("throws error for invalid tag", () => {
         expect(() => createCustomElement("invalid-tag", {})).toThrow(/Invalid tag name/);
@@ -232,24 +199,6 @@ describe("getComponentContainerElement", () => {
     it("returns null if no grandparent", () => {
         const el = document.createElement("div");
         expect(getComponentContainerElement(el)).toBeNull();
-    });
-});
-
-describe("getValueFromDataKey", () => {
-    it("returns data if no dataKey", () => {
-        expect(getValueFromDataKey({ a: 1 }, "")).toEqual({ a: 1 });
-    });
-    it("returns undefined if data is null", () => {
-        expect(getValueFromDataKey(null, "a")).toBeUndefined();
-    });
-    it("returns undefined for invalid dataKey", () => {
-        expect(getValueFromDataKey({ a: 1 }, ".a")).toBeUndefined();
-        expect(getValueFromDataKey({ a: 1 }, "a..b")).toBeUndefined();
-    });
-    it("returns nested value for dot/bracket notation", () => {
-        const data = { a: { b: [{ c: 42 }] } };
-        expect(getValueFromDataKey(data, "a.b[0].c")).toBe(42);
-        expect(getValueFromDataKey(data, "a.b")).toEqual([{ c: 42 }]);
     });
 });
 
@@ -396,21 +345,5 @@ describe("getComponentResourceValue", () => {
     it("returns resourceBinding if no resourceValues", () => {
         const comp = { resourceValues: {}, resourceBindings: { foo: "foo" } };
         expect(getComponentResourceValue(comp, "foo")).toBe("bar");
-    });
-});
-
-describe("appendChildren", () => {
-    it("appends HTMLElements and strings", () => {
-        const parent = document.createElement("div");
-        const child1 = document.createElement("span");
-        const child2 = "<b>hi</b>";
-        appendChildren(parent, [child1, child2]);
-        expect(parent.querySelector("span")).toStrictEqual(child1);
-        expect(parent.innerHTML).toContain("<b>hi</b>");
-    });
-    it("filters out falsy children", () => {
-        const parent = document.createElement("div");
-        appendChildren(parent, [null, undefined, false, "ok"]);
-        expect(parent.innerHTML).toContain("ok");
     });
 });

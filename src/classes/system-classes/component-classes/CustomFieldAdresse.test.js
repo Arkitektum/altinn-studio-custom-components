@@ -12,8 +12,14 @@ jest.mock("../CustomComponent", () => {
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn((props) => props.formData || {}),
     getComponentResourceValue: jest.fn((props, key) => props.resourceBindings?.[key] || `resource.${key}`),
+    getTextResources: jest.fn(() => ({ title: "Adresse", emptyFieldText: "Ingen adresse" }))
+}));
+jest.mock("../../../functions/validations", () => ({
+    hasMissingTextResources: jest.fn(() => false),
+    hasValidationMessages: jest.fn((messages) => !!messages)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn((key) => (key ? `text:${key}` : "")),
-    getTextResources: jest.fn(() => ({ title: "Adresse", emptyFieldText: "Ingen adresse" })),
     hasValue: jest.fn((obj) => {
         if (obj === undefined || obj === null) {
             return false;
@@ -32,10 +38,6 @@ jest.mock("../../../functions/helpers", () => ({
         }
         return false;
     })
-}));
-jest.mock("../../../functions/validations", () => ({
-    hasMissingTextResources: jest.fn(() => false),
-    hasValidationMessages: jest.fn((messages) => !!messages)
 }));
 
 describe("CustomFieldAdresse", () => {

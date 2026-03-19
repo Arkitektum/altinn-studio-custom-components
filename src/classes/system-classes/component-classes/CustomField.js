@@ -1,8 +1,8 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
-
-// Global functions
-import { hasValue } from "../../../functions/helpers.js";
 
 /**
  * CustomField class extends CustomComponent to represent a customizable field component.

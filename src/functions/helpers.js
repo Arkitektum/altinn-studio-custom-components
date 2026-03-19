@@ -1,79 +1,5 @@
-// Constants
-import customElementTagNames from "../constants/customElementTagNames.js";
-
-/**
- * Checks if the given object has at least one property with a non-empty value.
- * Uses the `hasValue` function to determine if a property's value is considered content.
- *
- * @param {Object} obj - The object to check for content.
- * @returns {boolean} Returns true if at least one property has content, otherwise false.
- */
-function objectHasContent(obj) {
-    for (let key in obj) {
-        if (key !== "altinnRowId" && hasValue(obj[key])) {
-            // Exclude altinnRowId from content check
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Checks if the given array contains at least one item that has a value.
- * Uses the `hasValue` function to determine if an item is considered to have content.
- *
- * @param {Array} arr - The array to check for content.
- * @returns {boolean} Returns true if at least one item in the array has content, otherwise false.
- */
-function arrayHasContent(arr) {
-    for (let item of arr) {
-        if (hasValue(item)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * Checks if the provided object has a meaningful value.
- *
- * Handles different types:
- * - `undefined` or `null`: returns false
- * - `string`: returns true if length > 0
- * - `number`: returns true if not NaN
- * - `boolean`: returns true if boolean
- * - `Array`: returns true if array has content (uses arrayHasContent)
- * - `Object`: returns true if object has content (uses objectHasContent)
- *
- * @param {*} obj - The object to check for value.
- * @returns {boolean} True if the object has a value, false otherwise.
- */
-export function hasValue(obj) {
-    if (obj === undefined || obj === null) {
-        return false;
-    }
-    if (typeof obj === "string") {
-        return obj.length > 0;
-    }
-    if (typeof obj === "number") {
-        return !Number.isNaN(obj);
-    }
-    if (typeof obj === "boolean") {
-        return typeof obj === "boolean";
-    }
-    if (Array.isArray(obj)) {
-        if (obj.length > 0) {
-            return arrayHasContent(obj);
-        }
-    }
-    for (let key in obj) {
-        if (obj?.[key]?.toString().length > 0 && key !== "altinnRowId") {
-            // Exclude altinnRowId from content check
-            return objectHasContent(obj);
-        }
-    }
-    return false;
-}
+// Dependencies
+import { addStyle, getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Checks if the given value is a number larger than zero.
@@ -86,41 +12,6 @@ export function hasValue(obj) {
 export function isNumberLargerThanZero(value) {
     const num = typeof value === "number" ? value : Number(value);
     return typeof num === "number" && !Number.isNaN(num) && num > 0;
-}
-
-/**
- * Checks if the provided tag name is valid.
- *
- * @param {string} tagName - The tag name to validate.
- * @returns {boolean} True if the tag name is valid, false otherwise.
- */
-function isValidTagName(tagName) {
-    const validTagNames = customElementTagNames;
-    return validTagNames.includes(tagName);
-}
-
-/**
- * Adds the specified styles to the given HTML element.
- *
- * @param {HTMLElement} element - The HTML element to which the styles will be applied.
- * @param {Object} style - An object containing CSS property-value pairs.
- */
-export function addStyle(element, style) {
-    for (let key in style) {
-        element.style[key] = style[key];
-    }
-}
-
-/**
- * Sets multiple attributes on a given HTML element.
- *
- * @param {HTMLElement} element - The element on which to set the attributes.
- * @param {Object} attributes - An object containing key-value pairs of attributes to set.
- */
-function setAttributes(element, attributes) {
-    for (const key in attributes) {
-        element.setAttribute(key, attributes[key]);
-    }
 }
 
 /**
@@ -164,83 +55,6 @@ export function generateUniqueId(prefix = "") {
 }
 
 /**
- * Creates a custom HTML element with the specified tag name and attributes.
- *
- * @param {string} tagName - The name of the HTML tag to create.
- * @param {Object} htmlAttributes - An object containing key-value pairs of attributes to set on the created element.
- * @throws {Error} Throws an error if the provided tag name is invalid.
- * @returns {HTMLElement} The created custom HTML element with the specified attributes.
- */
-export function createCustomElement(tagName, htmlAttributes) {
-    if (!isValidTagName(tagName)) {
-        throw new Error(`Invalid tag name ${tagName}. Must be one of: ${customElementTagNames.join(", ")}`);
-    }
-    const customFieldElement = document.createElement(tagName);
-    setAttributes(customFieldElement, { ...htmlAttributes, tagName });
-    return customFieldElement;
-}
-
-/**
- * Calculates the flex width percentage based on a grid configuration.
- * The function considers the grid breakpoints (xs, sm, md, lg, xl) and returns
- * the smallest width percentage among them, defaulting to 100% if no grid is provided.
- *
- * @param {Object} [grid] - The grid configuration object.
- * @param {number} [grid.xs=12] - Number of columns for extra small screens.
- * @param {number} [grid.sm=grid.xs] - Number of columns for small screens.
- * @param {number} [grid.md=grid.sm] - Number of columns for medium screens.
- * @param {number} [grid.lg=grid.md] - Number of columns for large screens.
- * @param {number} [grid.xl=grid.lg] - Number of columns for extra large screens.
- * @returns {number} The minimum flex width percentage for the given grid configuration.
- */
-export function calculateFlexWidth(grid) {
-    if (grid) {
-        const xs = grid.xs || 12;
-        const sm = grid.sm || xs;
-        const md = grid.md || sm;
-        const lg = grid.lg || md;
-        const xl = grid.xl || lg;
-        return Math.min((xs / 12) * 100, (sm / 12) * 100, (md / 12) * 100, (lg / 12) * 100, (xl / 12) * 100);
-    } else {
-        return 100;
-    }
-}
-
-/**
- * Creates a container element with a nested form content element, applies flex and padding styles,
- * and sets the width based on the provided grid value.
- *
- * @param {HTMLElement} component - The component to be wrapped inside the container.
- * @param {Object} grid - The grid configuration object to determine the width.
- * @returns {HTMLDivElement} The styled container element containing the component.
- */
-export function addContainerElement(component, grid) {
-    const containerElement = document.createElement("div");
-    const formContentElement = document.createElement("div");
-    formContentElement.appendChild(component);
-    containerElement.appendChild(formContentElement);
-
-    const flexStyle = {
-        flexBasis: "100%",
-        maxWidth: "100%"
-    };
-
-    if (hasValue(grid)) {
-        const flexWidth = calculateFlexWidth(grid);
-        flexStyle.flexBasis = `${flexWidth}%`;
-        flexStyle.maxWidth = `${flexWidth}%`;
-        flexStyle.flexGrow = "0";
-    }
-
-    addStyle(containerElement, {
-        ...flexStyle,
-        padding: "0.75rem 0px"
-    });
-
-    return containerElement;
-}
-
-/**
  * Creates and returns a layout container element with predefined styles.
  *
  * The container element is a `div` with the following styles applied:
@@ -260,24 +74,6 @@ export function renderLayoutContainerElement() {
         alignItems: "flex-start"
     });
     return containerElement;
-}
-
-/**
- * Retrieves the global text resources from the window object if available.
- *
- * @returns {Array} An array of text resources if `window.textResources` exists, otherwise an empty array.
- */
-export function getTextResources() {
-    return typeof globalThis !== "undefined" && globalThis.textResources ? globalThis.textResources : [];
-}
-
-/**
- * Retrieves the default text resources from the global scope.
- *
- * @returns {Array} An array of default text resources if available on `globalThis.defaultTextResources`, otherwise an empty array.
- */
-export function getDefaultTextResources() {
-    return typeof globalThis !== "undefined" && globalThis.defaultTextResources ? globalThis.defaultTextResources : [];
 }
 
 /**
@@ -334,66 +130,6 @@ export function getComponentContainerElement(component) {
     } else {
         return null;
     }
-}
-
-/**
- * Retrieves a value from a nested data object based on a given data key.
- *
- * @param {Object} data - The data object to retrieve the value from.
- * @param {string} dataKey - The key representing the path to the value in the data object.
- *                           The key can be a dot-separated string or an array-like string with brackets.
- * @returns {*} - The value found at the specified data key path, or the original data if no data key is provided.
- */
-export function getValueFromDataKey(data, dataKey) {
-    if (!dataKey) {
-        return data;
-    }
-    if (data == null) {
-        return undefined;
-    }
-    if (/(\.\.|^\.)/.test(dataKey)) {
-        return undefined; // Invalid dataKey
-    }
-    const keys = dataKey.split(/[.[\]]/).filter(Boolean);
-    return keys.reduce((acc, key) => acc?.[key], data);
-}
-
-/**
- * Retrieves the text resource value associated with the given resource binding.
- * It first searches in the current text resources, and if not found, falls back to the default text resources.
- * If the resource is still not found, it returns the resourceBinding itself.
- *
- * @param {string} resourceBinding - The identifier for the text resource to retrieve.
- * @returns {string} The value of the text resource, or the resourceBinding if not found.
- */
-export function getTextResourceFromResourceBinding(resourceBinding) {
-    const textResources = getTextResources();
-    let textResource = textResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
-    if (textResource === undefined || textResource === null) {
-        const defaultTextResources = getDefaultTextResources();
-        textResource = defaultTextResources?.resources?.find((resource) => resource.id === resourceBinding)?.value;
-    }
-    return textResource || resourceBinding;
-}
-
-/**
- * Retrieves text resources from the given resource bindings object.
- *
- * Iterates over each key in the resourceBindings object and uses
- * getTextResourceFromResourceBinding to extract the corresponding text resource.
- *
- * @param {Object} resourceBindings - An object where each key maps to a resource binding.
- * @returns {Object} An object mapping each key to its corresponding text resource.
- */
-export function getTextResourcesFromResourceBindings(resourceBindings) {
-    const texts = {};
-    for (const key in resourceBindings) {
-        texts[key] =
-            typeof resourceBindings[key] === "object"
-                ? getTextResourcesFromResourceBindings(resourceBindings[key])
-                : getTextResourceFromResourceBinding(resourceBindings[key]);
-    }
-    return texts;
 }
 
 /**
@@ -502,28 +238,6 @@ export function getComponentResourceValue(component, resourceKey) {
     } else {
         return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey]);
     }
-}
-
-/**
- * Appends an array of children to a parent element. If a child is an instance of HTMLElement,
- * it is appended using `appendChild`. Otherwise, the child's content is appended to the parent's
- * innerHTML.
- *
- * @param {HTMLElement} parent - The parent element to which the children will be appended.
- * @param {Array<HTMLElement|string>} children - An array of children to append. Each child can be
- * either an HTMLElement or a string.
- * @returns {HTMLElement} The parent element after appending the children.
- */
-export function appendChildren(parent, children) {
-    const filteredChildren = children.filter((child) => !!child);
-    for (const child of filteredChildren) {
-        if (child instanceof HTMLElement) {
-            parent.appendChild(child);
-        } else {
-            parent.innerHTML += child;
-        }
-    }
-    return parent;
 }
 
 /**

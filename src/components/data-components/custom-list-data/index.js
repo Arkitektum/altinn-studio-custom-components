@@ -1,9 +1,9 @@
-// Classes
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+// Dependencies
+import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 export default customElements.define(
     "custom-list-data",

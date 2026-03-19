@@ -1,7 +1,7 @@
 import ArealdisponeringSummation from "./ArealdisponeringSummation";
 
 // Mock the hasValue function
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: (val) => val !== undefined && val !== null && val !== ""
 }));
 

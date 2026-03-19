@@ -1,9 +1,12 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
+import ValidationMessages from "../ValidationMessages.js";
 
 // Global functions
-import { getComponentDataValue, hasValue } from "../../../functions/helpers.js";
-import ValidationMessages from "../ValidationMessages.js";
+import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFeedbacklistValidationMessages is a custom component class responsible for handling

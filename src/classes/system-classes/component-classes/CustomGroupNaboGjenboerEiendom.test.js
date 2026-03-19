@@ -1,25 +1,23 @@
+import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent";
 import CustomGroupNaboGjenboerEiendom from "./CustomGroupNaboGjenboerEiendom";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers", () => ({
-    getComponentDataValue: jest.fn(),
+    getComponentDataValue: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn(),
-    getTextResources: jest.fn(),
-    hasValue: jest.fn()
+    getTextResources: jest.fn()
 }));
 jest.mock("../../../functions/validations", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
-const {
-    getComponentDataValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    hasValue
-} = require("../../../functions/helpers");
+const { getComponentDataValue } = require("../../../functions/helpers");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations");
 
 jest.mock("../../data-classes/NaboGjenboerEiendom");
@@ -85,9 +83,7 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
     it("getResourceBindings returns default resource keys", () => {
         const instance = new CustomGroupNaboGjenboerEiendom({});
         const bindings = instance.getResourceBindings({});
-        expect(bindings.eiendomMatrikkelinformasjon.title).toBe(
-            "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
-        );
+        expect(bindings.eiendomMatrikkelinformasjon.title).toBe("resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title");
         expect(bindings.eier.title).toBe("resource.eier.title");
         expect(bindings.naboGjenboerEiendom.emptyFieldText).toBe("resource.emptyFieldText.default");
     });

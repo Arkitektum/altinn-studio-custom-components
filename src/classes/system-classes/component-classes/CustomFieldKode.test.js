@@ -1,16 +1,19 @@
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 import CustomFieldKode from "./CustomFieldKode";
 import Kode from "../../data-classes/Kode.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getComponentResourceValue: jest.fn(),
-    hasValue: jest.fn()
+    getComponentResourceValue: jest.fn()
 }));
 jest.mock("../../data-classes/Kode.js", () => {
     return jest.fn().mockImplementation((data) => data);
 });
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
+}));
 
 describe("CustomFieldKode", () => {
     beforeEach(() => {

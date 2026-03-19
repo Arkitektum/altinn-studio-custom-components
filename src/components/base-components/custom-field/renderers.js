@@ -1,5 +1,8 @@
+// Dependencies
+import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
-import { addStyle, generateUniqueId, hasValue } from "../../../functions/helpers.js";
+import { generateUniqueId } from "../../../functions/helpers.js";
 import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
 
 /**

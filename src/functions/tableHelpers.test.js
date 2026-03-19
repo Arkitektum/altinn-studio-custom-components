@@ -1,8 +1,8 @@
 import { getTableHeaders, getTableRows } from "./tableHelpers";
-import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "./helpers.js";
+import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the helper functions
-jest.mock("./helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn(),
     getValueFromDataKey: jest.fn(),
     hasValue: jest.fn()

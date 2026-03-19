@@ -1,8 +1,8 @@
+// Dependencies
+import { getDefaultTextResources, getTextResources } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import ValidationMessages from "../classes/system-classes/ValidationMessages.js";
-
-// Global functions
-import { getDefaultTextResources, getTextResources } from "./helpers.js";
 
 /**
  * Checks if there are any validation messages present.

@@ -1,9 +1,12 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Vedlegg from "../../data-classes/Vedlegg.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
  * CustomListVedlegg is a custom component class for handling and displaying a list of attachments (vedlegg).

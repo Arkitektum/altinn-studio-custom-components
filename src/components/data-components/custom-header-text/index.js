@@ -1,9 +1,9 @@
-// Classes
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+// Dependencies
+import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addStyle, createCustomElement, getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };

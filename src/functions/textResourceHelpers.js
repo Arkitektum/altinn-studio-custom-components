@@ -1,5 +1,5 @@
-// Global functions
-import { hasValue } from "./helpers.js";
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Fetches text resources for a given language, falling back to a fallback language if necessary.
@@ -29,7 +29,6 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
         }
     }
 };
-
 
 /**
  * Fetches the default text resources for a given app and language.

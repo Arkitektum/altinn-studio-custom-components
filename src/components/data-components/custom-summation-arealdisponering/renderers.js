@@ -1,8 +1,5 @@
-// Classes
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { addContainerElement, createCustomElement } from "../../../functions/helpers.js";
+// Dependencies
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header element if the text is provided.
@@ -38,8 +35,7 @@ function renderSummationDataElement(data) {
         resourceValues: data?.resourceValues,
         resourceBindings: data?.resourceBindings
     });
-    const summationDataElement = addContainerElement(createCustomElement("custom-summation-data", htmlAttributes));
-    return summationDataElement;
+    return addContainerElement(createCustomElement("custom-summation-data", htmlAttributes));
 }
 
 /**

@@ -6,7 +6,9 @@ const mockHasValue = jest.fn();
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({
-    getComponentDataValue: (...args) => mockGetComponentDataValue(...args),
+    getComponentDataValue: (...args) => mockGetComponentDataValue(...args)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: (...args) => mockHasValue(...args)
 }));
 

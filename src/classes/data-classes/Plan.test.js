@@ -1,9 +1,9 @@
 import Kode from "./Kode.js";
 import Plan from "./Plan.js";
-import { hasValue } from "../../functions/helpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock hasValue and Kode for isolated testing
-jest.mock("../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 jest.mock("./Kode.js");

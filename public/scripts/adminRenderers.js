@@ -1,13 +1,16 @@
-// Classes
-import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
+// Dependencies
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    appendChildren,
+    createCustomElement,
+    getDataForComponent
+} from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
 import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "./localStorage.js";
 import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
-import { getAppResourceValuesForLanguage, getDataForComponent, getResourcesForLanguage } from "./getters.js";
+import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "./getters.js";
 import {
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,

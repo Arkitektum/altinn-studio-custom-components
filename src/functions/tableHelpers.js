@@ -1,5 +1,5 @@
-// Global functions
-import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "./helpers.js";
+// Dependencies
+import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Generates an array of table header objects based on the provided table columns and text resources.

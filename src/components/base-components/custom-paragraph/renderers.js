@@ -1,5 +1,5 @@
-// Global functions
-import { addStyle } from "../../../functions/helpers.js";
+// Dependencies
+import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a paragraph HTML element with the specified text and style overrides.

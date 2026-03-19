@@ -1,5 +1,5 @@
-// Global functions
-import { getTextResourceFromResourceBinding } from "../../../functions/helpers.js";
+// Dependencies
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Represents a list of "samsvar kontroll" phases with their corresponding text resources.

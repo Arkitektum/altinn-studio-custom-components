@@ -16,7 +16,7 @@
         "api": "node api/index.mjs",
         "build": "yarn symlinks && webpack --mode production && yarn copy-dist-resources",
         "build-docs": "yarn symlinks && webpack --mode production --config webpack.config.docs.js && yarn copy-docs-resources",
-        "start": "yarn symlinks && webpack serve --mode development",
+        "start": "yarn symlinks && webpack serve --mode development --config webpack.config.dev.js",
         "start-docs": "yarn symlinks && webpack serve --mode development --config webpack.config.docs.js",
         "lint": "eslint src --ext .js"
     },
@@ -56,5 +56,8 @@
         "webpack-cli": "^7.0.0",
         "webpack-dev-server": "^5.2.3"
     },
-    "packageManager": "yarn@4.10.3"
+    "packageManager": "yarn@4.10.3",
+    "dependencies": {
+        "@arkitektum/altinn-studio-custom-components-utils": "^1.2.0"
+    }
 }

@@ -1,3 +1,6 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
@@ -6,7 +9,6 @@ import {
     getComponentBooleanDataValues,
     getComponentDataValue,
     getComponentResourceValue,
-    hasValue,
     isNumberLargerThanZero,
     validateFormData
 } from "../../../functions/helpers.js";

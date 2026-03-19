@@ -1,10 +1,13 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
 
 // Global functions
-import { getComponentResourceValue, hasValue } from "../../../functions/helpers.js";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
  * CustomGjennomfoeringsplan is a custom component class that extends CustomComponent.

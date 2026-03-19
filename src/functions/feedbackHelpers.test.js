@@ -1,9 +1,7 @@
-import CustomElementHtmlAttributes from "../classes/system-classes/CustomElementHtmlAttributes";
-import { createCustomElement } from "./helpers";
+import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 import { renderFeedbackListElement } from "./feedbackHelpers";
 
-jest.mock("../classes/system-classes/CustomElementHtmlAttributes");
-jest.mock("./helpers");
+jest.mock("@arkitektum/altinn-studio-custom-components-utils");
 
 describe("renderFeedbackListElement", () => {
     beforeEach(() => {

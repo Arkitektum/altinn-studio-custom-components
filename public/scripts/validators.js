@@ -1,12 +1,14 @@
+// Dependencies
+import { getDataForComponent, getDefaultTextResources } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import ValidationMessages from "../../src/classes/system-classes/ValidationMessages.js";
 
 // Local functions
-import { getLayoutCode, getTextResources } from "./localStorage.js";
+import { getDataModels, getLayoutCode, getTextResources } from "./localStorage.js";
 
 // Global functions
-import { getDataForComponent, getDefaultValueForResource } from "./getters.js";
-import { getDefaultTextResources } from "../../src/functions/helpers.js";
+import { getDefaultValueForResource } from "./getters.js";
 import { instantiateComponent } from "../../src/functions/componentHelpers.js";
 
 /**
@@ -190,7 +192,8 @@ function getTextResourcesWithEmptyValue(textResources) {
  */
 export function getResourceBindingsFromComponent(resourceBindingsSet, componentProps, componentType = "all") {
     const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";
-    componentProps.formData = getDataForComponent(componentProps);
+    const dataModels = getDataModels();
+    componentProps.formData = getDataForComponent(componentProps, dataModels);
 
     if (isCustomComponent && (componentType === "custom" || componentType === "all")) {
         addResourceBindingsFromCustomComponent(componentProps, resourceBindingsSet);

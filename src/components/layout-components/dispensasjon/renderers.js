@@ -1,8 +1,5 @@
-// Classes
-import CustomElementHtmlAttributes from "../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { addContainerElement, createCustomElement, hasValue } from "../../../functions/helpers.js";
+// Dependencies
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header text component for a dispensasjon (dispensation) header.

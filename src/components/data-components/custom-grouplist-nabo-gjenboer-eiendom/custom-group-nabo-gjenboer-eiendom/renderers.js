@@ -1,8 +1,10 @@
-// Classes
-import CustomElementHtmlAttributes from "../../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { addContainerElement, createCustomElement, getTextResourceFromResourceBinding } from "../../../../functions/helpers.js";
+// Dependencies
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    createCustomElement,
+    getTextResourceFromResourceBinding
+} from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom element for displaying "Nabo Gjenboer Eiendom" data.
@@ -162,7 +164,7 @@ export function renderResponsErMerknadEllerSamtykkeMottattElement(component) {
     const erMerknadMottatt = data?.respons?.erMerknadMottatt;
     const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
     let value = "";
-    if (erMerknadMottatt !== true  && erSamtykkeMottatt !== true) {
+    if (erMerknadMottatt !== true && erSamtykkeMottatt !== true) {
         value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.falseText);
     } else if (erMerknadMottatt === true && erSamtykkeMottatt !== true) {
         value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErMerknadMottatt?.trueText);

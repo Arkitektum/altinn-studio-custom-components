@@ -7,7 +7,6 @@ import {
     getAvailableDateTimeLanguageOrDefault,
     injectAnchorElements,
     isValidDateString,
-    isValidHeaderSize,
     parseDateString,
     parseTimeString
 } from "./dataFormatHelpers";
@@ -38,7 +37,6 @@ jest.mock("../constants/dateTimeFormats.js", () => ({
         time: { en: "en", no: "no", default: "en" }
     }
 }));
-jest.mock("../constants/validSizeValues.js", () => ["h1", "h2", "h3", "h4", "h5", "h6"]);
 jest.mock("./helpers.js", () => ({
     hasValue: (v) => v !== undefined && v !== null && v !== ""
 }));
@@ -173,20 +171,6 @@ describe("formatString", () => {
     });
     it("returns input for unknown format", () => {
         expect(formatString("abc", "unknown")).toBe("abc");
-    });
-});
-
-describe("isValidHeaderSize", () => {
-    it("returns true for valid sizes", () => {
-        expect(isValidHeaderSize("h1")).toBe(true);
-        expect(isValidHeaderSize("H2")).toBe(true);
-        expect(isValidHeaderSize("h6")).toBe(true);
-    });
-    it("returns false for invalid sizes", () => {
-        expect(isValidHeaderSize("h7")).toBe(false);
-        expect(isValidHeaderSize("")).toBe(false);
-        expect(isValidHeaderSize(null)).toBe(false);
-        expect(isValidHeaderSize(undefined)).toBe(false);
     });
 });
 

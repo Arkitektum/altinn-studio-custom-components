@@ -1,8 +1,5 @@
-// Classes
-import CustomElementHtmlAttributes from "../../../../classes/system-classes/CustomElementHtmlAttributes.js";
-
-// Global functions
-import { addContainerElement, createCustomElement } from "../../../../functions/helpers.js";
+// Dependencies
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 export function renderHeaderElement(title, size = "h2") {
     const htmlAttributes = new CustomElementHtmlAttributes({

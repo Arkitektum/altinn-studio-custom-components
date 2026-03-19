@@ -1,5 +1,5 @@
 import CustomParagraph from "./CustomParagraph";
-import { hasValue } from "../../../functions/helpers.js";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock CustomComponent since it's a superclass
 jest.mock("../CustomComponent.js", () => {
@@ -7,7 +7,7 @@ jest.mock("../CustomComponent.js", () => {
 });
 
 // Mock hasValue helper
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
 

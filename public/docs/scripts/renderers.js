@@ -1,5 +1,7 @@
+// Dependencies
+import { appendChildren, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
-import { appendChildren, hasValue } from "../../../src/functions/helpers.js";
 import { getComponentNameFromTagName, getComponentTypeNameFromKey } from "./helpers.js";
 
 // Assets

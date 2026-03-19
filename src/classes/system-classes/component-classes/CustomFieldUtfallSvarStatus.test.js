@@ -1,3 +1,8 @@
+import {
+    getTextResourceFromResourceBinding,
+    getTextResourcesFromResourceBindings,
+    hasValue
+} from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomFieldUtfallSvarStatus from "./CustomFieldUtfallSvarStatus";
 import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
@@ -6,27 +11,21 @@ const { hasMissingTextResources, hasValidationMessages } = require("../../../fun
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn(),
-    getTextResourcesFromResourceBindings: jest.fn(),
-    hasValue: jest.fn(),
     validateTexts: jest.fn()
 }));
 jest.mock("../../../functions/validations.js", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResourcesFromResourceBindings: jest.fn()
+}));
 jest.mock("../../data-classes/UtfallSvarStatus.js");
 
-const {
-    getComponentDataValue,
-    getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    getTextResources,
-    getTextResourcesFromResourceBindings,
-    hasValue,
-    validateTexts
-} = require("../../../functions/helpers.js");
+const { getComponentDataValue, getComponentResourceValue, getTextResources, validateTexts } = require("../../../functions/helpers.js");
 
 describe("CustomFieldUtfallSvarStatus", () => {
     beforeEach(() => {

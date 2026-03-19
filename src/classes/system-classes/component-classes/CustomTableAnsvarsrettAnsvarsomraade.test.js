@@ -1,5 +1,6 @@
 import * as helpers from "../../../functions/helpers";
 import * as validations from "../../../functions/validations";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade";
 import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade";
 
@@ -7,6 +8,10 @@ import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvar
 jest.mock("../../data-classes/AnsvarsrettAnsvarsomraade");
 jest.mock("../../../functions/helpers");
 jest.mock("../../../functions/validations");
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
+}));
 
 describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
     beforeEach(() => {
@@ -82,13 +87,13 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
 
     describe("getAnsvarsomraadeListFromData", () => {
         it("should return undefined if hasValue returns false", () => {
-            helpers.hasValue.mockReturnValue(false);
+            hasValue.mockReturnValue(false);
             const instance = new CustomTableAnsvarsrettAnsvarsomraade({});
             expect(instance.getAnsvarsomraadeListFromData(null, {})).toBeUndefined();
         });
 
         it("should return array of AnsvarsrettAnsvarsomraade if data is array", () => {
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const data = [{ a: 1 }, { b: 2 }];
             const resourceBindings = { foo: "bar" };
             AnsvarsrettAnsvarsomraade.mockImplementation((obj, rb) => ({ ...obj, _rb: rb }));
@@ -102,7 +107,7 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
         });
 
         it("should return empty array if data is not array but hasValue is true", () => {
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const instance = new CustomTableAnsvarsrettAnsvarsomraade({});
             expect(instance.getAnsvarsomraadeListFromData("notArray", {})).toEqual([]);
         });
@@ -120,10 +125,10 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
 
     describe("hasContent", () => {
         it("should call hasValue", () => {
-            helpers.hasValue.mockReturnValue(true);
+            hasValue.mockReturnValue(true);
             const instance = new CustomTableAnsvarsrettAnsvarsomraade({});
             expect(instance.hasContent("abc")).toBe(true);
-            expect(helpers.hasValue).toHaveBeenCalledWith("abc");
+            expect(hasValue).toHaveBeenCalledWith("abc");
         });
     });
 
@@ -184,12 +189,12 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
                 .spyOn(CustomTableAnsvarsrettAnsvarsomraade.prototype, "getValidationMessages")
                 .mockReturnValue(fakeValidationMessages);
             validations.hasValidationMessages.mockReturnValue(fakeHasValidationMessages);
-            helpers.getTextResourceFromResourceBinding.mockReturnValue("EMPTY_TEXT");
+            getTextResourceFromResourceBinding.mockReturnValue("EMPTY_TEXT");
 
             const instance = new CustomTableAnsvarsrettAnsvarsomraade(props);
 
             expect(instance.resourceValues.data).toBe("EMPTY_TEXT");
-            expect(helpers.getTextResourceFromResourceBinding).toHaveBeenCalledWith("emptyKey");
+            expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("emptyKey");
 
             getResourceBindings.mockRestore();
             getValueFromFormData.mockRestore();

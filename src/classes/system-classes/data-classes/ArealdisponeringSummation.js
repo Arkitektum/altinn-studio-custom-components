@@ -1,5 +1,5 @@
-// Global functions
-import { hasValue } from "../../../functions/helpers.js";
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Class representing a summation of area disposition.

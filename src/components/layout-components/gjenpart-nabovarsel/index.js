@@ -1,5 +1,8 @@
+// Dependencies
+import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
-import { appendChildren, getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 

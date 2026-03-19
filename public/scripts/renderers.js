@@ -1,15 +1,20 @@
-// Classes
-import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
-import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.js";
-
-// Global function
-import { addContainerElement, appendChildren, createCustomElement } from "../../src/functions/helpers.js";
+// Dependencies
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    appendChildren,
+    createCustomElement,
+    getDataForComponent
+} from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
-import { addDataModel, addValueToLocalStorage, getLayoutCode, getTextResources } from "./localStorage.js";
+import { addDataModel, addValueToLocalStorage, getDataModels, getLayoutCode, getTextResources } from "./localStorage.js";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.js";
-import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataForComponent, getDataModelListElements } from "./getters.js";
+import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataModelListElements } from "./getters.js";
 import { renderValidationMessages, validateResources } from "./validators.js";
+
+// Global functions
+import { renderFeedbackListElement } from "../../src/functions/feedbackHelpers.js";
 
 /**
  * Renders the results by generating and displaying custom components based on the current layout code.
@@ -36,12 +41,13 @@ export function renderResults() {
 
     const containerElement = document.getElementById("code-results");
     containerElement.innerHTML = "";
+    const dataModels = getDataModels();
     const resultsElements = components
         .map((component) => {
             if (!component?.tagName) {
                 return;
             }
-            const data = getDataForComponent(component);
+            const data = getDataForComponent(component, dataModels);
             const htmlAttributes = new CustomElementHtmlAttributes({
                 ...component,
                 formData: data

@@ -1,3 +1,11 @@
+// Dependencies
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    createCustomElement,
+    getDataForComponent,
+    getTextResourcesFromResourceBindings
+} from "@arkitektum/altinn-studio-custom-components-utils";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json";
 
@@ -6,9 +14,7 @@ import { renderResults, renderSidebar } from "./scripts/renderers.js";
 import componentExamples from "./components/index.js";
 
 // Global functions
-import { addContainerElement, createCustomElement, getTextResourcesFromResourceBindings } from "../../src/functions/helpers.js";
-import { fetchDefaultTextResources, getDataForComponent } from "../scripts/getters.js";
-import CustomElementHtmlAttributes from "../../src/classes/system-classes/CustomElementHtmlAttributes.js";
+import { fetchDefaultTextResources } from "../scripts/getters.js";
 
 // Components
 import "../../src/components/index.js";

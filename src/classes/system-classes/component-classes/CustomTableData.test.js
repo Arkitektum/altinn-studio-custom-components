@@ -1,5 +1,6 @@
-import { getComponentDataValue, getRowNumberTitle, getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.js";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
 import CustomTableData from "./CustomTableData";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
@@ -10,9 +11,11 @@ jest.mock("../CustomComponent.js", () => {
 });
 jest.mock("../../../functions/helpers.js", () => ({
     getComponentDataValue: jest.fn(),
-    getRowNumberTitle: jest.fn(),
-    getTextResourceFromResourceBinding: jest.fn(),
-    hasValue: jest.fn()
+    getRowNumberTitle: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn()
 }));
 jest.mock("../../../functions/tableHelpers.js", () => ({
     getTableHeaders: jest.fn(),
@@ -73,9 +76,7 @@ describe("CustomTableData", () => {
             getTextResourceFromResourceBinding.mockImplementation((key) => `resource:${key}`);
 
             // getValueFromFormData returns tableData
-            jest
-                .spyOn(CustomTableData.prototype, "getValueFromFormData")
-                .mockReturnValue(tableData);
+            jest.spyOn(CustomTableData.prototype, "getValueFromFormData").mockReturnValue(tableData);
 
             const instance = new CustomTableData(props);
 

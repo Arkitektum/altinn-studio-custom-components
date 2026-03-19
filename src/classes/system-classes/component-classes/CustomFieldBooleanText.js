@@ -1,14 +1,11 @@
+// Dependencies
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import {
-    getComponentBooleanTextValues,
-    getComponentDataValue,
-    getComponentResourceValue,
-    getTextResourceFromResourceBinding,
-    hasValue
-} from "../../../functions/helpers.js";
+import { getComponentBooleanTextValues, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
  * CustomFieldBooleanText is a custom component class for rendering boolean values as text.

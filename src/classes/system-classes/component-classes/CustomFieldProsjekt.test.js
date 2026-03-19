@@ -1,4 +1,4 @@
-import { getTextResourceFromResourceBinding, hasValue } from "../../../functions/helpers.js";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomFieldProsjekt from "./CustomFieldProsjekt";
 
 // Mocks
@@ -10,9 +10,9 @@ jest.mock("../../data-classes/Prosjekt.js", () => {
         return data;
     };
 });
-jest.mock("../../../functions/helpers.js", () => ({
-    getTextResourceFromResourceBinding: jest.fn((key) => `resource:${key}`),
-    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn((val) => val !== undefined && val !== null && val !== ""),
+    getTextResourceFromResourceBinding: jest.fn((key) => `resource:${key}`)
 }));
 
 describe("CustomFieldProsjekt", () => {
