@@ -79,7 +79,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
         if (response.ok) {
             // Successful response: return parsed JSON for the requested language
             return await response.json();
-        } else if (fallbackLanguage) {
+        } else if (hasValue(fallbackLanguage)) {
             // Failed to retrieve resources for the primary language, try the fallback language
             console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
             return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
@@ -89,7 +89,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
             return null;
         }
     } catch (error) {
-        if (fallbackLanguage) {
+        if (hasValue(fallbackLanguage)) {
             console.error(
                 `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}', fetching fallback language: ${fallbackLanguage}`,
                 error
