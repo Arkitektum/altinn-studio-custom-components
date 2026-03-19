@@ -33,7 +33,6 @@ const ALTINN_RESOURCE_BINDINGS = [
  */
 function addResourceBindingsFromCustomComponent(componentProps, allResourceBindings) {
     const component = instantiateComponent(componentProps);
-    const resourceBindings = component?.getResourceBindings?.(componentProps);
     // Add resource bindings added directly to the component
     for (const bindingValue of Object.values(componentProps?.resourceBindings || {})) {
         allResourceBindings.add(bindingValue);
@@ -43,6 +42,7 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
 
     // Add resource bindings from the getResourceBindings function
+    const resourceBindings = component?.getResourceBindings?.(componentProps);
     if (resourceBindings && typeof resourceBindings === "object" && !Array.isArray(resourceBindings)) {
         for (const bindingCategory of Object.values(resourceBindings)) {
             if (!bindingCategory || typeof bindingCategory !== "object" || Array.isArray(bindingCategory)) {
