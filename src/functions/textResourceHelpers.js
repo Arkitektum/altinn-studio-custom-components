@@ -56,7 +56,7 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
 export const fetchDefaultTextResources = async (origin, org, app, language, fallbackLanguage) => {
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
     return await fetch(defaultTextResourcesApiUrl).then(async (response) => {
-        if (response.ok && response?.json) {
+        if (response.ok) {
             // Successful response: return parsed JSON for the requested language
             return await response.json();
         } else if (fallbackLanguage) {
