@@ -3,10 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 
-const minimizers = [
-    "...",
-    ...(process.env.NODE_ENV === "production" ? [new CssMinimizerPlugin()] : [])
-];
+const minimizers = ["...", ...(process.env.NODE_ENV === "production" ? [new CssMinimizerPlugin()] : [])];
 
 module.exports = {
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
