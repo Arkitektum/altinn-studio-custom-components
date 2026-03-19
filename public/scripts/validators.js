@@ -283,7 +283,7 @@ export function validateResources() {
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
 
-    const components = componentCode == null
+    const components = (componentCode === null || componentCode === undefined)
         ? []
         : Array.isArray(componentCode)
             ? componentCode
