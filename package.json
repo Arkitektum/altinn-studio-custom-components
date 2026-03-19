@@ -10,7 +10,7 @@
     ],
     "scripts": {
         "symlinks": "node scripts/create-symlinks.js",
-        "copy-dist-resources": "copyfiles --flat src/data/resource.nb.json dist",
+        "copy-dist-resources": "copyfiles --flat src/data/resource.*.json src/data/resources.json dist",
         "test": "jest",
         "api": "node api/index.mjs",
         "build": "yarn symlinks && webpack --mode production && yarn copy-dist-resources",
