@@ -18,7 +18,9 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
     if (hasValue(textResourcesData)) {
         return textResourcesData;
     } else {
-        console.error("Could not retrieve text resources for the selected language.");
+        console.error(
+            `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'.`
+        );
         const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
         const fallbackTextResourcesData = await fetch(fallbackTextResourcesApiUrl).then((response) => response.json());
         if (hasValue(fallbackTextResourcesData)) {
