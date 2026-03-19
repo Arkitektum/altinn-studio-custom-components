@@ -5,7 +5,7 @@ const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-    mode: "development",
+    mode: process.env.NODE_ENV === "production" ? "production" : "development",
     entry: {
         main: "./src/components/index.js",
         examples: "./public/scripts/examples.js",
