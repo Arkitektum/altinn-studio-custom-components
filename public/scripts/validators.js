@@ -146,8 +146,8 @@ function getDuplicateTextResources(textResources) {
 export function getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources) {
     const missingResourceBindings = [];
     const literalValues = [];
-    const textResourceIds = Array.isArray(textResources) && textResources?.map((res) => res.id) || [];
-    const defaultTextResourceIds = Array.isArray(defaultTextResources) && defaultTextResources?.map((res) => res.id) || [];
+    const textResourceIds = Array.isArray(textResources) ? textResources.map((res) => res.id) : [];
+    const defaultTextResourceIds = Array.isArray(defaultTextResources) ? defaultTextResources.map((res) => res.id) : [];
     // Combine text resource IDs from both provided and default text resources
     textResourceIds.push(...defaultTextResourceIds);
     for (const resId of allResourceBindings) {
