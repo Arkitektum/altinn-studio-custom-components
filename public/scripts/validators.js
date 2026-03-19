@@ -40,9 +40,7 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     }
 
     // Add resource bindings from table columns if applicable
-    if (componentProps?.tableColumns) {
-        addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
-    }
+    addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
 
     // Add resource bindings from the getResourceBindings function
     const resourceBindingsToIterate =
@@ -165,9 +163,8 @@ export function getMissingResourceBindings(allResourceBindings, textResources, d
     const literalValues = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
     const defaultTextResourceIds = defaultTextResources?.resources?.map((res) => res.id) || [];
-    // Combine text resource IDs from both provided and default text resources
-    textResourceIds.push(...defaultTextResourceIds);
-    const textResourceIdSet = new Set(textResourceIds);
+    // Combine text resource IDs from both provided and default text resources without mutating either array
+    const textResourceIdSet = new Set([...textResourceIds, ...defaultTextResourceIds]);
     for (const resId of allResourceBindings) {
         if (typeof resId === "string" && resId.length > 0 && !textResourceIdSet.has(resId)) {
             if (resId.includes(" ")) {
@@ -286,7 +283,11 @@ export function validateResources() {
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
 
-    const components = Array.isArray(componentCode) ? componentCode : [componentCode];
+    const components = componentCode == null
+        ? []
+        : Array.isArray(componentCode)
+            ? componentCode
+            : [componentCode];
 
     const resourceBindingsSet = new Set(ALTINN_RESOURCE_BINDINGS);
     const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
@@ -344,7 +345,7 @@ export function renderValidationMessages(validationResults) {
  *
  * @param {Object} component - The component object to check.
  * @param {Object} resource - The resource object to look for, expected to have an `id` property.
- * @returns {boolean|undefined} Returns true if the resource is used in the component, false otherwise. Returns undefined if the component is not a custom component.
+ * @returns {boolean} Returns true if the resource is used in the component, false otherwise (including when the component is not a custom component).
  */
 export function resourceIsUsedInComponent(component, resource) {
     const isCustomComponent = component?.tagName?.length && component?.type === "Custom";
@@ -353,7 +354,7 @@ export function resourceIsUsedInComponent(component, resource) {
         addResourceBindingsFromCustomComponent(component, allResourceBindings);
         return allResourceBindings.has(resource?.id);
     }
-    return undefined;
+    return false;
 }
 
 /**
