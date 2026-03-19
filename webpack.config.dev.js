@@ -1,4 +1,4 @@
-const path = require("path");
+const path = require("node:path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
