@@ -86,7 +86,10 @@ describe("CustomTableData", () => {
     });
 
     describe("getTableHeadersFromProps", () => {
-        it("should return empty array if no tableColumns", () => {
+            const instance = new CustomTableData({
+                resourceBindings: { title: "titleKey" },
+                tableColumns: []
+            });
             const instance = new CustomTableData({});
             const result = instance.getTableHeadersFromProps({});
             expect(result).toEqual([]);
