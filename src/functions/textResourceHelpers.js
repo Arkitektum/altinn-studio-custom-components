@@ -48,21 +48,16 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
     return await fetch(defaultTextResourcesApiUrl).then(async (response) => {
         if (response.ok && response?.json) {
-            if (response.ok) {
-                if (fallbackLanguage) {
-                    console.error(
-                        `Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`
-                    );
-                    return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
-                } else {
-                    console.error(`Could not retrieve default text resources for language: ${language}`);
-                    return null;
-                }
-            }
+            // Successful response: return parsed JSON for the requested language
+            return await response.json();
         } else if (fallbackLanguage) {
-            console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
+            // Failed to retrieve resources for the primary language, try the fallback language
+            console.error(
+                `Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`
+            );
             return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
         } else {
+            // No fallback language available, give up
             console.error(`Could not retrieve default text resources for language: ${language}`);
             return null;
         }
