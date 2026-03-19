@@ -31,7 +31,7 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
 
     // Add resource bindings from table columns if applicable
     if (componentProps?.tableColumns) {
-        allResourceBindings = addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
+        addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
     }
 
     // Add resource bindings from the getResourceBindings function
