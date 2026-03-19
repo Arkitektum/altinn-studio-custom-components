@@ -33,7 +33,6 @@ const ALTINN_RESOURCE_BINDINGS = [
  */
 function addResourceBindingsFromCustomComponent(componentProps, allResourceBindings) {
     const component = instantiateComponent(componentProps);
-    const resourceBindings = component?.getResourceBindings?.(componentProps);
     // Add resource bindings added directly to the component
     for (const bindingValue of Object.values(componentProps?.resourceBindings || {})) {
         allResourceBindings.add(bindingValue);
@@ -43,6 +42,7 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     addTableColumnsResourceBindingsFromCustomComponent(componentProps, allResourceBindings);
 
     // Add resource bindings from the getResourceBindings function
+    const resourceBindings = component?.getResourceBindings?.(componentProps);
     if (resourceBindings && typeof resourceBindings === "object" && !Array.isArray(resourceBindings)) {
         for (const bindingCategory of Object.values(resourceBindings)) {
             if (!bindingCategory || typeof bindingCategory !== "object" || Array.isArray(bindingCategory)) {
@@ -201,6 +201,9 @@ function getTextResourcesWithEmptyValue(textResources) {
  *
  * Depending on the component type (custom or Altinn), it delegates to the appropriate handler
  * to add resource bindings. It also updates the component's formData property.
+ *
+ * Note: This function intentionally mutates the provided {@link componentProps} object by
+ * adding or updating its `formData` property based on the current data models.
  *
  * @param {Set} resourceBindingsSet - The set to which resource bindings will be added.
  * @param {Object} componentProps - The properties of the component, including tagName, type, and others.
@@ -453,9 +456,10 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
             if (localAppResource) {
                 const values = localAppResource.values || {};
                 // Prefer 'nb' for backward compatibility, otherwise use the first available language code.
+                const valueKeys = Object.keys(values);
                 const languageCodeForDedup = Object.prototype.hasOwnProperty.call(values, "nb")
                     ? "nb"
-                    : Object.keys(values)[0];
+                    : (valueKeys.length > 0 ? valueKeys[0] : undefined);
                 const dedupValue = languageCodeForDedup ? values[languageCodeForDedup] : "";
                 const key = `${resource.id}:${dedupValue ?? ""}`;
                 let existingEntry = missingResourceUsageWithLocalValueMap.get(key);
