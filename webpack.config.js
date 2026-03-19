@@ -3,8 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 
-const minimizers = ["...", new CssMinimizerPlugin()];
-
 module.exports = {
     mode: "production",
     entry: "./src/components/index.js",
@@ -28,18 +26,6 @@ module.exports = {
         ]
     },
     optimization: {
-        minimizer: minimizers
-    },
-    devServer: {
-        historyApiFallback: {
-            rewrites: [{ from: /^\/admin/, to: "/admin.html" }]
-        },
-        static: [
-            {
-                directory: path.join(__dirname, "public")
-            }
-        ],
-        compress: true,
-        port: 9000
+        minimizer: ["...", new CssMinimizerPlugin()]
     }
 };
