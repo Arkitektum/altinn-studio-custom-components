@@ -165,7 +165,10 @@ export function getMissingResourceBindings(allResourceBindings, textResources, d
     const defaultTextResourceIds = defaultTextResources?.resources?.map((res) => res.id) || [];
     // Combine text resource IDs from both provided and default text resources without mutating either array
     const textResourceIdSet = new Set([...textResourceIds, ...defaultTextResourceIds]);
-    for (const resId of allResourceBindings) {
+    const allResourceBindingsArray = Array.isArray(allResourceBindings)
+        ? allResourceBindings
+        : Array.from(allResourceBindings || []);
+    for (const resId of allResourceBindingsArray) {
         if (typeof resId === "string" && resId.length > 0 && !textResourceIdSet.has(resId)) {
             if (resId.includes(" ")) {
                 literalValues.push(resId);
@@ -283,11 +286,8 @@ export function validateResources() {
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
 
-    const components = (componentCode === null || componentCode === undefined)
-        ? []
-        : Array.isArray(componentCode)
-            ? componentCode
-            : [componentCode];
+    const componentsValue = componentCode ?? [];
+    const components = Array.isArray(componentsValue) ? componentsValue : [componentsValue];
 
     const resourceBindingsSet = new Set(ALTINN_RESOURCE_BINDINGS);
     const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
