@@ -282,7 +282,7 @@ export function validateResources() {
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const { missingResourceBindings, literalValues } = getMissingResourceBindings(
         allResourceBindings,
-        textResources,
+        textResources?.resources,
         defaultTextResources?.resources
     );
     const duplicateTextResources = getDuplicateTextResources(textResources);
