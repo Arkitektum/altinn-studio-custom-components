@@ -1,13 +1,10 @@
 const path = require("node:path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const isProduction = process.env.NODE_ENV === "production";
-
 module.exports = {
-    mode: isProduction ? "production" : "development",
+    mode: "development",
     entry: {
         main: "./src/components/index.js",
         examples: "./public/scripts/examples.js",
@@ -45,7 +42,7 @@ module.exports = {
         ]
     },
     optimization: {
-        minimizer: isProduction ? ["...", new CssMinimizerPlugin()] : ["..."]
+        minimizer: ["..."]
     },
     devServer: {
         historyApiFallback: {
