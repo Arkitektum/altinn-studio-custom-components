@@ -344,7 +344,7 @@ export function resourceIsUsedInComponent(component, resource) {
         addResourceBindingsFromCustomComponent(component, allResourceBindings);
         return allResourceBindings.has(resource?.id);
     }
-    return false;
+    return undefined;
 }
 
 /**
