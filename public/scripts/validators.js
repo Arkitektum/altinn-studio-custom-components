@@ -353,7 +353,9 @@ export function resourceIsUsedInComponent(component, resource) {
  * @returns {Array<Object>} An array of components that use the specified resource.
  */
 export function getResourceUsageForLayout(layout, resource) {
-    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout) && layout.layout.data.layout;
+    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout)
+        ? layout.layout.data.layout
+        : null;
     const componentsUsingResource = [];
     if (componentsInLayout) {
         for (const component of componentsInLayout) {
