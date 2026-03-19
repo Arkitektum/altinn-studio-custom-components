@@ -69,7 +69,8 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
  */
 export const fetchDefaultTextResources = async (origin, org, app, language, fallbackLanguage) => {
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
-    return await fetch(defaultTextResourcesApiUrl).then(async (response) => {
+    try {
+        const response = await fetch(defaultTextResourcesApiUrl);
         if (response.ok) {
             // Successful response: return parsed JSON for the requested language
             return await response.json();
@@ -84,5 +85,18 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
             console.error(`Could not retrieve default text resources for language: ${language}`);
             return null;
         }
-    });
+    } catch (error) {
+        if (fallbackLanguage) {
+            console.error(
+                `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}', fetching fallback language: ${fallbackLanguage}`,
+                error
+            );
+            return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
+        }
+        console.error(
+            `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'`,
+            error
+        );
+        return null;
+    }
 };
