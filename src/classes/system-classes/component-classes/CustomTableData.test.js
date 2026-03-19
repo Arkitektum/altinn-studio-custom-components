@@ -86,28 +86,29 @@ describe("CustomTableData", () => {
     });
 
     describe("getTableHeadersFromProps", () => {
-        it("should return empty array if no tableColumns", () => {
-            const instance = new CustomTableData({});
-            const result = instance.getTableHeadersFromProps({});
-            expect(result).toEqual([]);
+        const instance = new CustomTableData({
+            resourceBindings: { title: "titleKey" },
+            tableColumns: []
         });
+        const result = instance.getTableHeadersFromProps({});
+        expect(result).toEqual([]);
+    });
 
-        it("should return headers from getTableHeaders", () => {
-            getTableHeaders.mockReturnValue([{ text: "A" }]);
-            const props = { tableColumns: [{ header: "A" }] };
-            const instance = new CustomTableData({});
-            const result = instance.getTableHeadersFromProps(props);
-            expect(result).toEqual([{ text: "A" }]);
-        });
+    it("should return headers from getTableHeaders", () => {
+        getTableHeaders.mockReturnValue([{ text: "A" }]);
+        const props = { tableColumns: [{ header: "A" }] };
+        const instance = new CustomTableData({});
+        const result = instance.getTableHeadersFromProps(props);
+        expect(result).toEqual([{ text: "A" }]);
+    });
 
-        it("should prepend row number header if showRowNumbers is true", () => {
-            getTableHeaders.mockReturnValue([{ text: "A" }]);
-            getRowNumberTitle.mockReturnValue("Row #");
-            const props = { tableColumns: [{ header: "A" }], showRowNumbers: true };
-            const instance = new CustomTableData({});
-            const result = instance.getTableHeadersFromProps(props);
-            expect(result[0]).toEqual({ text: "Row #", styleOverride: { textAlign: "right" } });
-        });
+    it("should prepend row number header if showRowNumbers is true", () => {
+        getTableHeaders.mockReturnValue([{ text: "A" }]);
+        getRowNumberTitle.mockReturnValue("Row #");
+        const props = { tableColumns: [{ header: "A" }], showRowNumbers: true };
+        const instance = new CustomTableData({});
+        const result = instance.getTableHeadersFromProps(props);
+        expect(result[0]).toEqual({ text: "Row #", styleOverride: { textAlign: "right" } });
     });
 
     describe("getTableRowsFromProps", () => {
@@ -149,20 +150,18 @@ describe("CustomTableData", () => {
     });
 
     describe("removeEmptyTableRows", () => {
-        it("should remove rows where all cells are empty", () => {
-            // Simulate instantiateComponent returning objects with isEmpty property
-            instantiateComponent.mockImplementation((cell) => cell);
-            const tableRows = [
-                [{ isEmpty: true }, { isEmpty: true }],
-                [{ isEmpty: false }, { isEmpty: true }],
-                [{ isEmpty: false }, { isEmpty: false }]
-            ];
-            const instance = new CustomTableData({});
-            const result = instance.removeEmptyTableRows(tableRows);
-            expect(result.length).toBe(2);
-            expect(result[0][0].isEmpty).toBe(false);
-            expect(result[1][0].isEmpty).toBe(false);
-        });
+        // Table rows contain cells with an isEmpty property used by removeEmptyTableRows
+        instantiateComponent.mockImplementation((cell) => cell);
+        const tableRows = [
+            [{ isEmpty: true }, { isEmpty: true }],
+            [{ isEmpty: false }, { isEmpty: true }],
+            [{ isEmpty: false }, { isEmpty: false }]
+        ];
+        const instance = new CustomTableData({});
+        const result = instance.removeEmptyTableRows(tableRows);
+        expect(result.length).toBe(2);
+        expect(result[0][0].isEmpty).toBe(false);
+        expect(result[1][0].isEmpty).toBe(false);
     });
 
     describe("hasContent", () => {
