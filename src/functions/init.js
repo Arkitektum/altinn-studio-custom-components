@@ -39,7 +39,12 @@ export default async function initCustomComponents() {
     }
 
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
-    const userProfileData = await fetch(userProfileApiUrl).then((response) => response.json());
+    const userProfileResponse = await fetch(userProfileApiUrl);
+    if (!userProfileResponse.ok) {
+        console.error(`Failed to fetch user profile data. HTTP status: ${userProfileResponse.status}`);
+        return;
+    }
+    const userProfileData = await userProfileResponse.json();
     if (!userProfileData?.profileSettingPreference?.language) {
         console.error("Could not determine the user's language preference.");
         return;
