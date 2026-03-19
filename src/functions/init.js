@@ -33,7 +33,7 @@ export default async function initCustomComponents() {
     const origin = globalThis.location.origin;
     const org = appId?.[1];
     const app = appId?.[2];
-    if (![origin?.length, org?.length, app?.length].every(Boolean)) {
+    if (!origin || !org || !app) {
         console.error("Could not determine the origin, organization, or application from the URL.");
         return;
     }
