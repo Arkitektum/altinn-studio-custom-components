@@ -202,6 +202,9 @@ function getTextResourcesWithEmptyValue(textResources) {
  * Depending on the component type (custom or Altinn), it delegates to the appropriate handler
  * to add resource bindings. It also updates the component's formData property.
  *
+ * Note: This function intentionally mutates the provided {@link componentProps} object by
+ * adding or updating its `formData` property based on the current data models.
+ *
  * @param {Set} resourceBindingsSet - The set to which resource bindings will be added.
  * @param {Object} componentProps - The properties of the component, including tagName, type, and others.
  * @param {string} [componentType="all"] - The type of component to process ("custom", "altinn", or "all").
