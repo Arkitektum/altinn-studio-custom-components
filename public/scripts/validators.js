@@ -35,8 +35,15 @@ function addResourceBindingsFromCustomComponent(componentProps, allResourceBindi
     }
 
     // Add resource bindings from the getResourceBindings function
-    for (const bindingCategory of Object.values(resourceBindings || {})) {
-        for (const bindingValue of Object.values(bindingCategory || {})) {
+    const resourceBindingsToIterate =
+        resourceBindings && typeof resourceBindings === "object" && !Array.isArray(resourceBindings)
+            ? resourceBindings
+            : {};
+    for (const bindingCategory of Object.values(resourceBindingsToIterate)) {
+        if (!bindingCategory || typeof bindingCategory !== "object" || Array.isArray(bindingCategory)) {
+            continue;
+        }
+        for (const bindingValue of Object.values(bindingCategory)) {
             allResourceBindings.add(bindingValue);
         }
     }
@@ -344,7 +351,7 @@ export function resourceIsUsedInComponent(component, resource) {
         addResourceBindingsFromCustomComponent(component, allResourceBindings);
         return allResourceBindings.has(resource?.id);
     }
-    return false;
+    return undefined;
 }
 
 /**
