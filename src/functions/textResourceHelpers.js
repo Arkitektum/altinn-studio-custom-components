@@ -13,6 +13,18 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
  * @returns {Promise<Object|null>} The text resources object if found, otherwise null.
  */
 export const fetchTextResources = async (origin, org, app, language, fallbackLanguage) => {
+    // Basic validation of required parameters to avoid constructing invalid URLs
+    const isNonEmptyString = (value) => hasValue(value) && typeof value === "string" && value.trim().length > 0;
+
+    if (!isNonEmptyString(origin) || !isNonEmptyString(org) || !isNonEmptyString(app) || !isNonEmptyString(language)) {
+        console.error(
+            "Invalid parameters provided to fetchTextResources. " +
+                "Expected non-empty strings for 'origin', 'org', 'app', and 'language'.",
+            { origin, org, app, language }
+        );
+        return null;
+    }
+
     const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
     try {
         const primaryResponse = await fetch(textResourcesApiUrl);
