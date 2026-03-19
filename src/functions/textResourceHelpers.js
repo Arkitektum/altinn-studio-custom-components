@@ -13,6 +13,18 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
  * @returns {Promise<Object|null>} The text resources object if found, otherwise null.
  */
 export const fetchTextResources = async (origin, org, app, language, fallbackLanguage) => {
+    // Basic validation of required parameters to avoid constructing invalid URLs
+    const isNonEmptyString = (value) => hasValue(value) && typeof value === "string" && value.trim().length > 0;
+
+    if (!isNonEmptyString(origin) || !isNonEmptyString(org) || !isNonEmptyString(app) || !isNonEmptyString(language)) {
+        console.error(
+            "Invalid parameters provided to fetchTextResources. " +
+                "Expected non-empty strings for 'origin', 'org', 'app', and 'language'.",
+            { origin, org, app, language }
+        );
+        return null;
+    }
+
     const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
     try {
         const primaryResponse = await fetch(textResourcesApiUrl);
@@ -79,7 +91,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
         if (response.ok) {
             // Successful response: return parsed JSON for the requested language
             return await response.json();
-        } else if (fallbackLanguage) {
+        } else if (hasValue(fallbackLanguage)) {
             // Failed to retrieve resources for the primary language, try the fallback language
             console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
             return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
@@ -89,7 +101,7 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
             return null;
         }
     } catch (error) {
-        if (fallbackLanguage) {
+        if (hasValue(fallbackLanguage)) {
             console.error(
                 `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}', fetching fallback language: ${fallbackLanguage}`,
                 error
