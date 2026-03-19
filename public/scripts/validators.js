@@ -149,7 +149,7 @@ export function getMissingResourceBindings(allResourceBindings, textResources, d
     const textResourceIds = Array.isArray(textResources) && textResources?.map((res) => res.id) || [];
     const defaultTextResourceIds = Array.isArray(defaultTextResources) && defaultTextResources?.map((res) => res.id) || [];
     // Combine text resource IDs from both provided and default text resources
-    Array.prototype.push.apply(textResourceIds, defaultTextResourceIds);
+    textResourceIds.push(...defaultTextResourceIds);
     for (const resId of allResourceBindings) {
         if (resId.length && !textResourceIds.includes(resId)) {
             if (resId.includes(" ")) {
