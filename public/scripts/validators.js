@@ -119,11 +119,12 @@ function getUnusedResourceBindings(allResourceBindings, textResources) {
 function getDuplicateTextResources(textResources) {
     const duplicateResourceBindings = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
-    const resourceIdCounts = textResourceIds.reduce((acc, id) => {
-        acc[id] = (acc[id] || 0) + 1;
-        return acc;
-    }, {});
-    for (const [resId, count] of Object.entries(resourceIdCounts)) {
+    const resourceIdCounts = new Map();
+    for (const id of textResourceIds) {
+        const currentCount = resourceIdCounts.get(id) || 0;
+        resourceIdCounts.set(id, currentCount + 1);
+    }
+    for (const [resId, count] of resourceIdCounts.entries()) {
         if (count > 1) {
             duplicateResourceBindings.push(resId);
         }
@@ -149,8 +150,9 @@ export function getMissingResourceBindings(allResourceBindings, textResources, d
     const defaultTextResourceIds = defaultTextResources?.resources?.map((res) => res.id) || [];
     // Combine text resource IDs from both provided and default text resources
     textResourceIds.push(...defaultTextResourceIds);
+    const textResourceIdSet = new Set(textResourceIds);
     for (const resId of allResourceBindings) {
-        if (resId.length && !textResourceIds.includes(resId)) {
+        if (resId.length && !textResourceIdSet.has(resId)) {
             if (resId.includes(" ")) {
                 literalValues.push(resId);
                 continue;
@@ -281,8 +283,8 @@ export function validateResources() {
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const { missingResourceBindings, literalValues } = getMissingResourceBindings(
         allResourceBindings,
-        textResources?.resources,
-        defaultTextResources?.resources
+        textResources,
+        defaultTextResources
     );
     const duplicateTextResources = getDuplicateTextResources(textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
