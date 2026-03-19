@@ -119,11 +119,12 @@ function getUnusedResourceBindings(allResourceBindings, textResources) {
 function getDuplicateTextResources(textResources) {
     const duplicateResourceBindings = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
-    const resourceIdCounts = textResourceIds.reduce((acc, id) => {
-        acc[id] = (acc[id] || 0) + 1;
-        return acc;
-    }, {});
-    for (const [resId, count] of Object.entries(resourceIdCounts)) {
+    const resourceIdCounts = new Map();
+    for (const id of textResourceIds) {
+        const currentCount = resourceIdCounts.get(id) || 0;
+        resourceIdCounts.set(id, currentCount + 1);
+    }
+    for (const [resId, count] of resourceIdCounts.entries()) {
         if (count > 1) {
             duplicateResourceBindings.push(resId);
         }
