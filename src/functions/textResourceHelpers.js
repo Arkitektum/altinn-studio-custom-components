@@ -52,6 +52,8 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
             error
         );
     }
+
+    return null;
 };
 
 /**
