@@ -86,22 +86,25 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
  */
 export const fetchDefaultTextResources = async (origin, org, app, language, fallbackLanguage) => {
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
+
+    const canUseFallback = () => hasValue(fallbackLanguage) && fallbackLanguage !== language;
+
     try {
         const response = await fetch(defaultTextResourcesApiUrl);
         if (response.ok) {
             // Successful response: return parsed JSON for the requested language
             return await response.json();
-        } else if (hasValue(fallbackLanguage)) {
+        } else if (canUseFallback()) {
             // Failed to retrieve resources for the primary language, try the fallback language
             console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
             return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null);
         } else {
-            // No fallback language available, give up
+            // No valid fallback language available, give up
             console.error(`Could not retrieve default text resources for language: ${language}`);
             return null;
         }
     } catch (error) {
-        if (hasValue(fallbackLanguage)) {
+        if (canUseFallback()) {
             console.error(
                 `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}', fetching fallback language: ${fallbackLanguage}`,
                 error
