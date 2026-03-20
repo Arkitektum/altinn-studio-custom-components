@@ -117,9 +117,10 @@ function setErklaeringTitle(component, funksjonListe) {
 
 function setFunksjonListe(component) {
     const funksjonListe = [];
-
-    component?.resourceValues?.data?.forEach((element) => {
-        funksjonListe.push(element?.funksjon?.kodeverdi.toUpperCase());
-    });
+    if (component?.resourceValues?.data && Array.isArray(component.resourceValues.data)) {
+        component.resourceValues.data.forEach((element) => {
+            funksjonListe.push(element?.funksjon?.kodeverdi.toUpperCase());
+        });
+    }
     return funksjonListe;
 }
