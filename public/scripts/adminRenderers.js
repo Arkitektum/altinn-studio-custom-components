@@ -354,7 +354,7 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
     if (selectedOptions.formType === "main") {
         return;
     }
-    const subForm = displayLayout.subForms.find((form) => form.appName === selectedOptions.formType);
+    const subForm = displayLayout?.subForms?.find((form) => form.appName === selectedOptions.formType);
     if (!subForm) {
         return;
     }
