@@ -29,9 +29,10 @@ export function renderDispensasjonsvarselHeader(component, size = "h1") {
  * @returns {HTMLElement} A custom field data element with the appropriate resource binding for the title and the determined data value.
  */
 export function renderEmne(component) {
-    const data = component?.isAndrePlanbestemmelser
-        ? component?.resourceValues?.data?.annetTema
-        : component?.resourceValues?.data?.dispensasjonstema?.kodebeskrivelse;
+    const data =
+        component?.isAndrePlanbestemmelser || component?.isAnnetLovForskrift
+            ? component?.resourceValues?.data?.annetTema
+            : component?.resourceValues?.data?.dispensasjonstema?.kodebeskrivelse;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -75,7 +76,7 @@ export function renderPlannavnParagrafnummer(component) {
     const data = component?.isPlanBestemmelsesType
         ? `${component?.resourceValues?.data?.plannavn}, ${component?.resourceValues?.data?.paragrafnummer}`
         : component?.resourceValues?.data?.paragrafnummer;
-    const title = component?.isPlanBestemmelsesType ? component.resourceBindings?.plannavn?.title : component.resourceBindings?.paragrafnummer?.title;
+    const title = component?.resourceValues?.data?.bestemmelsestype?.kodebeskrivelse;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
