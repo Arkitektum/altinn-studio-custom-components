@@ -1,5 +1,6 @@
 // Classes
 import EiendomByggested from "../data-classes/EiendomByggested.js";
+import Metadata from "../data-classes/Metadata.js";
 import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.js";
 import Part from "../data-classes/Part.js";
 import Planer from "../data-classes/Planer.js";
@@ -16,6 +17,7 @@ export default class GjenpartNabovarsel {
      * @param {Object} [props.ansvarligSoeker] - The responsible applicant. Instance of Part.
      * @param {Object} [props.eiendomByggested] - The property/building site. Instance of EiendomByggested.
      * @param {Object} [props.kontaktpersonForNabovarselet] - The contact person for the neighbor notification. Instance of Part.
+     * @param {Object} [props.metadata] - The metadata. Instance of Metadata.
      * @param {Object} [props.naboGjenboerEiendommer] - The neighboring/opposite properties. Instance of NaboGjenboerEiendommer.
      * @param {Object} [props.planer] - The plans. Instance of Planer.
      * @param {*} [props.soeknadGjelder] - The subject of the application.
@@ -25,6 +27,7 @@ export default class GjenpartNabovarsel {
         this.ansvarligSoeker = props?.ansvarligSoeker && new Part(props.ansvarligSoeker);
         this.eiendomByggested = props?.eiendomByggested && new EiendomByggested(props.eiendomByggested);
         this.kontaktpersonForNabovarselet = props?.kontaktpersonForNabovarselet && new Part(props.kontaktpersonForNabovarselet);
+        this.metadata = props?.metadata && new Metadata(props.metadata);
         this.naboGjenboerEiendommer = props?.naboGjenboerEiendommer && new NaboGjenboerEiendommer(props.naboGjenboerEiendommer);
         this.planer = props?.planer && new Planer(props.planer);
         this.soeknadGjelder = props?.soeknadGjelder;
