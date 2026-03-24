@@ -19,10 +19,12 @@ export default class Part {
      * @param {Object} [props.adresse] - The address object.
      * @param {string} [props.telefonnummer] - The landline phone number.
      * @param {string} [props.mobilnummer] - The mobile phone number.
+     * @param {Object} [props.kontaktperson] - The contact person object.
      */
 
     constructor(props) {
         const adresse = this.getAdresse(props);
+        const kontaktperson = this.getKontaktperson(props);
 
         this.navn = props?.navn;
         this.organisasjonsnummer = props?.organisasjonsnummer;
@@ -32,6 +34,9 @@ export default class Part {
 
         if (adresse) {
             this.adresse = adresse;
+        }
+        if (kontaktperson) {
+            this.kontaktperson = kontaktperson;
         }
     }
 
@@ -44,7 +49,24 @@ export default class Part {
      */
     getAdresse(props) {
         if (hasValue(props?.adresse)) {
-            return new Adresse(props.adresse);
+            return new Adresse(props?.adresse);
+        }
+        return undefined;
+    }
+
+    /**
+     * Retrieves a Part instance representing the contact person if the provided props object contains a valid 'kontaktperson' property.
+     *
+     * @param {Object} props - The properties object containing the 'kontaktperson' field.
+     * @param {any} props.kontaktperson - The contact person data to be used for creating a Part instance.
+     * @returns {Part|undefined} An instance of Part if 'kontaktperson' is valid, otherwise undefined.
+     */
+    getKontaktperson(props) {
+        if (!props?.kontaktperson) {
+            return undefined;
+        }
+        if (hasValue(props.kontaktperson)) {
+            return new Part(props.kontaktperson);
         }
         return undefined;
     }
