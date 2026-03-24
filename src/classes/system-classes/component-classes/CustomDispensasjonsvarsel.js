@@ -38,11 +38,13 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
         const isEmpty = !this.hasContent(data);
         const isPlanBestemmelsesType = this.dataIsPlanBestemmelsesType(data);
         const isAndrePlanbestemmelser = this.dataIsAndrePlanbestemmelser(data);
+        const isAnnetLovForskrift = this.dataIsAnnetLovForskrift(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
         this.isPlanBestemmelsesType = isPlanBestemmelsesType;
         this.isAndrePlanbestemmelser = isAndrePlanbestemmelser;
+        this.isAnnetLovForskrift = isAnnetLovForskrift;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
@@ -111,6 +113,19 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
     }
 
     /**
+     * Checks if the given dispensasjon object has a dispensasjonstema code value
+     * that matches "annetLovForskrift".
+     *
+     * @param {Object} data - The dispensasjon object to check.
+     * @param {Object} [data.dispensasjonstema] - The object containing the title of the dispensasjon.
+     * @param {string} [data.dispensasjonstema.kodeverdi] - The code value of the dispensasjon title.
+     * @returns {boolean} - Returns true if the code value matches "annetLovForskrift", otherwise false.
+     */
+    dataIsAnnetLovForskrift(data) {
+        return data?.dispensasjonstema?.kodeverdi?.toUpperCase() === "ANNETLOVFORSKRIFT";
+    }
+
+    /**
      * Retrieves the resource bindings for the CustomDispensasjonsvarsel component, providing default values if specific bindings are not present in the props.
      *
      * @param {Object} props - The properties object that may contain resource bindings.
@@ -129,12 +144,6 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
             },
             emne: {
                 title: props?.resourceBindings?.emne?.title || "resource.emne.title"
-            },
-            plannavn: {
-                title: props?.resourceBindings?.plannavn?.title || "resource.dispensasjonsvarsel.plannavn.title"
-            },
-            paragrafnummer: {
-                title: props?.resourceBindings?.paragrafnummer?.title || "resource.dispensasjonsvarsel.paragrafnummer.title"
             },
             spoersmaalOmDispensasjonssoeknaden: {
                 title:
