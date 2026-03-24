@@ -8,23 +8,20 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 
 // Local functions
 import {
-    renderAnsvarligSoekerElement,
-    renderDetVarslesHervedOmHeader,
+    renderDetErVarsletOmHeader,
     renderEiendomByggestedElement,
     renderGjenpartNabovarselHeader,
     renderGjenpartNabovarselSubHeader,
     renderKontaktpersonForNabovarseletElement,
-    renderMerknaderSendesTilHeaderElement,
+    renderMetadataProsjektnavn,
     renderNaboGjenboerEiendom,
     renderPlanGjeldendePlanNavnElement,
     renderPlanerGjeldendePlanHeaderElement,
     renderPlanerGjeldendePlanPlantypeElement,
+    renderSoekerElement,
     renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement,
     renderSoeknadGjelderBrukTiltaksformaalElement,
-    renderSoeknadGjelderHeader,
-    renderSoeknadGjelderTypeElement,
-    renderSpoersmaalRettesTilHeaderElement,
-    renderTiltakshaverElement
+    renderSoeknadGjelderTypeElement
 } from "./renderers.js";
 
 export default customElements.define(
@@ -42,10 +39,12 @@ export default customElements.define(
                 const headerElement = renderGjenpartNabovarselHeader(component, "h1");
                 const subHeaderElement = renderGjenpartNabovarselSubHeader(component);
 
-                const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(component);
+                const metadataProsjektnavnElement = renderMetadataProsjektnavn(component);
+                const soekerElement = renderSoekerElement(component);
+
                 const eiendomByggestedElement = renderEiendomByggestedElement(component);
 
-                const detVarslesHervedOmHeaderElement = renderDetVarslesHervedOmHeader(component);
+                const detErVarsletOmHeaderElement = renderDetErVarsletOmHeader(component);
                 const soeknadGjelderTypeElement = renderSoeknadGjelderTypeElement(component);
                 const soeknadGjelderBrukTiltaksformaalElement = renderSoeknadGjelderBrukTiltaksformaalElement(component);
                 const soeknadGjelderBrukBeskrivPlanlagtFormaalElement = renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement(component);
@@ -54,12 +53,7 @@ export default customElements.define(
                 const planerGjeldendePlanNavnElement = renderPlanGjeldendePlanNavnElement(component);
                 const planerGjeldendePlanPlantypeElement = renderPlanerGjeldendePlanPlantypeElement(component);
 
-                const merknaderSendesTilHeaderElement = renderMerknaderSendesTilHeaderElement(component);
                 const kontaktpersonForNabovarseletElement = renderKontaktpersonForNabovarseletElement(component);
-                const ansvarligSoekerElement = renderAnsvarligSoekerElement(component);
-                const tiltakshaverElement = renderTiltakshaverElement(component);
-
-                const spoersmaalRettesTilHeaderElement = renderSpoersmaalRettesTilHeaderElement(component);
 
                 const naboGjenboerEiendomElement = renderNaboGjenboerEiendom(component);
 
@@ -68,12 +62,15 @@ export default customElements.define(
                 // Header and subheader
                 appendChildren(layoutContainerElement, [headerElement, subHeaderElement]);
 
-                // Søknad gjelder
-                appendChildren(layoutContainerElement, [soeknadGjelderHeaderElement, eiendomByggestedElement]);
+                // Metadata
+                appendChildren(layoutContainerElement, [metadataProsjektnavnElement, soekerElement]);
 
-                // Det varsles herved om
+                // Eiendom og byggested
+                appendChildren(layoutContainerElement, [eiendomByggestedElement]);
+
+                // Det er varslet om
                 appendChildren(layoutContainerElement, [
-                    detVarslesHervedOmHeaderElement,
+                    detErVarsletOmHeaderElement,
                     soeknadGjelderTypeElement,
                     soeknadGjelderBrukTiltaksformaalElement,
                     soeknadGjelderBrukBeskrivPlanlagtFormaalElement
@@ -86,14 +83,11 @@ export default customElements.define(
                     planerGjeldendePlanPlantypeElement
                 ]);
 
-                // Spørsmål vedrørende nabovarsel rettes til
-                appendChildren(layoutContainerElement, [spoersmaalRettesTilHeaderElement, kontaktpersonForNabovarseletElement]);
+                // Kontaktperson for nabovarselet
+                appendChildren(layoutContainerElement, [kontaktpersonForNabovarseletElement]);
 
-                // Merknader sendes til
+                // Nabovarsel med vedlegg er sendt til følgende naboer
                 appendChildren(layoutContainerElement, [
-                    merknaderSendesTilHeaderElement,
-                    ansvarligSoekerElement,
-                    tiltakshaverElement,
                     naboGjenboerEiendomElement
                 ]);
 
