@@ -145,12 +145,6 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
             emne: {
                 title: props?.resourceBindings?.emne?.title || "resource.emne.title"
             },
-            plannavn: {
-                title: props?.resourceBindings?.plannavn?.title || "resource.dispensasjonsvarsel.plannavn.title"
-            },
-            paragrafnummer: {
-                title: props?.resourceBindings?.paragrafnummer?.title || "resource.dispensasjonsvarsel.paragrafnummer.title"
-            },
             spoersmaalOmDispensasjonssoeknaden: {
                 title:
                     props?.resourceBindings?.spoersmaalOmDispensasjonssoeknaden?.title ||
