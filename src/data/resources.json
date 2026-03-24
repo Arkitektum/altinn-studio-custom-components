@@ -186,9 +186,9 @@
         }
     },
     {
-        "id": "resource.detVarslesHervedOm.title",
+        "id": "resource.detErVarsletOm.title",
         "values": {
-            "nb": "Det varsles herved om"
+            "nb": "Det er varslet om"
         }
     },
     {
@@ -638,7 +638,7 @@
     {
         "id": "resource.kontaktpersonForNabovarselet.title",
         "values": {
-            "nb": "Foretak/tiltakshaver"
+            "nb": "Kontaktperson for nabovarselet"
         }
     },
     {
@@ -752,13 +752,13 @@
     {
         "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
         "values": {
-            "nb": "Matrikkelinformasjon"
+            "nb": "Naboeiendom"
         }
     },
     {
         "id": "resource.naboGjenboer.title",
         "values": {
-            "nb": "Følgende naboer har fått tilsendt nabovarsel med tilhørende vedlegg"
+            "nb": "Nabovarsel med vedlegg er sendt til følgende naboer"
         }
     },
     {
