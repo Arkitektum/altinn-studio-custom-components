@@ -96,8 +96,8 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             naboGjenboerEiendom: {
                 title: props?.resourceBindings?.naboGjenboerEiendom?.title || "resource.naboGjenboer.title"
             },
-            soeknadGjelderHeader: {
-                title: props?.resourceBindings?.soeknadGjelderHeader?.title || "resource.soeknadGjelder.title"
+            metadataProsjektnavn: {
+                title: props?.resourceBindings?.metadataProsjektnavn?.title || "resource.metadata.prosjekt.title"
             },
             eiendomByggested: {
                 title: props?.resourceBindings?.eiendomByggested?.title || "resource.eiendomByggested.eiendom.title"
@@ -135,15 +135,15 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                     props?.resourceBindings?.eiendomMatrikkelinformasjon?.title ||
                     "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
             },
-            detVarslesHervedOmHeader: {
-                title: props?.resourceBindings?.detVarslesHervedOmHeader?.title || "resource.detVarslesHervedOm.title"
+            detErVarsletOm: {
+                title: props?.resourceBindings?.detErVarsletOm?.title || "resource.detErVarsletOm.title"
             },
             soeknadGjelderType: {
-                title: props?.resourceBindings?.soeknadGjelderType?.title || "resource.soeknadGjelder.type.title",
+                title: props?.resourceBindings?.soeknadGjelderType?.title || "resource.soeknadGjelder.type.kode.kodebeskrivelse",
                 emptyFieldText: props?.resourceBindings?.soeknadGjelderType?.emptyFieldText || "resource.emptyFieldText.default"
             },
             soeknadGjelderBrukTiltaksformaal: {
-                title: props?.resourceBindings?.soeknadGjelderBrukTiltaksformaal?.title || "resource.soeknadGjelder.bruk.tiltaksformaal.title",
+                title: props?.resourceBindings?.soeknadGjelderBrukTiltaksformaal?.title || "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
                 emptyFieldText: props?.resourceBindings?.soeknadGjelderBrukTiltaksformaal?.emptyFieldText || "resource.emptyFieldText.default"
             },
             soeknadGjelderBrukBeskrivPlanlagtFormaal: {
@@ -160,9 +160,6 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             },
             planerGjeldendePlanPlantype: {
                 title: props?.resourceBindings?.planerGjeldendePlanPlantype?.title || "resource.planer.gjeldendePlan.plantype.title"
-            },
-            spoersmaalRettesTil: {
-                title: props?.resourceBindings?.spoersmaalRettesTil?.title || "resource.spoersmaalRettesTil.title"
             },
             kontaktpersonForNabovarselet: {
                 title: props?.resourceBindings?.kontaktpersonForNabovarselet?.title || "resource.kontaktpersonForNabovarselet.title",
@@ -181,42 +178,11 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 title: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.title || "resource.part.epost.title",
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            merknaderSendesTil: {
-                title: props?.resourceBindings?.merknaderSendesTil?.title || "resource.merknaderSendesTil.title"
-            },
             ansvarligSoeker: {
                 title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
             },
-            ansvarligSoekerNavn: {
-                title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.part.navn.title",
-                emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            ansvarligSoekerTelefonnummer: {
-                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.part.telefonnummer.title",
-                emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            ansvarligSoekerEpost: {
-                title: props?.resourceBindings?.ansvarligSoekerEpost?.title || "resource.part.epost.title",
-                emptyFieldText: props?.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText || "resource.emptyFieldText.default"
-            },
             tiltakshaver: {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
-            },
-            tiltakshaverNavn: {
-                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.part.navn.title",
-                emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            tiltakshaverTelefonnummer: {
-                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.part.telefonnummer.title",
-                emptyFieldText: props?.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            tiltakshaverEpost: {
-                title: props?.resourceBindings?.tiltakshaverEpost?.title || "resource.part.epost.title",
-                emptyFieldText: props?.resourceBindings?.tiltakshaverEpost?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            eiendomMatrikkelinformasjonAdresse: {
-                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.eiendom.adresse.title",
-                emptyFieldText: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
                 title:

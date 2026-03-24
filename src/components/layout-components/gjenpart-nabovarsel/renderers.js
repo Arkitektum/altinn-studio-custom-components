@@ -1,5 +1,5 @@
 // Dependencies
-import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header element for the "gjenpartNabovarsel" component.
@@ -39,21 +39,130 @@ export function renderGjenpartNabovarselSubHeader(component) {
 }
 
 /**
- * Renders a custom header text element for the "Søknad Gjelder" section.
+ * Renders the metadata project name field as a custom element with specific HTML attributes.
  *
- * @param {Object} component - The component object containing resource bindings.
- * @param {string} [size="h2"] - The header size (e.g., "h1", "h2", etc.).
- * @returns {HTMLElement} The custom header text element.
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component.resourceValues.data] - The data object containing metadata.
+ * @param {Object} [component.resourceValues.data.metadata] - The metadata object.
+ * @param {string} [component.resourceValues.data.metadata.prosjektnavn] - The project name to display.
+ * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component.resourceBindings.metadataProsjektnavn] - The resource binding for the project name.
+ * @param {string} [component.resourceBindings.metadataProsjektnavn.title] - The title for the project name field.
+ * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
  */
-export function renderSoeknadGjelderHeader(component, size = "h2") {
+export function renderMetadataProsjektnavn(component) {
+    const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
-        size: size,
+        hideIfEmpty: true,
         resourceBindings: {
-            title: component.resourceBindings?.soeknadGjelderHeader?.title
+            title: component.resourceBindings?.metadataProsjektnavn?.title
+        },
+        resourceValues: {
+            data: data?.metadata?.prosjektnavn
         }
     });
-    return createCustomElement("custom-header-text", htmlAttributes);
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Formats the data for "ansvarligSoeker" or "tiltakshaver" components.
+ *
+ * @param {Object} part - The part object containing name and organization number.
+ * @param {string} [part.navn] - The name of the part.
+ * @param {string} [part.organisasjonsnummer] - The organization number of the part.
+ * @returns {string} The formatted string combining name and organization number.
+ */
+function formatAnsvarligSoekerTiltakshaverData(part) {
+    if (!part?.navn) {
+        return "";
+    }
+    let result = part.navn;
+    if (part?.organisasjonsnummer?.length > 0) {
+        result += ` (${part.organisasjonsnummer})`;
+    }
+    return result;
+}
+
+/**
+ * Renders the "ansvarligSoeker" element as a custom field data component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component.resourceValues.data] - The data object containing "ansvarligSoeker" information.
+ * @param {Object} [component.resourceValues.data.ansvarligSoeker] - The "ansvarligSoeker" object.
+ * @param {string} [component.resourceValues.data.ansvarligSoeker.navn] - The name of the "ansvarligSoeker".
+ * @param {string} [component.resourceValues.data.ansvarligSoeker.organisasjonsnummer] - The organization number of the "ansvarligSoeker".
+ * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for the "ansvarligSoeker".
+ * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" field.
+ * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ */
+function renderAnsvarligSoekerElement(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component.resourceBindings?.ansvarligSoeker?.title
+        },
+        resourceValues: {
+            data: formatAnsvarligSoekerTiltakshaverData(data?.ansvarligSoeker)
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders the "tiltakshaver" element as a custom field data component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component.resourceValues.data] - The data object containing "tiltakshaver" information.
+ * @param {Object} [component.resourceValues.data.tiltakshaver] - The "tiltakshaver" object.
+ * @param {string} [component.resourceValues.data.tiltakshaver.navn] - The name of the "tiltakshaver".
+ * @param {string} [component.resourceValues.data.tiltakshaver.organisasjonsnummer] - The organization number of the "tiltakshaver".
+ * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component.resourceBindings.tiltakshaver] - The resource binding for the "tiltakshaver".
+ * @param {string} [component.resourceBindings.tiltakshaver.title] - The title for the "tiltakshaver" field.
+ * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ */
+function renderTiltakshaverElement(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component.resourceBindings?.tiltakshaver?.title
+        },
+        resourceValues: {
+            data: formatAnsvarligSoekerTiltakshaverData(data?.tiltakshaver)
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders the "soeker" element as a custom field data component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component.resourceValues.data] - The data object containing "soeker" information.
+ * @param {Object} [component.resourceValues.data.ansvarligSoeker] - The "ansvarligSoeker" object.
+ * @param {Object} [component.resourceValues.data.tiltakshaver] - The "tiltakshaver" object.
+ * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for the "ansvarligSoeker".
+ * @param {Object} [component.resourceBindings.tiltakshaver] - The resource binding for the "tiltakshaver".
+ * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ */
+export function renderSoekerElement(component) {
+    const data = component?.resourceValues?.data;
+    if (hasValue(data?.ansvarligSoeker)) {
+        return renderAnsvarligSoekerElement(component);
+    } else if (hasValue(data?.tiltakshaver)) {
+        return renderTiltakshaverElement(component);
+    }
 }
 
 /**
@@ -78,7 +187,7 @@ export function renderEiendomByggestedElement(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        size: "h3",
+        size: "h2",
         resourceBindings: {
             title: component.resourceBindings?.eiendomByggested?.title,
             adresse: component?.resourceBindings?.adresse,
@@ -97,18 +206,18 @@ export function renderEiendomByggestedElement(component) {
 }
 
 /**
- * Renders a custom header element for the "Det Varsles Herved Om" section.
+ * Renders a custom header element for the "Det er varslet om" section.
  *
  * @param {Object} component - The component object containing resource bindings.
  * @param {string} [size="h2"] - The header size (e.g., "h1", "h2", etc.).
  * @returns {HTMLElement} The custom header element.
  */
-export function renderDetVarslesHervedOmHeader(component, size = "h2") {
+export function renderDetErVarsletOmHeader(component, size = "h2") {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         size: size,
         resourceBindings: {
-            title: component.resourceBindings?.detVarslesHervedOmHeader?.title
+            title: component.resourceBindings?.detErVarsletOm?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -269,26 +378,6 @@ export function renderPlanerGjeldendePlanPlantypeElement(component) {
 }
 
 /**
- * Renders a custom header element for the "Spørsmål rettes til" section.
- *
- * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
- * @param {Object} [component.resourceBindings.spoersmaalRettesTil] - Resource binding for "spoersmaalRettesTil".
- * @param {string} [component.resourceBindings.spoersmaalRettesTil.title] - The title to display in the header.
- * @returns {HTMLElement} The custom header element.
- */
-export function renderSpoersmaalRettesTilHeaderElement(component) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        size: "h3",
-        resourceBindings: {
-            title: component.resourceBindings?.spoersmaalRettesTil?.title
-        }
-    });
-    return createCustomElement("custom-header-text", htmlAttributes);
-}
-
-/**
  * Renders a custom element for displaying the contact person for the notification (nabovarsel).
  *
  * @param {Object} component - The component object containing resource values and bindings.
@@ -304,119 +393,13 @@ export function renderKontaktpersonForNabovarseletElement(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        size: "h4",
+        size: "h2",
         partType: "kontaktpersonForNabovarselet",
         resourceBindings: {
             title: component.resourceBindings?.kontaktpersonForNabovarselet?.title
         },
         resourceValues: {
             data: data?.kontaktpersonForNabovarselet
-        }
-    });
-    return createCustomElement("custom-table-part", htmlAttributes);
-}
-
-/**
- * Renders a custom header element for "Merknader sendes til".
- *
- * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
- * @param {Object} [component.resourceBindings.merknaderSendesTil] - Resource binding for "merknaderSendesTil".
- * @param {string} [component.resourceBindings.merknaderSendesTil.title] - The title to be displayed in the header.
- * @returns {HTMLElement} The custom header element.
- */
-export function renderMerknaderSendesTilHeaderElement(component) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        size: "h3",
-        resourceBindings: {
-            title: component.resourceBindings?.merknaderSendesTil?.title
-        }
-    });
-    return createCustomElement("custom-header-text", htmlAttributes);
-}
-
-/**
- * Renders a custom element for displaying the "Ansvarlig Søker" (responsible applicant) part.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "ansvarligSoeker".
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for "ansvarligSoeker".
- * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" part.
- * @param {Object} [component.resourceBindings.ansvarligSoekerNavn] - The resource binding for "ansvarligSoekerNavn".
- * @param {Object} [component.resourceBindings.ansvarligSoekerTelefonnummer] - The resource binding for "ansvarligSoekerTelefonnummer".
- * @param {Object} [component.resourceBindings.ansvarligSoekerEpost] - The resource binding for "ansvarligSoekerEpost".
- * @returns {HTMLElement} The custom element representing the "Ansvarlig Søker" part.
- */
-export function renderAnsvarligSoekerElement(component) {
-    const data = component?.resourceValues?.data;
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: true,
-        size: "h4",
-        partType: "ansvarligSoeker",
-        resourceBindings: {
-            title: component.resourceBindings?.ansvarligSoeker?.title,
-            navn: {
-                title: component.resourceBindings?.ansvarligSoekerNavn?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText
-            },
-            telefonnummer: {
-                title: component.resourceBindings?.ansvarligSoekerTelefonnummer?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText
-            },
-            epost: {
-                title: component.resourceBindings?.ansvarligSoekerEpost?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText
-            }
-        },
-        resourceValues: {
-            data: data?.ansvarligSoeker
-        }
-    });
-    return createCustomElement("custom-table-part", htmlAttributes);
-}
-
-/**
- * Renders a custom element for the "tiltakshaver" part of a component.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "tiltakshaver" information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.tiltakshaver] - The resource binding for "tiltakshaver".
- * @param {string} [component.resourceBindings.tiltakshaver.title] - The title for the "tiltakshaver" part.
- * @param {Object} [component.resourceBindings.tiltakshaverNavn] - The resource binding for "tiltakshaverNavn".
- * @param {Object} [component.resourceBindings.tiltakshaverTelefonnummer] - The resource binding for "tiltakshaverTelefonnummer".
- * @param {Object} [component.resourceBindings.tiltakshaverEpost] - The resource binding for "tiltakshaverEpost".
- * @returns {HTMLElement} The rendered custom element for the "tiltakshaver" part.
- */
-export function renderTiltakshaverElement(component) {
-    const data = component?.resourceValues?.data;
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: true,
-        size: "h4",
-        partType: "tiltakshaver",
-        resourceBindings: {
-            title: component.resourceBindings?.tiltakshaver?.title,
-            navn: {
-                title: component.resourceBindings?.tiltakshaverNavn?.title,
-                emptyFieldText: component.resourceBindings?.tiltakshaverNavn?.emptyFieldText
-            },
-            telefonnummer: {
-                title: component.resourceBindings?.tiltakshaverTelefonnummer?.title,
-                emptyFieldText: component.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText
-            },
-            epost: {
-                title: component.resourceBindings?.tiltakshaverEpost?.title,
-                emptyFieldText: component.resourceBindings?.tiltakshaverEpost?.emptyFieldText
-            }
-        },
-        resourceValues: {
-            data: data?.tiltakshaver
         }
     });
     return createCustomElement("custom-table-part", htmlAttributes);
@@ -436,7 +419,7 @@ export function renderNaboGjenboerEiendom(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        size: "h3",
+        size: "h2",
         resourceBindings: {
             title: component.resourceBindings?.naboGjenboerEiendom?.title,
             eiendomMatrikkelinformasjon: component?.resourceBindings?.eiendomMatrikkelinformasjon,

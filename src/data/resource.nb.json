@@ -126,8 +126,8 @@
             "value": "Tillatelsedato"
         },
         {
-            "id": "resource.detVarslesHervedOm.title",
-            "value": "Det varsles herved om"
+            "id": "resource.detErVarsletOm.title",
+            "value": "Det er varslet om"
         },
         {
             "id": "resource.dispensasjon.dispensasjonReferanse.title",
@@ -427,7 +427,7 @@
         },
         {
             "id": "resource.kontaktpersonForNabovarselet.title",
-            "value": "Foretak/tiltakshaver"
+            "value": "Kontaktperson for nabovarselet"
         },
         {
             "id": "resource.kontrollErklaeringTekst.title",
@@ -503,11 +503,11 @@
         },
         {
             "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
-            "value": "Matrikkelinformasjon"
+            "value": "Naboeiendom"
         },
         {
             "id": "resource.naboGjenboer.title",
-            "value": "Følgende naboer har fått tilsendt nabovarsel med tilhørende vedlegg"
+            "value": "Nabovarsel med vedlegg er sendt til følgende naboer"
         },
         {
             "id": "resource.operator.equals",
