@@ -186,14 +186,6 @@
             "value": "Bakgrunn for dispensasjonssøknaden"
         },
         {
-            "id": "resource.dispensasjonsvarsel.plannavn.title",
-            "value": "Kommunedelplan"
-        },
-        {
-            "id": "resource.dispensasjonsvarsel.paragrafnummer.title",
-            "value": "Plan- og bygningsloven"
-        },
-        {
             "id": "resource.dispensasjonsvarsel.spoersmaalOmDispensasjonssoeknaden.title",
             "value": "Spørsmål om dispensasjonssøknaden må rettes til kontaktpersonen oppgitt under \"Har du spørsmål til nabovarselet?\""
         },
@@ -480,10 +472,6 @@
         {
             "id": "resource.merknaderNabovarsel.paragraph2",
             "value": "Merknader til nabovarselet kan leveres via Altinn eller sendes til søker:"
-        },
-        {
-            "id": "resource.merknaderSendesTil.title",
-            "value": "Merknader sendes til"
         },
         {
             "id": "resource.metadata.ftbId.title",
@@ -980,10 +968,6 @@
         {
             "id": "resource.soeknadGjelder.type.title",
             "value": "Tiltakstyper"
-        },
-        {
-            "id": "resource.spoersmaalRettesTil.title",
-            "value": "Spørsmål vedrørende nabovarselet rettes til"
         },
         {
             "id": "resource.stedfesting.header",
