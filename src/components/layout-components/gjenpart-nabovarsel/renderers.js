@@ -49,7 +49,7 @@ export function renderGjenpartNabovarselSubHeader(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.metadataProsjektnavn] - The resource binding for the project name.
  * @param {string} [component.resourceBindings.metadataProsjektnavn.title] - The title for the project name field.
- * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataProsjektnavn(component) {
     const data = component?.resourceValues?.data;
@@ -97,7 +97,7 @@ function formatAnsvarligSoekerTiltakshaverData(part) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for the "ansvarligSoeker".
  * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" field.
- * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 function renderAnsvarligSoekerElement(component) {
     const data = component?.resourceValues?.data;

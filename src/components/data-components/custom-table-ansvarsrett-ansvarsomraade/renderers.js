@@ -81,7 +81,7 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component) {
         resourceValues: component?.resourceValues,
         resourceBindings: {
             title:
-                component.resourceValues.data.length == 1
+                component?.resourceValues?.data?.length === 1
                     ? component?.resourceBindings?.ansvarsomraader?.titleSingle
                     : component?.resourceBindings?.ansvarsomraader?.titlePlural,
             emptyFieldText: component?.resourceBindings?.ansvarsomraader?.emptyFieldText
@@ -119,7 +119,10 @@ function setFunksjonListe(component) {
     const funksjonListe = [];
     if (component?.resourceValues?.data && Array.isArray(component.resourceValues.data)) {
         component.resourceValues.data.forEach((element) => {
-            funksjonListe.push(element?.funksjon?.kodeverdi.toUpperCase());
+            const kodeverdi = element?.funksjon?.kodeverdi;
+            if (typeof kodeverdi === "string" && kodeverdi) {
+                funksjonListe.push(kodeverdi.toUpperCase());
+            }
         });
     }
     return funksjonListe;

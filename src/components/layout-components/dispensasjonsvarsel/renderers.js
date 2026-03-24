@@ -154,10 +154,10 @@ export function renderDispVarselBeskrivelse(component) {
 /**
  * Renders the element that displays the question about the dispensation application for the dispensation case.
  *
- * The content of the element is determined based on the component's data type. If the component's data indicates that it is of the "Plan Bestemmelses Type", the question about the dispensation application value from the component's resource values is used; otherwise, it will not be displayed.
+ * The content of the element is taken from the component's resource bindings for the question about the dispensation application and is always displayed when this renderer is used.
  *
  * @param {Object} component - The instance of the CustomDispensasjonsvarsel component containing resource bindings and values.
- * @returns {HTMLElement} A custom paragraph text element with the appropriate resource binding for the title and the determined data value.
+ * @returns {HTMLElement} A custom paragraph text element with the appropriate resource binding for the title and styling.
  */
 export function renderSpoersmaalOmDispensasjonssoeknaden(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
