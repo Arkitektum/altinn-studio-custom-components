@@ -67,14 +67,14 @@ export function renderBestemmelseHeader(component, size = "h2") {
 /**
  * Renders the element that displays the plan name and paragraph number for the dispensation case, based on the component's data type.
  *
- * If the component's data indicates that it is of the "Plan Bestemmelses Type", the rendered element will display both the plan name and paragraph number in the format "plannavn, paragrafnummer". If it is not of this type, only the paragraph number will be displayed.
+ * If the component's data indicates that it is of the "Plan Bestemmelses Type", the rendered element will display both the plan name and paragraph number in the format "plannavn paragrafnummer". If it is not of this type, only the paragraph number will be displayed.
  *
  * @param {Object} component - The instance of the CustomDispensasjonsvarsel component containing resource bindings and values.
  * @returns {HTMLElement} A custom field data element with the appropriate resource binding for the title and the determined data value.
  */
 export function renderPlannavnParagrafnummer(component) {
     const data = component?.isPlanBestemmelsesType
-        ? `${component?.resourceValues?.data?.plannavn}, ${component?.resourceValues?.data?.paragrafnummer}`
+        ? `${component?.resourceValues?.data?.plannavn} ${component?.resourceValues?.data?.paragrafnummer}`
         : component?.resourceValues?.data?.paragrafnummer;
     const title = component?.resourceValues?.data?.bestemmelsestype?.kodebeskrivelse;
     const htmlAttributes = new CustomElementHtmlAttributes({
