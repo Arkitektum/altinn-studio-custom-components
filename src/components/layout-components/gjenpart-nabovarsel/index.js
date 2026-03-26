@@ -9,6 +9,9 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 // Local functions
 import {
     renderDetErVarsletOmHeader,
+    renderDispensasjonOversiktCounterElement,
+    renderDispensasjonOversiktElement,
+    renderDispensasjonOversiktHeaderElement,
     renderEiendomByggestedElement,
     renderGjenpartNabovarselHeader,
     renderGjenpartNabovarselSubHeader,
@@ -53,6 +56,10 @@ export default customElements.define(
                 const planerGjeldendePlanNavnElement = renderPlanGjeldendePlanNavnElement(component);
                 const planerGjeldendePlanPlantypeElement = renderPlanerGjeldendePlanPlantypeElement(component);
 
+                const dispensajonOversiktHeaderElement = renderDispensasjonOversiktHeaderElement(component);
+                const dispensasjonOversiktCountElement = renderDispensasjonOversiktCounterElement(component);
+                const dispensasjonOversiktElement = renderDispensasjonOversiktElement(component);
+
                 const kontaktpersonForNabovarseletElement = renderKontaktpersonForNabovarseletElement(component);
 
                 const naboGjenboerEiendomElement = renderNaboGjenboerEiendom(component);
@@ -83,13 +90,18 @@ export default customElements.define(
                     planerGjeldendePlanPlantypeElement
                 ]);
 
+                // Dispensasjonsoversikt
+                appendChildren(layoutContainerElement, [
+                    dispensajonOversiktHeaderElement,
+                    dispensasjonOversiktCountElement,
+                    dispensasjonOversiktElement
+                ]);
+
                 // Kontaktperson for nabovarselet
                 appendChildren(layoutContainerElement, [kontaktpersonForNabovarseletElement]);
 
                 // Nabovarsel med vedlegg er sendt til følgende naboer
-                appendChildren(layoutContainerElement, [
-                    naboGjenboerEiendomElement
-                ]);
+                appendChildren(layoutContainerElement, [naboGjenboerEiendomElement]);
 
                 // Append the validation feedback list element if there are validation messages
                 appendChildren(layoutContainerElement, [validationFeedbackListElement]);

@@ -378,6 +378,92 @@ export function renderPlanerGjeldendePlanPlantypeElement(component) {
 }
 
 /**
+ * Renders a custom header element for the "dispensasjonOversikt" component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @returns {HTMLElement} The rendered custom header element.
+ */
+export function renderDispensasjonOversiktHeaderElement(component) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        size: "h2",
+        resourceBindings: {
+            title: component.resourceBindings?.dispensasjonOversikt?.title
+        }
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+/**
+ * Renders a custom element for displaying the count of dispensations in the overview.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @returns {HTMLElement} The rendered container element with the custom field count data.
+ */
+export function renderDispensasjonOversiktCounterElement(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: false,
+        hideTitle: false,
+        resourceBindings: {
+            title: component.resourceBindings?.dispensasjonOversiktCount?.title
+        },
+        resourceValues: {
+            data: data?.dispensasjonOversikt?.dispensasjon
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-count-data", htmlAttributes));
+}
+
+/**
+ * Renders a custom table element for displaying the "dispensasjonOversikt" data.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @returns {HTMLElement} The rendered container element with the custom table data.
+ *
+ */
+export function renderDispensasjonOversiktElement(component) {
+    const tableColumns = [
+        {
+            dataKey: "dispensasjonKategori.kodebeskrivelse",
+            tagName: "custom-field-data",
+            resourceBindings: {
+                title: component?.resourceBindings?.dispensasjonKategori?.title,
+                emptyFieldText: component?.resourceBindings?.dispensasjonKategori?.emptyFieldText
+            }
+        },
+        {
+            dataKey: "dispensasjonTittel.kodebeskrivelse",
+            tagName: "custom-field-data",
+            resourceBindings: {
+                title: component?.resourceBindings?.dispensasjonTittel?.title,
+                emptyFieldText: component?.resourceBindings?.dispensasjonTittel?.emptyFieldText
+            }
+        },
+        {
+            dataKey: "bestemmelserType.kodebeskrivelse",
+            tagName: "custom-field-data",
+            resourceBindings: {
+                title: component?.resourceBindings?.bestemmelserType?.title,
+                emptyFieldText: component?.resourceBindings?.bestemmelserType?.emptyFieldText
+            }
+        }
+    ];
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: false,
+        showRowNumbers: true,
+        resourceValues: { data: component?.resourceValues?.data?.dispensasjonOversikt?.dispensasjon },
+        resourceBindings: {
+            rowNumberTitle: component?.resourceBindings?.rowNumber?.title
+        },
+        tableColumns
+    });
+    return addContainerElement(createCustomElement("custom-table-data", htmlAttributes));
+}
+
+/**
  * Renders a custom element for displaying the contact person for the notification (nabovarsel).
  *
  * @param {Object} component - The component object containing resource values and bindings.
