@@ -1,4 +1,5 @@
 // Classes
+import DispensasjonOversikt from "../data-classes/DispensasjonOversikt.js";
 import EiendomByggested from "../data-classes/EiendomByggested.js";
 import Metadata from "../data-classes/Metadata.js";
 import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.js";
@@ -22,6 +23,7 @@ export default class GjenpartNabovarsel {
      * @param {Object} [props.planer] - The plans. Instance of Planer.
      * @param {*} [props.soeknadGjelder] - The subject of the application.
      * @param {Object} [props.tiltakshaver] - The developer. Instance of Part.
+     * @param {Object} [props.dispensasjonOversikt] - The dispensation overview. Instance of DispensasjonOversikt.
      */
     constructor(props) {
         this.ansvarligSoeker = props?.ansvarligSoeker && new Part(props.ansvarligSoeker);
@@ -32,5 +34,6 @@ export default class GjenpartNabovarsel {
         this.planer = props?.planer && new Planer(props.planer);
         this.soeknadGjelder = props?.soeknadGjelder;
         this.tiltakshaver = props?.tiltakshaver && new Part(props.tiltakshaver);
+        this.dispensasjonOversikt = props?.dispensasjonOversikt && new DispensasjonOversikt(props.dispensasjonOversikt);
     }
 }

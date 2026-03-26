@@ -143,7 +143,9 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.soeknadGjelderType?.emptyFieldText || "resource.emptyFieldText.default"
             },
             soeknadGjelderBrukTiltaksformaal: {
-                title: props?.resourceBindings?.soeknadGjelderBrukTiltaksformaal?.title || "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
+                title:
+                    props?.resourceBindings?.soeknadGjelderBrukTiltaksformaal?.title ||
+                    "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
                 emptyFieldText: props?.resourceBindings?.soeknadGjelderBrukTiltaksformaal?.emptyFieldText || "resource.emptyFieldText.default"
             },
             soeknadGjelderBrukBeskrivPlanlagtFormaal: {
@@ -268,6 +270,28 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             },
             responsSamtykkeMottattDato: {
                 title: props?.resourceBindings?.responsSamtykkeMottattDato?.title || "resource.respons.samtykkeMottattDato.title"
+            },
+            dispensasjonOversikt: {
+                title: props?.resourceBindings?.dispensasjonOversikt?.title || "resource.dispensasjonOversikt.header"
+            },
+            dispensasjonOversiktCount: {
+                title: props?.resourceBindings?.dispensasjonOversiktCount?.title || "resource.dispensasjonOversikt.dispensasjon.count.title"
+            },
+            dispensasjonKategori: {
+                title:
+                    props?.resourceBindings?.dispensasjonKategori?.title || "resource.dispensasjonOversikt.dispensasjon.dispensasjonKategori.title",
+                emptyFieldText: props?.resourceBindings?.dispensasjonKategori?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            dispensasjonTittel: {
+                title: props?.resourceBindings?.dispensasjonTittel?.title || "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
+                emptyFieldText: props?.resourceBindings?.dispensasjonTittel?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            bestemmelserType: {
+                title: props?.resourceBindings?.bestemmelserType?.title || "resource.dispensasjonOversikt.dispensasjon.bestemmelserType.title",
+                emptyFieldText: props?.resourceBindings?.bestemmelserType?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            rowNumber: {
+                title: props?.resourceBindings?.rowNumber?.title || "resource.rowNumberTitle.default"
             }
         };
     }
