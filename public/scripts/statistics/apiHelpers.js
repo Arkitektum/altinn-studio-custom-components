@@ -1,6 +1,8 @@
 // Local functions
 import { showLoadingIndicator } from "./renderers.js";
 
+const API_PORT = process?.env?.API_PORT || 9001;
+
 /**
  * Fetches display layouts from the local API endpoint.
  *
@@ -10,7 +12,7 @@ import { showLoadingIndicator } from "./renderers.js";
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchDisplayLayouts() {
-    const url = `http://localhost:9001/api/displayLayouts`;
+    const url = `http://localhost:${API_PORT}/api/displayLayouts`;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -35,7 +37,7 @@ export async function fetchDisplayLayouts() {
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchPackageVersions() {
-    const url = `http://localhost:9001/api/packageVersions`;
+    const url = `http://localhost:${API_PORT}/api/packageVersions`;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -57,7 +59,7 @@ export async function fetchPackageVersions() {
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchAppResources(language) {
-    const url = `http://localhost:9001/api/appResources?language=${language}`;
+    const url = `http://localhost:${API_PORT}/api/appResources?language=${language}`;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -80,7 +82,7 @@ export async function fetchAppResources(language) {
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchDefaultTextResources() {
-    const url = `http://localhost:9001/api/resources`;
+    const url = `http://localhost:${API_PORT}/api/resources`;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -103,7 +105,7 @@ export async function fetchDefaultTextResources() {
  * @throws {Error} If the network request fails or the response is not OK.
  */
 export async function fetchExampleData() {
-    const url = `http://localhost:9001/api/exampleData`;
+    const url = `http://localhost:${API_PORT}/api/exampleData`;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -129,7 +131,7 @@ export async function fetchExampleData() {
  * @throws {Error} If the fetch operation fails or the response is not OK.
  */
 export async function fetchAltinnStudioForms() {
-    const url = `http://localhost:9001/api/altinnStudioForms`;
+    const url = `http://localhost:${API_PORT}/api/altinnStudioForms`;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
