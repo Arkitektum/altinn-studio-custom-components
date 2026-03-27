@@ -47,9 +47,6 @@ module.exports = {
             }
         ]
     },
-    optimization: {
-        minimizer: ["..."]
-    },
     devServer: {
         historyApiFallback: {
             rewrites: [
