@@ -16,7 +16,7 @@ import {
 import { renderAdminSidebar, renderSynchronizeButton } from "./renderers.js";
 import { getUpdatedApiData } from "./apiHelpers.js";
 
-function getDataFromLocalStorage() {
+export function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
     return {
         lastUpdated,
@@ -30,7 +30,7 @@ function getDataFromLocalStorage() {
     };
 }
 
-function getMissingResourceBindingsWithUsage(displayLayouts, appResourceValues, defaultTextResources) {
+export function getMissingResourceBindingsWithUsage(displayLayouts, appResourceValues, defaultTextResources) {
     const resourceBindingsInApplications = getResourceBindingsWithUsageFromApplications(displayLayouts, "custom");
     const { missingResourceBindings } = getMissingResourceBindings(resourceBindingsInApplications, null, defaultTextResources);
     const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getUsageForMissingResources(
@@ -41,7 +41,7 @@ function getMissingResourceBindingsWithUsage(displayLayouts, appResourceValues, 
     return { missingResourceBindings, missingResourcesUsage, missingResourcesWithLocalValueUsage };
 }
 
-function getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextResources) {
+export function getAllTextResourceUsage(displayLayouts, appResourceValues, defaultTextResources) {
     const textResourceUsage = getUsageForResources(displayLayouts, defaultTextResources);
     const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getMissingResourceBindingsWithUsage(
         displayLayouts,
