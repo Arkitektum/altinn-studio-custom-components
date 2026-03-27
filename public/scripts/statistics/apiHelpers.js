@@ -1,5 +1,5 @@
 // Local functions
-import { showLoadingIndicator } from "./adminRenderers.js";
+import { showLoadingIndicator } from "./renderers.js";
 
 /**
  * Fetches display layouts from the local API endpoint.

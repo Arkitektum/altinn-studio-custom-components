@@ -8,16 +8,16 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
-import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "./localStorage.js";
+import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "../localStorage.js";
 import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
-import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "./getters.js";
+import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.js";
 import {
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
-} from "./textResourceUsageRenderers.js";
-import { languages } from "./languages.js";
+} from "../textResourceUsageRenderers.js";
+import { languages } from "../languages.js";
 
 /**
  * Renders the resource usage page by appending various filter controls and the default text resources list
@@ -569,7 +569,7 @@ export function renderAdminSidebar() {
 
     const resourceUsageListItem = document.createElement("li");
     const resourceUsageButton = document.createElement("button");
-    resourceUsageButton.textContent = "Resource usage";
+    resourceUsageButton.textContent = "📚 Resource usage";
     resourceUsageButton.onclick = () => {
         mainElement.innerHTML = "";
         renderResourceUsagePage(mainElement);
@@ -579,7 +579,7 @@ export function renderAdminSidebar() {
 
     const packageVersionsListItem = document.createElement("li");
     const packageVersionsButton = document.createElement("button");
-    packageVersionsButton.textContent = "Package versions";
+    packageVersionsButton.textContent = "📦 Package versions";
     packageVersionsButton.onclick = () => {
         mainElement.innerHTML = "";
         renderPackageVersionsPage(mainElement);
@@ -589,7 +589,7 @@ export function renderAdminSidebar() {
 
     const displayLayoutsListItem = document.createElement("li");
     const displayLayoutsButton = document.createElement("button");
-    displayLayoutsButton.textContent = "Display layouts";
+    displayLayoutsButton.textContent = "🎨 Display layouts";
     displayLayoutsButton.onclick = async () => {
         mainElement.innerHTML = "";
         const exampleData = globalThis.exampleData || (await fetchExampleData());
