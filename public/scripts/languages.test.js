@@ -1,4 +1,4 @@
-import { languages, getLanguageNameFromCode } from './languages';
+import { getLanguageNameFromCode, languages } from './languages';
 
 describe('languages', () => {
   it('contains nb, nn, en', () => {
