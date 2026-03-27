@@ -7,8 +7,8 @@ module.exports = {
     mode: "development",
     entry: {
         main: "./src/components/index.js",
-        examples: "./public/scripts/examples.js",
-        admin: "./public/scripts/admin.js"
+        devTools: "./public/scripts/devTools/index.js",
+        statistics: "./public/scripts/statistics/index.js"
     },
     output: {
         filename: "[name].js",
@@ -24,13 +24,19 @@ module.exports = {
             template: path.resolve(__dirname, "public/index.html"),
             filename: "index.html",
             inject: "body",
-            chunks: ["main", "examples"]
+            chunks: ["main"]
         }),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "public/admin.html"),
-            filename: "admin.html",
+            template: path.resolve(__dirname, "public/devTools.html"),
+            filename: "devTools.html",
             inject: "body",
-            chunks: ["main", "admin"]
+            chunks: ["main", "devTools"]
+        }),
+        new HtmlWebpackPlugin({
+            template: path.resolve(__dirname, "public/statistics.html"),
+            filename: "statistics.html",
+            inject: "body",
+            chunks: ["main", "statistics"]
         })
     ],
     module: {
@@ -46,7 +52,7 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: {
-            rewrites: [{ from: /^\/admin/, to: "/admin.html" }]
+            rewrites: [{ from: /^\/statistics/, to: "/statistics.html" }]
         },
         static: [
             {

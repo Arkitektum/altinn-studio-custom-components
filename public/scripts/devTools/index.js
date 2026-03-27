@@ -1,8 +1,8 @@
 // Local functions
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
-import { fetchDefaultTextResources } from "./getters.js";
-import { getTextResources } from "./localStorage.js";
-import { validateResources } from "./validators.js";
+import { fetchDefaultTextResources } from "../getters.js";
+import { getTextResources } from "../localStorage.js";
+import { validateResources } from "../validators.js";
 
 /**
  * Initializes the application when the global context loads.

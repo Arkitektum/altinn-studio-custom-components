@@ -7,7 +7,7 @@ import { beautifyJson } from "./formatters.js";
 // Local functions
 import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage.js";
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.js";
-import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./renderers.js";
+import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./devTools/renderers.js";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.js";
 import { validateResources } from "./validators.js";
 
