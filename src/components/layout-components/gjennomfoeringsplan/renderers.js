@@ -69,7 +69,7 @@ export function renderPlanenGjelderHeader(component, size = "h2") {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.versjon] - The version resource binding.
  * @param {string} [component.resourceBindings.versjon.title] - The title for the version field.
- * @returns {React.ReactNode} A container element with the rendered version field.
+ * @returns {HTMLElement} A container element with the rendered version field.
  */
 export function renderVersjon(component) {
     const data = component?.resourceValues?.data;
@@ -97,7 +97,7 @@ export function renderVersjon(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.kommunensSaksnummer] - The resource binding for "kommunensSaksnummer".
  * @param {string} [component.resourceBindings.kommunensSaksnummer.title] - The title for the "kommunensSaksnummer" field.
- * @returns {React.ReactElement} The rendered custom field component wrapped in a container element.
+ * @returns {HTMLElement} The rendered custom field component wrapped in a container element.
  */
 export function renderKommunensSaksnummer(component) {
     const data = component?.resourceValues?.data;
@@ -127,7 +127,7 @@ export function renderKommunensSaksnummer(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.metadataProsjektnavn] - The resource binding for the project name.
  * @param {string} [component.resourceBindings.metadataProsjektnavn.title] - The title for the project name field.
- * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataProsjektnavn(component) {
     const data = component?.resourceValues?.data;
@@ -155,7 +155,7 @@ export function renderMetadataProsjektnavn(component) {
  * @param {Object} component.resourceBindings - The resource bindings for the component.
  * @param {Object} component.resourceBindings.metadataFtbId - The metadata FTB ID bindings.
  * @param {string} component.resourceBindings.metadataFtbId.title - The title for the metadata FTB ID.
- * @returns {React.ReactNode} The rendered custom field data element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataFtbId(component) {
     const data = component?.resourceValues?.data;

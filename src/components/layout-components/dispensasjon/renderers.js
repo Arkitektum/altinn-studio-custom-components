@@ -30,7 +30,7 @@ export function renderDispensasjonHeader(component, size = "h1") {
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} component.resourceValues - The resource values for the component.
  * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @returns {React.ReactNode} The rendered custom field data component wrapped in a container element.
+ * @returns {HTMLElement} The rendered custom field data component wrapped in a container element.
  */
 export function renderDispensasjonReferanse(component) {
     const data = component?.resourceValues?.data;
@@ -60,7 +60,7 @@ export function renderDispensasjonReferanse(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.metadataFtbId] - The resource binding for the metadata FTB ID.
  * @param {string} [component.resourceBindings.metadataFtbId.title] - The title for the field.
- * @returns {React.ReactElement} The rendered custom field element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
 export function renderMetadataFtbId(component) {
     const data = component?.resourceValues?.data;
@@ -88,7 +88,7 @@ export function renderMetadataFtbId(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.kommunensSaksnummer] - Resource bindings for "kommunensSaksnummer".
  * @param {string} [component.resourceBindings.kommunensSaksnummer.title] - The title for the field.
- * @returns {React.ReactElement} The rendered custom field component wrapped in a container element.
+ * @returns {HTMLElement} The rendered custom field component wrapped in a container element.
  */
 export function renderKommunensSaksnummer(component) {
     const data = component?.resourceValues?.data;
@@ -157,7 +157,7 @@ export function renderEiendomTable(component) {
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {string} [size="h3"] - The size of the header, defaults to "h3".
- * @returns {React.ReactElement|null} The custom header element if data is present, otherwise null.
+ * @returns {HTMLElement|null} The custom header element if data is present, otherwise null.
  */
 export function renderTiltakstyperTypeHeader(component, size = "h3") {
     const data = component?.resourceValues?.data;
@@ -311,7 +311,7 @@ export function renderAnsvarligSoekerAdresse(component) {
  * The function creates a custom element with these bindings and wraps it in a container element.
  *
  * @param {Object} component - The component object containing resource values and data.
- * @returns {React.ReactNode|null} The rendered custom field element or null if no relevant data is present.
+ * @returns {HTMLElement|null} The rendered custom field element or null if no relevant data is present.
  */
 export function renderInngangsbeskrivelse(component) {
     const data = component?.resourceValues?.data;
@@ -814,7 +814,7 @@ export function renderBegrunnelseSamletBegrunnelse(component) {
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {string} [size="h2"] - The header size to use (e.g., "h1", "h2", etc.).
- * @returns {React.ReactElement|null} The custom header element if the condition exists, otherwise null.
+ * @returns {HTMLElement|null} The custom header element if the condition exists, otherwise null.
  */
 export function renderGenerelleVilkaarNorskSvenskDanskHeader(component, size = "h2") {
     const data = component?.resourceValues?.data;

@@ -32,7 +32,7 @@ export function renderHeaderElement(title, size = "h3") {
  * @param {string} [component.resourceValues.data.sjekklistepunkt.kodebeskrivelse] - The description of the checklist item.
  * @param {any} [component.resourceValues.data.dokumentasjon] - Documentation related to the checklist item.
  * @param {boolean} [component.enableLinks] - Flag to enable or disable links in the component.
- * @returns {React.ReactElement} The rendered custom field element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
 export function renderSjekklistepunkText(component) {
     const data = component?.resourceValues?.data;

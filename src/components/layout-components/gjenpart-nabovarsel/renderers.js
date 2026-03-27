@@ -126,7 +126,7 @@ function renderAnsvarligSoekerElement(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.tiltakshaver] - The resource binding for the "tiltakshaver".
  * @param {string} [component.resourceBindings.tiltakshaver.title] - The title for the "tiltakshaver" field.
- * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 function renderTiltakshaverElement(component) {
     const data = component?.resourceValues?.data;
@@ -154,7 +154,7 @@ function renderTiltakshaverElement(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for the "ansvarligSoeker".
  * @param {Object} [component.resourceBindings.tiltakshaver] - The resource binding for the "tiltakshaver".
- * @returns {React.ReactElement} The rendered custom field data element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderSoekerElement(component) {
     const data = component?.resourceValues?.data;
