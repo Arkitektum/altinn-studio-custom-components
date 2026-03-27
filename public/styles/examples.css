@@ -7,6 +7,8 @@
     --background-transition-default: background-color 150ms;
     --font-family-default: "Roboto Flex", Arial, sans-serif;
     --color-text-default: #1c1b1d;
+    --color-background-primary: #1e6ab9;
+    --color-background-primary-hover: #3179c4;
 }
 
 @keyframes spin {
@@ -49,7 +51,7 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             padding: 0;
             overflow-y: auto;
-            background-color: #101214;
+            background-color: #14171a;
             color: #fff;
             z-index: 1;
             & h2 {
@@ -72,9 +74,9 @@
                         background-color: rgba(255, 255, 255, 0.1);
                     }
                     &.active {
-                        background-color: rgba(40, 143, 255, 0.7);
+                        background-color: var(--color-background-primary);
                         &:hover {
-                            background-color: rgba(61, 155, 255, 0.75);
+                            background-color: var(--color-background-primary-hover);
                         }
                     }
                     & .type-input {
@@ -183,7 +185,7 @@
                 align-items: center;
                 & button {
                     width: 100%;
-                    background-color: #287fff;
+                    background-color: var(--color-background-primary);
                     color: #fff;
                     border: none;
                     cursor: pointer;
@@ -195,7 +197,7 @@
                     font-family: var(--font-family-default);
                     transition: var(--background-transition-default);
                     &:hover {
-                        background-color: #3d9bff;
+                        background-color: var(--color-background-primary-hover);
                     }
                 }
                 & span.last-updated {
@@ -660,6 +662,73 @@
                     &:hover {
                         outline: 1px solid #999;
                         outline-style: auto;
+                    }
+                }
+            }
+        }
+    }
+    body.start-page {
+        background-color: #101214;
+        color: #fff;
+        font-family: var(--font-family-default);
+        margin: 0;
+        padding: 0;
+        & a {
+            color: #287fff;
+            text-decoration: none;
+            transition: var(--background-transition-default);
+            &:hover {
+                color: #3d9bff;
+            }
+        }
+        & main.main-intro {
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+            & h1 {
+                font-size: 32px;
+                margin: 0 0 16px;
+                color: #fff;
+            }
+            & p {
+                font-size: 18px;
+                max-width: 600px;
+                margin: 0;
+                color: #ccc;
+            }
+            /* two main menu buttons */
+            & .main-menu {
+                margin-top: 32px;
+                display: flex;
+                gap: 24px;
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                    display: flex;
+                    gap: 24px;
+                    & li {
+                        & a {
+                            background-color: var(--color-background-primary);
+                            color: #fff;
+                            border: none;
+                            cursor: pointer;
+                            padding: 12px 24px;
+                            text-align: center;
+                            text-transform: uppercase;
+                            font-size: 16px;
+                            border-radius: 4px;
+                            font-family: var(--font-family-default);
+                            transition: var(--background-transition-default);
+                            display: block;
+                            min-width: 120px;
+                        }
+                        & a:hover {
+                            background-color: var(--color-background-primary-hover);
+                        }
                     }
                 }
             }
