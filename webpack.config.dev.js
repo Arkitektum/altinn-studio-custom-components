@@ -52,7 +52,11 @@ module.exports = {
     },
     devServer: {
         historyApiFallback: {
-            rewrites: [{ from: /^\/statistics/, to: "/statistics.html" }]
+            rewrites: [
+                { from: /^\/statistics/, to: "/statistics.html" },
+                { from: /^\/devTools/, to: "/devTools.html" },
+                { from: /./, to: "/index.html" }
+            ]
         },
         static: [
             {
