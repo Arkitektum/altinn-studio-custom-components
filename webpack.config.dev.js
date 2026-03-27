@@ -1,4 +1,5 @@
 const path = require("node:path");
+const Dotenv = require('dotenv-webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -15,6 +16,7 @@ module.exports = {
         path: path.resolve(__dirname, "dist")
     },
     plugins: [
+        new Dotenv(),
         new MiniCssExtractPlugin(),
         new ResourceGeneratorPlugin({
             input: path.resolve(__dirname, "src/data/resources.json"),
