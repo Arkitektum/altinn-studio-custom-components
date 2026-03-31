@@ -10,8 +10,6 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 
 // Local functions
 import {
-    renderAnsvarligSoekerAdresse,
-    renderAnsvarligSoekerTable,
     renderBegrunnelseFordeler,
     renderBegrunnelseHeader,
     renderBegrunnelseHensynBakBestemmelsen,
@@ -20,20 +18,19 @@ import {
     renderBegrunnelseVurderingHensynBakBestemmelsen,
     renderBegrunnelseVurderingHensynOverordnet,
     renderBestemmelserType,
-    renderDispensasjonBeskrivelse,
     renderDispensasjonFraHeader,
     renderDispensasjonHeader,
-    renderDispensasjonPlanBestemmelseNavn,
-    renderDispensasjonReferanse,
+    renderDispensasjonsbeskrivelse,
+    renderDispensasjonsreferanse,
     renderEiendomTable,
     renderGenerelleVilkaarNorskSvenskDansk,
     renderGenerelleVilkaarNorskSvenskDanskHeader,
-    renderInngangsbeskrivelse,
     renderKommunensSaksnummer,
     renderMetadataFtbId,
     renderNasjonalArealplanIdPlanIdentifikasjon,
     renderOensketVarighet,
     renderPlanBestemmelseNummerering,
+    renderPlannavn,
     renderSoeknadGjelderHeader,
     renderStedfestingHeader,
     renderStedfestingPosisjonKoordinater,
@@ -41,8 +38,8 @@ import {
     renderStedfestingVertikalnivaa,
     renderTiltakshaverAdresse,
     renderTiltakshaverTable,
-    renderTiltakstyperTypeHeader,
-    renderTiltakstyperTypeKode,
+    renderTiltakstyperHeader,
+    renderTiltakstyperKode,
     renderVarighetHeader
 } from "./renderers.js";
 
@@ -58,22 +55,19 @@ export default customElements.define(
             } else {
                 const layoutContainerElement = renderLayoutContainerElement();
                 const dispensasjonHeaderElement = renderDispensasjonHeader(component);
-                const dispensasjonsreferanseElement = renderDispensasjonReferanse(component);
+                const dispensasjonsreferanseElement = renderDispensasjonsreferanse(component);
                 const metadataFtbIdElement = renderMetadataFtbId(component);
                 const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
                 const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(component);
                 const eiendomTableElement = renderEiendomTable(component);
-                const tiltakstyperTypeHeaderElement = renderTiltakstyperTypeHeader(component);
-                const tiltakstyperTypeKodeElement = renderTiltakstyperTypeKode(component);
+                const tiltakstyperHeaderElement = renderTiltakstyperHeader(component);
+                const tiltakstyperKodeElement = renderTiltakstyperKode(component);
                 const tiltakshaverTableElement = renderTiltakshaverTable(component);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(component);
-                const ansvarligSoekerTableElement = renderAnsvarligSoekerTable(component);
-                const ansvarligSoekerAdresseElement = renderAnsvarligSoekerAdresse(component);
                 const dispensasjonHeader2Element = renderDispensasjonHeader(component, "h2");
-                const inngangsbeskrivelseElement = renderInngangsbeskrivelse(component);
-                const dispensasjonBeskrivelseElement = renderDispensasjonBeskrivelse(component);
+                const dispensasjonsbeskrivelseElement = renderDispensasjonsbeskrivelse(component);
                 const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(component);
-                const dispensasjonPlanBestemmelseNavnElement = renderDispensasjonPlanBestemmelseNavn(component);
+                const plannavnElement = renderPlannavn(component);
                 const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(component);
                 const bestemmelserTypeElement = renderBestemmelserType(component);
                 const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(component);
@@ -107,32 +101,26 @@ export default customElements.define(
                 appendChildren(layoutContainerElement, [
                     soeknadGjelderHeaderElement,
                     eiendomTableElement,
-                    tiltakstyperTypeHeaderElement,
-                    tiltakstyperTypeKodeElement
+                    tiltakstyperHeaderElement,
+                    tiltakstyperKodeElement
                 ]);
 
                 // Soeker
-                if (hasValue(component?.resourceValues?.data?.ansvarligSoeker)) {
-                    appendChildren(layoutContainerElement, [ansvarligSoekerTableElement, ansvarligSoekerAdresseElement]);
-                } else if (hasValue(component?.resourceValues?.data?.tiltakshaver)) {
+                if (hasValue(component?.resourceValues?.data?.tiltakshaver)) {
                     appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);
                 }
 
                 // Dispensasjonsbeskrivelse
-                appendChildren(layoutContainerElement, [dispensasjonHeader2Element, inngangsbeskrivelseElement, dispensasjonBeskrivelseElement]);
+                appendChildren(layoutContainerElement, [dispensasjonHeader2Element, dispensasjonsbeskrivelseElement]);
 
                 // Dispensasjon fra
-                if (component.isPlanBestemmelseType) {
-                    appendChildren(layoutContainerElement, [
-                        dispensasjonFraHeaderElement,
-                        dispensasjonPlanBestemmelseNavnElement,
-                        nasjonalArealplanIdPlanIdentifikasjonElement,
-                        bestemmelserTypeElement,
-                        planBestemmelseNummereringElement
-                    ]);
-                } else {
-                    appendChildren(layoutContainerElement, [dispensasjonFraHeaderElement, bestemmelserTypeElement]);
-                }
+                appendChildren(layoutContainerElement, [
+                    dispensasjonFraHeaderElement,
+                    plannavnElement,
+                    nasjonalArealplanIdPlanIdentifikasjonElement,
+                    bestemmelserTypeElement,
+                    planBestemmelseNummereringElement
+                ]);
 
                 // Stedfesting
                 appendChildren(layoutContainerElement, [
