@@ -1,5 +1,6 @@
 import Dispensasjon from "./Dispensasjon.js";
 import Kode from "../data-classes/Kode.js";
+import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.js";
 
 describe("Dispensasjon", () => {
     const baseProps = {
@@ -32,7 +33,7 @@ describe("Dispensasjon", () => {
         expect(disp.generelleVilkaar).toEqual(["vilkaar1", "vilkaar2"]);
         expect(disp.kommunensSaksnummer).toBeDefined();
         expect(disp.metadata).toBeDefined();
-        expect(disp.nasjonalArealplanId).toBeInstanceOf(Kode);
+        expect(disp.nasjonalArealplanId).toBeInstanceOf(NasjonalArealplanId);
         expect(disp.paragrafnummer).toBe("§1");
         expect(disp.plannavn).toBe("plan");
         expect(disp.stedfesting).toBeDefined();

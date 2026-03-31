@@ -4,6 +4,7 @@ import EiendomByggested from "../data-classes/EiendomByggested.js";
 import Kode from "../data-classes/Kode.js";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
 import Metadata from "../data-classes/Metadata.js";
+import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.js";
 import Part from "../data-classes/Part.js";
 import Stedfesting from "../data-classes/Stedfesting.js";
 import Varighet from "../data-classes/Varighet.js";
@@ -47,7 +48,7 @@ export default class Dispensasjon {
         this.generelleVilkaar = props?.generelleVilkaar;
         this.kommunensSaksnummer = props?.kommunensSaksnummer && new KommunensSaksnummer(props.kommunensSaksnummer);
         this.metadata = props?.metadata && new Metadata(props.metadata);
-        this.nasjonalArealplanId = props?.nasjonalArealplanId && new Kode(props.nasjonalArealplanId);
+        this.nasjonalArealplanId = props?.nasjonalArealplanId && new NasjonalArealplanId(props.nasjonalArealplanId);
         this.paragrafnummer = props?.paragrafnummer;
         this.plannavn = props?.plannavn;
         this.stedfesting = props?.stedfesting && new Stedfesting(props.stedfesting);
