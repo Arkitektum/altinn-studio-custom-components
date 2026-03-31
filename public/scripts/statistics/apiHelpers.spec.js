@@ -48,13 +48,12 @@ describe("fetchAppResources", () => {
 });
 
 describe("fetchDefaultTextResources", () => {
-    it("returns JSON on ok", async () => {
-        fetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({ def: 4 }) });
-        await expect(fetchDefaultTextResources()).resolves.toEqual({ def: 4 });
-    });
-    it("throws on not ok", async () => {
-        fetch.mockResolvedValue({ ok: false, statusText: "fail" });
-        await expect(fetchDefaultTextResources()).rejects.toThrow("Failed to fetch default text resources: fail");
+    it("returns the local JSON export", () => {
+        const resources = fetchDefaultTextResources();
+        // Should be the imported array from resources.json
+        expect(Array.isArray(resources)).toBe(true);
+        expect(resources.length).toBeGreaterThan(0);
+        expect(resources[0]).toHaveProperty("id");
     });
 });
 
@@ -81,16 +80,16 @@ describe("fetchAltinnStudioForms", () => {
 });
 
 describe("getUpdatedApiData", () => {
-    it("returns all data in order", async () => {
-        const data = [1, 2, 3, 4, 5];
+    it("returns all data in order, with local defaultTextResources", async () => {
+        // Arrange: mock fetch for the 4 fetch-based calls (skip for fetchDefaultTextResources)
         fetch
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(1) })
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(2) })
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(3) })
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(4) })
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) });
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(2) }) // layouts
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(3) }) // packageVersions
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(4) }) // appResources
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }); // exampleData
         // Mock showLoadingIndicator to avoid DOM side effects
         jest.spyOn(require("./renderers.js"), "showLoadingIndicator").mockImplementation(() => {});
-        await expect(getUpdatedApiData()).resolves.toEqual(data);
+        const defaultTextResources = fetchDefaultTextResources();
+        await expect(getUpdatedApiData()).resolves.toEqual([defaultTextResources, 2, 3, 4, 5]);
     });
 });
