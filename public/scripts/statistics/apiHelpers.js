@@ -1,6 +1,9 @@
 // Local functions
 import { showLoadingIndicator } from "./renderers.js";
 
+// Data
+import defaultTextResources from "../../../src/data/resources.json";
+
 const API_PORT = process?.env?.API_PORT || 9001;
 
 /**
@@ -76,24 +79,11 @@ export async function fetchAppResources(language) {
 /**
  * Fetches default text resources from the local API endpoint.
  *
- * @async
  * @function fetchDefaultTextResources
- * @returns {Promise<Object>} A promise that resolves to the default text resources as a JSON object.
- * @throws {Error} If the fetch request fails or the response is not OK.
+ * @returns {Object} The default text resources as a JSON object.
  */
-export async function fetchDefaultTextResources() {
-    const url = `http://localhost:${API_PORT}/api/resources`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch default text resources: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error) => {
-            console.error("Error fetching default text resources:", error);
-            throw error;
-        });
+export function fetchDefaultTextResources() {
+    return defaultTextResources;
 }
 
 /**

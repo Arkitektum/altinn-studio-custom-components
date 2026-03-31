@@ -6,6 +6,7 @@ import {
     getValueFromLocalStorage,
     getValuesFromLocalStorage
 } from "../localStorage.js";
+import { fetchDefaultTextResources, getUpdatedApiData } from "./apiHelpers.js";
 import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.js";
 import {
     getMissingResourceBindings,
@@ -14,19 +15,12 @@ import {
     getUsageForResources
 } from "../validators.js";
 import { renderAdminSidebar, renderSynchronizeButton } from "./renderers.js";
-import { getUpdatedApiData } from "./apiHelpers.js";
 
 export function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
     return {
         lastUpdated,
-        ...getValuesFromLocalStorage([
-            "multilingualDefaultTextResources",
-            "displayLayouts",
-            "packageVersions",
-            "multilingualAppResourceValues",
-            "exampleData"
-        ])
+        ...getValuesFromLocalStorage(["displayLayouts", "packageVersions", "multilingualAppResourceValues", "exampleData"])
     };
 }
 
@@ -52,13 +46,13 @@ export function getAllTextResourceUsage(displayLayouts, appResourceValues, defau
 }
 
 globalThis.onload = async function () {
-    let { multilingualDefaultTextResources, displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, lastUpdated } =
-        getDataFromLocalStorage();
-    if (!multilingualDefaultTextResources || !displayLayouts || !packageVersions || !multilingualAppResourceValues || !exampleData) {
-        [multilingualDefaultTextResources, displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] = await getUpdatedApiData();
+    let { displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, lastUpdated } = getDataFromLocalStorage();
+    if (!displayLayouts || !packageVersions || !multilingualAppResourceValues || !exampleData) {
+        [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] = await getUpdatedApiData();
         lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
     }
+    const multilingualDefaultTextResources = fetchDefaultTextResources();
     const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, "nb");
     const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, "nb");
     addValuesToLocalStorage({
