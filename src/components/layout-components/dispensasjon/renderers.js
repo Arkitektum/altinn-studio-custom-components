@@ -275,7 +275,7 @@ export function renderDispensasjonsbeskrivelse(component) {
             data: data?.dispensasjonsbeskrivelse
         }
     });
-    return createCustomElement("custom-field-data", htmlAttributes);
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
 /**
