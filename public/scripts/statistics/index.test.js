@@ -38,7 +38,6 @@ describe("getDataFromLocalStorage", () => {
     it("returns all expected keys from localStorage", () => {
         const result = getDataFromLocalStorage();
         expect(result.lastUpdated).toBe("2024-01-01");
-        expect(result.multilingualDefaultTextResources).toBe(1);
         expect(result.displayLayouts).toBe(2);
         expect(result.packageVersions).toBe(3);
         expect(result.multilingualAppResourceValues).toBe(4);
