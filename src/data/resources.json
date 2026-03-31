@@ -192,13 +192,13 @@
         }
     },
     {
-        "id": "resource.dispensasjon.dispensasjonReferanse.title",
+        "id": "resource.dispensasjon.dispensasjonsreferanse.title",
         "values": {
             "nb": "Dispensasjonsreferanse"
         }
     },
     {
-        "id": "resource.dispensasjonBeskrivelse.beskrivelse.title",
+        "id": "resource.dispensasjonsbeskrivelse.title",
         "values": {
             "nb": "Beskrivelse av tiltak"
         }
@@ -210,13 +210,13 @@
         }
     },
     {
-        "id": "resource.dispensasjonFra.dispensasjonPlanBestemmelse.navn.title",
+        "id": "resource.navn.title",
         "values": {
             "nb": "Navn"
         }
     },
     {
-        "id": "resource.dispensasjonFra.dispensasjonPlanBestemmelse.planbestemmelse.nummerering.title",
+        "id": "resource.planbestemmelse.title",
         "values": {
             "nb": "Planbestemmelse"
         }
