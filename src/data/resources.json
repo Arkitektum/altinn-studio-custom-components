@@ -1224,7 +1224,7 @@
         }
     },
     {
-        "id": "resource.respons.erMerknadEllerSamtykkeMottatt.title",
+        "id": "resource.status.title",
         "values": {
             "nb": "Status"
         }

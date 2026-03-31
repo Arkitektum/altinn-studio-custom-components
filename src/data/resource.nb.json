@@ -818,7 +818,7 @@
             "value": "Ikke svar"
         },
         {
-            "id": "resource.respons.erMerknadEllerSamtykkeMottatt.title",
+            "id": "resource.status.title",
             "value": "Status"
         },
         {
