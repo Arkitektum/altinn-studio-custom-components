@@ -2503,11 +2503,11 @@ __metadata:
   linkType: hard
 
 "@sinonjs/fake-timers@npm:^15.0.0":
-  version: 15.1.2
-  resolution: "@sinonjs/fake-timers@npm:15.1.2"
+  version: 15.2.0
+  resolution: "@sinonjs/fake-timers@npm:15.2.0"
   dependencies:
     "@sinonjs/commons": "npm:^3.0.1"
-  checksum: 10c0/6a89bb1546142b50ea598c301a715d9345957ce88acda192c6cec26314107c36a36799faa647dbc32f4870c88e4ba7b29ff30d2493923ef623ff0b4bf65f3608
+  checksum: 10c0/4e5529670f2c564dd5beab08b7f1946a07aa9fe86ff75729bc6137f1bf68060c282bea8bc4e2094edd5ad75397f37ae2b924bea0e59908d41a1ec2733748b19f
   languageName: node
   linkType: hard
 
