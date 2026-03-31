@@ -52,7 +52,7 @@ describe("CustomDispensasjon", () => {
         it("should set resourceBindings and resourceValues", () => {
             hasValue.mockReturnValue(false);
             const instance = new CustomDispensasjon({ formData: null });
-            expect(instance.resourceBindings).toHaveProperty("dispensasjonReferanse");
+            expect(instance.resourceBindings).toHaveProperty("dispensasjonsreferanse");
             expect(instance.resourceValues).toHaveProperty("data");
         });
     });
@@ -102,49 +102,12 @@ describe("CustomDispensasjon", () => {
         });
     });
 
-    describe("dataIsPlanBestemmelseType", () => {
-        it("returns true for reguleringsplan", () => {
-            const instance = new CustomDispensasjon({});
-            const data = {
-                dispensasjonFra: {
-                    bestemmelserType: { kodebeskrivelse: "reguleringsplan" }
-                }
-            };
-            expect(instance.dataIsPlanBestemmelseType(data)).toBe(true);
-        });
-
-        it("returns true for kommuneplan (case insensitive)", () => {
-            const instance = new CustomDispensasjon({});
-            const data = {
-                dispensasjonFra: {
-                    bestemmelserType: { kodebeskrivelse: "KOMMUNEPLAN" }
-                }
-            };
-            expect(instance.dataIsPlanBestemmelseType(data)).toBe(true);
-        });
-
-        it("returns false for unknown type", () => {
-            const instance = new CustomDispensasjon({});
-            const data = {
-                dispensasjonFra: {
-                    bestemmelserType: { kodebeskrivelse: "otherplan" }
-                }
-            };
-            expect(instance.dataIsPlanBestemmelseType(data)).toBe(false);
-        });
-
-        it("returns false if data is missing", () => {
-            const instance = new CustomDispensasjon({});
-            expect(instance.dataIsPlanBestemmelseType({})).toBe(false);
-        });
-    });
-
     describe("getResourceBindings", () => {
         it("returns an object with expected keys and values", () => {
             const instance = new CustomDispensasjon({});
             const bindings = instance.getResourceBindings();
-            expect(bindings).toHaveProperty("dispensasjonReferanse");
-            expect(bindings.dispensasjonReferanse).toHaveProperty("title");
+            expect(bindings).toHaveProperty("dispensasjonsreferanse");
+            expect(bindings.dispensasjonsreferanse).toHaveProperty("title");
             expect(bindings.varighetOenskesVarigDispensasjon).toHaveProperty("trueText");
             expect(bindings.generelleVilkaarNorskSvenskDansk).toHaveProperty("title");
             expect(bindings.generelleVilkaarNorskSvenskDansk).toHaveProperty("trueText");
