@@ -37,11 +37,9 @@ export default class CustomDispensasjon extends CustomComponent {
         const resourceBindings = this.getResourceBindings();
 
         const isEmpty = !this.hasContent(data);
-        const isPlanBestemmelseType = this.dataIsPlanBestemmelseType(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
-        this.isPlanBestemmelseType = isPlanBestemmelseType;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
@@ -82,29 +80,14 @@ export default class CustomDispensasjon extends CustomComponent {
     }
 
     /**
-     * Checks if the given dispensasjon object has a bestemmelserType code description
-     * that matches one of the predefined plan bestemmelse types.
-     *
-     * @param {Object} data - The dispensasjon object to check.
-     * @param {Object} [data.dispensasjonFra] - The object containing details about the dispensasjon.
-     * @param {Object} [data.dispensasjonFra.bestemmelserType] - The object containing the type of bestemmelse.
-     * @param {string} [data.dispensasjonFra.bestemmelserType.kodebeskrivelse] - The code description of the bestemmelse type.
-     * @returns {boolean} - Returns true if the code description matches one of the predefined plan bestemmelse types, otherwise false.
-     */
-    dataIsPlanBestemmelseType(data) {
-        const planBestemmelseTypeValues = ["reguleringsplan", "kommuneplan", "kommunedelplan"];
-        return planBestemmelseTypeValues.includes(data?.dispensasjonFra?.bestemmelserType?.kodebeskrivelse?.toLowerCase());
-    }
-
-    /**
      * Returns an object mapping resource binding keys to their corresponding resource titles and, where applicable, additional properties such as `trueText`.
      *
      * @returns {Object} An object where each key represents a resource binding and the value is an object containing resource title strings and optional properties.
      */
     getResourceBindings() {
         return {
-            dispensasjonReferanse: {
-                title: "resource.dispensasjon.dispensasjonReferanse.title"
+            dispensasjonsreferanse: {
+                title: "resource.dispensasjon.dispensasjonsreferanse.title"
             },
             metadataFtbId: {
                 title: "resource.metadata.ftbId.title"
@@ -115,26 +98,23 @@ export default class CustomDispensasjon extends CustomComponent {
             soeknadGjelderHeader: {
                 title: "resource.soeknadGjelder.title"
             },
-            tiltakstyperTypeHeader: {
+            tiltakstyperHeader: {
                 title: "resource.tiltakstyper.type.header"
             },
-            tiltakstyperTypeKode: {
+            tiltakstyperKode: {
                 title: "resource.tiltakstyper.type.kode.title"
             },
             tiltakshaverAdresse: {
                 title: "resource.eiendom.adresse.title"
             },
-            ansvarligSoekerAdresse: {
-                title: "resource.eiendom.adresse.title"
-            },
-            dispensasjonBeskrivelseBeskrivelse: {
-                title: "resource.dispensasjonBeskrivelse.beskrivelse.title"
+            dispensasjonsbeskrivelse: {
+                title: "resource.dispensasjonsbeskrivelse.title"
             },
             dispensasjonFraHeader: {
                 title: "resource.dispensasjonFra.header"
             },
-            dispensasjonPlanBestemmelseNavn: {
-                title: "resource.dispensasjonFra.dispensasjonPlanBestemmelse.navn.title"
+            plannavn: {
+                title: "resource.navn.title"
             },
             nasjonalArealplanIdPlanIdentifikasjon: {
                 title: "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title"
@@ -142,8 +122,8 @@ export default class CustomDispensasjon extends CustomComponent {
             bestemmelserType: {
                 title: "resource.dispensasjonFra.bestemmelserType.title"
             },
-            planBestemmelseNummerering: {
-                title: "resource.dispensasjonFra.dispensasjonPlanBestemmelse.planbestemmelse.nummerering.title"
+            paragrafnummer: {
+                title: "resource.planbestemmelse.title"
             },
             stedfestingHeader: {
                 title: "resource.stedfesting.header"
