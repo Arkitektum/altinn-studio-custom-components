@@ -10,7 +10,7 @@ import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, 
  */
 export function renderDispensasjonHeader(component, size = "h1") {
     const data = component?.resourceValues?.data;
-    const title = data?.dispensasjonBeskrivelse?.dispensasjonTittel?.kodebeskrivelse;
+    const title = data?.dispensasjonstema?.kodebeskrivelse;
     if (!hasValue(title)) {
         return null;
     }
@@ -25,14 +25,14 @@ export function renderDispensasjonHeader(component, size = "h1") {
 }
 
 /**
- * Renders a custom field data component for "dispensasjonReferanse".
+ * Renders a custom field data component for "dispensasjonsreferanse".
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} component.resourceValues - The resource values for the component.
  * @param {Object} component.resourceBindings - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field data component wrapped in a container element.
  */
-export function renderDispensasjonReferanse(component) {
+export function renderDispensasjonsreferanse(component) {
     const data = component?.resourceValues?.data;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -40,10 +40,10 @@ export function renderDispensasjonReferanse(component) {
         hideIfEmpty: true,
         grid,
         resourceBindings: {
-            title: component.resourceBindings?.dispensasjonReferanse?.title
+            title: component.resourceBindings?.dispensasjonsreferanse?.title
         },
         resourceValues: {
-            data: data?.dispensasjonReferanse
+            data: data?.dispensasjonsreferanse
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes), grid);
@@ -153,15 +153,15 @@ export function renderEiendomTable(component) {
 }
 
 /**
- * Renders a custom header text element for the "tiltakstyper type" if the relevant data exists.
+ * Renders a custom header text element for the "tiltakstyper" if the relevant data exists.
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {string} [size="h3"] - The size of the header, defaults to "h3".
  * @returns {HTMLElement|null} The custom header element if data is present, otherwise null.
  */
-export function renderTiltakstyperTypeHeader(component, size = "h3") {
+export function renderTiltakstyperHeader(component, size = "h3") {
     const data = component?.resourceValues?.data;
-    const hasValue = data?.tiltakstyper?.type?.kode?.length > 0;
+    const hasValue = data?.tiltakstyper?.kode?.length > 0;
     if (!hasValue) {
         return null;
     }
@@ -169,34 +169,34 @@ export function renderTiltakstyperTypeHeader(component, size = "h3") {
         isChildComponent: true,
         size,
         resourceBindings: {
-            title: component.resourceBindings?.tiltakstyperTypeHeader?.title
+            title: component.resourceBindings?.tiltakstyperHeader?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
 }
 
 /**
- * Renders a custom list data element for "tiltakstyperTypeKode" using the provided component's resource values and bindings.
+ * Renders a custom list data element for "tiltakstyperKode" using the provided component's resource values and bindings.
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} [component.resourceValues] - The resource values associated with the component.
  * @param {Object} [component.resourceValues.data] - The data object containing tiltakstyper information.
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.tiltakstyperTypeKode] - The resource binding for tiltakstyperTypeKode.
- * @param {string} [component.resourceBindings.tiltakstyperTypeKode.title] - The title for the tiltakstyperTypeKode.
+ * @param {Object} [component.resourceBindings.tiltakstyperKode] - The resource binding for tiltakstyperKode.
+ * @param {string} [component.resourceBindings.tiltakstyperKode.title] - The title for the tiltakstyperKode.
  * @returns {HTMLElement} The rendered custom list data element wrapped in a container element.
  */
-export function renderTiltakstyperTypeKode(component) {
+export function renderTiltakstyperKode(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
         itemKey: "kodebeskrivelse",
         resourceBindings: {
-            title: component.resourceBindings?.tiltakstyperTypeKode?.title
+            title: component.resourceBindings?.tiltakstyperKode?.title
         },
         resourceValues: {
-            data: data?.tiltakstyper?.type?.kode
+            data: data?.tiltakstyper?.kode
         }
     });
     return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
@@ -253,116 +253,33 @@ export function renderTiltakshaverAdresse(component) {
 }
 
 /**
- * Renders a custom table part for "Ansvarlig Søker" using provided component data.
- *
- * @param {Object} component - The component containing resource values.
- * @param {Object} component.resourceValues - The resource values object.
- * @param {Object} component.resourceValues.data - The data object containing "ansvarligSoeker".
- * @returns {HTMLElement} The custom table part element for "Ansvarlig Søker".
- */
-export function renderAnsvarligSoekerTable(component) {
-    const data = component?.resourceValues?.data;
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        partType: "ansvarligSoeker",
-        hideIfEmpty: true,
-        size: "h2",
-        resourceValues: {
-            data: data?.ansvarligSoeker
-        }
-    });
-
-    return createCustomElement("custom-table-part", htmlAttributes);
-}
-
-/**
- * Renders the "Ansvarlig Soeker Adresse" custom field component.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @returns {HTMLElement} The rendered custom field address element wrapped in a container.
- */
-export function renderAnsvarligSoekerAdresse(component) {
-    const data = component?.resourceValues?.data;
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: true,
-        resourceBindings: {
-            title: component.resourceBindings?.ansvarligSoekerAdresse?.title
-        },
-        resourceValues: {
-            data: data?.ansvarligSoeker?.adresse
-        }
-    });
-
-    return addContainerElement(createCustomElement("custom-field-adresse", htmlAttributes));
-}
-
-/**
- * Renders the "inngangsbeskrivelse" (entrance description) field for a dispensasjon component.
- *
- * This function checks if either the "annenInngangsbeskrivelse" (other entrance description)
- * or the "inngangsbeskrivelse.kodebeskrivelse" (entrance description code description) has a value.
- * If neither has a value, it returns null and does not render anything.
- *
- * If the "soeknadstype.kodebeskrivelse" (application type code description) is "Annet" (Other),
- * it binds the "annenInngangsbeskrivelse" as the data; otherwise, it uses the "inngangsbeskrivelse.kodebeskrivelse".
- * The function creates a custom element with these bindings and wraps it in a container element.
- *
- * @param {Object} component - The component object containing resource values and data.
- * @returns {HTMLElement|null} The rendered custom field element or null if no relevant data is present.
- */
-export function renderInngangsbeskrivelse(component) {
-    const data = component?.resourceValues?.data;
-    if (
-        !hasValue(data?.dispensasjonBeskrivelse?.annenInngangsbeskrivelse) &&
-        !hasValue(data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse)
-    ) {
-        return null;
-    }
-    const condition = data?.soeknadstype?.kodebeskrivelse === "Annet";
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: false,
-        resourceValues: {
-            data: condition,
-            trueData: data?.dispensasjonBeskrivelse?.annenInngangsbeskrivelse,
-            falseData: data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse,
-            defaultData: data?.dispensasjonBeskrivelse?.inngangsbeskrivelse?.kodebeskrivelse
-        }
-    });
-    return addContainerElement(createCustomElement("custom-field-boolean-data", htmlAttributes));
-}
-
-/**
- * Renders the "dispensasjonBeskrivelse" custom field component.
+ * Renders the "dispensasjonsbeskrivelse" custom field component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "dispensasjonBeskrivelse".
+ * @param {Object} [component.resourceValues.data] - The data object containing "dispensasjonsbeskrivelse".
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.dispensasjonBeskrivelseBeskrivelse] - The resource binding for the title.
- * @param {string} [component.resourceBindings.dispensasjonBeskrivelseBeskrivelse.title] - The title for the custom field.
+ * @param {Object} [component.resourceBindings.dispensasjonsbeskrivelse] - The resource binding for the title.
+ * @param {string} [component.resourceBindings.dispensasjonsbeskrivelse.title] - The title for the custom field.
  * @returns {HTMLElement} The rendered custom field element.
  */
-export function renderDispensasjonBeskrivelse(component) {
+export function renderDispensasjonsbeskrivelse(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component.resourceBindings?.dispensasjonBeskrivelseBeskrivelse?.title
+            title: component.resourceBindings?.dispensasjonsbeskrivelse?.title
         },
         resourceValues: {
-            data: data?.dispensasjonBeskrivelse?.beskrivelse
+            data: data?.dispensasjonsbeskrivelse
         }
     });
     return createCustomElement("custom-field-data", htmlAttributes);
 }
 
 /**
- * Renders a custom field displaying the name of the "dispensasjon plan bestemmelse".
+ * Renders a custom field displaying the name of the "plannavn".
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} [component.resourceValues] - The resource values for the component.
@@ -370,16 +287,16 @@ export function renderDispensasjonBeskrivelse(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
-export function renderDispensasjonPlanBestemmelseNavn(component) {
+export function renderPlannavn(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component.resourceBindings?.dispensasjonPlanBestemmelseNavn?.title
+            title: component.resourceBindings?.plannavn?.title
         },
         resourceValues: {
-            data: data?.dispensasjonFra?.dispensasjonPlanBestemmelse?.navn
+            data: data?.plannavn
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
@@ -426,7 +343,7 @@ export function renderNasjonalArealplanIdPlanIdentifikasjon(component) {
             title: component.resourceBindings?.nasjonalArealplanIdPlanIdentifikasjon?.title
         },
         resourceValues: {
-            data: data?.dispensasjonFra?.dispensasjonPlanBestemmelse?.nasjonalArealplanId?.planidentifikasjon
+            data: data?.nasjonalArealplanId?.planidentifikasjon
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
@@ -453,7 +370,7 @@ export function renderBestemmelserType(component) {
             title: component.resourceBindings?.bestemmelserType?.title
         },
         resourceValues: {
-            data: component.isPlanBestemmelseType ? data?.dispensasjonFra?.bestemmelserType?.kodebeskrivelse : data?.dispensasjonFra?.lovbestemmelse
+            data: data?.bestemmelsestype?.kodebeskrivelse
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
@@ -477,10 +394,10 @@ export function renderPlanBestemmelseNummerering(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component.resourceBindings?.planBestemmelseNummerering?.title
+            title: component.resourceBindings?.paragrafnummer?.title
         },
         resourceValues: {
-            data: data?.dispensasjonFra?.dispensasjonPlanBestemmelse?.planbestemmelse?.nummerering
+            data: data?.paragrafnummer
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));

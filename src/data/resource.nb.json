@@ -130,11 +130,11 @@
             "value": "Det er varslet om"
         },
         {
-            "id": "resource.dispensasjon.dispensasjonReferanse.title",
+            "id": "resource.dispensasjon.dispensasjonsreferanse.title",
             "value": "Dispensasjonsreferanse"
         },
         {
-            "id": "resource.dispensasjonBeskrivelse.beskrivelse.title",
+            "id": "resource.dispensasjonsbeskrivelse.title",
             "value": "Beskrivelse av tiltak"
         },
         {
@@ -142,11 +142,11 @@
             "value": "Bestemmelsestype"
         },
         {
-            "id": "resource.dispensasjonFra.dispensasjonPlanBestemmelse.navn.title",
+            "id": "resource.navn.title",
             "value": "Navn"
         },
         {
-            "id": "resource.dispensasjonFra.dispensasjonPlanBestemmelse.planbestemmelse.nummerering.title",
+            "id": "resource.planbestemmelse.title",
             "value": "Planbestemmelse"
         },
         {

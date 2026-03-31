@@ -1,78 +1,78 @@
-import Begrunnelse from "../data-classes/Begrunnelse.js";
-import Dispensasjon from "./Dispensasjon";
-import DispensasjonBeskrivelse from "../data-classes/DispensasjonBeskrivelse.js";
-import DispensasjonFra from "../data-classes/DispensasjonFra.js";
-import EiendomByggested from "../data-classes/EiendomByggested.js";
+import Dispensasjon from "./Dispensasjon.js";
 import Kode from "../data-classes/Kode.js";
-import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
-import Metadata from "../data-classes/Metadata.js";
-import Part from "../data-classes/Part.js";
-import Stedfesting from "../data-classes/Stedfesting.js";
-import Varighet from "../data-classes/Varighet.js";
 
 describe("Dispensasjon", () => {
-    it("should initialize with all properties when valid props are provided", () => {
-        const props = {
-            dispensasjonBeskrivelse: { description: "Test description" },
-            dispensasjonReferanse: "REF123",
-            soeknadstype: { code: "TYPE1" },
-            kommunensSaksnummer: { number: "12345" },
-            metadata: { createdBy: "user" },
-            eiendomByggested: { address: "Test address" },
-            tiltakshaver: { name: "Test Party" },
-            ansvarligSoeker: { name: "Test Applicant" },
-            dispensasjonFra: { reason: "Test reason" },
-            stedfesting: { location: "Test location" },
-            varighet: { duration: "1 year" },
-            begrunnelse: { justification: "Test justification" },
-            generelleVilkaar: "Test conditions"
-        };
+    const baseProps = {
+        begrunnelse: { hensynBakBestemmelsen: "test" },
+        bestemmelsestype: { kodeverdi: "A", kodebeskrivelse: "desc" },
+        dispensasjonsbeskrivelse: "desc",
+        dispensasjonsreferanse: "ref",
+        dispensasjonstema: { kodeverdi: "B", kodebeskrivelse: "tema" },
+        eiendomByggested: { eiendom: [] },
+        generelleVilkaar: ["vilkaar1", "vilkaar2"],
+        kommunensSaksnummer: { saksaar: 2024, sakssekvensnummer: 1 },
+        metadata: { ftbId: "id", prosjektnavn: "navn", prosjektnr: "nr" },
+        nasjonalArealplanId: { kodeverdi: "C", kodebeskrivelse: "plan" },
+        paragrafnummer: "§1",
+        plannavn: "plan",
+        stedfesting: { posisjon: { koordinater: "1,2" } },
+        tiltakshaver: { navn: "Ola" },
+        varighet: { oenskesVarigDispensasjon: true, oensketVarighetTil: "2026-01-01" },
+        tiltakstyper: { kode: [{ kodeverdi: "X", kodebeskrivelse: "typeX" }] }
+    };
 
-        const instance = new Dispensasjon(props);
-
-        expect(instance.dispensasjonBeskrivelse).toBeInstanceOf(DispensasjonBeskrivelse);
-        expect(instance.dispensasjonReferanse).toBe("REF123");
-        expect(instance.soeknadstype).toBeInstanceOf(Kode);
-        expect(instance.kommunensSaksnummer).toBeInstanceOf(KommunensSaksnummer);
-        expect(instance.metadata).toBeInstanceOf(Metadata);
-        expect(instance.eiendomByggested).toBeInstanceOf(EiendomByggested);
-        expect(instance.tiltakshaver).toBeInstanceOf(Part);
-        expect(instance.ansvarligSoeker).toBeInstanceOf(Part);
-        expect(instance.dispensasjonFra).toBeInstanceOf(DispensasjonFra);
-        expect(instance.stedfesting).toBeInstanceOf(Stedfesting);
-        expect(instance.varighet).toBeInstanceOf(Varighet);
-        expect(instance.begrunnelse).toBeInstanceOf(Begrunnelse);
-        expect(instance.generelleVilkaar).toBe("Test conditions");
+    it("should construct with all properties", () => {
+        const disp = new Dispensasjon(baseProps);
+        expect(disp.begrunnelse).toBeDefined();
+        expect(disp.bestemmelsestype).toBeInstanceOf(Kode);
+        expect(disp.dispensasjonsbeskrivelse).toBe("desc");
+        expect(disp.dispensasjonsreferanse).toBe("ref");
+        expect(disp.dispensasjonstema).toBeInstanceOf(Kode);
+        expect(disp.eiendomByggested).toBeDefined();
+        expect(disp.generelleVilkaar).toEqual(["vilkaar1", "vilkaar2"]);
+        expect(disp.kommunensSaksnummer).toBeDefined();
+        expect(disp.metadata).toBeDefined();
+        expect(disp.nasjonalArealplanId).toBeInstanceOf(Kode);
+        expect(disp.paragrafnummer).toBe("§1");
+        expect(disp.plannavn).toBe("plan");
+        expect(disp.stedfesting).toBeDefined();
+        expect(disp.tiltakshaver).toBeDefined();
+        expect(disp.varighet).toBeDefined();
+        expect(disp.tiltakstyper).toBeDefined();
+        expect(Array.isArray(disp.tiltakstyper.kode)).toBe(true);
+        expect(disp.tiltakstyper.kode[0]).toBeInstanceOf(Kode);
     });
 
-    it("should initialize with undefined properties when no props are provided", () => {
-        const instance = new Dispensasjon({});
-
-        expect(instance.dispensasjonBeskrivelse).toBeUndefined();
-        expect(instance.dispensasjonReferanse).toBeUndefined();
-        expect(instance.soeknadstype).toBeUndefined();
-        expect(instance.kommunensSaksnummer).toBeUndefined();
-        expect(instance.metadata).toBeUndefined();
-        expect(instance.eiendomByggested).toBeUndefined();
-        expect(instance.tiltakshaver).toBeUndefined();
-        expect(instance.dispensasjonFra).toBeUndefined();
-        expect(instance.stedfesting).toBeUndefined();
-        expect(instance.varighet).toBeUndefined();
-        expect(instance.begrunnelse).toBeUndefined();
-        expect(instance.generelleVilkaar).toBeUndefined();
+    it("should handle missing props gracefully", () => {
+        const disp = new Dispensasjon();
+        expect(disp.begrunnelse).toBeUndefined();
+        expect(disp.tiltakstyper).toBeUndefined();
     });
 
-    it("should handle partial props correctly", () => {
-        const props = {
-            dispensasjonReferanse: "REF123",
-            generelleVilkaar: "Test conditions"
-        };
+    describe("getTiltakstyperFromProps", () => {
+        it("should return null if no tiltakstyper", () => {
+            const disp = new Dispensasjon({});
+            expect(disp.getTiltakstyperFromProps({})).toBeNull();
+        });
+        it("should return kode array if tiltakstyper present", () => {
+            const disp = new Dispensasjon();
+            const result = disp.getTiltakstyperFromProps({ tiltakstyper: { kode: [{ kodeverdi: "A", kodebeskrivelse: "desc" }] } });
+            expect(result).toHaveProperty("kode");
+            expect(Array.isArray(result.kode)).toBe(true);
+            expect(result.kode[0]).toBeInstanceOf(Kode);
+        });
+    });
 
-        const instance = new Dispensasjon(props);
-
-        expect(instance.dispensasjonBeskrivelse).toBeUndefined();
-        expect(instance.dispensasjonReferanse).toBe("REF123");
-        expect(instance.soeknadstype).toBeUndefined();
-        expect(instance.generelleVilkaar).toBe("Test conditions");
+    describe("getKodeFromType", () => {
+        it("should return null if kode is not array", () => {
+            const disp = new Dispensasjon();
+            expect(disp.getKodeFromType({})).toBeNull();
+        });
+        it("should return array of Kode if kode is array", () => {
+            const disp = new Dispensasjon();
+            const arr = disp.getKodeFromType({ kode: [{ kodeverdi: "A", kodebeskrivelse: "desc" }] });
+            expect(Array.isArray(arr)).toBe(true);
+            expect(arr[0]).toBeInstanceOf(Kode);
+        });
     });
 });
