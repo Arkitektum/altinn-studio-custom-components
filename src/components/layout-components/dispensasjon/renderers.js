@@ -253,6 +253,56 @@ export function renderTiltakshaverAdresse(component) {
 }
 
 /**
+ * Renders a custom table part for the "tiltakshaver.kontaktperson" data.
+ *
+ * @param {Object} component - The component object containing resource values.
+ * @param {Object} component.resourceValues - The resource values associated with the component.
+ * @param {Object} component.resourceValues.data - The data object containing "tiltakshaver.kontaktperson".
+ * @returns {HTMLElement} The custom table part element for "tiltakshaver.kontaktperson".
+ */
+export function renderTiltakshaverKontaktpersonTable(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        partType: "tiltakshaver.kontaktperson",
+        hideIfEmpty: true,
+        size: "h2",
+        resourceValues: {
+            data: data?.tiltakshaver?.kontaktperson
+        }
+    });
+
+    return createCustomElement("custom-table-part", htmlAttributes);
+}
+
+/**
+ * Renders a custom field for the "tiltakshaver.kontaktperson.adresse" data.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} component.resourceValues - The resource values associated with the component.
+ * @param {Object} component.resourceValues.data - The data object containing "tiltakshaver.kontaktperson.adresse".
+ * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} component.resourceBindings.tiltakshaverKontaktpersonAdresse - The resource binding for the title.
+ * @param {string} component.resourceBindings.tiltakshaverKontaktpersonAdresse.title - The title for the custom field.
+ * @returns {HTMLElement} The rendered custom field element for "tiltakshaver.kontaktperson.adresse".
+ */
+export function renderTiltakshaverKontaktpersonAdresse(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component.resourceBindings?.tiltakshaverKontaktpersonAdresse?.title
+        },
+        resourceValues: {
+            data: data?.tiltakshaver?.kontaktperson?.adresse
+        }
+    });
+
+    return addContainerElement(createCustomElement("custom-field-adresse", htmlAttributes));
+}
+
+/**
  * Renders the "dispensasjonsbeskrivelse" custom field component.
  *
  * @param {Object} component - The component object containing resource values and bindings.

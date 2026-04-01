@@ -1,5 +1,5 @@
 // Dependencies
-import { appendChildren, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
@@ -37,6 +37,8 @@ import {
     renderStedfestingPosisjonKoordinatsystem,
     renderStedfestingVertikalnivaa,
     renderTiltakshaverAdresse,
+    renderTiltakshaverKontaktpersonAdresse,
+    renderTiltakshaverKontaktpersonTable,
     renderTiltakshaverTable,
     renderTiltakstyperHeader,
     renderTiltakstyperKode,
@@ -64,6 +66,8 @@ export default customElements.define(
                 const tiltakstyperKodeElement = renderTiltakstyperKode(component);
                 const tiltakshaverTableElement = renderTiltakshaverTable(component);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(component);
+                const tiltakshaverKontaktpersonTableElement = renderTiltakshaverKontaktpersonTable(component);
+                const tiltakshaverKontaktpersonAdresseElement = renderTiltakshaverKontaktpersonAdresse(component);
                 const dispensasjonHeader2Element = renderDispensasjonHeader(component, "h2");
                 const dispensasjonsbeskrivelseElement = renderDispensasjonsbeskrivelse(component);
                 const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(component);
@@ -105,10 +109,13 @@ export default customElements.define(
                     tiltakstyperKodeElement
                 ]);
 
-                // Soeker
-                if (hasValue(component?.resourceValues?.data?.tiltakshaver)) {
-                    appendChildren(layoutContainerElement, [tiltakshaverTableElement, tiltakshaverAdresseElement]);
-                }
+                // Tiltakshaver
+                appendChildren(layoutContainerElement, [
+                    tiltakshaverTableElement,
+                    tiltakshaverAdresseElement,
+                    tiltakshaverKontaktpersonTableElement,
+                    tiltakshaverKontaktpersonAdresseElement
+                ]);
 
                 // Dispensasjonsbeskrivelse
                 appendChildren(layoutContainerElement, [dispensasjonHeader2Element, dispensasjonsbeskrivelseElement]);
