@@ -168,8 +168,8 @@ export function renderEiendomByggestedElement(component) {
  */
 export function renderTiltakstyperHeader(component, size = "h3") {
     const data = component?.resourceValues?.data;
-    const hasValue = data?.tiltakstyper?.kode?.length > 0;
-    if (!hasValue) {
+    const hasTiltakstyperKode = data?.tiltakstyper?.kode?.length > 0;
+    if (!hasTiltakstyperKode) {
         return null;
     }
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -822,8 +822,8 @@ export function renderBegrunnelseSamletBegrunnelse(component) {
  */
 export function renderGenerelleVilkaarNorskSvenskDanskHeader(component, size = "h2") {
     const data = component?.resourceValues?.data;
-    const condition = data?.generelleVilkaar?.norskSvenskDansk;
-    if (!condition) {
+    const hasNorskSvenskDansk = data?.generelleVilkaar?.norskSvenskDansk;
+    if (!hasNorskSvenskDansk) {
         return null;
     }
     const htmlAttributes = new CustomElementHtmlAttributes({
