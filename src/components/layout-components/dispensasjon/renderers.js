@@ -136,14 +136,21 @@ export function renderSoeknadGjelderHeader(component, size = "h2") {
  * @param {string} component.resourceBindings.eiendomByggested.title - The title for the property table.
  * @returns {HTMLElement} The custom table element for displaying property data.
  */
-export function renderEiendomTable(component) {
+export function renderEiendomByggestedElement(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
         size: "h3",
         resourceBindings: {
-            title: component.resourceBindings?.eiendomByggested?.title
+            title: component.resourceBindings?.eiendomByggested?.title,
+            adresse: component?.resourceBindings?.adresse,
+            eiendomsidentifikasjonGaardsnummer: component?.resourceBindings?.eiendomsidentifikasjonGaardsnummer,
+            eiendomsidentifikasjonBruksnummer: component?.resourceBindings?.eiendomsidentifikasjonBruksnummer,
+            eiendomsidentifikasjonSeksjonsnummer: component?.resourceBindings?.eiendomsidentifikasjonSeksjonsnummer,
+            eiendomsidentifikasjonFestenummer: component?.resourceBindings?.eiendomsidentifikasjonFestenummer,
+            bolignummer: component?.resourceBindings?.bolignummer,
+            bygningsnummer: component?.resourceBindings?.bygningsnummer
         },
         resourceValues: {
             data: data?.eiendomByggested?.eiendom
@@ -210,13 +217,28 @@ export function renderTiltakstyperKode(component) {
  * @param {Object} component.resourceValues.data - The data object containing "tiltakshaver".
  * @returns {HTMLElement} The custom table part element for "tiltakshaver".
  */
-export function renderTiltakshaverTable(component) {
+export function renderTiltakshaver(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         partType: "tiltakshaver",
         hideIfEmpty: true,
         size: "h2",
+        resourceBindings: {
+            title: component.resourceBindings?.tiltakshaver?.title,
+            navn: {
+                title: component.resourceBindings?.tiltakshaverNavn?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverNavn?.emptyFieldText
+            },
+            telefonnummer: {
+                title: component.resourceBindings?.tiltakshaverTelefonnummer?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText
+            },
+            epost: {
+                title: component.resourceBindings?.tiltakshaverEpost?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverEpost?.emptyFieldText
+            }
+        },
         resourceValues: {
             data: data?.tiltakshaver
         }
@@ -260,13 +282,28 @@ export function renderTiltakshaverAdresse(component) {
  * @param {Object} component.resourceValues.data - The data object containing "tiltakshaver.kontaktperson".
  * @returns {HTMLElement} The custom table part element for "tiltakshaver.kontaktperson".
  */
-export function renderTiltakshaverKontaktpersonTable(component) {
+export function renderTiltakshaverKontaktperson(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         partType: "tiltakshaver.kontaktperson",
         hideIfEmpty: true,
         size: "h2",
+        resourceBindings: {
+            title: component.resourceBindings?.tiltakshaverKontaktperson?.title,
+            navn: {
+                title: component.resourceBindings?.tiltakshaverKontaktpersonNavn?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverKontaktpersonNavn?.emptyFieldText
+            },
+            telefonnummer: {
+                title: component.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.emptyFieldText
+            },
+            epost: {
+                title: component.resourceBindings?.tiltakshaverKontaktpersonEpost?.title,
+                emptyFieldText: component.resourceBindings?.tiltakshaverKontaktpersonEpost?.emptyFieldText
+            }
+        },
         resourceValues: {
             data: data?.tiltakshaver?.kontaktperson
         }
@@ -400,24 +437,24 @@ export function renderNasjonalArealplanIdPlanIdentifikasjon(component) {
 }
 
 /**
- * Renders a custom field data element for "Bestemmelser Type" based on the provided component.
+ * Renders a custom field data element for "Bestemmelsestype" based on the provided component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} [component.resourceValues] - The resource values associated with the component.
  * @param {Object} [component.resourceValues.data] - The data object containing information for rendering.
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.bestemmelserType] - The bindings for "bestemmelserType".
- * @param {string} [component.resourceBindings.bestemmelserType.title] - The title binding for "bestemmelserType".
+ * @param {Object} [component.resourceBindings.bestemmelsestype] - The bindings for "bestemmelsestype".
+ * @param {string} [component.resourceBindings.bestemmelsestype.title] - The title binding for "bestemmelsestype".
  * @param {boolean} [component.isPlanBestemmelseType] - Flag indicating if the component is of type "PlanBestemmelse".
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
-export function renderBestemmelserType(component) {
+export function renderBestemmelsestype(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component.resourceBindings?.bestemmelserType?.title
+            title: component.resourceBindings?.bestemmelsestype?.title
         },
         resourceValues: {
             data: data?.bestemmelsestype?.kodebeskrivelse
@@ -427,9 +464,9 @@ export function renderBestemmelserType(component) {
 }
 
 /**
- * Renders the "PlanBestemmelseNummerering" custom field component.
+ * Renders the "Paragrafnummer" custom field component.
  *
- * This function creates a custom element for displaying the numbering of a plan determination,
+ * This function creates a custom element for displaying the paragraph number of a plan determination,
  * using resource bindings and values from the provided component object.
  *
  * @param {Object} component - The component object containing resource values and bindings.
@@ -438,7 +475,7 @@ export function renderBestemmelserType(component) {
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
-export function renderPlanBestemmelseNummerering(component) {
+export function renderParagrafnummer(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -467,7 +504,7 @@ export function renderStedfestingHeader(component) {
         isChildComponent: true,
         size: "h2",
         resourceBindings: {
-            title: component.resourceBindings?.stedfestingHeader?.title
+            title: component.resourceBindings?.stedfesting?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -558,7 +595,7 @@ export function renderVarighetHeader(component, size = "h2") {
         isChildComponent: true,
         size,
         resourceBindings: {
-            title: component.resourceBindings?.varighetHeader?.title
+            title: component.resourceBindings?.varighet?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -616,7 +653,7 @@ export function renderBegrunnelseHeader(component, size = "h2") {
         isChildComponent: true,
         size,
         resourceBindings: {
-            title: component.resourceBindings?.begrunnelseHeader?.title
+            title: component.resourceBindings?.begrunnelse?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);

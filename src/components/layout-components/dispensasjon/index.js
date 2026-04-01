@@ -17,29 +17,29 @@ import {
     renderBegrunnelseUlemper,
     renderBegrunnelseVurderingHensynBakBestemmelsen,
     renderBegrunnelseVurderingHensynOverordnet,
-    renderBestemmelserType,
+    renderBestemmelsestype,
     renderDispensasjonFraHeader,
     renderDispensasjonHeader,
     renderDispensasjonsbeskrivelse,
     renderDispensasjonsreferanse,
-    renderEiendomTable,
+    renderEiendomByggestedElement,
     renderGenerelleVilkaarNorskSvenskDansk,
     renderGenerelleVilkaarNorskSvenskDanskHeader,
     renderKommunensSaksnummer,
     renderMetadataFtbId,
     renderNasjonalArealplanIdPlanIdentifikasjon,
     renderOensketVarighet,
-    renderPlanBestemmelseNummerering,
+    renderParagrafnummer,
     renderPlannavn,
     renderSoeknadGjelderHeader,
     renderStedfestingHeader,
     renderStedfestingPosisjonKoordinater,
     renderStedfestingPosisjonKoordinatsystem,
     renderStedfestingVertikalnivaa,
+    renderTiltakshaver,
     renderTiltakshaverAdresse,
+    renderTiltakshaverKontaktperson,
     renderTiltakshaverKontaktpersonAdresse,
-    renderTiltakshaverKontaktpersonTable,
-    renderTiltakshaverTable,
     renderTiltakstyperHeader,
     renderTiltakstyperKode,
     renderVarighetHeader
@@ -61,20 +61,20 @@ export default customElements.define(
                 const metadataFtbIdElement = renderMetadataFtbId(component);
                 const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
                 const soeknadGjelderHeaderElement = renderSoeknadGjelderHeader(component);
-                const eiendomTableElement = renderEiendomTable(component);
+                const eiendomByggestedElement = renderEiendomByggestedElement(component);
                 const tiltakstyperHeaderElement = renderTiltakstyperHeader(component);
                 const tiltakstyperKodeElement = renderTiltakstyperKode(component);
-                const tiltakshaverTableElement = renderTiltakshaverTable(component);
+                const tiltakshaverElement = renderTiltakshaver(component);
                 const tiltakshaverAdresseElement = renderTiltakshaverAdresse(component);
-                const tiltakshaverKontaktpersonTableElement = renderTiltakshaverKontaktpersonTable(component);
+                const tiltakshaverKontaktpersonElement = renderTiltakshaverKontaktperson(component);
                 const tiltakshaverKontaktpersonAdresseElement = renderTiltakshaverKontaktpersonAdresse(component);
                 const dispensasjonHeader2Element = renderDispensasjonHeader(component, "h2");
                 const dispensasjonsbeskrivelseElement = renderDispensasjonsbeskrivelse(component);
                 const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(component);
                 const plannavnElement = renderPlannavn(component);
                 const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(component);
-                const bestemmelserTypeElement = renderBestemmelserType(component);
-                const planBestemmelseNummereringElement = renderPlanBestemmelseNummerering(component);
+                const bestemmelsestypeElement = renderBestemmelsestype(component);
+                const paragrafnummerElement = renderParagrafnummer(component);
                 const stedfestingHeaderElement = renderStedfestingHeader(component);
                 const stedfestingPosisjonKoordinatsystemElement = renderStedfestingPosisjonKoordinatsystem(component);
                 const stedfestingPosisjonKoordinaterElement = renderStedfestingPosisjonKoordinater(component);
@@ -104,16 +104,16 @@ export default customElements.define(
                 // Soeknad gjelder
                 appendChildren(layoutContainerElement, [
                     soeknadGjelderHeaderElement,
-                    eiendomTableElement,
+                    eiendomByggestedElement,
                     tiltakstyperHeaderElement,
                     tiltakstyperKodeElement
                 ]);
 
                 // Tiltakshaver
                 appendChildren(layoutContainerElement, [
-                    tiltakshaverTableElement,
+                    tiltakshaverElement,
                     tiltakshaverAdresseElement,
-                    tiltakshaverKontaktpersonTableElement,
+                    tiltakshaverKontaktpersonElement,
                     tiltakshaverKontaktpersonAdresseElement
                 ]);
 
@@ -125,8 +125,8 @@ export default customElements.define(
                     dispensasjonFraHeaderElement,
                     plannavnElement,
                     nasjonalArealplanIdPlanIdentifikasjonElement,
-                    bestemmelserTypeElement,
-                    planBestemmelseNummereringElement
+                    bestemmelsestypeElement,
+                    paragrafnummerElement
                 ]);
 
                 // Stedfesting
