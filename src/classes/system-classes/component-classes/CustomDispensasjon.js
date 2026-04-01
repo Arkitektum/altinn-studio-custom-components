@@ -34,7 +34,7 @@ export default class CustomDispensasjon extends CustomComponent {
     constructor(props) {
         super(props);
         const data = this.getValueFromFormData(props);
-        const resourceBindings = this.getResourceBindings();
+        const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
@@ -80,96 +80,167 @@ export default class CustomDispensasjon extends CustomComponent {
     }
 
     /**
-     * Returns an object mapping resource binding keys to their corresponding resource titles and, where applicable, additional properties such as `trueText`.
+     * Retrieves and maps resource binding keys for localization based on provided properties.
      *
-     * @returns {Object} An object where each key represents a resource binding and the value is an object containing resource title strings and optional properties.
+     * @param {Object} props - The properties object containing resource binding information.
+     * @returns {Object} An object containing mapped resource binding keys for localization.
      */
-    getResourceBindings() {
+    getResourceBindings(props) {
         return {
             dispensasjonsreferanse: {
-                title: "resource.dispensasjon.dispensasjonsreferanse.title"
+                title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjon.dispensasjonsreferanse.title"
             },
             metadataFtbId: {
-                title: "resource.metadata.ftbId.title"
+                title: props?.resourceBindings?.metadataFtbId?.title || "resource.metadata.ftbId.title"
             },
             kommunensSaksnummer: {
-                title: "resource.kommunensSaksnummer.title"
+                title: props?.resourceBindings?.kommunensSaksnummer?.title || "resource.kommunensSaksnummer.title"
             },
             soeknadGjelderHeader: {
-                title: "resource.soeknadGjelder.title"
+                title: props?.resourceBindings?.soeknadGjelderHeader?.title || "resource.soeknadGjelder.title"
+            },
+            eiendomByggested: {
+                title: props?.resourceBindings?.eiendomByggested?.title || "resource.eiendomByggested.eiendom.title"
+            },
+            adresse: {
+                title: props?.resourceBindings?.adresse?.title || "resource.eiendom.adresse.title",
+                emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
+            },
+            eiendomsidentifikasjonGaardsnummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title || "resource.eiendom.gaardsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomsidentifikasjonBruksnummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title || "resource.eiendom.bruksnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomsidentifikasjonSeksjonsnummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title || "resource.eiendom.seksjonsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomsidentifikasjonFestenummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title || "resource.eiendom.festenummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            bolignummer: {
+                title: props?.resourceBindings?.bolignummer?.title || "resource.eiendom.bolignummer.title",
+                emptyFieldText: props?.resourceBindings?.bolignummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            bygningsnummer: {
+                title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendom.bygningsnummer.title",
+                emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakstyperHeader: {
-                title: "resource.tiltakstyper.type.header"
+                title: props?.resourceBindings?.tiltakstyperHeader?.title || "resource.tiltakstyper.type.header"
             },
             tiltakstyperKode: {
-                title: "resource.tiltakstyper.type.kode.title"
+                title: props?.resourceBindings?.tiltakstyperKode?.title || "resource.tiltakstyper.type.kode.title"
+            },
+            tiltakshaver: {
+                title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
+            },
+            tiltakshaverNavn: {
+                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.part.navn.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverTelefonnummer: {
+                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.part.telefonnummer.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverEpost: {
+                title: props?.resourceBindings?.tiltakshaverEpost?.title || "resource.part.epost.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverAdresse: {
-                title: "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.tiltakshaverAdresse?.title || "resource.eiendom.adresse.title"
+            },
+
+            tiltakshaverKontaktperson: {
+                title: props?.resourceBindings?.tiltakshaverKontaktperson?.title || "resource.tiltakshaver.kontaktperson.title"
+            },
+            tiltakshaverKontaktpersonNavn: {
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.title || "resource.part.navn.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverKontaktpersonTelefonnummer: {
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.title || "resource.part.telefonnummer.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverKontaktpersonEpost: {
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonEpost?.title || "resource.part.epost.title",
+                emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonEpost?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltakshaverKontaktpersonAdresse: {
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonAdresse?.title || "resource.eiendom.adresse.title"
             },
             dispensasjonsbeskrivelse: {
-                title: "resource.dispensasjonsbeskrivelse.title"
+                title: props?.resourceBindings?.dispensasjonsbeskrivelse?.title || "resource.dispensasjonsbeskrivelse.title"
             },
             dispensasjonFraHeader: {
-                title: "resource.dispensasjonFra.header"
+                title: props?.resourceBindings?.dispensasjonFraHeader?.title || "resource.dispensasjonFra.header"
             },
             plannavn: {
-                title: "resource.navn.title"
+                title: props?.resourceBindings?.plannavn?.title || "resource.navn.title"
             },
             nasjonalArealplanIdPlanIdentifikasjon: {
-                title: "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title"
+                title:
+                    props?.resourceBindings?.nasjonalArealplanIdPlanIdentifikasjon?.title ||
+                    "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title"
             },
-            bestemmelserType: {
-                title: "resource.dispensasjonFra.bestemmelserType.title"
+            bestemmelsestype: {
+                title: props?.resourceBindings?.bestemmelsestype?.title || "resource.dispensasjonFra.bestemmelsestype.title"
             },
             paragrafnummer: {
-                title: "resource.planbestemmelse.title"
+                title: props?.resourceBindings?.paragrafnummer?.title || "resource.planbestemmelse.title"
             },
-            stedfestingHeader: {
-                title: "resource.stedfesting.header"
+            stedfesting: {
+                title: props?.resourceBindings?.stedfesting?.title || "resource.stedfesting.title"
             },
             stedfestingPosisjonKoordinatsystem: {
-                title: "resource.stedfesting.posisjon.koordinatsystem.title"
+                title: props?.resourceBindings?.stedfestingPosisjonKoordinatsystem?.title || "resource.stedfesting.posisjon.koordinatsystem.title"
             },
             stedfestingPosisjonKoordinater: {
-                title: "resource.stedfesting.posisjon.koordinater.title"
+                title: props?.resourceBindings?.stedfestingPosisjonKoordinater?.title || "resource.stedfesting.posisjon.koordinater.title"
             },
             stedfestingVertikalnivaa: {
-                title: "resource.stedfesting.vertikalnivaa.title"
+                title: props?.resourceBindings?.stedfestingVertikalnivaa?.title || "resource.stedfesting.vertikalnivaa.title"
             },
-            varighetHeader: {
-                title: "resource.varighet.header"
+            varighet: {
+                title: props?.resourceBindings?.varighet?.title || "resource.varighet.title"
             },
             varighetOenskesVarigDispensasjon: {
-                trueText: "resource.varighet.oenskesVarigDispensasjon.true.title"
+                trueText: props?.resourceBindings?.varighetOenskesVarigDispensasjon?.trueText || "resource.varighet.oenskesVarigDispensasjon.trueText"
             },
             varighetOensketVarighetTil: {
-                title: "resource.varighet.oensketVarighetTil.title"
+                title: props?.resourceBindings?.varighetOensketVarighetTil?.title || "resource.varighet.oensketVarighetTil.title"
             },
-            begrunnelseHeader: {
-                title: "resource.begrunnelse.header"
+            begrunnelse: {
+                title: props?.resourceBindings?.begrunnelse?.title || "resource.begrunnelse.title"
             },
             begrunnelseHensynBakBestemmelsen: {
-                title: "resource.begrunnelse.hensynBakBestemmelsen.title"
+                title: props?.resourceBindings?.begrunnelseHensynBakBestemmelsen?.title || "resource.begrunnelse.hensynBakBestemmelsen.title"
             },
             begrunnelseVurderingHensynBakBestemmelsen: {
-                title: "resource.begrunnelse.vurderingHensynBakBestemmelsen.title"
+                title:
+                    props?.resourceBindings?.begrunnelseVurderingHensynBakBestemmelsen?.title ||
+                    "resource.begrunnelse.vurderingHensynBakBestemmelsen.title"
             },
             begrunnelseVurderingHensynOverordnet: {
-                title: "resource.begrunnelse.vurderingHensynOverordnet.title"
+                title: props?.resourceBindings?.begrunnelseVurderingHensynOverordnet?.title || "resource.begrunnelse.vurderingHensynOverordnet.title"
             },
             begrunnelseFordeler: {
-                title: "resource.begrunnelse.fordeler.title"
+                title: props?.resourceBindings?.begrunnelseFordeler?.title || "resource.begrunnelse.fordeler.title"
             },
             begrunnelseUlemper: {
-                title: "resource.begrunnelse.ulemper.title"
+                title: props?.resourceBindings?.begrunnelseUlemper?.title || "resource.begrunnelse.ulemper.title"
             },
             begrunnelseSamletBegrunnelse: {
-                title: "resource.begrunnelse.samletBegrunnelse.title"
+                title: props?.resourceBindings?.begrunnelseSamletBegrunnelse?.title || "resource.begrunnelse.samletBegrunnelse.title"
             },
             generelleVilkaarNorskSvenskDansk: {
-                title: "resource.generelleVilkaar.norskSvenskDansk.header",
-                trueText: "resource.generelleVilkaar.norskSvenskDansk.true.title"
+                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.generelleVilkaar.norskSvenskDansk.header",
+                trueText:
+                    props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.trueText || "resource.generelleVilkaar.norskSvenskDansk.true.title"
             }
         };
     }

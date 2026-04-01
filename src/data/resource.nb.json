@@ -58,7 +58,7 @@
             "value": "Liste med fordeler"
         },
         {
-            "id": "resource.begrunnelse.header",
+            "id": "resource.begrunnelse.title",
             "value": "Begrunnelse"
         },
         {
@@ -138,7 +138,7 @@
             "value": "Beskrivelse av tiltak"
         },
         {
-            "id": "resource.dispensasjonFra.bestemmelserType.title",
+            "id": "resource.dispensasjonFra.bestemmelsestype.title",
             "value": "Bestemmelsestype"
         },
         {
@@ -970,7 +970,7 @@
             "value": "Tiltakstyper"
         },
         {
-            "id": "resource.stedfesting.header",
+            "id": "resource.stedfesting.title",
             "value": "Stedfesting"
         },
         {
@@ -1062,11 +1062,11 @@
             "value": "Vi vil utføre arbeidene innen"
         },
         {
-            "id": "resource.varighet.header",
+            "id": "resource.varighet.title",
             "value": "Varighet"
         },
         {
-            "id": "resource.varighet.oenskesVarigDispensasjon.true.title",
+            "id": "resource.varighet.oenskesVarigDispensasjon.trueText",
             "value": "Ønskes permanent dispensasjon"
         },
         {

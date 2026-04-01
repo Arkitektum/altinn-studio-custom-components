@@ -84,7 +84,7 @@
         }
     },
     {
-        "id": "resource.begrunnelse.header",
+        "id": "resource.begrunnelse.title",
         "values": {
             "nb": "Begrunnelse"
         }
@@ -204,7 +204,7 @@
         }
     },
     {
-        "id": "resource.dispensasjonFra.bestemmelserType.title",
+        "id": "resource.dispensasjonFra.bestemmelsestype.title",
         "values": {
             "nb": "Bestemmelsestype"
         }
@@ -1452,7 +1452,7 @@
         }
     },
     {
-        "id": "resource.stedfesting.header",
+        "id": "resource.stedfesting.title",
         "values": {
             "nb": "Stedfesting"
         }
@@ -1590,13 +1590,13 @@
         }
     },
     {
-        "id": "resource.varighet.header",
+        "id": "resource.varighet.title",
         "values": {
             "nb": "Varighet"
         }
     },
     {
-        "id": "resource.varighet.oenskesVarigDispensasjon.true.title",
+        "id": "resource.varighet.oenskesVarigDispensasjon.trueText",
         "values": {
             "nb": "Ønskes permanent dispensasjon"
         }
