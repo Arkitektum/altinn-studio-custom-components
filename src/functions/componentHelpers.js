@@ -76,158 +76,94 @@ import CustomTablePlan from "../classes/system-classes/component-classes/CustomT
 // Global functions
 import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";
 
+export function getComponentForTagName(tagName) {
+    const tagNameLower = tagName.toLowerCase();
+    const componentMap = {
+        "custom-component": CustomComponent,
+        "custom-description-list": CustomDescriptionList,
+        "custom-description-list-data": CustomDescriptionListData,
+        "custom-dispensasjon": CustomDispensasjon,
+        "custom-dispensasjonsvarsel": CustomDispensasjonsvarsel,
+        "custom-divider": CustomDivider,
+        "custom-feedback": CustomFeedback,
+        "custom-feedback-data": CustomFeedbackData,
+        "custom-feedbacklist-data": CustomFeedbacklistData,
+        "custom-feedbacklist-validation-messages": CustomFeedbacklistValidationMessages,
+        "custom-field": CustomField,
+        "custom-field-adresse": CustomFieldAdresse,
+        "custom-field-boolean-data": CustomFieldBooleanData,
+        "custom-field-boolean-text": CustomFieldBooleanText,
+        "custom-field-count-data": CustomFieldCountData,
+        "custom-field-data": CustomFieldData,
+        "custom-field-kode": CustomFieldKode,
+        "custom-field-kommunens-saksnummer": CustomFieldKommunensSaksnummer,
+        "custom-field-list-data": CustomFieldListData,
+        "custom-field-part-navn": CustomFieldPartNavn,
+        "custom-field-prosjekt": CustomFieldProsjekt,
+        "custom-field-telefonnummer": CustomFieldTelefonnummer,
+        "custom-field-utfall-svar-status": CustomFieldUtfallSvarStatus,
+        "custom-gjennomfoeringsplan": CustomGjennomfoeringsplan,
+        "custom-gjenpart-nabovarsel": CustomGjenpartNabovarsel,
+        "custom-group-adkomst": CustomGroupAdkomst,
+        "custom-group-ansvarsrett-erklaeringer": CustomGroupAnsvarsrettErklaeringer,
+        "custom-group-avloep": CustomGroupAvloep,
+        "custom-group-ettersending": CustomGroupEttersending,
+        "custom-group-kontroll-ansvarsomraade": CustomGroupKontrollAnsvarsomraade,
+        "custom-group-kontroll-erklaeringer": CustomGroupKontrollErklaeringer,
+        "custom-group-loefteinnretninger": CustomGroupLoefteinnretninger,
+        "custom-group-nabo-gjenboer-eiendom": CustomGroupNaboGjenboerEiendom,
+        "custom-group-overvann": CustomGroupOvervann,
+        "custom-group-rammebetingelser-tilknytninger": CustomGroupRammebetingelserTilknytninger,
+        "custom-group-samsvar-ansvarsomraade": CustomGroupSamsvarAnsvarsomraade,
+        "custom-group-samsvar-erklaeringer": CustomGroupSamsvarErklaeringer,
+        "custom-group-sjekklistekrav": CustomGroupSjekklistekrav,
+        "custom-group-utfall-svar": CustomGroupUtfallSvar,
+        "custom-group-utfall-svar-type": CustomGroupUtfallSvarType,
+        "custom-group-vannforsyning": CustomGroupVannforsyning,
+        "custom-group-vegtype-tillatelse": CustomGroupVegtypeTillatelse,
+        "custom-grouplist-ansvarsomraade-type": CustomGrouplistAnsvarsomraadeType,
+        "custom-grouplist-ettersending": CustomGrouplistEttersending,
+        "custom-grouplist-nabo-gjenboer-eiendom": CustomGrouplistNaboGjenboerEiendom,
+        "custom-grouplist-samsvar-ansvarsomraade": CustomGrouplistSamsvarAnsvarsomraade,
+        "custom-grouplist-sjekklistekrav": CustomGrouplistSjekklistekrav,
+        "custom-grouplist-utfall-svar": CustomGrouplistUtfallSvar,
+        "custom-grouplist-utfall-svar-type": CustomGrouplistUtfallSvarType,
+        "custom-grouplist-vegtype-tillatelse": CustomGrouplistVegtypeTillatelse,
+        "custom-header": CustomHeader,
+        "custom-header-text": CustomHeaderText,
+        "custom-header-text-data": CustomHeaderTextData,
+        "custom-list": CustomList,
+        "custom-list-data": CustomListData,
+        "custom-list-planlagte-loefteinnretninger": CustomListPlanlagteLoefteinnretninger,
+        "custom-list-vedlegg": CustomListVedlegg,
+        "custom-paragraph": CustomParagraph,
+        "custom-paragraph-text": CustomParagraphText,
+        "custom-subheader-text": CustomSubHeaderText,
+        "custom-summation": CustomSummation,
+        "custom-summation-arealdisponering": CustomSummationArealdisponering,
+        "custom-summation-data": CustomSummationData,
+        "custom-table": CustomTable,
+        "custom-table-ansvarsomraade": CustomTableAnsvarsomraade,
+        "custom-table-ansvarsrett-ansvarsomraade": CustomTableAnsvarsrettAnsvarsomraade,
+        "custom-table-arbeidsplasser": CustomTableArbeidsplasser,
+        "custom-table-data": CustomTableData,
+        "custom-table-eiendom": CustomTableEiendom,
+        "custom-table-nabo-gjenboer-eiendom": CustomTableNaboGjenboerEiendom,
+        "custom-table-omraaderisiko": CustomTableOmraaderisiko,
+        "custom-table-part": CustomTablePart,
+        "custom-table-plan": CustomTablePlan
+    };
+    return componentMap[tagNameLower] || null;
+}
+
 export function instantiateComponent(element) {
-    const component = element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element;
-    const tagName = component?.tagName || component?.getAttribute("tagname") || "custom-component";
-    switch (tagName?.toLowerCase()) {
-        case "custom-component":
-            return new CustomComponent(component);
-        case "custom-description-list":
-            return new CustomDescriptionList(component);
-        case "custom-description-list-data":
-            return new CustomDescriptionListData(component);
-        case "custom-dispensasjon":
-            return new CustomDispensasjon(component);
-        case "custom-dispensasjonsvarsel":
-            return new CustomDispensasjonsvarsel(component);
-        case "custom-divider":
-            return new CustomDivider(component);
-        case "custom-feedback":
-            return new CustomFeedback(component);
-        case "custom-feedback-data":
-            return new CustomFeedbackData(component);
-        case "custom-feedbacklist-data":
-            return new CustomFeedbacklistData(component);
-        case "custom-feedbacklist-validation-messages":
-            return new CustomFeedbacklistValidationMessages(component);
-        case "custom-field":
-            return new CustomField(component);
-        case "custom-field-adresse":
-            return new CustomFieldAdresse(component);
-        case "custom-field-boolean-data":
-            return new CustomFieldBooleanData(component);
-        case "custom-field-boolean-text":
-            return new CustomFieldBooleanText(component);
-        case "custom-field-count-data":
-            return new CustomFieldCountData(component);
-        case "custom-field-data":
-            return new CustomFieldData(component);
-        case "custom-field-list-data":
-            return new CustomFieldListData(component);
-        case "custom-field-kode":
-            return new CustomFieldKode(component);
-        case "custom-field-kommunens-saksnummer":
-            return new CustomFieldKommunensSaksnummer(component);
-        case "custom-field-part-navn":
-            return new CustomFieldPartNavn(component);
-        case "custom-field-prosjekt":
-            return new CustomFieldProsjekt(component);
-        case "custom-field-telefonnummer":
-            return new CustomFieldTelefonnummer(component);
-        case "custom-field-utfall-svar-status":
-            return new CustomFieldUtfallSvarStatus(component);
-        case "custom-gjennomfoeringsplan":
-            return new CustomGjennomfoeringsplan(component);
-        case "custom-gjenpart-nabovarsel":
-            return new CustomGjenpartNabovarsel(component);
-        case "custom-group-adkomst":
-            return new CustomGroupAdkomst(component);
-        case "custom-group-ansvarsrett-erklaeringer":
-            return new CustomGroupAnsvarsrettErklaeringer(component);
-        case "custom-group-avloep":
-            return new CustomGroupAvloep(component);
-        case "custom-group-ettersending":
-            return new CustomGroupEttersending(component);
-        case "custom-group-kontroll-ansvarsomraade":
-            return new CustomGroupKontrollAnsvarsomraade(component);
-        case "custom-group-kontroll-erklaeringer":
-            return new CustomGroupKontrollErklaeringer(component);
-        case "custom-group-loefteinnretninger":
-            return new CustomGroupLoefteinnretninger(component);
-        case "custom-group-nabo-gjenboer-eiendom":
-            return new CustomGroupNaboGjenboerEiendom(component);
-        case "custom-group-overvann":
-            return new CustomGroupOvervann(component);
-        case "custom-group-rammebetingelser-tilknytninger":
-            return new CustomGroupRammebetingelserTilknytninger(component);
-        case "custom-group-samsvar-ansvarsomraade":
-            return new CustomGroupSamsvarAnsvarsomraade(component);
-        case "custom-group-samsvar-erklaeringer":
-            return new CustomGroupSamsvarErklaeringer(component);
-        case "custom-group-sjekklistekrav":
-            return new CustomGroupSjekklistekrav(component);
-        case "custom-group-utfall-svar":
-            return new CustomGroupUtfallSvar(component);
-        case "custom-group-utfall-svar-type":
-            return new CustomGroupUtfallSvarType(component);
-        case "custom-group-vannforsyning":
-            return new CustomGroupVannforsyning(component);
-        case "custom-group-vegtype-tillatelse":
-            return new CustomGroupVegtypeTillatelse(component);
-        case "custom-grouplist-ansvarsomraade-type":
-            return new CustomGrouplistAnsvarsomraadeType(component);
-        case "custom-grouplist-ettersending":
-            return new CustomGrouplistEttersending(component);
-        case "custom-grouplist-nabo-gjenboer-eiendom":
-            return new CustomGrouplistNaboGjenboerEiendom(component);
-        case "custom-grouplist-samsvar-ansvarsomraade":
-            return new CustomGrouplistSamsvarAnsvarsomraade(component);
-        case "custom-grouplist-sjekklistekrav":
-            return new CustomGrouplistSjekklistekrav(component);
-        case "custom-grouplist-utfall-svar":
-            return new CustomGrouplistUtfallSvar(component);
-        case "custom-grouplist-utfall-svar-type":
-            return new CustomGrouplistUtfallSvarType(component);
-        case "custom-grouplist-vegtype-tillatelse":
-            return new CustomGrouplistVegtypeTillatelse(component);
-        case "custom-header":
-            return new CustomHeader(component);
-        case "custom-header-text":
-            return new CustomHeaderText(component);
-        case "custom-header-text-data":
-            return new CustomHeaderTextData(component);
-        case "custom-list":
-            return new CustomList(component);
-        case "custom-list-data":
-            return new CustomListData(component);
-        case "custom-list-planlagte-loefteinnretninger":
-            return new CustomListPlanlagteLoefteinnretninger(component);
-        case "custom-list-vedlegg":
-            return new CustomListVedlegg(component);
-        case "custom-paragraph":
-            return new CustomParagraph(component);
-        case "custom-paragraph-text":
-            return new CustomParagraphText(component);
-        case "custom-subheader-text":
-            return new CustomSubHeaderText(component);
-        case "custom-summation":
-            return new CustomSummation(component);
-        case "custom-summation-arealdisponering":
-            return new CustomSummationArealdisponering(component);
-        case "custom-summation-data":
-            return new CustomSummationData(component);
-        case "custom-table":
-            return new CustomTable(component);
-        case "custom-table-ansvarsomraade":
-            return new CustomTableAnsvarsomraade(component);
-        case "custom-table-ansvarsrett-ansvarsomraade":
-            return new CustomTableAnsvarsrettAnsvarsomraade(component);
-        case "custom-table-arbeidsplasser":
-            return new CustomTableArbeidsplasser(component);
-        case "custom-table-data":
-            return new CustomTableData(component);
-        case "custom-table-eiendom":
-            return new CustomTableEiendom(component);
-        case "custom-table-nabo-gjenboer-eiendom":
-            return new CustomTableNaboGjenboerEiendom(component);
-        case "custom-table-omraaderisiko":
-            return new CustomTableOmraaderisiko(component);
-        case "custom-table-part":
-            return new CustomTablePart(component);
-        case "custom-table-plan":
-            return new CustomTablePlan(component);
-        default:
-            console.warn(`Unknown component type: ${tagName}`);
-            return null;
+    const componentProps = element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element;
+    const tagName = componentProps?.tagName || componentProps?.getAttribute("tagname") || "custom-component";
+    const ComponentClass = getComponentForTagName(tagName);
+    if (ComponentClass) {
+        return new ComponentClass(componentProps);
+    } else {
+        console.warn(`Unknown component type: ${tagName}`);
+        return null;
     }
 }
