@@ -495,8 +495,8 @@ export function renderParagrafnummer(component) {
  *
  * @param {Object} component - The component configuration object.
  * @param {Object} [component.resourceBindings] - Optional resource bindings for the component.
- * @param {Object} [component.resourceBindings.stedfestingHeader] - Resource binding for the stedfesting header.
- * @param {string} [component.resourceBindings.stedfestingHeader.title] - The title to display in the header.
+ * @param {Object} [component.resourceBindings.stedfesting] - Resource binding for the stedfesting header.
+ * @param {string} [component.resourceBindings.stedfesting.title] - The title to display in the header.
  * @returns {HTMLElement} The custom header element.
  */
 export function renderStedfestingHeader(component) {
