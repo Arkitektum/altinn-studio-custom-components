@@ -146,24 +146,11 @@ export async function fetchAltinnStudioForms() {
  *   [multilingualDefaultTextResources, layouts, packageVersions, multilingualAppResourceValues, exampleData]
  */
 export async function getUpdatedApiData() {
-    const multilingualDefaultTextResourcesPromise = fetchDefaultTextResources();
     const layoutsPromise = fetchDisplayLayouts();
     const packageVersionsPromise = fetchPackageVersions();
     const multilingualAppResourceValuesPromise = fetchAppResources();
     const exampleDataPromise = fetchExampleData();
 
-    showLoadingIndicator([
-        multilingualDefaultTextResourcesPromise,
-        layoutsPromise,
-        packageVersionsPromise,
-        multilingualAppResourceValuesPromise,
-        exampleDataPromise
-    ]);
-    return Promise.all([
-        multilingualDefaultTextResourcesPromise,
-        layoutsPromise,
-        packageVersionsPromise,
-        multilingualAppResourceValuesPromise,
-        exampleDataPromise
-    ]);
+    showLoadingIndicator([layoutsPromise, packageVersionsPromise, multilingualAppResourceValuesPromise, exampleDataPromise]);
+    return Promise.all([layoutsPromise, packageVersionsPromise, multilingualAppResourceValuesPromise, exampleDataPromise]);
 }
