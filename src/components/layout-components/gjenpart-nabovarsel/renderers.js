@@ -407,7 +407,8 @@ export function renderDispensasjonOversiktCounterElement(component) {
         hideIfEmpty: false,
         hideTitle: false,
         resourceBindings: {
-            title: component.resourceBindings?.dispensasjonOversiktCount?.title
+            title: component.resourceBindings?.dispensasjonOversiktCount?.title,
+            emptyFieldText: component.resourceBindings?.dispensasjonOversiktCount?.emptyFieldText
         },
         resourceValues: {
             data: data?.dispensasjonOversikt?.dispensasjon
