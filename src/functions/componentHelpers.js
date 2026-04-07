@@ -58,7 +58,7 @@ import CustomListPlanlagteLoefteinnretninger from "../classes/system-classes/com
 import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.js";
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
-import CustomSubHeaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
+import CustomSubheaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
 import CustomSummation from "../classes/system-classes/component-classes/CustomSummation.js";
 import CustomSummationArealdisponering from "../classes/system-classes/component-classes/CustomSummationArealdisponering.js";
 import CustomSummationData from "../classes/system-classes/component-classes/CustomSummationData.js";
@@ -138,7 +138,7 @@ export function getComponentForTagName(tagName) {
         "custom-list-vedlegg": CustomListVedlegg,
         "custom-paragraph": CustomParagraph,
         "custom-paragraph-text": CustomParagraphText,
-        "custom-subheader-text": CustomSubHeaderText,
+        "custom-subheader-text": CustomSubheaderText,
         "custom-summation": CustomSummation,
         "custom-summation-arealdisponering": CustomSummationArealdisponering,
         "custom-summation-data": CustomSummationData,

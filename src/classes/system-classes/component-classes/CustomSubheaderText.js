@@ -5,7 +5,7 @@ import CustomComponent from "../CustomComponent.js";
 import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**
- * CustomSubHeaderText is a custom component class that extends CustomComponent.
+ * CustomSubheaderText is a custom component class that extends CustomComponent.
  * It initializes resource values for the component, specifically the "title" property,
  * using the getComponentResourceValue utility function.
  *
@@ -13,7 +13,7 @@ import { getComponentResourceValue } from "../../../functions/helpers.js";
  * @extends CustomComponent
  * @param {Object} props - The properties passed to the component.
  */
-export default class CustomSubHeaderText extends CustomComponent {
+export default class CustomSubheaderText extends CustomComponent {
     constructor(props) {
         super(props);
         this.resourceValues = {
