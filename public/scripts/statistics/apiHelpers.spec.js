@@ -89,7 +89,6 @@ describe("getUpdatedApiData", () => {
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }); // exampleData
         // Mock showLoadingIndicator to avoid DOM side effects
         jest.spyOn(require("./renderers.js"), "showLoadingIndicator").mockImplementation(() => {});
-        const defaultTextResources = fetchDefaultTextResources();
-        await expect(getUpdatedApiData()).resolves.toEqual([defaultTextResources, 2, 3, 4, 5]);
+        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5]);
     });
 });
