@@ -64,7 +64,7 @@ export default async function initCustomComponents() {
     globalThis.selectedLanguage = selectedLanguage;
     globalThis.textResources = textResources;
     globalThis.defaultTextResources = defaultTextResources;
-    await loadScriptAsync("https://altinncdn.no/toolkits/altinn-app-frontend/4.25.3/altinn-app-frontend.js");
+    await loadScriptAsync("https://altinncdn.no/toolkits/altinn-app-frontend/4.27.0/altinn-app-frontend.js");
 
     const domContentLoadedEvent = new Event("DOMContentLoaded", {
         bubbles: true, // Event bubbles up through the DOM
