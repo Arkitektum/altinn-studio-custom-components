@@ -50,6 +50,6 @@
     },
     "packageManager": "yarn@4.10.3",
     "dependencies": {
-        "@arkitektum/altinn-studio-custom-components-utils": "^1.3.2"
+        "@arkitektum/altinn-studio-custom-components-utils": "^1.3.3"
     }
 }

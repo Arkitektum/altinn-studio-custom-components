@@ -5,10 +5,10 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.3.2"
-  checksum: 10c0/77e922a023b2ec68bf07e381adcf52cf040e904a682798cd12d92bc7cddfa1505d0d5056092e1aac45acfe4bb8ba49cefb0d485cb1424d8723a61302324ae207
+"@arkitektum/altinn-studio-custom-components-utils@npm:^1.3.3":
+  version: 1.3.3
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.3.3"
+  checksum: 10c0/90ee4025271c9d90fbb2e5d95c0ba74d0d3ad174f7b8d8766e11985dc8df613ed4010619d60da1ad9dd82b502aea12140bde9edf3e6b2d9a28b5044a71a8e696
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.3.2"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.3.3"
     "@babel/preset-env": "npm:^7.29.2"
     "@eslint/js": "npm:^10.0.1"
     copyfiles: "npm:^2.4.1"
@@ -55,26 +55,26 @@ __metadata:
   linkType: hard
 
 "@asamuzakjp/css-color@npm:^5.1.5":
-  version: 5.1.6
-  resolution: "@asamuzakjp/css-color@npm:5.1.6"
+  version: 5.1.8
+  resolution: "@asamuzakjp/css-color@npm:5.1.8"
   dependencies:
     "@csstools/css-calc": "npm:^3.1.1"
     "@csstools/css-color-parser": "npm:^4.0.2"
     "@csstools/css-parser-algorithms": "npm:^4.0.0"
     "@csstools/css-tokenizer": "npm:^4.0.0"
-  checksum: 10c0/8f8bf78df9dd91b5cb296f64308ab1148a17f644d3f5bed2b4000bd2f53eb4f8c914e2e91134b67fcb2843718fe73e975b906a14fca81ee24fb8b2f974677311
+  checksum: 10c0/9c15ef6bcbb151ea030ab4acce50dc8a63a45bbc1e618d11d31d245d59dad1cc86343d9225dd8781707f5fae0c873c8174295dbc9a01f37f315963f643431b12
   languageName: node
   linkType: hard
 
 "@asamuzakjp/dom-selector@npm:^7.0.6":
-  version: 7.0.7
-  resolution: "@asamuzakjp/dom-selector@npm:7.0.7"
+  version: 7.0.8
+  resolution: "@asamuzakjp/dom-selector@npm:7.0.8"
   dependencies:
     "@asamuzakjp/nwsapi": "npm:^2.3.9"
     bidi-js: "npm:^1.0.3"
     css-tree: "npm:^3.2.1"
     is-potential-custom-element-name: "npm:^1.0.1"
-  checksum: 10c0/f3e7de930c9cf69778db62dc166962bfbafdf6b35be9c905d6ab957f4c06bfdc9a72124a58bf5460e0112179bb883a45df06ded3a203bd232fb3ae372f35f5a5
+  checksum: 10c0/cb00a21133221487e80c41644033e0f3e8b72f709e8409e61decca7ebe9de2ac31a92a5c134494780383e898a04366ad0aa4f0d0867551729650088981c90a0c
   languageName: node
   linkType: hard
 
@@ -1542,31 +1542,31 @@ __metadata:
   linkType: hard
 
 "@eslint/config-array@npm:^0.23.4":
-  version: 0.23.4
-  resolution: "@eslint/config-array@npm:0.23.4"
+  version: 0.23.5
+  resolution: "@eslint/config-array@npm:0.23.5"
   dependencies:
-    "@eslint/object-schema": "npm:^3.0.4"
+    "@eslint/object-schema": "npm:^3.0.5"
     debug: "npm:^4.3.1"
     minimatch: "npm:^10.2.4"
-  checksum: 10c0/813ce3588e67d615218219e77526ca4c742405c293f209f5c0ff945fec50a9a8007c7d82c5af8fa82c1a506b57f4dc37cef0e96b2366c41c257dd267862ece95
+  checksum: 10c0/b24833c4c76e78ee075d306cd3f095db46b2db0f90cc13a6ee6e4275f9889731c05bf5403ab5fefb79c756e07ac9184ed0e04570341382f9eccbccc80e6d1a0c
   languageName: node
   linkType: hard
 
 "@eslint/config-helpers@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "@eslint/config-helpers@npm:0.5.4"
+  version: 0.5.5
+  resolution: "@eslint/config-helpers@npm:0.5.5"
   dependencies:
-    "@eslint/core": "npm:^1.2.0"
-  checksum: 10c0/211bbfaba53fde341768eafbfdcceeca5587264c0a952d4c70b8b72c440df60e5b0e9bac33893c671dc556275a1b0c5d28c8023e843a127be216a773a11ae762
+    "@eslint/core": "npm:^1.2.1"
+  checksum: 10c0/18889c062cd6bdbd4cd92fe57318c44465ea66184aa0ba204a4420712c66764c64093a7905b6c2ffde23e51b268ca2cec1a39c605d336bebf17ee1ba4f0fc0bb
   languageName: node
   linkType: hard
 
-"@eslint/core@npm:^1.2.0":
-  version: 1.2.0
-  resolution: "@eslint/core@npm:1.2.0"
+"@eslint/core@npm:^1.2.0, @eslint/core@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "@eslint/core@npm:1.2.1"
   dependencies:
     "@types/json-schema": "npm:^7.0.15"
-  checksum: 10c0/e564945218f7f3910dfd0f57bf7852072060f560c241f5ed96a7b13e9f7fed4cc5707ee5eb44653f2bf4f9576ee7b7921f55cc5ac96f72343d0c5e80818fe2bf
+  checksum: 10c0/10979b40588ecfef771fcb5013a542a35fb30692cc95a65f3481b0b36fbd89f5679efeb30d57f4eed35203d859aabace2a620177d6c536f71b299a1af2f3398f
   languageName: node
   linkType: hard
 
@@ -1582,20 +1582,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@eslint/object-schema@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "@eslint/object-schema@npm:3.0.4"
-  checksum: 10c0/fedfc0acf5d899c9f58106c9d718fae4f4d5e6e21f0aa33b2333c746873d979ff9e295a09668bd7bf2a41f82dd886ebd3a73d023ce3c8722a1f24bd143842162
+"@eslint/object-schema@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@eslint/object-schema@npm:3.0.5"
+  checksum: 10c0/1db337431f520b99e9edda64ef5fafd7ec6a029843eeb608753025125b6649d861d843cffafafd3c4e37926d7d5f9ec0c6a8e3665c13c3da2144e8132892e92e
   languageName: node
   linkType: hard
 
 "@eslint/plugin-kit@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "@eslint/plugin-kit@npm:0.7.0"
+  version: 0.7.1
+  resolution: "@eslint/plugin-kit@npm:0.7.1"
   dependencies:
-    "@eslint/core": "npm:^1.2.0"
+    "@eslint/core": "npm:^1.2.1"
     levn: "npm:^0.4.1"
-  checksum: 10c0/ea96c393dc1424f1a74fdd253478eda6cf864f31527d9472bd379decc5195da0b141fcb2dc767d7fe296184a3f26c91a19b2e5445be9b6a9b48b1bed9d18b737
+  checksum: 10c0/335b0c1c46fd906cb50bd5ce442b9cee18dc44342ce35c718ba4a63d1aa51d2797f16a517b2f4fe371ccd777b6862fafb2dc8195e00e69197ef4cb17ab32c01b
   languageName: node
   linkType: hard
 
@@ -3759,9 +3759,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001782":
-  version: 1.0.30001786
-  resolution: "caniuse-lite@npm:1.0.30001786"
-  checksum: 10c0/9895f0add1991eefb91cfae98e7baa9daffc6b862b0996c983d30e6be90ef679b6aef32dcb6eca312977fb67c2636ee575820f101213e69c1e0dbffd6ee8e09e
+  version: 1.0.30001787
+  resolution: "caniuse-lite@npm:1.0.30001787"
+  checksum: 10c0/93a6975afbf07f49c9077b348948bbc25b6a82596ccd07b4b6503e48f6f968e1a1e057cc25004db8a2d1d4f35f0c792739e33634edfcefc88ff184c9a2f7a036
   languageName: node
   linkType: hard
 
@@ -4057,11 +4057,11 @@ __metadata:
   linkType: hard
 
 "css-declaration-sorter@npm:^7.2.0":
-  version: 7.3.1
-  resolution: "css-declaration-sorter@npm:7.3.1"
+  version: 7.4.0
+  resolution: "css-declaration-sorter@npm:7.4.0"
   peerDependencies:
     postcss: ^8.0.9
-  checksum: 10c0/8348ec76157e4b370ce4383a80e23fde28dde53901572ae5bcb5cd02cfc2ba0a76a7b5433c361524ed4cea713023802abc7b56e2304aad0721e449011fa83b37
+  checksum: 10c0/a4a7b8dd7802ad7ebdc4c6ee02a8a337d1c28eacaee719d6b12e21a97ded4f8ba4b95d3960c71654cb14f239a990fd9b5312d79486aabd75ca4ffd356c2feb3e
   languageName: node
   linkType: hard
 
@@ -4566,9 +4566,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.328":
-  version: 1.5.332
-  resolution: "electron-to-chromium@npm:1.5.332"
-  checksum: 10c0/0e9aedd5634e81f323919a5fba7e1cf34c18860262a50915fb2371a6c65324cbfa50eaea231d05d235cc40b1b60cfaf0c1546d3f2daa6ad6c03e89dfe21cb55f
+  version: 1.5.334
+  resolution: "electron-to-chromium@npm:1.5.334"
+  checksum: 10c0/4fa700f920d6f6a52f1a777f9cbbaf95ed7247fd6d89d9ff5d26255779c2c0297be5162e56e8e9a7ec40ff42d656d5e1b06ee6e7cf60dd8baec2e0d8f0f1bc77
   languageName: node
   linkType: hard
 
@@ -7402,7 +7402,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^4.0.3":
+"picomatch@npm:^4.0.3, picomatch@npm:^4.0.4":
   version: 4.0.4
   resolution: "picomatch@npm:4.0.4"
   checksum: 10c0/e2c6023372cc7b5764719a5ffb9da0f8e781212fa7ca4bd0562db929df8e117460f00dff3cb7509dacfc06b86de924b247f504d0ce1806a37fac4633081466b0
@@ -7808,13 +7808,13 @@ __metadata:
   linkType: hard
 
 "postcss@npm:^8.4.40":
-  version: 8.5.8
-  resolution: "postcss@npm:8.5.8"
+  version: 8.5.9
+  resolution: "postcss@npm:8.5.9"
   dependencies:
     nanoid: "npm:^3.3.11"
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
-  checksum: 10c0/dd918f7127ee7c60a0295bae2e72b3787892296e1d1c3c564d7a2a00c68d8df83cadc3178491259daa19ccc54804fb71ed8c937c6787e08d8bd4bedf8d17044c
+  checksum: 10c0/7cb2b32202ea1ead03f15cfbb2756a64a0f98942378e99b3dfce33678fe5eaf93e31d675a46e3a0dfb417d7b49b82d8999d0dd42a33c3b128e71ade0f978719a
   languageName: node
   linkType: hard
 
@@ -8813,12 +8813,12 @@ __metadata:
   linkType: hard
 
 "tinyglobby@npm:^0.2.12":
-  version: 0.2.15
-  resolution: "tinyglobby@npm:0.2.15"
+  version: 0.2.16
+  resolution: "tinyglobby@npm:0.2.16"
   dependencies:
     fdir: "npm:^6.5.0"
-    picomatch: "npm:^4.0.3"
-  checksum: 10c0/869c31490d0d88eedb8305d178d4c75e7463e820df5a9b9d388291daf93e8b1eb5de1dad1c1e139767e4269fe75f3b10d5009b2cc14db96ff98986920a186844
+    picomatch: "npm:^4.0.4"
+  checksum: 10c0/f2e09fd93dd95c41e522113b686ff6f7c13020962f8698a864a257f3d7737599afc47722b7ab726e12f8a813f779906187911ff8ee6701ede65072671a7e934b
   languageName: node
   linkType: hard
 
