@@ -667,20 +667,18 @@ export function renderSynchronizeButton() {
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
-        const [multilingualDefaultTextResources, displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] =
+        const [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] =
             await getUpdatedApiData();
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
         addValuesToLocalStorage({
-            multilingualDefaultTextResources,
             displayLayouts,
             packageVersions,
             multilingualAppResourceValues,
             exampleData
         });
         addDataToGlobalThis({
-            multilingualDefaultTextResources,
             displayLayouts,
             packageVersions,
             multilingualAppResourceValues,
