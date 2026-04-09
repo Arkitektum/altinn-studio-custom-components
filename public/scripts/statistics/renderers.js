@@ -479,11 +479,10 @@ export function getApplicationMetadataForSelectedApp(appName, appOwner, applicat
 }
 
 /**
- * Renders the logo image for the selected application based on the provided application metadata and selected options.
+ * Sanitizes a path segment by ensuring it contains only alphanumeric characters, underscores, or hyphens. If the input value is not a string or does not match the expected pattern, the function returns null.
  *
- * @param {HTMLElement} containerElement - The DOM element to render the logo image into.
- * @param {Array<Object>} applicationMetadata - An array of application metadata objects.
- * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including display layout app name and display layout app owner.
+ * @param {string} value - The path segment to sanitize.
+ * @returns {string|null} The sanitized path segment if valid, or null if the input is invalid.
  */
 function sanitizePathSegment(value) {
     if (typeof value !== "string") {
@@ -493,6 +492,12 @@ function sanitizePathSegment(value) {
     return /^[A-Za-z0-9_-]+$/.test(trimmed) ? trimmed : null;
 }
 
+/**
+ * Sanitizes a logo filename by ensuring it is a plain file name with a valid image extension (svg, png, jpg, jpeg, webp) and does not contain any path segments. If the input value is not a string or does not match the expected pattern, the function returns null.
+ *
+ * @param {string} value - The logo filename to sanitize.
+ * @returns {string|null} The sanitized logo filename if valid, or null if the input is invalid.
+ */
 function sanitizeLogoFilename(value) {
     if (typeof value !== "string") {
         return null;
@@ -502,6 +507,13 @@ function sanitizeLogoFilename(value) {
     return /^[A-Za-z0-9._-]+\.(svg|png|jpe?g|webp)$/i.test(trimmed) ? trimmed : null;
 }
 
+/**
+ * Renders the logo image for the selected application based on the provided application metadata and selected options.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to render the logo image into.
+ * @param {Array<Object>} applicationMetadata - An array of application metadata objects.
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including display layout app name and display layout app owner.
+ */
 export function renderLogoImage(containerElement, applicationMetadata, selectedOptions) {
     const appOwner = sanitizePathSegment(selectedOptions.displayLayoutAppOwner);
     const appName = sanitizePathSegment(selectedOptions.displayLayoutAppName);
