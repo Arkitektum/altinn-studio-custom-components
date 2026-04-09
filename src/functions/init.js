@@ -1,5 +1,6 @@
 // Global functions
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.js";
+import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
 
 /**
  * Loads a script asynchronously by creating a script element and appending it to the document body.
@@ -37,13 +38,14 @@ export default async function initCustomComponents() {
         console.error("Could not determine the origin, organization, or application from the URL.");
         return;
     }
+    updateBodyClassNamesForApplication(org, app);
 
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
     const userProfileResponse = await fetch(userProfileApiUrl);
     if (!userProfileResponse.ok) {
         console.error(
             `Failed to fetch user profile data from ${userProfileApiUrl}. ` +
-            `HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
+                `HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
         );
         return;
     }
