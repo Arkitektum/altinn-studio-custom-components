@@ -25,7 +25,7 @@ import { languages } from "../languages.js";
  *
  * @param {HTMLElement} containerElement - The DOM element to which the resource usage page components will be appended.
  */
-function renderResourceUsagePage(containerElement) {
+export function renderResourceUsagePage(containerElement) {
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const displayLayouts = globalThis.displayLayouts;
 
@@ -44,7 +44,7 @@ function renderResourceUsagePage(containerElement) {
  *
  * @param {HTMLElement} containerElement - The DOM element to render the package versions page into.
  */
-function renderPackageVersionsPage(containerElement) {
+export function renderPackageVersionsPage(containerElement) {
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Package versions";
     containerElement.appendChild(titleElement);
@@ -105,7 +105,7 @@ function renderPackageVersionsPage(containerElement) {
  *   An array of objects containing application names, owners, and their associated resource values.
  * @returns {Array} The resource values for the specified application, or an empty array if not found.
  */
-function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
+export function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
     return appResourceValues.find((app) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
 }
 
@@ -408,7 +408,7 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
  *
  * @returns {HTMLHeadingElement} The <h1> element with the appropriate heading text.
  */
-function getDisplayLayoutMainHeading() {
+export function getDisplayLayoutMainHeading() {
     const localAppResources = globalThis.textResources;
     const headingElement = document.createElement("h1");
     const headingResourceId = "appName";
@@ -430,7 +430,7 @@ function getDisplayLayoutMainHeading() {
  *
  * @returns {Object} An updated object mapping data types to the filenames that should be selected by default.
  */
-function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions) {
+export function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions) {
     const dataType =
         selectedOptions.formType === "main"
             ? displayLayout?.dataType
