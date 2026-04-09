@@ -249,7 +249,9 @@
             padding-top: 1cm;
             padding-right: 1.25cm;
             padding-bottom: 1cm;
+            position: relative;
             & > h1 {
+                margin-top: 67px;
                 margin-bottom: 22px;
             }
         }

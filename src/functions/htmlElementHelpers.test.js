@@ -1,4 +1,4 @@
-import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";
+import { addBodyClassNamesForApplication, getPropsFromElementAttributes } from "./htmlElementHelpers.js";
 
 /* @jest-environment jsdom */
 
@@ -118,5 +118,58 @@ describe("getPropsFromElementAttributes", () => {
 
         const props = getPropsFromElementAttributes(el);
         expect(props.tagName).toBe("section");
+    });
+});
+
+describe("addBodyClassNamesForApplication", () => {
+    afterEach(() => {
+        document.body.className = "";
+    });
+
+    test("adds org and app class names to body", () => {
+        addBodyClassNamesForApplication("foo", "bar");
+        expect(document.body.classList.contains("org-foo")).toBe(true);
+        expect(document.body.classList.contains("app-bar")).toBe(true);
+    });
+
+    test("does not add class names if org or app is missing", () => {
+        addBodyClassNamesForApplication(null, "bar");
+        expect(document.body.classList.contains("app-bar")).toBe(false);
+        addBodyClassNamesForApplication("foo", undefined);
+        expect(document.body.classList.contains("org-foo")).toBe(false);
+    });
+});
+
+describe("removeAllBodyClassNamesForApplication", () => {
+    const { removeAllBodyClassNamesForApplication } = require("./htmlElementHelpers.js");
+
+    afterEach(() => {
+        document.body.className = "";
+    });
+
+    test("removes all org- and app- class names from body", () => {
+        document.body.classList.add("org-foo", "app-bar", "other-class");
+        removeAllBodyClassNamesForApplication();
+        expect(document.body.classList.contains("org-foo")).toBe(false);
+        expect(document.body.classList.contains("app-bar")).toBe(false);
+        expect(document.body.classList.contains("other-class")).toBe(true);
+    });
+});
+
+describe("updateBodyClassNamesForApplication", () => {
+    const { updateBodyClassNamesForApplication } = require("./htmlElementHelpers.js");
+
+    afterEach(() => {
+        document.body.className = "";
+    });
+
+    test("removes old org/app classes and adds new ones", () => {
+        document.body.classList.add("org-old", "app-old", "keep-me");
+        updateBodyClassNamesForApplication("neworg", "newapp");
+        expect(document.body.classList.contains("org-old")).toBe(false);
+        expect(document.body.classList.contains("app-old")).toBe(false);
+        expect(document.body.classList.contains("org-neworg")).toBe(true);
+        expect(document.body.classList.contains("app-newapp")).toBe(true);
+        expect(document.body.classList.contains("keep-me")).toBe(true);
     });
 });

@@ -20,7 +20,7 @@ export function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
     return {
         lastUpdated,
-        ...getValuesFromLocalStorage(["displayLayouts", "packageVersions", "multilingualAppResourceValues", "exampleData"])
+        ...getValuesFromLocalStorage(["displayLayouts", "packageVersions", "multilingualAppResourceValues", "exampleData", "applicationMetadata"])
     };
 }
 
@@ -46,9 +46,9 @@ export function getAllTextResourceUsage(displayLayouts, appResourceValues, defau
 }
 
 globalThis.onload = async function () {
-    let { displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, lastUpdated } = getDataFromLocalStorage();
-    if (!displayLayouts || !packageVersions || !multilingualAppResourceValues || !exampleData) {
-        [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] = await getUpdatedApiData();
+    let { displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } = getDataFromLocalStorage();
+    if (!displayLayouts || !packageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
+        [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = await getUpdatedApiData();
         lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
     }
@@ -62,7 +62,8 @@ globalThis.onload = async function () {
         packageVersions,
         appResourceValues,
         multilingualAppResourceValues,
-        exampleData
+        exampleData,
+        applicationMetadata
     });
     const allTextResourceUsage = getAllTextResourceUsage(displayLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
     addDataToGlobalThis({
@@ -73,6 +74,7 @@ globalThis.onload = async function () {
         appResourceValues,
         multilingualAppResourceValues,
         exampleData,
+        applicationMetadata,
         allTextResourceUsage,
         lastUpdated
     });

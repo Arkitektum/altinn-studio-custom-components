@@ -250,7 +250,8 @@ body {
  * This CSS rule overrides altinn-app-frontend styles for logo size
  */
 
-#pdfView {
+#pdfView,
+#admin-main {
     /* For PDFs without logo */
     & > h1:first-of-type {
         min-height: 68px;
@@ -263,16 +264,61 @@ body {
         & h1 {
             margin-top: 0;
         }
-        & img {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 85px;
-            height: auto;
-        }
         &::after {
             content: "";
             display: block;
+        }
+    }
+}
+
+body.org-dibk {
+    & #pdfView,
+    & #admin-main {
+        & > div[data-testid="pdf-logo"],
+        & > .page {
+            & img {
+                position: absolute;
+                width: 115px;
+                height: auto;
+            }
+        }
+        & > div[data-testid="pdf-logo"] {
+            & img {
+                top: 0;
+                right: 0;
+            }
+        }
+        & > .page {
+            & img {
+                top: 1cm;
+                right: 1.25cm;
+            }
+        }
+    }
+}
+
+body.org-dat {
+    & #pdfView,
+    & #admin-main {
+        & > div[data-testid="pdf-logo"],
+        & > .page {
+            & img {
+                position: absolute;
+                width: 100px;
+                height: auto;
+            }
+        }
+        & > div[data-testid="pdf-logo"] {
+            & img {
+                top: 0;
+                left: 0;
+            }
+        }
+        & > .page {
+            & img {
+                top: 1cm;
+                left: 1.25cm;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import {
 
 // Local functions
 import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "../localStorage.js";
-import { fetchAltinnStudioForms, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
+import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
 import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.js";
 import {
     renderDefaultTextResourcesList,
@@ -18,6 +18,7 @@ import {
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.js";
 import { languages } from "../languages.js";
+import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.js";
 
 /**
  * Renders the resource usage page by appending various filter controls and the default text resources list
@@ -25,7 +26,7 @@ import { languages } from "../languages.js";
  *
  * @param {HTMLElement} containerElement - The DOM element to which the resource usage page components will be appended.
  */
-function renderResourceUsagePage(containerElement) {
+export function renderResourceUsagePage(containerElement) {
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const displayLayouts = globalThis.displayLayouts;
 
@@ -44,7 +45,7 @@ function renderResourceUsagePage(containerElement) {
  *
  * @param {HTMLElement} containerElement - The DOM element to render the package versions page into.
  */
-function renderPackageVersionsPage(containerElement) {
+export function renderPackageVersionsPage(containerElement) {
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Package versions";
     containerElement.appendChild(titleElement);
@@ -105,7 +106,7 @@ function renderPackageVersionsPage(containerElement) {
  *   An array of objects containing application names, owners, and their associated resource values.
  * @returns {Array} The resource values for the specified application, or an empty array if not found.
  */
-function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
+export function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
     return appResourceValues.find((app) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
 }
 
@@ -115,9 +116,16 @@ function getLocalTextResourcesForApp(appName, appOwner, appResourceValues) {
  * @param {Array} multilingualDefaultTextResources - An array of default text resources for multiple languages.
  * @param {Array} multilingualAppResourceValues - An array of application resource values for multiple languages.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
+ * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  * @return {void}
  */
-function renderSelectLanguageForResources(containerElement, multilingualDefaultTextResources, multilingualAppResourceValues, selectedOptions) {
+function renderSelectLanguageForResources(
+    containerElement,
+    multilingualDefaultTextResources,
+    multilingualAppResourceValues,
+    selectedOptions,
+    applicationMetadata
+) {
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
@@ -154,7 +162,7 @@ function renderSelectLanguageForResources(containerElement, multilingualDefaultT
         selectedOptions.language = selectedLanguage;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, globalThis.exampleData, selectedOptions);
+        await renderDisplayLayoutsPage(mainElement, globalThis.exampleData, applicationMetadata, selectedOptions);
     };
 
     formElement.appendChild(labelElement);
@@ -166,8 +174,9 @@ function renderSelectLanguageForResources(containerElement, multilingualDefaultT
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
+ * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  */
-function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOptions) {
+function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOptions, applicationMetadata) {
     const formElement = document.createElement("form");
     formElement.classList.add("filter-container");
     const labelElement = document.createElement("label");
@@ -198,6 +207,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOp
         const [appOwner, appName] = event.target.value.split("/");
         selectedOptions.displayLayoutAppName = appName;
         selectedOptions.displayLayoutAppOwner = appOwner;
+        updateBodyClassNamesForApplication(appOwner, appName);
         const exampleData = globalThis.exampleData || (await fetchExampleData());
         const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
         addDataToGlobalThis({
@@ -206,7 +216,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOp
         });
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, exampleData, selectedOptions);
+        await renderDisplayLayoutsPage(mainElement, exampleData, applicationMetadata, selectedOptions);
     };
 
     formElement.appendChild(labelElement);
@@ -221,10 +231,10 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOp
  * @param {Object} displayLayout - The current display layout object, expected to have a `dataType` property.
  * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
- *
+ * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  * @returns {void}
  */
-function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData) {
+function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData, applicationMetadata) {
     if (!displayLayout) {
         return;
     }
@@ -269,7 +279,7 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
         const fileName = event.target.value;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, appData, {
+        await renderDisplayLayoutsPage(mainElement, appData, applicationMetadata, {
             ...selectedOptions,
             fileNames: { ...selectedOptions.fileNames, [dataType]: fileName }
         });
@@ -289,10 +299,11 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
  * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  *
  * @return {void}
  */
-function renderSelectFormTypeFilter(containerElement, displayLayout, selectedOptions, appData) {
+function renderSelectFormTypeFilter(containerElement, displayLayout, selectedOptions, appData, applicationMetadata) {
     if (!displayLayout?.subForms || displayLayout.subForms.length === 0) {
         return;
     }
@@ -326,11 +337,11 @@ function renderSelectFormTypeFilter(containerElement, displayLayout, selectedOpt
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
         if (formType === "main") {
-            await renderDisplayLayoutsPage(mainElement, appData, { ...selectedOptions, formType });
+            await renderDisplayLayoutsPage(mainElement, appData, applicationMetadata, { ...selectedOptions, formType });
         } else {
             const subForm = displayLayout.subForms.find((form) => form.appName === formType);
             if (subForm) {
-                await renderDisplayLayoutsPage(mainElement, appData, { ...selectedOptions, formType });
+                await renderDisplayLayoutsPage(mainElement, appData, applicationMetadata, { ...selectedOptions, formType });
             }
         }
     };
@@ -347,10 +358,11 @@ function renderSelectFormTypeFilter(containerElement, displayLayout, selectedOpt
  * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  *
  * @return {void}
  */
-function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData) {
+function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData, applicationMetadata) {
     if (selectedOptions.formType === "main") {
         return;
     }
@@ -391,7 +403,7 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
         const fileName = event.target.value;
         const mainElement = document.getElementById("admin-main");
         mainElement.innerHTML = "";
-        await renderDisplayLayoutsPage(mainElement, appData, {
+        await renderDisplayLayoutsPage(mainElement, appData, applicationMetadata, {
             ...selectedOptions,
             fileNames: { ...selectedOptions.fileNames, [dataType]: fileName }
         });
@@ -408,7 +420,7 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
  *
  * @returns {HTMLHeadingElement} The <h1> element with the appropriate heading text.
  */
-function getDisplayLayoutMainHeading() {
+export function getDisplayLayoutMainHeading() {
     const localAppResources = globalThis.textResources;
     const headingElement = document.createElement("h1");
     const headingResourceId = "appName";
@@ -430,7 +442,7 @@ function getDisplayLayoutMainHeading() {
  *
  * @returns {Object} An updated object mapping data types to the filenames that should be selected by default.
  */
-function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions) {
+export function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions) {
     const dataType =
         selectedOptions.formType === "main"
             ? displayLayout?.dataType
@@ -452,14 +464,89 @@ function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, sel
     return selectedOptions.fileNames;
 }
 
+/**
+ * Retrieves the metadata for a specific application based on the provided app name and app owner.
+ *
+ * @param {string} appName - The name of the application.
+ * @param {string} appOwner - The owner of the application.
+ * @param {Array<Object>} applicationMetadata - An array of application metadata objects.
+ * @returns {Object|null} The metadata for the specified application, or null if not found.
+ */
+export function getApplicationMetadataForSelectedApp(appName, appOwner, applicationMetadata) {
+    return applicationMetadata.find((app) => {
+        return app.appName === appName && app.appOwner === appOwner;
+    })?.metadata;
+}
+
+/**
+ * Sanitizes a path segment by ensuring it contains only alphanumeric characters, underscores, or hyphens. If the input value is not a string or does not match the expected pattern, the function returns null.
+ *
+ * @param {string} value - The path segment to sanitize.
+ * @returns {string|null} The sanitized path segment if valid, or null if the input is invalid.
+ */
+function sanitizePathSegment(value) {
+    if (typeof value !== "string") {
+        return null;
+    }
+    const trimmed = value.trim();
+    return /^[A-Za-z0-9_-]+$/.test(trimmed) ? trimmed : null;
+}
+
+/**
+ * Sanitizes a logo filename by ensuring it is a plain file name with a valid image extension (svg, png, jpg, jpeg, webp) and does not contain any path segments. If the input value is not a string or does not match the expected pattern, the function returns null.
+ *
+ * @param {string} value - The logo filename to sanitize.
+ * @returns {string|null} The sanitized logo filename if valid, or null if the input is invalid.
+ */
+function sanitizeLogoFilename(value) {
+    if (typeof value !== "string") {
+        return null;
+    }
+    const trimmed = value.trim();
+    // Allow plain file names only (no slashes), with common image extensions.
+    return /^[A-Za-z0-9._-]+\.(svg|png|jpe?g|webp)$/i.test(trimmed) ? trimmed : null;
+}
+
+/**
+ * Renders the logo image for the selected application based on the provided application metadata and selected options.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to render the logo image into.
+ * @param {Array<Object>} applicationMetadata - An array of application metadata objects.
+ * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including display layout app name and display layout app owner.
+ */
+export function renderLogoImage(containerElement, applicationMetadata, selectedOptions) {
+    const appOwner = sanitizePathSegment(selectedOptions.displayLayoutAppOwner);
+    const appName = sanitizePathSegment(selectedOptions.displayLayoutAppName);
+    console.log("Rendering logo image with application metadata:", { applicationMetadata, selectedOptions });
+    const applicationMetadataForSelectedApp = getApplicationMetadataForSelectedApp(appName, appOwner, applicationMetadata);
+    const logoSourceType = applicationMetadataForSelectedApp?.logo?.source; // resource or org
+
+    const logoImageElement = document.createElement("img");
+    const imagePath = appOwner ? `/assets/images/orgs/${appOwner}/` : null;
+
+    if (logoSourceType === "resource" && appName && appOwner && imagePath) {
+        const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
+        const logoFilename = sanitizeLogoFilename(localTextResources?.resources?.find((res) => res.id === "appLogo.url")?.value);
+        if (logoFilename) {
+            logoImageElement.src = `${imagePath}${logoFilename}`;
+        }
+    } else if (logoSourceType === "org" && appOwner && imagePath) {
+        logoImageElement.src = `${imagePath}${appOwner}.svg`;
+    }
+    logoImageElement.alt = `${appOwner || "Application"} logo`;
+    logoImageElement.classList.add("logo-image");
+    containerElement.appendChild(logoImageElement);
+}
+
 /** Renders the display layouts page, showing the components of the selected application's display layout.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the display layouts page into.
  * @param {Object} appData - The application data containing resource values and other relevant information for rendering the components.
+ * @param {Array<Object>} applicationMetadata - An array of application metadata objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @returns {Promise<void>} A promise that resolves when the display layouts page has been rendered.
  */
-async function renderDisplayLayoutsPage(containerElement, appData, selectedOptions) {
+async function renderDisplayLayoutsPage(containerElement, appData, applicationMetadata, selectedOptions) {
     selectedOptions = {
         fileNames: selectedOptions?.fileNames || {},
         formType: selectedOptions?.formType || "main",
@@ -475,12 +562,13 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedOptio
         containerElement,
         globalThis.multilingualDefaultTextResources,
         globalThis.multilingualAppResourceValues,
-        selectedOptions
+        selectedOptions,
+        applicationMetadata
     );
 
     const selectedDisplayLayoutAppName = selectedOptions.displayLayoutAppName;
     const selectedDisplayLayoutAppOwner = selectedOptions.displayLayoutAppOwner;
-    renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOptions);
+    renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOptions, applicationMetadata);
 
     const displayLayout = globalThis.displayLayouts.find(
         (layout) => layout.appName === selectedDisplayLayoutAppName && layout.appOwner === selectedDisplayLayoutAppOwner
@@ -495,9 +583,9 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedOptio
 
     selectedOptions.fileNames = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions);
 
-    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData);
-    renderSelectFormTypeFilter(containerElement, displayLayout, selectedOptions, appData);
-    renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData);
+    renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData, applicationMetadata);
+    renderSelectFormTypeFilter(containerElement, displayLayout, selectedOptions, appData, applicationMetadata);
+    renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displayLayout, selectedOptions, appData, applicationMetadata);
 
     const components =
         selectedOptions.formType === "main"
@@ -507,6 +595,8 @@ async function renderDisplayLayoutsPage(containerElement, appData, selectedOptio
     const pageElement = document.createElement("div");
     pageElement.classList.add("page");
     const codeResultsElement = document.createElement("div");
+
+    renderLogoImage(pageElement, applicationMetadata, selectedOptions);
 
     if (components.length === 0) {
         const noComponentsElement = document.createElement("p");
@@ -593,8 +683,10 @@ export function renderAdminSidebar() {
     displayLayoutsButton.onclick = async () => {
         mainElement.innerHTML = "";
         const exampleData = globalThis.exampleData || (await fetchExampleData());
+        const applicationMetadata = globalThis.applicationMetadata || (await fetchApplicationMetadata());
         globalThis.exampleData = exampleData;
-        renderDisplayLayoutsPage(mainElement, exampleData);
+        globalThis.applicationMetadata = applicationMetadata;
+        renderDisplayLayoutsPage(mainElement, exampleData, applicationMetadata);
     };
     displayLayoutsListItem.appendChild(displayLayoutsButton);
     sidebarList.appendChild(displayLayoutsListItem);
@@ -667,8 +759,7 @@ export function renderSynchronizeButton() {
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
-        const [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData] =
-            await getUpdatedApiData();
+        const [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = await getUpdatedApiData();
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
@@ -676,13 +767,15 @@ export function renderSynchronizeButton() {
             displayLayouts,
             packageVersions,
             multilingualAppResourceValues,
-            exampleData
+            exampleData,
+            applicationMetadata
         });
         addDataToGlobalThis({
             displayLayouts,
             packageVersions,
             multilingualAppResourceValues,
             exampleData,
+            applicationMetadata,
             lastUpdated
         });
 

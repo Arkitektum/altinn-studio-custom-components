@@ -110,6 +110,29 @@ export async function fetchExampleData() {
 }
 
 /**
+ * Fetches application metadata from the local API endpoint.
+ *
+ * @async
+ * @function fetchApplicationMetadata
+ * @returns {Promise<Object>} A promise that resolves to the application metadata as a JSON object.
+ * @throws {Error} If the network request fails or the response is not OK.
+ */
+export async function fetchApplicationMetadata() {
+    const url = `http://localhost:${API_PORT}/api/applicationMetadata`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch application metadata: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching application metadata:", error);
+            throw error;
+        });
+}
+
+/**
  * Fetches Altinn Studio forms from the local API.
  *
  * Makes a GET request to the `/api/altinnStudioForms` endpoint on localhost.
@@ -143,14 +166,27 @@ export async function fetchAltinnStudioForms() {
  * @async
  * @function
  * @returns {Promise<Array>} A promise that resolves to an array containing:
- *   [multilingualDefaultTextResources, layouts, packageVersions, multilingualAppResourceValues, exampleData]
+ *   [multilingualDefaultTextResources, layouts, packageVersions, multilingualAppResourceValues, exampleData, applicationMetadata]
  */
 export async function getUpdatedApiData() {
     const layoutsPromise = fetchDisplayLayouts();
     const packageVersionsPromise = fetchPackageVersions();
     const multilingualAppResourceValuesPromise = fetchAppResources();
     const exampleDataPromise = fetchExampleData();
+    const applicationMetadataPromise = fetchApplicationMetadata();
 
-    showLoadingIndicator([layoutsPromise, packageVersionsPromise, multilingualAppResourceValuesPromise, exampleDataPromise]);
-    return Promise.all([layoutsPromise, packageVersionsPromise, multilingualAppResourceValuesPromise, exampleDataPromise]);
+    showLoadingIndicator([
+        layoutsPromise,
+        packageVersionsPromise,
+        multilingualAppResourceValuesPromise,
+        exampleDataPromise,
+        applicationMetadataPromise
+    ]);
+    return Promise.all([
+        layoutsPromise,
+        packageVersionsPromise,
+        multilingualAppResourceValuesPromise,
+        exampleDataPromise,
+        applicationMetadataPromise
+    ]);
 }

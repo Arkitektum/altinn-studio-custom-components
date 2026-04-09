@@ -1,6 +1,7 @@
 import {
     fetchAltinnStudioForms,
     fetchAppResources,
+    fetchApplicationMetadata,
     fetchDefaultTextResources,
     fetchDisplayLayouts,
     fetchExampleData,
@@ -79,16 +80,28 @@ describe("fetchAltinnStudioForms", () => {
     });
 });
 
+describe("fetchApplicationMetadata", () => {
+    it("returns JSON on ok", async () => {
+        fetch.mockResolvedValue({ ok: true, json: () => Promise.resolve({ meta: 7 }) });
+        await expect(fetchApplicationMetadata()).resolves.toEqual({ meta: 7 });
+    });
+    it("throws on not ok", async () => {
+        fetch.mockResolvedValue({ ok: false, statusText: "fail" });
+        await expect(fetchApplicationMetadata()).rejects.toThrow("Failed to fetch application metadata: fail");
+    });
+});
+
 describe("getUpdatedApiData", () => {
     it("returns all data in order, with local defaultTextResources", async () => {
-        // Arrange: mock fetch for the 4 fetch-based calls (skip for fetchDefaultTextResources)
+        // Arrange: mock fetch for the 5 fetch-based calls (skip for fetchDefaultTextResources)
         fetch
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(2) }) // layouts
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(3) }) // packageVersions
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(4) }) // appResources
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }); // exampleData
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }) // exampleData
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(6) }); // applicationMetadata
         // Mock showLoadingIndicator to avoid DOM side effects
         jest.spyOn(require("./renderers.js"), "showLoadingIndicator").mockImplementation(() => {});
-        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5]);
+        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5, 6]);
     });
 });
