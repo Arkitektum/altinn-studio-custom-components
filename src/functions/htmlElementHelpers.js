@@ -352,3 +352,46 @@ function getPartType(element) {
 function getEnableLinks(element) {
     return getBooleanAttributeValueFromElement(element, "enableLinks");
 }
+
+/**
+ * Adds class names to the document body based on the provided organization and application identifiers.
+ * The class names are formatted as "org-{org}" and "app-{app}" respectively.
+ *
+ * @param {string} org - The organization identifier to include in the class name.
+ * @param {string} app - The application identifier to include in the class name.
+ * @returns {void}
+ * @example
+ */
+export function addBodyClassNamesForApplication(org, app) {
+    if (org && app) {
+        document.body.classList.add(`org-${org}`, `app-${app}`);
+    }
+}
+
+/**
+ * Removes all class names from the document body that start with "org-" or "app-".
+ * This is typically used to clear any existing organization or application context before adding new class names.
+ *
+ * @returns {void}
+ */
+export function removeAllBodyClassNamesForApplication() {
+    // Find all class names on the body that start with "org-" or "app-" and remove them
+    const classNamesToRemove = Array.from(document.body.classList).filter(
+        (className) => className.startsWith("org-") || className.startsWith("app-")
+    );
+    classNamesToRemove.forEach((className) => document.body.classList.remove(className));
+}
+
+/**
+ * Updates the class names on the document body to reflect the current organization and application context.
+ * This function first removes any existing class names that start with "org-" or "app-", and then adds new class names based on the provided organization and application identifiers.
+ *
+ * @param {string} org - The organization identifier to include in the new class name.
+ * @param {string} app - The application identifier to include in the new class name.
+ * @returns {void}
+ * @example
+ */
+export function updateBodyClassNamesForApplication(org, app) {
+    removeAllBodyClassNamesForApplication();
+    addBodyClassNamesForApplication(org, app);
+}
