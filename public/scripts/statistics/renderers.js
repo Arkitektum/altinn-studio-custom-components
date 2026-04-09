@@ -485,26 +485,43 @@ export function getApplicationMetadataForSelectedApp(appName, appOwner, applicat
  * @param {Array<Object>} applicationMetadata - An array of application metadata objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including display layout app name and display layout app owner.
  */
+function sanitizePathSegment(value) {
+    if (typeof value !== "string") {
+        return null;
+    }
+    const trimmed = value.trim();
+    return /^[A-Za-z0-9_-]+$/.test(trimmed) ? trimmed : null;
+}
+
+function sanitizeLogoFilename(value) {
+    if (typeof value !== "string") {
+        return null;
+    }
+    const trimmed = value.trim();
+    // Allow plain file names only (no slashes), with common image extensions.
+    return /^[A-Za-z0-9._-]+\.(svg|png|jpe?g|webp)$/i.test(trimmed) ? trimmed : null;
+}
+
 export function renderLogoImage(containerElement, applicationMetadata, selectedOptions) {
-    const appOwner = selectedOptions.displayLayoutAppOwner;
-    const appName = selectedOptions.displayLayoutAppName;
+    const appOwner = sanitizePathSegment(selectedOptions.displayLayoutAppOwner);
+    const appName = sanitizePathSegment(selectedOptions.displayLayoutAppName);
     console.log("Rendering logo image with application metadata:", { applicationMetadata, selectedOptions });
     const applicationMetadataForSelectedApp = getApplicationMetadataForSelectedApp(appName, appOwner, applicationMetadata);
     const logoSourceType = applicationMetadataForSelectedApp?.logo?.source; // resource or org
 
     const logoImageElement = document.createElement("img");
-    const imagePath = `/assets/images/orgs/${appOwner}/`;
+    const imagePath = appOwner ? `/assets/images/orgs/${appOwner}/` : null;
 
-    if (logoSourceType === "resource") {
+    if (logoSourceType === "resource" && appName && appOwner && imagePath) {
         const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
-        const logoFilename = localTextResources?.resources?.find((res) => res.id === "appLogo.url")?.value;
+        const logoFilename = sanitizeLogoFilename(localTextResources?.resources?.find((res) => res.id === "appLogo.url")?.value);
         if (logoFilename) {
             logoImageElement.src = `${imagePath}${logoFilename}`;
         }
-    } else if (logoSourceType === "org") {
+    } else if (logoSourceType === "org" && appOwner && imagePath) {
         logoImageElement.src = `${imagePath}${appOwner}.svg`;
     }
-    logoImageElement.alt = `${appOwner} logo`;
+    logoImageElement.alt = `${appOwner || "Application"} logo`;
     logoImageElement.classList.add("logo-image");
     containerElement.appendChild(logoImageElement);
 }
