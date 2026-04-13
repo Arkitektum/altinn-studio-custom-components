@@ -234,7 +234,7 @@ body {
  *
  * This CSS rule defines the page size and margins for printing.
  * - The page size is set to A4 in portrait orientation.
- * - The top and bottom margin is set to 1cm.
+ * - The top margin is set to 1cm and the bottom margin is set to 1.5cm.
  * - The left and right margins are set to 1.25cm.
  */
 @page {

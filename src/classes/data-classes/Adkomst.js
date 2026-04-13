@@ -7,7 +7,7 @@ import Vegtype from "./Vegtype.js";
  * @class
  * @param {Object} props - Properties to initialize the Adkomst instance.
  * @param {boolean} [props.erNyEllerEndretAdkomst] - Indicates if the access is new or changed.
- * @param {Array<Object>} [props.vegtype] - Array of vegtype items to be mapped to Vegtype instances.
+ * @param {Object} [props.vegtype] - Object representing the vegtype to be mapped to a Vegtype instance.
  * @param {boolean} [props.erTillatelseGittKommunalVeg] - Indicates if permission is granted for municipal roads.
  * @param {boolean} [props.erTillatelseGittPrivatVeg] - Indicates if permission is granted for private roads.
  * @param {boolean} [props.erTillatelseGittRiksFylkesveg] - Indicates if permission is granted for national or county roads.
