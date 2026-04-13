@@ -667,6 +667,16 @@ export function renderAdminSidebar() {
     resourceUsageListItem.appendChild(resourceUsageButton);
     sidebarList.appendChild(resourceUsageListItem);
 
+    const componentUsageListItem = document.createElement("li");
+    const componentUsageButton = document.createElement("button");
+    componentUsageButton.textContent = "🧩 Component usage";
+    componentUsageButton.onclick = () => {
+        mainElement.innerHTML = "";
+        renderComponentUsagePage(mainElement);
+    };
+    componentUsageListItem.appendChild(componentUsageButton);
+    sidebarList.appendChild(componentUsageListItem);
+
     const packageVersionsListItem = document.createElement("li");
     const packageVersionsButton = document.createElement("button");
     packageVersionsButton.textContent = "📦 Package versions";
