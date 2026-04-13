@@ -18,6 +18,7 @@ import {
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.js";
 import { languages } from "../languages.js";
+import { renderComponentUsageList } from "./componentUsageRenderers.js";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.js";
 
 /**
@@ -38,6 +39,19 @@ export function renderResourceUsagePage(containerElement) {
     containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement, allTextResourceUsage, displayLayouts));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement, allTextResourceUsage));
     containerElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
+}
+
+/**
+ * Renders the component usage page by appending a title and a list of component usages to the specified container element. Utilizes global variables for component usage data.
+ * @param {HTMLElement} containerElement - The DOM element to which the component usage page components will be appended.
+ *
+ */
+export function renderComponentUsagePage(containerElement) {
+    const componentUsage = globalThis.componentUsage;
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = "Component usage";
+    containerElement.appendChild(titleElement);
+    containerElement.appendChild(renderComponentUsageList(componentUsage));
 }
 
 /**
