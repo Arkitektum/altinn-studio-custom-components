@@ -91,5 +91,7 @@ export function getComponentUsageTreeForAllLayouts(displayLayouts) {
     customElementTagNames.forEach((tagName) => {
         if (!groupedUsage[tagName]) groupedUsage[tagName] = [];
     });
-    return Object.entries(groupedUsage).map(([tagName, usages]) => ({ tagName, usages }));
+    return Object.entries(groupedUsage)
+        .map(([tagName, usages]) => ({ tagName, usages }))
+        .sort((a, b) => a.tagName.localeCompare(b.tagName));
 }
