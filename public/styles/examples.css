@@ -445,7 +445,8 @@
                 transform: rotate(90deg);
             }
 
-            & .default-text-resource-list-item {
+            & .default-text-resource-list-item,
+            & .component-usage-list-item {
                 margin: 0;
                 &:not(:last-child) {
                     border-bottom: 1px solid #ccc;
@@ -461,11 +462,13 @@
                     &:hover {
                         background-color: #f0f0f0;
                     }
-                    & .resource-id-and-value {
+                    & .resource-id-and-value,
+                    & .component-tag-name-container {
                         display: flex;
                         flex-direction: column;
                         width: 100%;
-                        & .resource-id {
+                        & .resource-id,
+                        & .component-tag-name {
                             font-size: 14px;
                             font-weight: 600;
                             color: #333;
@@ -535,7 +538,8 @@
                 }
                 & .usage-details {
                     padding: 10px 20px 20px 33px;
-                    & .app-usage-details-list {
+                    & .app-usage-details-list,
+                    & .component-usage-details-list {
                         & details {
                             &:not(:last-child) {
                                 border-bottom: 1px solid #ccc;
@@ -549,12 +553,14 @@
                                 &:hover {
                                     background-color: #f0f0f0;
                                 }
-                                & .app-usage-summary-title {
+                                & .app-usage-summary-title,
+                                & .component-usage-summary-title {
                                     font-weight: 600;
                                     color: #333;
                                     width: 100%;
                                 }
-                                & .app-usage-summary-count {
+                                & .app-usage-summary-count,
+                                & .component-usage-summary-count {
                                     font-size: 14px;
                                     margin-left: 8px;
                                     font-weight: 300;
@@ -564,6 +570,18 @@
                             }
                             & .component-usage-list {
                                 margin: 0 16px 16px;
+                                padding: 0;
+                                list-style: none;
+                                li {
+                                    padding: 4px 10px 4px 20px;
+                                    font-size: 13px;
+                                    font-weight: 500;
+                                    color: #333;
+                                    line-break: anywhere;
+                                    &:not(:last-child) {
+                                        border-bottom: 1px solid #ccc;
+                                    }
+                                }
                                 & details {
                                     &:not(:last-child) {
                                         border-bottom: 1px solid #ccc;
