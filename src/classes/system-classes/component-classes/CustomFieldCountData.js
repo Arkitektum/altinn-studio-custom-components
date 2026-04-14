@@ -47,4 +47,13 @@ export default class CustomFieldCountData extends CustomComponent {
         const data = getComponentDataValue(props);
         return data && Array.isArray(data) ? data.length : 0;
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return ["custom-field"];
+    }
 }
