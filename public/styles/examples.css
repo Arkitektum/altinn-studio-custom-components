@@ -498,7 +498,7 @@
                             }
                         }
                         & dl.resource-values-list {
-                            margin: 4px 0 0;
+                            margin: 4px 8px 0 0;
                             padding: 0;
                             & dt {
                                 font-size: 13px;
@@ -527,12 +527,22 @@
                     & .usage-container {
                         display: flex;
                         gap: 12px;
-                        min-width: 275px;
+                        min-width: 290px;
                         justify-content: flex-end;
                         & span {
                             font-size: 14px;
                             font-weight: 300;
                             color: #666;
+                            text-align: left;
+                        }
+                        .app-usage {
+                            min-width: 56px;
+                        }
+                        .component-usage {
+                            min-width: 120px;
+                        }
+                        .duplicate-usage {
+                            min-width: 90px;
                         }
                     }
                 }
