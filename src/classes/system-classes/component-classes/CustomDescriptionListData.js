@@ -85,4 +85,13 @@ export default class CustomDescriptionListData extends CustomComponent {
             ? this.getDescriptionListItemsFromKeys(data, props?.itemTermKey, props?.itemDescriptionKey)
             : data;
     }
+
+    /**
+     * Returns an array of component usage tags that this component can render based on its state.
+     *
+     * @returns {string[]} An array of component usage tags, either "custom-field" if the component is empty or "custom-description-list" if it has content.
+     */
+    getComponentUsage() {
+        return ["custom-field", "custom-description-list"];
+    }
 }
