@@ -532,7 +532,6 @@ function sanitizeLogoFilename(value) {
 export function renderLogoImage(containerElement, applicationMetadata, selectedOptions) {
     const appOwner = sanitizePathSegment(selectedOptions.displayLayoutAppOwner);
     const appName = sanitizePathSegment(selectedOptions.displayLayoutAppName);
-    console.log("Rendering logo image with application metadata:", { applicationMetadata, selectedOptions });
     const applicationMetadataForSelectedApp = getApplicationMetadataForSelectedApp(appName, appOwner, applicationMetadata);
     const logoSourceType = applicationMetadataForSelectedApp?.logo?.source; // resource or org
 
