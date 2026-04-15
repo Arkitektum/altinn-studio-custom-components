@@ -414,7 +414,7 @@
                 color: var(--color-text-white);
             }
 
-            & table {
+            & table.table-dark {
                 font-family: var(--font-family-default);
                 font-size: var(--font-size-default);
                 font-weight: var(--font-weight-default);

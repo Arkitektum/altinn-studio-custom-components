@@ -68,6 +68,7 @@ export function renderPackageVersionsPage(containerElement) {
     contentContainerElement.classList.add("content-container");
 
     const tableElement = document.createElement("table");
+    tableElement.classList.add("table-dark");
     const tableHeaderElement = document.createElement("thead");
     const headerRow = document.createElement("tr");
     const appHeader = document.createElement("th");
