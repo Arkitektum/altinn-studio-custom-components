@@ -161,4 +161,20 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
         }
         return resourceBindings;
     }
+
+    /**
+     * Returns an array of component tag names that are used within this component for rendering its content.
+     * This information can be used for documentation, analysis, or tooling purposes to understand component dependencies.
+     *
+     * @returns {Array<string>} An array of component tag names used within this component.
+     */
+    getComponentUsage() {
+        return [
+            "custom-field-data",
+            "custom-field-part-navn",
+            "custom-description-list-data",
+            "custom-table-data",
+            "custom-feedbacklist-validation-messages"
+        ];
+    }
 }

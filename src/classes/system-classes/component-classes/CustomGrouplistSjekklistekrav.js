@@ -113,4 +113,13 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
             sjekklistekrav: resourceBindings
         };
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return ["custom-divider", "custom-feedbacklist-validation-messages", "custom-group-sjekklistekrav", "custom-header-text", "custom-paragraph"];
+    }
 }

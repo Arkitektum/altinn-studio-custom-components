@@ -79,4 +79,13 @@ export default class CustomFieldKode extends CustomComponent {
         const kode = new Kode(data);
         return this.formatKode(kode);
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return ["custom-field"];
+    }
 }

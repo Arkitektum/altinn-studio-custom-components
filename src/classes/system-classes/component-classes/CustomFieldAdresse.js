@@ -184,4 +184,13 @@ export default class CustomFieldAdresse extends CustomComponent {
         }
         return resourceBindings;
     }
+
+    /**
+     * Retrieves the component usage information for the address component.
+     *
+     * @returns {Array} An array of component tag names that this component uses.
+     */
+    getComponentUsage() {
+        return ["custom-field", "custom-feedbacklist-validation-messages"];
+    }
 }

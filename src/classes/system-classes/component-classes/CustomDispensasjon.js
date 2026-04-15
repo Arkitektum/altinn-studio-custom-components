@@ -244,4 +244,24 @@ export default class CustomDispensasjon extends CustomComponent {
             }
         };
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return [
+            "custom-feedbacklist-validation-messages",
+            "custom-field-adresse",
+            "custom-field-boolean-text",
+            "custom-field-data",
+            "custom-field-kommunens-saksnummer",
+            "custom-header-text",
+            "custom-list-data",
+            "custom-paragraph-text",
+            "custom-table-eiendom",
+            "custom-table-part"
+        ];
+    }
 }

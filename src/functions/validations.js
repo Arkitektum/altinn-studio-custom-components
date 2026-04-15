@@ -58,20 +58,20 @@ export function hasMissingTextResources(textResourceBindings, validationMessages
 export function validateTableHeadersTextResourceBindings(tableColumns, validationMessages = new ValidationMessages()) {
     const textResources = getTextResources();
     const defaultTextResources = getDefaultTextResources();
-    for (let columnIndex = 0; columnIndex < tableColumns.length; columnIndex++) {
-        const column = tableColumns[columnIndex];
+    for (let columnIndex = 0; columnIndex < tableColumns?.length; columnIndex++) {
+        const column = tableColumns?.[columnIndex];
         for (const textResourceKey of Object.keys(column?.textResourceBindings || {})) {
-            let textResource = textResources?.resources?.find((resource) => resource.id === column.textResourceBindings[textResourceKey]);
+            let textResource = textResources?.resources?.find((resource) => resource.id === column?.textResourceBindings?.[textResourceKey]);
             if (!textResource) {
-                textResource = defaultTextResources?.resources?.find((resource) => resource.id === column.textResourceBindings[textResourceKey]);
+                textResource = defaultTextResources?.resources?.find((resource) => resource.id === column?.textResourceBindings?.[textResourceKey]);
             }
             if (!textResource) {
                 validationMessages.error.push(
-                    `Missing text resource binding with id: "${column.textResourceBindings[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
+                    `Missing text resource binding with id: "${column?.textResourceBindings?.[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
                 );
             } else if (textResource.value === "") {
                 validationMessages.info.push(
-                    `Empty text resource binding with id: "${column.textResourceBindings[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
+                    `Empty text resource binding with id: "${column?.textResourceBindings?.[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
                 );
             }
         }

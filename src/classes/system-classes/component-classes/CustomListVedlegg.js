@@ -112,4 +112,13 @@ export default class CustomListVedlegg extends CustomComponent {
         const data = getComponentDataValue(props);
         return this.getAttachmentListItems(data);
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return ["custom-field", "custom-list"];
+    }
 }

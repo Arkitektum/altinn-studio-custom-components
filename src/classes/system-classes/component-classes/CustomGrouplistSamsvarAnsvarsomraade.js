@@ -155,4 +155,13 @@ export default class CustomGrouplistSamsvarAnsvarsomraade extends CustomComponen
         };
         return resourceBindings;
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return ["custom-feedbacklist-validation-messages", "custom-group-samsvar-ansvarsomraade", "custom-paragraph"];
+    }
 }

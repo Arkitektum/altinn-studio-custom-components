@@ -171,4 +171,22 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
             }
         };
     }
+
+    /**
+     * Defines the custom element usage for this component, specifying which custom elements are utilized within its rendering.
+     *
+     * @returns {Array<string>} An array of custom element tag names that are used within this component.
+     */
+    getComponentUsage() {
+        return [
+            "custom-feedbacklist-validation-messages",
+            "custom-field-data",
+            "custom-table-eiendom",
+            "custom-field-kommunens-saksnummer",
+            "custom-grouplist-ansvarsomraade-type",
+            "custom-header-text",
+            "custom-paragraph-text",
+            "custom-table-part"
+        ];
+    }
 }

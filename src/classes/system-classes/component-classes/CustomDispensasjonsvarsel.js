@@ -152,4 +152,13 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
             }
         };
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage() {
+        return ["custom-feedbacklist-validation-messages", "custom-field-data", "custom-header-text", "custom-paragraph-text"];
+    }
 }
