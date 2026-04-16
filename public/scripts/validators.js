@@ -160,12 +160,10 @@ export function getMissingResourceBindings(allResourceBindings, textResources, d
     const missingResourceBindings = [];
     const literalValues = [];
     const textResourceIds = textResources?.resources?.map((res) => res.id) || [];
-    const defaultTextResourceIds = defaultTextResources?.resources?.map((res) => res.id) || [];
+    const defaultTextResourceIds = defaultTextResources?.map((res) => res.id) || [];
     // Combine text resource IDs from both provided and default text resources without mutating either array
     const textResourceIdSet = new Set([...textResourceIds, ...defaultTextResourceIds]);
-    const allResourceBindingsArray = Array.isArray(allResourceBindings)
-        ? allResourceBindings
-        : Array.from(allResourceBindings || []);
+    const allResourceBindingsArray = Array.isArray(allResourceBindings) ? allResourceBindings : Array.from(allResourceBindings || []);
     for (const resId of allResourceBindingsArray) {
         if (typeof resId === "string" && resId.length > 0 && !textResourceIdSet.has(resId)) {
             if (resId.includes(" ")) {
@@ -245,9 +243,7 @@ export function getResourceBindingsFromComponents(resourceBindingsSet, component
  * @returns {Set} The updated set of resource bindings.
  */
 export function getResourceBindingsFromLayout(resourceBindingsSet, layout, componentType = "all") {
-    const componentsArray = Array.isArray(layout?.layout?.data?.layout)
-        ? layout.layout.data.layout
-        : null;
+    const componentsArray = Array.isArray(layout?.layout?.data?.layout) ? layout.layout.data.layout : null;
     if (componentsArray) {
         getResourceBindingsFromComponents(resourceBindingsSet, componentsArray, componentType);
     }
@@ -294,11 +290,7 @@ export function validateResources() {
     const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
 
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
-    const { missingResourceBindings, literalValues } = getMissingResourceBindings(
-        allResourceBindings,
-        textResources,
-        defaultTextResources
-    );
+    const { missingResourceBindings, literalValues } = getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources?.resources);
     const duplicateTextResources = getDuplicateTextResources(textResources);
     const emptyTextResources = getTextResourcesWithEmptyValue(textResources);
     const validationResults = {
@@ -366,9 +358,7 @@ export function resourceIsUsedInComponent(component, resource) {
  * @returns {Array<Object>} An array of components that use the specified resource.
  */
 export function getResourceUsageForLayout(layout, resource) {
-    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout)
-        ? layout.layout.data.layout
-        : null;
+    const componentsInLayout = Array.isArray(layout?.layout?.data?.layout) ? layout.layout.data.layout : null;
     const componentsUsingResource = [];
     if (componentsInLayout) {
         for (const component of componentsInLayout) {
@@ -459,7 +449,9 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
                 const valueKeys = Object.keys(values);
                 const languageCodeForDedup = Object.prototype.hasOwnProperty.call(values, "nb")
                     ? "nb"
-                    : (valueKeys.length > 0 ? valueKeys[0] : undefined);
+                    : valueKeys.length > 0
+                      ? valueKeys[0]
+                      : undefined;
                 const dedupValue = languageCodeForDedup ? values[languageCodeForDedup] : "";
                 // Use a structured, JSON-stringified key to avoid collisions from delimiter characters.
                 const key = JSON.stringify({ id: resource.id, value: dedupValue ?? "" });
