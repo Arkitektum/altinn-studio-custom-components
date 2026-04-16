@@ -149,7 +149,7 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.responsNabovarselSendt?.emptyFieldText || "resource.emptyFieldText.default"
             },
             responsErMerknadEllerSamtykkeMottatt: {
-                title: props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title || "resource.respons.erMerknadEllerSamtykkeMottatt.title",
+                title: props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title || "resource.status.title",
                 falseText:
                     props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.falseText ||
                     "resource.respons.erMerknadEllerSamtykkeMottatt.falseText"

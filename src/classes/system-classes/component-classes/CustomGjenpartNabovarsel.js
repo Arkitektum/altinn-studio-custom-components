@@ -130,11 +130,6 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendom.bygningsnummer.title",
                 emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
-            eiendomMatrikkelinformasjon: {
-                title:
-                    props?.resourceBindings?.eiendomMatrikkelinformasjon?.title ||
-                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
-            },
             detErVarsletOm: {
                 title: props?.resourceBindings?.detErVarsletOm?.title || "resource.detErVarsletOm.title"
             },
@@ -185,6 +180,15 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             },
             tiltakshaver: {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
+            },
+            eiendomMatrikkelinformasjon: {
+                title:
+                    props?.resourceBindings?.eiendomMatrikkelinformasjon?.title ||
+                    "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
+            },
+            eiendomMatrikkelinformasjonAdresse: {
+                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.eiendom.adresse.title",
+                emptyFieldText: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
                 title:
