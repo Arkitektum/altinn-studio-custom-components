@@ -5,7 +5,7 @@ describe("getMissingResourceBindings", () => {
         const allResourceBindings = ["id1", "id2", "literal value"];
         const textResources = { resources: [{ id: "id1" }] };
         const defaultTextResources = { resources: [{ id: "id3" }] };
-        const result = validators.getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources);
+        const result = validators.getMissingResourceBindings(allResourceBindings, textResources, defaultTextResources?.resources);
         expect(result.missingResourceBindings).toContain("id2");
         expect(result.literalValues).toContain("literal value");
     });
