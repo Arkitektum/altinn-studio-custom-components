@@ -30,7 +30,7 @@ export function getMissingResourceBindingsWithUsage(displayLayouts, appResourceV
     const { missingResourceBindings } = getMissingResourceBindings(resourceBindingsInApplications, null, defaultTextResources);
     const { missingResourcesUsage, missingResourcesWithLocalValueUsage } = getUsageForMissingResources(
         displayLayouts,
-        missingResourceBindings.map((res) => ({ id: res })),
+        missingResourceBindings,
         appResourceValues
     );
     return { missingResourceBindings, missingResourcesUsage, missingResourcesWithLocalValueUsage };
