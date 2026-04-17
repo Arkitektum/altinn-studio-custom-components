@@ -62,10 +62,6 @@
             "value": "Begrunnelse"
         },
         {
-            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
-            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
-        },
-        {
             "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
             "value": "Hensynet bak bestemmelse"
         },
@@ -450,8 +446,12 @@
             "value": "Arbeidene vil bli utført innen"
         },
         {
-            "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description",
-            "value": "Oversikt over områderisikoer der byggverket skal plasseres"
+            "id": "resource.kravTilByggegrunn.title",
+            "value": "Krav til byggegrunn"
+        },
+        {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
         },
         {
             "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
@@ -463,7 +463,7 @@
         },
         {
             "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
-            "value": "Krav til byggegrunn"
+            "value": "Oversikt over områderisikoer der byggverket skal plasseres"
         },
         {
             "id": "resource.merknaderNabovarsel.header",
