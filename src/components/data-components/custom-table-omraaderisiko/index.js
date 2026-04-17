@@ -1,13 +1,10 @@
-// Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-
 // Global functions
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
-import { renderHeaderElement, renderOmraaderisikoTable } from "./renderers.js";
+import { renderOmraaderisikoTable } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -21,9 +18,6 @@ export default customElements.define(
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 componentContainerElement.style.display = "none";
             } else {
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
-                }
                 const omraaderisikoTableElement = renderOmraaderisikoTable(component);
                 this.appendChild(omraaderisikoTableElement);
             }
