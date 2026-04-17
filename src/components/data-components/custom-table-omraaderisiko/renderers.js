@@ -1,27 +1,6 @@
 // Dependencies
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
-// Global functions
-import { getAdjustedHeaderSize } from "../../../functions/helpers.js";
-
-/**
- * Renders a custom header element with the specified title and size.
- *
- * @param {string} title - The text to display in the header.
- * @param {string} [size="h2"] - The size of the header (e.g., "h1", "h2", etc.).
- * @returns {HTMLElement} The created custom header element.
- */
-export function renderHeaderElement(title, size = "h2") {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        size,
-        resourceValues: {
-            title
-        }
-    });
-    return createCustomElement("custom-header-text", htmlAttributes);
-}
-
 /**
  * Renders a custom table for "Omraaderisiko" with specified columns and attributes.
  *
@@ -59,14 +38,14 @@ export function renderOmraaderisikoTable(component) {
         }
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
-        size: getAdjustedHeaderSize(component?.size, 1),
+        size: component?.size || "h2",
         hideIfEmpty: true,
         isChildComponent: true,
         resourceValues: {
             data: component?.resourceValues?.data
         },
         resourceBindings: {
-            title: component?.resourceBindings?.omraaderisiko?.description
+            title: component?.resourceBindings?.omraaderisiko?.title
         },
         tableColumns
     });

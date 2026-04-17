@@ -33,6 +33,7 @@ import CustomGroupKontrollErklaeringer from "../classes/system-classes/component
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.js";
 import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.js";
 import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.js";
+import CustomGroupRammebetingelserKravTilByggegrunn from "../classes/system-classes/component-classes/CustomGroupRammebetingelserKravTilByggegrunn.js";
 import CustomGroupRammebetingelserTilknytninger from "../classes/system-classes/component-classes/CustomGroupRammebetingelserTilknytninger.js";
 import CustomGroupSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupSamsvarAnsvarsomraade.js";
 import CustomGroupSamsvarErklaeringer from "../classes/system-classes/component-classes/CustomGroupSamsvarErklaeringer.js";
@@ -113,6 +114,7 @@ export function getComponentForTagName(tagName) {
         "custom-group-loefteinnretninger": CustomGroupLoefteinnretninger,
         "custom-group-nabo-gjenboer-eiendom": CustomGroupNaboGjenboerEiendom,
         "custom-group-overvann": CustomGroupOvervann,
+        "custom-group-rammebetingelser-krav-til-byggegrunn": CustomGroupRammebetingelserKravTilByggegrunn,
         "custom-group-rammebetingelser-tilknytninger": CustomGroupRammebetingelserTilknytninger,
         "custom-group-samsvar-ansvarsomraade": CustomGroupSamsvarAnsvarsomraade,
         "custom-group-samsvar-erklaeringer": CustomGroupSamsvarErklaeringer,

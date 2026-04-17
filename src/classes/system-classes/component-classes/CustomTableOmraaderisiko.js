@@ -120,22 +120,13 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
     }
 
     /**
-     * Generates an object containing text resource bindings for various fields based on the provided props.
+     * Generates an object containing resource binding configurations for the component, providing default resource keys if specific bindings are not supplied via props.
      *
-     * @param {Object} props - The properties object.
-     * @param {Object} [props.resourceBindings] - Optional resource bindings for customizing text resources.
-     * @param {Object} [props.resourceBindings.risikotype] - Resource bindings for 'risikotype'.
-     * @param {string} [props.resourceBindings.risikotype.title] - Custom title for 'risikotype'.
-     * @param {string} [props.resourceBindings.risikotype.emptyFieldText] - Custom empty field text for 'risikotype'.
-     * @param {Object} [props.resourceBindings.sikkerhetsklasse] - Resource bindings for 'sikkerhetsklasse'.
-     * @param {string} [props.resourceBindings.sikkerhetsklasse.title] - Custom title for 'sikkerhetsklasse'.
-     * @param {string} [props.resourceBindings.sikkerhetsklasse.emptyFieldText] - Custom empty field text for 'sikkerhetsklasse'.
-     * @param {string} [props.resourceBindings.title] - Custom title for 'omraadeRisiko'.
-     * @param {string} [props.resourceBindings.description] - Custom description for 'omraadeRisiko'.
-     * @param {string} [props.resourceBindings.emptyFieldText] - Custom empty field text for 'omraadeRisiko'.
-     * @param {boolean|string} [props.hideTitle] - If true or "true", omraadeRisiko title is hidden.
-     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omraadeRisiko empty field text is hidden.
-     * @returns {Object} An object containing text resource bindings for risikotype, sikkerhetsklasse, and optionally omraadeRisiko.
+     * @param {Object} props - The properties object containing optional resource bindings and flags.
+     * @param {Object} [props.resourceBindings] - Optional resource binding overrides for each component.
+     * @param {boolean|string} [props.hideTitle] - If true or "true", omits the title for the omraaderisiko table.
+     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", omits the emptyFieldText for the omraaderisiko table.
+     * @returns {Object} An object mapping component keys to their resource binding configurations.
      */
     getResourceBindings(props) {
         const resourceBindings = {
@@ -149,9 +140,6 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
                     props?.resourceBindings?.sikkerhetsklasse?.title ||
                     "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.sikkerhetsklasse.title",
                 emptyFieldText: props?.resourceBindings?.sikkerhetsklasse?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            omraaderisiko: {
-                description: props?.resourceBindings?.description || "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
@@ -175,6 +163,6 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
      * @returns {Array<string>} An array of custom component names used by this class.
      */
     getComponentUsage() {
-        return ["custom-feedbacklist-validation-messages", "custom-field-data", "custom-header-text", "custom-table-data"];
+        return ["custom-feedbacklist-validation-messages", "custom-table-data"];
     }
 }

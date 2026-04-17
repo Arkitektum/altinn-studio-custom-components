@@ -90,12 +90,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
-        "values": {
-            "nb": "Har tiltaket andre naturforhold jf. pbl §28-1?"
-        }
-    },
-    {
         "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
         "values": {
             "nb": "Hensynet bak bestemmelse"
@@ -672,9 +666,15 @@
         }
     },
     {
-        "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.description",
+        "id": "resource.kravTilByggegrunn.title",
         "values": {
-            "nb": "Oversikt over områderisikoer der byggverket skal plasseres"
+            "nb": "Krav til byggegrunn"
+        }
+    },
+    {
+        "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+        "values": {
+            "nb": "Har tiltaket andre naturforhold jf. pbl §28-1?"
         }
     },
     {
@@ -692,7 +692,7 @@
     {
         "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
         "values": {
-            "nb": "Krav til byggegrunn"
+            "nb": "Oversikt over områderisikoer der byggverket skal plasseres"
         }
     },
     {
