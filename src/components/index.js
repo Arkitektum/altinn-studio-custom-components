@@ -35,6 +35,7 @@ import customGroupKontrollErklaeringer from "./data-components/custom-group-kont
 import customGroupLoefteinnretninger from "./data-components/custom-group-loefteinnretninger/index.js";
 import customGroupNaboGjenboerEiendom from "./data-components/custom-grouplist-nabo-gjenboer-eiendom/custom-group-nabo-gjenboer-eiendom/index.js";
 import customGroupOvervann from "./data-components/custom-group-overvann/index.js";
+import customGroupRammebetingelserKravTilByggegrunn from "./data-components/custom-group-rammebetingelser-krav-til-byggegrunn/index.js";
 import customGroupRammebetingelserTilknytninger from "./data-components/custom-group-rammebetingelser-tilknytninger/index.js";
 import customGroupSamsvarAnsvarsomraade from "./data-components/custom-grouplist-samsvar-ansvarsomraade/custom-group-samsvar-ansvarsomraade/index.js";
 import customGroupSamsvarErklaeringer from "./data-components/custom-group-samsvar-erklaeringer/index.js";
@@ -126,6 +127,7 @@ export {
     customGroupKontrollErklaeringer,
     customGroupNaboGjenboerEiendom,
     customGroupOvervann,
+    customGroupRammebetingelserKravTilByggegrunn,
     customGroupRammebetingelserTilknytninger,
     customGroupSamsvarAnsvarsomraade,
     customGroupSamsvarErklaeringer,
