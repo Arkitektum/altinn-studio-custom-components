@@ -2,8 +2,8 @@
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 export default customElements.define(
     "custom-paragraph-text",

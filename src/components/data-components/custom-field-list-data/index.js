@@ -1,8 +1,8 @@
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderListFieldElement } from "./renderers.js";
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-field-list-data",

@@ -2,6 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../../../../functions/helpers.js";
 import { instantiateComponent } from "../../../../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../../../../functions/feedbackHelpers.js";
@@ -15,7 +16,6 @@ import {
     renderTemaElement,
     renderVedleggslisteElement
 } from "./renderers.js";
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-group-utfall-svar",

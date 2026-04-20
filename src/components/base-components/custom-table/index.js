@@ -2,8 +2,8 @@
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
-import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
 import { renderTableElement } from "./renderers.js";

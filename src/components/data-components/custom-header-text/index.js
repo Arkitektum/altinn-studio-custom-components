@@ -2,12 +2,12 @@
 import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
-import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-header-text",

@@ -1,6 +1,6 @@
 // Global functions
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
 import { renderParagraphElement } from "./renderers.js";

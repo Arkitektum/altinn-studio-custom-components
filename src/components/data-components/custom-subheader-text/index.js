@@ -2,11 +2,11 @@
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
-import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-subheader-text",
