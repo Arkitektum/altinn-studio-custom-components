@@ -37,7 +37,8 @@ function closeAllPanels() {
  * @returns {boolean} True if in development mode, false otherwise.
  */
 export function isDevMode() {
-    return new URLSearchParams(globalThis.location?.search ?? "").get("devtools") === "true";
+    const validDevtoolsValues = ["true", "true/"];
+    return validDevtoolsValues.includes(new URLSearchParams(globalThis.location?.search ?? "").get("devtools"));
 }
 
 /**
