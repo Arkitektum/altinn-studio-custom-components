@@ -1,4 +1,5 @@
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
@@ -13,8 +14,11 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             if (!component?.isEmpty) {
-                const paragraphElement = renderParagraphElement(component);
-                this.innerHTML = paragraphElement;
+                this.innerHTML = renderParagraphElement(component);
+                addDevToolsOverlay(this, component, "base");
+            } else if (isDevMode()) {
+                const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
+                if (hiddenEl) this.appendChild(hiddenEl);
             }
         }
     }

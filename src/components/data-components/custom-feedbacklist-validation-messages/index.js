@@ -2,6 +2,7 @@
 import ValidationMessages from "../../../classes/system-classes/ValidationMessages.js";
 
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
@@ -19,9 +20,15 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             const validationMessages = new ValidationMessages(component?.resourceValues?.data);
             if (component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 this.innerHTML = renderValidationMessagesElement(validationMessages);
+                addDevToolsOverlay(this, component, "data");
             }
         }
     }

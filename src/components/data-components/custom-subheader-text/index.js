@@ -2,6 +2,7 @@
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
@@ -14,6 +15,7 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const htmlAttributes = new CustomElementHtmlAttributes(component);
             this.innerHTML = createCustomElement("custom-paragraph", htmlAttributes).outerHTML;
+            addDevToolsOverlay(this, component, "data");
         }
     }
 );

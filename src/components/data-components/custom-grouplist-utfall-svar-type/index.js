@@ -1,4 +1,5 @@
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
@@ -12,12 +13,18 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else if (component?.resourceValues?.data) {
                 Object.keys(component?.resourceValues?.data).forEach((utfallTypeKey) => {
                     const utfallTypeElement = renderUtfallSvarType(component, utfallTypeKey);
                     this.appendChild(utfallTypeElement);
                 });
+                addDevToolsOverlay(this, component, "data");
             }
         }
     }

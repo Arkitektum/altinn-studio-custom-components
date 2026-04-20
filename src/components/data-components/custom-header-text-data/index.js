@@ -2,6 +2,7 @@
 import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
@@ -21,6 +22,7 @@ export default customElements.define(
             }
             const htmlAttributes = new CustomElementHtmlAttributes(component);
             this.innerHTML = createCustomElement("custom-header", htmlAttributes).outerHTML;
+            addDevToolsOverlay(this, component, "data");
         }
     }
 );

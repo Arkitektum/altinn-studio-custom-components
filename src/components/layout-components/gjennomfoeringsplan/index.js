@@ -2,6 +2,7 @@
 import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
@@ -31,7 +32,12 @@ export default customElements.define(
             setPageOrientation("landscape");
 
             if (component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "layout");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 const layoutContainerElement = renderLayoutContainerElement();
 
@@ -73,6 +79,7 @@ export default customElements.define(
                 appendChildren(layoutContainerElement, [validationFeedbackListElement]);
 
                 this.appendChild(layoutContainerElement);
+                addDevToolsOverlay(this, component, "layout");
             }
         }
     }

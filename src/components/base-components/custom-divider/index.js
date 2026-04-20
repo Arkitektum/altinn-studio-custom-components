@@ -1,7 +1,8 @@
 // Dependencies
 import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
-// Classes
+// Global functions
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
@@ -16,6 +17,7 @@ export default customElements.define(
             addStyle(dividerElement, component?.styleOverride);
             this.innerHTML = "";
             this.appendChild(dividerElement);
+            addDevToolsOverlay(this, component, "base");
         }
     }
 );

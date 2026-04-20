@@ -1,7 +1,8 @@
 // Dependencies
 import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
-// Classes
+// Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Local functions
@@ -18,6 +19,10 @@ export default customElements.define(
             if (!component?.isEmpty) {
                 this.innerHTML = renderHeaderElement(component);
                 addStyle(this, component?.styleOverride);
+                addDevToolsOverlay(this, component, "base");
+            } else if (isDevMode()) {
+                const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
+                if (hiddenEl) this.appendChild(hiddenEl);
             }
         }
     }

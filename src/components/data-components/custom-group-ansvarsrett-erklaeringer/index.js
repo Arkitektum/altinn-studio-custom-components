@@ -2,6 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
@@ -25,7 +26,12 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             let funksjonList = [];
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 if (hasValue(component?.resourceBindings?.erklaeringer?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceBindings?.erklaeringer?.title, component?.size));
@@ -52,6 +58,7 @@ export default customElements.define(
                         this.appendChild(renderKONTROLLTekstElement(component));
                     }
                 }
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

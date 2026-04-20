@@ -2,6 +2,7 @@
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Global functions
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
@@ -17,11 +18,17 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 const tableElement = renderTableElement(component);
                 this.innerHTML = "";
                 this.appendChild(tableElement);
+                addDevToolsOverlay(this, component, "base");
             }
         }
     }
