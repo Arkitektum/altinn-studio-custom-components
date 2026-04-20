@@ -18,7 +18,7 @@ export function isDevMode() {
  * @param {number} [maxLen=80] - The maximum length of the string.
  * @returns {string} The truncated string.
  */
-function truncate(str, maxLen = 80) {
+function truncate(str, maxLen = 300) {
     return str.length > maxLen ? str.slice(0, maxLen) + "\u2026" : str;
 }
 
@@ -32,7 +32,7 @@ function getComponentProperties(component) {
         .filter(([, v]) => v !== undefined && v !== null && v !== false && v !== "")
         .map(([key, value]) => ({
             key,
-            value: truncate(typeof value === "object" ? JSON.stringify(value) : String(value))
+            value: truncate(typeof value === "object" ? JSON.stringify(value, null, 2) : String(value))
         }));
 }
 
@@ -65,7 +65,9 @@ function buildPanel(tagName, elementId, props, hidden, type) {
         "z-index: 10000",
         "box-shadow: 0 4px 16px rgba(0,0,0,0.5)",
         "line-height: 1.6",
-        "text-align: left"
+        "text-align: left",
+        "white-space: pre",
+        "overflow: auto"
     ].join("; ");
 
     const typeBadge = `<span style="background:${cfg.bgColor};color:${cfg.color};border:1px solid ${cfg.borderColor};padding:1px 5px;border-radius:3px;font-size:9px;margin-right:4px;vertical-align:middle;">${cfg.typeName}</span>`;
