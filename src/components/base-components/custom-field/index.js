@@ -17,7 +17,7 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component);
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
                     if (hiddenEl) this.appendChild(hiddenEl);
                 } else {
                     componentContainerElement.style.display = "none";
@@ -29,7 +29,7 @@ export default customElements.define(
                     enableLinks: component?.enableLinks
                 };
                 this.innerHTML = renderFieldElement(component?.resourceValues?.title, component?.resourceValues?.data, options);
-                addDevToolsOverlay(this, component);
+                addDevToolsOverlay(this, component, "base");
             }
         }
     }

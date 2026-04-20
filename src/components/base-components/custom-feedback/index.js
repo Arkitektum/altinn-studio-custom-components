@@ -20,14 +20,14 @@ export default customElements.define(
             const value = component?.resourceValues?.data;
             if (component.isEmpty && !!componentContainerElement) {
                 if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component);
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
                     if (hiddenEl) this.appendChild(hiddenEl);
                 } else {
                     componentContainerElement.style.display = "none";
                 }
             } else {
                 this.innerHTML = renderFeedbackElement(value, component?.feedbackType);
-                addDevToolsOverlay(this, component);
+                addDevToolsOverlay(this, component, "base");
             }
         }
     }

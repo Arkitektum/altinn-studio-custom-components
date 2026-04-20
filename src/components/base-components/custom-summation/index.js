@@ -21,7 +21,7 @@ export default customElements.define(
 
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
                 if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component);
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
                     if (hiddenEl) this.appendChild(hiddenEl);
                 } else {
                     componentContainerElement.style.display = "none";
@@ -33,7 +33,7 @@ export default customElements.define(
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
                 this.appendChild(summationElement);
-                addDevToolsOverlay(this, component);
+                addDevToolsOverlay(this, component, "base");
             }
         }
     }

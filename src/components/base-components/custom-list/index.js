@@ -14,7 +14,7 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             this.innerHTML = component?.resourceValues?.title?.length ? renderListFieldElement(component) : renderListElement(component);
-            addDevToolsOverlay(this, component);
+            addDevToolsOverlay(this, component, "base");
         }
     }
 );

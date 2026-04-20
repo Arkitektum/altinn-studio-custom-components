@@ -17,7 +17,7 @@ export default customElements.define(
             addStyle(dividerElement, component?.styleOverride);
             this.innerHTML = "";
             this.appendChild(dividerElement);
-            addDevToolsOverlay(this, component);
+            addDevToolsOverlay(this, component, "base");
         }
     }
 );

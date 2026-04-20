@@ -15,9 +15,9 @@ export default customElements.define(
             const component = instantiateComponent(this);
             if (!component?.isEmpty) {
                 this.innerHTML = renderParagraphElement(component);
-                addDevToolsOverlay(this, component);
+                addDevToolsOverlay(this, component, "base");
             } else if (isDevMode()) {
-                const hiddenEl = renderHiddenDevToolsElement(this, component);
+                const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
                 if (hiddenEl) this.appendChild(hiddenEl);
             }
         }
