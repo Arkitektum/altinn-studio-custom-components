@@ -3,6 +3,7 @@ import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -16,6 +17,7 @@ export default customElements.define(
             addStyle(dividerElement, component?.styleOverride);
             this.innerHTML = "";
             this.appendChild(dividerElement);
+            addDevToolsOverlay(this, component);
         }
     }
 );

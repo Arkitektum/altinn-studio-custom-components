@@ -1,5 +1,6 @@
 // Global functions
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 // Local functions
 import { renderListElement, renderListFieldElement } from "./renderers.js";
@@ -13,6 +14,7 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             this.innerHTML = component?.resourceValues?.title?.length ? renderListFieldElement(component) : renderListElement(component);
+            addDevToolsOverlay(this, component);
         }
     }
 );

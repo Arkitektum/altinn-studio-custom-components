@@ -4,6 +4,7 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 // Global functions
 import { getComponentContainerElement } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 // Local functions
 import { renderHeaderElement, renderSummationElement } from "./renderers.js";
@@ -19,7 +20,12 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
 
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component);
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 const summationElement = renderSummationElement(component?.resourceValues?.data);
                 this.innerHTML = "";
@@ -27,6 +33,7 @@ export default customElements.define(
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                 }
                 this.appendChild(summationElement);
+                addDevToolsOverlay(this, component);
             }
         }
     }
