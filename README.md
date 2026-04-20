@@ -126,6 +126,36 @@ yarn test
 
 ---
 
+## 🛠️ DevTools Mode
+
+DevTools mode adds inspection overlays to all custom components on the page, making it easier to debug and inspect component properties during development.
+
+### Activating DevTools Mode
+
+Append `?devtools=true` to the URL of your Altinn Studio app:
+
+```text
+http://local.altinn.cloud/[ORG NAME]/[APP NAME]/.../PdfLayout?devtools=true
+```
+
+### What It Shows
+
+Each custom component gets a small badge button in its top-right corner. Clicking it opens an inspection panel showing the component's tag name, `id`, and all non-empty properties.
+
+Components are color-coded by category:
+
+| Badge | Category |        Description         |
+|-------|----------|----------------------------|
+| **B** | Base     | Base components (blue)     |
+| **D** | Data     | Data components (green)    |
+| **L** | Layout   | Layout components (purple) |
+
+Components that are conditionally hidden are rendered as a visible placeholder (dashed border) with a **hidden** label instead of being invisible, so you can still inspect their properties.
+
+Clicking anywhere outside a panel closes it.
+
+---
+
 ## 🔗 Resources
 
 - [Altinn Studio Documentation](https://docs.altinn.studio/)
