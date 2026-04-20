@@ -26,6 +26,7 @@ import {
     renderSoeknadGjelderBrukTiltaksformaalElement,
     renderSoeknadGjelderTypeElement
 } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-gjenpart-nabovarsel",
@@ -35,7 +36,12 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
 
             if (component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "layout");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 const layoutContainerElement = renderLayoutContainerElement();
 
@@ -107,6 +113,7 @@ export default customElements.define(
                 appendChildren(layoutContainerElement, [validationFeedbackListElement]);
 
                 this.appendChild(layoutContainerElement);
+                addDevToolsOverlay(this, component, "layout");
             }
         }
     }
