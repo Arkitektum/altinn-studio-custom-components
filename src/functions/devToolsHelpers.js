@@ -1,7 +1,7 @@
 const TYPE_CONFIG = {
-    base: { label: "B", color: "#89b4fa", bgColor: "#1a1a35", borderColor: "#3d3d7a", rightPx: 2, typeName: "Base" },
-    data: { label: "D", color: "#a6e3a1", bgColor: "#0d2518", borderColor: "#2a5e3a", rightPx: 26, typeName: "Data" },
-    layout: { label: "L", color: "#cba6f7", bgColor: "#1e0838", borderColor: "#5a2a7a", rightPx: 50, typeName: "Layout" }
+    base: { label: "B", color: "#89b4fa", bgColor: "#1a1a35", bgColorHidden: "#1a1a35cc", borderColor: "#3d3d7a", rightPx: 2, typeName: "Base" },
+    data: { label: "D", color: "#a6e3a1", bgColor: "#0d2518", bgColorHidden: "#0d2518cc", borderColor: "#2a5e3a", rightPx: 26, typeName: "Data" },
+    layout: { label: "L", color: "#cba6f7", bgColor: "#1e0838", bgColorHidden: "#1e0838cc", borderColor: "#5a2a7a", rightPx: 50, typeName: "Layout" }
 };
 
 /**
@@ -166,17 +166,16 @@ export function renderHiddenDevToolsElement(element, component, type = "base") {
         "align-items: center",
         "gap: 6px",
         "padding: 2px 28px 2px 8px",
-        `background: ${cfg.bgColor}`,
+        `background: ${cfg.bgColorHidden}`,
         `border: 1px dashed ${cfg.borderColor}`,
         "border-radius: 4px",
         `color: ${cfg.color}`,
         "font-family: 'Courier New', monospace",
-        "font-size: 11px",
-        "opacity: 0.8"
+        "font-size: 11px"
     ].join("; ");
 
     const typeLabel = document.createElement("span");
-    typeLabel.style.cssText = `background:${cfg.bgColor};color:${cfg.color};border:1px solid ${cfg.borderColor};padding:1px 4px;border-radius:3px;font-size:9px;`;
+    typeLabel.style.cssText = `background:${cfg.bgColorHidden};color:${cfg.color};border:1px solid ${cfg.borderColor};padding:1px 4px;border-radius:3px;font-size:9px;`;
     typeLabel.textContent = cfg.typeName;
 
     const tagLabel = document.createElement("span");
@@ -184,7 +183,7 @@ export function renderHiddenDevToolsElement(element, component, type = "base") {
     tagLabel.textContent = `<${tagName}>`;
 
     const hiddenBadge = document.createElement("span");
-    hiddenBadge.style.color = "#6c7086";
+    hiddenBadge.style.color = "#f38ba8";
     hiddenBadge.textContent = "hidden";
 
     const panel = buildPanel(tagName, element.id || null, props, true, type);
