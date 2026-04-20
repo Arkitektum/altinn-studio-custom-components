@@ -132,10 +132,10 @@ DevTools mode adds inspection overlays to all custom components on the page, mak
 
 ### Activating DevTools Mode
 
-Append `?devtools=true` to the URL of your Altinn Studio app:
+Add `?devtools=true` to the URL of your Altinn Studio app:
 
 ```text
-http://local.altinn.cloud/[ORG NAME]/[APP NAME]/.../PdfLayout?devtools=true
+http://local.altinn.cloud/[ORG NAME]/[APP NAME]?devtools=true/#/instance/.../PdfLayout
 ```
 
 ### What It Shows
