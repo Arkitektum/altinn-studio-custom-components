@@ -4,6 +4,34 @@ const TYPE_CONFIG = {
     layout: { label: "L", color: "#cba6f7", bgColor: "#1e0838", bgColorHidden: "#1e0838cc", borderColor: "#5a2a7a", rightPx: 50, typeName: "Layout" }
 };
 
+const allPanels = new Set();
+let documentListenerRegistered = false;
+
+/**
+ * Registers a panel to be managed by the DevTools helper functions.
+ * @param {HTMLElement} panel - The panel element to register.
+ */
+function registerPanel(panel) {
+    allPanels.add(panel);
+    if (!documentListenerRegistered) {
+        documentListenerRegistered = true;
+        document.addEventListener("click", () => {
+            for (const p of allPanels) {
+                p.style.display = "none";
+            }
+        });
+    }
+}
+
+/**
+ * Closes all open DevTools panels by setting their display style to "none".
+ */
+function closeAllPanels() {
+    for (const p of allPanels) {
+        p.style.display = "none";
+    }
+}
+
 /**
  * Checks if the application is running in development mode based on the URL parameter "devtools".
  * @returns {boolean} True if in development mode, false otherwise.
@@ -140,9 +168,12 @@ export function addDevToolsOverlay(element, component, type = "base") {
     const props = getComponentProperties(component);
     const panel = buildPanel(tagName, element.id || null, props, false, type);
     const button = buildButton(false, type);
+    registerPanel(panel);
     button.addEventListener("click", (e) => {
         e.stopPropagation();
-        panel.style.display = panel.style.display === "none" ? "block" : "none";
+        const isOpen = panel.style.display !== "none";
+        closeAllPanels();
+        if (!isOpen) panel.style.display = "block";
     });
     element.appendChild(button);
     element.appendChild(panel);
@@ -194,9 +225,12 @@ export function renderHiddenDevToolsElement(element, component, type = "base") {
     button.style.top = "2px";
     button.style.right = "2px";
 
+    registerPanel(panel);
     button.addEventListener("click", (e) => {
         e.stopPropagation();
-        panel.style.display = panel.style.display === "none" ? "block" : "none";
+        const isOpen = panel.style.display !== "none";
+        closeAllPanels();
+        if (!isOpen) panel.style.display = "block";
     });
 
     container.appendChild(typeLabel);
