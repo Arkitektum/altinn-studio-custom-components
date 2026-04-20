@@ -7,6 +7,7 @@ import { renderFeedbackListElement } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-feedbacklist-data",
@@ -17,9 +18,15 @@ export default customElements.define(
             const feedbackMessages = component?.resourceValues?.data;
             const title = component?.resourceValues?.title || "Messages";
             if (component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 this.innerHTML = renderFeedbackListElement(title, feedbackMessages, component?.feedbackType, component?.styleOverride);
+                addDevToolsOverlay(this, component, "data");
             }
         }
     }

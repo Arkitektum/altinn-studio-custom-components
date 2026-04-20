@@ -10,6 +10,7 @@ import { renderValidationMessagesElement } from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-feedbacklist-validation-messages",
@@ -19,9 +20,15 @@ export default customElements.define(
             const componentContainerElement = getComponentContainerElement(this);
             const validationMessages = new ValidationMessages(component?.resourceValues?.data);
             if (component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 this.innerHTML = renderValidationMessagesElement(validationMessages);
+                addDevToolsOverlay(this, component, "data");
             }
         }
     }

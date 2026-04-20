@@ -3,6 +3,7 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
 
 // Global functions
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-paragraph-text",
@@ -11,6 +12,7 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const htmlAttributes = new CustomElementHtmlAttributes(component);
             this.innerHTML = createCustomElement("custom-paragraph", htmlAttributes).outerHTML;
+            addDevToolsOverlay(this, component, "data");
         }
     }
 );

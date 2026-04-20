@@ -6,6 +6,7 @@ import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers
 
 // Local functions
 import { renderUtfallSvarGroupList } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-group-utfall-svar-type",
@@ -14,13 +15,20 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else if (component?.isEmpty) {
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
+                addDevToolsOverlay(this, component, "data");
             } else {
                 const utfallSvarGroupListElement = renderUtfallSvarGroupList(component);
                 this.appendChild(utfallSvarGroupListElement);
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

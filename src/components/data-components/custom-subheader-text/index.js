@@ -6,6 +6,7 @@ import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-subheader-text",
@@ -14,6 +15,7 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const htmlAttributes = new CustomElementHtmlAttributes(component);
             this.innerHTML = createCustomElement("custom-paragraph", htmlAttributes).outerHTML;
+            addDevToolsOverlay(this, component, "data");
         }
     }
 );

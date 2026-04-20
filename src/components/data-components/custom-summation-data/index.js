@@ -7,6 +7,7 @@ import { getComponentContainerElement } from "../../../functions/helpers.js";
 
 // Local functions
 import { renderSummationData } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-summation-data",
@@ -15,10 +16,16 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 const summationDataElement = renderSummationData(component);
                 this.appendChild(summationDataElement);
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

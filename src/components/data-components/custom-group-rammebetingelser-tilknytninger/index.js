@@ -15,6 +15,7 @@ import {
     renderOvervannElement,
     renderVannforsyningElement
 } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-group-rammebetingelser-tilknytninger",
@@ -23,7 +24,12 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
@@ -37,6 +43,7 @@ export default customElements.define(
                     this.appendChild(renderAvloepElement(component));
                     this.appendChild(renderOvervannElement(component));
                 }
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

@@ -5,6 +5,7 @@ import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers
 
 // Local functions
 import { renderEmptyFieldText, renderErTillatelseGittElement, renderVegtypeElement } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-group-vegtype-tillatelse",
@@ -13,13 +14,20 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else if (component?.isEmpty) {
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
+                addDevToolsOverlay(this, component, "data");
             } else {
                 this.appendChild(renderVegtypeElement(component));
                 this.appendChild(renderErTillatelseGittElement(component));
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

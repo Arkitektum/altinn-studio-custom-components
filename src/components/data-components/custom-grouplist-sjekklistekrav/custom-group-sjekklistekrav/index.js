@@ -11,6 +11,7 @@ import { renderEmptyFieldText, renderHeaderElement, renderSjekklistepunk } from 
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-group-sjekklistekrav",
@@ -19,10 +20,16 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else if (component?.isEmpty) {
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
+                addDevToolsOverlay(this, component, "data");
             } else {
                 const containerElement = document.createElement("div");
                 if (hasValue(component?.resourceValues?.data?.tittel) && component?.hideTitle !== true) {
@@ -30,6 +37,7 @@ export default customElements.define(
                 }
                 containerElement.appendChild(renderSjekklistepunk(component));
                 this.appendChild(containerElement);
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

@@ -8,6 +8,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 
 // Local functions
 import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderNaboGjenboerEiendomGroup } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-grouplist-nabo-gjenboer-eiendom",
@@ -16,10 +17,16 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else if (component?.isEmpty) {
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
+                addDevToolsOverlay(this, component, "data");
             } else if (component?.resourceValues?.data) {
                 if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
                     this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
@@ -30,6 +37,7 @@ export default customElements.define(
                     const dividerElement = renderDivider();
                     this.appendChild(dividerElement);
                 }
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

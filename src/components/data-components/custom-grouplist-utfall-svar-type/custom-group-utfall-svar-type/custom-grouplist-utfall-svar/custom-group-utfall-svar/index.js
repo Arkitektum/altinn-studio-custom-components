@@ -15,6 +15,7 @@ import {
     renderTemaElement,
     renderVedleggslisteElement
 } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-group-utfall-svar",
@@ -23,7 +24,12 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else {
                 const containerElement = document.createElement("div");
                 if (hasValue(component?.resourceValues?.data?.tittel) && component?.hideTitle !== true) {
@@ -35,6 +41,7 @@ export default customElements.define(
                 containerElement.appendChild(renderKommentarElement(component));
                 containerElement.appendChild(renderVedleggslisteElement(component));
                 this.appendChild(containerElement);
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {

@@ -7,6 +7,7 @@ import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-header-text-data",
@@ -21,6 +22,7 @@ export default customElements.define(
             }
             const htmlAttributes = new CustomElementHtmlAttributes(component);
             this.innerHTML = createCustomElement("custom-header", htmlAttributes).outerHTML;
+            addDevToolsOverlay(this, component, "data");
         }
     }
 );

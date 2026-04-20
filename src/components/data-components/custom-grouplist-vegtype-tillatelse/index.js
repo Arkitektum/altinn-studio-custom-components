@@ -5,6 +5,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 
 // Local functions
 import { renderEmptyFieldText, renderVegtypeTillatelseElement } from "./renderers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
 
 export default customElements.define(
     "custom-grouplist-vegtype-tillatelse",
@@ -13,10 +14,16 @@ export default customElements.define(
             const component = instantiateComponent(this);
             const componentContainerElement = getComponentContainerElement(this);
             if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                componentContainerElement.style.display = "none";
+                if (isDevMode()) {
+                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
+                    if (hiddenEl) this.appendChild(hiddenEl);
+                } else {
+                    componentContainerElement.style.display = "none";
+                }
             } else if (component?.isEmpty) {
                 const emptyFieldTextElement = renderEmptyFieldText(component);
                 this.appendChild(emptyFieldTextElement);
+                addDevToolsOverlay(this, component, "data");
             } else if (component?.resourceValues?.data) {
                 const vegtypeTillatelseData = component.resourceValues.data;
                 if (Array.isArray(vegtypeTillatelseData)) {
@@ -25,6 +32,7 @@ export default customElements.define(
                         this.appendChild(vegtypeTillatelseElement);
                     }
                 }
+                addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
             if (feedbackListElement) {
