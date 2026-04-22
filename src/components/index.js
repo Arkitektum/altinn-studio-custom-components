@@ -40,6 +40,7 @@ import customGroupRammebetingelserTilknytninger from "./data-components/custom-g
 import customGroupSamsvarAnsvarsomraade from "./data-components/custom-grouplist-samsvar-ansvarsomraade/custom-group-samsvar-ansvarsomraade/index.js";
 import customGroupSamsvarErklaeringer from "./data-components/custom-group-samsvar-erklaeringer/index.js";
 import customGroupSjekklistekrav from "./data-components/custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/index.js";
+import customGroupSjekklistekravHeaderText from "./data-components/custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav-header-text/index.js";
 import customGroupUtfallSvar from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/custom-grouplist-utfall-svar/custom-group-utfall-svar/index.js";
 import customGroupUtfallSvarType from "./data-components/custom-grouplist-utfall-svar-type/custom-group-utfall-svar-type/index.js";
 import customGroupVannforsyning from "./data-components/custom-group-vannforsyning/index.js";
@@ -132,6 +133,7 @@ export {
     customGroupSamsvarAnsvarsomraade,
     customGroupSamsvarErklaeringer,
     customGroupSjekklistekrav,
+    customGroupSjekklistekravHeaderText,
     customGroupUtfallSvar,
     customGroupUtfallSvarType,
     customGroupVannforsyning,
