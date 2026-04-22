@@ -45,6 +45,9 @@ export function renderSjekklistepunkText(component) {
         resourceValues: {
             title: data?.sjekklistepunkt?.kodebeskrivelse,
             data: data?.dokumentasjon
+        },
+        styleOverride: {
+            paddingRight: "10px"
         }
     });
     return addContainerElement(createCustomElement("custom-field", htmlAttributes), grid);

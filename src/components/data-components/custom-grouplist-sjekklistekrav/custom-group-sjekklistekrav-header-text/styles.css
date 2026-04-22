@@ -1,0 +1,9 @@
+custom-group-sjekklistekrav-header-text {
+    & > div {
+        padding: 0 10px;
+        background-color: var(--color-default-default);
+        border-bottom: 1px solid var(--color-default-dark);
+        font-weight: var(--font-weight-bold);
+        hyphens: auto;
+    }
+}

@@ -426,8 +426,20 @@
             "value": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert."
         },
         {
+            "id": "resource.krav.sjekklistekrav.description",
+            "value": "Søknaden kvalifiserer til automatisk saksbehandling hvis alle kravene er besvart med \"ja\". Dersom ett eller flere av svarene er \"nei\", eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt."
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.sjekklistepunkt.title",
+            "value": "Krav til automatisert behandling"
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.sjekklistepunksvar.title",
+            "value": "Svar"
+        },
+        {
             "id": "resource.krav.sjekklistekrav.title",
-            "value": "Svar på vilkår for automatisert behandling"
+            "value": "Svar på krav til automatisert behandling"
         },
         {
             "id": "resource.kravFerdigattest.bekreftelseInnen.title",

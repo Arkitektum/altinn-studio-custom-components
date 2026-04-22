@@ -20,6 +20,31 @@ export function renderHeaderElement(title, size = "h2") {
 }
 
 /**
+ * Renders a custom group list header element for "sjekklistekrav" (checklist requirements).
+ *
+ * @param {Object} component - The component configuration object.
+ * @param {Object} [component.resourceBindings] - Resource bindings for text values.
+ * @param {string} [component.resourceBindings.sjekklistepunkt] - Text to display for checklist points.
+ * @param {string} [component.resourceBindings.sjekklistepunktsvar] - Text to display for checklist point answers.
+ * @returns {HTMLElement|null} The custom group list header element or null if required bindings are missing.
+ */
+export function renderSjekklistekravGroupListHeader(component) {
+    const sjekklistepunkt = component?.resourceBindings?.sjekklistepunkt;
+    const sjekklistepunktsvar = component?.resourceBindings?.sjekklistepunktsvar;
+    if (!sjekklistepunkt || !sjekklistepunktsvar) {
+        return null;
+    }
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        resourceBindings: {
+            sjekklistepunkt,
+            sjekklistepunktsvar
+        }
+    });
+    return createCustomElement("custom-group-sjekklistekrav-header-text", htmlAttributes);
+}
+
+/**
  * Renders a custom group element for "sjekklistekrav" (checklist requirements).
  *
  * @param {Object} sjekklistekrav - The checklist requirements data to be rendered.

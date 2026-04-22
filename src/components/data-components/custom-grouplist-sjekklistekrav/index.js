@@ -8,7 +8,13 @@ import { instantiateComponent } from "../../../functions/componentHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
 
 // Local functions
-import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderSjekklistekravGroup } from "./renderers.js";
+import {
+    renderDivider,
+    renderEmptyFieldText,
+    renderHeaderElement,
+    renderSjekklistekravGroup,
+    renderSjekklistekravGroupListHeader
+} from "./renderers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -36,6 +42,11 @@ export default customElements.define(
                 }
                 const sjekklistekravListElement = document.createElement("div");
                 sjekklistekravListElement.className = "sjekklistekrav-list";
+
+                const sjekklistekravGroupListHeaderElement = renderSjekklistekravGroupListHeader(component);
+                if (sjekklistekravGroupListHeaderElement) {
+                    sjekklistekravListElement.appendChild(sjekklistekravGroupListHeaderElement);
+                }
                 for (const sjekklistekrav of component?.resourceValues?.data ?? []) {
                     const sjekklistekravElement = renderSjekklistekravGroup(sjekklistekrav, component);
                     sjekklistekravListElement.appendChild(sjekklistekravElement);

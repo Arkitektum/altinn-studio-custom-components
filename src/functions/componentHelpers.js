@@ -38,6 +38,7 @@ import CustomGroupRammebetingelserTilknytninger from "../classes/system-classes/
 import CustomGroupSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupSamsvarAnsvarsomraade.js";
 import CustomGroupSamsvarErklaeringer from "../classes/system-classes/component-classes/CustomGroupSamsvarErklaeringer.js";
 import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.js";
+import CustomGroupSjekklistekravHeaderText from "../classes/system-classes/component-classes/CustomGroupSjekklistekravHeaderText.js";
 import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.js";
 import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.js";
 import CustomGroupVannforsyning from "../classes/system-classes/component-classes/CustomGroupVannforsyning.js";
@@ -119,6 +120,7 @@ export function getComponentForTagName(tagName) {
         "custom-group-samsvar-ansvarsomraade": CustomGroupSamsvarAnsvarsomraade,
         "custom-group-samsvar-erklaeringer": CustomGroupSamsvarErklaeringer,
         "custom-group-sjekklistekrav": CustomGroupSjekklistekrav,
+        "custom-group-sjekklistekrav-header-text": CustomGroupSjekklistekravHeaderText,
         "custom-group-utfall-svar": CustomGroupUtfallSvar,
         "custom-group-utfall-svar-type": CustomGroupUtfallSvarType,
         "custom-group-vannforsyning": CustomGroupVannforsyning,

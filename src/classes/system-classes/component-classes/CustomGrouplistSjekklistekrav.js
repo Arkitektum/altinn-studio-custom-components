@@ -42,9 +42,18 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
-        this.resourceBindings = resourceBindings?.sjekklistekrav || {};
+        this.resourceBindings = resourceBindings?.sjekklistekrav
+            ? {
+                  sjekklistepunkt: resourceBindings?.sjekklistekrav?.sjekklistepunkt,
+                  sjekklistepunktsvar: resourceBindings?.sjekklistekrav?.sjekklistepunktsvar,
+                  trueText: resourceBindings?.sjekklistekrav?.trueText,
+                  falseText: resourceBindings?.sjekklistekrav?.falseText,
+                  defaultText: resourceBindings?.sjekklistekrav?.defaultText
+              }
+            : {};
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(resourceBindings?.sjekklistekrav?.title),
+            description: getTextResourceFromResourceBinding(resourceBindings?.sjekklistekrav?.description),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.sjekklistekrav?.emptyFieldText) : data
         };
     }
@@ -84,25 +93,22 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
     }
 
     /**
-     * Generates resource bindings for a component based on provided props.
+     * Generates resource bindings for the component based on provided props, including default values for trueText, falseText, and defaultText.
      *
-     * @param {Object} props - The properties object.
-     * @param {Object} [props.resourceBindings] - Optional resource bindings overrides.
-     * @param {string} [props.resourceBindings.trueText] - Text to display for true value.
-     * @param {string} [props.resourceBindings.falseText] - Text to display for false value.
-     * @param {string} [props.resourceBindings.defaultText] - Default text to display.
-     * @param {string} [props.resourceBindings.title] - Title text for the component.
-     * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when field is empty.
-     * @param {boolean|string} [props.hideTitle] - If true or "true", hides the title.
-     * @param {boolean|string} [props.hideIfEmpty] - If true or "true", hides the empty field text.
+     * @param {Object} props - The properties containing resource bindings.
      * @returns {Object} An object containing the resource bindings for the sjekklistekrav component.
      */
     getResourceBindings(props) {
         const resourceBindings = {
             trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
+            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default",
+            sjekklistepunkt: props?.resourceBindings?.sjekklistepunkt,
+            sjekklistepunktsvar: props?.resourceBindings?.sjekklistepunktsvar
         };
+        if (props?.resourceBindings?.description?.length > 0) {
+            resourceBindings.description = props?.resourceBindings?.description;
+        }
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.title = props?.resourceBindings?.title || "resource.krav.sjekklistekrav.title";
         }
@@ -120,6 +126,13 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
      * @returns {Array<string>} An array of custom component names used by this class.
      */
     getComponentUsage() {
-        return ["custom-divider", "custom-feedbacklist-validation-messages", "custom-group-sjekklistekrav", "custom-header-text", "custom-paragraph"];
+        return [
+            "custom-divider",
+            "custom-feedbacklist-validation-messages",
+            "custom-group-sjekklistekrav",
+            "custom-group-sjekklistekrav-header-text",
+            "custom-header-text",
+            "custom-paragraph"
+        ];
     }
 }
