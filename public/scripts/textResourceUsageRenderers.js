@@ -233,7 +233,8 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
         });
         usageDetailsElement.appendChild(appUsageDetailsListElement);
     } else {
-        const noUsageElement = document.createElement("p");
+        const noUsageElement = document.createElement("span");
+        noUsageElement.classList.add("message");
         noUsageElement.innerHTML = "This resource is not used in any app.";
         usageDetailsElement.appendChild(noUsageElement);
     }
