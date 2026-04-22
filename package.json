@@ -1,6 +1,6 @@
 {
     "name": "@arkitektum/altinn-studio-custom-components",
-    "version": "15.1.1",
+    "version": "15.1.2",
     "description": "Custom components for Altinn Studio",
     "main": "dist/main.js",
     "module": "dist/main.js",
@@ -50,6 +50,6 @@
     },
     "packageManager": "yarn@4.10.3",
     "dependencies": {
-        "@arkitektum/altinn-studio-custom-components-utils": "^1.4.1"
+        "@arkitektum/altinn-studio-custom-components-utils": "^1.4.2"
     }
 }

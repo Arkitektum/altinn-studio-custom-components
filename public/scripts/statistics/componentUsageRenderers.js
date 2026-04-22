@@ -236,8 +236,9 @@ export function renderComponentUsageListItem(component) {
         });
         usageDetailsElement.appendChild(appUsageDetailsListElement);
     } else {
-        const noUsageElement = document.createElement("p");
-        noUsageElement.innerHTML = "This component is not used in any app.";
+        const noUsageElement = document.createElement("span");
+        noUsageElement.classList.add("message");
+        noUsageElement.innerHTML = "This component is not used directly in any app.";
         usageDetailsElement.appendChild(noUsageElement);
     }
 
@@ -257,7 +258,8 @@ export function renderComponentUsageListItem(component) {
         });
         usageDetailsElement.appendChild(componentUsageDetailsListElement);
     } else {
-        const noComponentUsageElement = document.createElement("p");
+        const noComponentUsageElement = document.createElement("span");
+        noComponentUsageElement.classList.add("message");
         noComponentUsageElement.innerHTML = "This component is not used in any other component.";
         usageDetailsElement.appendChild(noComponentUsageElement);
     }
