@@ -173,6 +173,12 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
         unusedIndicatorElement.innerHTML = "Unused";
         resourceIdElement.appendChild(unusedIndicatorElement);
     }
+    if (textResource?.resource?.deprecated === true) {
+        const deprecatedIndicatorElement = document.createElement("span");
+        deprecatedIndicatorElement.classList.add("indicator", "indicator-deprecated");
+        deprecatedIndicatorElement.innerHTML = "Deprecated";
+        resourceIdElement.appendChild(deprecatedIndicatorElement);
+    }
 
     const resourceValuesListElement = document.createElement("dl");
     resourceValuesListElement.classList.add("resource-values-list");
