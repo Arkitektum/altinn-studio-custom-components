@@ -9,6 +9,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 
 // Local functions
 import {
+    renderDescription,
     renderDivider,
     renderEmptyFieldText,
     renderHeaderElement,
@@ -58,6 +59,11 @@ export default customElements.define(
                 // Remove the last divider
                 if (sjekklistekravListElement.lastChild) {
                     sjekklistekravListElement.removeChild(sjekklistekravListElement.lastChild);
+                }
+
+                if (hasValue(component?.resourceValues?.description)) {
+                    const descriptionElement = renderDescription(component);
+                    this.appendChild(descriptionElement);
                 }
                 addDevToolsOverlay(this, component, "data");
             }

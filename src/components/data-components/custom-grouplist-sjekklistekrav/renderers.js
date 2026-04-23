@@ -74,6 +74,24 @@ export function renderSjekklistekravGroup(sjekklistekrav, component) {
 }
 
 /**
+ * Renders a custom paragraph element displaying the description for a given component.
+ *
+ * @param {Object} component - The component object containing resource values.
+ * @param {Object} [component.resourceValues] - Resource values for the component.
+ * @param {string} [component.resourceValues.description] - The description text to display.
+ * @returns {HTMLElement} The custom paragraph element with the specified attributes.
+ */
+export function renderDescription(component) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        resourceValues: {
+            title: component?.resourceValues?.description
+        }
+    });
+    return createCustomElement("custom-paragraph", htmlAttributes);
+}
+
+/**
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
