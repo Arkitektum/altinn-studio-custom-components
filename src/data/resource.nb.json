@@ -406,6 +406,10 @@
             "value": "Igangsettingstillatelse"
         },
         {
+            "id": "resource.kommentar.title",
+            "value": "Kommentar"
+        },
+        {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
         },

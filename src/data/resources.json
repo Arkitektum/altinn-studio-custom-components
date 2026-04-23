@@ -606,6 +606,12 @@
         }
     },
     {
+        "id": "resource.kommentar.title",
+        "values": {
+            "nb": "Kommentar"
+        }
+    },
+    {
         "id": "resource.kommunensSaksnummer.title",
         "values": {
             "nb": "Kommunens saksnummer"
