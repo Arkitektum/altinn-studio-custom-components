@@ -1,5 +1,5 @@
 // Dependencies
-import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header element if the text is provided.
@@ -56,5 +56,5 @@ export function renderEmptyFieldText(component) {
             title: component?.resourceValues?.data
         }
     });
-    return createCustomElement("custom-paragraph", htmlAttributes);
+    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
 }

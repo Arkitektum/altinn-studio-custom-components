@@ -87,5 +87,5 @@ export function renderEmptyFieldText(component) {
             title: component?.resourceValues?.data
         }
     });
-    return createCustomElement("custom-paragraph", htmlAttributes);
+    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
 }
