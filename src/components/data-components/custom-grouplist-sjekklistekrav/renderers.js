@@ -1,5 +1,5 @@
 // Dependencies
-import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  * Renders a custom header element if the text is provided.
@@ -88,7 +88,7 @@ export function renderDescription(component) {
             title: component?.resourceValues?.description
         }
     });
-    return createCustomElement("custom-paragraph", htmlAttributes);
+    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
 }
 
 /**
@@ -106,7 +106,7 @@ export function renderEmptyFieldText(component) {
             title: component?.resourceValues?.data
         }
     });
-    return createCustomElement("custom-paragraph", htmlAttributes);
+    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
 }
 
 /**
