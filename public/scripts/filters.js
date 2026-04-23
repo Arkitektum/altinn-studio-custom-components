@@ -11,6 +11,7 @@
  *   - "missing-nb-translations": Returns resources missing Norwegian Bokmål translations.
  *   - "missing-nn-translations": Returns resources missing Norwegian Nynorsk translations.
  *   - "missing-en-translations": Returns resources missing English translations.
+ *   - "deprecated": Returns resources that are deprecated.
  *   - "all": Returns all resources (default).
  * @returns {Array<Object>} The filtered array of resources.
  */
@@ -22,6 +23,8 @@ export function filterResources(resources, filterValue) {
             return resources.filter((res) => res?.usage?.length === 1 && res?.missingFromDefaultTextResources !== true);
         case "with-duplicates":
             return resources.filter((res) => getResourcesWithSameValue(resources, res).length > 0 && res?.missingFromDefaultTextResources !== true);
+        case "deprecated":
+            return resources.filter((res) => res?.resource?.deprecated === true);
         case "missing":
             return resources.filter((res) => res?.presence === "missing");
         case "missing-with-local-value":

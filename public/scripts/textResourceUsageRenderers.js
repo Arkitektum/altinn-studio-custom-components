@@ -332,6 +332,11 @@ export function renderUsageFilterForTextResourcesList(containerElement, textReso
     withDuplicatesResourcesOptionElement.value = "with-duplicates";
     withDuplicatesResourcesOptionElement.textContent = "With duplicates";
 
+    const deprecatedResourcesOptionElement = document.createElement("option");
+    deprecatedResourcesOptionElement.id = "filter-deprecated-resources";
+    deprecatedResourcesOptionElement.value = "deprecated";
+    deprecatedResourcesOptionElement.textContent = "Deprecated";
+
     const missingResourcesOptionElement = document.createElement("option");
     missingResourcesOptionElement.id = "filter-missing-resources";
     missingResourcesOptionElement.value = "missing";
@@ -366,6 +371,7 @@ export function renderUsageFilterForTextResourcesList(containerElement, textReso
     filterSelectElement.appendChild(unusedResourcesOptionElement);
     filterSelectElement.appendChild(usedOnceResourcesOptionElement);
     filterSelectElement.appendChild(withDuplicatesResourcesOptionElement);
+    filterSelectElement.appendChild(deprecatedResourcesOptionElement);
     filterSelectElement.appendChild(missingResourcesOptionElement);
     filterSelectElement.appendChild(missingWithLocalValueResourcesOptionElement);
     filterSelectElement.appendChild(missingNbTranslationsOptionElement);
