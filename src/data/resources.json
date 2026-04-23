@@ -817,7 +817,8 @@
         "id": "resource.part.navn.title",
         "values": {
             "nb": "Navn"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.part.organisasjonsnummer.title",

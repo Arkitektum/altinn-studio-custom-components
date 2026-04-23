@@ -140,7 +140,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
             },
             tiltakshaverNavn: {
-                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.part.navn.title",
+                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverTelefonnummer: {
@@ -159,7 +159,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.tiltakshaverKontaktperson?.title || "resource.tiltakshaver.kontaktperson.title"
             },
             tiltakshaverKontaktpersonNavn: {
-                title: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.title || "resource.part.navn.title",
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverKontaktpersonTelefonnummer: {

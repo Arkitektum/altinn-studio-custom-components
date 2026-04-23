@@ -126,7 +126,7 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
                 title: props?.resourceBindings?.eier?.title || "resource.eier.title"
             },
             eierNavn: {
-                title: props?.resourceBindings?.eierNavn?.title || "resource.part.navn.title",
+                title: props?.resourceBindings?.eierNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
