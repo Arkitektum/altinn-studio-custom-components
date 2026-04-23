@@ -103,7 +103,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 title: props?.resourceBindings?.eiendomByggested?.title || "resource.eiendomByggested.eiendom.title"
             },
             adresse: {
-                title: props?.resourceBindings?.adresse?.title || "resource.eiendom.adresse.title",
+                title: props?.resourceBindings?.adresse?.title || "resource.adresse.title",
                 emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomsidentifikasjonGaardsnummer: {
@@ -187,7 +187,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                     "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
             },
             eiendomMatrikkelinformasjonAdresse: {
-                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.eiendom.adresse.title",
+                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.adresse.title",
                 emptyFieldText: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
@@ -247,7 +247,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.adresse.title"
             },
             responsNabovarselSendtVia: {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",

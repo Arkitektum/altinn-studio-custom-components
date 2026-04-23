@@ -103,7 +103,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.eiendomByggested?.title || "resource.eiendomByggested.eiendom.title"
             },
             adresse: {
-                title: props?.resourceBindings?.adresse?.title || "resource.eiendom.adresse.title",
+                title: props?.resourceBindings?.adresse?.title || "resource.adresse.title",
                 emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomsidentifikasjonGaardsnummer: {
@@ -152,7 +152,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltakshaverEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverAdresse: {
-                title: props?.resourceBindings?.tiltakshaverAdresse?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.tiltakshaverAdresse?.title || "resource.adresse.title"
             },
 
             tiltakshaverKontaktperson: {
@@ -171,7 +171,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverKontaktpersonAdresse: {
-                title: props?.resourceBindings?.tiltakshaverKontaktpersonAdresse?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonAdresse?.title || "resource.adresse.title"
             },
             dispensasjonsbeskrivelse: {
                 title: props?.resourceBindings?.dispensasjonsbeskrivelse?.title || "resource.dispensasjonsbeskrivelse.title"

@@ -190,7 +190,7 @@ export default class CustomTableNaboGjenboerEiendom extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             adresse: {
-                title: props?.resourceBindings?.adresse?.title || "resource.eiendom.adresse.title",
+                title: props?.resourceBindings?.adresse?.title || "resource.adresse.title",
                 emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomsidentifikasjonGaardsnummer: {

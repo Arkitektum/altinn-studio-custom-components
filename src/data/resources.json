@@ -1,5 +1,11 @@
 [
     {
+        "id": "resource.adresse.title",
+        "values": {
+            "nb": "Adresse"
+        }
+    },
+    {
         "id": "resource.ansvarligForetak.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson"

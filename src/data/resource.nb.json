@@ -2,6 +2,10 @@
     "language": "nb",
     "resources": [
         {
+            "id": "resource.adresse.title",
+            "value": "Adresse"
+        },
+        {
             "id": "resource.ansvarligForetak.kontaktperson.title",
             "value": "Kontaktperson"
         },
