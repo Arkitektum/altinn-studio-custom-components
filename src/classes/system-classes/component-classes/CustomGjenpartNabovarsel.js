@@ -288,7 +288,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.dispensasjonKategori?.emptyFieldText || "resource.emptyFieldText.default"
             },
             dispensasjonTittel: {
-                title: props?.resourceBindings?.dispensasjonTittel?.title || "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
+                title: props?.resourceBindings?.dispensasjonTittel?.title || "resource.emne.title",
                 emptyFieldText: props?.resourceBindings?.dispensasjonTittel?.emptyFieldText || "resource.emptyFieldText.default"
             },
             bestemmelserType: {
