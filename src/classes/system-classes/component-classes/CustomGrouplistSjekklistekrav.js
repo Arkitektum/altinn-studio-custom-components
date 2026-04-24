@@ -37,7 +37,21 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
         const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
-        const validationMessages = this.getValidationMessages(resourceBindings);
+        const resourceBindingsToValidate = {
+            sjekklistekrav: {
+                trueText: resourceBindings?.sjekklistekrav?.trueText,
+                falseText: resourceBindings?.sjekklistekrav?.falseText,
+                defaultText: resourceBindings?.sjekklistekrav?.defaultText
+            }
+        };
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
+            resourceBindingsToValidate.sjekklistekrav.title = resourceBindings?.sjekklistekrav?.title;
+        }
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindingsToValidate.sjekklistekrav.emptyFieldText = resourceBindings?.sjekklistekrav?.emptyFieldText;
+        }
+
+        const validationMessages = this.getValidationMessages(resourceBindingsToValidate);
 
         this.isEmpty = isEmpty;
         this.validationMessages = validationMessages;
