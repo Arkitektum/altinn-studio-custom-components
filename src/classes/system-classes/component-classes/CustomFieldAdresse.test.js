@@ -142,7 +142,7 @@ describe("CustomFieldAdresse", () => {
             const instance = new CustomFieldAdresse({});
             expect(instance.getResourceBindings({})).toEqual({
                 adresse: {
-                    title: "resource.eiendom.adresse.title",
+                    title: "resource.adresse.title",
                     emptyFieldText: "resource.emptyFieldText.address"
                 }
             });
@@ -176,7 +176,7 @@ describe("CustomFieldAdresse", () => {
             const instance = new CustomFieldAdresse(props);
             expect(instance.getResourceBindings(props)).toEqual({
                 adresse: {
-                    title: "resource.eiendom.adresse.title"
+                    title: "resource.adresse.title"
                 }
             });
         });

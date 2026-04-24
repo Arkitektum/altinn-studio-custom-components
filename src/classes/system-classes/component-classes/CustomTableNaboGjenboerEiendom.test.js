@@ -249,7 +249,7 @@ describe("CustomTableNaboGjenboerEiendom", () => {
         it("returns default resource bindings when no props provided", () => {
             const instance = new CustomTableNaboGjenboerEiendom({});
             const result = instance.getResourceBindings({});
-            expect(result.adresse.title).toContain("resource.eiendom");
+            expect(result.adresse.title).toContain("resource.adresse");
             expect(result.eiendomByggested.title).toContain("resource.naboGjenboer");
             expect(result.eiendomByggested.emptyFieldText).toContain("resource.emptyFieldText.default");
         });

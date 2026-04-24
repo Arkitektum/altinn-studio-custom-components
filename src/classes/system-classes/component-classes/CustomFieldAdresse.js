@@ -173,7 +173,7 @@ export default class CustomFieldAdresse extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.adresse = {
-                title: props?.resourceBindings?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.title || "resource.adresse.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

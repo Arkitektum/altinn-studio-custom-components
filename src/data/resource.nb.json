@@ -2,6 +2,10 @@
     "language": "nb",
     "resources": [
         {
+            "id": "resource.adresse.title",
+            "value": "Adresse"
+        },
+        {
             "id": "resource.ansvarligForetak.kontaktperson.title",
             "value": "Kontaktperson"
         },
@@ -58,16 +62,16 @@
             "value": "Liste med fordeler"
         },
         {
-            "id": "resource.begrunnelse.title",
-            "value": "Begrunnelse"
-        },
-        {
             "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
             "value": "Hensynet bak bestemmelse"
         },
         {
             "id": "resource.begrunnelse.samletBegrunnelse.title",
             "value": "Samlet begrunnelse"
+        },
+        {
+            "id": "resource.begrunnelse.title",
+            "value": "Begrunnelse"
         },
         {
             "id": "resource.begrunnelse.ulemper.title",
@@ -96,6 +100,10 @@
         {
             "id": "resource.bygge-endre-rive.header",
             "value": "Her skal vi bygge, rive eller endre"
+        },
+        {
+            "id": "resource.bygningstype.title",
+            "value": "Bygningstype"
         },
         {
             "id": "resource.datoAnsvarsrettErklaert.title",
@@ -130,20 +138,8 @@
             "value": "Dispensasjonsreferanse"
         },
         {
-            "id": "resource.dispensasjonsbeskrivelse.title",
-            "value": "Beskrivelse av tiltak"
-        },
-        {
             "id": "resource.dispensasjonFra.bestemmelsestype.title",
             "value": "Bestemmelsestype"
-        },
-        {
-            "id": "resource.navn.title",
-            "value": "Navn"
-        },
-        {
-            "id": "resource.planbestemmelse.title",
-            "value": "Planbestemmelse"
         },
         {
             "id": "resource.dispensasjonFra.header",
@@ -172,6 +168,10 @@
         {
             "id": "resource.dispensasjonOversikt.header",
             "value": "Oversikt over omsøkte dispensasjoner"
+        },
+        {
+            "id": "resource.dispensasjonsbeskrivelse.title",
+            "value": "Beskrivelse av tiltak"
         },
         {
             "id": "resource.dispensasjonsvarsel.bestemmelse.title",
@@ -276,6 +276,10 @@
         {
             "id": "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
             "value": "Vedlegg"
+        },
+        {
+            "id": "resource.fakturareferanse.title",
+            "value": "Fakturareferanse"
         },
         {
             "id": "resource.falseText.default",
@@ -402,6 +406,10 @@
             "value": "Igangsettingstillatelse"
         },
         {
+            "id": "resource.kommentar.title",
+            "value": "Kommentar"
+        },
+        {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
         },
@@ -430,12 +438,12 @@
             "value": "Søknaden kvalifiserer til automatisk saksbehandling hvis alle kravene er besvart med \"ja\". Dersom ett eller flere av svarene er \"nei\", eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt."
         },
         {
-            "id": "resource.krav.sjekklistekrav.sjekklistepunkt.title",
-            "value": "Krav til automatisert behandling"
-        },
-        {
             "id": "resource.krav.sjekklistekrav.sjekklistepunksvar.title",
             "value": "Svar"
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.sjekklistepunkt.title",
+            "value": "Krav til automatisert behandling"
         },
         {
             "id": "resource.krav.sjekklistekrav.title",
@@ -458,14 +466,6 @@
             "value": "Arbeidene vil bli utført innen"
         },
         {
-            "id": "resource.kravTilByggegrunn.title",
-            "value": "Krav til byggegrunn"
-        },
-        {
-            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
-            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
-        },
-        {
             "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
             "value": "Naturpåkjenning"
         },
@@ -476,6 +476,10 @@
         {
             "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
             "value": "Oversikt over områderisikoer der byggverket skal plasseres"
+        },
+        {
+            "id": "resource.kravTilByggegrunn.title",
+            "value": "Krav til byggegrunn"
         },
         {
             "id": "resource.merknaderNabovarsel.header",
@@ -508,6 +512,10 @@
         {
             "id": "resource.naboGjenboer.title",
             "value": "Nabovarsel med vedlegg er sendt til følgende naboer"
+        },
+        {
+            "id": "resource.navn.title",
+            "value": "Navn"
         },
         {
             "id": "resource.operator.equals",
@@ -548,6 +556,10 @@
         {
             "id": "resource.part.telefonnummer.title",
             "value": "Telefonnummer"
+        },
+        {
+            "id": "resource.planbestemmelse.title",
+            "value": "Planbestemmelse"
         },
         {
             "id": "resource.planenGjelder.title",
@@ -730,6 +742,10 @@
             "value": "Skal det utarbeides avfallsplan?"
         },
         {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+            "value": "Har tiltaket andre naturforhold jf. pbl §28-1?"
+        },
+        {
             "id": "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
             "value": "Er det løfteinnretninger som omfattes av TEK i bygningen?"
         },
@@ -828,10 +844,6 @@
         {
             "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
             "value": "Ikke svar"
-        },
-        {
-            "id": "resource.status.title",
-            "value": "Status"
         },
         {
             "id": "resource.respons.erMerknadMottatt.trueText",
@@ -982,8 +994,8 @@
             "value": "Tiltakstyper"
         },
         {
-            "id": "resource.stedfesting.title",
-            "value": "Stedfesting"
+            "id": "resource.status.title",
+            "value": "Status"
         },
         {
             "id": "resource.stedfesting.posisjon.koordinater.title",
@@ -992,6 +1004,10 @@
         {
             "id": "resource.stedfesting.posisjon.koordinatsystem.title",
             "value": "Koordinatsystem"
+        },
+        {
+            "id": "resource.stedfesting.title",
+            "value": "Stedfesting"
         },
         {
             "id": "resource.stedfesting.vertikalnivaa.title",
@@ -1074,16 +1090,16 @@
             "value": "Vi vil utføre arbeidene innen"
         },
         {
-            "id": "resource.varighet.title",
-            "value": "Varighet"
-        },
-        {
             "id": "resource.varighet.oenskesVarigDispensasjon.trueText",
             "value": "Ønskes permanent dispensasjon"
         },
         {
             "id": "resource.varighet.oensketVarighetTil.title",
             "value": "Ønskes varighet til"
+        },
+        {
+            "id": "resource.varighet.title",
+            "value": "Varighet"
         },
         {
             "id": "resource.varmesystem.energiforsyning.kode.title",

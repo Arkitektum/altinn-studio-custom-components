@@ -522,7 +522,8 @@
                                     background-color: var(--color-success-muted);
                                     color: var(--color-success-default);
                                 }
-                                &.indicator-unused {
+                                &.indicator-unused,
+                                &.indicator-deprecated {
                                     background-color: var(--color-warning-muted);
                                     color: var(--color-warning-default);
                                 }

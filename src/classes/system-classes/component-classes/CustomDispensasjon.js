@@ -103,7 +103,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.eiendomByggested?.title || "resource.eiendomByggested.eiendom.title"
             },
             adresse: {
-                title: props?.resourceBindings?.adresse?.title || "resource.eiendom.adresse.title",
+                title: props?.resourceBindings?.adresse?.title || "resource.adresse.title",
                 emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomsidentifikasjonGaardsnummer: {
@@ -140,7 +140,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
             },
             tiltakshaverNavn: {
-                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.part.navn.title",
+                title: props?.resourceBindings?.tiltakshaverNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverTelefonnummer: {
@@ -152,14 +152,14 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltakshaverEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverAdresse: {
-                title: props?.resourceBindings?.tiltakshaverAdresse?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.tiltakshaverAdresse?.title || "resource.adresse.title"
             },
 
             tiltakshaverKontaktperson: {
                 title: props?.resourceBindings?.tiltakshaverKontaktperson?.title || "resource.tiltakshaver.kontaktperson.title"
             },
             tiltakshaverKontaktpersonNavn: {
-                title: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.title || "resource.part.navn.title",
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverKontaktpersonTelefonnummer: {
@@ -171,7 +171,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverKontaktpersonAdresse: {
-                title: props?.resourceBindings?.tiltakshaverKontaktpersonAdresse?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonAdresse?.title || "resource.adresse.title"
             },
             dispensasjonsbeskrivelse: {
                 title: props?.resourceBindings?.dispensasjonsbeskrivelse?.title || "resource.dispensasjonsbeskrivelse.title"
@@ -238,7 +238,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.begrunnelseSamletBegrunnelse?.title || "resource.begrunnelse.samletBegrunnelse.title"
             },
             generelleVilkaarNorskSvenskDansk: {
-                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.generelleVilkaar.norskSvenskDansk.header",
+                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.erklaeringer.title",
                 trueText:
                     props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.trueText || "resource.generelleVilkaar.norskSvenskDansk.true.title"
             }

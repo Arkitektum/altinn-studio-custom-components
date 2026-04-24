@@ -105,7 +105,7 @@ export default class CustomGrouplistEttersending extends CustomComponent {
                 title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title"
             },
             kommentar: {
-                title: props?.resourceBindings?.kommentar?.title || "resource.ettersendinger.ettersending.kommentar.title"
+                title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"
             },
             vedleggsliste: {
                 title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title"

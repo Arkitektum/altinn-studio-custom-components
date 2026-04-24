@@ -157,7 +157,7 @@ export default class CustomTablePart extends CustomComponent {
         const partType = props?.partType || "tiltakshaver";
         const resourceBindings = {
             navn: {
-                title: props?.resourceBindings?.navn?.title || `resource.part.navn.title`,
+                title: props?.resourceBindings?.navn?.title || `resource.navn.title`,
                 emptyFieldText: props?.resourceBindings?.navn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             telefonnummer: {

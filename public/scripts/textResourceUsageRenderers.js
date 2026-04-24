@@ -173,6 +173,12 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
         unusedIndicatorElement.innerHTML = "Unused";
         resourceIdElement.appendChild(unusedIndicatorElement);
     }
+    if (textResource?.resource?.deprecated === true) {
+        const deprecatedIndicatorElement = document.createElement("span");
+        deprecatedIndicatorElement.classList.add("indicator", "indicator-deprecated");
+        deprecatedIndicatorElement.innerHTML = "Deprecated";
+        resourceIdElement.appendChild(deprecatedIndicatorElement);
+    }
 
     const resourceValuesListElement = document.createElement("dl");
     resourceValuesListElement.classList.add("resource-values-list");
@@ -332,6 +338,11 @@ export function renderUsageFilterForTextResourcesList(containerElement, textReso
     withDuplicatesResourcesOptionElement.value = "with-duplicates";
     withDuplicatesResourcesOptionElement.textContent = "With duplicates";
 
+    const deprecatedResourcesOptionElement = document.createElement("option");
+    deprecatedResourcesOptionElement.id = "filter-deprecated-resources";
+    deprecatedResourcesOptionElement.value = "deprecated";
+    deprecatedResourcesOptionElement.textContent = "Deprecated";
+
     const missingResourcesOptionElement = document.createElement("option");
     missingResourcesOptionElement.id = "filter-missing-resources";
     missingResourcesOptionElement.value = "missing";
@@ -366,6 +377,7 @@ export function renderUsageFilterForTextResourcesList(containerElement, textReso
     filterSelectElement.appendChild(unusedResourcesOptionElement);
     filterSelectElement.appendChild(usedOnceResourcesOptionElement);
     filterSelectElement.appendChild(withDuplicatesResourcesOptionElement);
+    filterSelectElement.appendChild(deprecatedResourcesOptionElement);
     filterSelectElement.appendChild(missingResourcesOptionElement);
     filterSelectElement.appendChild(missingWithLocalValueResourcesOptionElement);
     filterSelectElement.appendChild(missingNbTranslationsOptionElement);

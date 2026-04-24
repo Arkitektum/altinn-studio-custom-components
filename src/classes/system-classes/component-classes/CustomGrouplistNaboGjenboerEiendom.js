@@ -120,7 +120,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                     "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
             },
             eiendomMatrikkelinformasjonAdresse: {
-                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.eiendom.adresse.title",
+                title: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.title || "resource.adresse.title",
                 emptyFieldText: props?.resourceBindings?.eiendomMatrikkelinformasjonAdresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
@@ -168,7 +168,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                 title: props?.resourceBindings?.eier?.title || "resource.eier.title"
             },
             eierNavn: {
-                title: props?.resourceBindings?.eierNavn?.title || "resource.part.navn.title",
+                title: props?.resourceBindings?.eierNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
@@ -180,7 +180,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.eiendom.adresse.title"
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.adresse.title"
             },
             responsNabovarselSendtVia: {
                 title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",
