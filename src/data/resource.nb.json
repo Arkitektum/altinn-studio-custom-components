@@ -262,14 +262,6 @@
             "value": "Erklæring"
         },
         {
-            "id": "resource.ettersendinger.ettersending.kommentar.title",
-            "value": "Kommentar"
-        },
-        {
-            "id": "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title",
-            "value": "Tema"
-        },
-        {
             "id": "resource.ettersendinger.ettersending.title",
             "value": "Ettersending"
         },
@@ -610,10 +602,6 @@
             "value": "Grad av utnytting i henhold til gjeldende plan"
         },
         {
-            "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet",
-            "value": "-"
-        },
-        {
             "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
             "value": "Planlagt"
         },
@@ -712,10 +700,6 @@
         {
             "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
             "value": "Skal det installeres vannklosett?"
-        },
-        {
-            "id": "resource.rammebetingelser.avloep.tilknytningstype.title",
-            "value": "Tilknytning"
         },
         {
             "id": "resource.rammebetingelser.avloep.title",
@@ -832,10 +816,6 @@
         {
             "id": "resource.rammebetingelser.vannforsyning.krysserVannforsyningAnnensGrunn.title",
             "value": "Krysser vanntilførsel annens grunn?"
-        },
-        {
-            "id": "resource.rammebetingelser.vannforsyning.tilknytningstype.title",
-            "value": "Tilknytning"
         },
         {
             "id": "resource.rammebetingelser.vannforsyning.title",
@@ -1050,10 +1030,6 @@
             "value": "Tiltaksklasse"
         },
         {
-            "id": "resource.tiltakstyper.type.header",
-            "value": "Tiltak/ byggeplaner"
-        },
-        {
             "id": "resource.tiltakstyper.type.kode.title",
             "value": "Tiltakstyper i søknad om dispensasjon"
         },
@@ -1084,14 +1060,6 @@
         {
             "id": "resource.utfallBesvarelse.utfallSvar.status",
             "value": "Besvares nå"
-        },
-        {
-            "id": "resource.utfallBesvarelse.utfallSvar.status.title",
-            "value": "Status"
-        },
-        {
-            "id": "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title",
-            "value": "Tema"
         },
         {
             "id": "resource.utfallBesvarelse.utfallSvar.title",

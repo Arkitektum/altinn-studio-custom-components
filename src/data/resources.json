@@ -394,20 +394,6 @@
         }
     },
     {
-        "id": "resource.ettersendinger.ettersending.kommentar.title",
-        "values": {
-            "nb": "Kommentar"
-        },
-        "deprecated": true
-    },
-    {
-        "id": "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title",
-        "values": {
-            "nb": "Tema"
-        },
-        "deprecated": true
-    },
-    {
         "id": "resource.ettersendinger.ettersending.title",
         "values": {
             "nb": "Ettersending"
@@ -921,13 +907,6 @@
         }
     },
     {
-        "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet",
-        "values": {
-            "nb": "-"
-        },
-        "deprecated": true
-    },
-    {
         "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
         "values": {
             "nb": "Planlagt"
@@ -1076,13 +1055,6 @@
         "values": {
             "nb": "Skal det installeres vannklosett?"
         }
-    },
-    {
-        "id": "resource.rammebetingelser.avloep.tilknytningstype.title",
-        "values": {
-            "nb": "Tilknytning"
-        },
-        "deprecated": true
     },
     {
         "id": "resource.rammebetingelser.avloep.title",
@@ -1257,13 +1229,6 @@
         "values": {
             "nb": "Krysser vanntilførsel annens grunn?"
         }
-    },
-    {
-        "id": "resource.rammebetingelser.vannforsyning.tilknytningstype.title",
-        "values": {
-            "nb": "Tilknytning"
-        },
-        "deprecated": true
     },
     {
         "id": "resource.rammebetingelser.vannforsyning.title",
@@ -1588,13 +1553,6 @@
         }
     },
     {
-        "id": "resource.tiltakstyper.type.header",
-        "values": {
-            "nb": "Tiltak/ byggeplaner"
-        },
-        "deprecated": true
-    },
-    {
         "id": "resource.tiltakstyper.type.kode.title",
         "values": {
             "nb": "Tiltakstyper i søknad om dispensasjon"
@@ -1642,20 +1600,6 @@
         "values": {
             "nb": "Besvares nå"
         }
-    },
-    {
-        "id": "resource.utfallBesvarelse.utfallSvar.status.title",
-        "values": {
-            "nb": "Status"
-        },
-        "deprecated": true
-    },
-    {
-        "id": "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title",
-        "values": {
-            "nb": "Tema"
-        },
-        "deprecated": true
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.title",
