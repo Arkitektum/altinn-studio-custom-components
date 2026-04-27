@@ -296,7 +296,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.bestemmelserType?.emptyFieldText || "resource.emptyFieldText.default"
             },
             rowNumber: {
-                title: props?.resourceBindings?.rowNumber?.title || "resource.rowNumberTitle.default"
+                title: props?.resourceBindings?.rowNumber?.title || "resource.nummer.short"
             }
         };
     }

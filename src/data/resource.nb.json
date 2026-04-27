@@ -518,6 +518,10 @@
             "value": "Navn"
         },
         {
+            "id": "resource.nummer.short",
+            "value": "Nr."
+        },
+        {
             "id": "resource.operator.equals",
             "value": "="
         },
@@ -1012,6 +1016,14 @@
         {
             "id": "resource.stedfesting.vertikalnivaa.title",
             "value": "Vertikalnivå"
+        },
+        {
+            "id": "resource.tema.title",
+            "value": "Tema"
+        },
+        {
+            "id": "resource.tilknytning.title",
+            "value": "Tilknytning"
         },
         {
             "id": "resource.tilstrekkeligSikkerhet.title",

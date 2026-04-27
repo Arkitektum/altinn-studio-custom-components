@@ -177,7 +177,8 @@
         "id": "resource.delsoeknader.delsoeknad.delsoeknadsnummer.title",
         "values": {
             "nb": "Nr."
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.delsoeknader.delsoeknad.kommentar.title",
@@ -244,7 +245,8 @@
         "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
         "values": {
             "nb": "Emne"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.dispensasjonOversikt.header",
@@ -402,7 +404,8 @@
         "id": "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title",
         "values": {
             "nb": "Tema"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.ettersendinger.ettersending.title",
@@ -504,7 +507,8 @@
         "id": "resource.generelleVilkaar.norskSvenskDansk.header",
         "values": {
             "nb": "Erklæring"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
@@ -777,6 +781,12 @@
         }
     },
     {
+        "id": "resource.nummer.short",
+        "values": {
+            "nb": "Nr."
+        }
+    },
+    {
         "id": "resource.operator.equals",
         "values": {
             "nb": "="
@@ -914,7 +924,8 @@
         "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet",
         "values": {
             "nb": "-"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
@@ -1070,7 +1081,8 @@
         "id": "resource.rammebetingelser.avloep.tilknytningstype.title",
         "values": {
             "nb": "Tilknytning"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.rammebetingelser.avloep.title",
@@ -1250,7 +1262,8 @@
         "id": "resource.rammebetingelser.vannforsyning.tilknytningstype.title",
         "values": {
             "nb": "Tilknytning"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.rammebetingelser.vannforsyning.title",
@@ -1310,7 +1323,8 @@
         "id": "resource.rowNumberTitle.default",
         "values": {
             "nb": "Nr."
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.samsvarErklaeringTekst.title",
@@ -1525,6 +1539,18 @@
         }
     },
     {
+        "id": "resource.tema.title",
+        "values": {
+            "nb": "Tema"
+        }
+    },
+    {
+        "id": "resource.tilknytning.title",
+        "values": {
+            "nb": "Tilknytning"
+        }
+    },
+    {
         "id": "resource.tilstrekkeligSikkerhet.title",
         "values": {
             "nb": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
@@ -1613,13 +1639,15 @@
         "id": "resource.utfallBesvarelse.utfallSvar.status.title",
         "values": {
             "nb": "Status"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title",
         "values": {
             "nb": "Tema"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.title",
