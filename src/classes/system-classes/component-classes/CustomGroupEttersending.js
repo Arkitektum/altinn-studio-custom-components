@@ -85,13 +85,13 @@ export default class CustomGroupEttersending extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title"
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title"
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.vedlegg.title"
             },
             ettersending: {}
         };

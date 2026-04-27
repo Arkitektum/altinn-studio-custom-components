@@ -119,14 +119,14 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             utfallSvarStatus: {
-                title: props?.resourceBindings?.status?.title || "resource.utfallBesvarelse.utfallSvar.status.title",
+                title: props?.resourceBindings?.status?.title || "resource.status.title",
                 status: props?.resourceBindings?.status?.status || "resource.utfallBesvarelse.utfallSvar.status",
                 erUtfallBesvaresSenere:
                     props?.resourceBindings?.erUtfallBesvaresSenere || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
                 erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
             },
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title"
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.utfallBesvarelse.utfallSvar.kommentar.title"

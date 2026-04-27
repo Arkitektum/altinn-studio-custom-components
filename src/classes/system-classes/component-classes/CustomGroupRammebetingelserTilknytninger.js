@@ -133,7 +133,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 falseText: props?.resourceBindings?.avloep?.krysserAvloepAnnensGrunn?.falseText || "resource.falseText.default"
             },
             avloepTilknytningstype: {
-                title: props?.resourceBindings?.avloep?.tilknytningstype?.title || "resource.rammebetingelser.avloep.tilknytningstype.title"
+                title: props?.resourceBindings?.avloep?.tilknytningstype?.title || "resource.tilknytning.title"
             },
             avloepSkalInstallereVannklosett: {
                 title:
@@ -190,7 +190,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
             vannforsyningTilknytningstype: {
                 title:
                     props?.resourceBindings?.vannforsyning?.tilknytningstype?.title ||
-                    "resource.rammebetingelser.vannforsyning.tilknytningstype.title"
+                    "resource.tilknytning.title"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {

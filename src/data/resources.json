@@ -177,7 +177,8 @@
         "id": "resource.delsoeknader.delsoeknad.delsoeknadsnummer.title",
         "values": {
             "nb": "Nr."
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.delsoeknader.delsoeknad.kommentar.title",
@@ -244,7 +245,8 @@
         "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
         "values": {
             "nb": "Emne"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.dispensasjonOversikt.header",
@@ -392,28 +394,9 @@
         }
     },
     {
-        "id": "resource.ettersendinger.ettersending.kommentar.title",
-        "values": {
-            "nb": "Kommentar"
-        },
-        "deprecated": true
-    },
-    {
-        "id": "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title",
-        "values": {
-            "nb": "Tema"
-        }
-    },
-    {
         "id": "resource.ettersendinger.ettersending.title",
         "values": {
             "nb": "Ettersending"
-        }
-    },
-    {
-        "id": "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
-        "values": {
-            "nb": "Vedlegg"
         }
     },
     {
@@ -504,7 +487,8 @@
         "id": "resource.generelleVilkaar.norskSvenskDansk.header",
         "values": {
             "nb": "Erklæring"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
@@ -777,6 +761,12 @@
         }
     },
     {
+        "id": "resource.nummer.short",
+        "values": {
+            "nb": "Nr."
+        }
+    },
+    {
         "id": "resource.operator.equals",
         "values": {
             "nb": "="
@@ -908,12 +898,6 @@
         "id": "resource.planer.gjeldendePlan.utnyttingsgrad.title",
         "values": {
             "nb": "Grad av utnytting i henhold til gjeldende plan"
-        }
-    },
-    {
-        "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet",
-        "values": {
-            "nb": "-"
         }
     },
     {
@@ -1064,12 +1048,6 @@
         "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
         "values": {
             "nb": "Skal det installeres vannklosett?"
-        }
-    },
-    {
-        "id": "resource.rammebetingelser.avloep.tilknytningstype.title",
-        "values": {
-            "nb": "Tilknytning"
         }
     },
     {
@@ -1247,12 +1225,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.vannforsyning.tilknytningstype.title",
-        "values": {
-            "nb": "Tilknytning"
-        }
-    },
-    {
         "id": "resource.rammebetingelser.vannforsyning.title",
         "values": {
             "nb": "Vannforsyning"
@@ -1310,7 +1282,8 @@
         "id": "resource.rowNumberTitle.default",
         "values": {
             "nb": "Nr."
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.samsvarErklaeringTekst.title",
@@ -1437,7 +1410,8 @@
         "id": "resource.soeknadGjelder.bruk.header",
         "values": {
             "nb": "Tiltak/ byggeplaner"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
@@ -1525,9 +1499,27 @@
         }
     },
     {
+        "id": "resource.tema.title",
+        "values": {
+            "nb": "Tema"
+        }
+    },
+    {
+        "id": "resource.tilknytning.title",
+        "values": {
+            "nb": "Tilknytning"
+        }
+    },
+    {
         "id": "resource.tilstrekkeligSikkerhet.title",
         "values": {
             "nb": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
+        }
+    },
+    {
+        "id": "resource.tiltakByggeplaner.title",
+        "values": {
+            "nb": "Tiltak/ byggeplaner"
         }
     },
     {
@@ -1552,12 +1544,6 @@
         "id": "resource.tiltaksklasse.title",
         "values": {
             "nb": "Tiltaksklasse"
-        }
-    },
-    {
-        "id": "resource.tiltakstyper.type.header",
-        "values": {
-            "nb": "Tiltak/ byggeplaner"
         }
     },
     {
@@ -1607,18 +1593,6 @@
         "id": "resource.utfallBesvarelse.utfallSvar.status",
         "values": {
             "nb": "Besvares nå"
-        }
-    },
-    {
-        "id": "resource.utfallBesvarelse.utfallSvar.status.title",
-        "values": {
-            "nb": "Status"
-        }
-    },
-    {
-        "id": "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title",
-        "values": {
-            "nb": "Tema"
         }
     },
     {
@@ -1741,6 +1715,12 @@
         "id": "resource.varsling.vurderingAvMerknader.title",
         "values": {
             "nb": "Søkers vurdering av merknadene"
+        }
+    },
+    {
+        "id": "resource.vedlegg.title",
+        "values": {
+            "nb": "Vedlegg"
         }
     },
     {

@@ -131,7 +131,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakstyperHeader: {
-                title: props?.resourceBindings?.tiltakstyperHeader?.title || "resource.tiltakstyper.type.header"
+                title: props?.resourceBindings?.tiltakstyperHeader?.title || "resource.tiltakByggeplaner.title"
             },
             tiltakstyperKode: {
                 title: props?.resourceBindings?.tiltakstyperKode?.title || "resource.tiltakstyper.type.kode.title"

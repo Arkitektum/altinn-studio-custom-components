@@ -116,7 +116,7 @@ export default class CustomGroupAvloep extends CustomComponent {
                 falseText: props?.resourceBindings?.krysserAvloepAnnensGrunn?.falseText || `resource.falseText.default`
             },
             tilknytningstype: {
-                title: props?.resourceBindings?.tilknytningstype?.title || `resource.rammebetingelser.avloep.tilknytningstype.title`
+                title: props?.resourceBindings?.tilknytningstype?.title || `resource.tilknytning.title`
             },
             skalInstallereVannklosett: {
                 title:

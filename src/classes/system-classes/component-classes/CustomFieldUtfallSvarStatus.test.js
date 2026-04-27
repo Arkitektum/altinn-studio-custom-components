@@ -176,7 +176,7 @@ describe("CustomFieldUtfallSvarStatus", () => {
         it("should return default resource bindings if none provided", () => {
             const instance = new CustomFieldUtfallSvarStatus({});
             const result = instance.getResourceBindings({});
-            expect(result.utfallSvarStatus.title).toBe("resource.utfallBesvarelse.utfallSvar.status.title");
+            expect(result.utfallSvarStatus.title).toBe("resource.status.title");
             expect(result.utfallSvarStatus.erUtfallBesvaresSenere).toBe("resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere");
             expect(result.utfallSvarStatus.erUtfallBesvart).toBe("resource.utfallBesvarelse.utfallSvar.erUtfallBesvart");
             expect(result.utfallSvarStatus.status).toBe("resource.utfallBesvarelse.utfallSvar.status");
