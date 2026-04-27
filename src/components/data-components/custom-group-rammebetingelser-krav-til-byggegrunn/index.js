@@ -31,8 +31,8 @@ export default customElements.define(
                     const emptyFieldTextElement = renderEmptyFieldText(component);
                     this.appendChild(emptyFieldTextElement);
                 } else {
-                    this.appendChild(renderHarMiljoeforholdElement(component));
                     this.appendChild(renderOmraaderisiko(component));
+                    this.appendChild(renderHarMiljoeforholdElement(component));
                 }
                 addDevToolsOverlay(this, component, "data");
             }
