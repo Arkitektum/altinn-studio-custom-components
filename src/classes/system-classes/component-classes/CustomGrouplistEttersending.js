@@ -102,7 +102,7 @@ export default class CustomGrouplistEttersending extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.ettersendinger.ettersending.tema.kodebeskrivelse.title"
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"

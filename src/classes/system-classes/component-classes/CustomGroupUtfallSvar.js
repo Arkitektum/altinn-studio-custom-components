@@ -108,7 +108,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
                 erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
             },
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.utfallBesvarelse.utfallSvar.tema.kodebeskrivelse.title"
+                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.utfallBesvarelse.utfallSvar.kommentar.title"
