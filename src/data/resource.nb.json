@@ -1030,6 +1030,10 @@
             "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
         },
         {
+            "id": "resource.tiltakByggeplaner.title",
+            "value": "Tiltak/ byggeplaner"
+        },
+        {
             "id": "resource.tiltakshaver.fakturamottaker.title",
             "value": "Fakturaadresse for tiltakshaver"
         },

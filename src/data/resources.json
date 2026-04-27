@@ -1451,7 +1451,8 @@
         "id": "resource.soeknadGjelder.bruk.header",
         "values": {
             "nb": "Tiltak/ byggeplaner"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
@@ -1557,6 +1558,12 @@
         }
     },
     {
+        "id": "resource.tiltakByggeplaner.title",
+        "values": {
+            "nb": "Tiltak/ byggeplaner"
+        }
+    },
+    {
         "id": "resource.tiltakshaver.fakturamottaker.title",
         "values": {
             "nb": "Fakturaadresse for tiltakshaver"
@@ -1584,7 +1591,8 @@
         "id": "resource.tiltakstyper.type.header",
         "values": {
             "nb": "Tiltak/ byggeplaner"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.tiltakstyper.type.kode.title",
