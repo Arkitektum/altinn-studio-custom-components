@@ -120,7 +120,7 @@ export default class CustomGrouplistAnsvarsomraadeType extends CustomComponent {
                     "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
                 emptyFieldTextAvsluttet:
                     props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet ||
-                    "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.avsluttet"
+                    "resource.emptyFieldText.default"
             },
             ansvarsomraadeStatus: {
                 title: props?.resourceBindings?.ansvarsomraadeStatus?.title || "resource.ansvarsomraadeStatus.title",
