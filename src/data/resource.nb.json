@@ -266,10 +266,6 @@
             "value": "Ettersending"
         },
         {
-            "id": "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
-            "value": "Vedlegg"
-        },
-        {
             "id": "resource.fakturareferanse.title",
             "value": "Fakturareferanse"
         },
@@ -1140,6 +1136,10 @@
         {
             "id": "resource.varsling.vurderingAvMerknader.title",
             "value": "Søkers vurdering av merknadene"
+        },
+        {
+            "id": "resource.vedlegg.title",
+            "value": "Vedlegg"
         },
         {
             "id": "resource.versjon.title",

@@ -400,12 +400,6 @@
         }
     },
     {
-        "id": "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title",
-        "values": {
-            "nb": "Vedlegg"
-        }
-    },
-    {
         "id": "resource.fakturareferanse.title",
         "values": {
             "nb": "Fakturareferanse"
@@ -1721,6 +1715,12 @@
         "id": "resource.varsling.vurderingAvMerknader.title",
         "values": {
             "nb": "Søkers vurdering av merknadene"
+        }
+    },
+    {
+        "id": "resource.vedlegg.title",
+        "values": {
+            "nb": "Vedlegg"
         }
     },
     {

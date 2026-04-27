@@ -91,7 +91,7 @@ export default class CustomGroupEttersending extends CustomComponent {
                 title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.ettersendinger.ettersending.vedleggsliste.vedlegg.title"
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.vedlegg.title"
             },
             ettersending: {}
         };
