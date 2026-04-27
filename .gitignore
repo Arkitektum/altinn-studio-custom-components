@@ -142,3 +142,4 @@ api/data/resources.json
 
 # Claude directory
 .claude/
+CLAUDE.md
