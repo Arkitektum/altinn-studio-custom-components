@@ -35,6 +35,14 @@ class ResourceGeneratorPlugin {
         const rawData = fs.readFileSync(this.input, "utf8");
         const resources = JSON.parse(rawData);
 
+        const sortById = (a, b) => a.id.localeCompare(b.id);
+
+        resources.sort(sortById);
+        const sortedInput = JSON.stringify(resources, null, 4);
+        if (sortedInput !== rawData.trimEnd()) {
+            fs.writeFileSync(this.input, sortedInput, "utf8");
+        }
+
         const languageMap = {};
 
         resources.forEach((resource) => {
@@ -64,7 +72,7 @@ class ResourceGeneratorPlugin {
                 JSON.stringify(
                     {
                         language: lang,
-                        resources: languageMap[lang]
+                        resources: languageMap[lang].sort(sortById)
                     },
                     null,
                     4

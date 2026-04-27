@@ -28,6 +28,14 @@ function generateLanguageResourceFiles(inputFilePath, outputDir) {
             throw new Error("Input JSON must be an array.");
         }
 
+        const sortById = (a, b) => a.id.localeCompare(b.id);
+
+        resources.sort(sortById);
+        const sortedInput = JSON.stringify(resources, null, 4);
+        if (sortedInput !== rawData.trimEnd()) {
+            fs.writeFileSync(inputFilePath, sortedInput, "utf8");
+        }
+
         const languageMap = {};
 
         resources.forEach((resource) => {
@@ -52,7 +60,7 @@ function generateLanguageResourceFiles(inputFilePath, outputDir) {
         Object.keys(languageMap).forEach((lang) => {
             const outputData = {
                 language: lang,
-                resources: languageMap[lang]
+                resources: languageMap[lang].sort(sortById)
             };
 
             const outputFilePath = path.join(outputDir, `resource.${lang}.json`);
