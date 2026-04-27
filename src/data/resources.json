@@ -144,6 +144,12 @@
         }
     },
     {
+        "id": "resource.bestillerreferanse.title",
+        "values": {
+            "nb": "Bestillerreferanse"
+        }
+    },
+    {
         "id": "resource.bygge-endre-rive.header",
         "values": {
             "nb": "Her skal vi bygge, rive eller endre"
@@ -788,7 +794,8 @@
         "id": "resource.part.bestillerreferanse.title",
         "values": {
             "nb": "Bestiller referanse"
-        }
+        },
+        "deprecated": true
     },
     {
         "id": "resource.part.epost.title",
@@ -910,6 +917,12 @@
         "id": "resource.planlagteSamsvarKontrollErklaeringer.title",
         "values": {
             "nb": "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
+        }
+    },
+    {
+        "id": "resource.prosjektnummer.title",
+        "values": {
+            "nb": "Prosjektnummer"
         }
     },
     {
@@ -1544,6 +1557,12 @@
         "id": "resource.tiltaksklasse.title",
         "values": {
             "nb": "Tiltaksklasse"
+        }
+    },
+    {
+        "id": "resource.tiltakstype.title",
+        "values": {
+            "nb": "Tiltakstyper"
         }
     },
     {

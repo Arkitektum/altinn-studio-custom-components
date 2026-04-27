@@ -98,6 +98,10 @@
             "value": "Disse bestemmelsene regulerer eiendommen"
         },
         {
+            "id": "resource.bestillerreferanse.title",
+            "value": "Bestillerreferanse"
+        },
+        {
             "id": "resource.bygge-endre-rive.header",
             "value": "Her skal vi bygge, rive eller endre"
         },
@@ -606,6 +610,10 @@
             "value": "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
         },
         {
+            "id": "resource.prosjektnummer.title",
+            "value": "Prosjektnummer"
+        },
+        {
             "id": "resource.rammebetingelser.adkomst.erNyEllerEndretAdkomst.title",
             "value": "Skal tiltaket gi ny eller endret adkomst?"
         },
@@ -1024,6 +1032,10 @@
         {
             "id": "resource.tiltaksklasse.title",
             "value": "Tiltaksklasse"
+        },
+        {
+            "id": "resource.tiltakstype.title",
+            "value": "Tiltakstyper"
         },
         {
             "id": "resource.tiltakstyper.type.kode.title",
