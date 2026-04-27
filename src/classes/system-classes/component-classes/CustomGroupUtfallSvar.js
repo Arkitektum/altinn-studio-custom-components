@@ -101,7 +101,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             utfallSvarStatus: {
-                title: props?.resourceBindings?.status?.title || "resource.utfallBesvarelse.utfallSvar.status.title",
+                title: props?.resourceBindings?.status?.title || "resource.status.title",
                 status: props?.resourceBindings?.status?.status || "resource.utfallBesvarelse.utfallSvar.status",
                 erUtfallBesvaresSenere:
                     props?.resourceBindings?.erUtfallBesvaresSenere || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
