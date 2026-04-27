@@ -40,7 +40,7 @@
         "html-webpack-plugin": "^5.6.7",
         "jest": "^30.3.0",
         "jest-environment-jsdom": "^30.3.0",
-        "jsdom": "^29.0.2",
+        "jsdom": "^29.1.0",
         "mini-css-extract-plugin": "^2.10.2",
         "prettier": "3.8.3",
         "style-loader": "^4.0.0",
