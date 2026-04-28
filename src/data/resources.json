@@ -643,7 +643,7 @@
     {
         "id": "resource.krav.sjekklistekrav.description",
         "values": {
-            "nb": "Søknaden kvalifiserer til automatisk saksbehandling hvis alle kravene er besvart med \"ja\". Dersom ett eller flere av svarene er \"nei\", eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt."
+            "nb": "Søknaden kvalifiserer til automatisk saksbehandling hvis alle kravene er besvart med \"ja\".\nDersom ett eller flere av svarene er \"nei\", eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt."
         }
     },
     {
