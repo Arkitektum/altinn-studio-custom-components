@@ -86,7 +86,8 @@ export function renderDescription(component) {
         isChildComponent: true,
         resourceValues: {
             title: component?.resourceValues?.description
-        }
+        },
+        styleOverride: { pageBreakBefore: "avoid", pageBreakInside: "avoid", fontStyle: "italic" }
     });
     return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
 }
