@@ -7,6 +7,7 @@ custom-paragraph {
         line-height: var(--line-height-default);
         color: var(--color-text-default);
         margin-block: 0;
+        white-space: pre-wrap;
         a {
             color: var(--color-text-link);
         }
