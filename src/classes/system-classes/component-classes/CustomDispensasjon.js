@@ -203,7 +203,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.stedfestingPosisjonKoordinater?.title || "resource.koordinater.title"
             },
             stedfestingVertikalnivaa: {
-                title: props?.resourceBindings?.stedfestingVertikalnivaa?.title || "resource.stedfesting.vertikalnivaa.title"
+                title: props?.resourceBindings?.stedfestingVertikalnivaa?.title || "resource.vertikalnivaa.title"
             },
             varighet: {
                 title: props?.resourceBindings?.varighet?.title || "resource.varighet.title"

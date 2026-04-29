@@ -1280,6 +1280,10 @@
         {
             "id": "resource.versjon.title",
             "value": "Gjennomføringsplannummer"
+        },
+        {
+            "id": "resource.vertikalnivaa.title",
+            "value": "Vertikalnivå"
         }
     ]
 }

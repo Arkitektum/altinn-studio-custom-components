@@ -1684,7 +1684,8 @@
         "id": "resource.stedfesting.vertikalnivaa.title",
         "values": {
             "nb": "Vertikalnivå"
-        }
+        },
+        "replacedWithId": "resource.vertikalnivaa.title"
     },
     {
         "id": "resource.telefonnummer.title",
@@ -1964,5 +1965,11 @@
             "nb": "Gjennomføringsplannummer"
         },
         "replacedWithId": "resource.gjennomfoeringsplannummer.title"
+    },
+    {
+        "id": "resource.vertikalnivaa.title",
+        "values": {
+            "nb": "Vertikalnivå"
+        }
     }
 ]
