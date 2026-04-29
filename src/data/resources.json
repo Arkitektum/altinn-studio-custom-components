@@ -6,6 +6,19 @@
         }
     },
     {
+        "id": "resource.anleggstype.title",
+        "values": {
+            "nb": "Anleggstype"
+        },
+        "replacedWithId": "resource.anleggstype.title"
+    },
+    {
+        "id": "resource.anleggstype.title",
+        "values": {
+            "nb": "Anleggstype"
+        }
+    },
+    {
         "id": "resource.ansvarligForetak.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson"
@@ -216,7 +229,8 @@
         "id": "resource.delsoeknader.delsoeknad.tillatelsedato.title",
         "values": {
             "nb": "Tillatelsedato"
-        }
+        },
+        "replacedWithId": "resource.tillatelsedato.title"
     },
     {
         "id": "resource.detErVarsletOm.title",
@@ -504,6 +518,12 @@
         }
     },
     {
+        "id": "resource.foelgebrev.title",
+        "values": {
+            "nb": "Følgebrev"
+        }
+    },
+    {
         "id": "resource.foretak.title",
         "values": {
             "nb": "Ansvarlig foretak"
@@ -525,6 +545,12 @@
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
         "values": {
             "nb": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
+        }
+    },
+    {
+        "id": "resource.formaal.title",
+        "values": {
+            "nb": "Formål"
         }
     },
     {
@@ -1487,6 +1513,13 @@
         "id": "resource.sikkerhetsnivaa.header",
         "values": {
             "nb": "Sikkerhetsnivå"
+        },
+        "replacedWithId": "resource.sikkerhetsnivaa.title"
+    },
+    {
+        "id": "resource.sikkerhetsnivaa.title",
+        "values": {
+            "nb": "Sikkerhetsnivå"
         }
     },
     {
@@ -1523,12 +1556,6 @@
         "id": "resource.soeknadensHjemmeside.header",
         "values": {
             "nb": "Se også vår hjemmeside"
-        }
-    },
-    {
-        "id": "resource.soeknadGjelder.bruk.anleggstype.title",
-        "values": {
-            "nb": "Anleggstype"
         }
     },
     {
@@ -1579,13 +1606,15 @@
         "id": "resource.soeknadGjelder.bruk.tiltaksformaal.title",
         "values": {
             "nb": "Formål"
-        }
+        },
+        "replacedWithId": "resource.formaal.title"
     },
     {
         "id": "resource.soeknadGjelder.foelgebrev.header",
         "values": {
             "nb": "Følgebrev"
-        }
+        },
+        "replacedWithId": "resource.foelgebrev.title"
     },
     {
         "id": "resource.soeknadGjelder.title",
@@ -1666,6 +1695,12 @@
         "id": "resource.tilknytning.title",
         "values": {
             "nb": "Tilknytning"
+        }
+    },
+    {
+        "id": "resource.tillatelsedato.title",
+        "values": {
+            "nb": "Tillatelsedato"
         }
     },
     {

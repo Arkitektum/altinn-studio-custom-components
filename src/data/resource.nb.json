@@ -6,6 +6,14 @@
             "value": "Adresse"
         },
         {
+            "id": "resource.anleggstype.title",
+            "value": "Anleggstype"
+        },
+        {
+            "id": "resource.anleggstype.title",
+            "value": "Anleggstype"
+        },
+        {
             "id": "resource.ansvarligForetak.kontaktperson.title",
             "value": "Kontaktperson"
         },
@@ -330,6 +338,10 @@
             "value": "Ferdigattest"
         },
         {
+            "id": "resource.foelgebrev.title",
+            "value": "Følgebrev"
+        },
+        {
             "id": "resource.foretak.title",
             "value": "Ansvarlig foretak"
         },
@@ -344,6 +356,10 @@
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
             "value": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
+        },
+        {
+            "id": "resource.formaal.title",
+            "value": "Formål"
         },
         {
             "id": "resource.forslagsstiller.title",
@@ -978,6 +994,10 @@
             "value": "Sikkerhetsnivå"
         },
         {
+            "id": "resource.sikkerhetsnivaa.title",
+            "value": "Sikkerhetsnivå"
+        },
+        {
             "id": "resource.sikkerhetsNivaa.title",
             "value": "Sikkerhetsnivå og arbeider som vil utføres innen 14 dager"
         },
@@ -1000,10 +1020,6 @@
         {
             "id": "resource.soeknadensHjemmeside.header",
             "value": "Se også vår hjemmeside"
-        },
-        {
-            "id": "resource.soeknadGjelder.bruk.anleggstype.title",
-            "value": "Anleggstype"
         },
         {
             "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
@@ -1092,6 +1108,10 @@
         {
             "id": "resource.tilknytning.title",
             "value": "Tilknytning"
+        },
+        {
+            "id": "resource.tillatelsedato.title",
+            "value": "Tillatelsedato"
         },
         {
             "id": "resource.tilstrekkeligSikkerhet.title",
