@@ -99,7 +99,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 title: "resource.ansvarsfordeling.title"
             },
             versjon: {
-                title: "resource.versjon.title"
+                title: "resource.gjennomfoeringsplannummer.title"
             },
             kommunensSaksnummer: {
                 title: "resource.kommunensSaksnummer.title"

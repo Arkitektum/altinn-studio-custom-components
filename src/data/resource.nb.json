@@ -362,6 +362,10 @@
             "value": "Gjennomføringsplan"
         },
         {
+            "id": "resource.gjennomfoeringsplannummer.title",
+            "value": "Gjennomføringsplannummer"
+        },
+        {
             "id": "resource.gjenpartNabovarsel.description",
             "value": "Etter pbl § 21-3"
         },
