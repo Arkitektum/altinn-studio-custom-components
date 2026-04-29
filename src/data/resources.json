@@ -1235,6 +1235,13 @@
         "id": "resource.rammebetingelser.overvann.title",
         "values": {
             "nb": "Overvann"
+        },
+        "replacedWithId": "resource.overvann.title"
+    },
+    {
+        "id": "resource.overvann.title",
+        "values": {
+            "nb": "Overvann"
         }
     },
     {

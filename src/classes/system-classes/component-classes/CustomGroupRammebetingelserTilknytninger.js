@@ -149,7 +149,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 falseText: props?.resourceBindings?.avloep?.harUtslippstillatelse?.falseText || "resource.falseText.default"
             },
             overvann: {
-                title: props?.resourceBindings?.overvann?.title || "resource.rammebetingelser.overvann.title",
+                title: props?.resourceBindings?.overvann?.title || "resource.overvann.title",
                 emptyFieldText: props?.resourceBindings?.overvann?.emptyFieldText || "resource.emptyFieldText.default"
             },
             overvannLedesOvervannTilTerreng: {

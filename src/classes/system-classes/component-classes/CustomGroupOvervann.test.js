@@ -38,7 +38,7 @@ describe("CustomGroupOvervann", () => {
         expect(instance.resourceBindings.ledesOvervannTilAvloepssystem.title).toBe(
             "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title"
         );
-        expect(instance.resourceBindings.overvann.title).toBe("resource.rammebetingelser.overvann.title");
+        expect(instance.resourceBindings.overvann.title).toBe("resource.overvann.title");
         expect(instance.resourceBindings.overvann.emptyFieldText).toBe("resource.emptyFieldText.default");
         expect(instance.resourceValues.data).toEqual({});
     });
