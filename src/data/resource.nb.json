@@ -254,6 +254,10 @@
             "value": "Endringen gjelder"
         },
         {
+            "id": "resource.endringenGjelder.title",
+            "value": "Endringen gjelder"
+        },
+        {
             "id": "resource.erAnsvarsomraadetAvsluttet.title",
             "value": "Er arbeidet avsluttet?"
         },
@@ -262,8 +266,16 @@
             "value": "Er det funnet avvik og er disse lukket?"
         },
         {
+            "id": "resource.erklaering.title",
+            "value": "Erklæring"
+        },
+        {
             "id": "resource.erklaeringer.title",
             "value": "Erklæring"
+        },
+        {
+            "id": "resource.ettersending.title",
+            "value": "Ettersending"
         },
         {
             "id": "resource.ettersendinger.ettersending.title",
@@ -312,6 +324,10 @@
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
             "value": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
+        },
+        {
+            "id": "resource.forslagsstiller.title",
+            "value": "Forslagsstiller"
         },
         {
             "id": "resource.ftpbReferanseId.title",
@@ -406,6 +422,10 @@
             "value": "Kommunens saksnummer"
         },
         {
+            "id": "resource.konsekvensutredning.title",
+            "value": "Konsekvensutredning"
+        },
+        {
             "id": "resource.kontaktpersonForNabovarselet.header",
             "value": "Har du spørsmål til nabovarselet?"
         },
@@ -424,6 +444,10 @@
         {
             "id": "resource.kontrollKONTROLLTekst.title",
             "value": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert."
+        },
+        {
+            "id": "resource.koordinater.title",
+            "value": "Koordinater"
         },
         {
             "id": "resource.krav.sjekklistekrav.description",
@@ -600,6 +624,10 @@
         {
             "id": "resource.planer.gjeldendePlan.utnyttingsgrad.title",
             "value": "Grad av utnytting i henhold til gjeldende plan"
+        },
+        {
+            "id": "resource.plankonsulent.title",
+            "value": "Plankonsulent"
         },
         {
             "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
@@ -916,6 +944,10 @@
         {
             "id": "resource.sluttrapport.title",
             "value": "Sluttrapport for kontroll"
+        },
+        {
+            "id": "resource.soeker.title",
+            "value": "Søker"
         },
         {
             "id": "resource.soeknadensHjemmeside.header",
