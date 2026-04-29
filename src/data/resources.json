@@ -157,6 +157,12 @@
         }
     },
     {
+        "id": "resource.bestemmelsestype.title",
+        "values": {
+            "nb": "Bestemmelsestype"
+        }
+    },
+    {
         "id": "resource.bestillerreferanse.title",
         "values": {
             "nb": "Bestillerreferanse"
@@ -228,7 +234,8 @@
         "id": "resource.dispensasjonFra.bestemmelsestype.title",
         "values": {
             "nb": "Bestemmelsestype"
-        }
+        },
+        "replacedWithId": "resource.bestemmelsestype.title"
     },
     {
         "id": "resource.dispensasjonFra.header",

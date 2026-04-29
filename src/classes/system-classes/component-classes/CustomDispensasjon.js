@@ -188,7 +188,7 @@ export default class CustomDispensasjon extends CustomComponent {
                     "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title"
             },
             bestemmelsestype: {
-                title: props?.resourceBindings?.bestemmelsestype?.title || "resource.dispensasjonFra.bestemmelsestype.title"
+                title: props?.resourceBindings?.bestemmelsestype?.title || "resource.bestemmelsestype.title"
             },
             paragrafnummer: {
                 title: props?.resourceBindings?.paragrafnummer?.title || "resource.planbestemmelse.title"
