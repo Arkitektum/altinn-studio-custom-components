@@ -228,7 +228,8 @@
         "id": "resource.dispensasjon.dispensasjonsreferanse.title",
         "values": {
             "nb": "Dispensasjonsreferanse"
-        }
+        },
+        "replacedWithId": "resource.dispensasjonsreferanse.title"
     },
     {
         "id": "resource.dispensasjonFra.bestemmelsestype.title",
@@ -286,6 +287,12 @@
         "id": "resource.dispensasjonsbeskrivelse.title",
         "values": {
             "nb": "Beskrivelse av tiltak"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsreferanse.title",
+        "values": {
+            "nb": "Dispensasjonsreferanse"
         }
     },
     {

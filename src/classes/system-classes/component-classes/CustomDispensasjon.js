@@ -88,7 +88,7 @@ export default class CustomDispensasjon extends CustomComponent {
     getResourceBindings(props) {
         return {
             dispensasjonsreferanse: {
-                title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjon.dispensasjonsreferanse.title"
+                title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjonsreferanse.title"
             },
             metadataFtbId: {
                 title: props?.resourceBindings?.metadataFtbId?.title || "resource.metadata.ftbId.title"

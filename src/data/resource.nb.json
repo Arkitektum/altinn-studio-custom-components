@@ -190,6 +190,10 @@
             "value": "Beskrivelse av tiltak"
         },
         {
+            "id": "resource.dispensasjonsreferanse.title",
+            "value": "Dispensasjonsreferanse"
+        },
+        {
             "id": "resource.dispensasjonsvarsel.bestemmelse.title",
             "value": "Dette søkes det dispensasjon fra"
         },
