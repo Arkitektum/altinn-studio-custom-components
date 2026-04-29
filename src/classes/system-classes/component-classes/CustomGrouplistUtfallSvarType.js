@@ -132,7 +132,7 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
                 title: props?.resourceBindings?.kommentar?.title || "resource.utfallBesvarelse.utfallSvar.kommentar.title"
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title"
+                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.vedlegg.title"
             },
             utfallSvarType: {}
         };

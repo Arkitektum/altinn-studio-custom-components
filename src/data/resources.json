@@ -1818,7 +1818,8 @@
         "id": "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title",
         "values": {
             "nb": "Vedlegg"
-        }
+        },
+        "replacedWithId": "resource.vedlegg.title"
     },
     {
         "id": "resource.utfoereInnen.title",
