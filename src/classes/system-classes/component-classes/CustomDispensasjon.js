@@ -197,7 +197,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.stedfesting?.title || "resource.stedfesting.title"
             },
             stedfestingPosisjonKoordinatsystem: {
-                title: props?.resourceBindings?.stedfestingPosisjonKoordinatsystem?.title || "resource.stedfesting.posisjon.koordinatsystem.title"
+                title: props?.resourceBindings?.stedfestingPosisjonKoordinatsystem?.title || "resource.koordinatsystem.title"
             },
             stedfestingPosisjonKoordinater: {
                 title: props?.resourceBindings?.stedfestingPosisjonKoordinater?.title || "resource.koordinater.title"

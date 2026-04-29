@@ -753,6 +753,12 @@
         }
     },
     {
+        "id": "resource.koordinatsystem.title",
+        "values": {
+            "nb": "Koordinatsystem"
+        }
+    },
+    {
         "id": "resource.krav.sjekklistekrav.description",
         "values": {
             "nb": "Søknaden kvalifiserer til automatisk saksbehandling hvis alle kravene er besvart med \"ja\".\nDersom ett eller flere av svarene er \"nei\", eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt."
@@ -1665,7 +1671,8 @@
         "id": "resource.stedfesting.posisjon.koordinatsystem.title",
         "values": {
             "nb": "Koordinatsystem"
-        }
+        },
+        "replacedWithId": "resource.koordinatsystem.title"
     },
     {
         "id": "resource.stedfesting.title",
