@@ -85,6 +85,12 @@
         }
     },
     {
+        "id": "resource.avloep.title",
+        "values": {
+            "nb": "Avløp"
+        }
+    },
+    {
         "id": "resource.begrunnelse.fordeler.title",
         "values": {
             "nb": "Liste med fordeler"
@@ -1129,7 +1135,8 @@
         "id": "resource.rammebetingelser.avloep.title",
         "values": {
             "nb": "Avløp"
-        }
+        },
+        "replacedWithId": "resource.avloep.title"
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",

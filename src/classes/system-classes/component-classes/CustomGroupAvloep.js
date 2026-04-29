@@ -132,7 +132,7 @@ export default class CustomGroupAvloep extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.avloep = {
-                title: props?.resourceBindings?.title || "resource.rammebetingelser.avloep.title"
+                title: props?.resourceBindings?.title || "resource.avloep.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

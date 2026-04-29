@@ -116,7 +116,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 defaultText: props?.resourceBindings?.adkomst?.erTillatelseGitt?.defaultText || "resource.emptyFieldText.default"
             },
             avloep: {
-                title: props?.resourceBindings?.avloep?.title || "resource.rammebetingelser.avloep.title",
+                title: props?.resourceBindings?.avloep?.title || "resource.avloep.title",
                 emptyFieldText: props?.resourceBindings?.avloep?.emptyFieldText || "resource.emptyFieldText.default"
             },
             avloepHarTinglystErklaering: {
