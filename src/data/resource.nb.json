@@ -10,10 +10,6 @@
             "value": "Anleggstype"
         },
         {
-            "id": "resource.anleggstype.title",
-            "value": "Anleggstype"
-        },
-        {
             "id": "resource.ansvarligForetak.kontaktperson.title",
             "value": "Kontaktperson"
         },
@@ -1024,6 +1020,10 @@
         {
             "id": "resource.soeknadensHjemmeside.header",
             "value": "Se også vår hjemmeside"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.anleggstype.title",
+            "value": "Anleggstype"
         },
         {
             "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",

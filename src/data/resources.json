@@ -9,13 +9,6 @@
         "id": "resource.anleggstype.title",
         "values": {
             "nb": "Anleggstype"
-        },
-        "replacedWithId": "resource.anleggstype.title"
-    },
-    {
-        "id": "resource.anleggstype.title",
-        "values": {
-            "nb": "Anleggstype"
         }
     },
     {
@@ -1563,6 +1556,13 @@
         "values": {
             "nb": "Se også vår hjemmeside"
         }
+    },
+    {
+        "id": "resource.soeknadGjelder.bruk.anleggstype.title",
+        "values": {
+            "nb": "Anleggstype"
+        },
+        "replacedWithId": "resource.anleggstype.title"
     },
     {
         "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
