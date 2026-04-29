@@ -24,7 +24,7 @@ export function filterResources(resources, filterValue) {
         case "with-duplicates":
             return resources.filter((res) => getResourcesWithSameValue(resources, res).length > 0 && res?.missingFromDefaultTextResources !== true);
         case "deprecated":
-            return resources.filter((res) => res?.resource?.deprecated === true);
+            return resources.filter((res) => res?.resource?.replacedWithId?.length > 0);
         case "missing":
             return resources.filter((res) => res?.presence === "missing");
         case "missing-with-local-value":

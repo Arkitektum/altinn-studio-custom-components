@@ -173,10 +173,10 @@ export function renderDefaultTextResourceListItem(textResource, allTextResources
         unusedIndicatorElement.innerHTML = "Unused";
         resourceIdElement.appendChild(unusedIndicatorElement);
     }
-    if (textResource?.resource?.deprecated === true) {
+    if (textResource?.resource?.replacedWithId?.length > 0) {
         const deprecatedIndicatorElement = document.createElement("span");
         deprecatedIndicatorElement.classList.add("indicator", "indicator-deprecated");
-        deprecatedIndicatorElement.innerHTML = "Deprecated";
+        deprecatedIndicatorElement.innerHTML = "Deprecated (replaced with: " + textResource.resource.replacedWithId + ")";
         resourceIdElement.appendChild(deprecatedIndicatorElement);
     }
 

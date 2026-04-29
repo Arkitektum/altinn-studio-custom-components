@@ -21,7 +21,8 @@
         "id": "resource.ansvarligSoeker.title",
         "values": {
             "nb": "Søker"
-        }
+        },
+        "replacedWithId": "resource.soeker.title"
     },
     {
         "id": "resource.ansvarsfordeling.title",
@@ -184,14 +185,14 @@
         "values": {
             "nb": "Nr."
         },
-        "deprecated": true
+        "replacedWithId": "resource.nummer.short"
     },
     {
         "id": "resource.delsoeknader.delsoeknad.kommentar.title",
         "values": {
             "nb": "Kommentar"
         },
-        "deprecated": true
+        "replacedWithId": "resource.kommentar.title"
     },
     {
         "id": "resource.delsoeknader.delsoeknad.tillatelsedato.title",
@@ -252,7 +253,7 @@
         "values": {
             "nb": "Emne"
         },
-        "deprecated": true
+        "replacedWithId": "resource.emne.title"
     },
     {
         "id": "resource.dispensasjonOversikt.header",
@@ -295,7 +296,7 @@
         "values": {
             "nb": "Adresse"
         },
-        "deprecated": true
+        "replacedWithId": "resource.adresse.title"
     },
     {
         "id": "resource.eiendom.bolignummer.title",
@@ -494,7 +495,7 @@
         "values": {
             "nb": "Erklæring"
         },
-        "deprecated": true
+        "replacedWithId": "resource.erklaering.title"
     },
     {
         "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
@@ -795,7 +796,7 @@
         "values": {
             "nb": "Bestiller referanse"
         },
-        "deprecated": true
+        "replacedWithId": "resource.bestillerreferanse.title"
     },
     {
         "id": "resource.part.epost.title",
@@ -808,14 +809,14 @@
         "values": {
             "nb": "Fakturareferanse"
         },
-        "deprecated": true
+        "replacedWithId": "resource.fakturareferanse.title"
     },
     {
         "id": "resource.part.navn.title",
         "values": {
             "nb": "Navn"
         },
-        "deprecated": true
+        "replacedWithId": "resource.navn.title"
     },
     {
         "id": "resource.part.organisasjonsnummer.title",
@@ -1296,7 +1297,7 @@
         "values": {
             "nb": "Nr."
         },
-        "deprecated": true
+        "replacedWithId": "resource.nummer.short"
     },
     {
         "id": "resource.samsvarErklaeringTekst.title",
@@ -1417,14 +1418,14 @@
         "values": {
             "nb": "Bygningstype"
         },
-        "deprecated": true
+        "replacedWithId": "resource.bygningstype.title"
     },
     {
         "id": "resource.soeknadGjelder.bruk.header",
         "values": {
             "nb": "Tiltak/ byggeplaner"
         },
-        "deprecated": true
+        "replacedWithId": "resource.tiltakByggeplaner.title"
     },
     {
         "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
@@ -1479,7 +1480,7 @@
         "values": {
             "nb": "Tiltakstyper"
         },
-        "deprecated": true
+        "replacedWithId": "resource.tiltakstyper.title"
     },
     {
         "id": "resource.status.title",
@@ -1606,7 +1607,7 @@
         "values": {
             "nb": "Kommentar"
         },
-        "deprecated": true
+        "replacedWithId": "resource.kommentar.title"
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.status",
@@ -1691,7 +1692,7 @@
         "values": {
             "nb": "Ja"
         },
-        "deprecated": true
+        "replacedWithId": "resource.trueText.default"
     },
     {
         "id": "resource.varsling.fritattFraNabovarsling.title",
@@ -1704,7 +1705,7 @@
         "values": {
             "nb": "Nei"
         },
-        "deprecated": true
+        "replacedWithId": "resource.falseText.default"
     },
     {
         "id": "resource.varsling.harPengeheftelser.title",
