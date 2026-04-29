@@ -1300,6 +1300,13 @@
         "id": "resource.rammetillatelse.title",
         "values": {
             "nb": "Rammesøknad"
+        },
+        "replacedWithId": "resource.rammesoeknad.title"
+    },
+    {
+        "id": "resource.rammesoeknad.title",
+        "values": {
+            "nb": "Rammesøknad"
         }
     },
     {
@@ -1379,7 +1386,8 @@
         "id": "resource.samsvarKontrollPlanlagtVedRammetillatelse.title",
         "values": {
             "nb": "Rammesøknad"
-        }
+        },
+        "replacedWithId": "resource.rammesoeknad.title"
     },
     {
         "id": "resource.samsvarPROTekst.title",
