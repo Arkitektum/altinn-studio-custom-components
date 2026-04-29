@@ -396,6 +396,12 @@
         }
     },
     {
+        "id": "resource.energiforsyning.title",
+        "values": {
+            "nb": "Energiforsyning"
+        }
+    },
+    {
         "id": "resource.erAnsvarsomraadetAvsluttet.title",
         "values": {
             "nb": "Er arbeidet avsluttet?"
@@ -810,6 +816,12 @@
         "id": "resource.naboGjenboer.title",
         "values": {
             "nb": "Nabovarsel med vedlegg er sendt til følgende naboer"
+        }
+    },
+    {
+        "id": "resource.nabovarsling.title",
+        "values": {
+            "nb": "Nabovarsling"
         }
     },
     {
@@ -1334,6 +1346,12 @@
         "replacedWithId": "resource.rammesoeknad.title"
     },
     {
+        "id": "resource.redegjoerelse.title",
+        "values": {
+            "nb": "Redegjørelse"
+        }
+    },
+    {
         "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
         "values": {
             "nb": "Ikke svar"
@@ -1762,16 +1780,24 @@
         }
     },
     {
+        "id": "resource.varmefordeling.title",
+        "values": {
+            "nb": "Varmefordeling"
+        }
+    },
+    {
         "id": "resource.varmesystem.energiforsyning.kode.title",
         "values": {
             "nb": "Energiforsyning"
-        }
+        },
+        "replacedWithId": "resource.energiforsyning.title"
     },
     {
         "id": "resource.varmesystem.header",
         "values": {
             "nb": "Varmesystem"
-        }
+        },
+        "replacedWithId": "resource.varmesystem.title"
     },
     {
         "id": "resource.varmesystem.relevant.false.description",
@@ -1780,10 +1806,17 @@
         }
     },
     {
+        "id": "resource.varmesystem.title",
+        "values": {
+            "nb": "Varmesystem"
+        }
+    },
+    {
         "id": "resource.varmesystem.varmefordeling.kode.title",
         "values": {
             "nb": "Varmefordeling"
-        }
+        },
+        "replacedWithId": "resource.varmefordeling.title"
     },
     {
         "id": "resource.varsler-herved.header",
@@ -1827,7 +1860,8 @@
         "id": "resource.varsling.redegjorelseFritak.title",
         "values": {
             "nb": "Redegjørelse"
-        }
+        },
+        "replacedWithId": "resource.redegjoerelse.title"
     },
     {
         "id": "resource.varsling.soeknadensHjemmeside.title",
@@ -1839,7 +1873,8 @@
         "id": "resource.varsling.title",
         "values": {
             "nb": "Nabovarsling"
-        }
+        },
+        "replacedWithId": "resource.nabovarsling.title"
     },
     {
         "id": "resource.varsling.vurderingAvMerknader.title",

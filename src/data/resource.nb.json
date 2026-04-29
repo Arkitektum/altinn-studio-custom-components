@@ -262,6 +262,10 @@
             "value": "Endringen gjelder"
         },
         {
+            "id": "resource.energiforsyning.title",
+            "value": "Energiforsyning"
+        },
+        {
             "id": "resource.erAnsvarsomraadetAvsluttet.title",
             "value": "Er arbeidet avsluttet?"
         },
@@ -536,6 +540,10 @@
         {
             "id": "resource.naboGjenboer.title",
             "value": "Nabovarsel med vedlegg er sendt til følgende naboer"
+        },
+        {
+            "id": "resource.nabovarsling.title",
+            "value": "Nabovarsling"
         },
         {
             "id": "resource.navn.title",
@@ -878,6 +886,10 @@
             "value": "Rammesøknad"
         },
         {
+            "id": "resource.redegjoerelse.title",
+            "value": "Redegjørelse"
+        },
+        {
             "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
             "value": "Ikke svar"
         },
@@ -1158,6 +1170,10 @@
             "value": "Varighet"
         },
         {
+            "id": "resource.varmefordeling.title",
+            "value": "Varmefordeling"
+        },
+        {
             "id": "resource.varmesystem.energiforsyning.kode.title",
             "value": "Energiforsyning"
         },
@@ -1168,6 +1184,10 @@
         {
             "id": "resource.varmesystem.relevant.false.description",
             "value": "Energiforsyning og varmefordeling er ikke relevant for tiltaket."
+        },
+        {
+            "id": "resource.varmesystem.title",
+            "value": "Varmesystem"
         },
         {
             "id": "resource.varmesystem.varmefordeling.kode.title",
