@@ -111,7 +111,7 @@ export default class CustomGroupVannforsyning extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.vannforsyning = {
-                title: props?.resourceBindings?.title || "resource.rammebetingelser.vannforsyning.title"
+                title: props?.resourceBindings?.title || "resource.vannforsyning.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

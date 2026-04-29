@@ -58,6 +58,10 @@
             "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
         },
         {
+            "id": "resource.avloep.title",
+            "value": "Avløp"
+        },
+        {
             "id": "resource.begrunnelse.fordeler.title",
             "value": "Liste med fordeler"
         },
@@ -1132,6 +1136,10 @@
         {
             "id": "resource.utfoereInnen.title",
             "value": "Vi vil utføre arbeidene innen"
+        },
+        {
+            "id": "resource.vannforsyning.title",
+            "value": "Vannforsyning"
         },
         {
             "id": "resource.varighet.oenskesVarigDispensasjon.trueText",

@@ -167,7 +167,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 falseText: props?.resourceBindings?.overvann?.ledesOvervannTilAvloepssystem?.falseText || "resource.falseText.default"
             },
             vannforsyning: {
-                title: props?.resourceBindings?.vannforsyning?.title || "resource.rammebetingelser.vannforsyning.title",
+                title: props?.resourceBindings?.vannforsyning?.title || "resource.vannforsyning.title",
                 emptyFieldText: props?.resourceBindings?.vannforsyning?.emptyFieldText || "resource.emptyFieldText.default"
             },
             vannforsyningBeskrivelse: {

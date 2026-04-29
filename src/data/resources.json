@@ -1311,7 +1311,8 @@
         "id": "resource.rammebetingelser.vannforsyning.title",
         "values": {
             "nb": "Vannforsyning"
-        }
+        },
+        "replacedWithId": "resource.vannforsyning.title"
     },
     {
         "id": "resource.rammesoeknad.title",
@@ -1728,6 +1729,12 @@
         "id": "resource.utfoereInnen.title",
         "values": {
             "nb": "Vi vil utføre arbeidene innen"
+        }
+    },
+    {
+        "id": "resource.vannforsyning.title",
+        "values": {
+            "nb": "Vannforsyning"
         }
     },
     {
