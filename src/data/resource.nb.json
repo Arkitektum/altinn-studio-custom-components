@@ -98,6 +98,10 @@
             "value": "Beskrivelse av ansvarsområdet"
         },
         {
+            "id": "resource.bestemmelse.title",
+            "value": "Bestemmelse"
+        },
+        {
             "id": "resource.bestemmelsene.header",
             "value": "Disse bestemmelsene regulerer eiendommen"
         },

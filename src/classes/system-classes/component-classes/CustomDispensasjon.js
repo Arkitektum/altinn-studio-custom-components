@@ -177,7 +177,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.dispensasjonsbeskrivelse?.title || "resource.dispensasjonsbeskrivelse.title"
             },
             dispensasjonFraHeader: {
-                title: props?.resourceBindings?.dispensasjonFraHeader?.title || "resource.dispensasjonFra.header"
+                title: props?.resourceBindings?.dispensasjonFraHeader?.title || "resource.bestemmelse.title"
             },
             plannavn: {
                 title: props?.resourceBindings?.plannavn?.title || "resource.navn.title"

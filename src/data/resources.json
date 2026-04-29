@@ -145,6 +145,12 @@
         }
     },
     {
+        "id": "resource.bestemmelse.title",
+        "values": {
+            "nb": "Bestemmelse"
+        }
+    },
+    {
         "id": "resource.bestemmelsene.header",
         "values": {
             "nb": "Disse bestemmelsene regulerer eiendommen"
@@ -228,7 +234,8 @@
         "id": "resource.dispensasjonFra.header",
         "values": {
             "nb": "Bestemmelse"
-        }
+        },
+        "replacedWithId": "resource.bestemmelse.title"
     },
     {
         "id": "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
