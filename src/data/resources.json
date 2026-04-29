@@ -266,7 +266,8 @@
         "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonKategori.title",
         "values": {
             "nb": "Kategori"
-        }
+        },
+        "replacedWithId": "resource.kategori.title"
     },
     {
         "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
@@ -656,6 +657,12 @@
         "id": "resource.igangsettingstillatelse.title",
         "values": {
             "nb": "Igangsettingstillatelse"
+        }
+    },
+    {
+        "id": "resource.kategori.title",
+        "values": {
+            "nb": "Kategori"
         }
     },
     {

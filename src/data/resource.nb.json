@@ -434,6 +434,10 @@
             "value": "Igangsettingstillatelse"
         },
         {
+            "id": "resource.kategori.title",
+            "value": "Kategori"
+        },
+        {
             "id": "resource.kommentar.title",
             "value": "Kommentar"
         },
