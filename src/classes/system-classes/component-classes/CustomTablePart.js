@@ -161,7 +161,7 @@ export default class CustomTablePart extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.navn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             telefonnummer: {
-                title: props?.resourceBindings?.telefonnummer?.title || `resource.part.telefonnummer.title`,
+                title: props?.resourceBindings?.telefonnummer?.title || `resource.telefonnummer.title`,
                 emptyFieldText: props?.resourceBindings?.telefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             epost: {

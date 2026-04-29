@@ -167,7 +167,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             kontaktpersonForNabovarseletTelefonnummer: {
-                title: props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText:
                     props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
@@ -239,7 +239,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
-                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierEpost: {

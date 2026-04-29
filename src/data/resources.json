@@ -873,6 +873,13 @@
         "id": "resource.part.telefonnummer.title",
         "values": {
             "nb": "Telefonnummer"
+        },
+        "replacedWithId": "resource.telefonnummer.title"
+    },
+    {
+        "id": "resource.telefonnummer.title",
+        "values": {
+            "nb": "Telefonnummer"
         }
     },
     {
