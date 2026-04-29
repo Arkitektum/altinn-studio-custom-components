@@ -1078,6 +1078,13 @@
         "id": "resource.rammebetingelser.arealdisponering.tomtearealet.title",
         "values": {
             "nb": "Tomtearealet"
+        },
+        "replacedWithId": "resource.tomtearealet.title"
+    },
+    {
+        "id": "resource.tomtearealet.title",
+        "values": {
+            "nb": "Tomtearealet"
         }
     },
     {

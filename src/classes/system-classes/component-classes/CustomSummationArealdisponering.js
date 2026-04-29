@@ -127,7 +127,7 @@ export default class CustomSummationArealdisponering extends CustomComponent {
     getResourceBindings(props) {
         const resourceBindings = {
             tomtearealet: {
-                title: props?.resourceBindings?.tomtearealet?.title || `resource.rammebetingelser.arealdisponering.tomtearealet.title`
+                title: props?.resourceBindings?.tomtearealet?.title || `resource.tomtearealet.title`
             },
             bebyggelsen: {
                 title: props?.resourceBindings?.bebyggelsen?.title || `resource.rammebetingelser.arealdisponering.bebyggelsen.title`

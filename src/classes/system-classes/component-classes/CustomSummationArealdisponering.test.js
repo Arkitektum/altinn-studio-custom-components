@@ -203,7 +203,7 @@ describe("CustomSummationArealdisponering", () => {
         it("should return default resource bindings if no props are provided", () => {
             const instance = new CustomSummationArealdisponering({});
             const result = instance.getResourceBindings({});
-            expect(result.tomtearealet.title).toBe("resource.rammebetingelser.arealdisponering.tomtearealet.title");
+            expect(result.tomtearealet.title).toBe("resource.tomtearealet.title");
             expect(result.bebyggelsen.title).toBe("resource.rammebetingelser.arealdisponering.bebyggelsen.title");
             expect(result.arealdisponering.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
