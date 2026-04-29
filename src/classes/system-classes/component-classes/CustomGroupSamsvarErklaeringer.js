@@ -120,7 +120,7 @@ export default class CustomGroupSamsvarErklaeringer extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
             resourceBindings.erklaeringer = {
-                title: props?.resourceBindings?.title || "resource.erklaeringer.title"
+                title: props?.resourceBindings?.title || "resource.erklaering.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

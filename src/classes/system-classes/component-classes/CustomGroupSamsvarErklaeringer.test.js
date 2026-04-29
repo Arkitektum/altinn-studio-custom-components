@@ -81,7 +81,7 @@ describe("CustomGroupSamsvarErklaeringer", () => {
             expect(bindings.samsvarErklaeringTekst.title).toBe("resource.samsvarErklaeringTekst.title");
             expect(bindings.samsvarPROTekst.title).toBe("resource.samsvarPROTekst.title");
             expect(bindings.samsvarUTFTekst.title).toBe("resource.samsvarUTFTekst.title");
-            expect(bindings.erklaeringer.title).toBe("resource.erklaeringer.title");
+            expect(bindings.erklaeringer.title).toBe("resource.erklaering.title");
             expect(bindings.erklaeringer.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
 

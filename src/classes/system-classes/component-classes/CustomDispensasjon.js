@@ -238,7 +238,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.begrunnelseSamletBegrunnelse?.title || "resource.begrunnelse.samletBegrunnelse.title"
             },
             generelleVilkaarNorskSvenskDansk: {
-                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.erklaeringer.title",
+                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.erklaering.title",
                 trueText:
                     props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.trueText || "resource.generelleVilkaar.norskSvenskDansk.true.title"
             }

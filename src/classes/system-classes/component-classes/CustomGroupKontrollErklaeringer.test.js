@@ -118,7 +118,7 @@ describe("CustomGroupKontrollErklaeringer", () => {
             const result = instance.getResourceBindings(props);
             expect(result.kontrollErklaeringTekst.title).toBe("resource.kontrollErklaeringTekst.title");
             expect(result.kontrollKONTROLLTekst.title).toBe("resource.kontrollKONTROLLTekst.title");
-            expect(result.erklaeringer.title).toBe("resource.erklaeringer.title");
+            expect(result.erklaeringer.title).toBe("resource.erklaering.title");
             expect(result.erklaeringer.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
 
@@ -149,7 +149,7 @@ describe("CustomGroupKontrollErklaeringer", () => {
             };
             const instance = new CustomGroupKontrollErklaeringer({});
             const result = instance.getResourceBindings(props);
-            expect(result.erklaeringer).toEqual({ title: "resource.erklaeringer.title" });
+            expect(result.erklaeringer).toEqual({ title: "resource.erklaering.title" });
             expect(result.erklaeringer.emptyFieldText).toBeUndefined();
         });
     });
