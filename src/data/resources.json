@@ -831,6 +831,18 @@
         }
     },
     {
+        "id": "resource.organisasjonsnummer.title",
+        "values": {
+            "nb": "Organisasjonsnummer"
+        }
+    },
+    {
+        "id": "resource.overvann.title",
+        "values": {
+            "nb": "Overvann"
+        }
+    },
+    {
         "id": "resource.part.bestillerreferanse.title",
         "values": {
             "nb": "Bestiller referanse"
@@ -861,13 +873,15 @@
         "id": "resource.part.organisasjonsnummer.title",
         "values": {
             "nb": "Organisasjonsnummer"
-        }
+        },
+        "replacedWithId": "resource.organisasjonsnummer.title"
     },
     {
         "id": "resource.part.prosjektnummer.title",
         "values": {
             "nb": "Prosjektnummer"
-        }
+        },
+        "replacedWithId": "resource.prosjektnummer.title"
     },
     {
         "id": "resource.part.telefonnummer.title",
@@ -875,12 +889,6 @@
             "nb": "Telefonnummer"
         },
         "replacedWithId": "resource.telefonnummer.title"
-    },
-    {
-        "id": "resource.telefonnummer.title",
-        "values": {
-            "nb": "Telefonnummer"
-        }
     },
     {
         "id": "resource.planbestemmelse.title",
@@ -1082,12 +1090,6 @@
         "replacedWithId": "resource.tomtearealet.title"
     },
     {
-        "id": "resource.tomtearealet.title",
-        "values": {
-            "nb": "Tomtearealet"
-        }
-    },
-    {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
         "values": {
             "nb": "Areal som legges til"
@@ -1239,12 +1241,6 @@
         "replacedWithId": "resource.overvann.title"
     },
     {
-        "id": "resource.overvann.title",
-        "values": {
-            "nb": "Overvann"
-        }
-    },
-    {
         "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
         "values": {
             "nb": "Er tiltaket innenfor byggegrensen?"
@@ -1311,17 +1307,17 @@
         }
     },
     {
+        "id": "resource.rammesoeknad.title",
+        "values": {
+            "nb": "Rammesøknad"
+        }
+    },
+    {
         "id": "resource.rammetillatelse.title",
         "values": {
             "nb": "Rammesøknad"
         },
         "replacedWithId": "resource.rammesoeknad.title"
-    },
-    {
-        "id": "resource.rammesoeknad.title",
-        "values": {
-            "nb": "Rammesøknad"
-        }
     },
     {
         "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
@@ -1595,6 +1591,12 @@
         }
     },
     {
+        "id": "resource.telefonnummer.title",
+        "values": {
+            "nb": "Telefonnummer"
+        }
+    },
+    {
         "id": "resource.tema.title",
         "values": {
             "nb": "Tema"
@@ -1652,6 +1654,12 @@
         "id": "resource.tiltakstyper.type.kode.title",
         "values": {
             "nb": "Tiltakstyper i søknad om dispensasjon"
+        }
+    },
+    {
+        "id": "resource.tomtearealet.title",
+        "values": {
+            "nb": "Tomtearealet"
         }
     },
     {

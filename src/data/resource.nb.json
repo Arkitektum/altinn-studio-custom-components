@@ -550,6 +550,14 @@
             "value": "+"
         },
         {
+            "id": "resource.organisasjonsnummer.title",
+            "value": "Organisasjonsnummer"
+        },
+        {
+            "id": "resource.overvann.title",
+            "value": "Overvann"
+        },
+        {
             "id": "resource.part.bestillerreferanse.title",
             "value": "Bestiller referanse"
         },
@@ -854,6 +862,10 @@
             "value": "Vannforsyning"
         },
         {
+            "id": "resource.rammesoeknad.title",
+            "value": "Rammesøknad"
+        },
+        {
             "id": "resource.rammetillatelse.title",
             "value": "Rammesøknad"
         },
@@ -1034,6 +1046,10 @@
             "value": "Vertikalnivå"
         },
         {
+            "id": "resource.telefonnummer.title",
+            "value": "Telefonnummer"
+        },
+        {
             "id": "resource.tema.title",
             "value": "Tema"
         },
@@ -1072,6 +1088,10 @@
         {
             "id": "resource.tiltakstyper.type.kode.title",
             "value": "Tiltakstyper i søknad om dispensasjon"
+        },
+        {
+            "id": "resource.tomtearealet.title",
+            "value": "Tomtearealet"
         },
         {
             "id": "resource.trueText.default",
