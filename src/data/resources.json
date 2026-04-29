@@ -232,27 +232,6 @@
         }
     },
     {
-        "id": "resource.dispensasjon.dispensasjonsreferanse.title",
-        "values": {
-            "nb": "Dispensasjonsreferanse"
-        },
-        "replacedWithId": "resource.dispensasjonsreferanse.title"
-    },
-    {
-        "id": "resource.dispensasjonFra.bestemmelsestype.title",
-        "values": {
-            "nb": "Bestemmelsestype"
-        },
-        "replacedWithId": "resource.bestemmelsestype.title"
-    },
-    {
-        "id": "resource.dispensasjonFra.header",
-        "values": {
-            "nb": "Bestemmelse"
-        },
-        "replacedWithId": "resource.bestemmelse.title"
-    },
-    {
         "id": "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
         "values": {
             "nb": "Nasjonal arealplan-ID"
@@ -961,13 +940,6 @@
         "replacedWithId": "resource.prosjektnummer.title"
     },
     {
-        "id": "resource.part.telefonnummer.title",
-        "values": {
-            "nb": "Telefonnummer"
-        },
-        "replacedWithId": "resource.telefonnummer.title"
-    },
-    {
         "id": "resource.planbestemmelse.title",
         "values": {
             "nb": "Planbestemmelse"
@@ -1160,13 +1132,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.arealdisponering.tomtearealet.title",
-        "values": {
-            "nb": "Tomtearealet"
-        },
-        "replacedWithId": "resource.tomtearealet.title"
-    },
-    {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
         "values": {
             "nb": "Areal som legges til"
@@ -1201,13 +1166,6 @@
         "values": {
             "nb": "Skal det installeres vannklosett?"
         }
-    },
-    {
-        "id": "resource.rammebetingelser.avloep.title",
-        "values": {
-            "nb": "Avløp"
-        },
-        "replacedWithId": "resource.avloep.title"
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
@@ -1312,13 +1270,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.overvann.title",
-        "values": {
-            "nb": "Overvann"
-        },
-        "replacedWithId": "resource.overvann.title"
-    },
-    {
         "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
         "values": {
             "nb": "Er tiltaket innenfor byggegrensen?"
@@ -1377,13 +1328,6 @@
         "values": {
             "nb": "Krysser vanntilførsel annens grunn?"
         }
-    },
-    {
-        "id": "resource.rammebetingelser.vannforsyning.title",
-        "values": {
-            "nb": "Vannforsyning"
-        },
-        "replacedWithId": "resource.vannforsyning.title"
     },
     {
         "id": "resource.rammesoeknad.title",
@@ -1476,13 +1420,6 @@
         "values": {
             "nb": "Søknad om midlertidig brukstillatelse"
         }
-    },
-    {
-        "id": "resource.samsvarKontrollPlanlagtVedRammetillatelse.title",
-        "values": {
-            "nb": "Rammesøknad"
-        },
-        "replacedWithId": "resource.rammesoeknad.title"
     },
     {
         "id": "resource.samsvarPROTekst.title",
@@ -1661,31 +1598,10 @@
         }
     },
     {
-        "id": "resource.stedfesting.posisjon.koordinater.title",
-        "values": {
-            "nb": "Koordinater"
-        },
-        "replacedWithId": "resource.koordinater.title"
-    },
-    {
-        "id": "resource.stedfesting.posisjon.koordinatsystem.title",
-        "values": {
-            "nb": "Koordinatsystem"
-        },
-        "replacedWithId": "resource.koordinatsystem.title"
-    },
-    {
         "id": "resource.stedfesting.title",
         "values": {
             "nb": "Stedfesting"
         }
-    },
-    {
-        "id": "resource.stedfesting.vertikalnivaa.title",
-        "values": {
-            "nb": "Vertikalnivå"
-        },
-        "replacedWithId": "resource.vertikalnivaa.title"
     },
     {
         "id": "resource.telefonnummer.title",
@@ -1813,13 +1729,6 @@
         "values": {
             "nb": "Svar på mangler"
         }
-    },
-    {
-        "id": "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title",
-        "values": {
-            "nb": "Vedlegg"
-        },
-        "replacedWithId": "resource.vedlegg.title"
     },
     {
         "id": "resource.utfoereInnen.title",
@@ -1959,13 +1868,6 @@
         "values": {
             "nb": "Vedlegg"
         }
-    },
-    {
-        "id": "resource.versjon.title",
-        "values": {
-            "nb": "Gjennomføringsplannummer"
-        },
-        "replacedWithId": "resource.gjennomfoeringsplannummer.title"
     },
     {
         "id": "resource.vertikalnivaa.title",

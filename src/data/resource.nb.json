@@ -154,18 +154,6 @@
             "value": "Det er varslet om"
         },
         {
-            "id": "resource.dispensasjon.dispensasjonsreferanse.title",
-            "value": "Dispensasjonsreferanse"
-        },
-        {
-            "id": "resource.dispensasjonFra.bestemmelsestype.title",
-            "value": "Bestemmelsestype"
-        },
-        {
-            "id": "resource.dispensasjonFra.header",
-            "value": "Bestemmelse"
-        },
-        {
             "id": "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
             "value": "Nasjonal arealplan-ID"
         },
@@ -630,10 +618,6 @@
             "value": "Prosjektnummer"
         },
         {
-            "id": "resource.part.telefonnummer.title",
-            "value": "Telefonnummer"
-        },
-        {
             "id": "resource.planbestemmelse.title",
             "value": "Planbestemmelse"
         },
@@ -762,10 +746,6 @@
             "value": "Byggeområde/grunneiendom"
         },
         {
-            "id": "resource.rammebetingelser.arealdisponering.tomtearealet.title",
-            "value": "Tomtearealet"
-        },
-        {
             "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
             "value": "Areal som legges til"
         },
@@ -788,10 +768,6 @@
         {
             "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
             "value": "Skal det installeres vannklosett?"
-        },
-        {
-            "id": "resource.rammebetingelser.avloep.title",
-            "value": "Avløp"
         },
         {
             "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
@@ -862,10 +838,6 @@
             "value": "Blir takvann/overvann ført til terreng?"
         },
         {
-            "id": "resource.rammebetingelser.overvann.title",
-            "value": "Overvann"
-        },
-        {
             "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
             "value": "Er tiltaket innenfor byggegrensen?"
         },
@@ -904,10 +876,6 @@
         {
             "id": "resource.rammebetingelser.vannforsyning.krysserVannforsyningAnnensGrunn.title",
             "value": "Krysser vanntilførsel annens grunn?"
-        },
-        {
-            "id": "resource.rammebetingelser.vannforsyning.title",
-            "value": "Vannforsyning"
         },
         {
             "id": "resource.rammesoeknad.title",
@@ -968,10 +936,6 @@
         {
             "id": "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title",
             "value": "Søknad om midlertidig brukstillatelse"
-        },
-        {
-            "id": "resource.samsvarKontrollPlanlagtVedRammetillatelse.title",
-            "value": "Rammesøknad"
         },
         {
             "id": "resource.samsvarPROTekst.title",
@@ -1086,20 +1050,8 @@
             "value": "Status"
         },
         {
-            "id": "resource.stedfesting.posisjon.koordinater.title",
-            "value": "Koordinater"
-        },
-        {
-            "id": "resource.stedfesting.posisjon.koordinatsystem.title",
-            "value": "Koordinatsystem"
-        },
-        {
             "id": "resource.stedfesting.title",
             "value": "Stedfesting"
-        },
-        {
-            "id": "resource.stedfesting.vertikalnivaa.title",
-            "value": "Vertikalnivå"
         },
         {
             "id": "resource.telefonnummer.title",
@@ -1184,10 +1136,6 @@
         {
             "id": "resource.utfallBesvarelse.utfallSvar.title",
             "value": "Svar på mangler"
-        },
-        {
-            "id": "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title",
-            "value": "Vedlegg"
         },
         {
             "id": "resource.utfoereInnen.title",
@@ -1276,10 +1224,6 @@
         {
             "id": "resource.vedlegg.title",
             "value": "Vedlegg"
-        },
-        {
-            "id": "resource.versjon.title",
-            "value": "Gjennomføringsplannummer"
         },
         {
             "id": "resource.vertikalnivaa.title",
