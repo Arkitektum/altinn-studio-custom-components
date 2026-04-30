@@ -35,6 +35,11 @@ class ResourceGeneratorPlugin {
         const rawData = fs.readFileSync(this.input, "utf8");
         const resources = JSON.parse(rawData);
 
+        if (!Array.isArray(resources)) {
+            console.warn(`Invalid resource format in ${this.input}: expected a JSON array`);
+            return;
+        }
+
         const sortById = (a, b) => a.id.localeCompare(b.id);
 
         resources.sort(sortById);
