@@ -5,10 +5,10 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^1.4.2":
-  version: 1.4.2
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.4.2"
-  checksum: 10c0/a1744413fef1bfdeec016a9298be2c01d7b9f42b57a610ab316b14372b4b54d5b6079711362abb4b9d4666fdaf4548a7e5fb142456a3c34a2b9e39096dfc6479
+"@arkitektum/altinn-studio-custom-components-utils@npm:^1.4.3":
+  version: 1.4.3
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.4.3"
+  checksum: 10c0/649712c1daa99a43f661feef2e4ddce22ffd2646846c50af7478c84a2dc408961b7ed59eea1e561dc150fa1bae76e074dbaf8f95945052af4e61bfce346f2901
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.2"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.3"
     "@babel/preset-env": "npm:^7.29.2"
     "@eslint/js": "npm:^10.0.1"
     copyfiles: "npm:^2.4.1"
@@ -4531,9 +4531,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.328":
-  version: 1.5.344
-  resolution: "electron-to-chromium@npm:1.5.344"
-  checksum: 10c0/36624a59b2da4cb2bdee3085f5fc814bc0ba5830162a26f45c4b189177455869fd9d9c2e05fa28e69a45fb95c04d3e995962ff0e1658f552dcbe147a731c4f1d
+  version: 1.5.345
+  resolution: "electron-to-chromium@npm:1.5.345"
+  checksum: 10c0/825c87eaefb0d6677c4d10a713b0ac1ff13978ae94bb6cfa06adfef44951fce8ba18d58009c6248176c9cfbe23e8bf501694f97afffd381956aeea9e6e2ace1d
   languageName: node
   linkType: hard
 
@@ -9142,9 +9142,9 @@ __metadata:
   linkType: hard
 
 "webpack-sources@npm:^3.3.4":
-  version: 3.4.0
-  resolution: "webpack-sources@npm:3.4.0"
-  checksum: 10c0/a37214f85e9b81897b46b27063f12ddb80adeef3249d10502f7e8279357d1fc812d40429df7a726e26ac21a6f5e22448e1d00d53aa15c1b2827a5929ba261969
+  version: 3.4.1
+  resolution: "webpack-sources@npm:3.4.1"
+  checksum: 10c0/5943f3d98670f640bc96bb734a47da46938eb1d8788ed7ef175cc9a1bd8d822be684ad985a7d88eb8a50db084fa391ef84f073ffae4dbf01ef3095615517a8e5
   languageName: node
   linkType: hard
 
