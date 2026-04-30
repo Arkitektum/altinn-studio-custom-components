@@ -100,7 +100,7 @@ const outputDir = path.resolve(filteredArgs[1] || "./output");
 // Initial run
 try {
     generateLanguageResourceFiles(inputFile, outputDir);
-} catch (err) {
+} catch {
     process.exit(1);
 }
 
@@ -112,7 +112,7 @@ if (watchMode) {
         console.log("🔄 Change detected. Regenerating...");
         try {
             generateLanguageResourceFiles(inputFile, outputDir);
-        } catch (err) {
+        } catch {
             // Keep watching even if regeneration fails.
         }
     });
