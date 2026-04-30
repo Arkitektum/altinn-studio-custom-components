@@ -33,7 +33,14 @@ class ResourceGeneratorPlugin {
         }
 
         const rawData = fs.readFileSync(this.input, "utf8");
-        const resources = JSON.parse(rawData);
+        let resources;
+
+        try {
+            resources = JSON.parse(rawData);
+        } catch (error) {
+            console.warn(`Invalid JSON in resource file ${this.input}: ${error.message}`);
+            return;
+        }
 
         if (!Array.isArray(resources)) {
             console.warn(`Invalid resource format in ${this.input}: expected a JSON array`);
