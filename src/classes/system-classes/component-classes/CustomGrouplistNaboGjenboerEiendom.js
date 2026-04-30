@@ -165,7 +165,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
                     props?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eier: {
-                title: props?.resourceBindings?.eier?.title || "resource.eier.title"
+                title: props?.resourceBindings?.eier?.title || "resource.eierFesterAvNaboeiendom.title"
             },
             eierNavn: {
                 title: props?.resourceBindings?.eierNavn?.title || "resource.navn.title",

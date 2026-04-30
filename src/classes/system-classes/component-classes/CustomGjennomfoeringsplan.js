@@ -119,7 +119,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.ansvarsomraade?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoeker: {
-                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
+                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.soeker.title"
             },
             ansvarligSoekerNavn: {
                 title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.navn.title",

@@ -221,7 +221,6 @@ export function renderAnsvarligSoeker(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         size: "h3",
-        partType: "ansvarligSoeker",
         resourceBindings: {
             title: component.resourceBindings?.ansvarligSoeker?.title,
             navn: {

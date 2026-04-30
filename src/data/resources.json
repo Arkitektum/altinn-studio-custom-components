@@ -21,7 +21,8 @@
         "id": "resource.ansvarligSoeker.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson for søker"
-        }
+        },
+        "replacedWithId": "resource.kontaktpersonForSoeker.title"
     },
     {
         "id": "resource.ansvarligSoeker.title",
@@ -355,7 +356,7 @@
         }
     },
     {
-        "id": "resource.eier.title",
+        "id": "resource.eierFesterAvNaboeiendom.title",
         "values": {
             "nb": "Eier/fester av naboeiendom"
         }
@@ -704,6 +705,18 @@
         "id": "resource.kontaktpersonForNabovarselet.title",
         "values": {
             "nb": "Kontaktperson for nabovarselet"
+        }
+    },
+    {
+        "id": "resource.kontaktpersonForSoeker.title",
+        "values": {
+            "nb": "Kontaktperson for søker"
+        }
+    },
+    {
+        "id": "resource.kontaktpersonForTiltakshaver.title",
+        "values": {
+            "nb": "Kontaktperson for tiltakshaver"
         }
     },
     {
@@ -1649,7 +1662,8 @@
         "id": "resource.tiltakshaver.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson for tiltakshaver"
-        }
+        },
+        "replacedWithId": "resource.kontaktpersonForTiltakshaver.title"
     },
     {
         "id": "resource.tiltakshaver.title",

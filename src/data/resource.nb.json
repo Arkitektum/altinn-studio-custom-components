@@ -234,7 +234,7 @@
             "value": "Eiendom/byggested"
         },
         {
-            "id": "resource.eier.title",
+            "id": "resource.eierFesterAvNaboeiendom.title",
             "value": "Eier/fester av naboeiendom"
         },
         {
@@ -464,6 +464,14 @@
         {
             "id": "resource.kontaktpersonForNabovarselet.title",
             "value": "Kontaktperson for nabovarselet"
+        },
+        {
+            "id": "resource.kontaktpersonForSoeker.title",
+            "value": "Kontaktperson for søker"
+        },
+        {
+            "id": "resource.kontaktpersonForTiltakshaver.title",
+            "value": "Kontaktperson for tiltakshaver"
         },
         {
             "id": "resource.kontrollErklaeringTekst.title",

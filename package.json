@@ -40,7 +40,7 @@
         "html-webpack-plugin": "^5.6.7",
         "jest": "^30.3.0",
         "jest-environment-jsdom": "^30.3.0",
-        "jsdom": "^29.1.0",
+        "jsdom": "^29.1.1",
         "mini-css-extract-plugin": "^2.10.2",
         "prettier": "3.8.3",
         "style-loader": "^4.0.0",
@@ -50,6 +50,6 @@
     },
     "packageManager": "yarn@4.10.3",
     "dependencies": {
-        "@arkitektum/altinn-studio-custom-components-utils": "^1.4.3"
+        "@arkitektum/altinn-studio-custom-components-utils": "^1.4.4"
     }
 }

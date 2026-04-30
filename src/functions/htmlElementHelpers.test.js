@@ -33,7 +33,6 @@ describe("getPropsFromElementAttributes", () => {
             showRowNumbers: "true",
             resourceBindings: JSON.stringify({ title: "res.title" }),
             resourceValues: JSON.stringify({ value: "res.value" }),
-            partType: "ansvarligSoeker",
             enableLinks: "true"
         });
 
@@ -62,22 +61,7 @@ describe("getPropsFromElementAttributes", () => {
         expect(props.showRowNumbers).toBe(true);
         expect(props.resourceBindings).toEqual({ title: "res.title" });
         expect(props.resourceValues).toEqual({ value: "res.value" });
-        expect(props.partType).toBe("ansvarligSoeker");
         expect(props.enableLinks).toBe(true);
-    });
-
-    test('defaults partType to "tiltakshaver" when not provided', () => {
-        const element = createElementWithAttributes({
-            formdata: JSON.stringify({ x: 1 }),
-            texts: JSON.stringify({}),
-            styleOverride: JSON.stringify({ some: "override" }),
-            tableColumns: JSON.stringify([]),
-            resourceBindings: JSON.stringify({}),
-            resourceValues: JSON.stringify({})
-        });
-
-        const props = getPropsFromElementAttributes(element);
-        expect(props.partType).toBe("tiltakshaver");
     });
 
     test("boolean attributes return false when set to other values", () => {

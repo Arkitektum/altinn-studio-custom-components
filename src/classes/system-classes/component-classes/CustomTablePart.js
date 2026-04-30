@@ -18,7 +18,6 @@ import { getComponentDataValue } from "../../../functions/helpers.js";
  *
  * @class
  * @param {Object} props - The properties for the component.
- * @param {string} [props.partType] - The type of part, used for resource key generation.
  * @param {Object} [props.resourceBindings] - Optional custom resource bindings for fields.
  * @param {Object} [props.formData] - The form data object.
  */
@@ -32,25 +31,12 @@ export default class CustomTablePart extends CustomComponent {
         const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
-        this.partType = props?.partType;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
             data: isEmpty ? getTextResourceFromResourceBinding(props?.resourceBindings?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Retrieves the part type from the given element's "parttype" attribute.
-     * If the attribute is not present, returns the default value "tiltakshaver".
-     *
-     * @param {Element} element - The DOM element from which to retrieve the "parttype" attribute.
-     * @returns {string} The value of the "parttype" attribute, or "tiltakshaver" if not set.
-     */
-    getPartTypeFromElementAttributes(element) {
-        const partType = element.getAttribute("parttype");
-        return partType || "tiltakshaver";
     }
 
     /**
@@ -139,7 +125,6 @@ export default class CustomTablePart extends CustomComponent {
      * Generates text resource bindings for a custom table part component.
      *
      * @param {Object} props - The properties for the component.
-     * @param {string} [props.partType="tiltakshaver"] - The type of part, used for resource key generation.
      * @param {Object} [props.resourceBindings] - Optional custom resource bindings for fields.
      * @param {Object} [props.resourceBindings.navn] - Resource bindings for the "navn" field.
      * @param {string} [props.resourceBindings.navn.title] - Custom title for the "navn" field.
@@ -154,7 +139,6 @@ export default class CustomTablePart extends CustomComponent {
      * @returns {Object} Resource bindings object for use in the component.
      */
     getResourceBindings(props) {
-        const partType = props?.partType || "tiltakshaver";
         const resourceBindings = {
             navn: {
                 title: props?.resourceBindings?.navn?.title || `resource.navn.title`,
@@ -171,7 +155,7 @@ export default class CustomTablePart extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.part = {
-                title: props?.resourceBindings?.title || `resource.${partType}.title`
+                title: props?.resourceBindings?.title || `resource.tiltakshaver.title`
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

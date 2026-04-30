@@ -84,7 +84,7 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
         const instance = new CustomGroupNaboGjenboerEiendom({});
         const bindings = instance.getResourceBindings({});
         expect(bindings.eiendomMatrikkelinformasjon.title).toBe("resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title");
-        expect(bindings.eier.title).toBe("resource.eier.title");
+        expect(bindings.eier.title).toBe("resource.eierFesterAvNaboeiendom.title");
         expect(bindings.naboGjenboerEiendom.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 
