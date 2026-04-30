@@ -204,6 +204,9 @@ body {
             }
         }
     }
+    [id^="form-content-"] {
+        padding: 0 !important;
+    }
 }
 
 /*
