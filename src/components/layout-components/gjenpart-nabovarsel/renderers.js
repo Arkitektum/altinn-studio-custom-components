@@ -481,7 +481,6 @@ export function renderKontaktpersonForNabovarseletElement(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         size: "h2",
-        partType: "kontaktpersonForNabovarselet",
         resourceBindings: {
             title: component.resourceBindings?.kontaktpersonForNabovarselet?.title
         },

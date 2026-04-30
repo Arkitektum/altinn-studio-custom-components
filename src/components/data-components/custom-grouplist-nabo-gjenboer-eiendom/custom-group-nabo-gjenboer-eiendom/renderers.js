@@ -52,7 +52,6 @@ export function renderEierPartElement(component) {
         hideIfEmpty: true,
         hideTitle: false,
         size: component?.size || "h4",
-        partType: "eier",
         resourceBindings: {
             title: component?.resourceBindings?.eier?.title
         },

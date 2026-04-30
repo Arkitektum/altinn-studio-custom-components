@@ -221,7 +221,6 @@ export function renderTiltakshaver(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
-        partType: "tiltakshaver",
         hideIfEmpty: true,
         size: "h2",
         resourceBindings: {
@@ -286,7 +285,6 @@ export function renderTiltakshaverKontaktperson(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
-        partType: "tiltakshaver.kontaktperson",
         hideIfEmpty: true,
         size: "h2",
         resourceBindings: {
