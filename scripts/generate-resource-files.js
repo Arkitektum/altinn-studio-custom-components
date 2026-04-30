@@ -25,7 +25,8 @@ function generateLanguageResourceFiles(inputFilePath, outputDir) {
         const resources = JSON.parse(rawData);
 
         if (!Array.isArray(resources)) {
-            throw new Error("Input JSON must be an array.");
+            const receivedType = resources === null ? "null" : Array.isArray(resources) ? "array" : typeof resources;
+            throw new Error(`Input JSON must be an array, received: ${receivedType}.`);
         }
 
         const sortById = (a, b) => a.id.localeCompare(b.id);
@@ -84,10 +85,10 @@ const filteredArgs = args.filter((arg) => arg !== "--watch");
 if (filteredArgs.length === 0) {
     console.log(`
 Usage:
-  node generate-resources.js <input-file> [output-directory] [--watch]
+  node generate-resource-files.js <input-file> [output-directory] [--watch]
 
 Example:
-  node generate-resources.js resources.json ./output --watch
+  node generate-resource-files.js resources.json ./output --watch
 `);
     process.exit(0);
 }
