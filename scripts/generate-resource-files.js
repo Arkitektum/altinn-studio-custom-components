@@ -25,7 +25,7 @@ function generateLanguageResourceFiles(inputFilePath, outputDir) {
         const resources = JSON.parse(rawData);
 
         if (!Array.isArray(resources)) {
-            const receivedType = resources === null ? "null" : Array.isArray(resources) ? "array" : typeof resources;
+            const receivedType = resources === null ? "null" : typeof resources;
             throw new Error(`Input JSON must be an array, received: ${receivedType}.`);
         }
 
