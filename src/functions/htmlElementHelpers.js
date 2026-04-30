@@ -28,7 +28,6 @@ import { hasValue, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-co
  *   @property {boolean} showRowNumbers - Whether to show row numbers.
  *   @property {Object} resourceBindings - Text resource bindings for the element.
  *   @property {Object} resourceValues - Resource values for the element.
- *   @property {string} partType - The type of part defined for the element.
  *   @property {boolean} enableLinks - Whether to enable links in the field value.
  *   @property {string} sortKey - The sort key associated with the element.
  *   @property {string} endSymbol - The end symbol for the element.
@@ -57,7 +56,6 @@ export function getPropsFromElementAttributes(element) {
         showRowNumbers: getShowRowNumbers(element),
         resourceBindings: getResourceBindings(element),
         resourceValues: getResourceValues(element),
-        partType: getPartType(element),
         enableLinks: getEnableLinks(element),
         order: getOrder(element)
     };
@@ -329,18 +327,6 @@ function getResourceBindings(element) {
 function getResourceValues(element) {
     const resourceValues = JSON.parse(element?.getAttribute("resourceValues"));
     return hasValue(resourceValues) && resourceValues;
-}
-
-/**
- * Retrieves the 'partType' attribute from the given HTML element.
- * If the attribute is not present or has no value, returns the default value "tiltakshaver".
- *
- * @param {Element} element - The HTML element from which to retrieve the 'partType' attribute.
- * @returns {string} The value of the 'partType' attribute, or "tiltakshaver" if not set.
- */
-function getPartType(element) {
-    const partType = element?.getAttribute("partType");
-    return hasValue(partType) ? partType : "tiltakshaver";
 }
 
 /**
