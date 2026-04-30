@@ -234,7 +234,7 @@
             "value": "Eiendom/byggested"
         },
         {
-            "id": "resource.eier.title",
+            "id": "resource.eierFesterAvNaboeiendom.title",
             "value": "Eier/fester av naboeiendom"
         },
         {

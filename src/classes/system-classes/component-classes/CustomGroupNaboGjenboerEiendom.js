@@ -123,7 +123,7 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eier: {
-                title: props?.resourceBindings?.eier?.title || "resource.eier.title"
+                title: props?.resourceBindings?.eier?.title || "resource.eierFesterAvNaboeiendom.title"
             },
             eierNavn: {
                 title: props?.resourceBindings?.eierNavn?.title || "resource.navn.title",
