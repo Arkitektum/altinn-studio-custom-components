@@ -156,7 +156,7 @@ export default class CustomDispensasjon extends CustomComponent {
             },
 
             tiltakshaverKontaktperson: {
-                title: props?.resourceBindings?.tiltakshaverKontaktperson?.title || "resource.tiltakshaver.kontaktperson.title"
+                title: props?.resourceBindings?.tiltakshaverKontaktperson?.title || "resource.kontaktpersonForTiltakshaver.title"
             },
             tiltakshaverKontaktpersonNavn: {
                 title: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.title || "resource.navn.title",

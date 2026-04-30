@@ -466,6 +466,10 @@
             "value": "Kontaktperson for nabovarselet"
         },
         {
+            "id": "resource.kontaktpersonForTiltakshaver.title",
+            "value": "Kontaktperson for tiltakshaver"
+        },
+        {
             "id": "resource.kontrollErklaeringTekst.title",
             "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger."
         },

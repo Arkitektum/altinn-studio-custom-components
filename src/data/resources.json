@@ -707,6 +707,12 @@
         }
     },
     {
+        "id": "resource.kontaktpersonForTiltakshaver.title",
+        "values": {
+            "nb": "Kontaktperson for tiltakshaver"
+        }
+    },
+    {
         "id": "resource.kontrollErklaeringTekst.title",
         "values": {
             "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger."
@@ -1649,7 +1655,8 @@
         "id": "resource.tiltakshaver.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson for tiltakshaver"
-        }
+        },
+        "replacedWithId": "resource.kontaktpersonForTiltakshaver.title"
     },
     {
         "id": "resource.tiltakshaver.title",
