@@ -50,8 +50,24 @@ class ResourceGeneratorPlugin {
 
         const languageMap = {};
 
-        resources.forEach((resource) => {
-            if (!resource.id || typeof resource.values !== "object") return;
+        resources.forEach((resource, index) => {
+            if (!resource || typeof resource.id !== "string" || resource.id.trim() === "") {
+                console.warn(
+                    `Skipping invalid resource at index ${index} in ${this.input}: missing or invalid "id"`
+                );
+                return;
+            }
+
+            if (
+                !resource.values ||
+                typeof resource.values !== "object" ||
+                Array.isArray(resource.values)
+            ) {
+                console.warn(
+                    `Skipping invalid resource "${resource.id}" at index ${index} in ${this.input}: missing or invalid "values" object`
+                );
+                return;
+            }
 
             Object.entries(resource.values).forEach(([lang, value]) => {
                 if (!languageMap[lang]) {
