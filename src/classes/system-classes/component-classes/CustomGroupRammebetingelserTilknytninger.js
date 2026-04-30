@@ -116,7 +116,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 defaultText: props?.resourceBindings?.adkomst?.erTillatelseGitt?.defaultText || "resource.emptyFieldText.default"
             },
             avloep: {
-                title: props?.resourceBindings?.avloep?.title || "resource.rammebetingelser.avloep.title",
+                title: props?.resourceBindings?.avloep?.title || "resource.avloep.title",
                 emptyFieldText: props?.resourceBindings?.avloep?.emptyFieldText || "resource.emptyFieldText.default"
             },
             avloepHarTinglystErklaering: {
@@ -149,7 +149,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 falseText: props?.resourceBindings?.avloep?.harUtslippstillatelse?.falseText || "resource.falseText.default"
             },
             overvann: {
-                title: props?.resourceBindings?.overvann?.title || "resource.rammebetingelser.overvann.title",
+                title: props?.resourceBindings?.overvann?.title || "resource.overvann.title",
                 emptyFieldText: props?.resourceBindings?.overvann?.emptyFieldText || "resource.emptyFieldText.default"
             },
             overvannLedesOvervannTilTerreng: {
@@ -167,7 +167,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 falseText: props?.resourceBindings?.overvann?.ledesOvervannTilAvloepssystem?.falseText || "resource.falseText.default"
             },
             vannforsyning: {
-                title: props?.resourceBindings?.vannforsyning?.title || "resource.rammebetingelser.vannforsyning.title",
+                title: props?.resourceBindings?.vannforsyning?.title || "resource.vannforsyning.title",
                 emptyFieldText: props?.resourceBindings?.vannforsyning?.emptyFieldText || "resource.emptyFieldText.default"
             },
             vannforsyningBeskrivelse: {

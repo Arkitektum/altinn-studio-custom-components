@@ -167,7 +167,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             kontaktpersonForNabovarseletTelefonnummer: {
-                title: props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText:
                     props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
@@ -239,7 +239,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierTelefonnummer: {
-                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierEpost: {
@@ -283,8 +283,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.dispensasjonOversiktCount?.emptyFieldText || "resource.emptyFieldText.zero"
             },
             dispensasjonKategori: {
-                title:
-                    props?.resourceBindings?.dispensasjonKategori?.title || "resource.dispensasjonOversikt.dispensasjon.dispensasjonKategori.title",
+                title: props?.resourceBindings?.dispensasjonKategori?.title || "resource.kategori.title",
                 emptyFieldText: props?.resourceBindings?.dispensasjonKategori?.emptyFieldText || "resource.emptyFieldText.default"
             },
             dispensasjonTittel: {

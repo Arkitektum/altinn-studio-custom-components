@@ -108,7 +108,7 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
                 title: props?.resourceBindings?.utfallSvarStatus?.title || `resource.status.title`
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.title || `resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title`
+                title: props?.resourceBindings?.vedleggsliste?.title || `resource.vedlegg.title`
             }
         };
     }

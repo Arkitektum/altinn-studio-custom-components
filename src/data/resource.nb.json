@@ -6,6 +6,10 @@
             "value": "Adresse"
         },
         {
+            "id": "resource.anleggstype.title",
+            "value": "Anleggstype"
+        },
+        {
             "id": "resource.ansvarligForetak.kontaktperson.title",
             "value": "Kontaktperson"
         },
@@ -58,6 +62,10 @@
             "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
         },
         {
+            "id": "resource.avloep.title",
+            "value": "Avløp"
+        },
+        {
             "id": "resource.begrunnelse.fordeler.title",
             "value": "Liste med fordeler"
         },
@@ -94,8 +102,16 @@
             "value": "Beskrivelse av ansvarsområdet"
         },
         {
+            "id": "resource.bestemmelse.title",
+            "value": "Bestemmelse"
+        },
+        {
             "id": "resource.bestemmelsene.header",
             "value": "Disse bestemmelsene regulerer eiendommen"
+        },
+        {
+            "id": "resource.bestemmelsestype.title",
+            "value": "Bestemmelsestype"
         },
         {
             "id": "resource.bestillerreferanse.title",
@@ -138,18 +154,6 @@
             "value": "Det er varslet om"
         },
         {
-            "id": "resource.dispensasjon.dispensasjonsreferanse.title",
-            "value": "Dispensasjonsreferanse"
-        },
-        {
-            "id": "resource.dispensasjonFra.bestemmelsestype.title",
-            "value": "Bestemmelsestype"
-        },
-        {
-            "id": "resource.dispensasjonFra.header",
-            "value": "Bestemmelse"
-        },
-        {
             "id": "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
             "value": "Nasjonal arealplan-ID"
         },
@@ -176,6 +180,10 @@
         {
             "id": "resource.dispensasjonsbeskrivelse.title",
             "value": "Beskrivelse av tiltak"
+        },
+        {
+            "id": "resource.dispensasjonsreferanse.title",
+            "value": "Dispensasjonsreferanse"
         },
         {
             "id": "resource.dispensasjonsvarsel.bestemmelse.title",
@@ -254,6 +262,14 @@
             "value": "Endringen gjelder"
         },
         {
+            "id": "resource.endringenGjelder.title",
+            "value": "Endringen gjelder"
+        },
+        {
+            "id": "resource.energiforsyning.title",
+            "value": "Energiforsyning"
+        },
+        {
             "id": "resource.erAnsvarsomraadetAvsluttet.title",
             "value": "Er arbeidet avsluttet?"
         },
@@ -262,8 +278,16 @@
             "value": "Er det funnet avvik og er disse lukket?"
         },
         {
+            "id": "resource.erklaering.title",
+            "value": "Erklæring"
+        },
+        {
             "id": "resource.erklaeringer.title",
             "value": "Erklæring"
+        },
+        {
+            "id": "resource.ettersending.title",
+            "value": "Ettersending"
         },
         {
             "id": "resource.ettersendinger.ettersending.title",
@@ -298,6 +322,10 @@
             "value": "Ferdigattest"
         },
         {
+            "id": "resource.foelgebrev.title",
+            "value": "Følgebrev"
+        },
+        {
             "id": "resource.foretak.title",
             "value": "Ansvarlig foretak"
         },
@@ -312,6 +340,14 @@
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
             "value": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
+        },
+        {
+            "id": "resource.formaal.title",
+            "value": "Formål"
+        },
+        {
+            "id": "resource.forslagsstiller.title",
+            "value": "Forslagsstiller"
         },
         {
             "id": "resource.ftpbReferanseId.title",
@@ -340,6 +376,10 @@
         {
             "id": "resource.gjennomfoeringsplan.title",
             "value": "Gjennomføringsplan"
+        },
+        {
+            "id": "resource.gjennomfoeringsplannummer.title",
+            "value": "Gjennomføringsplannummer"
         },
         {
             "id": "resource.gjenpartNabovarsel.description",
@@ -398,12 +438,20 @@
             "value": "Igangsettingstillatelse"
         },
         {
+            "id": "resource.kategori.title",
+            "value": "Kategori"
+        },
+        {
             "id": "resource.kommentar.title",
             "value": "Kommentar"
         },
         {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
+        },
+        {
+            "id": "resource.konsekvensutredning.title",
+            "value": "Konsekvensutredning"
         },
         {
             "id": "resource.kontaktpersonForNabovarselet.header",
@@ -424,6 +472,14 @@
         {
             "id": "resource.kontrollKONTROLLTekst.title",
             "value": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert."
+        },
+        {
+            "id": "resource.koordinater.title",
+            "value": "Koordinater"
+        },
+        {
+            "id": "resource.koordinatsystem.title",
+            "value": "Koordinatsystem"
         },
         {
             "id": "resource.krav.sjekklistekrav.description",
@@ -506,6 +562,10 @@
             "value": "Nabovarsel med vedlegg er sendt til følgende naboer"
         },
         {
+            "id": "resource.nabovarsling.title",
+            "value": "Nabovarsling"
+        },
+        {
             "id": "resource.navn.title",
             "value": "Navn"
         },
@@ -524,6 +584,14 @@
         {
             "id": "resource.operator.plus",
             "value": "+"
+        },
+        {
+            "id": "resource.organisasjonsnummer.title",
+            "value": "Organisasjonsnummer"
+        },
+        {
+            "id": "resource.overvann.title",
+            "value": "Overvann"
         },
         {
             "id": "resource.part.bestillerreferanse.title",
@@ -548,10 +616,6 @@
         {
             "id": "resource.part.prosjektnummer.title",
             "value": "Prosjektnummer"
-        },
-        {
-            "id": "resource.part.telefonnummer.title",
-            "value": "Telefonnummer"
         },
         {
             "id": "resource.planbestemmelse.title",
@@ -600,6 +664,10 @@
         {
             "id": "resource.planer.gjeldendePlan.utnyttingsgrad.title",
             "value": "Grad av utnytting i henhold til gjeldende plan"
+        },
+        {
+            "id": "resource.plankonsulent.title",
+            "value": "Plankonsulent"
         },
         {
             "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
@@ -678,10 +746,6 @@
             "value": "Byggeområde/grunneiendom"
         },
         {
-            "id": "resource.rammebetingelser.arealdisponering.tomtearealet.title",
-            "value": "Tomtearealet"
-        },
-        {
             "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
             "value": "Areal som legges til"
         },
@@ -704,10 +768,6 @@
         {
             "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
             "value": "Skal det installeres vannklosett?"
-        },
-        {
-            "id": "resource.rammebetingelser.avloep.title",
-            "value": "Avløp"
         },
         {
             "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
@@ -778,10 +838,6 @@
             "value": "Blir takvann/overvann ført til terreng?"
         },
         {
-            "id": "resource.rammebetingelser.overvann.title",
-            "value": "Overvann"
-        },
-        {
             "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
             "value": "Er tiltaket innenfor byggegrensen?"
         },
@@ -822,12 +878,16 @@
             "value": "Krysser vanntilførsel annens grunn?"
         },
         {
-            "id": "resource.rammebetingelser.vannforsyning.title",
-            "value": "Vannforsyning"
+            "id": "resource.rammesoeknad.title",
+            "value": "Rammesøknad"
         },
         {
             "id": "resource.rammetillatelse.title",
             "value": "Rammesøknad"
+        },
+        {
+            "id": "resource.redegjoerelse.title",
+            "value": "Redegjørelse"
         },
         {
             "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
@@ -878,10 +938,6 @@
             "value": "Søknad om midlertidig brukstillatelse"
         },
         {
-            "id": "resource.samsvarKontrollPlanlagtVedRammetillatelse.title",
-            "value": "Rammesøknad"
-        },
-        {
             "id": "resource.samsvarPROTekst.title",
             "value": "Ansvarlig prosjekterende bekrefter at prosjekteringen er i samsvar med ytelser i TEK17 og preaksepterte ytelser (VTEK), eller ved analyse som viser at forskriftens (TEK17) funksjonkrav er oppfylt."
         },
@@ -902,6 +958,10 @@
             "value": "Sikkerhetsnivå"
         },
         {
+            "id": "resource.sikkerhetsnivaa.title",
+            "value": "Sikkerhetsnivå"
+        },
+        {
             "id": "resource.sikkerhetsNivaa.title",
             "value": "Sikkerhetsnivå og arbeider som vil utføres innen 14 dager"
         },
@@ -916,6 +976,10 @@
         {
             "id": "resource.sluttrapport.title",
             "value": "Sluttrapport for kontroll"
+        },
+        {
+            "id": "resource.soeker.title",
+            "value": "Søker"
         },
         {
             "id": "resource.soeknadensHjemmeside.header",
@@ -986,20 +1050,12 @@
             "value": "Status"
         },
         {
-            "id": "resource.stedfesting.posisjon.koordinater.title",
-            "value": "Koordinater"
-        },
-        {
-            "id": "resource.stedfesting.posisjon.koordinatsystem.title",
-            "value": "Koordinatsystem"
-        },
-        {
             "id": "resource.stedfesting.title",
             "value": "Stedfesting"
         },
         {
-            "id": "resource.stedfesting.vertikalnivaa.title",
-            "value": "Vertikalnivå"
+            "id": "resource.telefonnummer.title",
+            "value": "Telefonnummer"
         },
         {
             "id": "resource.tema.title",
@@ -1008,6 +1064,10 @@
         {
             "id": "resource.tilknytning.title",
             "value": "Tilknytning"
+        },
+        {
+            "id": "resource.tillatelsedato.title",
+            "value": "Tillatelsedato"
         },
         {
             "id": "resource.tilstrekkeligSikkerhet.title",
@@ -1042,6 +1102,10 @@
             "value": "Tiltakstyper i søknad om dispensasjon"
         },
         {
+            "id": "resource.tomtearealet.title",
+            "value": "Tomtearealet"
+        },
+        {
             "id": "resource.trueText.default",
             "value": "Ja"
         },
@@ -1074,12 +1138,12 @@
             "value": "Svar på mangler"
         },
         {
-            "id": "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title",
-            "value": "Vedlegg"
-        },
-        {
             "id": "resource.utfoereInnen.title",
             "value": "Vi vil utføre arbeidene innen"
+        },
+        {
+            "id": "resource.vannforsyning.title",
+            "value": "Vannforsyning"
         },
         {
             "id": "resource.varighet.oenskesVarigDispensasjon.trueText",
@@ -1094,6 +1158,10 @@
             "value": "Varighet"
         },
         {
+            "id": "resource.varmefordeling.title",
+            "value": "Varmefordeling"
+        },
+        {
             "id": "resource.varmesystem.energiforsyning.kode.title",
             "value": "Energiforsyning"
         },
@@ -1104,6 +1172,10 @@
         {
             "id": "resource.varmesystem.relevant.false.description",
             "value": "Energiforsyning og varmefordeling er ikke relevant for tiltaket."
+        },
+        {
+            "id": "resource.varmesystem.title",
+            "value": "Varmesystem"
         },
         {
             "id": "resource.varmesystem.varmefordeling.kode.title",
@@ -1154,8 +1226,8 @@
             "value": "Vedlegg"
         },
         {
-            "id": "resource.versjon.title",
-            "value": "Gjennomføringsplannummer"
+            "id": "resource.vertikalnivaa.title",
+            "value": "Vertikalnivå"
         }
     ]
 }

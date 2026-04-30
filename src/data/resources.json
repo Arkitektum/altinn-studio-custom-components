@@ -6,6 +6,12 @@
         }
     },
     {
+        "id": "resource.anleggstype.title",
+        "values": {
+            "nb": "Anleggstype"
+        }
+    },
+    {
         "id": "resource.ansvarligForetak.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson"
@@ -21,7 +27,8 @@
         "id": "resource.ansvarligSoeker.title",
         "values": {
             "nb": "Søker"
-        }
+        },
+        "replacedWithId": "resource.soeker.title"
     },
     {
         "id": "resource.ansvarsfordeling.title",
@@ -84,6 +91,12 @@
         }
     },
     {
+        "id": "resource.avloep.title",
+        "values": {
+            "nb": "Avløp"
+        }
+    },
+    {
         "id": "resource.begrunnelse.fordeler.title",
         "values": {
             "nb": "Liste med fordeler"
@@ -138,9 +151,21 @@
         }
     },
     {
+        "id": "resource.bestemmelse.title",
+        "values": {
+            "nb": "Bestemmelse"
+        }
+    },
+    {
         "id": "resource.bestemmelsene.header",
         "values": {
             "nb": "Disse bestemmelsene regulerer eiendommen"
+        }
+    },
+    {
+        "id": "resource.bestemmelsestype.title",
+        "values": {
+            "nb": "Bestemmelsestype"
         }
     },
     {
@@ -184,43 +209,26 @@
         "values": {
             "nb": "Nr."
         },
-        "deprecated": true
+        "replacedWithId": "resource.nummer.short"
     },
     {
         "id": "resource.delsoeknader.delsoeknad.kommentar.title",
         "values": {
             "nb": "Kommentar"
         },
-        "deprecated": true
+        "replacedWithId": "resource.kommentar.title"
     },
     {
         "id": "resource.delsoeknader.delsoeknad.tillatelsedato.title",
         "values": {
             "nb": "Tillatelsedato"
-        }
+        },
+        "replacedWithId": "resource.tillatelsedato.title"
     },
     {
         "id": "resource.detErVarsletOm.title",
         "values": {
             "nb": "Det er varslet om"
-        }
-    },
-    {
-        "id": "resource.dispensasjon.dispensasjonsreferanse.title",
-        "values": {
-            "nb": "Dispensasjonsreferanse"
-        }
-    },
-    {
-        "id": "resource.dispensasjonFra.bestemmelsestype.title",
-        "values": {
-            "nb": "Bestemmelsestype"
-        }
-    },
-    {
-        "id": "resource.dispensasjonFra.header",
-        "values": {
-            "nb": "Bestemmelse"
         }
     },
     {
@@ -245,14 +253,15 @@
         "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonKategori.title",
         "values": {
             "nb": "Kategori"
-        }
+        },
+        "replacedWithId": "resource.kategori.title"
     },
     {
         "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
         "values": {
             "nb": "Emne"
         },
-        "deprecated": true
+        "replacedWithId": "resource.emne.title"
     },
     {
         "id": "resource.dispensasjonOversikt.header",
@@ -264,6 +273,12 @@
         "id": "resource.dispensasjonsbeskrivelse.title",
         "values": {
             "nb": "Beskrivelse av tiltak"
+        }
+    },
+    {
+        "id": "resource.dispensasjonsreferanse.title",
+        "values": {
+            "nb": "Dispensasjonsreferanse"
         }
     },
     {
@@ -295,7 +310,7 @@
         "values": {
             "nb": "Adresse"
         },
-        "deprecated": true
+        "replacedWithId": "resource.adresse.title"
     },
     {
         "id": "resource.eiendom.bolignummer.title",
@@ -379,6 +394,19 @@
         "id": "resource.endringenGjelder.header",
         "values": {
             "nb": "Endringen gjelder"
+        },
+        "replacedWithId": "resource.endringenGjelder.title"
+    },
+    {
+        "id": "resource.endringenGjelder.title",
+        "values": {
+            "nb": "Endringen gjelder"
+        }
+    },
+    {
+        "id": "resource.energiforsyning.title",
+        "values": {
+            "nb": "Energiforsyning"
         }
     },
     {
@@ -394,16 +422,30 @@
         }
     },
     {
+        "id": "resource.erklaering.title",
+        "values": {
+            "nb": "Erklæring"
+        }
+    },
+    {
         "id": "resource.erklaeringer.title",
         "values": {
             "nb": "Erklæring"
+        },
+        "replacedWithId": "resource.erklaering.title"
+    },
+    {
+        "id": "resource.ettersending.title",
+        "values": {
+            "nb": "Ettersending"
         }
     },
     {
         "id": "resource.ettersendinger.ettersending.title",
         "values": {
             "nb": "Ettersending"
-        }
+        },
+        "replacedWithId": "resource.ettersending.title"
     },
     {
         "id": "resource.fakturareferanse.title",
@@ -448,6 +490,12 @@
         }
     },
     {
+        "id": "resource.foelgebrev.title",
+        "values": {
+            "nb": "Følgebrev"
+        }
+    },
+    {
         "id": "resource.foretak.title",
         "values": {
             "nb": "Ansvarlig foretak"
@@ -469,6 +517,18 @@
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
         "values": {
             "nb": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
+        }
+    },
+    {
+        "id": "resource.formaal.title",
+        "values": {
+            "nb": "Formål"
+        }
+    },
+    {
+        "id": "resource.forslagsstiller.title",
+        "values": {
+            "nb": "Forslagsstiller"
         }
     },
     {
@@ -494,7 +554,7 @@
         "values": {
             "nb": "Erklæring"
         },
-        "deprecated": true
+        "replacedWithId": "resource.erklaering.title"
     },
     {
         "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
@@ -512,6 +572,12 @@
         "id": "resource.gjennomfoeringsplan.title",
         "values": {
             "nb": "Gjennomføringsplan"
+        }
+    },
+    {
+        "id": "resource.gjennomfoeringsplannummer.title",
+        "values": {
+            "nb": "Gjennomføringsplannummer"
         }
     },
     {
@@ -599,6 +665,12 @@
         }
     },
     {
+        "id": "resource.kategori.title",
+        "values": {
+            "nb": "Kategori"
+        }
+    },
+    {
         "id": "resource.kommentar.title",
         "values": {
             "nb": "Kommentar"
@@ -608,6 +680,12 @@
         "id": "resource.kommunensSaksnummer.title",
         "values": {
             "nb": "Kommunens saksnummer"
+        }
+    },
+    {
+        "id": "resource.konsekvensutredning.title",
+        "values": {
+            "nb": "Konsekvensutredning"
         }
     },
     {
@@ -638,6 +716,18 @@
         "id": "resource.kontrollKONTROLLTekst.title",
         "values": {
             "nb": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert."
+        }
+    },
+    {
+        "id": "resource.koordinater.title",
+        "values": {
+            "nb": "Koordinater"
+        }
+    },
+    {
+        "id": "resource.koordinatsystem.title",
+        "values": {
+            "nb": "Koordinatsystem"
         }
     },
     {
@@ -761,6 +851,12 @@
         }
     },
     {
+        "id": "resource.nabovarsling.title",
+        "values": {
+            "nb": "Nabovarsling"
+        }
+    },
+    {
         "id": "resource.navn.title",
         "values": {
             "nb": "Navn"
@@ -791,11 +887,23 @@
         }
     },
     {
+        "id": "resource.organisasjonsnummer.title",
+        "values": {
+            "nb": "Organisasjonsnummer"
+        }
+    },
+    {
+        "id": "resource.overvann.title",
+        "values": {
+            "nb": "Overvann"
+        }
+    },
+    {
         "id": "resource.part.bestillerreferanse.title",
         "values": {
             "nb": "Bestiller referanse"
         },
-        "deprecated": true
+        "replacedWithId": "resource.bestillerreferanse.title"
     },
     {
         "id": "resource.part.epost.title",
@@ -808,32 +916,28 @@
         "values": {
             "nb": "Fakturareferanse"
         },
-        "deprecated": true
+        "replacedWithId": "resource.fakturareferanse.title"
     },
     {
         "id": "resource.part.navn.title",
         "values": {
             "nb": "Navn"
         },
-        "deprecated": true
+        "replacedWithId": "resource.navn.title"
     },
     {
         "id": "resource.part.organisasjonsnummer.title",
         "values": {
             "nb": "Organisasjonsnummer"
-        }
+        },
+        "replacedWithId": "resource.organisasjonsnummer.title"
     },
     {
         "id": "resource.part.prosjektnummer.title",
         "values": {
             "nb": "Prosjektnummer"
-        }
-    },
-    {
-        "id": "resource.part.telefonnummer.title",
-        "values": {
-            "nb": "Telefonnummer"
-        }
+        },
+        "replacedWithId": "resource.prosjektnummer.title"
     },
     {
         "id": "resource.planbestemmelse.title",
@@ -905,6 +1009,12 @@
         "id": "resource.planer.gjeldendePlan.utnyttingsgrad.title",
         "values": {
             "nb": "Grad av utnytting i henhold til gjeldende plan"
+        }
+    },
+    {
+        "id": "resource.plankonsulent.title",
+        "values": {
+            "nb": "Plankonsulent"
         }
     },
     {
@@ -1022,12 +1132,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.arealdisponering.tomtearealet.title",
-        "values": {
-            "nb": "Tomtearealet"
-        }
-    },
-    {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
         "values": {
             "nb": "Areal som legges til"
@@ -1061,12 +1165,6 @@
         "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
         "values": {
             "nb": "Skal det installeres vannklosett?"
-        }
-    },
-    {
-        "id": "resource.rammebetingelser.avloep.title",
-        "values": {
-            "nb": "Avløp"
         }
     },
     {
@@ -1172,12 +1270,6 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.overvann.title",
-        "values": {
-            "nb": "Overvann"
-        }
-    },
-    {
         "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
         "values": {
             "nb": "Er tiltaket innenfor byggegrensen?"
@@ -1238,15 +1330,22 @@
         }
     },
     {
-        "id": "resource.rammebetingelser.vannforsyning.title",
+        "id": "resource.rammesoeknad.title",
         "values": {
-            "nb": "Vannforsyning"
+            "nb": "Rammesøknad"
         }
     },
     {
         "id": "resource.rammetillatelse.title",
         "values": {
             "nb": "Rammesøknad"
+        },
+        "replacedWithId": "resource.rammesoeknad.title"
+    },
+    {
+        "id": "resource.redegjoerelse.title",
+        "values": {
+            "nb": "Redegjørelse"
         }
     },
     {
@@ -1296,7 +1395,7 @@
         "values": {
             "nb": "Nr."
         },
-        "deprecated": true
+        "replacedWithId": "resource.nummer.short"
     },
     {
         "id": "resource.samsvarErklaeringTekst.title",
@@ -1320,12 +1419,6 @@
         "id": "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title",
         "values": {
             "nb": "Søknad om midlertidig brukstillatelse"
-        }
-    },
-    {
-        "id": "resource.samsvarKontrollPlanlagtVedRammetillatelse.title",
-        "values": {
-            "nb": "Rammesøknad"
         }
     },
     {
@@ -1356,6 +1449,13 @@
         "id": "resource.sikkerhetsnivaa.header",
         "values": {
             "nb": "Sikkerhetsnivå"
+        },
+        "replacedWithId": "resource.sikkerhetsnivaa.title"
+    },
+    {
+        "id": "resource.sikkerhetsnivaa.title",
+        "values": {
+            "nb": "Sikkerhetsnivå"
         }
     },
     {
@@ -1383,6 +1483,12 @@
         }
     },
     {
+        "id": "resource.soeker.title",
+        "values": {
+            "nb": "Søker"
+        }
+    },
+    {
         "id": "resource.soeknadensHjemmeside.header",
         "values": {
             "nb": "Se også vår hjemmeside"
@@ -1392,7 +1498,8 @@
         "id": "resource.soeknadGjelder.bruk.anleggstype.title",
         "values": {
             "nb": "Anleggstype"
-        }
+        },
+        "replacedWithId": "resource.anleggstype.title"
     },
     {
         "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
@@ -1417,14 +1524,14 @@
         "values": {
             "nb": "Bygningstype"
         },
-        "deprecated": true
+        "replacedWithId": "resource.bygningstype.title"
     },
     {
         "id": "resource.soeknadGjelder.bruk.header",
         "values": {
             "nb": "Tiltak/ byggeplaner"
         },
-        "deprecated": true
+        "replacedWithId": "resource.tiltakByggeplaner.title"
     },
     {
         "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
@@ -1442,13 +1549,15 @@
         "id": "resource.soeknadGjelder.bruk.tiltaksformaal.title",
         "values": {
             "nb": "Formål"
-        }
+        },
+        "replacedWithId": "resource.formaal.title"
     },
     {
         "id": "resource.soeknadGjelder.foelgebrev.header",
         "values": {
             "nb": "Følgebrev"
-        }
+        },
+        "replacedWithId": "resource.foelgebrev.title"
     },
     {
         "id": "resource.soeknadGjelder.title",
@@ -1460,7 +1569,8 @@
         "id": "resource.soeknadGjelder.type.header",
         "values": {
             "nb": "Tiltak/ byggeplaner"
-        }
+        },
+        "replacedWithId": "resource.tiltakByggeplaner.title"
     },
     {
         "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
@@ -1479,24 +1589,12 @@
         "values": {
             "nb": "Tiltakstyper"
         },
-        "deprecated": true
+        "replacedWithId": "resource.tiltakstyper.title"
     },
     {
         "id": "resource.status.title",
         "values": {
             "nb": "Status"
-        }
-    },
-    {
-        "id": "resource.stedfesting.posisjon.koordinater.title",
-        "values": {
-            "nb": "Koordinater"
-        }
-    },
-    {
-        "id": "resource.stedfesting.posisjon.koordinatsystem.title",
-        "values": {
-            "nb": "Koordinatsystem"
         }
     },
     {
@@ -1506,9 +1604,9 @@
         }
     },
     {
-        "id": "resource.stedfesting.vertikalnivaa.title",
+        "id": "resource.telefonnummer.title",
         "values": {
-            "nb": "Vertikalnivå"
+            "nb": "Telefonnummer"
         }
     },
     {
@@ -1521,6 +1619,12 @@
         "id": "resource.tilknytning.title",
         "values": {
             "nb": "Tilknytning"
+        }
+    },
+    {
+        "id": "resource.tillatelsedato.title",
+        "values": {
+            "nb": "Tillatelsedato"
         }
     },
     {
@@ -1572,6 +1676,12 @@
         }
     },
     {
+        "id": "resource.tomtearealet.title",
+        "values": {
+            "nb": "Tomtearealet"
+        }
+    },
+    {
         "id": "resource.trueText.default",
         "values": {
             "nb": "Ja"
@@ -1606,7 +1716,7 @@
         "values": {
             "nb": "Kommentar"
         },
-        "deprecated": true
+        "replacedWithId": "resource.kommentar.title"
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.status",
@@ -1621,15 +1731,15 @@
         }
     },
     {
-        "id": "resource.utfallBesvarelse.utfallSvar.vedleggsliste.vedlegg.title",
-        "values": {
-            "nb": "Vedlegg"
-        }
-    },
-    {
         "id": "resource.utfoereInnen.title",
         "values": {
             "nb": "Vi vil utføre arbeidene innen"
+        }
+    },
+    {
+        "id": "resource.vannforsyning.title",
+        "values": {
+            "nb": "Vannforsyning"
         }
     },
     {
@@ -1651,16 +1761,24 @@
         }
     },
     {
+        "id": "resource.varmefordeling.title",
+        "values": {
+            "nb": "Varmefordeling"
+        }
+    },
+    {
         "id": "resource.varmesystem.energiforsyning.kode.title",
         "values": {
             "nb": "Energiforsyning"
-        }
+        },
+        "replacedWithId": "resource.energiforsyning.title"
     },
     {
         "id": "resource.varmesystem.header",
         "values": {
             "nb": "Varmesystem"
-        }
+        },
+        "replacedWithId": "resource.varmesystem.title"
     },
     {
         "id": "resource.varmesystem.relevant.false.description",
@@ -1669,10 +1787,17 @@
         }
     },
     {
+        "id": "resource.varmesystem.title",
+        "values": {
+            "nb": "Varmesystem"
+        }
+    },
+    {
         "id": "resource.varmesystem.varmefordeling.kode.title",
         "values": {
             "nb": "Varmefordeling"
-        }
+        },
+        "replacedWithId": "resource.varmefordeling.title"
     },
     {
         "id": "resource.varsler-herved.header",
@@ -1691,7 +1816,7 @@
         "values": {
             "nb": "Ja"
         },
-        "deprecated": true
+        "replacedWithId": "resource.trueText.default"
     },
     {
         "id": "resource.varsling.fritattFraNabovarsling.title",
@@ -1704,7 +1829,7 @@
         "values": {
             "nb": "Nei"
         },
-        "deprecated": true
+        "replacedWithId": "resource.falseText.default"
     },
     {
         "id": "resource.varsling.harPengeheftelser.title",
@@ -1716,7 +1841,8 @@
         "id": "resource.varsling.redegjorelseFritak.title",
         "values": {
             "nb": "Redegjørelse"
-        }
+        },
+        "replacedWithId": "resource.redegjoerelse.title"
     },
     {
         "id": "resource.varsling.soeknadensHjemmeside.title",
@@ -1728,7 +1854,8 @@
         "id": "resource.varsling.title",
         "values": {
             "nb": "Nabovarsling"
-        }
+        },
+        "replacedWithId": "resource.nabovarsling.title"
     },
     {
         "id": "resource.varsling.vurderingAvMerknader.title",
@@ -1743,9 +1870,9 @@
         }
     },
     {
-        "id": "resource.versjon.title",
+        "id": "resource.vertikalnivaa.title",
         "values": {
-            "nb": "Gjennomføringsplannummer"
+            "nb": "Vertikalnivå"
         }
     }
 ]

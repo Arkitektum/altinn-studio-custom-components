@@ -88,7 +88,7 @@ export default class CustomDispensasjon extends CustomComponent {
     getResourceBindings(props) {
         return {
             dispensasjonsreferanse: {
-                title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjon.dispensasjonsreferanse.title"
+                title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjonsreferanse.title"
             },
             metadataFtbId: {
                 title: props?.resourceBindings?.metadataFtbId?.title || "resource.metadata.ftbId.title"
@@ -144,7 +144,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltakshaverNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverTelefonnummer: {
-                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.tiltakshaverTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverEpost: {
@@ -163,7 +163,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverKontaktpersonTelefonnummer: {
-                title: props?.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.tiltakshaverKontaktpersonTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             tiltakshaverKontaktpersonEpost: {
@@ -177,7 +177,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.dispensasjonsbeskrivelse?.title || "resource.dispensasjonsbeskrivelse.title"
             },
             dispensasjonFraHeader: {
-                title: props?.resourceBindings?.dispensasjonFraHeader?.title || "resource.dispensasjonFra.header"
+                title: props?.resourceBindings?.dispensasjonFraHeader?.title || "resource.bestemmelse.title"
             },
             plannavn: {
                 title: props?.resourceBindings?.plannavn?.title || "resource.navn.title"
@@ -188,7 +188,7 @@ export default class CustomDispensasjon extends CustomComponent {
                     "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title"
             },
             bestemmelsestype: {
-                title: props?.resourceBindings?.bestemmelsestype?.title || "resource.dispensasjonFra.bestemmelsestype.title"
+                title: props?.resourceBindings?.bestemmelsestype?.title || "resource.bestemmelsestype.title"
             },
             paragrafnummer: {
                 title: props?.resourceBindings?.paragrafnummer?.title || "resource.planbestemmelse.title"
@@ -197,13 +197,13 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.stedfesting?.title || "resource.stedfesting.title"
             },
             stedfestingPosisjonKoordinatsystem: {
-                title: props?.resourceBindings?.stedfestingPosisjonKoordinatsystem?.title || "resource.stedfesting.posisjon.koordinatsystem.title"
+                title: props?.resourceBindings?.stedfestingPosisjonKoordinatsystem?.title || "resource.koordinatsystem.title"
             },
             stedfestingPosisjonKoordinater: {
-                title: props?.resourceBindings?.stedfestingPosisjonKoordinater?.title || "resource.stedfesting.posisjon.koordinater.title"
+                title: props?.resourceBindings?.stedfestingPosisjonKoordinater?.title || "resource.koordinater.title"
             },
             stedfestingVertikalnivaa: {
-                title: props?.resourceBindings?.stedfestingVertikalnivaa?.title || "resource.stedfesting.vertikalnivaa.title"
+                title: props?.resourceBindings?.stedfestingVertikalnivaa?.title || "resource.vertikalnivaa.title"
             },
             varighet: {
                 title: props?.resourceBindings?.varighet?.title || "resource.varighet.title"
@@ -238,7 +238,7 @@ export default class CustomDispensasjon extends CustomComponent {
                 title: props?.resourceBindings?.begrunnelseSamletBegrunnelse?.title || "resource.begrunnelse.samletBegrunnelse.title"
             },
             generelleVilkaarNorskSvenskDansk: {
-                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.erklaeringer.title",
+                title: props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.title || "resource.erklaering.title",
                 trueText:
                     props?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.trueText || "resource.generelleVilkaar.norskSvenskDansk.true.title"
             }

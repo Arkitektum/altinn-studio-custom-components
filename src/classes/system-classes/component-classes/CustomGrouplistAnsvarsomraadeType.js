@@ -118,18 +118,14 @@ export default class CustomGrouplistAnsvarsomraadeType extends CustomComponent {
                 emptyFieldText:
                     props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText ||
                     "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
-                emptyFieldTextAvsluttet:
-                    props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet ||
-                    "resource.emptyFieldText.default"
+                emptyFieldTextAvsluttet: props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet || "resource.emptyFieldText.default"
             },
             ansvarsomraadeStatus: {
                 title: props?.resourceBindings?.ansvarsomraadeStatus?.title || "resource.ansvarsomraadeStatus.title",
                 emptyFieldText: props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldText || "resource.emptyFieldText.default"
             },
             samsvarKontrollPlanlagtVedRammetillatelse: {
-                title:
-                    props?.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title ||
-                    "resource.samsvarKontrollPlanlagtVedRammetillatelse.title"
+                title: props?.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title || "resource.rammesoeknad.title"
             },
             samsvarKontrollPlanlagtVedIgangsettingstillatelse: {
                 title:

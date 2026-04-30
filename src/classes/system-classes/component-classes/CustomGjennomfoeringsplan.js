@@ -99,7 +99,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 title: "resource.ansvarsfordeling.title"
             },
             versjon: {
-                title: "resource.versjon.title"
+                title: "resource.gjennomfoeringsplannummer.title"
             },
             kommunensSaksnummer: {
                 title: "resource.kommunensSaksnummer.title"
@@ -126,7 +126,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerTelefonnummer: {
-                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.part.telefonnummer.title",
+                title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerEpost: {
@@ -142,18 +142,14 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 emptyFieldText:
                     props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText ||
                     "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
-                emptyFieldTextAvsluttet:
-                    props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet ||
-                    "resource.emptyFieldText.default"
+                emptyFieldTextAvsluttet: props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet || "resource.emptyFieldText.default"
             },
             ansvarsomraadeStatus: {
                 title: props?.resourceBindings?.ansvarsomraadeStatus?.title || "resource.ansvarsomraadeStatus.title",
                 emptyFieldText: props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldText || "resource.emptyFieldText.default"
             },
             samsvarKontrollPlanlagtVedRammetillatelse: {
-                title:
-                    props?.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title ||
-                    "resource.samsvarKontrollPlanlagtVedRammetillatelse.title"
+                title: props?.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title || "resource.rammesoeknad.title"
             },
             samsvarKontrollPlanlagtVedIgangsettingstillatelse: {
                 title:

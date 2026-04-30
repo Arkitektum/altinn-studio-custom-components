@@ -119,7 +119,7 @@ export default class CustomGroupOvervann extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.overvann = {
-                title: props?.resourceBindings?.title || "resource.rammebetingelser.overvann.title"
+                title: props?.resourceBindings?.title || "resource.overvann.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
