@@ -72,6 +72,7 @@ function generateLanguageResourceFiles(inputFilePath, outputDir) {
         console.log(`✔ Generated ${Object.keys(languageMap).length} language files`);
     } catch (err) {
         console.error("❌ Error:", err.message);
+        throw err;
     }
 }
 
@@ -97,7 +98,11 @@ const inputFile = path.resolve(filteredArgs[0]);
 const outputDir = path.resolve(filteredArgs[1] || "./output");
 
 // Initial run
-generateLanguageResourceFiles(inputFile, outputDir);
+try {
+    generateLanguageResourceFiles(inputFile, outputDir);
+} catch (err) {
+    process.exit(1);
+}
 
 // Watch mode
 if (watchMode) {
@@ -105,6 +110,10 @@ if (watchMode) {
 
     fs.watch(inputFile, { persistent: true }, () => {
         console.log("🔄 Change detected. Regenerating...");
-        generateLanguageResourceFiles(inputFile, outputDir);
+        try {
+            generateLanguageResourceFiles(inputFile, outputDir);
+        } catch (err) {
+            // Keep watching even if regeneration fails.
+        }
     });
 }
