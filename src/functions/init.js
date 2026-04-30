@@ -66,9 +66,12 @@ export default async function initCustomComponents() {
         fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage)
     ]);
 
-    globalThis.selectedLanguage = selectedLanguage;
-    globalThis.textResources = textResources;
-    globalThis.defaultTextResources = defaultTextResources;
+    globalThis.appConfig = {
+        ...(globalThis.appConfig || {}),
+        selectedLanguage,
+        textResources,
+        defaultTextResources
+    };
     await loadScriptAsync(`https://altinncdn.no/toolkits/altinn-app-frontend/${altinnAppFrontendVersion}/altinn-app-frontend.js`);
 
     const domContentLoadedEvent = new Event("DOMContentLoaded", {
