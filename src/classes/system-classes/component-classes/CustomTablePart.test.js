@@ -54,20 +54,6 @@ describe("CustomTablePart", () => {
         });
     });
 
-    describe("getPartTypeFromElementAttributes", () => {
-        it("should return parttype attribute if present", () => {
-            const element = { getAttribute: jest.fn().mockReturnValue("customType") };
-            const instance = new CustomTablePart({});
-            expect(instance.getPartTypeFromElementAttributes(element)).toBe("customType");
-        });
-
-        it("should return default if parttype attribute is not present", () => {
-            const element = { getAttribute: jest.fn().mockReturnValue(null) };
-            const instance = new CustomTablePart({});
-            expect(instance.getPartTypeFromElementAttributes(element)).toBe("tiltakshaver");
-        });
-    });
-
     describe("getValueFromFormData", () => {
         it("should return undefined if hasValue returns false", () => {
             getComponentDataValue.mockReturnValue(undefined);
@@ -216,7 +202,6 @@ describe("CustomTablePart", () => {
 
         it("should use custom resource bindings if provided", () => {
             const props = {
-                partType: "custom",
                 resourceBindings: {
                     navn: { title: "Custom Navn" },
                     telefonnummer: { title: "Custom Tel" },
