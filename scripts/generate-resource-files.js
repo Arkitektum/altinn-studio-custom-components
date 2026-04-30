@@ -84,10 +84,10 @@ const filteredArgs = args.filter((arg) => arg !== "--watch");
 if (filteredArgs.length === 0) {
     console.log(`
 Usage:
-  node generate-resources.js <input-file> [output-directory] [--watch]
+  node generate-resource-files.js <input-file> [output-directory] [--watch]
 
 Example:
-  node generate-resources.js resources.json ./output --watch
+  node generate-resource-files.js resources.json ./output --watch
 `);
     process.exit(0);
 }
