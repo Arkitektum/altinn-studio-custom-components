@@ -31,7 +31,7 @@ __metadata:
     html-webpack-plugin: "npm:^5.6.7"
     jest: "npm:^30.3.0"
     jest-environment-jsdom: "npm:^30.3.0"
-    jsdom: "npm:^29.1.0"
+    jsdom: "npm:^29.1.1"
     mini-css-extract-plugin: "npm:^2.10.2"
     prettier: "npm:3.8.3"
     style-loader: "npm:^4.0.0"
@@ -6358,7 +6358,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jsdom@npm:^29.1.0":
+"jsdom@npm:^29.1.1":
   version: 29.1.1
   resolution: "jsdom@npm:29.1.1"
   dependencies:
