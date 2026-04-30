@@ -36,7 +36,7 @@ export default async function initCustomComponents() {
     const app = appId?.[2];
     const altinnAppFrontendVersionFallback = "4.29.0";
     const altinnAppFrontendVersion =
-        document.querySelector("meta[data-altinn-app-frontend-version]")?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
+        document.querySelector("meta[name='altinn-app-frontend-version']")?.getAttribute("content") || altinnAppFrontendVersionFallback;
     if (!origin || !org || !app) {
         console.error("Could not determine the origin, organization, or application from the URL.");
         return;
@@ -66,9 +66,12 @@ export default async function initCustomComponents() {
         fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage)
     ]);
 
-    globalThis.selectedLanguage = selectedLanguage;
-    globalThis.textResources = textResources;
-    globalThis.defaultTextResources = defaultTextResources;
+    globalThis.appConfig = {
+        ...(globalThis.appConfig || {}),
+        selectedLanguage,
+        textResources,
+        defaultTextResources
+    };
     await loadScriptAsync(`https://altinncdn.no/toolkits/altinn-app-frontend/${altinnAppFrontendVersion}/altinn-app-frontend.js`);
 
     const domContentLoadedEvent = new Event("DOMContentLoaded", {
