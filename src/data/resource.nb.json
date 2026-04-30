@@ -466,6 +466,10 @@
             "value": "Kontaktperson for nabovarselet"
         },
         {
+            "id": "resource.kontaktpersonForSoeker.title",
+            "value": "Kontaktperson for søker"
+        },
+        {
             "id": "resource.kontaktpersonForTiltakshaver.title",
             "value": "Kontaktperson for tiltakshaver"
         },

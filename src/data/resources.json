@@ -21,7 +21,8 @@
         "id": "resource.ansvarligSoeker.kontaktperson.title",
         "values": {
             "nb": "Kontaktperson for søker"
-        }
+        },
+        "replacedWithId": "resource.kontaktpersonForSoeker.title"
     },
     {
         "id": "resource.ansvarligSoeker.title",
@@ -704,6 +705,12 @@
         "id": "resource.kontaktpersonForNabovarselet.title",
         "values": {
             "nb": "Kontaktperson for nabovarselet"
+        }
+    },
+    {
+        "id": "resource.kontaktpersonForSoeker.title",
+        "values": {
+            "nb": "Kontaktperson for søker"
         }
     },
     {
