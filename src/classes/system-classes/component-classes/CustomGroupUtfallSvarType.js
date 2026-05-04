@@ -99,7 +99,7 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
                 title: props?.resourceBindings?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
             },
             kommentar: {
-                title: props?.resourceBindings?.kommentar?.title || `resource.utfallBesvarelse.utfallSvar.kommentar.title`
+                title: props?.resourceBindings?.kommentar?.title || `resource.kommentar.title`
             },
             tema: {
                 title: props?.resourceBindings?.tema?.title || `resource.tema.title`

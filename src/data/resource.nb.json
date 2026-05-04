@@ -406,10 +406,6 @@
             "value": "Gjenstående arbeider"
         },
         {
-            "id": "resource.harAapneAvvik.title",
-            "value": "Åpne avvik er rapportert til kommunen"
-        },
-        {
             "id": "resource.harIngenAvvik.title",
             "value": "Ingen avvik er funnet"
         },
@@ -420,6 +416,10 @@
         {
             "id": "resource.harSentralGodkjenning.booleanText.title",
             "value": "Har foretaket sentral godkjenning?"
+        },
+        {
+            "id": "resource.harAapneAvvik.title",
+            "value": "Åpne avvik er rapportert til kommunen"
         },
         {
             "id": "resource.hvaSkjer.header",
