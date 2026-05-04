@@ -618,6 +618,12 @@
         }
     },
     {
+        "id": "resource.harAapneAvvik.title",
+        "values": {
+            "nb": "Åpne avvik er rapportert til kommunen"
+        }
+    },
+    {
         "id": "resource.harIngenAvvik.title",
         "values": {
             "nb": "Ingen avvik er funnet"
@@ -633,12 +639,6 @@
         "id": "resource.harSentralGodkjenning.booleanText.title",
         "values": {
             "nb": "Har foretaket sentral godkjenning?"
-        }
-    },
-    {
-        "id": "resource.harAapneAvvik.title",
-        "values": {
-            "nb": "Åpne avvik er rapportert til kommunen"
         }
     },
     {
@@ -1225,7 +1225,7 @@
     {
         "id": "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
         "values": {
-            "nb": "Er det løfteinnretninger som omfattes av TEK i bygningen?"
+            "nb": "Er det løfteinnretninger som omfattes av TEK17 i bygningen?"
         }
     },
     {
@@ -1243,7 +1243,7 @@
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planleggesLoefteinnretningIBygning.title",
         "values": {
-            "nb": "Planlegges løfteinnretninger som omfattes av TEK i bygningen?"
+            "nb": "Planlegges løfteinnretninger som omfattes av TEK17 i bygningen?"
         }
     },
     {
