@@ -21,7 +21,14 @@ export function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
     return {
         lastUpdated,
-        ...getValuesFromLocalStorage(["displayLayouts", "packageVersions", "multilingualAppResourceValues", "exampleData", "applicationMetadata"])
+        ...getValuesFromLocalStorage([
+            "displayLayouts",
+            "packageVersions",
+            "latestPackageVersions",
+            "multilingualAppResourceValues",
+            "exampleData",
+            "applicationMetadata"
+        ])
     };
 }
 
@@ -47,9 +54,11 @@ export function getAllTextResourceUsage(displayLayouts, appResourceValues, defau
 }
 
 globalThis.onload = async function () {
-    let { displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } = getDataFromLocalStorage();
-    if (!displayLayouts || !packageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
-        [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = await getUpdatedApiData();
+    let { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } =
+        getDataFromLocalStorage();
+    if (!displayLayouts || !packageVersions || !latestPackageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
+        [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
+            await getUpdatedApiData();
         lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
     }
@@ -61,6 +70,7 @@ globalThis.onload = async function () {
         multilingualDefaultTextResources,
         displayLayouts,
         packageVersions,
+        latestPackageVersions,
         appResourceValues,
         multilingualAppResourceValues,
         exampleData,
@@ -73,6 +83,7 @@ globalThis.onload = async function () {
         multilingualDefaultTextResources,
         displayLayouts,
         packageVersions,
+        latestPackageVersions,
         appResourceValues,
         multilingualAppResourceValues,
         exampleData,
