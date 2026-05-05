@@ -55,6 +55,32 @@ export async function fetchPackageVersions() {
 }
 
 /**
+ * Fetches the latest package versions from the local API.
+ *
+ * Makes a GET request to `http://localhost:9001/api/latestPackageVersions` and returns the parsed JSON response.
+ * Throws an error if the request fails or the response is not OK.
+ *
+ * @async
+ * @function fetchLatestPackageVersions
+ * @returns {Promise<Object>} A promise that resolves to the JSON object containing the latest package versions.
+ * @throws {Error} If the fetch request fails or the response is not OK.
+ */
+export async function fetchLatestPackageVersions() {
+    const url = `http://localhost:${API_PORT}/api/latestPackageVersions`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch latest package versions: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error) => {
+            console.error("Error fetching latest package versions:", error);
+            throw error;
+        });
+}
+
+/**
  * Fetches application resource values for a given language.
  *
  * @param {string} language - The language code to fetch resources for.
@@ -166,11 +192,12 @@ export async function fetchAltinnStudioForms() {
  * @async
  * @function
  * @returns {Promise<Array>} A promise that resolves to an array containing:
- *   [multilingualDefaultTextResources, layouts, packageVersions, multilingualAppResourceValues, exampleData, applicationMetadata]
+ *   [multilingualDefaultTextResources, layouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata]
  */
 export async function getUpdatedApiData() {
     const layoutsPromise = fetchDisplayLayouts();
     const packageVersionsPromise = fetchPackageVersions();
+    const latestPackageVersionsPromise = fetchLatestPackageVersions();
     const multilingualAppResourceValuesPromise = fetchAppResources();
     const exampleDataPromise = fetchExampleData();
     const applicationMetadataPromise = fetchApplicationMetadata();
@@ -178,6 +205,7 @@ export async function getUpdatedApiData() {
     showLoadingIndicator([
         layoutsPromise,
         packageVersionsPromise,
+        latestPackageVersionsPromise,
         multilingualAppResourceValuesPromise,
         exampleDataPromise,
         applicationMetadataPromise
@@ -185,6 +213,7 @@ export async function getUpdatedApiData() {
     return Promise.all([
         layoutsPromise,
         packageVersionsPromise,
+        latestPackageVersionsPromise,
         multilingualAppResourceValuesPromise,
         exampleDataPromise,
         applicationMetadataPromise
