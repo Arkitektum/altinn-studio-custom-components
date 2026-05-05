@@ -4167,9 +4167,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cssnano-preset-default@npm:^7.0.16":
-  version: 7.0.16
-  resolution: "cssnano-preset-default@npm:7.0.16"
+"cssnano-preset-default@npm:^7.0.17":
+  version: 7.0.17
+  resolution: "cssnano-preset-default@npm:7.0.17"
   dependencies:
     browserslist: "npm:^4.28.2"
     css-declaration-sorter: "npm:^7.2.0"
@@ -4186,7 +4186,7 @@ __metadata:
     postcss-minify-font-values: "npm:^7.0.3"
     postcss-minify-gradients: "npm:^7.0.5"
     postcss-minify-params: "npm:^7.0.9"
-    postcss-minify-selectors: "npm:^7.1.1"
+    postcss-minify-selectors: "npm:^7.1.2"
     postcss-normalize-charset: "npm:^7.0.3"
     postcss-normalize-display-values: "npm:^7.0.3"
     postcss-normalize-positions: "npm:^7.0.4"
@@ -4203,7 +4203,7 @@ __metadata:
     postcss-unique-selectors: "npm:^7.0.7"
   peerDependencies:
     postcss: ^8.5.13
-  checksum: 10c0/394b8ea8e3591188172a233222d1572dc116198dfaffbabbf710130de3b4d73b8294d05f5e9979bf3f6120d1875de9ef0f126eaa615e35d05d245ff24a5b7059
+  checksum: 10c0/92b69d1d4b85ead9dc4efaaa9c8be90d5da2125b7928b133f7b73cd8f631fd76b3e7e5cb779ca32c4d9ffa50602cb7e844e4139519e5deac4c7c60f4a0d58822
   languageName: node
   linkType: hard
 
@@ -4217,14 +4217,14 @@ __metadata:
   linkType: hard
 
 "cssnano@npm:^7.0.4":
-  version: 7.1.8
-  resolution: "cssnano@npm:7.1.8"
+  version: 7.1.9
+  resolution: "cssnano@npm:7.1.9"
   dependencies:
-    cssnano-preset-default: "npm:^7.0.16"
+    cssnano-preset-default: "npm:^7.0.17"
     lilconfig: "npm:^3.1.3"
   peerDependencies:
     postcss: ^8.5.13
-  checksum: 10c0/e207f1d2755393c28f151bb8feee8d4a140d9dc898c4d403746b7d25d2bc3f21847f1caf6adde935f64ba9bca7fe5b7c5a7b3e467e1ec1336615ae23d39016ef
+  checksum: 10c0/4c944405c4c319be63ea19ce488548487d8fbfba46ef6a6fb504b6ce62d4549d0137f99a8ade2a2843e192ae7981751f66b0dc982421d56390488c332baca5af
   languageName: node
   linkType: hard
 
@@ -4976,9 +4976,9 @@ __metadata:
   linkType: hard
 
 "fast-uri@npm:^3.0.1":
-  version: 3.1.0
-  resolution: "fast-uri@npm:3.1.0"
-  checksum: 10c0/44364adca566f70f40d1e9b772c923138d47efeac2ae9732a872baafd77061f26b097ba2f68f0892885ad177becd065520412b8ffeec34b16c99433c5b9e2de7
+  version: 3.1.2
+  resolution: "fast-uri@npm:3.1.2"
+  checksum: 10c0/5b35641895959f3f7ab7a7b1b5542bded159346f25ec9f256817b206d50b64eda5828e90d605a2e2fc645c90519a7259c2bab2c942ee728c88b88e5be21b090d
   languageName: node
   linkType: hard
 
@@ -6594,9 +6594,9 @@ __metadata:
   linkType: hard
 
 "lru-cache@npm:^11.3.5":
-  version: 11.3.5
-  resolution: "lru-cache@npm:11.3.5"
-  checksum: 10c0/5b54ef7b88afb4bd25b7a778f1b2b1cde32d9770913e530da34ab203cf0442413bcaa6e372800cbab9562557a4480e4d8bf32e3a368bb5a91b12218eca085c66
+  version: 11.3.6
+  resolution: "lru-cache@npm:11.3.6"
+  checksum: 10c0/3afe3e3000e424c18b640dcea5776b5c1de8684b7dac9718d58792dff1a4692b38cc14e263cbb41bdab98ffcf5408f003b33133b179ce5d271284be72a3ff2a9
   languageName: node
   linkType: hard
 
@@ -7425,9 +7425,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-minify-selectors@npm:^7.1.1":
-  version: 7.1.1
-  resolution: "postcss-minify-selectors@npm:7.1.1"
+"postcss-minify-selectors@npm:^7.1.2":
+  version: 7.1.2
+  resolution: "postcss-minify-selectors@npm:7.1.2"
   dependencies:
     browserslist: "npm:^4.28.1"
     caniuse-api: "npm:^3.0.0"
@@ -7435,7 +7435,7 @@ __metadata:
     postcss-selector-parser: "npm:^7.1.1"
   peerDependencies:
     postcss: ^8.5.13
-  checksum: 10c0/5a5995baf77d4a49fd9782ff91aba8744d8d5cbda8fc587b033c32d608152410679b3714d62dceaba1932f9c119a2bbb5447a07a29594586f60f1eac3adb2620
+  checksum: 10c0/b7be4f2f6b84c8ab3d6ee7524821a8917f15f7c2e78241c1eefc72aba6998e328d8281c723e74a816e2334f8e0110d540b8f61c69d8cf620e20fb33597e52234
   languageName: node
   linkType: hard
 
@@ -7657,13 +7657,13 @@ __metadata:
   linkType: hard
 
 "postcss@npm:^8.4.40":
-  version: 8.5.13
-  resolution: "postcss@npm:8.5.13"
+  version: 8.5.14
+  resolution: "postcss@npm:8.5.14"
   dependencies:
     nanoid: "npm:^3.3.11"
     picocolors: "npm:^1.1.1"
     source-map-js: "npm:^1.2.1"
-  checksum: 10c0/3aa7c8cbdfbfd99b34406a433cef56d164dd135fc9cb9e63d487cc363291f877a55ec7b8ff6ec15348c17c2d98a43be46bfad671e6340403041a3e79f70c2f2f
+  checksum: 10c0/48138207cf5ef5581be1bfe2cb65ccfe0ac75e43888ba045afc8ed6043d7b56aeb3b9a9fe5b353ff554be943cd0cc15d826ccb991525159175971e5ee8ab0237
   languageName: node
   linkType: hard
 
