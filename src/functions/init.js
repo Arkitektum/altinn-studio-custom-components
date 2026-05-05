@@ -50,12 +50,10 @@ export default async function initCustomComponents() {
             `Failed to fetch user profile data from ${userProfileApiUrl}. ` +
                 `HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
         );
-        return;
     }
     const userProfileData = await userProfileResponse.json();
     if (!userProfileData?.profileSettingPreference?.language) {
         console.error("Could not determine the user's language preference.");
-        return;
     }
 
     const selectedLanguage = userProfileData?.profileSettingPreference?.language;

@@ -18,34 +18,32 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
 
     if (!isNonEmptyString(origin) || !isNonEmptyString(org) || !isNonEmptyString(app) || !isNonEmptyString(language)) {
         console.error(
-            "Invalid parameters provided to fetchTextResources. " +
-                "Expected non-empty strings for 'origin', 'org', 'app', and 'language'.",
+            "Invalid parameters provided to fetchTextResources. " + "Expected non-empty strings for 'origin', 'org', 'app', and 'language'.",
             { origin, org, app, language }
         );
-        return null;
     }
 
-    const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
-    try {
-        const primaryResponse = await fetch(textResourcesApiUrl);
-        if (primaryResponse.ok) {
-            const textResourcesData = await primaryResponse.json();
-            if (hasValue(textResourcesData)) {
-                return textResourcesData;
+    if (isNonEmptyString(language)) {
+        const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
+        try {
+            const primaryResponse = await fetch(textResourcesApiUrl);
+            if (primaryResponse.ok) {
+                const textResourcesData = await primaryResponse.json();
+                if (hasValue(textResourcesData)) {
+                    return textResourcesData;
+                }
+            } else {
+                console.error(
+                    `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
+                );
             }
-        } else {
+        } catch (error) {
             console.error(
-                `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
+                `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`,
+                error
             );
         }
-    } catch (error) {
-        console.error(
-            `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`,
-            error
-        );
-    }
-
-    if (hasValue(fallbackLanguage)) {
+    } else if (isNonEmptyString(fallbackLanguage)) {
         const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
         try {
             const fallbackResponse = await fetch(fallbackTextResourcesApiUrl);
