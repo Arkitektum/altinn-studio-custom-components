@@ -55,6 +55,40 @@ export function renderComponentUsagePage(containerElement) {
 }
 
 /**
+ * Parses a version string into an object containing major, minor, and patch numbers. The version string is expected to be in the format "major.minor.patch", where minor and patch are optional. If the version string is not in a valid format, the function returns null.
+ *
+ * @param {string} version - The version string to parse.
+ * @returns {{major: number, minor: number, patch: number} | null} An object containing the major, minor, and patch numbers, or null if the version string is invalid.
+ */
+function parseVersion(version) {
+    if (!version) return null;
+    const match = new RegExp(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?/).exec(String(version));
+    if (!match) return null;
+    return {
+        major: Number.parseInt(match[1], 10),
+        minor: Number.parseInt(match[2] ?? "0", 10),
+        patch: Number.parseInt(match[3] ?? "0", 10)
+    };
+}
+
+/**
+ * Determines the CSS class for a version based on its comparison with the latest version.
+ *
+ * @param {string} version - The version string to compare.
+ * @param {string} latestVersion - The latest version string to compare against.
+ * @returns {string | null} The CSS class representing the version status, or null if the version strings are invalid.
+ */
+function getVersionColorClass(version, latestVersion) {
+    const v = parseVersion(version);
+    const latest = parseVersion(latestVersion);
+    if (!v || !latest) return null;
+    if (v.major < latest.major) return "version-outdated-major";
+    if (v.major === latest.major && v.minor < latest.minor) return "version-outdated-minor";
+    if (v.major === latest.major && v.minor === latest.minor && v.patch < latest.patch) return "version-outdated-patch";
+    return null;
+}
+
+/**
  * Renders the package versions page, displaying the versions of the altinn-studio-custom-components package and the altinn-app-frontend assets for all Altinn Studio apps.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the package versions page into.
@@ -89,7 +123,7 @@ export function renderPackageVersionsPage(containerElement) {
 
     const tableBodyElement = document.createElement("tbody");
 
-    globalThis.packageVersions.forEach((app) => {
+    const versionCells = globalThis.packageVersions.map((app) => {
         const row = document.createElement("tr");
         const appCell = document.createElement("td");
         appCell.textContent = `${app.appOwner}/${app.appName}`;
@@ -105,11 +139,28 @@ export function renderPackageVersionsPage(containerElement) {
         row.appendChild(altinnAppFrontendCSSCell);
         row.appendChild(altinnAppFrontendJSCell);
         tableBodyElement.appendChild(row);
+
+        return {
+            ccCell: altinnStudioCustomComponentsCell,
+            cssCell: altinnAppFrontendCSSCell,
+            jsCell: altinnAppFrontendJSCell,
+            versions: app.packageVersions
+        };
     });
 
     tableElement.appendChild(tableBodyElement);
     contentContainerElement.appendChild(tableElement);
     containerElement.appendChild(contentContainerElement);
+
+    const latestPackageVersions = globalThis.latestPackageVersions;
+    versionCells.forEach(({ ccCell, cssCell, jsCell, versions }) => {
+        const ccClass = getVersionColorClass(versions.altinnStudioCustomComponents, latestPackageVersions.altinnStudioCustomComponents);
+        if (ccClass) ccCell.classList.add(ccClass);
+        const cssClass = getVersionColorClass(versions.altinnAppFrontendCSS, latestPackageVersions.altinnAppFrontend);
+        if (cssClass) cssCell.classList.add(cssClass);
+        const jsClass = getVersionColorClass(versions.altinnAppFrontendJS, latestPackageVersions.altinnAppFrontend);
+        if (jsClass) jsCell.classList.add(jsClass);
+    });
 }
 
 /**
@@ -783,13 +834,15 @@ export function renderSynchronizeButton() {
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
-        const [displayLayouts, packageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = await getUpdatedApiData();
+        const [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
+            await getUpdatedApiData();
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
         addValuesToLocalStorage({
             displayLayouts,
             packageVersions,
+            latestPackageVersions,
             multilingualAppResourceValues,
             exampleData,
             applicationMetadata
@@ -797,6 +850,7 @@ export function renderSynchronizeButton() {
         addDataToGlobalThis({
             displayLayouts,
             packageVersions,
+            latestPackageVersions,
             multilingualAppResourceValues,
             exampleData,
             applicationMetadata,
