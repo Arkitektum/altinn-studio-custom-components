@@ -463,6 +463,16 @@
                 }
             }
 
+            & .version-outdated-major {
+                color: #ff4444;
+            }
+            & .version-outdated-minor {
+                color: #ff9900;
+            }
+            & .version-outdated-patch {
+                color: #ffcc00;
+            }
+
             & .expand-collapse-icon {
                 display: inline-block;
                 width: 16px;

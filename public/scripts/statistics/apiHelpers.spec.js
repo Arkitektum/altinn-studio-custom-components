@@ -97,11 +97,12 @@ describe("getUpdatedApiData", () => {
         fetch
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(2) }) // layouts
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(3) }) // packageVersions
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(4) }) // appResources
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }) // exampleData
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(6) }); // applicationMetadata
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(4) }) // latestPackageVersions
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }) // appResources
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(6) }) // exampleData
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(7) }); // applicationMetadata
         // Mock showLoadingIndicator to avoid DOM side effects
         jest.spyOn(require("./renderers.js"), "showLoadingIndicator").mockImplementation(() => {});
-        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5, 6]);
+        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5, 6, 7]);
     });
 });

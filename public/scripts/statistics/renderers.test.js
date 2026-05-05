@@ -1,4 +1,52 @@
 // Minimal tests for exported functions in statistics/renderers.js
+
+// Mock the utils package
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    CustomElementHtmlAttributes: jest.fn(),
+    addContainerElement: jest.fn(),
+    appendChildren: jest.fn(),
+    createCustomElement: jest.fn(),
+    getDataForComponent: jest.fn()
+}));
+
+// Mock local dependencies
+jest.mock("../localStorage.js", () => ({
+    addDataToGlobalThis: jest.fn(),
+    addValueToLocalStorage: jest.fn(),
+    addValuesToLocalStorage: jest.fn()
+}));
+
+jest.mock("./apiHelpers.js", () => ({
+    fetchAltinnStudioForms: jest.fn().mockResolvedValue([]),
+    fetchApplicationMetadata: jest.fn().mockResolvedValue([]),
+    fetchExampleData: jest.fn().mockResolvedValue([]),
+    getUpdatedApiData: jest.fn().mockResolvedValue({})
+}));
+
+jest.mock("../getters.js", () => ({
+    getAppResourceValuesForLanguage: jest.fn(),
+    getResourcesForLanguage: jest.fn()
+}));
+
+jest.mock("../textResourceUsageRenderers.js", () => ({
+    renderDefaultTextResourcesList: jest.fn(),
+    renderSelectApplicationFilterForTextResourcesList: jest.fn(),
+    renderTextInputFilterForTextResourcesList: jest.fn(),
+    renderUsageFilterForTextResourcesList: jest.fn()
+}));
+
+jest.mock("../languages.js", () => ({
+    languages: ["nb", "en"]
+}));
+
+jest.mock("./componentUsageRenderers.js", () => ({
+    renderComponentUsageList: jest.fn()
+}));
+
+jest.mock("../../../src/functions/htmlElementHelpers.js", () => ({
+    updateBodyClassNamesForApplication: jest.fn()
+}));
+
 import {
     getApplicationMetadataForSelectedApp,
     getDisplayLayoutMainHeading,
@@ -12,9 +60,25 @@ import {
     showLoadingIndicator
 } from "./renderers";
 
+// Import the mocked modules to set up their implementations
+import {
+    renderDefaultTextResourcesList,
+    renderSelectApplicationFilterForTextResourcesList,
+    renderTextInputFilterForTextResourcesList,
+    renderUsageFilterForTextResourcesList
+} from "../textResourceUsageRenderers.js";
+import { renderComponentUsageList } from "./componentUsageRenderers.js";
+
 describe("renderAdminSidebar", () => {
     beforeEach(() => {
         document.body.innerHTML = '<div id="admin-main"></div><div id="sidebar"></div>';
+
+        // Setup mock return values
+        renderDefaultTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderSelectApplicationFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderTextInputFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderUsageFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderComponentUsageList.mockReturnValue(document.createElement("div"));
     });
     it("renders sidebar with navigation buttons", () => {
         renderAdminSidebar();
@@ -29,6 +93,13 @@ describe("renderAdminSidebar", () => {
 describe("showLoadingIndicator", () => {
     beforeEach(() => {
         document.body.innerHTML = "";
+
+        // Setup mock return values
+        renderDefaultTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderSelectApplicationFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderTextInputFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderUsageFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderComponentUsageList.mockReturnValue(document.createElement("div"));
     });
     it("shows and removes loading indicator after promises resolve", async () => {
         const p1 = Promise.resolve();
@@ -46,6 +117,13 @@ describe("renderSynchronizeButton", () => {
     beforeEach(() => {
         document.body.innerHTML = '<div id="sidebar"></div>';
         globalThis.lastUpdated = Date.now();
+
+        // Setup mock return values
+        renderDefaultTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderSelectApplicationFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderTextInputFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderUsageFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderComponentUsageList.mockReturnValue(document.createElement("div"));
     });
     it("renders synchronize button and last updated", () => {
         renderSynchronizeButton();
@@ -68,12 +146,23 @@ describe("internal renderers functions", () => {
                 packageVersions: { altinnStudioCustomComponents: "1.0", altinnAppFrontendCSS: "2.0", altinnAppFrontendJS: "3.0" }
             }
         ];
+        globalThis.latestPackageVersions = {
+            altinnStudioCustomComponents: "2.0",
+            altinnAppFrontend: "3.0"
+        };
         globalThis.textResources = { resources: [{ id: "appName", value: "Test App" }] };
         globalThis.appResourceValues = [{ appName: "app1", appOwner: "owner1", resources: [{ id: "appLogo.url", value: "logo.svg" }] }];
         globalThis.multilingualDefaultTextResources = [];
         globalThis.multilingualAppResourceValues = [];
         globalThis.exampleData = [{ dataType: "dt", data: { file1: {} } }];
         globalThis.altinnStudioForms = [{ appName: "app1", appOwner: "owner1", dataType: "dt" }];
+
+        // Setup mock return values
+        renderDefaultTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderSelectApplicationFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderTextInputFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderUsageFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
+        renderComponentUsageList.mockReturnValue(document.createElement("div"));
     });
     it("renderResourceUsagePage runs without error", () => {
         const el = document.createElement("div");
