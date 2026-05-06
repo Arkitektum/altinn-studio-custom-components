@@ -138,18 +138,6 @@
             "value": "Dekkes av sentral godkjenning"
         },
         {
-            "id": "resource.delsoeknader.delsoeknad.delsoeknadsnummer.title",
-            "value": "Nr."
-        },
-        {
-            "id": "resource.delsoeknader.delsoeknad.kommentar.title",
-            "value": "Kommentar"
-        },
-        {
-            "id": "resource.delsoeknader.delsoeknad.tillatelsedato.title",
-            "value": "Tillatelsedato"
-        },
-        {
             "id": "resource.detErVarsletOm.title",
             "value": "Det er varslet om"
         },
@@ -164,14 +152,6 @@
         {
             "id": "resource.dispensasjonOversikt.dispensasjon.count.title",
             "value": "Antall dispensasjonssøknader"
-        },
-        {
-            "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonKategori.title",
-            "value": "Kategori"
-        },
-        {
-            "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
-            "value": "Emne"
         },
         {
             "id": "resource.dispensasjonOversikt.header",
@@ -258,10 +238,6 @@
             "value": "Endringstyper"
         },
         {
-            "id": "resource.endringenGjelder.header",
-            "value": "Endringen gjelder"
-        },
-        {
             "id": "resource.endringenGjelder.title",
             "value": "Endringen gjelder"
         },
@@ -286,15 +262,7 @@
             "value": "Erklæring"
         },
         {
-            "id": "resource.erklaeringer.title",
-            "value": "Erklæring"
-        },
-        {
             "id": "resource.ettersending.title",
-            "value": "Ettersending"
-        },
-        {
-            "id": "resource.ettersendinger.ettersending.title",
             "value": "Ettersending"
         },
         {
@@ -364,10 +332,6 @@
         {
             "id": "resource.generelleVilkaar.beroererArbeidsplasser.title",
             "value": "Berører tiltaket eksisterende eller fremtidige arbeidsplasser?"
-        },
-        {
-            "id": "resource.generelleVilkaar.norskSvenskDansk.header",
-            "value": "Erklæring"
         },
         {
             "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
@@ -606,28 +570,8 @@
             "value": "Overvann"
         },
         {
-            "id": "resource.part.bestillerreferanse.title",
-            "value": "Bestiller referanse"
-        },
-        {
             "id": "resource.part.epost.title",
             "value": "E-postadresse"
-        },
-        {
-            "id": "resource.part.fakturareferanse.title",
-            "value": "Fakturareferanse"
-        },
-        {
-            "id": "resource.part.navn.title",
-            "value": "Navn"
-        },
-        {
-            "id": "resource.part.organisasjonsnummer.title",
-            "value": "Organisasjonsnummer"
-        },
-        {
-            "id": "resource.part.prosjektnummer.title",
-            "value": "Prosjektnummer"
         },
         {
             "id": "resource.planbestemmelse.title",
@@ -894,10 +838,6 @@
             "value": "Rammesøknad"
         },
         {
-            "id": "resource.rammetillatelse.title",
-            "value": "Rammesøknad"
-        },
-        {
             "id": "resource.redegjoerelse.title",
             "value": "Redegjørelse"
         },
@@ -928,10 +868,6 @@
         {
             "id": "resource.respons.samtykkeMottattDato.title",
             "value": "Mottatt samtykke"
-        },
-        {
-            "id": "resource.rowNumberTitle.default",
-            "value": "Nr."
         },
         {
             "id": "resource.samsvarErklaeringTekst.title",
@@ -966,10 +902,6 @@
             "value": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk i dag?"
         },
         {
-            "id": "resource.sikkerhetsnivaa.header",
-            "value": "Sikkerhetsnivå"
-        },
-        {
             "id": "resource.sikkerhetsnivaa.title",
             "value": "Sikkerhetsnivå"
         },
@@ -998,10 +930,6 @@
             "value": "Se også vår hjemmeside"
         },
         {
-            "id": "resource.soeknadGjelder.bruk.anleggstype.title",
-            "value": "Anleggstype"
-        },
-        {
             "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
             "value": "Beskrivelse av planlagt formål"
         },
@@ -1014,14 +942,6 @@
             "value": "Beskrivelse av gammelt formål"
         },
         {
-            "id": "resource.soeknadGjelder.bruk.bygningstype.title",
-            "value": "Bygningstype"
-        },
-        {
-            "id": "resource.soeknadGjelder.bruk.header",
-            "value": "Tiltak/ byggeplaner"
-        },
-        {
             "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
             "value": "Næringsgruppe"
         },
@@ -1030,20 +950,8 @@
             "value": "Formål med tiltaket"
         },
         {
-            "id": "resource.soeknadGjelder.bruk.tiltaksformaal.title",
-            "value": "Formål"
-        },
-        {
-            "id": "resource.soeknadGjelder.foelgebrev.header",
-            "value": "Følgebrev"
-        },
-        {
             "id": "resource.soeknadGjelder.title",
             "value": "Søknaden gjelder"
-        },
-        {
-            "id": "resource.soeknadGjelder.type.header",
-            "value": "Tiltak/ byggeplaner"
         },
         {
             "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
@@ -1052,10 +960,6 @@
         {
             "id": "resource.soeknadGjelder.type.kode.title",
             "value": "Tiltakstyper i byggesaken"
-        },
-        {
-            "id": "resource.soeknadGjelder.type.title",
-            "value": "Tiltakstyper"
         },
         {
             "id": "resource.status.title",
@@ -1092,10 +996,6 @@
         {
             "id": "resource.tiltakshaver.fakturamottaker.title",
             "value": "Fakturaadresse for tiltakshaver"
-        },
-        {
-            "id": "resource.tiltakshaver.kontaktperson.title",
-            "value": "Kontaktperson for tiltakshaver"
         },
         {
             "id": "resource.tiltakshaver.title",
@@ -1138,10 +1038,6 @@
             "value": "Svar innsendt tidligere"
         },
         {
-            "id": "resource.utfallBesvarelse.utfallSvar.kommentar.title",
-            "value": "Kommentar"
-        },
-        {
             "id": "resource.utfallBesvarelse.utfallSvar.status",
             "value": "Besvares nå"
         },
@@ -1174,24 +1070,12 @@
             "value": "Varmefordeling"
         },
         {
-            "id": "resource.varmesystem.energiforsyning.kode.title",
-            "value": "Energiforsyning"
-        },
-        {
-            "id": "resource.varmesystem.header",
-            "value": "Varmesystem"
-        },
-        {
             "id": "resource.varmesystem.relevant.false.description",
             "value": "Energiforsyning og varmefordeling er ikke relevant for tiltaket."
         },
         {
             "id": "resource.varmesystem.title",
             "value": "Varmesystem"
-        },
-        {
-            "id": "resource.varmesystem.varmefordeling.kode.title",
-            "value": "Varmefordeling"
         },
         {
             "id": "resource.varsler-herved.header",
@@ -1202,32 +1086,16 @@
             "value": "Antall merknader fra naboer eller gjenboere"
         },
         {
-            "id": "resource.varsling.fritattFraNabovarsling.falseText",
-            "value": "Ja"
-        },
-        {
             "id": "resource.varsling.fritattFraNabovarsling.title",
             "value": "Er tiltaket nabovarslet?"
-        },
-        {
-            "id": "resource.varsling.fritattFraNabovarsling.trueText",
-            "value": "Nei"
         },
         {
             "id": "resource.varsling.harPengeheftelser.title",
             "value": "Er de som eventuelt har tinglyste pengeheftelser på eiendommen blitt varslet?"
         },
         {
-            "id": "resource.varsling.redegjorelseFritak.title",
-            "value": "Redegjørelse"
-        },
-        {
             "id": "resource.varsling.soeknadensHjemmeside.title",
             "value": "Søknadens hjemmeside"
-        },
-        {
-            "id": "resource.varsling.title",
-            "value": "Nabovarsling"
         },
         {
             "id": "resource.varsling.vurderingAvMerknader.title",
