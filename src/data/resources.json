@@ -411,6 +411,12 @@
         }
     },
     {
+        "id": "resource.epostadresse.title",
+        "values": {
+            "nb": "E-postadresse"
+        }
+    },
+    {
         "id": "resource.erAnsvarsomraadetAvsluttet.title",
         "values": {
             "nb": "Er arbeidet avsluttet?"
@@ -923,7 +929,7 @@
         "values": {
             "nb": "E-postadresse"
         }
-    },
+        "replacedWithId": "resource.epostadresse.title"
     {
         "id": "resource.part.fakturareferanse.title",
         "values": {

@@ -270,6 +270,10 @@
             "value": "Energiforsyning"
         },
         {
+            "id": "resource.epostadresse.title",
+            "value": "E-postadresse"
+        },
+        {
             "id": "resource.erAnsvarsomraadetAvsluttet.title",
             "value": "Er arbeidet avsluttet?"
         },

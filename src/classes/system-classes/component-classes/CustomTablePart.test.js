@@ -195,7 +195,7 @@ describe("CustomTablePart", () => {
             const result = instance.getResourceBindings({});
             expect(result.navn.title).toBe("resource.navn.title");
             expect(result.telefonnummer.title).toBe("resource.telefonnummer.title");
-            expect(result.epost.title).toBe("resource.part.epost.title");
+            expect(result.epost.title).toBe("resource.epostadresse.title");
             expect(result.part.title).toBe("resource.tiltakshaver.title");
             expect(result.part.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
