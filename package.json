@@ -26,7 +26,7 @@
     },
     "homepage": "https://github.com/Arkitektum/altinn-studio-custom-components#readme",
     "devDependencies": {
-        "@babel/preset-env": "^7.29.3",
+        "@babel/preset-env": "^7.29.5",
         "@eslint/js": "^10.0.1",
         "copyfiles": "^2.4.1",
         "css-loader": "^7.1.4",
@@ -50,6 +50,6 @@
     },
     "packageManager": "yarn@4.10.3",
     "dependencies": {
-        "@arkitektum/altinn-studio-custom-components-utils": "^1.4.4"
+        "@arkitektum/altinn-studio-custom-components-utils": "^1.4.5"
     }
 }
