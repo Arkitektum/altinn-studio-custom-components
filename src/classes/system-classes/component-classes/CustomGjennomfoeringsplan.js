@@ -134,7 +134,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             foretak: {
-                title: props?.resourceBindings?.foretak?.title || "resource.foretak.title",
+                title: props?.resourceBindings?.foretak?.title || "resource.ansvarligForetak.title",
                 emptyFieldText: props?.resourceBindings?.foretak?.emptyFieldText || "resource.emptyFieldText.default"
             },
             planlagteSamsvarKontrollErklaeringer: {

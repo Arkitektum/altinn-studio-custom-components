@@ -14,8 +14,8 @@
             "value": "Kontaktperson"
         },
         {
-            "id": "resource.ansvarligSoeker.kontaktperson.title",
-            "value": "Kontaktperson for søker"
+            "id": "resource.ansvarligForetak.title",
+            "value": "Ansvarlig foretak"
         },
         {
             "id": "resource.ansvarligSoeker.title",

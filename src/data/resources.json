@@ -18,9 +18,9 @@
         }
     },
     {
-        "id": "resource.ansvarligSoeker.kontaktperson.title",
+        "id": "resource.ansvarligForetak.title",
         "values": {
-            "nb": "Kontaktperson for søker"
+            "nb": "Ansvarlig foretak"
         },
         "replacedWithId": "resource.kontaktpersonForSoeker.title"
     },
@@ -507,6 +507,7 @@
         "values": {
             "nb": "Ansvarlig foretak"
         }
+        "replacedWithId": "resource.ansvarligForetak.title"
     },
     {
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
