@@ -176,7 +176,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoeker: {
-                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
+                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.soeker.title"
             },
             tiltakshaver: {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
