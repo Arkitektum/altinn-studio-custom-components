@@ -18,11 +18,10 @@
         }
     },
     {
-        "id": "resource.ansvarligSoeker.kontaktperson.title",
+        "id": "resource.ansvarligForetak.title",
         "values": {
-            "nb": "Kontaktperson for søker"
-        },
-        "replacedWithId": "resource.kontaktpersonForSoeker.title"
+            "nb": "Ansvarlig foretak"
+        }
     },
     {
         "id": "resource.ansvarligSoeker.title",
@@ -206,27 +205,6 @@
         }
     },
     {
-        "id": "resource.delsoeknader.delsoeknad.delsoeknadsnummer.title",
-        "values": {
-            "nb": "Nr."
-        },
-        "replacedWithId": "resource.nummer.short"
-    },
-    {
-        "id": "resource.delsoeknader.delsoeknad.kommentar.title",
-        "values": {
-            "nb": "Kommentar"
-        },
-        "replacedWithId": "resource.kommentar.title"
-    },
-    {
-        "id": "resource.delsoeknader.delsoeknad.tillatelsedato.title",
-        "values": {
-            "nb": "Tillatelsedato"
-        },
-        "replacedWithId": "resource.tillatelsedato.title"
-    },
-    {
         "id": "resource.detErVarsletOm.title",
         "values": {
             "nb": "Det er varslet om"
@@ -249,20 +227,6 @@
         "values": {
             "nb": "Antall dispensasjonssøknader"
         }
-    },
-    {
-        "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonKategori.title",
-        "values": {
-            "nb": "Kategori"
-        },
-        "replacedWithId": "resource.kategori.title"
-    },
-    {
-        "id": "resource.dispensasjonOversikt.dispensasjon.dispensasjonTittel.title",
-        "values": {
-            "nb": "Emne"
-        },
-        "replacedWithId": "resource.emne.title"
     },
     {
         "id": "resource.dispensasjonOversikt.header",
@@ -392,13 +356,6 @@
         }
     },
     {
-        "id": "resource.endringenGjelder.header",
-        "values": {
-            "nb": "Endringen gjelder"
-        },
-        "replacedWithId": "resource.endringenGjelder.title"
-    },
-    {
         "id": "resource.endringenGjelder.title",
         "values": {
             "nb": "Endringen gjelder"
@@ -408,6 +365,12 @@
         "id": "resource.energiforsyning.title",
         "values": {
             "nb": "Energiforsyning"
+        }
+    },
+    {
+        "id": "resource.epostadresse.title",
+        "values": {
+            "nb": "E-postadresse"
         }
     },
     {
@@ -429,24 +392,10 @@
         }
     },
     {
-        "id": "resource.erklaeringer.title",
-        "values": {
-            "nb": "Erklæring"
-        },
-        "replacedWithId": "resource.erklaering.title"
-    },
-    {
         "id": "resource.ettersending.title",
         "values": {
             "nb": "Ettersending"
         }
-    },
-    {
-        "id": "resource.ettersendinger.ettersending.title",
-        "values": {
-            "nb": "Ettersending"
-        },
-        "replacedWithId": "resource.ettersending.title"
     },
     {
         "id": "resource.fakturareferanse.title",
@@ -500,7 +449,8 @@
         "id": "resource.foretak.title",
         "values": {
             "nb": "Ansvarlig foretak"
-        }
+        },
+        "replacedWithId": "resource.ansvarligForetak.title"
     },
     {
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
@@ -549,13 +499,6 @@
         "values": {
             "nb": "Berører tiltaket eksisterende eller fremtidige arbeidsplasser?"
         }
-    },
-    {
-        "id": "resource.generelleVilkaar.norskSvenskDansk.header",
-        "values": {
-            "nb": "Erklæring"
-        },
-        "replacedWithId": "resource.erklaering.title"
     },
     {
         "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
@@ -912,45 +855,11 @@
         }
     },
     {
-        "id": "resource.part.bestillerreferanse.title",
-        "values": {
-            "nb": "Bestiller referanse"
-        },
-        "replacedWithId": "resource.bestillerreferanse.title"
-    },
-    {
         "id": "resource.part.epost.title",
         "values": {
             "nb": "E-postadresse"
-        }
-    },
-    {
-        "id": "resource.part.fakturareferanse.title",
-        "values": {
-            "nb": "Fakturareferanse"
         },
-        "replacedWithId": "resource.fakturareferanse.title"
-    },
-    {
-        "id": "resource.part.navn.title",
-        "values": {
-            "nb": "Navn"
-        },
-        "replacedWithId": "resource.navn.title"
-    },
-    {
-        "id": "resource.part.organisasjonsnummer.title",
-        "values": {
-            "nb": "Organisasjonsnummer"
-        },
-        "replacedWithId": "resource.organisasjonsnummer.title"
-    },
-    {
-        "id": "resource.part.prosjektnummer.title",
-        "values": {
-            "nb": "Prosjektnummer"
-        },
-        "replacedWithId": "resource.prosjektnummer.title"
+        "replacedWithId": "resource.epostadresse.title"
     },
     {
         "id": "resource.planbestemmelse.title",
@@ -1349,13 +1258,6 @@
         }
     },
     {
-        "id": "resource.rammetillatelse.title",
-        "values": {
-            "nb": "Rammesøknad"
-        },
-        "replacedWithId": "resource.rammesoeknad.title"
-    },
-    {
         "id": "resource.redegjoerelse.title",
         "values": {
             "nb": "Redegjørelse"
@@ -1402,13 +1304,6 @@
         "values": {
             "nb": "Mottatt samtykke"
         }
-    },
-    {
-        "id": "resource.rowNumberTitle.default",
-        "values": {
-            "nb": "Nr."
-        },
-        "replacedWithId": "resource.nummer.short"
     },
     {
         "id": "resource.samsvarErklaeringTekst.title",
@@ -1459,13 +1354,6 @@
         }
     },
     {
-        "id": "resource.sikkerhetsnivaa.header",
-        "values": {
-            "nb": "Sikkerhetsnivå"
-        },
-        "replacedWithId": "resource.sikkerhetsnivaa.title"
-    },
-    {
         "id": "resource.sikkerhetsnivaa.title",
         "values": {
             "nb": "Sikkerhetsnivå"
@@ -1508,13 +1396,6 @@
         }
     },
     {
-        "id": "resource.soeknadGjelder.bruk.anleggstype.title",
-        "values": {
-            "nb": "Anleggstype"
-        },
-        "replacedWithId": "resource.anleggstype.title"
-    },
-    {
         "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
         "values": {
             "nb": "Beskrivelse av planlagt formål"
@@ -1533,20 +1414,6 @@
         }
     },
     {
-        "id": "resource.soeknadGjelder.bruk.bygningstype.title",
-        "values": {
-            "nb": "Bygningstype"
-        },
-        "replacedWithId": "resource.bygningstype.title"
-    },
-    {
-        "id": "resource.soeknadGjelder.bruk.header",
-        "values": {
-            "nb": "Tiltak/ byggeplaner"
-        },
-        "replacedWithId": "resource.tiltakByggeplaner.title"
-    },
-    {
         "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
         "values": {
             "nb": "Næringsgruppe"
@@ -1559,31 +1426,10 @@
         }
     },
     {
-        "id": "resource.soeknadGjelder.bruk.tiltaksformaal.title",
-        "values": {
-            "nb": "Formål"
-        },
-        "replacedWithId": "resource.formaal.title"
-    },
-    {
-        "id": "resource.soeknadGjelder.foelgebrev.header",
-        "values": {
-            "nb": "Følgebrev"
-        },
-        "replacedWithId": "resource.foelgebrev.title"
-    },
-    {
         "id": "resource.soeknadGjelder.title",
         "values": {
             "nb": "Søknaden gjelder"
         }
-    },
-    {
-        "id": "resource.soeknadGjelder.type.header",
-        "values": {
-            "nb": "Tiltak/ byggeplaner"
-        },
-        "replacedWithId": "resource.tiltakByggeplaner.title"
     },
     {
         "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
@@ -1596,13 +1442,6 @@
         "values": {
             "nb": "Tiltakstyper i byggesaken"
         }
-    },
-    {
-        "id": "resource.soeknadGjelder.type.title",
-        "values": {
-            "nb": "Tiltakstyper"
-        },
-        "replacedWithId": "resource.tiltakstyper.title"
     },
     {
         "id": "resource.status.title",
@@ -1657,13 +1496,6 @@
         "values": {
             "nb": "Fakturaadresse for tiltakshaver"
         }
-    },
-    {
-        "id": "resource.tiltakshaver.kontaktperson.title",
-        "values": {
-            "nb": "Kontaktperson for tiltakshaver"
-        },
-        "replacedWithId": "resource.kontaktpersonForTiltakshaver.title"
     },
     {
         "id": "resource.tiltakshaver.title",
@@ -1726,13 +1558,6 @@
         }
     },
     {
-        "id": "resource.utfallBesvarelse.utfallSvar.kommentar.title",
-        "values": {
-            "nb": "Kommentar"
-        },
-        "replacedWithId": "resource.kommentar.title"
-    },
-    {
         "id": "resource.utfallBesvarelse.utfallSvar.status",
         "values": {
             "nb": "Besvares nå"
@@ -1781,20 +1606,6 @@
         }
     },
     {
-        "id": "resource.varmesystem.energiforsyning.kode.title",
-        "values": {
-            "nb": "Energiforsyning"
-        },
-        "replacedWithId": "resource.energiforsyning.title"
-    },
-    {
-        "id": "resource.varmesystem.header",
-        "values": {
-            "nb": "Varmesystem"
-        },
-        "replacedWithId": "resource.varmesystem.title"
-    },
-    {
         "id": "resource.varmesystem.relevant.false.description",
         "values": {
             "nb": "Energiforsyning og varmefordeling er ikke relevant for tiltaket."
@@ -1805,13 +1616,6 @@
         "values": {
             "nb": "Varmesystem"
         }
-    },
-    {
-        "id": "resource.varmesystem.varmefordeling.kode.title",
-        "values": {
-            "nb": "Varmefordeling"
-        },
-        "replacedWithId": "resource.varmefordeling.title"
     },
     {
         "id": "resource.varsler-herved.header",
@@ -1826,24 +1630,10 @@
         }
     },
     {
-        "id": "resource.varsling.fritattFraNabovarsling.falseText",
-        "values": {
-            "nb": "Ja"
-        },
-        "replacedWithId": "resource.trueText.default"
-    },
-    {
         "id": "resource.varsling.fritattFraNabovarsling.title",
         "values": {
             "nb": "Er tiltaket nabovarslet?"
         }
-    },
-    {
-        "id": "resource.varsling.fritattFraNabovarsling.trueText",
-        "values": {
-            "nb": "Nei"
-        },
-        "replacedWithId": "resource.falseText.default"
     },
     {
         "id": "resource.varsling.harPengeheftelser.title",
@@ -1852,24 +1642,10 @@
         }
     },
     {
-        "id": "resource.varsling.redegjorelseFritak.title",
-        "values": {
-            "nb": "Redegjørelse"
-        },
-        "replacedWithId": "resource.redegjoerelse.title"
-    },
-    {
         "id": "resource.varsling.soeknadensHjemmeside.title",
         "values": {
             "nb": "Søknadens hjemmeside"
         }
-    },
-    {
-        "id": "resource.varsling.title",
-        "values": {
-            "nb": "Nabovarsling"
-        },
-        "replacedWithId": "resource.nabovarsling.title"
     },
     {
         "id": "resource.varsling.vurderingAvMerknader.title",

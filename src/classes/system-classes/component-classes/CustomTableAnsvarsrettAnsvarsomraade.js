@@ -145,7 +145,7 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
                 defaultText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText || "resource.emptyFieldText.default"
             },
             rammetillatelse: {
-                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammetillatelse.title",
+                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammesoeknad.title",
                 emptyFieldText: props?.resourceBindings?.rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
             igangsettingstillatelse: {

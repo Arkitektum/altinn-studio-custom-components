@@ -172,11 +172,11 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                     props?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             kontaktpersonForNabovarseletEpost: {
-                title: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.title || "resource.part.epost.title",
+                title: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.title || "resource.epostadresse.title",
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarseletEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoeker: {
-                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.ansvarligSoeker.title"
+                title: props?.resourceBindings?.ansvarligSoeker?.title || "resource.soeker.title"
             },
             tiltakshaver: {
                 title: props?.resourceBindings?.tiltakshaver?.title || "resource.tiltakshaver.title"
@@ -243,7 +243,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierEpost: {
-                title: props?.resourceBindings?.eierEpost?.title || "resource.part.epost.title",
+                title: props?.resourceBindings?.eierEpost?.title || "resource.epostadresse.title",
                 emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eierAdresse: {

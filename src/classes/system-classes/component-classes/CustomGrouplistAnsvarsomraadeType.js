@@ -110,7 +110,7 @@ export default class CustomGrouplistAnsvarsomraadeType extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.ansvarsomraade?.emptyFieldText || "resource.emptyFieldText.default"
             },
             foretak: {
-                title: props?.resourceBindings?.foretak?.title || "resource.foretak.title",
+                title: props?.resourceBindings?.foretak?.title || "resource.ansvarligForetak.title",
                 emptyFieldText: props?.resourceBindings?.foretak?.emptyFieldText || "resource.emptyFieldText.default"
             },
             planlagteSamsvarKontrollErklaeringer: {

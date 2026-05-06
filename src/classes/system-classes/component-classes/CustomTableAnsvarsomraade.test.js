@@ -167,7 +167,7 @@ describe("CustomTableAnsvarsomraade", () => {
             const result = instance.getResourceBindings({});
             expect(result.tiltaksklasse.title).toBe("resource.tiltaksklasse.title");
             expect(result.ansvarsomraade.title).toBe("resource.beskrivelseAvAnsvarsomraadet.title");
-            expect(result.foretak.title).toBe("resource.foretak.title");
+            expect(result.foretak.title).toBe("resource.ansvarligForetak.title");
             expect(result.ansvarsfordeling.title).toBe("resource.ansvarsfordeling.title");
             expect(result.ansvarsfordeling.emptyFieldText).toBe("resource.emptyFieldText.default");
         });
