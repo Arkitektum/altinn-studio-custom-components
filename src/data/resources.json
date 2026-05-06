@@ -12,12 +12,6 @@
         }
     },
     {
-        "id": "resource.ansvarligForetak.kontaktperson.title",
-        "values": {
-            "nb": "Kontaktperson"
-        }
-    },
-    {
         "id": "resource.ansvarligForetak.title",
         "values": {
             "nb": "Ansvarlig foretak"
@@ -630,6 +624,12 @@
         "id": "resource.konsekvensutredning.title",
         "values": {
             "nb": "Konsekvensutredning"
+        }
+    },
+    {
+        "id": "resource.kontaktperson.title",
+        "values": {
+            "nb": "Kontaktperson"
         }
     },
     {

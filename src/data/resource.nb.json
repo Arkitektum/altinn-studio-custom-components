@@ -10,10 +10,6 @@
             "value": "Anleggstype"
         },
         {
-            "id": "resource.ansvarligForetak.kontaktperson.title",
-            "value": "Kontaktperson"
-        },
-        {
             "id": "resource.ansvarligForetak.title",
             "value": "Ansvarlig foretak"
         },
@@ -420,6 +416,10 @@
         {
             "id": "resource.konsekvensutredning.title",
             "value": "Konsekvensutredning"
+        },
+        {
+            "id": "resource.kontaktperson.title",
+            "value": "Kontaktperson"
         },
         {
             "id": "resource.kontaktpersonForNabovarselet.header",
