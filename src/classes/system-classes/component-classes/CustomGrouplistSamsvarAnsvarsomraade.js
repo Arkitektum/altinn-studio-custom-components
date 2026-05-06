@@ -103,7 +103,7 @@ export default class CustomGrouplistSamsvarAnsvarsomraade extends CustomComponen
                 emptyFieldText: props?.resourceBindings?.avdekketArbeider?.emptyFieldText || "resource.emptyFieldText.default"
             },
             rammetillatelse: {
-                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammetillatelse.title",
+                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammesoeknad.title",
                 emptyFieldText: props?.resourceBindings?.rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
             },
             igangsettingstillatelse: {
