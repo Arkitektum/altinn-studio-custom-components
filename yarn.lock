@@ -5,10 +5,10 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^1.4.5":
-  version: 1.4.5
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.4.5"
-  checksum: 10c0/d805caae173362dd315efda314c4ad5c06e2de5211d43fbf3eda5976aab31dfe21d80bacc73b4891b2868f1ba16fc9a7dc2e1a2ce594b6de7b1b42b2c39c160c
+"@arkitektum/altinn-studio-custom-components-utils@npm:^1.4.6":
+  version: 1.4.6
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.4.6"
+  checksum: 10c0/d8d64db8fe52ad28c358f85a6efbf64fa432aa31694c89f57a3bc397dd8ff4d12de3916dbcf871e1a476d62d793879a064ca5bfb811633660a4eee7d429271fd
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.5"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.6"
     "@babel/preset-env": "npm:^7.29.5"
     "@eslint/js": "npm:^10.0.1"
     copyfiles: "npm:^2.4.1"
@@ -2630,9 +2630,9 @@ __metadata:
   linkType: hard
 
 "@types/estree@npm:*, @types/estree@npm:^1.0.6, @types/estree@npm:^1.0.8":
-  version: 1.0.8
-  resolution: "@types/estree@npm:1.0.8"
-  checksum: 10c0/39d34d1afaa338ab9763f37ad6066e3f349444f9052b9676a7cc0252ef9485a41c6d81c9c4e0d26e9077993354edf25efc853f3224dd4b447175ef62bdcc86a5
+  version: 1.0.9
+  resolution: "@types/estree@npm:1.0.9"
+  checksum: 10c0/3ad3286ca2988cd550dafb8f2ad599c8474868e954fa601a36655bdfefd8039f7c714b8c1c7f2ae219ffbd58bd4660e66fa7479a0120fc02d4777057d4865387
   languageName: node
   linkType: hard
 
@@ -2766,9 +2766,9 @@ __metadata:
   linkType: hard
 
 "@types/qs@npm:*":
-  version: 6.15.0
-  resolution: "@types/qs@npm:6.15.0"
-  checksum: 10c0/1b104cac50e655fc41d7fc1de2c2aba2908c4cf833a555b6808fb4c96752662b439238f2392a15d2590a7a6ca75dbd40e42d9378ac2be0d548ee484954363688
+  version: 6.15.1
+  resolution: "@types/qs@npm:6.15.1"
+  checksum: 10c0/1dfdbcb4cf2a8f66d57f0b9a9fe6b1c7091cb816687b6698c1351eaf31f62e412cea9b7453a9637b570cd5fad8dced527e5a9e69b4fcc6e318daacd8b749f094
   languageName: node
   linkType: hard
 
@@ -4553,9 +4553,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.328":
-  version: 1.5.351
-  resolution: "electron-to-chromium@npm:1.5.351"
-  checksum: 10c0/6f9193a2c49e6015768fe5bd7eaadafba4ab8486d5aeecb6e4fb9dd526ab43f8fc266f459784d3154dcc3501230531f54069d1d5009a489df78cbceb6bbf8a5d
+  version: 1.5.352
+  resolution: "electron-to-chromium@npm:1.5.352"
+  checksum: 10c0/d1672a327420ea0c5dffbd604c448e5bacf9238953f7ce464f3d31c98309bb5ebe82443fb2425de0a78db3ef89261356ee59967dbac866e16262b8bbc0a03209
   languageName: node
   linkType: hard
 
@@ -8585,8 +8585,8 @@ __metadata:
   linkType: hard
 
 "terser@npm:^5.10.0, terser@npm:^5.31.1":
-  version: 5.46.2
-  resolution: "terser@npm:5.46.2"
+  version: 5.47.0
+  resolution: "terser@npm:5.47.0"
   dependencies:
     "@jridgewell/source-map": "npm:^0.3.3"
     acorn: "npm:^8.15.0"
@@ -8594,7 +8594,7 @@ __metadata:
     source-map-support: "npm:~0.5.20"
   bin:
     terser: bin/terser
-  checksum: 10c0/476f1820160c42e6b2f611410115b00321c4666d421f12db87f13810f8789de45cb254e3ad5178650696d0ba6b706f5a0a239272255d6d1be95816c660f8cbbb
+  checksum: 10c0/98983d0b175e5fab1652e9e9a4a5d09bf4e5a80180a571d7e66df4b8956b0fcffe384f5f687c39c1bff14c51fc63d64a80967250f71a2208652da1f613254c8c
   languageName: node
   linkType: hard
 
