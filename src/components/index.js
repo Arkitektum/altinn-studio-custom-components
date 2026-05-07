@@ -29,6 +29,7 @@ import customFieldUtfallSvarStatus from "./data-components/custom-field-utfall-s
 import customGroupAdkomst from "./data-components/custom-group-adkomst/index.js";
 import customGroupAnsvarsrettErklaeringer from "./data-components/custom-group-ansvarsrett-erklaeringer/index.js";
 import customGroupAvloep from "./data-components/custom-group-avloep/index.js";
+import customGroupDispensasjonOversikt from "./data-components/custom-group-dispensasjon-oversikt/index.js";
 import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.js";
 import customGroupKontrollAnsvarsomraade from "./data-components/custom-group-kontroll-ansvarsomraade/index.js";
 import customGroupKontrollErklaeringer from "./data-components/custom-group-kontroll-erklaeringer/index.js";
@@ -122,6 +123,7 @@ export {
     customGroupAdkomst,
     customGroupAnsvarsrettErklaeringer,
     customGroupAvloep,
+    customGroupDispensasjonOversikt,
     customGroupEttersending,
     customGroupLoefteinnretninger,
     customGroupKontrollAnsvarsomraade,

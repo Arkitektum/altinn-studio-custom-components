@@ -27,6 +27,7 @@ import CustomGjenpartNabovarsel from "../classes/system-classes/component-classe
 import CustomGroupAdkomst from "../classes/system-classes/component-classes/CustomGroupAdkomst.js";
 import CustomGroupAnsvarsrettErklaeringer from "../classes/system-classes/component-classes/CustomGroupAnsvarsrettErklaeringer.js";
 import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.js";
+import CustomGroupDispensasjonOversikt from "../classes/system-classes/component-classes/CustomGroupDispensasjonOversikt.js";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.js";
 import CustomGroupKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupKontrollAnsvarsomraade.js";
 import CustomGroupKontrollErklaeringer from "../classes/system-classes/component-classes/CustomGroupKontrollErklaeringer.js";
@@ -109,6 +110,7 @@ export function getComponentForTagName(tagName) {
         "custom-group-adkomst": CustomGroupAdkomst,
         "custom-group-ansvarsrett-erklaeringer": CustomGroupAnsvarsrettErklaeringer,
         "custom-group-avloep": CustomGroupAvloep,
+        "custom-group-dispensasjon-oversikt": CustomGroupDispensasjonOversikt,
         "custom-group-ettersending": CustomGroupEttersending,
         "custom-group-kontroll-ansvarsomraade": CustomGroupKontrollAnsvarsomraade,
         "custom-group-kontroll-erklaeringer": CustomGroupKontrollErklaeringer,
