@@ -122,11 +122,11 @@ export function validateFormData(data, dataKeys, componentName) {
  */
 export function getComponentContainerElement(component) {
     const isChildComponent = component.getAttribute("isChildComponent") === "true";
-    const grandParentElement = component?.parentElement?.parentElement;
+    const containerElement = component.closest(`[data-summary-target="${component.id}"]`);
     if (isChildComponent) {
         return component;
-    } else if (grandParentElement) {
-        return grandParentElement;
+    } else if (containerElement) {
+        return containerElement;
     } else {
         return null;
     }
