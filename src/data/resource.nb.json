@@ -14,10 +14,6 @@
             "value": "Ansvarlig foretak"
         },
         {
-            "id": "resource.ansvarligSoeker.title",
-            "value": "Søker"
-        },
-        {
             "id": "resource.ansvarsfordeling.title",
             "value": "Ansvarsfordeling"
         },
@@ -292,10 +288,6 @@
         {
             "id": "resource.foelgebrev.title",
             "value": "Følgebrev"
-        },
-        {
-            "id": "resource.foretak.title",
-            "value": "Ansvarlig foretak"
         },
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",

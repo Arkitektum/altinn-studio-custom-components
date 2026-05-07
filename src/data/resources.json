@@ -18,13 +18,6 @@
         }
     },
     {
-        "id": "resource.ansvarligSoeker.title",
-        "values": {
-            "nb": "Søker"
-        },
-        "replacedWithId": "resource.soeker.title"
-    },
-    {
         "id": "resource.ansvarsfordeling.title",
         "values": {
             "nb": "Ansvarsfordeling"
@@ -438,13 +431,6 @@
         "values": {
             "nb": "Følgebrev"
         }
-    },
-    {
-        "id": "resource.foretak.title",
-        "values": {
-            "nb": "Ansvarlig foretak"
-        },
-        "replacedWithId": "resource.ansvarligForetak.title"
     },
     {
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
