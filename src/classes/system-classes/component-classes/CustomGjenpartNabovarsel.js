@@ -307,13 +307,12 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
     getComponentUsage() {
         return [
             "custom-feedbacklist-validation-messages",
-            "custom-field-count-data",
             "custom-field-data",
+            "custom-group-dispensasjon-oversikt",
             "custom-grouplist-nabo-gjenboer-eiendom",
             "custom-header-text",
             "custom-list-data",
             "custom-paragraph-text",
-            "custom-table-data",
             "custom-table-eiendom",
             "custom-table-part"
         ];
