@@ -188,15 +188,17 @@ describe("getComponentContainerElement", () => {
         el.setAttribute("isChildComponent", "true");
         expect(getComponentContainerElement(el)).toBe(el);
     });
-    it("returns grandparent if not child", () => {
+    it("returns container element if not child and container exists", () => {
         const el = document.createElement("div");
-        const parent = document.createElement("div");
-        const grandparent = document.createElement("div");
-        parent.appendChild(el);
-        grandparent.appendChild(parent);
-        expect(getComponentContainerElement(el)).toBe(grandparent);
+        el.id = "my-comp";
+        const container = document.createElement("div");
+        container.setAttribute("data-summary-target", "my-comp");
+        container.appendChild(el);
+        document.body.appendChild(container);
+        expect(getComponentContainerElement(el)).toBe(container);
+        document.body.removeChild(container);
     });
-    it("returns null if no grandparent", () => {
+    it("returns null if no container element", () => {
         const el = document.createElement("div");
         expect(getComponentContainerElement(el)).toBeNull();
     });
