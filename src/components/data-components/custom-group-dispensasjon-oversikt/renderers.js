@@ -82,6 +82,7 @@ export function renderDispensasjonTable(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        showRowNumbers: true,
         resourceBindings: {
             rowNumberTitle: component?.resourceBindings?.dispensasjon?.rowNumberTitle,
             dispensasjonKategori: component?.resourceBindings?.dispensasjon?.dispensasjonKategori,
