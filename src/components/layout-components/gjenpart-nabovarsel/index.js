@@ -10,9 +10,7 @@ import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js
 // Local functions
 import {
     renderDetErVarsletOmHeader,
-    renderDispensasjonOversiktCounterElement,
     renderDispensasjonOversiktElement,
-    renderDispensasjonOversiktHeaderElement,
     renderEiendomByggestedElement,
     renderGjenpartNabovarselHeader,
     renderGjenpartNabovarselSubHeader,
@@ -62,8 +60,6 @@ export default customElements.define(
                 const planerGjeldendePlanNavnElement = renderPlanGjeldendePlanNavnElement(component);
                 const planerGjeldendePlanPlantypeElement = renderPlanerGjeldendePlanPlantypeElement(component);
 
-                const dispensajonOversiktHeaderElement = renderDispensasjonOversiktHeaderElement(component);
-                const dispensasjonOversiktCountElement = renderDispensasjonOversiktCounterElement(component);
                 const dispensasjonOversiktElement = renderDispensasjonOversiktElement(component);
 
                 const kontaktpersonForNabovarseletElement = renderKontaktpersonForNabovarseletElement(component);
@@ -97,11 +93,7 @@ export default customElements.define(
                 ]);
 
                 // Dispensasjonsoversikt
-                appendChildren(layoutContainerElement, [
-                    dispensajonOversiktHeaderElement,
-                    dispensasjonOversiktCountElement,
-                    dispensasjonOversiktElement
-                ]);
+                appendChildren(layoutContainerElement, [dispensasjonOversiktElement]);
 
                 // Kontaktperson for nabovarselet
                 appendChildren(layoutContainerElement, [kontaktpersonForNabovarseletElement]);
