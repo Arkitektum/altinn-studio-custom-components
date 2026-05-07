@@ -85,10 +85,6 @@ export function renderDispensasjonTable(component) {
         showRowNumbers: true,
         resourceBindings: {
             rowNumberTitle: component?.resourceBindings?.dispensasjon?.rowNumberTitle,
-            dispensasjonKategori: component?.resourceBindings?.dispensasjon?.dispensasjonKategori,
-            dispensasjonTittel: component?.resourceBindings?.dispensasjon?.dispensasjonTittel,
-            bestemmelserType: component?.resourceBindings?.dispensasjon?.bestemmelserType,
-            emptyFieldText: component?.resourceBindings?.dispensasjon?.emptyFieldText
         },
         resourceValues: { data: data?.dispensasjon },
         tableColumns
