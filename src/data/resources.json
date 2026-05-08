@@ -258,13 +258,6 @@
         }
     },
     {
-        "id": "resource.eiendom.adresse.title",
-        "values": {
-            "nb": "Adresse"
-        },
-        "replacedWithId": "resource.adresse.title"
-    },
-    {
         "id": "resource.eiendom.bolignummer.title",
         "values": {
             "nb": "Bruksenhets-nummer"
@@ -839,13 +832,6 @@
         "values": {
             "nb": "Overvann"
         }
-    },
-    {
-        "id": "resource.part.epost.title",
-        "values": {
-            "nb": "E-postadresse"
-        },
-        "replacedWithId": "resource.epostadresse.title"
     },
     {
         "id": "resource.planbestemmelse.title",

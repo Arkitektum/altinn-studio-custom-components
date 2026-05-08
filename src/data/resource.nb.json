@@ -174,10 +174,6 @@
             "value": "Varsel om dispensasjonssøknad"
         },
         {
-            "id": "resource.eiendom.adresse.title",
-            "value": "Adresse"
-        },
-        {
             "id": "resource.eiendom.bolignummer.title",
             "value": "Bruksenhets-nummer"
         },
@@ -560,10 +556,6 @@
         {
             "id": "resource.overvann.title",
             "value": "Overvann"
-        },
-        {
-            "id": "resource.part.epost.title",
-            "value": "E-postadresse"
         },
         {
             "id": "resource.planbestemmelse.title",
