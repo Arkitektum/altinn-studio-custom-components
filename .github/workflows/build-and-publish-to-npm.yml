@@ -49,6 +49,6 @@ jobs:
 
             - name: Publish to npm
               if: ${{ success() }}
-              run: npm publish --provenance
+              run: npm publish --provenance --tag
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
