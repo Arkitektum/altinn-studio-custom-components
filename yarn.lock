@@ -17,6 +17,7 @@ __metadata:
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
     "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.8"
+    "@arkitektum/client-logger": "npm:^1.0.5"
     "@babel/preset-env": "npm:^7.29.5"
     "@eslint/js": "npm:^10.0.1"
     copyfiles: "npm:^2.4.1"
@@ -40,6 +41,13 @@ __metadata:
     webpack-dev-server: "npm:^5.2.3"
   languageName: unknown
   linkType: soft
+
+"@arkitektum/client-logger@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "@arkitektum/client-logger@npm:1.0.5"
+  checksum: 10c0/b148e987bf7b1e02664f810508e39fe25dfd873ca3edd4ac994dd6f4b30cd14dc49917a03faf3cb00f9d3d572d3bbc94ffa023505a7e15b20e6e96ba36918d9e
+  languageName: node
+  linkType: hard
 
 "@asamuzakjp/css-color@npm:^3.2.0":
   version: 3.2.0
