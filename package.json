@@ -51,6 +51,6 @@
     "packageManager": "yarn@4.10.3",
     "dependencies": {
         "@arkitektum/altinn-studio-custom-components-utils": "^1.4.8",
-        "@arkitektum/client-logger": "^1.0.5"
+        "@arkitektum/client-logger": "^1.1.0"
     }
 }
