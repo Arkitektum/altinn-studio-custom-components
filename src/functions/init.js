@@ -1,5 +1,6 @@
 // Global functions
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.js";
+import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.js";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
 
 /**
@@ -41,13 +42,19 @@ function addDebugTextToBody() {
 export default async function initCustomComponents() {
     // Add debug text to the body to display the origin (for development purposes)
     addDebugTextToBody();
+
     const appId = globalThis.location.pathname.split("/");
+    const splittedHash = globalThis?.location?.hash?.split("/");
+    const instanceId = `${splittedHash?.[2]}/${splittedHash?.[3]}`;
     const origin = globalThis.location.origin;
     const org = appId?.[1];
     const app = appId?.[2];
     const altinnAppFrontendVersionFallback = "4.29.0";
     const altinnAppFrontendVersion =
         document.querySelector("meta[data-altinn-app-frontend-version]")?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
+
+    const clientLogger = getClientLoggerInstance(app, instanceId);
+
     if (!origin || !org || !app) {
         console.error("Could not determine the origin, organization, or application from the URL.");
         return;
@@ -55,8 +62,15 @@ export default async function initCustomComponents() {
     updateBodyClassNamesForApplication(org, app);
 
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
-    const userProfileResponse = await fetch(userProfileApiUrl);
+    const userProfileResponse = await fetchWithTimeoutAndClientLogger(userProfileApiUrl, {}, 5000, clientLogger);
+
     if (!userProfileResponse.ok) {
+        clientLogger?.postLogData([
+            {
+                level: "Error",
+                message: `Failed to fetch user profile data from ${userProfileApiUrl}. HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
+            }
+        ]);
         console.error(
             `Failed to fetch user profile data from ${userProfileApiUrl}. ` +
                 `HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
@@ -64,6 +78,12 @@ export default async function initCustomComponents() {
     }
     const userProfileData = await userProfileResponse.json();
     if (!userProfileData?.profileSettingPreference?.language) {
+        clientLogger?.postLogData([
+            {
+                level: "Error",
+                message: "Could not determine the user's language preference."
+            }
+        ]);
         console.error("Could not determine the user's language preference.");
     }
 
@@ -71,8 +91,8 @@ export default async function initCustomComponents() {
     const fallbackLanguage = "nb";
 
     const [textResources, defaultTextResources] = await Promise.all([
-        fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage),
-        fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage)
+        fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger),
+        fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger)
     ]);
 
     globalThis.selectedLanguage = selectedLanguage;
