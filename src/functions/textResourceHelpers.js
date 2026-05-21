@@ -12,9 +12,10 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
  * @param {string} language - The primary language code to fetch text resources for.
  * @param {string} fallbackLanguage - The fallback language code to use if resources for the primary language are unavailable.
  * @param {ClientLogger} clientLogger - The client logger instance.
+ * @param {Array<Object>} customFields - Custom fields to include in the client logger.
  * @returns {Promise<Object|null>} The text resources object if found, otherwise null.
  */
-export const fetchTextResources = async (origin, org, app, language, fallbackLanguage, clientLogger) => {
+export const fetchTextResources = async (origin, org, app, language, fallbackLanguage, clientLogger, customFields) => {
     // Basic validation of required parameters to avoid constructing invalid URLs
     const isNonEmptyString = (value) => hasValue(value) && typeof value === "string" && value.trim().length > 0;
 
@@ -38,7 +39,8 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
                 clientLogger?.postLogData([
                     {
                         level: "Error",
-                        message: `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
+                        message: `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`,
+                        custom_fields: customFields
                     }
                 ]);
                 console.error(
@@ -49,7 +51,8 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}': ${error.message}`
+                    message: `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}': ${error.message}`,
+                    custom_fields: customFields
                 }
             ]);
             console.error(
@@ -70,7 +73,8 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
                 clientLogger?.postLogData([
                     {
                         level: "Error",
-                        message: `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`
+                        message: `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`,
+                        custom_fields: customFields
                     }
                 ]);
                 console.error(
@@ -81,7 +85,8 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}': ${error.message}`
+                    message: `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}': ${error.message}`,
+                    custom_fields: customFields
                 }
             ]);
             console.error(
@@ -109,11 +114,11 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
  * @param {ClientLogger} clientLogger - The client logger instance.
  * @returns {Promise<Object|null>} The fetched text resources as a JSON object, or null if both fetches fail.
  */
-export const fetchDefaultTextResources = async (origin, org, app, language, fallbackLanguage, clientLogger) => {
+export const fetchDefaultTextResources = async (origin, org, app, language, fallbackLanguage, clientLogger, customFields) => {
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
 
     try {
-        const response = await fetchWithTimeoutAndClientLogger(defaultTextResourcesApiUrl, {}, 5000, clientLogger);
+        const response = await fetchWithTimeoutAndClientLogger(defaultTextResourcesApiUrl, {}, 5000, clientLogger, customFields);
         if (response.ok) {
             // Successful response: return parsed JSON for the requested language
             return await response.json();
@@ -123,17 +128,19 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. Response status: ${response.status}. Fetching fallback language: ${fallbackLanguage}`
+                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. Response status: ${response.status}. Fetching fallback language: ${fallbackLanguage}`,
+                    custom_fields: customFields
                 }
             ]);
-            return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null, clientLogger);
+            return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null, clientLogger, customFields);
         } else {
             // No valid fallback language available, give up
             console.error(`Could not retrieve default text resources for language: ${language}`);
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. Response status: ${response.status}.`
+                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. Response status: ${response.status}.`,
+                    custom_fields: customFields
                 }
             ]);
             return null;
@@ -147,10 +154,11 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}', fetching fallback language: ${fallbackLanguage}: ${error.message}`
+                    message: `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}', fetching fallback language: ${fallbackLanguage}: ${error.message}`,
+                    custom_fields: customFields
                 }
             ]);
-            return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null, clientLogger);
+            return await fetchDefaultTextResources(origin, org, app, fallbackLanguage, null, clientLogger, customFields);
         }
         console.error(
             `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'`,
@@ -159,7 +167,8 @@ export const fetchDefaultTextResources = async (origin, org, app, language, fall
         clientLogger?.postLogData([
             {
                 level: "Error",
-                message: `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}': ${error.message}`
+                message: `Network or parsing error while retrieving default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}': ${error.message}`,
+                custom_fields: customFields
             }
         ]);
         return null;

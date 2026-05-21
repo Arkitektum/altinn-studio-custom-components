@@ -53,7 +53,11 @@ export default async function initCustomComponents() {
     const altinnAppFrontendVersion =
         document.querySelector("meta[data-altinn-app-frontend-version]")?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
 
-    const clientLogger = getClientLoggerInstance(app, instanceId);
+    const clientLogger = getClientLoggerInstance();
+    const clientLoggerCustomFields = [
+        {key: "instanceId", value: instanceId},
+        {key: "app", value: app}
+    ];
 
     if (!origin || !org || !app) {
         console.error("Could not determine the origin, organization, or application from the URL.");
@@ -68,7 +72,8 @@ export default async function initCustomComponents() {
         clientLogger?.postLogData([
             {
                 level: "Error",
-                message: `Failed to fetch user profile data from ${userProfileApiUrl}. HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
+                message: `Failed to fetch user profile data from ${userProfileApiUrl}. HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`,
+                custom_fields: clientLoggerCustomFields
             }
         ]);
         console.error(
@@ -81,7 +86,8 @@ export default async function initCustomComponents() {
         clientLogger?.postLogData([
             {
                 level: "Error",
-                message: "Could not determine the user's language preference."
+                message: "Could not determine the user's language preference.",
+                custom_fields: clientLoggerCustomFields
             }
         ]);
         console.error("Could not determine the user's language preference.");
@@ -91,8 +97,8 @@ export default async function initCustomComponents() {
     const fallbackLanguage = "nb";
 
     const [textResources, defaultTextResources] = await Promise.all([
-        fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger),
-        fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger)
+        fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger, clientLoggerCustomFields),
+        fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger, clientLoggerCustomFields)
     ]);
 
     globalThis.selectedLanguage = selectedLanguage;
