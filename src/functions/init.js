@@ -21,6 +21,15 @@ function loadScriptAsync(src) {
     });
 }
 
+function addDebugTextToBody() {
+    const bodyElement = document.querySelector("body");
+    const originTextElement = document.createElement("p");
+    originTextElement.id = "origin-text";
+    originTextElement.textContent = `Origin: ${globalThis.location.origin}`;
+    originTextElement.style.color = "#FFFFFF";
+    bodyElement.appendChild(originTextElement);
+}
+
 /**
  * Initializes custom components by fetching user profile data, determining language preferences, loading text resources, and dispatching a DOMContentLoaded event.
  * This function is intended to be called once when the application starts to set up the necessary environment for custom components to function correctly.
@@ -30,6 +39,8 @@ function loadScriptAsync(src) {
  * @throws {Error} Throws an error if the origin, organization, or application cannot be determined from the URL, or if user profile data cannot be fetched.
  */
 export default async function initCustomComponents() {
+    // Add debug text to the body to display the origin (for development purposes)
+    addDebugTextToBody();
     const appId = globalThis.location.pathname.split("/");
     const origin = globalThis.location.origin;
     const org = appId?.[1];
