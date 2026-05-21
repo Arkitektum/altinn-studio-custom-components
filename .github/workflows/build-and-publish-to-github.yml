@@ -33,9 +33,19 @@ jobs:
             - run: yarn test
             - run: yarn build
 
-            # If your package is public on npmjs.com use npmjs; for GitHub Packages keep npm.pkg.github.com
+            - name: Determine dist-tag
+              id: dist_tag
+              run: |
+                  TAG_NAME="${{ github.event.release.tag_name }}"
+                  if [[ "$TAG_NAME" == *"-"* ]]; then
+                    DIST_TAG=$(echo "$TAG_NAME" | sed 's/.*-\([a-zA-Z]*\).*/\1/')
+                  else
+                    DIST_TAG="latest"
+                  fi
+                  echo "value=$DIST_TAG" >> $GITHUB_OUTPUT
+
             - name: Publish to GitHub Packages
               if: ${{ success() }}
-              run: npm publish --tag
+              run: npm publish --tag ${{ steps.dist_tag.outputs.value }}
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}

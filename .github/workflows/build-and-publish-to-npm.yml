@@ -40,6 +40,17 @@ jobs:
               if: ${{ success() }}
               run: yarn build
 
+            - name: Determine dist-tag
+              id: dist_tag
+              run: |
+                  TAG_NAME="${{ github.event.release.tag_name }}"
+                  if [[ "$TAG_NAME" == *"-"* ]]; then
+                    DIST_TAG=$(echo "$TAG_NAME" | sed 's/.*-\([a-zA-Z]*\).*/\1/')
+                  else
+                    DIST_TAG="latest"
+                  fi
+                  echo "value=$DIST_TAG" >> $GITHUB_OUTPUT
+
             - name: Configure npm auth
               run: |
                   echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
@@ -49,6 +60,6 @@ jobs:
 
             - name: Publish to npm
               if: ${{ success() }}
-              run: npm publish --provenance --tag
+              run: npm publish --provenance --tag ${{ steps.dist_tag.outputs.value }}
               env:
                   NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
