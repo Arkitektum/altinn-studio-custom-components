@@ -66,22 +66,22 @@ export default async function initCustomComponents() {
     updateBodyClassNamesForApplication(org, app);
 
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
-    const userProfileResponse = await fetchWithTimeoutAndClientLogger(userProfileApiUrl, {}, 5000, clientLogger);
+    const userProfileResponse = await fetchWithTimeoutAndClientLogger(userProfileApiUrl, {}, 5000, clientLogger, clientLoggerCustomFields);
 
-    if (!userProfileResponse.ok) {
+    if (!userProfileResponse?.ok) {
         clientLogger?.postLogData([
             {
                 level: "Error",
-                message: `Failed to fetch user profile data from ${userProfileApiUrl}. HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`,
+                message: `Failed to fetch user profile data from ${userProfileApiUrl}. HTTP status: ${userProfileResponse?.status} (${userProfileResponse?.statusText})`,
                 custom_fields: clientLoggerCustomFields
             }
         ]);
         console.error(
             `Failed to fetch user profile data from ${userProfileApiUrl}. ` +
-                `HTTP status: ${userProfileResponse.status} (${userProfileResponse.statusText})`
+                `HTTP status: ${userProfileResponse?.status} (${userProfileResponse?.statusText})`
         );
     }
-    const userProfileData = await userProfileResponse.json();
+    const userProfileData = await userProfileResponse?.json();
     if (!userProfileData?.profileSettingPreference?.language) {
         clientLogger?.postLogData([
             {
@@ -93,7 +93,7 @@ export default async function initCustomComponents() {
         console.error("Could not determine the user's language preference.");
     }
 
-    const selectedLanguage = userProfileData?.profileSettingPreference?.language;
+    const selectedLanguage = userProfileData?.profileSettingPreference?.language || "nb";
     const fallbackLanguage = "nb";
 
     const [textResources, defaultTextResources] = await Promise.all([
