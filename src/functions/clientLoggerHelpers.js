@@ -10,7 +10,7 @@ import { ClientLogger } from "@arkitektum/client-logger";
  * @param {ClientLogger} clientLogger - The client logger instance.
  * @returns {Promise<Response>} - The fetch response.
  */
-export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout = 5000, clientLogger = null, customFields = null) {
+export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout = 3000, clientLogger = null, customFields = []) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -26,7 +26,7 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
             {
                 level: "Information",
                 message: `Fetched URL: ${url} with status: ${response.status}`,
-                custom_fields: [...customFields, { key: "duration", value: duration }]
+                custom_fields: [...customFields, { key: "duration", value: duration.toString() }]
             }
         ]);
         clearTimeout(timeoutId);
@@ -41,7 +41,7 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
                     custom_fields: customFields
                 }
             ]);
-            throw new Error(`Request timed out after ${timeout}ms`, { cause: error });
+            console.error(`Request to ${url} timed out after ${timeout}ms`);
         } else {
             clientLogger?.postLogData([
                 {
@@ -50,8 +50,8 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
                     custom_fields: customFields
                 }
             ]);
+            console.error(`Request to ${url} failed with error: ${error.message}`);
         }
-        throw error;
     }
 }
 
