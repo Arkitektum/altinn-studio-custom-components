@@ -17,7 +17,7 @@ __metadata:
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
     "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.8"
-    "@arkitektum/client-logger": "npm:^1.1.0"
+    "@arkitektum/client-logger": "npm:^1.1.2"
     "@babel/preset-env": "npm:^7.29.5"
     "@eslint/js": "npm:^10.0.1"
     copyfiles: "npm:^2.4.1"
@@ -42,10 +42,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@arkitektum/client-logger@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "@arkitektum/client-logger@npm:1.1.0"
-  checksum: 10c0/01c00d22b241e3d4ad9ecc70b0081b2bcfff5bfdd0839c7aef8782dbab76438b25cbb6fff41b1945fd4901c4e0f455bc693f179e81c27abc00dddbf9e46c3ac0
+"@arkitektum/client-logger@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@arkitektum/client-logger@npm:1.1.2"
+  checksum: 10c0/cae81f9ade47ca827a270b744f901323d4d1232b4a05c7b88ee7872a42e7ec49c6b2bbbaeaacf47671c6372dcabc10a9574369230aaa21bccd7079814fe6e218
   languageName: node
   linkType: hard
 
