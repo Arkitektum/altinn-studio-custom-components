@@ -1,6 +1,9 @@
 // Dependencies
 import { ClientLogger } from "@arkitektum/client-logger";
 
+// Constants
+import { altinnAppOrigins, clientLoggerApiUrls } from "../constants/urls";
+
 /**
  * Fetch with timeout and client logger integration.
  *
@@ -56,6 +59,26 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
 }
 
 /**
+ * Get the client logger API URL based on the current origin.
+ *
+ * @returns {string} The client logger API URL.
+ */
+function getClientLoggerApiUrl() {
+    const origin = globalThis.location.origin;
+    switch (origin) {
+        case altinnAppOrigins.local:
+            return clientLoggerApiUrls.local;
+        case altinnAppOrigins.test:
+            return clientLoggerApiUrls.test;
+        case altinnAppOrigins.production:
+            return clientLoggerApiUrls.production;
+        default:
+            console.warn(`Unrecognized origin '${origin}', defaulting client logger API URL to '${clientLoggerApiUrls.default}'`);
+            return clientLoggerApiUrls.default;
+    }
+}
+
+/**
  * Get an instance of the ClientLogger.
  *
  * @param {*} app
@@ -63,7 +86,7 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
  * @returns {ClientLogger} An instance of the ClientLogger.
  */
 export function getClientLoggerInstance() {
-    const apiUrl = "https://frontendlogger.ft-dev.dibk.no/log";
+    const apiUrl = getClientLoggerApiUrl();
     const appName = "a3-pdf";
     const clientLogger = new ClientLogger(apiUrl, null, appName);
     return clientLogger;
