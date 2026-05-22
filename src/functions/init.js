@@ -34,6 +34,18 @@ function loadScriptAsync(src, clientLogger = null, clientLoggerCustomFields = []
 }
 
 /**
+ * Fetches the default text resources for a given language, with an optional fallback language if the primary fetch fails.
+ *
+ * @param {Location} location
+ * @returns {string} The instance ID extracted from the location hash.
+ */
+function getInstanceIdFromLocation(location) {
+    const splittedHash = location?.hash?.split("/");
+    const instanceIdWithQuery = `${splittedHash?.[2]}/${splittedHash?.[3]}`;
+    return instanceIdWithQuery.split("?")[0];
+}
+
+/**
  * Initializes custom components by fetching user profile data, determining language preferences, loading text resources, and dispatching a DOMContentLoaded event.
  * This function is intended to be called once when the application starts to set up the necessary environment for custom components to function correctly.
  *
@@ -43,8 +55,7 @@ function loadScriptAsync(src, clientLogger = null, clientLoggerCustomFields = []
  */
 export default async function initCustomComponents() {
     const appId = globalThis.location.pathname.split("/");
-    const splittedHash = globalThis?.location?.hash?.split("/");
-    const instanceId = `${splittedHash?.[2]}/${splittedHash?.[3]}`;
+    const instanceId = getInstanceIdFromLocation(globalThis.location);
     const origin = globalThis.location.origin;
     const org = appId?.[1];
     const app = appId?.[2];
