@@ -29,7 +29,7 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
     if (isNonEmptyString(language)) {
         const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
         try {
-            const primaryResponse = await fetchWithTimeoutAndClientLogger(textResourcesApiUrl, {}, 5000, clientLogger);
+            const primaryResponse = await fetchWithTimeoutAndClientLogger(textResourcesApiUrl, {}, 5000, clientLogger, customFields);
             if (primaryResponse.ok) {
                 const textResourcesData = await primaryResponse.json();
                 if (hasValue(textResourcesData)) {
@@ -63,7 +63,7 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
     } else if (isNonEmptyString(fallbackLanguage)) {
         const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
         try {
-            const fallbackResponse = await fetchWithTimeoutAndClientLogger(fallbackTextResourcesApiUrl, {}, 5000, clientLogger);
+            const fallbackResponse = await fetchWithTimeoutAndClientLogger(fallbackTextResourcesApiUrl, {}, 5000, clientLogger, customFields);
             if (fallbackResponse.ok) {
                 const fallbackTextResourcesData = await fallbackResponse.json();
                 if (hasValue(fallbackTextResourcesData)) {
