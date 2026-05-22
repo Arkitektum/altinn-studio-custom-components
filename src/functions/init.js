@@ -7,9 +7,11 @@ import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
  * Loads a script asynchronously by creating a script element and appending it to the document body.
  *
  * @param {string} src - The source URL of the script to load.
+ * @param {object} [clientLogger=null] - Optional client logger instance for logging errors.
+ * @param {Array} [clientLoggerCustomFields=[]] - Optional custom fields for the client logger.
  * @returns {Promise<HTMLScriptElement>} A promise that resolves with the script element when the script is loaded, or rejects with an error if the script fails to load.
  */
-function loadScriptAsync(src) {
+function loadScriptAsync(src, clientLogger = null, clientLoggerCustomFields = []) {
     return new Promise((resolve, reject) => {
         const script = document.createElement("script");
         script.src = src;
@@ -17,7 +19,16 @@ function loadScriptAsync(src) {
             console.log(`${src} loaded`);
             resolve(script);
         };
-        script.onerror = () => reject(new Error(`Script load error for ${src}`));
+        script.onerror = () => {
+            clientLogger?.postLogData([
+                {
+                    level: "Error",
+                    message: `Script load error for ${src}`,
+                    custom_fields: clientLoggerCustomFields
+                }
+            ]);
+            reject(new Error(`Script load error for ${src}`));
+        };
         document.body.appendChild(script);
     });
 }
@@ -93,7 +104,11 @@ export default async function initCustomComponents() {
     globalThis.textResources = textResources;
     globalThis.defaultTextResources = defaultTextResources;
 
-    await loadScriptAsync(`https://altinncdn.no/toolkits/altinn-app-frontend/${altinnAppFrontendVersion}/altinn-app-frontend.js`);
+    await loadScriptAsync(
+        `https://altinncdn.no/toolkits/altinn-app-frontend/${altinnAppFrontendVersion}/altinn-app-frontend.js`,
+        clientLogger,
+        clientLoggerCustomFields
+    );
 
     const domContentLoadedEvent = new Event("DOMContentLoaded", {
         bubbles: true, // Event bubbles up through the DOM
