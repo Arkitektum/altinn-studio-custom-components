@@ -22,15 +22,6 @@ function loadScriptAsync(src) {
     });
 }
 
-function addDebugTextToBody() {
-    const bodyElement = document.querySelector("body");
-    const originTextElement = document.createElement("p");
-    originTextElement.id = "origin-text";
-    originTextElement.textContent = `Origin: ${globalThis.location.origin}`;
-    originTextElement.style.color = "#FFFFFF";
-    bodyElement.appendChild(originTextElement);
-}
-
 /**
  * Initializes custom components by fetching user profile data, determining language preferences, loading text resources, and dispatching a DOMContentLoaded event.
  * This function is intended to be called once when the application starts to set up the necessary environment for custom components to function correctly.
@@ -40,9 +31,6 @@ function addDebugTextToBody() {
  * @throws {Error} Throws an error if the origin, organization, or application cannot be determined from the URL, or if user profile data cannot be fetched.
  */
 export default async function initCustomComponents() {
-    // Add debug text to the body to display the origin (for development purposes)
-    addDebugTextToBody();
-
     const appId = globalThis.location.pathname.split("/");
     const splittedHash = globalThis?.location?.hash?.split("/");
     const instanceId = `${splittedHash?.[2]}/${splittedHash?.[3]}`;
@@ -55,8 +43,8 @@ export default async function initCustomComponents() {
 
     const clientLogger = getClientLoggerInstance();
     const clientLoggerCustomFields = [
-        {key: "instanceId", value: instanceId},
-        {key: "app", value: app}
+        { key: "instanceId", value: instanceId },
+        { key: "app", value: app }
     ];
 
     if (!origin || !org || !app) {
