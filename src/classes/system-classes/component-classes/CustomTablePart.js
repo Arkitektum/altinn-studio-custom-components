@@ -94,10 +94,11 @@ export default class CustomTablePart extends CustomComponent {
      * @param {Object} part - The object to check for phone number properties.
      * @param {string} [part.telefonnummer] - The landline phone number property.
      * @param {string} [part.mobilnummer] - The mobile phone number property.
+     * @param {string} [part.telefon] - An additional phone number property.
      * @returns {boolean} Returns true if either 'telefonnummer' or 'mobilnummer' has a value; otherwise, false.
      */
     hasTelefonnummer(part) {
-        return hasValue(part?.telefonnummer) || hasValue(part?.mobilnummer);
+        return hasValue(part?.telefonnummer) || hasValue(part?.mobilnummer) || hasValue(part?.telefon);
     }
 
     /**
