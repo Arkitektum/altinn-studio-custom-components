@@ -47,10 +47,11 @@ export default class CustomFieldTelefonnummer extends CustomComponent {
      * @param {Object} telefonnumre - An object containing phone numbers.
      * @param {string} telefonnumre.telefonnummer - The phone number.
      * @param {string} telefonnumre.mobilnummer - The mobile number.
+     * @param {string} telefonnumre.telefon - An additional phone number.
      * @returns {string} A formatted string with each phone number on a new line.
      */
     formatPhoneNumbers(telefonnumre) {
-        const phoneNumbers = [telefonnumre?.telefonnummer?.toString(), telefonnumre?.mobilnummer?.toString()];
+        const phoneNumbers = [telefonnumre?.telefonnummer?.toString(), telefonnumre?.mobilnummer?.toString(), telefonnumre?.telefon?.toString()];
         return phoneNumbers.filter((nummerLinje) => nummerLinje?.length).join("\n");
     }
 
