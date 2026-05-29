@@ -50,7 +50,7 @@ export default class CustomFieldTelefonnummer extends CustomComponent {
      * @returns {string} A formatted string with each phone number on a new line.
      */
     formatPhoneNumbers(telefonnumre) {
-        const phoneNumbers = [telefonnumre.telefonnummer, telefonnumre.mobilnummer];
+        const phoneNumbers = [telefonnumre?.telefonnummer?.toString(), telefonnumre?.mobilnummer?.toString()];
         return phoneNumbers.filter((nummerLinje) => nummerLinje?.length).join("\n");
     }
 
