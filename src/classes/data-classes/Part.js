@@ -19,6 +19,7 @@ export default class Part {
      * @param {Object} [props.adresse] - The address object.
      * @param {string} [props.telefonnummer] - The landline phone number.
      * @param {string} [props.mobilnummer] - The mobile phone number.
+     * @param {string} [props.telefon] - An additional phone number.
      * @param {Object} [props.kontaktperson] - The contact person object.
      */
 
@@ -31,6 +32,7 @@ export default class Part {
         this.epost = props?.epost;
         this.telefonnummer = props?.telefonnummer;
         this.mobilnummer = props?.mobilnummer;
+        this.telefon = props?.telefon;
 
         if (adresse) {
             this.adresse = adresse;

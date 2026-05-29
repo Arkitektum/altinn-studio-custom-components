@@ -8,9 +8,11 @@ export default class Telefonnumre {
      * @param {Object} props - The properties object.
      * @param {string} props.telefonnummer - The landline phone number.
      * @param {string} props.mobilnummer - The mobile phone number.
+     * @param {string} props.telefon - An additional phone number.
      */
     constructor(props) {
         this.telefonnummer = props?.telefonnummer;
         this.mobilnummer = props?.mobilnummer;
+        this.telefon = props?.telefon;
     }
 }
