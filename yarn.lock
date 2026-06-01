@@ -5,10 +5,10 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^1.4.8":
-  version: 1.4.8
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.4.8"
-  checksum: 10c0/912f1128de22a8b1aeb3b936128d9d6117eeaa1dfb3d60ee1503688ecdf939e193b1ed5053178d81e99809d033502d8cefe201e9d8784504aa7f8b777d02793c
+"@arkitektum/altinn-studio-custom-components-utils@npm:^1.4.10":
+  version: 1.4.10
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.4.10"
+  checksum: 10c0/aee59836b0f0aad2e346656dce7170754b32fb20fa7779d0915f88fa184349bda02ccb60aaf9fa2c54f12c0bdd67d5906e9a6899df44cec333426ea9056a31ac
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.8"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.4.10"
     "@arkitektum/client-logger": "npm:^1.2.1"
     "@babel/preset-env": "npm:^7.29.7"
     "@eslint/js": "npm:^10.0.1"
@@ -6491,12 +6491,12 @@ __metadata:
   linkType: hard
 
 "launch-editor@npm:^2.6.1":
-  version: 2.14.0
-  resolution: "launch-editor@npm:2.14.0"
+  version: 2.14.1
+  resolution: "launch-editor@npm:2.14.1"
   dependencies:
     picocolors: "npm:^1.1.1"
     shell-quote: "npm:^1.8.4"
-  checksum: 10c0/a5736a2aca9bd9d08850ade3e5f9f5d98ebd5e645fda5f09e2a808ce3b6ecb4ab3af9138b1cc290c26de7db33780fd3d6c2cb6d34b8877f6289fe9b62520ba1c
+  checksum: 10c0/bb0ab182086afaf1c391abd38d6fc9d5391cb43d0c2da1d96176f79e9995635cdf34dcfd8df3f756bb82d7bbbb7d37014d5eb312f337350889c0cff92db53dab
   languageName: node
   linkType: hard
 
@@ -8844,9 +8844,9 @@ __metadata:
   linkType: hard
 
 "undici@npm:^7.25.0":
-  version: 7.26.0
-  resolution: "undici@npm:7.26.0"
-  checksum: 10c0/1e058166528463c65eef5bdcf4c6a671cf0974ff5377a1272883308a2904732b719d88fe2a38dcfcb379ab56b8ff043b71013313a90c6a04f038fd06e4f302f6
+  version: 7.27.0
+  resolution: "undici@npm:7.27.0"
+  checksum: 10c0/6fd15a81b0ca177b2667738b830ed175363e5e2164e992251d03aaee6c6517098b930085bd68b8fe5911920371076526657de035e07dc72377b9c5c731b90f0b
   languageName: node
   linkType: hard
 
