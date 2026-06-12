@@ -1,6 +1,30 @@
+/*
+ * Static instances of Roboto Flex (a variable font). Chromium/Skia print-to-PDF
+ * cannot embed a variable font and falls back to non-searchable Type3 path glyphs,
+ * so the rendered PDF text is neither searchable nor copyable. Pinning each used
+ * weight (opsz=14) to a static instance lets Skia embed a normal CID TrueType font,
+ * keeping the PDF text searchable. Keep these in sync with the --font-weight-* tokens.
+ * Relative URLs so webpack bundles them as assets next to main.css.
+ */
 @font-face {
     font-family: "Roboto Flex";
-    src: url(/src/fonts/RobotoFlex.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    src: url(../fonts/RobotoFlex-Regular.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Flex";
+    font-weight: 500;
+    font-style: normal;
+    src: url(../fonts/RobotoFlex-Medium.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Flex";
+    font-weight: 600;
+    font-style: normal;
+    src: url(../fonts/RobotoFlex-SemiBold.woff2) format("woff2");
 }
 
 :root {
