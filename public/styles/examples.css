@@ -1,6 +1,22 @@
 @font-face {
     font-family: "Roboto Flex";
-    src: url(/fonts/RobotoFlex.woff2) format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    src: url(/fonts/RobotoFlex-Regular.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Flex";
+    font-weight: 500;
+    font-style: normal;
+    src: url(/fonts/RobotoFlex-Medium.woff2) format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Flex";
+    font-weight: 600;
+    font-style: normal;
+    src: url(/fonts/RobotoFlex-SemiBold.woff2) format("woff2");
 }
 
 :root {
