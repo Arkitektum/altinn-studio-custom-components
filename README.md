@@ -90,6 +90,17 @@ For a full list of available components and examples, see the documentation site
 
 ## 🧪 Development & Testing
 
+### Prerequisites
+
+- **Node.js 24**
+- **Yarn 4** (managed via [Corepack](https://nodejs.org/api/corepack.html)). Enable it once with:
+
+    ```bash
+    corepack enable
+    ```
+
+    The correct Yarn version is then activated automatically from the `packageManager` field in `package.json`.
+
 ### Development
 
 1. Clone the repository:
@@ -110,11 +121,29 @@ For a full list of available components and examples, see the documentation site
     yarn install
     ```
 
-4. Start the development server:
+4. Create a local environment file from the sample:
+
+    ```bash
+    cp .env.sample .env
+    ```
+
+    The dev server reads this file via `dotenv-webpack`. `PORT` sets the dev server port (default `9000`), while `API_PORT` and `GITEA_TOKEN` are only needed for the Statistics dashboard (see below).
+
+5. Start the development server:
 
     ```bash
     yarn start
     ```
+
+    Then open [http://localhost:9000](http://localhost:9000). The local playground links to a component tester, the [Developer tools](#️-devtools-mode) page, and a Statistics page.
+
+### Building
+
+Produce a production build in `dist/`:
+
+```bash
+yarn build
+```
 
 ### Testing
 
@@ -122,6 +151,14 @@ Run unit tests:
 
 ```bash
 yarn test
+```
+
+### Linting
+
+Check code style and lint rules:
+
+```bash
+yarn lint
 ```
 
 ---
@@ -160,7 +197,7 @@ Clicking anywhere outside a panel closes it.
 
 - [Altinn Studio Documentation](https://docs.altinn.studio/)
 - [Altinn Studio GitHub Repository](https://github.com/Altinn/altinn-studio)
-- [Altinn Studio Customm Component Documentation](https://docs.altinn.studio/altinn-studio/reference/ux/components/custom/)
+- [Altinn Studio Custom Component Documentation](https://docs.altinn.studio/altinn-studio/reference/ux/components/custom/)
 - [POC: Use of third party components in apps](https://github.com/Altinn/altinn-studio/issues/8681)
 
 ---
