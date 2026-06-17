@@ -62,6 +62,8 @@ export default class CustomFieldGrid extends CustomComponent {
                 hideTitle: true,
                 format: column?.format,
                 enableLinks: column?.enableLinks,
+                inline: column?.inline,
+                resourceBindings: column?.resourceBindings,
                 resourceValues: { data: cellData },
                 styleOverride: column?.styleOverride
             };

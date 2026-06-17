@@ -19,12 +19,15 @@ export function renderImageElement(component) {
         containerElement.appendChild(titleElement);
     }
 
-    const imageElement = document.createElement("img");
-    imageElement.classList.add("custom-field-image-img");
-    imageElement.src = component?.resourceValues?.data;
-    imageElement.alt = hasValue(component?.alt) ? component.alt : hasValue(title) ? title : "";
-    addStyle(imageElement, component?.styleOverride);
-    containerElement.appendChild(imageElement);
+    const src = component?.resourceValues?.data;
+    if (hasValue(src)) {
+        const imageElement = document.createElement("img");
+        imageElement.classList.add("custom-field-image-img");
+        imageElement.src = src;
+        imageElement.alt = hasValue(component?.alt) ? component.alt : hasValue(title) ? title : "";
+        addStyle(imageElement, component?.styleOverride);
+        containerElement.appendChild(imageElement);
+    }
 
     return containerElement;
 }

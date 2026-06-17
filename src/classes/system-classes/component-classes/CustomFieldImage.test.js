@@ -38,7 +38,6 @@ describe("CustomFieldImage", () => {
 
     it("is empty when neither a data value nor a src resource is available", () => {
         getComponentDataValue.mockReturnValue(undefined);
-        const instance = new CustomFieldImage({ resourceBindings: {} });
         getTextResourceFromResourceBinding.mockReturnValueOnce(undefined);
         const empty = new CustomFieldImage({ resourceBindings: { src: "" } });
         expect(empty.isEmpty).toBe(true);

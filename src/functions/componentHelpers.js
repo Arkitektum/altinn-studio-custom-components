@@ -15,12 +15,12 @@ import CustomFieldBooleanData from "../classes/system-classes/component-classes/
 import CustomFieldBooleanText from "../classes/system-classes/component-classes/CustomFieldBooleanText.js";
 import CustomFieldCountData from "../classes/system-classes/component-classes/CustomFieldCountData.js";
 import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.js";
+import CustomFieldGrid from "../classes/system-classes/component-classes/CustomFieldGrid.js";
+import CustomFieldImage from "../classes/system-classes/component-classes/CustomFieldImage.js";
 import CustomFieldKode from "../classes/system-classes/component-classes/CustomFieldKode.js";
 import CustomFieldKommunensSaksnummer from "../classes/system-classes/component-classes/CustomFieldKommunensSaksnummer.js";
 import CustomFieldListData from "../classes/system-classes/component-classes/CustomFieldListData.js";
 import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.js";
-import CustomFieldGrid from "../classes/system-classes/component-classes/CustomFieldGrid.js";
-import CustomFieldImage from "../classes/system-classes/component-classes/CustomFieldImage.js";
 import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.js";
 import CustomFieldRow from "../classes/system-classes/component-classes/CustomFieldRow.js";
 import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.js";

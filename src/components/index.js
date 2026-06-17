@@ -19,12 +19,12 @@ import customFieldBooleanData from "./data-components/custom-field-boolean-data/
 import customFieldBooleanText from "./data-components/custom-field-boolean-text/index.js";
 import customFieldCountData from "./data-components/custom-field-count-data/index.js";
 import customFieldData from "./data-components/custom-field-data/index.js";
+import customFieldGrid from "./data-components/custom-field-grid/index.js";
+import customFieldImage from "./data-components/custom-field-image/index.js";
 import customFieldKode from "./data-components/custom-field-kode/index.js";
 import customFieldKommunensSaksnummer from "./data-components/custom-field-kommunens-saksnummer/index.js";
 import customFieldListData from "./data-components/custom-field-list-data/index.js";
 import customFieldPartNavn from "./data-components/custom-field-part-navn/index.js";
-import customFieldGrid from "./data-components/custom-field-grid/index.js";
-import customFieldImage from "./data-components/custom-field-image/index.js";
 import customFieldProsjekt from "./data-components/custom-field-prosjekt/index.js";
 import customFieldRow from "./data-components/custom-field-row/index.js";
 import customFieldTelefonnummer from "./data-components/custom-field-telefonnummer/index.js";
