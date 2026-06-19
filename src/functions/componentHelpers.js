@@ -77,6 +77,7 @@ import CustomTableEiendom from "../classes/system-classes/component-classes/Cust
 import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomTableNaboGjenboerEiendom.js";
 import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.js";
 import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.js";
+import CustomTablePartGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomTablePartGjennomfoeringsplan.js";
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
 
 // Global functions
@@ -163,6 +164,7 @@ export function getComponentForTagName(tagName) {
         "custom-table-nabo-gjenboer-eiendom": CustomTableNaboGjenboerEiendom,
         "custom-table-omraaderisiko": CustomTableOmraaderisiko,
         "custom-table-part": CustomTablePart,
+        "custom-table-part-gjennomfoeringsplan": CustomTablePartGjennomfoeringsplan,
         "custom-table-plan": CustomTablePlan
     };
     return componentMap[tagNameLower] || null;

@@ -1,5 +1,6 @@
 // Classes
 import EiendomByggested from "../data-classes/EiendomByggested.js";
+import Kode from "../data-classes/Kode.js";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
 import Metadata from "../data-classes/Metadata.js";
 import Part from "../data-classes/Part.js";
@@ -14,6 +15,7 @@ export default class Gjennomfoeringsplan {
      *
      * @param {Object} props - The properties to initialize the Gjennomfoeringsplan.
      * @param {Object} [props.ansvarligSoeker] - Data for the ansvarligSoeker property, used to instantiate a Part.
+     * @param {Object} [props.ansvarligSoekerTiltaksklasse] - The responsibility class (tiltaksklasse) for the ansvarligSoeker, used to instantiate a Kode.
      * @param {Object} [props.eiendomByggested] - Data for the eiendomByggested property, used to instantiate an EiendomByggested.
      * @param {*} [props.gjennomfoeringsplan] - The gjennomfoeringsplan data.
      * @param {Object} [props.kommunensSaksnummer] - Data for the kommunensSaksnummer property, used to instantiate a KommunensSaksnummer.
@@ -22,6 +24,7 @@ export default class Gjennomfoeringsplan {
      */
     constructor(props) {
         this.ansvarligSoeker = props?.ansvarligSoeker && new Part(props.ansvarligSoeker);
+        this.ansvarligSoekerTiltaksklasse = props?.ansvarligSoekerTiltaksklasse && new Kode(props.ansvarligSoekerTiltaksklasse);
         this.eiendomByggested = props?.eiendomByggested && new EiendomByggested(props.eiendomByggested);
         this.gjennomfoeringsplan = props?.gjennomfoeringsplan;
         this.kommunensSaksnummer = props?.kommunensSaksnummer && new KommunensSaksnummer(props.kommunensSaksnummer);

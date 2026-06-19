@@ -74,6 +74,7 @@ import customTableEiendom from "./data-components/custom-table-eiendom/index.js"
 import customTableNaboGjenboerEiendom from "./data-components/custom-table-nabo-gjenboer-eiendom/index.js";
 import customTableOmraaderisiko from "./data-components/custom-table-omraaderisiko/index.js";
 import customTablePart from "./data-components/custom-table-part/index.js";
+import customTablePartGjennomfoeringsplan from "./data-components/custom-table-part-gjennomfoeringsplan/index.js";
 import customTablePlan from "./data-components/custom-table-plan/index.js";
 
 // Layout components
@@ -164,6 +165,7 @@ export {
     customTableNaboGjenboerEiendom,
     customTableOmraaderisiko,
     customTablePart,
+    customTablePartGjennomfoeringsplan,
     customTablePlan,
     dispensasjon,
     dispensasjonsvarsel,
