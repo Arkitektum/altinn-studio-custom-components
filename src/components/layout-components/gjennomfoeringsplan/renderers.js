@@ -220,7 +220,6 @@ export function renderEiendomByggested(component) {
  */
 export function renderAnsvarligSoeker(component) {
     const data = component?.resourceValues?.data;
-    console.log("😎😎😎", data);
     const ansvarligSoeker = data?.ansvarligSoeker;
     const tableData = {
         navn: ansvarligSoeker?.navn,
