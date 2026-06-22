@@ -59,5 +59,5 @@ A few properties of the design are relevant when assessing security:
 ## Dependencies
 
 Runtime dependencies are limited to other Arkitektum packages (`@arkitektum/altinn-studio-custom-components-utils`, `@arkitektum/client-logger`).
-Dependency lint and code scanning run in CI (see `.github/workflows/eslint.yml`, which uploads results to the GitHub Security tab).
+Static analysis of the source runs in CI via ESLint (`.github/workflows/eslint.yml`), which uploads results to the GitHub Security tab.
 If you find a vulnerability in a dependency, please report it to that project as well.
