@@ -38,10 +38,14 @@ For a high-level picture of how the package and its sibling repositories fit tog
    ```
 
    - `PORT` — dev server port (default `9000`).
-   - `API_PORT` and `GITEA_TOKEN` — **only** needed for the local **Statistics** dashboard, which talks to the `altinn-studio-custom-components-api`.
+   - `API_PORT` and `GITEA_TOKEN` — **only** needed for the local **Statistics** dashboard.
      You can skip these for ordinary component work.
 
-   To use the Statistics dashboard, generate a Gitea token:
+   The Statistics dashboard calls a separate backend, the [`altinn-studio-custom-components-api`](https://github.com/Arkitektum/altinn-studio-custom-components-api) repository, on `http://localhost:<API_PORT>` (default `9001`).
+   To use the dashboard you must also clone that repo and run it (`yarn start`) with a matching `API_PORT`.
+   Both this app and the API read `GITEA_TOKEN` from their own `.env`.
+
+   To generate a Gitea token:
    - Go to <https://altinn.studio/repos/user/settings/applications>
    - Create a token with the **`read:repository`** scope
    - Put it in `.env` as `GITEA_TOKEN` (replacing `your_token_here`)
