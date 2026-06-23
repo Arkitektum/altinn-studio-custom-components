@@ -594,6 +594,12 @@
         }
     },
     {
+        "id": "resource.kommune.title",
+        "values": {
+            "nb": "Kommune"
+        }
+    },
+    {
         "id": "resource.kommunensSaksnummer.title",
         "values": {
             "nb": "Kommunens saksnummer"

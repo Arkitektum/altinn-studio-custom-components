@@ -1,0 +1,21 @@
+custom-field-row {
+    display: block;
+    width: 100%;
+}
+
+custom-field-row .custom-field-row-title {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+custom-field-row .custom-field-row-cells {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+custom-field-row .custom-field-row-cell {
+    flex: 1 1 0;
+    min-width: 100px;
+}

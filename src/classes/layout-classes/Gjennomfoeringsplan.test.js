@@ -1,11 +1,13 @@
 import EiendomByggested from "../data-classes/EiendomByggested";
 import Gjennomfoeringsplan from "./Gjennomfoeringsplan";
+import Kode from "../data-classes/Kode";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer";
 import Metadata from "../data-classes/Metadata";
 import Part from "../data-classes/Part";
 
 jest.mock("../data-classes/Part");
 jest.mock("../data-classes/EiendomByggested");
+jest.mock("../data-classes/Kode");
 jest.mock("../data-classes/KommunensSaksnummer");
 jest.mock("../data-classes/Metadata");
 
@@ -13,6 +15,7 @@ describe("Gjennomfoeringsplan", () => {
     beforeEach(() => {
         Part.mockClear();
         EiendomByggested.mockClear();
+        Kode.mockClear();
         KommunensSaksnummer.mockClear();
         Metadata.mockClear();
     });
@@ -20,6 +23,7 @@ describe("Gjennomfoeringsplan", () => {
     it("should construct all properties when all props are provided", () => {
         const props = {
             ansvarligSoeker: { name: "Test Soeker" },
+            ansvarligSoekerTiltaksklasse: { kodeverdi: "1", kodebeskrivelse: "Tiltaksklasse 1" },
             eiendomByggested: { address: "Test Address" },
             gjennomfoeringsplan: "Plan details",
             kommunensSaksnummer: { number: "123" },
@@ -30,11 +34,13 @@ describe("Gjennomfoeringsplan", () => {
         const instance = new Gjennomfoeringsplan(props);
 
         expect(Part).toHaveBeenCalledWith(props.ansvarligSoeker);
+        expect(Kode).toHaveBeenCalledWith(props.ansvarligSoekerTiltaksklasse);
         expect(EiendomByggested).toHaveBeenCalledWith(props.eiendomByggested);
         expect(KommunensSaksnummer).toHaveBeenCalledWith(props.kommunensSaksnummer);
         expect(Metadata).toHaveBeenCalledWith(props.metadata);
 
         expect(instance.ansvarligSoeker).toBeInstanceOf(Part);
+        expect(instance.ansvarligSoekerTiltaksklasse).toBeInstanceOf(Kode);
         expect(instance.eiendomByggested).toBeInstanceOf(EiendomByggested);
         expect(instance.gjennomfoeringsplan).toBe(props.gjennomfoeringsplan);
         expect(instance.kommunensSaksnummer).toBeInstanceOf(KommunensSaksnummer);
@@ -46,6 +52,7 @@ describe("Gjennomfoeringsplan", () => {
         const instance = new Gjennomfoeringsplan({});
 
         expect(instance.ansvarligSoeker).toBeUndefined();
+        expect(instance.ansvarligSoekerTiltaksklasse).toBeUndefined();
         expect(instance.eiendomByggested).toBeUndefined();
         expect(instance.gjennomfoeringsplan).toBeUndefined();
         expect(instance.kommunensSaksnummer).toBeUndefined();
@@ -57,6 +64,7 @@ describe("Gjennomfoeringsplan", () => {
         const instance = new Gjennomfoeringsplan();
 
         expect(instance.ansvarligSoeker).toBeUndefined();
+        expect(instance.ansvarligSoekerTiltaksklasse).toBeUndefined();
         expect(instance.eiendomByggested).toBeUndefined();
         expect(instance.gjennomfoeringsplan).toBeUndefined();
         expect(instance.kommunensSaksnummer).toBeUndefined();
@@ -73,11 +81,13 @@ describe("Gjennomfoeringsplan", () => {
         const instance = new Gjennomfoeringsplan(props);
 
         expect(Part).toHaveBeenCalledWith(props.ansvarligSoeker);
+        expect(Kode).not.toHaveBeenCalled();
         expect(EiendomByggested).not.toHaveBeenCalled();
         expect(KommunensSaksnummer).not.toHaveBeenCalled();
         expect(Metadata).not.toHaveBeenCalled();
 
         expect(instance.ansvarligSoeker).toBeInstanceOf(Part);
+        expect(instance.ansvarligSoekerTiltaksklasse).toBeUndefined();
         expect(instance.eiendomByggested).toBeUndefined();
         expect(instance.gjennomfoeringsplan).toBeUndefined();
         expect(instance.kommunensSaksnummer).toBeUndefined();

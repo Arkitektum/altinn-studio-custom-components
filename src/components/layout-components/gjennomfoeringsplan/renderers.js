@@ -204,19 +204,28 @@ export function renderEiendomByggested(component) {
 /**
  * Renders a custom element for displaying the "Ansvarlig Søker" (responsible applicant) part.
  *
+ * Shows the applicant's name and organization number (from "ansvarligSoeker") together with the
+ * responsibility class (from "ansvarligSoekerTiltaksklasse.kodeverdi").
+ *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "ansvarligSoeker".
+ * @param {Object} [component.resourceValues.data] - The data object containing "ansvarligSoeker" and "ansvarligSoekerTiltaksklasse".
  * @param {Object} [component.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for "ansvarligSoeker".
  * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" part.
  * @param {Object} [component.resourceBindings.ansvarligSoekerNavn] - The resource binding for "ansvarligSoekerNavn".
- * @param {Object} [component.resourceBindings.ansvarligSoekerTelefonnummer] - The resource binding for "ansvarligSoekerTelefonnummer".
- * @param {Object} [component.resourceBindings.ansvarligSoekerEpost] - The resource binding for "ansvarligSoekerEpost".
+ * @param {Object} [component.resourceBindings.ansvarligSoekerOrganisasjonsnummer] - The resource binding for "ansvarligSoekerOrganisasjonsnummer".
+ * @param {Object} [component.resourceBindings.tiltaksklasse] - The resource binding for "tiltaksklasse".
  * @returns {HTMLElement} The custom element representing the "Ansvarlig Søker" part.
  */
 export function renderAnsvarligSoeker(component) {
     const data = component?.resourceValues?.data;
+    const ansvarligSoeker = data?.ansvarligSoeker;
+    const tableData = {
+        navn: ansvarligSoeker?.navn,
+        organisasjonsnummer: ansvarligSoeker?.organisasjonsnummer,
+        tiltaksklasse: data?.ansvarligSoekerTiltaksklasse?.kodeverdi
+    };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -227,20 +236,20 @@ export function renderAnsvarligSoeker(component) {
                 title: component.resourceBindings?.ansvarligSoekerNavn?.title,
                 emptyFieldText: component.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText
             },
-            telefonnummer: {
-                title: component.resourceBindings?.ansvarligSoekerTelefonnummer?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText
+            organisasjonsnummer: {
+                title: component.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.title,
+                emptyFieldText: component.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.emptyFieldText
             },
-            epost: {
-                title: component.resourceBindings?.ansvarligSoekerEpost?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerEpost?.emptyFieldText
+            tiltaksklasse: {
+                title: component.resourceBindings?.tiltaksklasse?.title,
+                emptyFieldText: component.resourceBindings?.tiltaksklasse?.emptyFieldText
             }
         },
         resourceValues: {
-            data: data?.ansvarligSoeker
+            data: tableData
         }
     });
-    return createCustomElement("custom-table-part", htmlAttributes);
+    return createCustomElement("custom-table-part-gjennomfoeringsplan", htmlAttributes);
 }
 
 /**

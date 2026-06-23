@@ -125,6 +125,11 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
                 title: props?.resourceBindings?.ansvarligSoekerNavn?.title || "resource.navn.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText || "resource.emptyFieldText.default"
             },
+            ansvarligSoekerOrganisasjonsnummer: {
+                title: props?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.title || "resource.organisasjonsnummer.title",
+                emptyFieldText:
+                    props?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
             ansvarligSoekerTelefonnummer: {
                 title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.telefonnummer.title",
                 emptyFieldText: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
@@ -182,7 +187,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
             "custom-grouplist-ansvarsomraade-type",
             "custom-header-text",
             "custom-paragraph-text",
-            "custom-table-part"
+            "custom-table-part-gjennomfoeringsplan"
         ];
     }
 }

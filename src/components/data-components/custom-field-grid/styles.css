@@ -1,0 +1,44 @@
+custom-field-grid {
+    display: block;
+    width: 100%;
+}
+
+custom-field-grid .custom-field-grid-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+/* Full bordered table (Word "Grid Table" look): the body draws the top + left
+   edge, each cell draws its right + bottom edge → a complete grid box. */
+custom-field-grid .custom-field-grid-body {
+    display: grid;
+    grid-template-columns: minmax(170px, max-content) 1fr;
+    border-top: 1px solid #aebfd0;
+    border-left: 1px solid #aebfd0;
+}
+
+custom-field-grid .custom-field-grid-term,
+custom-field-grid .custom-field-grid-value {
+    padding: 0.5rem 1.25rem;
+    border-right: 1px solid #aebfd0;
+    border-bottom: 1px solid #aebfd0;
+}
+
+/* Field-name column: grey. */
+custom-field-grid .custom-field-grid-term {
+    font-weight: bold;
+    color: #2b2b2b;
+    background-color: #f2f2f2;
+}
+
+custom-field-grid .custom-field-grid-value {
+    background-color: #ffffff;
+}
+
+/* Header row ("Felt | Verdi"): blue. Placed last so it overrides the term/value
+   background and colour for the header cells. */
+custom-field-grid .custom-field-grid-header {
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #16395c;
+}

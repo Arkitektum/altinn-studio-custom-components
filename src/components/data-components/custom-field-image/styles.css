@@ -1,0 +1,16 @@
+custom-field-image {
+    display: block;
+    width: 100%;
+}
+
+custom-field-image .custom-field-image-title {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+custom-field-image .custom-field-image-img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #c9c9c9;
+}
