@@ -398,6 +398,10 @@
             "value": "Kommentar"
         },
         {
+            "id": "resource.kommune.title",
+            "value": "Kommune"
+        },
+        {
             "id": "resource.kommunensSaksnummer.title",
             "value": "Kommunens saksnummer"
         },
