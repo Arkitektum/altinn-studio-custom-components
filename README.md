@@ -90,6 +90,8 @@ For a full list of available components and examples, see the documentation site
 
 ## 🧪 Development & Testing
 
+> For a deeper look at how the package is structured and how it fits into the wider ecosystem, see [ARCHITECTURE.md](./ARCHITECTURE.md). For contribution guidelines (adding components, resources, releases), see [CONTRIBUTING.md](./CONTRIBUTING.md).
+
 ### Prerequisites
 
 - **Node.js 24**
@@ -195,6 +197,9 @@ Clicking anywhere outside a panel closes it.
 
 ## 🔗 Resources
 
+- [Architecture overview](./ARCHITECTURE.md)
+- [Contributing guide](./CONTRIBUTING.md)
+- [Security policy](./SECURITY.md)
 - [Altinn Studio Documentation](https://docs.altinn.studio/)
 - [Altinn Studio GitHub Repository](https://github.com/Altinn/altinn-studio)
 - [Altinn Studio Custom Component Documentation](https://docs.altinn.studio/altinn-studio/reference/ux/components/custom/)
