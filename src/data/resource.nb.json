@@ -86,12 +86,20 @@
             "value": "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?"
         },
         {
+            "id": "resource.beroertePlaner.title",
+            "value": "Reguleringsplaner som berøres av planforslaget"
+        },
+        {
             "id": "resource.beskrivelse.title",
             "value": "Beskrivelse"
         },
         {
             "id": "resource.beskrivelseAvAnsvarsomraadet.title",
             "value": "Beskrivelse av ansvarsområdet"
+        },
+        {
+            "id": "resource.beskrivelseAvFoelger.title",
+            "value": "Beskrivelse av følger"
         },
         {
             "id": "resource.bestemmelse.title",
@@ -116,6 +124,10 @@
         {
             "id": "resource.bygningstype.title",
             "value": "Bygningstype"
+        },
+        {
+            "id": "resource.dato.title",
+            "value": "Dato"
         },
         {
             "id": "resource.datoAnsvarsrettErklaert.title",
@@ -278,6 +290,10 @@
             "value": "FDV: Det bekreftes at dokumentasjon om forvaltning, drift og vedlikehold av bygget enten er overlevert byggverkets eier, eller at dette ikke er relevant."
         },
         {
+            "id": "resource.felt.title",
+            "value": "Felt"
+        },
+        {
             "id": "resource.ferdigattest.title",
             "value": "Ferdigattest"
         },
@@ -374,6 +390,10 @@
             "value": "Har foretaket sentral godkjenning?"
         },
         {
+            "id": "resource.hjemmesidePlanforslag.title",
+            "value": "Planforslaget er vedlagt denne meldingen. I tillegg er hele planforslaget gjort tilgjengelig på internett:"
+        },
+        {
             "id": "resource.hvaSkjer.header",
             "value": "Hva skjer med merknadene dine?"
         },
@@ -388,6 +408,10 @@
         {
             "id": "resource.igangsettingstillatelse.title",
             "value": "Igangsettingstillatelse"
+        },
+        {
+            "id": "resource.kartutsnittAvPlanomraadet.title",
+            "value": "Kartutsnitt av planområdet"
         },
         {
             "id": "resource.kategori.title",
@@ -522,6 +546,10 @@
             "value": "Midlertidig brukstillatelse"
         },
         {
+            "id": "resource.mottakere.title",
+            "value": "Mottakere"
+        },
+        {
             "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
             "value": "Naboeiendom"
         },
@@ -610,6 +638,10 @@
             "value": "Grad av utnytting i henhold til gjeldende plan"
         },
         {
+            "id": "resource.planId.title",
+            "value": "Plan-ID"
+        },
+        {
             "id": "resource.plankonsulent.title",
             "value": "Plankonsulent"
         },
@@ -620,6 +652,14 @@
         {
             "id": "resource.planlagteSamsvarKontrollErklaeringer.title",
             "value": "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
+        },
+        {
+            "id": "resource.plannavn.title",
+            "value": "Plannavn"
+        },
+        {
+            "id": "resource.plantype.title",
+            "value": "Plantype"
         },
         {
             "id": "resource.prosjektnummer.title",
@@ -858,6 +898,10 @@
             "value": "Mottatt samtykke"
         },
         {
+            "id": "resource.saksbehandler.title",
+            "value": "Saksbehandler"
+        },
+        {
             "id": "resource.samsvarErklaeringTekst.title",
             "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi bekrefter at kvalitetssikring er utført og dokumentert i henhold til erklæring om ansvarsrett og foretakets kvalitetssikring."
         },
@@ -1038,6 +1082,10 @@
             "value": "Vi vil utføre arbeidene innen"
         },
         {
+            "id": "resource.vaarRef.title",
+            "value": "Vår ref."
+        },
+        {
             "id": "resource.vannforsyning.title",
             "value": "Vannforsyning"
         },
@@ -1092,6 +1140,14 @@
         {
             "id": "resource.vedlegg.title",
             "value": "Vedlegg"
+        },
+        {
+            "id": "resource.vedtakOmOffentligEttersyn.title",
+            "value": "Vedtak om offentlig ettersyn"
+        },
+        {
+            "id": "resource.verdi.title",
+            "value": "Verdi"
         },
         {
             "id": "resource.vertikalnivaa.title",

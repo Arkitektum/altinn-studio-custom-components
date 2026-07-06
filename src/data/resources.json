@@ -126,6 +126,12 @@
         }
     },
     {
+        "id": "resource.beroertePlaner.title",
+        "values": {
+            "nb": "Reguleringsplaner som berøres av planforslaget"
+        }
+    },
+    {
         "id": "resource.beskrivelse.title",
         "values": {
             "nb": "Beskrivelse"
@@ -135,6 +141,12 @@
         "id": "resource.beskrivelseAvAnsvarsomraadet.title",
         "values": {
             "nb": "Beskrivelse av ansvarsområdet"
+        }
+    },
+    {
+        "id": "resource.beskrivelseAvFoelger.title",
+        "values": {
+            "nb": "Beskrivelse av følger"
         }
     },
     {
@@ -171,6 +183,12 @@
         "id": "resource.bygningstype.title",
         "values": {
             "nb": "Bygningstype"
+        }
+    },
+    {
+        "id": "resource.dato.title",
+        "values": {
+            "nb": "Dato"
         }
     },
     {
@@ -414,6 +432,12 @@
         }
     },
     {
+        "id": "resource.felt.title",
+        "values": {
+            "nb": "Felt"
+        }
+    },
+    {
         "id": "resource.ferdigattest.title",
         "values": {
             "nb": "Ferdigattest"
@@ -558,6 +582,12 @@
         }
     },
     {
+        "id": "resource.hjemmesidePlanforslag.title",
+        "values": {
+            "nb": "Planforslaget er vedlagt denne meldingen. I tillegg er hele planforslaget gjort tilgjengelig på internett:"
+        }
+    },
+    {
         "id": "resource.hvaSkjer.header",
         "values": {
             "nb": "Hva skjer med merknadene dine?"
@@ -579,6 +609,12 @@
         "id": "resource.igangsettingstillatelse.title",
         "values": {
             "nb": "Igangsettingstillatelse"
+        }
+    },
+    {
+        "id": "resource.kartutsnittAvPlanomraadet.title",
+        "values": {
+            "nb": "Kartutsnitt av planområdet"
         }
     },
     {
@@ -780,6 +816,12 @@
         }
     },
     {
+        "id": "resource.mottakere.title",
+        "values": {
+            "nb": "Mottakere"
+        }
+    },
+    {
         "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
         "values": {
             "nb": "Naboeiendom"
@@ -912,6 +954,12 @@
         }
     },
     {
+        "id": "resource.planId.title",
+        "values": {
+            "nb": "Plan-ID"
+        }
+    },
+    {
         "id": "resource.plankonsulent.title",
         "values": {
             "nb": "Plankonsulent"
@@ -927,6 +975,18 @@
         "id": "resource.planlagteSamsvarKontrollErklaeringer.title",
         "values": {
             "nb": "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
+        }
+    },
+    {
+        "id": "resource.plannavn.title",
+        "values": {
+            "nb": "Plannavn"
+        }
+    },
+    {
+        "id": "resource.plantype.title",
+        "values": {
+            "nb": "Plantype"
         }
     },
     {
@@ -1284,6 +1344,12 @@
         }
     },
     {
+        "id": "resource.saksbehandler.title",
+        "values": {
+            "nb": "Saksbehandler"
+        }
+    },
+    {
         "id": "resource.samsvarErklaeringTekst.title",
         "values": {
             "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi bekrefter at kvalitetssikring er utført og dokumentert i henhold til erklæring om ansvarsrett og foretakets kvalitetssikring."
@@ -1554,6 +1620,12 @@
         }
     },
     {
+        "id": "resource.vaarRef.title",
+        "values": {
+            "nb": "Vår ref."
+        }
+    },
+    {
         "id": "resource.vannforsyning.title",
         "values": {
             "nb": "Vannforsyning"
@@ -1635,6 +1707,18 @@
         "id": "resource.vedlegg.title",
         "values": {
             "nb": "Vedlegg"
+        }
+    },
+    {
+        "id": "resource.vedtakOmOffentligEttersyn.title",
+        "values": {
+            "nb": "Vedtak om offentlig ettersyn"
+        }
+    },
+    {
+        "id": "resource.verdi.title",
+        "values": {
+            "nb": "Verdi"
         }
     },
     {
