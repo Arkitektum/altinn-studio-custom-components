@@ -62,6 +62,7 @@ import CustomList from "../classes/system-classes/component-classes/CustomList.j
 import CustomListData from "../classes/system-classes/component-classes/CustomListData.js";
 import CustomListPlanlagteLoefteinnretninger from "../classes/system-classes/component-classes/CustomListPlanlagteLoefteinnretninger.js";
 import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.js";
+import CustomMatrix from "../classes/system-classes/component-classes/CustomMatrix.js";
 import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.js";
 import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.js";
 import CustomSubheaderText from "../classes/system-classes/component-classes/CustomSubheaderText.js";
@@ -149,6 +150,7 @@ export function getComponentForTagName(tagName) {
         "custom-list-data": CustomListData,
         "custom-list-planlagte-loefteinnretninger": CustomListPlanlagteLoefteinnretninger,
         "custom-list-vedlegg": CustomListVedlegg,
+        "custom-matrix": CustomMatrix,
         "custom-paragraph": CustomParagraph,
         "custom-paragraph-text": CustomParagraphText,
         "custom-subheader-text": CustomSubheaderText,
