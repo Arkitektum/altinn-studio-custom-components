@@ -5,6 +5,7 @@ import customFeedback from "./base-components/custom-feedback/index.js";
 import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
+import customMatrix from "./base-components/custom-matrix/index.js";
 import customParagraph from "./base-components/custom-paragraph/index.js";
 import customSummation from "./base-components/custom-summation/index.js";
 import customTable from "./base-components/custom-table/index.js";
@@ -98,6 +99,7 @@ export {
     customField,
     customHeader,
     customList,
+    customMatrix,
     customParagraph,
     customTable,
     customDescriptionListData,
