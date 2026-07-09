@@ -1,0 +1,77 @@
+custom-matrix {
+    font-family: var(--font-family-default);
+    font-size: var(--font-size-default);
+    font-weight: var(--font-weight-default);
+    color: var(--color-text-default);
+    line-height: var(--line-height-default);
+    display: block;
+    & table {
+        border-spacing: 0;
+        border: 1px solid var(--color-default-dark);
+        border-radius: 4px;
+        width: 100%;
+        margin: 0.75rem 0px;
+        &.has-caption {
+            margin-top: 0;
+        }
+        & caption {
+            caption-side: top;
+            text-align: left;
+            padding: 0 0 0.75rem 0;
+            margin: 0;
+            page-break-after: avoid;
+            page-break-inside: avoid;
+            &::after {
+                content: "";
+                display: block;
+                height: 120px;
+                margin-bottom: -120px;
+            }
+        }
+        & tr {
+            page-break-inside: avoid;
+        }
+        & td,
+        & th {
+            padding: 8px 10px;
+            page-break-inside: avoid;
+            &::after {
+                content: "";
+                display: block;
+                height: 30px;
+                margin-bottom: -30px;
+            }
+        }
+        & thead {
+            & th {
+                page-break-after: avoid;
+                text-align: left;
+                font-weight: var(--font-weight-bold);
+                background-color: var(--color-default-default);
+                border-bottom: 1px solid var(--color-default-dark);
+                line-height: var(--line-height-table-header);
+                hyphens: auto;
+                white-space: normal;
+            }
+        }
+        & tbody {
+            & tr {
+                &:nth-child(even) {
+                    background-color: var(--color-default-muted);
+                }
+                & th {
+                    text-align: left;
+                    font-weight: var(--font-weight-bold);
+                    background-color: var(--color-default-light);
+                    border-right: 1px solid var(--color-default-dark);
+                }
+            }
+            & tr:not(:last-of-type) {
+                & th,
+                td {
+                    border-bottom: 1px solid var(--color-default-dark);
+                }
+            }
+        }
+    }
+}

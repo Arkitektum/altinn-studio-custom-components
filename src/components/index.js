@@ -5,6 +5,7 @@ import customFeedback from "./base-components/custom-feedback/index.js";
 import customField from "./base-components/custom-field/index.js";
 import customHeader from "./base-components/custom-header/index.js";
 import customList from "./base-components/custom-list/index.js";
+import customMatrix from "./base-components/custom-matrix/index.js";
 import customParagraph from "./base-components/custom-paragraph/index.js";
 import customSummation from "./base-components/custom-summation/index.js";
 import customTable from "./base-components/custom-table/index.js";
@@ -62,6 +63,7 @@ import customHeaderTextData from "./data-components/custom-header-text-data/inde
 import customListData from "./data-components/custom-list-data/index.js";
 import customListPlanlagteLoefteinnretninger from "./data-components/custom-list-planlagte-loefteinnretninger/index.js";
 import customListVedlegg from "./data-components/custom-list-vedlegg/index.js";
+import customMatrixData from "./data-components/custom-matrix-data/index.js";
 import customParagraphText from "./data-components/custom-paragraph-text/index.js";
 import customSubheaderText from "./data-components/custom-subheader-text/index.js";
 import customSummationArealdisponering from "./data-components/custom-summation-arealdisponering/index.js";
@@ -98,6 +100,7 @@ export {
     customField,
     customHeader,
     customList,
+    customMatrix,
     customParagraph,
     customTable,
     customDescriptionListData,
@@ -152,6 +155,7 @@ export {
     customListData,
     customListPlanlagteLoefteinnretninger,
     customListVedlegg,
+    customMatrixData,
     customParagraphText,
     customSubheaderText,
     customSummation,
