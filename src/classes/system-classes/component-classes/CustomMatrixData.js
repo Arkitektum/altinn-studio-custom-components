@@ -89,6 +89,8 @@ export default class CustomMatrixData extends CustomComponent {
      * @returns {Array<Object>} The sorted rows.
      */
     sortRowsByKey(sortKey, direction, sortedRows) {
+        // Sort a shallow copy so we never mutate the underlying form data array (getComponentDataValue returns it by reference).
+        sortedRows = [...sortedRows];
         sortedRows.sort((a, b) => {
             let aValue = a[sortKey];
             let bValue = b[sortKey];
@@ -182,7 +184,9 @@ export default class CustomMatrixData extends CustomComponent {
      * @returns {boolean} Returns true if matrixRows has a value, otherwise false.
      */
     hasContent(formData) {
-        return hasValue(formData);
+        // Base emptiness on the actual rows: headers alone (an always-present array) must not count as content,
+        // otherwise a matrix whose rows are all empty renders headers instead of the empty-field text / being hidden.
+        return hasValue(formData?.matrixRows);
     }
 
     /**
