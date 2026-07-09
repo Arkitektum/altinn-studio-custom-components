@@ -52,6 +52,15 @@ function truncate(str, maxLen = 300) {
 }
 
 /**
+ * Escapes HTML-special characters so component/prop values can be safely interpolated into the panel's innerHTML.
+ * @param {*} str - The value to escape.
+ * @returns {string} The escaped string.
+ */
+function escapeHtml(str) {
+    return String(str).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+}
+
+/**
  * Extracts and formats the properties of a component for display in the DevTools panel, filtering out undefined, null, false, and empty string values.
  * @param {*} component - The component object to extract properties from.
  * @returns {Array} An array of key-value pairs representing the component's properties.
@@ -104,14 +113,14 @@ function buildPanel(tagName, elementId, props, hidden, type) {
         ? `<span style="background:#45475a;color:#f38ba8;padding:1px 5px;border-radius:3px;font-size:9px;margin-left:4px;vertical-align:middle;">hidden</span>`
         : "";
 
-    let html = `<div style="font-weight:bold;font-size:12px;margin-bottom:6px;color:${cfg.color};">${typeBadge}&lt;${tagName}&gt;${hiddenBadge}</div>`;
+    let html = `<div style="font-weight:bold;font-size:12px;margin-bottom:6px;color:${cfg.color};">${typeBadge}&lt;${escapeHtml(tagName)}&gt;${hiddenBadge}</div>`;
 
     if (elementId) {
-        html += `<div><span style="color:#89dceb;">id</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">"${elementId}"</span></div>`;
+        html += `<div><span style="color:#89dceb;">id</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">"${escapeHtml(elementId)}"</span></div>`;
     }
 
     for (const { key, value } of props) {
-        html += `<div><span style="color:#89dceb;">${key}</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">${value}</span></div>`;
+        html += `<div><span style="color:#89dceb;">${escapeHtml(key)}</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">${escapeHtml(value)}</span></div>`;
     }
 
     panel.innerHTML = html;
