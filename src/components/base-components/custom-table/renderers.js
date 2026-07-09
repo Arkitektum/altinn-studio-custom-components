@@ -15,6 +15,7 @@ import { getEmptyFieldText } from "../../../functions/helpers.js";
  */
 function renderTableHeaderElement(tableHeader) {
     const th = document.createElement("th");
+    th.setAttribute("scope", "col");
     th.textContent = tableHeader.text;
     addStyle(th, tableHeader?.styleOverride);
     return th;
