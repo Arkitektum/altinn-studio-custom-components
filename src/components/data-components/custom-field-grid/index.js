@@ -1,9 +1,5 @@
-// Classes
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderFieldGridElement } from "./renderers.js";
@@ -15,20 +11,10 @@ export default customElements.define(
     "custom-field-grid",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
-                }
-            } else {
-                const gridElement = renderFieldGridElement(component);
-                this.appendChild(gridElement);
-                addDevToolsOverlay(this, component, "data");
-            }
+            renderCustomComponent(this, {
+                type: "data",
+                render: (host, component) => host.appendChild(renderFieldGridElement(component))
+            });
         }
     }
 );

@@ -1,7 +1,5 @@
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderFieldElement } from "./renderers.js";
@@ -13,24 +11,17 @@ export default customElements.define(
     "custom-field",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+            renderCustomComponent(this, {
+                type: "base",
+                render: (host, component) => {
+                    const options = {
+                        inline: component?.inline,
+                        styleOverride: component?.styleOverride,
+                        enableLinks: component?.enableLinks
+                    };
+                    host.innerHTML = renderFieldElement(component?.resourceValues?.title, component?.resourceValues?.data, options);
                 }
-            } else {
-                const options = {
-                    inline: component?.inline,
-                    styleOverride: component?.styleOverride,
-                    enableLinks: component?.enableLinks
-                };
-                this.innerHTML = renderFieldElement(component?.resourceValues?.title, component?.resourceValues?.data, options);
-                addDevToolsOverlay(this, component, "base");
-            }
+            });
         }
     }
 );
