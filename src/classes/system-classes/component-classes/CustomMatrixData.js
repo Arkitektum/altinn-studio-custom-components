@@ -7,8 +7,8 @@ import CustomComponent from "../CustomComponent.js";
 // Global functions
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
+import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 /**
  * CustomMatrixData is a custom component class for rendering and managing table data.
@@ -88,32 +88,8 @@ export default class CustomMatrixData extends CustomComponent {
      * @param {Array<Object>} sortedRows - The rows to be sorted.
      * @returns {Array<Object>} The sorted rows.
      */
-    sortRowsByKey(sortKey, direction, sortedRows) {
-        // Sort a shallow copy so we never mutate the underlying form data array (getComponentDataValue returns it by reference).
-        sortedRows = [...sortedRows];
-        sortedRows.sort((a, b) => {
-            let aValue = a[sortKey];
-            let bValue = b[sortKey];
-
-            const aNum = parseFloat(aValue);
-            const bNum = parseFloat(bValue);
-
-            const aIsNum = !isNaN(aNum);
-            const bIsNum = !isNaN(bNum);
-
-            if (aIsNum && bIsNum) {
-                if (aNum < bNum) return direction === "asc" ? -1 : 1;
-                if (aNum > bNum) return direction === "asc" ? 1 : -1;
-                return 0;
-            }
-
-            // fallback to string comparison
-            if (aValue < bValue) return direction === "asc" ? -1 : 1;
-            if (aValue > bValue) return direction === "asc" ? 1 : -1;
-            return 0;
-        });
-
-        return sortedRows;
+    sortRowsByKey(sortKey, direction, rows) {
+        return sortRows(sortKey, direction, rows);
     }
 
     /**
@@ -163,16 +139,7 @@ export default class CustomMatrixData extends CustomComponent {
      * @returns {Array<Array<any>>} A new array containing only the non-empty matrix rows.
      */
     removeEmptyMatrixRows(matrixRows) {
-        return Array.isArray(matrixRows)
-            ? matrixRows
-                  .map((matrixRow) => {
-                      const notEmptyMatrixCells = matrixRow.filter((matrixCell) => {
-                          return !instantiateComponent(matrixCell)?.isEmpty;
-                      });
-                      return notEmptyMatrixCells.length > 0 ? matrixRow : null;
-                  })
-                  .filter((matrixRow) => matrixRow !== null)
-            : []; // Return empty array if matrixRows is not an array
+        return removeEmptyRows(matrixRows);
     }
 
     /**
