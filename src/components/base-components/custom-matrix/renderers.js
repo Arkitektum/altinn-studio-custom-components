@@ -55,7 +55,6 @@ function renderMatrixCellElement(matrixCell) {
  * @returns {HTMLElement} The created matrix row (<tr>) element.
  */
 function renderMatrixRowElement(matrixRow) {
-    console.log("Rendering matrix row:", matrixRow);
     const tr = document.createElement("tr");
     if (matrixRow?.length) {
         matrixRow.forEach((matrixCell, index) => {
@@ -105,7 +104,6 @@ export function renderHeaderElement(title, size) {
  */
 export function renderMatrixElement(component) {
     const data = component?.resourceValues?.data;
-    console.log("Rendering matrix element with data:", data);
     const styleOverride = component?.styleOverride;
 
     const matrix = document.createElement("table");
