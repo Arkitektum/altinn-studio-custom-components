@@ -26,79 +26,47 @@ export const fetchTextResources = async (origin, org, app, language, fallbackLan
         );
     }
 
-    if (isNonEmptyString(language)) {
-        const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
-        try {
-            const primaryResponse = await fetchWithTimeoutAndClientLogger(textResourcesApiUrl, {}, 5000, clientLogger, customFields);
-            if (primaryResponse.ok) {
-                const textResourcesData = await primaryResponse.json();
-                if (hasValue(textResourcesData)) {
-                    return textResourcesData;
-                }
-            } else {
-                clientLogger?.postLogData([
-                    {
-                        level: "Error",
-                        message: `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`,
-                        custom_fields: customFields
-                    }
-                ]);
-                console.error(
-                    `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
-                );
-            }
-        } catch (error) {
-            clientLogger?.postLogData([
-                {
-                    level: "Error",
-                    message: `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}': ${error.message}`,
-                    custom_fields: customFields
-                }
-            ]);
-            console.error(
-                `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`,
-                error
-            );
-        }
-    } else if (isNonEmptyString(fallbackLanguage)) {
-        const fallbackTextResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${fallbackLanguage}`;
-        try {
-            const fallbackResponse = await fetchWithTimeoutAndClientLogger(fallbackTextResourcesApiUrl, {}, 5000, clientLogger, customFields);
-            if (fallbackResponse.ok) {
-                const fallbackTextResourcesData = await fallbackResponse.json();
-                if (hasValue(fallbackTextResourcesData)) {
-                    return fallbackTextResourcesData;
-                }
-            } else {
-                clientLogger?.postLogData([
-                    {
-                        level: "Error",
-                        message: `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`,
-                        custom_fields: customFields
-                    }
-                ]);
-                console.error(
-                    `Could not retrieve text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}'. Response status: ${fallbackResponse.status}.`
-                );
-            }
-        } catch (error) {
-            clientLogger?.postLogData([
-                {
-                    level: "Error",
-                    message: `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}': ${error.message}`,
-                    custom_fields: customFields
-                }
-            ]);
-            console.error(
-                `Network or parsing error while retrieving text resources for the fallback language '${fallbackLanguage}' from URL '${fallbackTextResourcesApiUrl}':`,
-                error
-            );
-        }
-    } else {
-        console.error("No valid fallback language provided; skipping fallback text resources fetch.");
+    if (!isNonEmptyString(language)) {
+        return null;
     }
 
-    return null;
+    // Attempt the fallback language when the primary fetch fails, as long as it is valid and different.
+    const canFallBack = isNonEmptyString(fallbackLanguage) && fallbackLanguage !== language;
+    const tryFallback = () => (canFallBack ? fetchTextResources(origin, org, app, fallbackLanguage, null, clientLogger, customFields) : null);
+
+    const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
+    try {
+        const primaryResponse = await fetchWithTimeoutAndClientLogger(textResourcesApiUrl, {}, 5000, clientLogger, customFields);
+        if (primaryResponse.ok) {
+            const textResourcesData = await primaryResponse.json();
+            if (hasValue(textResourcesData)) {
+                return textResourcesData;
+            }
+            return tryFallback();
+        } else {
+            clientLogger?.postLogData([
+                {
+                    level: "Error",
+                    message: `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`,
+                    custom_fields: customFields
+                }
+            ]);
+            console.error(
+                `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse.status}.`
+            );
+            return tryFallback();
+        }
+    } catch (error) {
+        clientLogger?.postLogData([
+            {
+                level: "Error",
+                message: `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}': ${error.message}`,
+                custom_fields: customFields
+            }
+        ]);
+        console.error(`Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`, error);
+        return tryFallback();
+    }
 };
 
 /**
