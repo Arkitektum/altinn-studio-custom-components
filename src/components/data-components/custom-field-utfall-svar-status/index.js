@@ -22,7 +22,8 @@ export default customElements.define(
                 }
             } else {
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
-                this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
+                this.innerHTML = "";
+                this.appendChild(createCustomElement("custom-field", htmlAttributes));
                 addDevToolsOverlay(this, component, "data");
             }
             const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);

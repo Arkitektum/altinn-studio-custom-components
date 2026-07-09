@@ -21,7 +21,8 @@ export default customElements.define(
                 }
             } else {
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
-                this.innerHTML = createCustomElement("custom-feedback", htmlAttributes).outerHTML;
+                this.innerHTML = "";
+                this.appendChild(createCustomElement("custom-feedback", htmlAttributes));
                 addDevToolsOverlay(this, component, "data");
             }
         }

@@ -22,7 +22,8 @@ export default customElements.define(
             } else {
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
                 const tagName = component.isEmpty ? "custom-field" : "custom-description-list";
-                this.innerHTML = createCustomElement(tagName, htmlAttributes).outerHTML;
+                this.innerHTML = "";
+                this.appendChild(createCustomElement(tagName, htmlAttributes));
                 addDevToolsOverlay(this, component, "data");
             }
         }

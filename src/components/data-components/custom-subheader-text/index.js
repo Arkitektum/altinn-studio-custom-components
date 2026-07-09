@@ -14,7 +14,8 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             const htmlAttributes = new CustomElementHtmlAttributes(component);
-            this.innerHTML = createCustomElement("custom-paragraph", htmlAttributes).outerHTML;
+            this.innerHTML = "";
+            this.appendChild(createCustomElement("custom-paragraph", htmlAttributes));
             addDevToolsOverlay(this, component, "data");
         }
     }

@@ -19,7 +19,8 @@ export default customElements.define(
                 }
             } else {
                 const fieldListDataElement = renderListFieldElement(component);
-                this.innerHTML = fieldListDataElement.outerHTML;
+                this.innerHTML = "";
+                this.appendChild(fieldListDataElement);
                 addDevToolsOverlay(this, component, "data");
             }
         }

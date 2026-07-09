@@ -25,7 +25,8 @@ export default customElements.define(
                 }
             } else if (component?.isEmpty) {
                 const htmlAttributes = new CustomElementHtmlAttributes(component);
-                this.innerHTML = createCustomElement("custom-field", htmlAttributes).outerHTML;
+                this.innerHTML = "";
+                this.appendChild(createCustomElement("custom-field", htmlAttributes));
                 addDevToolsOverlay(this, component, "data");
             } else {
                 const planlagteLoefteinnretningerListElement = renderPlanlagteLoefteinnretningerList(component);

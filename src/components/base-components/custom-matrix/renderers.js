@@ -31,7 +31,7 @@ function renderMatrixRowHeaderElement(matrixCell) {
     const th = document.createElement("th");
     matrixCell.styleOverride = { ...matrixCell?.styleOverride, fontWeight: "var(--font-weight-bold)" };
     const htmlAttributes = new CustomElementHtmlAttributes(matrixCell);
-    th.innerHTML = createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes).outerHTML;
+    th.appendChild(createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes));
     return th;
 }
 
@@ -44,7 +44,7 @@ function renderMatrixRowHeaderElement(matrixCell) {
 function renderMatrixCellElement(matrixCell) {
     const td = document.createElement("td");
     const htmlAttributes = new CustomElementHtmlAttributes(matrixCell);
-    td.innerHTML = createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes).outerHTML;
+    td.appendChild(createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes));
     return td;
 }
 
