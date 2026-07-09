@@ -77,6 +77,9 @@ export function isValidDateString(dateString) {
  * @returns {string} - The formatted date-time string or an error message if the input is invalid.
  */
 export function formatDateTime(dateTime, language = "default") {
+    if (!dateTime) {
+        return "";
+    }
     if (!isValidDateString(dateTime)) {
         return "Ugyldig datoformat"; // Return an error message for invalid date format
     }
@@ -125,6 +128,9 @@ export function formatDate(date, language = "default") {
  * @returns {string} The formatted time string.
  */
 export function formatTime(time, language = "default") {
+    if (!time) {
+        return "";
+    }
     const timeHasDate = time.includes("T");
     if (!timeHasDate) {
         time = "1970-01-01T" + time; // Append date if not present
@@ -158,6 +164,9 @@ export function formatAR(data) {
  * @returns {string} The formatted string with square meters unit.
  */
 export function formatMeterSquared(value) {
+    if (value === null || value === undefined || value === "") {
+        return "";
+    }
     return `${value} m²`;
 }
 
