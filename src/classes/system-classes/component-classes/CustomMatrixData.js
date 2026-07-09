@@ -80,6 +80,14 @@ export default class CustomMatrixData extends CustomComponent {
         };
     }
 
+    /**
+     * Sorts the provided rows based on the specified sort key and direction.
+     *
+     * @param {string} sortKey - The key to sort the rows by.
+     * @param {string} direction - The sort direction, either "asc" or "desc".
+     * @param {Array<Object>} sortedRows - The rows to be sorted.
+     * @returns {Array<Object>} The sorted rows.
+     */
     sortRowsByKey(sortKey, direction, sortedRows) {
         sortedRows.sort((a, b) => {
             let aValue = a[sortKey];
