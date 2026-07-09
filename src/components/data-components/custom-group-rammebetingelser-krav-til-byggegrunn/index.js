@@ -2,10 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderEmptyFieldText, renderHarMiljoeforholdElement, renderHeaderElement, renderOmraaderisiko } from "./renderers.js";
@@ -13,33 +10,23 @@ import { renderEmptyFieldText, renderHarMiljoeforholdElement, renderHeaderElemen
 export default customElements.define(
     "custom-group-rammebetingelser-krav-til-byggegrunn",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                        host.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                    }
+                    if (component?.isEmpty) {
+                        const emptyFieldTextElement = renderEmptyFieldText(component);
+                        host.appendChild(emptyFieldTextElement);
+                    } else {
+                        host.appendChild(renderOmraaderisiko(component));
+                        host.appendChild(renderHarMiljoeforholdElement(component));
+                    }
                 }
-            } else {
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
-                }
-                if (component?.isEmpty) {
-                    const emptyFieldTextElement = renderEmptyFieldText(component);
-                    this.appendChild(emptyFieldTextElement);
-                } else {
-                    this.appendChild(renderOmraaderisiko(component));
-                    this.appendChild(renderHarMiljoeforholdElement(component));
-                }
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );
