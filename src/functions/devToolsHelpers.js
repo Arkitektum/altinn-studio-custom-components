@@ -1,3 +1,6 @@
+// Global functions
+import { escapeHtml } from "./stringHelpers.js";
+
 const TYPE_CONFIG = {
     base: { label: "B", color: "#89b4fa", bgColor: "#1a1a35", bgColorHidden: "#1a1a35cc", borderColor: "#3d3d7a", rightPx: 2, typeName: "Base" },
     data: { label: "D", color: "#a6e3a1", bgColor: "#0d2518", bgColorHidden: "#0d2518cc", borderColor: "#2a5e3a", rightPx: 26, typeName: "Data" },
@@ -49,15 +52,6 @@ export function isDevMode() {
  */
 function truncate(str, maxLen = 300) {
     return str.length > maxLen ? str.slice(0, maxLen) + "\u2026" : str;
-}
-
-/**
- * Escapes HTML-special characters so component/prop values can be safely interpolated into the panel's innerHTML.
- * @param {*} str - The value to escape.
- * @returns {string} The escaped string.
- */
-function escapeHtml(str) {
-    return String(str).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
 }
 
 /**

@@ -1,6 +1,9 @@
 // Constants
 import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.js";
 
+// Global functions
+import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.js";
+
 /**
  * Returns the provided language if it is included in the list of available date-time languages.
  * Otherwise, returns the default language.
@@ -217,11 +220,6 @@ export function injectAnchorElements(text) {
     // 2) Non-global tester to avoid lastIndex issues
     const isUrl = new RegExp(`^${urlPattern}$`);
 
-    // Basic HTML escape for non-link parts
-    const escapeHtml = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-    // Attribute escape additionally neutralizes the quote that would otherwise break out of the href="" attribute.
-    const escapeAttr = (s) => escapeHtml(s).replaceAll('"', "&quot;");
-
     return text
         .toString()
         .split(splitRegex)
@@ -236,7 +234,7 @@ export function injectAnchorElements(text) {
                 const href = raw.startsWith("http") ? raw : `https://${raw}`;
                 // The URL token can contain quotes/angle brackets (the pattern allows any non-whitespace),
                 // so escape it before interpolating into the attribute and the link text to prevent HTML injection.
-                return `<a href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(raw)}</a>${escapeHtml(trail)}`;
+                return `<a href="${escapeHtmlAttribute(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(raw)}</a>${escapeHtml(trail)}`;
             }
             return escapeHtml(part);
         })
