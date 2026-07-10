@@ -48,6 +48,34 @@ describe("renderCustomComponent", () => {
         expect(render).not.toHaveBeenCalled();
     });
 
+    it("does not hide an empty component without hideIfEmpty by default (renders instead)", () => {
+        const host = document.createElement("div");
+        const container = document.createElement("div");
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        getComponentContainerElement.mockReturnValue(container);
+        isDevMode.mockReturnValue(false);
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(container.style.display).not.toBe("none");
+        expect(render).toHaveBeenCalled();
+    });
+
+    it("hides an empty component when alwaysHideWhenEmpty is set, even without hideIfEmpty", () => {
+        const host = document.createElement("div");
+        const container = document.createElement("div");
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        getComponentContainerElement.mockReturnValue(container);
+        isDevMode.mockReturnValue(false);
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "data", render, alwaysHideWhenEmpty: true });
+
+        expect(container.style.display).toBe("none");
+        expect(render).not.toHaveBeenCalled();
+    });
+
     it("invokes render and attaches the DevTools overlay when not hidden", () => {
         const host = document.createElement("div");
         instantiateComponent.mockReturnValue({ isEmpty: false });

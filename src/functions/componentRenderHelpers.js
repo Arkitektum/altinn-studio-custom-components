@@ -8,8 +8,9 @@ import { renderFeedbackListElement } from "./feedbackHelpers.js";
  * Runs the shared render lifecycle used by (almost) every custom element's `connectedCallback`:
  *
  * 1. Instantiate the component class from the element's attributes.
- * 2. If the component is configured with `hideIfEmpty` and resolves to empty, hide its container
- *    (or, in DevTools mode, render a hidden-element placeholder badge).
+ * 2. If the component resolves to empty and should be hidden, hide its container (or, in DevTools mode, render a
+ *    hidden-element placeholder badge). By default this is gated on the component's `hideIfEmpty` flag; pass
+ *    `alwaysHideWhenEmpty` to hide whenever the component is empty regardless of the flag.
  * 3. Otherwise invoke the component-specific `render` callback and attach the DevTools overlay.
  * 4. Optionally append a validation feedback list when `withFeedback` is set and the component has messages.
  *
@@ -21,12 +22,17 @@ import { renderFeedbackListElement } from "./feedbackHelpers.js";
  * @param {string} options.type - DevTools category: "base", "data", or "layout".
  * @param {(host: HTMLElement, component: Object) => void} options.render - Renders the component's content into `host`.
  * @param {boolean} [options.withFeedback=false] - When true, append a feedback list if the component has validation messages.
+ * @param {boolean} [options.alwaysHideWhenEmpty=false] - When true, hide an empty component regardless of its `hideIfEmpty` flag.
  * @returns {Object} The instantiated component.
  */
-export function renderCustomComponent(host, { type, render, withFeedback = false }) {
+export function renderCustomComponent(host, { type, render, withFeedback = false, alwaysHideWhenEmpty = false }) {
     const component = instantiateComponent(host);
     const componentContainerElement = getComponentContainerElement(host);
-    if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
+    const shouldHideWhenEmpty = alwaysHideWhenEmpty || component?.hideIfEmpty;
+    if (component?.tagName == "custom-grouplist-sjekklistekrav") {
+        console.log({ component, alwaysHideWhenEmpty, shouldHideWhenEmpty, componentContainerElement });
+    }
+    if (shouldHideWhenEmpty && component?.isEmpty && !!componentContainerElement) {
         if (isDevMode()) {
             const hiddenEl = renderHiddenDevToolsElement(host, component, type);
             if (hiddenEl) host.appendChild(hiddenEl);
