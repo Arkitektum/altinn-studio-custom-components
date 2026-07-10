@@ -2,10 +2,9 @@
 import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement, renderLayoutContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderLayoutContainerElement } from "../../../functions/helpers.js";
 import { setPageOrientation } from "../../../functions/printHelpers.js";
 
 // Local functions
@@ -25,62 +24,55 @@ import {
 export default customElements.define(
     "custom-gjennomfoeringsplan",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-
+        connectedCallback() {
+            // Runs unconditionally (on both the hidden and rendered paths), so it stays outside the helper.
             setPageOrientation("landscape");
+            renderCustomComponent(this, {
+                type: "layout",
+                alwaysHideWhenEmpty: true,
+                render: (host, component) => {
+                    const layoutContainerElement = renderLayoutContainerElement();
 
-            if (component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "layout");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+                    const headerElement = renderGjennomfoeringsplanHeader(component, "h1");
+                    const subHeaderElement = renderGjennomfoeringsplanSubHeader(component);
+
+                    const versjonElement = renderVersjon(component);
+                    const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
+                    const metadataProsjektnavnElement = renderMetadataProsjektnavn(component);
+                    const metadataFtbIdElement = renderMetadataFtbId(component);
+
+                    const planenGjelderHeaderElement = renderPlanenGjelderHeader(component);
+                    const eiendomByggestedElement = renderEiendomByggested(component);
+                    const ansvarligSoekerElement = renderAnsvarligSoeker(component);
+                    const ansvarsomraadeElement = renderAnsvarsomraade(component);
+
+                    const validationFeedbackListElement = renderFeedbackListElement(component?.validationMessages);
+
+                    // Header and subheader
+                    appendChildren(layoutContainerElement, [headerElement, subHeaderElement]);
+
+                    // Intro
+                    appendChildren(layoutContainerElement, [
+                        versjonElement,
+                        kommunensSaksnummerElement,
+                        metadataProsjektnavnElement,
+                        metadataFtbIdElement
+                    ]);
+
+                    // Planen gjelder
+                    appendChildren(layoutContainerElement, [
+                        planenGjelderHeaderElement,
+                        eiendomByggestedElement,
+                        ansvarligSoekerElement,
+                        ansvarsomraadeElement
+                    ]);
+
+                    // Append the validation feedback list element if there are validation messages
+                    appendChildren(layoutContainerElement, [validationFeedbackListElement]);
+
+                    host.appendChild(layoutContainerElement);
                 }
-            } else {
-                const layoutContainerElement = renderLayoutContainerElement();
-
-                const headerElement = renderGjennomfoeringsplanHeader(component, "h1");
-                const subHeaderElement = renderGjennomfoeringsplanSubHeader(component);
-
-                const versjonElement = renderVersjon(component);
-                const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
-                const metadataProsjektnavnElement = renderMetadataProsjektnavn(component);
-                const metadataFtbIdElement = renderMetadataFtbId(component);
-
-                const planenGjelderHeaderElement = renderPlanenGjelderHeader(component);
-                const eiendomByggestedElement = renderEiendomByggested(component);
-                const ansvarligSoekerElement = renderAnsvarligSoeker(component);
-                const ansvarsomraadeElement = renderAnsvarsomraade(component);
-
-                const validationFeedbackListElement = renderFeedbackListElement(component?.validationMessages);
-
-                // Header and subheader
-                appendChildren(layoutContainerElement, [headerElement, subHeaderElement]);
-
-                // Intro
-                appendChildren(layoutContainerElement, [
-                    versjonElement,
-                    kommunensSaksnummerElement,
-                    metadataProsjektnavnElement,
-                    metadataFtbIdElement
-                ]);
-
-                // Planen gjelder
-                appendChildren(layoutContainerElement, [
-                    planenGjelderHeaderElement,
-                    eiendomByggestedElement,
-                    ansvarligSoekerElement,
-                    ansvarsomraadeElement
-                ]);
-
-                // Append the validation feedback list element if there are validation messages
-                appendChildren(layoutContainerElement, [validationFeedbackListElement]);
-
-                this.appendChild(layoutContainerElement);
-                addDevToolsOverlay(this, component, "layout");
-            }
+            });
         }
     }
 );

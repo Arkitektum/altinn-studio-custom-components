@@ -29,9 +29,6 @@ export function renderCustomComponent(host, { type, render, withFeedback = false
     const component = instantiateComponent(host);
     const componentContainerElement = getComponentContainerElement(host);
     const shouldHideWhenEmpty = alwaysHideWhenEmpty || component?.hideIfEmpty;
-    if (component?.tagName == "custom-grouplist-sjekklistekrav") {
-        console.log({ component, alwaysHideWhenEmpty, shouldHideWhenEmpty, componentContainerElement });
-    }
     if (shouldHideWhenEmpty && component?.isEmpty && !!componentContainerElement) {
         if (isDevMode()) {
             const hiddenEl = renderHiddenDevToolsElement(host, component, type);

@@ -1,7 +1,5 @@
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderFeedbackListElement } from "./renderers.js";
@@ -13,21 +11,15 @@ export default customElements.define(
     "custom-feedbacklist-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            const feedbackMessages = component?.resourceValues?.data;
-            const title = component?.resourceValues?.title || "Messages";
-            if (component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+            renderCustomComponent(this, {
+                type: "data",
+                alwaysHideWhenEmpty: true,
+                render: (host, component) => {
+                    const feedbackMessages = component?.resourceValues?.data;
+                    const title = component?.resourceValues?.title || "Messages";
+                    host.innerHTML = renderFeedbackListElement(title, feedbackMessages, component?.feedbackType, component?.styleOverride);
                 }
-            } else {
-                this.innerHTML = renderFeedbackListElement(title, feedbackMessages, component?.feedbackType, component?.styleOverride);
-                addDevToolsOverlay(this, component, "data");
-            }
+            });
         }
     }
 );
