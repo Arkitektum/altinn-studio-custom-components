@@ -2,10 +2,7 @@
 import { createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderEmptyFieldText, renderSamsvarAnsvarsomraadeGroup } from "./renderers.js";
@@ -14,42 +11,33 @@ export default customElements.define(
     "custom-grouplist-samsvar-ansvarsomraade",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
-                }
-            } else if (component?.isEmpty) {
-                const emptyFieldTextElement = renderEmptyFieldText(component);
-                this.appendChild(emptyFieldTextElement);
-                addDevToolsOverlay(this, component, "data");
-            } else {
-                const data = component?.resourceValues?.data ?? [];
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    if (component?.isEmpty) {
+                        const emptyFieldTextElement = renderEmptyFieldText(component);
+                        host.appendChild(emptyFieldTextElement);
+                    } else {
+                        const data = component?.resourceValues?.data ?? [];
 
-                data.sort((a, b) => {
-                    const aCode = a?.funksjon?.kodeverdi?.toUpperCase();
-                    const bCode = b?.funksjon?.kodeverdi?.toUpperCase();
+                        data.sort((a, b) => {
+                            const aCode = a?.funksjon?.kodeverdi?.toUpperCase();
+                            const bCode = b?.funksjon?.kodeverdi?.toUpperCase();
 
-                    if (aCode === "PRO" && bCode !== "PRO") return -1;
-                    if (aCode !== "PRO" && bCode === "PRO") return 1;
-                    return 0;
-                });
-                for (const samsvarAnsvarsomraade of data) {
-                    const samsvarAnsvarsomraadeElement = renderSamsvarAnsvarsomraadeGroup(samsvarAnsvarsomraade, component);
-                    this.appendChild(samsvarAnsvarsomraadeElement);
-                    const dividerElement = createCustomElement("custom-divider");
-                    this.appendChild(dividerElement);
+                            if (aCode === "PRO" && bCode !== "PRO") return -1;
+                            if (aCode !== "PRO" && bCode === "PRO") return 1;
+                            return 0;
+                        });
+                        for (const samsvarAnsvarsomraade of data) {
+                            const samsvarAnsvarsomraadeElement = renderSamsvarAnsvarsomraadeGroup(samsvarAnsvarsomraade, component);
+                            host.appendChild(samsvarAnsvarsomraadeElement);
+                            const dividerElement = createCustomElement("custom-divider");
+                            host.appendChild(dividerElement);
+                        }
+                    }
                 }
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );
