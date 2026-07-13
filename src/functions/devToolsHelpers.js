@@ -1,3 +1,6 @@
+// Global functions
+import { escapeHtml } from "./stringHelpers.js";
+
 const TYPE_CONFIG = {
     base: { label: "B", color: "#89b4fa", bgColor: "#1a1a35", bgColorHidden: "#1a1a35cc", borderColor: "#3d3d7a", rightPx: 2, typeName: "Base" },
     data: { label: "D", color: "#a6e3a1", bgColor: "#0d2518", bgColorHidden: "#0d2518cc", borderColor: "#2a5e3a", rightPx: 26, typeName: "Data" },
@@ -104,14 +107,14 @@ function buildPanel(tagName, elementId, props, hidden, type) {
         ? `<span style="background:#45475a;color:#f38ba8;padding:1px 5px;border-radius:3px;font-size:9px;margin-left:4px;vertical-align:middle;">hidden</span>`
         : "";
 
-    let html = `<div style="font-weight:bold;font-size:12px;margin-bottom:6px;color:${cfg.color};">${typeBadge}&lt;${tagName}&gt;${hiddenBadge}</div>`;
+    let html = `<div style="font-weight:bold;font-size:12px;margin-bottom:6px;color:${cfg.color};">${typeBadge}&lt;${escapeHtml(tagName)}&gt;${hiddenBadge}</div>`;
 
     if (elementId) {
-        html += `<div><span style="color:#89dceb;">id</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">"${elementId}"</span></div>`;
+        html += `<div><span style="color:#89dceb;">id</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">"${escapeHtml(elementId)}"</span></div>`;
     }
 
     for (const { key, value } of props) {
-        html += `<div><span style="color:#89dceb;">${key}</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">${value}</span></div>`;
+        html += `<div><span style="color:#89dceb;">${escapeHtml(key)}</span><span style="color:#585b70;">: </span><span style="color:#a6e3a1;">${escapeHtml(value)}</span></div>`;
     }
 
     panel.innerHTML = html;

@@ -21,7 +21,8 @@ export default customElements.define(
                 });
             }
             const htmlAttributes = new CustomElementHtmlAttributes(component);
-            this.innerHTML = createCustomElement("custom-header", htmlAttributes).outerHTML;
+            this.innerHTML = "";
+            this.appendChild(createCustomElement("custom-header", htmlAttributes));
             addDevToolsOverlay(this, component, "data");
         }
     }

@@ -45,9 +45,13 @@ function renderFieldValueElement(fieldValue, enableLinks) {
         fieldValue = JSON.stringify(fieldValue, null, 2);
     }
     if (!hasValue(fieldValue)) {
-        fieldValueElement.innerHTML = "";
+        fieldValueElement.textContent = "";
+    } else if (enableLinks) {
+        // injectAnchorElements returns sanitized HTML (anchors), so innerHTML is required here.
+        fieldValueElement.innerHTML = injectAnchorElements(fieldValue);
     } else {
-        fieldValueElement.innerHTML = enableLinks ? injectAnchorElements(fieldValue) : fieldValue;
+        // Plain data value: use textContent so any HTML-like content is rendered as text, not interpreted (XSS-safe).
+        fieldValueElement.textContent = fieldValue;
     }
     return fieldValueElement;
 }

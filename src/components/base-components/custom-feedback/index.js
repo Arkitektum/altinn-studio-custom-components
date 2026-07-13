@@ -1,9 +1,5 @@
-// Classes
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderFeedbackElement } from "./renderers.js";
@@ -15,20 +11,14 @@ export default customElements.define(
     "custom-feedback",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            const value = component?.resourceValues?.data;
-            if (component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+            renderCustomComponent(this, {
+                type: "base",
+                alwaysHideWhenEmpty: true,
+                render: (host, component) => {
+                    const value = component?.resourceValues?.data;
+                    host.innerHTML = renderFeedbackElement(value, component?.feedbackType);
                 }
-            } else {
-                this.innerHTML = renderFeedbackElement(value, component?.feedbackType);
-                addDevToolsOverlay(this, component, "base");
-            }
+            });
         }
     }
 );

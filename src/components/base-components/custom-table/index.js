@@ -1,9 +1,5 @@
-// Classes
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderTableElement } from "./renderers.js";
@@ -14,22 +10,15 @@ import "./styles.css" with { type: "css" };
 export default customElements.define(
     "custom-table",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "base",
+                render: (host, component) => {
+                    const tableElement = renderTableElement(component);
+                    host.innerHTML = "";
+                    host.appendChild(tableElement);
                 }
-            } else {
-                const tableElement = renderTableElement(component);
-                this.innerHTML = "";
-                this.appendChild(tableElement);
-                addDevToolsOverlay(this, component, "base");
-            }
+            });
         }
     }
 );

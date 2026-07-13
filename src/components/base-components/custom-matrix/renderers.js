@@ -14,6 +14,7 @@ import { getEmptyFieldText } from "../../../functions/helpers.js";
  */
 function renderMatrixColumnHeaderElement(matrixHeader) {
     const th = document.createElement("th");
+    th.setAttribute("scope", "col");
     th.textContent = matrixHeader.text;
     return th;
 }
@@ -29,9 +30,10 @@ function renderMatrixColumnHeaderElement(matrixHeader) {
  */
 function renderMatrixRowHeaderElement(matrixCell) {
     const th = document.createElement("th");
+    th.setAttribute("scope", "row");
     matrixCell.styleOverride = { ...matrixCell?.styleOverride, fontWeight: "var(--font-weight-bold)" };
     const htmlAttributes = new CustomElementHtmlAttributes(matrixCell);
-    th.innerHTML = createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes).outerHTML;
+    th.appendChild(createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes));
     return th;
 }
 
@@ -44,7 +46,7 @@ function renderMatrixRowHeaderElement(matrixCell) {
 function renderMatrixCellElement(matrixCell) {
     const td = document.createElement("td");
     const htmlAttributes = new CustomElementHtmlAttributes(matrixCell);
-    td.innerHTML = createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes).outerHTML;
+    td.appendChild(createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes));
     return td;
 }
 

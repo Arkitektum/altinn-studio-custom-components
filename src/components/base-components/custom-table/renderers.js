@@ -15,6 +15,7 @@ import { getEmptyFieldText } from "../../../functions/helpers.js";
  */
 function renderTableHeaderElement(tableHeader) {
     const th = document.createElement("th");
+    th.setAttribute("scope", "col");
     th.textContent = tableHeader.text;
     addStyle(th, tableHeader?.styleOverride);
     return th;
@@ -43,7 +44,7 @@ function renderTableRowElement(tableRow) {
 function renderTableCellElement(tableCell) {
     const td = document.createElement("td");
     const htmlAttributes = new CustomElementHtmlAttributes(tableCell);
-    td.innerHTML = createCustomElement(tableCell?.tagName || "custom-field-data", htmlAttributes).outerHTML;
+    td.appendChild(createCustomElement(tableCell?.tagName || "custom-field-data", htmlAttributes));
     return td;
 }
 

@@ -156,7 +156,8 @@ export function getComponentDataValue(component) {
             // Special case for boolean values
             return component.formData?.simpleBinding;
         }
-        return component.formData?.simpleBinding || component.formData?.data;
+        // Use nullish coalescing so legitimate falsy values (0, "") from simpleBinding are not discarded.
+        return component.formData?.simpleBinding ?? component.formData?.data;
     }
 }
 /**

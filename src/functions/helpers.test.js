@@ -244,6 +244,15 @@ describe("getComponentDataValue", () => {
     it("returns formData.data if simpleBinding not present", () => {
         expect(getComponentDataValue({ isChildComponent: false, formData: { data: "def" } })).toBe("def");
     });
+    it("returns numeric 0 from simpleBinding instead of falling through to data", () => {
+        expect(getComponentDataValue({ isChildComponent: false, formData: { simpleBinding: 0, data: "def" } })).toBe(0);
+    });
+    it("returns an empty-string simpleBinding instead of falling through to data", () => {
+        expect(getComponentDataValue({ isChildComponent: false, formData: { simpleBinding: "", data: "def" } })).toBe("");
+    });
+    it("returns a boolean false simpleBinding", () => {
+        expect(getComponentDataValue({ isChildComponent: false, formData: { simpleBinding: false, data: "def" } })).toBe(false);
+    });
 });
 
 describe("getComponentDataTitle", () => {

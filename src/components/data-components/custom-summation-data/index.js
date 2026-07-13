@@ -1,10 +1,5 @@
-// Classes
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
-
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderSummationData } from "./renderers.js";
@@ -13,24 +8,14 @@ export default customElements.define(
     "custom-summation-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    const summationDataElement = renderSummationData(component);
+                    host.appendChild(summationDataElement);
                 }
-            } else {
-                const summationDataElement = renderSummationData(component);
-                this.appendChild(summationDataElement);
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );

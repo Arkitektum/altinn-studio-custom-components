@@ -105,6 +105,10 @@ describe("formatDateTime", () => {
     it("returns error message for invalid date", () => {
         expect(formatDateTime("not-a-date")).toBe("Ugyldig datoformat");
     });
+    it("returns empty string for empty/undefined input", () => {
+        expect(formatDateTime("")).toBe("");
+        expect(formatDateTime(undefined)).toBe("");
+    });
 });
 
 describe("formatDate", () => {
@@ -134,6 +138,11 @@ describe("formatTime", () => {
     it("parses and formats invalid time string", () => {
         const result = formatTime("13:45", "en");
         expect(typeof result).toBe("string");
+    });
+    it("returns empty string for empty/undefined input without throwing", () => {
+        expect(formatTime("")).toBe("");
+        expect(() => formatTime(undefined)).not.toThrow();
+        expect(formatTime(undefined)).toBe("");
     });
 });
 
@@ -169,6 +178,11 @@ describe("formatString", () => {
         expect(formatString(123, "meterSquared")).toBe("123 m²");
         expect(formatString("456", "meterSquared")).toBe("456 m²");
     });
+    it("formats meterSquared for zero but returns empty for a missing value", () => {
+        expect(formatString(0, "meterSquared")).toBe("0 m²");
+        expect(formatString("", "meterSquared")).toBe("");
+        expect(formatString(undefined, "meterSquared")).toBe("");
+    });
     it("returns input for unknown format", () => {
         expect(formatString("abc", "unknown")).toBe("abc");
     });
@@ -198,5 +212,11 @@ describe("injectAnchorElements", () => {
     });
     it("returns empty string for empty input", () => {
         expect(injectAnchorElements("")).toBe("");
+    });
+    it("escapes an angle-bracket/quote payload in the URL token so it cannot break out of the anchor", () => {
+        const output = injectAnchorElements('http://a.co/"><img src=x onerror=alert(1)>');
+        expect(output).not.toContain("<img");
+        expect(output).toContain("&lt;img");
+        expect(output).toContain("&quot;");
     });
 });

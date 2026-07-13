@@ -8,7 +8,7 @@ import CustomComponent from "../CustomComponent.js";
 import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.js";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.js";
 
 /**
  * CustomTableData is a custom component class for rendering and managing table data.
@@ -80,30 +80,8 @@ export default class CustomTableData extends CustomComponent {
         };
     }
 
-    sortRowsByKey(sortKey, direction, sortedRows) {
-        sortedRows.sort((a, b) => {
-            let aValue = a[sortKey];
-            let bValue = b[sortKey];
-
-            const aNum = parseFloat(aValue);
-            const bNum = parseFloat(bValue);
-
-            const aIsNum = !isNaN(aNum);
-            const bIsNum = !isNaN(bNum);
-
-            if (aIsNum && bIsNum) {
-                if (aNum < bNum) return direction === "asc" ? -1 : 1;
-                if (aNum > bNum) return direction === "asc" ? 1 : -1;
-                return 0;
-            }
-
-            // fallback to string comparison
-            if (aValue < bValue) return direction === "asc" ? -1 : 1;
-            if (aValue > bValue) return direction === "asc" ? 1 : -1;
-            return 0;
-        });
-
-        return sortedRows;
+    sortRowsByKey(sortKey, direction, rows) {
+        return sortRows(sortKey, direction, rows);
     }
 
     /**
@@ -174,16 +152,7 @@ export default class CustomTableData extends CustomComponent {
      * @returns {Array<Array<any>>} A new array containing only the non-empty table rows.
      */
     removeEmptyTableRows(tableRows) {
-        return Array.isArray(tableRows)
-            ? tableRows
-                  .map((tableRow) => {
-                      const notEmptyTableCells = tableRow.filter((tableCell) => {
-                          return !instantiateComponent(tableCell)?.isEmpty;
-                      });
-                      return notEmptyTableCells.length > 0 ? tableRow : null;
-                  })
-                  .filter((tableRow) => tableRow !== null)
-            : []; // Return empty array if tableRows is not an array
+        return removeEmptyRows(tableRows);
     }
 
     /**
@@ -195,7 +164,9 @@ export default class CustomTableData extends CustomComponent {
      * @returns {boolean} Returns true if tableRows has a value, otherwise false.
      */
     hasContent(formData) {
-        return hasValue(formData);
+        // Base emptiness on the actual rows: headers alone (an always-present array) must not count as content,
+        // otherwise a table whose rows are all empty renders headers instead of the empty-field text / being hidden.
+        return hasValue(formData?.tableRows);
     }
 
     /**

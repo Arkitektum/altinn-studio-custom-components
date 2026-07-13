@@ -1,6 +1,9 @@
 // Constants
 import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.js";
 
+// Global functions
+import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.js";
+
 /**
  * Returns the provided language if it is included in the list of available date-time languages.
  * Otherwise, returns the default language.
@@ -77,6 +80,9 @@ export function isValidDateString(dateString) {
  * @returns {string} - The formatted date-time string or an error message if the input is invalid.
  */
 export function formatDateTime(dateTime, language = "default") {
+    if (!dateTime) {
+        return "";
+    }
     if (!isValidDateString(dateTime)) {
         return "Ugyldig datoformat"; // Return an error message for invalid date format
     }
@@ -125,6 +131,9 @@ export function formatDate(date, language = "default") {
  * @returns {string} The formatted time string.
  */
 export function formatTime(time, language = "default") {
+    if (!time) {
+        return "";
+    }
     const timeHasDate = time.includes("T");
     if (!timeHasDate) {
         time = "1970-01-01T" + time; // Append date if not present
@@ -158,6 +167,9 @@ export function formatAR(data) {
  * @returns {string} The formatted string with square meters unit.
  */
 export function formatMeterSquared(value) {
+    if (value === null || value === undefined || value === "") {
+        return "";
+    }
     return `${value} m²`;
 }
 
@@ -208,9 +220,6 @@ export function injectAnchorElements(text) {
     // 2) Non-global tester to avoid lastIndex issues
     const isUrl = new RegExp(`^${urlPattern}$`);
 
-    // Optional: basic HTML escape for non-link parts
-    const escapeHtml = (s) => String(s).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-
     return text
         .toString()
         .split(splitRegex)
@@ -223,7 +232,9 @@ export function injectAnchorElements(text) {
                 const raw = m[1];
                 const trail = m[2] ?? "";
                 const href = raw.startsWith("http") ? raw : `https://${raw}`;
-                return `<a href="${href}" target="_blank" rel="noopener noreferrer">${raw}</a>${escapeHtml(trail)}`;
+                // The URL token can contain quotes/angle brackets (the pattern allows any non-whitespace),
+                // so escape it before interpolating into the attribute and the link text to prevent HTML injection.
+                return `<a href="${escapeHtmlAttribute(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(raw)}</a>${escapeHtml(trail)}`;
             }
             return escapeHtml(part);
         })

@@ -1,27 +1,21 @@
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
+
+// Local functions
 import { renderListFieldElement } from "./renderers.js";
 
 export default customElements.define(
     "custom-field-list-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+            renderCustomComponent(this, {
+                type: "data",
+                render: (host, component) => {
+                    const fieldListDataElement = renderListFieldElement(component);
+                    host.innerHTML = "";
+                    host.appendChild(fieldListDataElement);
                 }
-            } else {
-                const fieldListDataElement = renderListFieldElement(component);
-                this.innerHTML = fieldListDataElement.outerHTML;
-                addDevToolsOverlay(this, component, "data");
-            }
+            });
         }
     }
 );

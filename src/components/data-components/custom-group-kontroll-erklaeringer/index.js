@@ -2,10 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderEmptyFieldText, renderErklaeringTekstElement, renderHeaderElement, renderKONTROLLTekstElement } from "./renderers.js";
@@ -13,37 +10,27 @@ import { renderEmptyFieldText, renderErklaeringTekstElement, renderHeaderElement
 export default customElements.define(
     "custom-group-kontroll-erklaeringer",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
-                }
-            } else {
-                if (hasValue(component?.resourceBindings?.erklaeringer?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceBindings?.erklaeringer?.title, component?.size));
-                }
-                if (component?.isEmpty) {
-                    const emptyFieldTextElement = renderEmptyFieldText(component);
-                    this.appendChild(emptyFieldTextElement);
-                } else {
-                    this.appendChild(renderErklaeringTekstElement(component));
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    if (hasValue(component?.resourceBindings?.erklaeringer?.title) && component?.hideTitle !== true) {
+                        host.appendChild(renderHeaderElement(component?.resourceBindings?.erklaeringer?.title, component?.size));
+                    }
+                    if (component?.isEmpty) {
+                        const emptyFieldTextElement = renderEmptyFieldText(component);
+                        host.appendChild(emptyFieldTextElement);
+                    } else {
+                        host.appendChild(renderErklaeringTekstElement(component));
 
-                    let funksjon = component.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
-                    if (funksjon === "KONTROLL") {
-                        this.appendChild(renderKONTROLLTekstElement(component));
+                        let funksjon = component.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
+                        if (funksjon === "KONTROLL") {
+                            host.appendChild(renderKONTROLLTekstElement(component));
+                        }
                     }
                 }
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );

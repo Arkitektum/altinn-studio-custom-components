@@ -2,9 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderHeaderElement, renderSummationElement } from "./renderers.js";
@@ -16,25 +14,17 @@ export default customElements.define(
     "custom-summation",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "base");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+            renderCustomComponent(this, {
+                type: "base",
+                render: (host, component) => {
+                    const summationElement = renderSummationElement(component?.resourceValues?.data);
+                    host.innerHTML = "";
+                    if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                        host.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                    }
+                    host.appendChild(summationElement);
                 }
-            } else {
-                const summationElement = renderSummationElement(component?.resourceValues?.data);
-                this.innerHTML = "";
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
-                }
-                this.appendChild(summationElement);
-                addDevToolsOverlay(this, component, "base");
-            }
+            });
         }
     }
 );
