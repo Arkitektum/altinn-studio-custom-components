@@ -617,6 +617,11 @@
                     }
                     & .app-usage-details-list,
                     & .component-usage-details-list {
+                        /* Indent the display layout tier so it reads as nested inside the app,
+                           mirroring how the component list is indented inside each layout. */
+                        & .layout-usage-details-list {
+                            margin: 0 0 8px 16px;
+                        }
                         & details {
                             margin-bottom: 8px;
                             &:not(:last-child) {
@@ -632,13 +637,15 @@
                                     background-color: rgba(255, 255, 255, 0.05);
                                 }
                                 & .app-usage-summary-title,
-                                & .component-usage-summary-title {
+                                & .component-usage-summary-title,
+                                & .layout-usage-summary-title {
                                     font-weight: 600;
                                     color: var(--color-text-white);
                                     width: 100%;
                                 }
                                 & .app-usage-summary-count,
-                                & .component-usage-summary-count {
+                                & .component-usage-summary-count,
+                                & .layout-usage-summary-count {
                                     font-size: 14px;
                                     margin-left: 8px;
                                     font-weight: 300;
