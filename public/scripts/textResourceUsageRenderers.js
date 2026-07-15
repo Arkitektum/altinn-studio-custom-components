@@ -33,18 +33,73 @@ function renderComponentUsingResourceListItem(component) {
 }
 
 /**
+ * Counts the total number of components using a resource across all display layouts of an app.
+ *
+ * @param {Array<Object>} layouts - Per display layout usage, each containing a `componentsUsingResource` array.
+ * @returns {number} The total number of components using the resource.
+ */
+function getTotalComponentsForLayouts(layouts) {
+    if (!Array.isArray(layouts)) {
+        return 0;
+    }
+    return layouts.reduce((total, layout) => total + (layout?.componentsUsingResource?.length || 0), 0);
+}
+
+/**
+ * Creates a <details> element representing a single display layout's usage of a resource, including
+ * the layout name, the number of components using the resource, and a list of those components.
+ *
+ * @param {Object} layoutUsage - The usage details for a display layout: { layoutName, componentsUsingResource }.
+ * @returns {HTMLDetailsElement} The constructed <details> element representing the layout usage.
+ */
+function renderLayoutUsageDetailsListItem(layoutUsage) {
+    const layoutUsageListItemElement = document.createElement("details");
+    layoutUsageListItemElement.classList.add("layout-usage-details-list-item");
+    const layoutName = layoutUsage?.layoutName || "DisplayLayout";
+    const componentUsageNumber = layoutUsage?.componentsUsingResource?.length || 0;
+
+    const layoutUsageSummaryElement = document.createElement("summary");
+
+    const expandCollapseIconElement = document.createElement("span");
+    expandCollapseIconElement.classList.add("expand-collapse-icon");
+    expandCollapseIconElement.innerHTML = "▶";
+    layoutUsageSummaryElement.appendChild(expandCollapseIconElement);
+
+    const layoutUsageSummaryTitleElement = document.createElement("span");
+    layoutUsageSummaryTitleElement.classList.add("layout-usage-summary-title");
+    layoutUsageSummaryTitleElement.innerHTML = layoutName;
+
+    const layoutUsageSummaryCountElement = document.createElement("span");
+    layoutUsageSummaryCountElement.classList.add("layout-usage-summary-count");
+    layoutUsageSummaryCountElement.innerHTML = `Components: ${componentUsageNumber}`;
+
+    layoutUsageSummaryElement.appendChild(layoutUsageSummaryTitleElement);
+    layoutUsageSummaryElement.appendChild(layoutUsageSummaryCountElement);
+    layoutUsageListItemElement.appendChild(layoutUsageSummaryElement);
+
+    const componentUsageListElement = document.createElement("div");
+    componentUsageListElement.classList.add("component-usage-list");
+    layoutUsage?.componentsUsingResource?.forEach((component) => {
+        componentUsageListElement.appendChild(renderComponentUsingResourceListItem(component));
+    });
+    layoutUsageListItemElement.appendChild(componentUsageListElement);
+
+    return layoutUsageListItemElement;
+}
+
+/**
  * Creates a <details> element representing an application's usage details, including
- * the app name, the number of components using a resource, and a list of those components.
+ * the app name, the number of components using a resource, and its display layouts.
  *
  * @param {Object} appUsage - The usage details for an application.
  * @param {string} [appUsage.appName] - The name of the application.
- * @param {Array<Object>} [appUsage.componentsUsingResource] - Array of components using the resource.
+ * @param {Array<Object>} [appUsage.layouts] - Per display layout usage, each with a `layoutName` and `componentsUsingResource`.
  * @returns {HTMLElement} The constructed <details> element containing the app usage information.
  */
 function renderAppUsageDetailsListItem(appUsage) {
     const appUsageListItemElement = document.createElement("details");
     const appName = appUsage ? `${appUsage?.appOwner}/${appUsage?.appName}` : "Unknown app";
-    const componentUsageNumber = appUsage?.componentsUsingResource?.length || 0;
+    const componentUsageNumber = getTotalComponentsForLayouts(appUsage?.layouts);
     const appUsageSummaryElement = document.createElement("summary");
 
     const expandCollapseIconElement = document.createElement("span");
@@ -65,12 +120,12 @@ function renderAppUsageDetailsListItem(appUsage) {
 
     appUsageListItemElement.appendChild(appUsageSummaryElement);
 
-    const componentUsageListElement = document.createElement("div");
-    componentUsageListElement.classList.add("component-usage-list");
-    appUsage?.componentsUsingResource?.forEach((component) => {
-        componentUsageListElement.appendChild(renderComponentUsingResourceListItem(component));
+    const appUsageLayoutListElement = document.createElement("div");
+    appUsageLayoutListElement.classList.add("layout-usage-details-list");
+    appUsage?.layouts?.forEach((layoutUsage) => {
+        appUsageLayoutListElement.appendChild(renderLayoutUsageDetailsListItem(layoutUsage));
     });
-    appUsageListItemElement.appendChild(componentUsageListElement);
+    appUsageListItemElement.appendChild(appUsageLayoutListElement);
     return appUsageListItemElement;
 }
 
@@ -141,7 +196,7 @@ function getPresenceLabel(presence) {
  */
 export function renderDefaultTextResourceListItem(textResource, allTextResources) {
     const numberOfAppsUsingResource = textResource?.usage?.length;
-    const numberOfComponentsUsingResource = textResource?.usage?.reduce((total, app) => total + app?.componentsUsingResource?.length, 0) || 0;
+    const numberOfComponentsUsingResource = textResource?.usage?.reduce((total, app) => total + getTotalComponentsForLayouts(app?.layouts), 0) || 0;
     const resourcesWithSameValue = getResourcesWithSameValue(allTextResources, textResource);
 
     const listItemElement = document.createElement("details");

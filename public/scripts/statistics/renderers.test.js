@@ -137,7 +137,15 @@ describe("renderSynchronizeButton", () => {
 describe("internal renderers functions", () => {
     beforeEach(() => {
         document.body.innerHTML = '<div id="admin-main"></div><div id="sidebar"></div>';
-        globalThis.displayLayouts = [{ appName: "app1", appOwner: "owner1", isSubform: false, layout: { data: { layout: [{ tagName: "div" }] } } }];
+        globalThis.displayLayouts = [
+            {
+                appName: "app1",
+                appOwner: "owner1",
+                displayLayouts: [
+                    { name: "DisplayLayout", path: "App/ui/form/layouts/DisplayLayout.json", layout: { data: { layout: [{ tagName: "div" }] } } }
+                ]
+            }
+        ];
         globalThis.allTextResourceUsage = [];
         globalThis.packageVersions = [
             {

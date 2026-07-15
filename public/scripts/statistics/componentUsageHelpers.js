@@ -35,7 +35,13 @@ function handleSubComponentUsages(component, layoutInfo, usageInfo, groupedUsage
             collectComponentUsageTreeGrouped(
                 subComponent,
                 layoutInfo,
-                { tagName: component.tagName, id: usageInfo.id, appOwner: layoutInfo.appOwner, appName: layoutInfo.appName },
+                {
+                    tagName: component.tagName,
+                    id: usageInfo.id,
+                    appOwner: layoutInfo.appOwner,
+                    appName: layoutInfo.appName,
+                    layoutName: layoutInfo.layoutName
+                },
                 groupedUsage
             );
         }
@@ -60,6 +66,7 @@ function collectComponentUsageTreeGrouped(component, layoutInfo, parentInfo, gro
         id: explicitId === undefined ? component.id || null : explicitId,
         appOwner: layoutInfo.appOwner,
         appName: layoutInfo.appName,
+        layoutName: layoutInfo.layoutName,
         parent: parentInfo
     };
     addUsageToGroup(tagName, usageInfo, groupedUsage);
@@ -75,7 +82,7 @@ function collectComponentUsageTreeGrouped(component, layoutInfo, parentInfo, gro
 export function getComponentUsageTreeForAllLayouts(displayLayouts) {
     const groupedUsage = {};
     for (const layout of displayLayouts) {
-        const layoutInfo = { appOwner: layout.appOwner, appName: layout.appName };
+        const layoutInfo = { appOwner: layout.appOwner, appName: layout.appName, layoutName: layout.layoutName };
         const componentsInLayout = Array.isArray(layout?.layout?.data?.layout) ? layout.layout.data.layout : null;
         if (!componentsInLayout) continue;
         for (const component of componentsInLayout) {

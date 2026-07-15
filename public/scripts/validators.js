@@ -378,16 +378,29 @@ export function getResourceUsageForLayout(layout, resource) {
  * @returns {Array<Object>} An array of objects, each containing:
  *   - {string} appOwner: The owner of the app.
  *   - {string} appName: The name of the app.
- *   - {Array} componentsUsingResource: List of components in the layout that use the specified resource.
+ *   - {Array} layouts: Per display layout usage, each containing a `layoutName` and the `componentsUsingResource` list.
  */
 export function getResourceUsage(layouts, resource) {
-    return layouts
-        .map((layout) => ({
-            appOwner: layout.appOwner,
-            appName: layout.appName,
-            componentsUsingResource: getResourceUsageForLayout(layout, resource)
-        }))
-        .filter((usage) => usage.componentsUsingResource.length > 0);
+    const appUsageMap = {};
+    layouts.forEach((layout) => {
+        const componentsUsingResource = getResourceUsageForLayout(layout, resource);
+        if (componentsUsingResource.length === 0) {
+            return;
+        }
+        const appKey = `${layout.appOwner}-${layout.appName}`;
+        if (!appUsageMap[appKey]) {
+            appUsageMap[appKey] = {
+                appOwner: layout.appOwner,
+                appName: layout.appName,
+                layouts: []
+            };
+        }
+        appUsageMap[appKey].layouts.push({
+            layoutName: layout.layoutName,
+            componentsUsingResource
+        });
+    });
+    return Object.values(appUsageMap);
 }
 
 /**
@@ -441,7 +454,7 @@ function getMissingResourceUsage(layouts, resource, appResourceValues) {
             const usageEntry = {
                 appOwner,
                 appName,
-                componentsUsingResource
+                layouts: [{ layoutName: layout.layoutName, componentsUsingResource }]
             };
             if (localAppResource) {
                 const values = localAppResource.values || {};

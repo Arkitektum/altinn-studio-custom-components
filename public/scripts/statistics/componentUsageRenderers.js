@@ -15,7 +15,47 @@ function getAppUsageCountForComponent(component) {
 }
 
 /**
- * Get the direct usages of a component, grouped by unique apps.
+ * Groups a list of usages by unique app, and within each app by the display layout the usage was found in.
+ * Only usages matching the provided predicate are included.
+ * @param {Array} usages - The usages to group.
+ * @param {Function} predicate - A function returning true for usages that should be included.
+ * @returns {Array} - An array of objects like { appOwner, appName, layouts: [{ layoutName, usages: [] }] }.
+ */
+function groupUsagesByAppAndLayout(usages, predicate) {
+    if (!Array.isArray(usages)) {
+        return [];
+    }
+    const appUsageMap = {};
+    usages.forEach((usage) => {
+        if (!predicate(usage)) {
+            return;
+        }
+        const appKey = `${usage.appOwner}-${usage.appName}`;
+        if (!appUsageMap[appKey]) {
+            appUsageMap[appKey] = {
+                appOwner: usage.appOwner,
+                appName: usage.appName,
+                layouts: {}
+            };
+        }
+        const layoutKey = usage.layoutName ?? "";
+        if (!appUsageMap[appKey].layouts[layoutKey]) {
+            appUsageMap[appKey].layouts[layoutKey] = {
+                layoutName: usage.layoutName,
+                usages: []
+            };
+        }
+        appUsageMap[appKey].layouts[layoutKey].usages.push(usage);
+    });
+    return Object.values(appUsageMap).map((app) => ({
+        appOwner: app.appOwner,
+        appName: app.appName,
+        layouts: Object.values(app.layouts)
+    }));
+}
+
+/**
+ * Get the direct usages of a component, grouped by unique apps and by display layout within each app.
  * A direct usage is identified by the presence of an id in the usage object.
  * If a component has no direct usages, return an empty array.
  * @param {Object} component - The component object containing usage information.
@@ -25,27 +65,11 @@ function getDirectComponentUsages(component) {
     if (!component?.usages) {
         return [];
     }
-    // Filter usages that have an id, and group them by app owner and app name to get unique apps using the component
-    // Group them in a new array like this [{ appOwner: usage.appOwner, appName: usage.appName, usage: [usage] }]
-    const appUsageMap = {};
-    component.usages.forEach((usage) => {
-        if (usage?.id) {
-            const appKey = `${usage.appOwner}-${usage.appName}`;
-            if (!appUsageMap[appKey]) {
-                appUsageMap[appKey] = {
-                    appOwner: usage.appOwner,
-                    appName: usage.appName,
-                    usages: []
-                };
-            }
-            appUsageMap[appKey].usages.push(usage);
-        }
-    });
-    return Object.values(appUsageMap);
+    return groupUsagesByAppAndLayout(component.usages, (usage) => usage?.id);
 }
 
 /**
- * Get the indirect usages of a component, grouped by unique apps.
+ * Get the indirect usages of a component, grouped by unique apps and by display layout within each app.
  * An indirect usage is identified by the presence of a parent in the usage object.
  * If a component has no indirect usages, return an empty array.
  * @param {Object} component - The component object containing usage information.
@@ -55,21 +79,7 @@ function getIndirectComponentUsages(component) {
     if (!component?.usages) {
         return [];
     }
-    const componentUsageMap = {};
-    component.usages.forEach((usage) => {
-        if (usage?.parent) {
-            const appKey = `${usage.appOwner}-${usage.appName}`;
-            if (!componentUsageMap[appKey]) {
-                componentUsageMap[appKey] = {
-                    appOwner: usage.appOwner,
-                    appName: usage.appName,
-                    usages: []
-                };
-            }
-            componentUsageMap[appKey].usages.push(usage);
-        }
-    });
-    return Object.values(componentUsageMap);
+    return groupUsagesByAppAndLayout(component.usages, (usage) => usage?.parent);
 }
 
 /**
@@ -85,14 +95,67 @@ function renderAppUsingComponentListItem(appUsage) {
 }
 
 /**
- * Render a details element for an app using a component, including its usages.
- * @param {Object} appUsage - The app usage object containing app information and component usages.
- * @returns {HTMLElement} - The details element representing the app usage and its component usages.
+ * Count the total number of component usages across all display layouts of an app.
+ * @param {Array} layouts - The layouts array: [{ layoutName, usages }].
+ * @returns {number} - The total number of usages.
+ */
+function getTotalUsageCountForLayouts(layouts) {
+    if (!Array.isArray(layouts)) {
+        return 0;
+    }
+    return layouts.reduce((total, layout) => total + (layout?.usages?.length || 0), 0);
+}
+
+/**
+ * Render a details element for a single display layout within an app, listing the usages found in that layout.
+ * @param {Object} layoutUsage - The layout usage object: { layoutName, usages }.
+ * @param {Function} renderUsageItem - Function that renders a single usage list item.
+ * @returns {HTMLElement} - The details element representing the layout and its usages.
+ */
+function renderLayoutUsageDetailsListItem(layoutUsage, renderUsageItem) {
+    const layoutUsageListItemElement = document.createElement("details");
+    layoutUsageListItemElement.classList.add("layout-usage-details-list-item");
+    const layoutName = layoutUsage?.layoutName || "DisplayLayout";
+    const componentUsageNumber = layoutUsage?.usages?.length || 0;
+
+    const layoutUsageSummaryElement = document.createElement("summary");
+
+    const expandCollapseIconElement = document.createElement("span");
+    expandCollapseIconElement.classList.add("expand-collapse-icon");
+    expandCollapseIconElement.innerHTML = "▶";
+    layoutUsageSummaryElement.appendChild(expandCollapseIconElement);
+
+    const layoutUsageSummaryTitleElement = document.createElement("span");
+    layoutUsageSummaryTitleElement.classList.add("layout-usage-summary-title");
+    layoutUsageSummaryTitleElement.innerHTML = layoutName;
+
+    const layoutUsageSummaryCountElement = document.createElement("span");
+    layoutUsageSummaryCountElement.classList.add("layout-usage-summary-count");
+    layoutUsageSummaryCountElement.innerHTML = `Components: ${componentUsageNumber}`;
+
+    layoutUsageSummaryElement.appendChild(layoutUsageSummaryTitleElement);
+    layoutUsageSummaryElement.appendChild(layoutUsageSummaryCountElement);
+    layoutUsageListItemElement.appendChild(layoutUsageSummaryElement);
+
+    const layoutUsageListElement = document.createElement("ul");
+    layoutUsageListElement.classList.add("component-usage-list");
+    layoutUsage?.usages?.forEach((usage) => {
+        layoutUsageListElement.appendChild(renderUsageItem(usage));
+    });
+    layoutUsageListItemElement.appendChild(layoutUsageListElement);
+
+    return layoutUsageListItemElement;
+}
+
+/**
+ * Render a details element for an app using a component, grouped by the display layouts the component is used in.
+ * @param {Object} appUsage - The app usage object: { appOwner, appName, layouts: [{ layoutName, usages }] }.
+ * @returns {HTMLElement} - The details element representing the app usage and its layouts.
  */
 function renderAppUsageDetailsListItem(appUsage) {
     const appUsageListItemElement = document.createElement("details");
     const appName = appUsage ? `${appUsage?.appOwner}/${appUsage?.appName}` : "Unknown app";
-    const componentUsageNumber = appUsage?.usages?.length || 0;
+    const componentUsageNumber = getTotalUsageCountForLayouts(appUsage?.layouts);
     const appUsageSummaryElement = document.createElement("summary");
 
     const expandCollapseIconElement = document.createElement("span");
@@ -113,12 +176,12 @@ function renderAppUsageDetailsListItem(appUsage) {
 
     appUsageListItemElement.appendChild(appUsageSummaryElement);
 
-    const appUsageListElement = document.createElement("ul");
-    appUsageListElement.classList.add("component-usage-list");
-    appUsage?.usages?.forEach((usage) => {
-        appUsageListElement.appendChild(renderAppUsingComponentListItem(usage));
+    const appUsageLayoutListElement = document.createElement("div");
+    appUsageLayoutListElement.classList.add("layout-usage-details-list");
+    appUsage?.layouts?.forEach((layoutUsage) => {
+        appUsageLayoutListElement.appendChild(renderLayoutUsageDetailsListItem(layoutUsage, renderAppUsingComponentListItem));
     });
-    appUsageListItemElement.appendChild(appUsageListElement);
+    appUsageListItemElement.appendChild(appUsageLayoutListElement);
 
     return appUsageListItemElement;
 }
@@ -138,14 +201,14 @@ function renderComponentUsingComponentListItem(componentUsage) {
 }
 
 /**
- * Render a details element for a component using another component, including its usages.
- * @param {Object} componentUsage - The component usage object containing parent component information and its usages.
- * @returns {HTMLElement} - The details element representing the component usage and its usages.
+ * Render a details element for an app using a component indirectly, grouped by the display layouts it is used in.
+ * @param {Object} componentUsage - The app usage object: { appOwner, appName, layouts: [{ layoutName, usages }] }.
+ * @returns {HTMLElement} - The details element representing the app usage and its layouts.
  */
 function renderComponentUsageDetailsListItem(componentUsage) {
     const componentUsageListItemElement = document.createElement("details");
     const appName = componentUsage ? `${componentUsage?.appOwner}/${componentUsage?.appName}` : "Unknown app";
-    const componentUsageNumber = componentUsage?.usages?.length || 0;
+    const componentUsageNumber = getTotalUsageCountForLayouts(componentUsage?.layouts);
     const componentUsageSummaryElement = document.createElement("summary");
 
     const expandCollapseIconElement = document.createElement("span");
@@ -166,12 +229,12 @@ function renderComponentUsageDetailsListItem(componentUsage) {
 
     componentUsageListItemElement.appendChild(componentUsageSummaryElement);
 
-    const componentUsageListElement = document.createElement("ul");
-    componentUsageListElement.classList.add("component-usage-list");
-    componentUsage?.usages?.forEach((usage) => {
-        componentUsageListElement.appendChild(renderComponentUsingComponentListItem(usage));
+    const componentUsageLayoutListElement = document.createElement("div");
+    componentUsageLayoutListElement.classList.add("layout-usage-details-list");
+    componentUsage?.layouts?.forEach((layoutUsage) => {
+        componentUsageLayoutListElement.appendChild(renderLayoutUsageDetailsListItem(layoutUsage, renderComponentUsingComponentListItem));
     });
-    componentUsageListItemElement.appendChild(componentUsageListElement);
+    componentUsageListItemElement.appendChild(componentUsageLayoutListElement);
 
     return componentUsageListItemElement;
 }
