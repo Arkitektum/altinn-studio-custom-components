@@ -15,8 +15,8 @@ import {
     getUsageForResources
 } from "../validators.js";
 import { renderAdminSidebar, renderSynchronizeButton } from "./renderers.js";
-import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.js";
 import { flattenAppLayouts } from "./displayLayoutHelpers.js";
+import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.js";
 
 export function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
