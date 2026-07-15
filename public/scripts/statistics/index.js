@@ -16,6 +16,7 @@ import {
 } from "../validators.js";
 import { renderAdminSidebar, renderSynchronizeButton } from "./renderers.js";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.js";
+import { flattenAppLayouts } from "./displayLayoutHelpers.js";
 
 export function getDataFromLocalStorage() {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
@@ -76,8 +77,9 @@ globalThis.onload = async function () {
         exampleData,
         applicationMetadata
     });
-    const allTextResourceUsage = getAllTextResourceUsage(displayLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
-    const componentUsage = getComponentUsageTreeForAllLayouts(displayLayouts);
+    const flattenedLayouts = flattenAppLayouts(displayLayouts);
+    const allTextResourceUsage = getAllTextResourceUsage(flattenedLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
+    const componentUsage = getComponentUsageTreeForAllLayouts(flattenedLayouts);
     addDataToGlobalThis({
         defaultTextResources,
         multilingualDefaultTextResources,
