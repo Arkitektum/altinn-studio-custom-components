@@ -101,13 +101,47 @@ describe("getResourceUsageForLayout", () => {
 describe("getResourceUsage", () => {
     it("returns usage across layouts", () => {
         const layouts = [
-            { appOwner: "o", appName: "a", layout: { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id1" } }] } } },
-            { appOwner: "o", appName: "b", layout: { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id2" } }] } } }
+            {
+                appOwner: "o",
+                appName: "a",
+                layoutName: "DisplayLayout",
+                layout: { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id1" } }] } }
+            },
+            {
+                appOwner: "o",
+                appName: "b",
+                layoutName: "DisplayLayout",
+                layout: { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id2" } }] } }
+            }
         ];
         const resource = { id: "id1" };
         const result = validators.getResourceUsage(layouts, resource);
         expect(result.length).toBe(1);
         expect(result[0].appName).toBe("a");
+        expect(result[0].layouts.length).toBe(1);
+        expect(result[0].layouts[0].layoutName).toBe("DisplayLayout");
+        expect(result[0].layouts[0].componentsUsingResource.length).toBe(1);
+    });
+
+    it("groups multiple display layouts of the same app under a single entry", () => {
+        const layouts = [
+            {
+                appOwner: "o",
+                appName: "a",
+                layoutName: "DisplayLayout",
+                layout: { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id1" } }] } }
+            },
+            {
+                appOwner: "o",
+                appName: "a",
+                layoutName: "SvarSkjema",
+                layout: { data: { layout: [{ tagName: "Y", type: "Custom", resourceBindings: { a: "id1" } }] } }
+            }
+        ];
+        const resource = { id: "id1" };
+        const result = validators.getResourceUsage(layouts, resource);
+        expect(result.length).toBe(1);
+        expect(result[0].layouts.map((layout) => layout.layoutName)).toEqual(["DisplayLayout", "SvarSkjema"]);
     });
 });
 

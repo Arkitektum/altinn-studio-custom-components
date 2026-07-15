@@ -13,9 +13,14 @@ describe("renderDefaultTextResourceListItem", () => {
                 {
                     appOwner: "owner",
                     appName: "app",
-                    componentsUsingResource: [
-                        { id: "comp1", tagName: "Input" },
-                        { id: "comp2", tagName: "Label" }
+                    layouts: [
+                        {
+                            layoutName: "DisplayLayout",
+                            componentsUsingResource: [
+                                { id: "comp1", tagName: "Input" },
+                                { id: "comp2", tagName: "Label" }
+                            ]
+                        }
                     ]
                 }
             ],
