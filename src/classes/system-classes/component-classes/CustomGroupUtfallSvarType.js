@@ -79,13 +79,11 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
 
     /**
      * Generates resource binding objects for various fields based on provided props.
-     * If a specific resource binding title is not provided in props, a default resource key is constructed using the utfallType.
      *
      * @param {Object} props - The properties object containing resource values and bindings.
      * @param {Object} [props.resourceValues] - Contains values such as utfallType.
      * @param {string} [props.resourceValues.utfallType] - The type of outcome used to construct resource keys.
      * @param {Object} [props.resourceBindings] - Optional custom resource bindings for each field.
-     * @param {Object} [props.resourceBindings.utfallSvarType] - Custom binding for utfallSvarType.
      * @param {Object} [props.resourceBindings.kommentar] - Custom binding for kommentar.
      * @param {Object} [props.resourceBindings.tema] - Custom binding for tema.
      * @param {Object} [props.resourceBindings.utfallSvarStatus] - Custom binding for utfallSvarStatus.
@@ -93,10 +91,9 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
      * @returns {Object} An object containing resource bindings for utfallSvarType, kommentar, tema, utfallSvarStatus, and vedleggsliste.
      */
     getResourceBindings(props) {
-        const utfallType = props?.resourceValues?.utfallType;
         return {
             utfallSvarType: {
-                title: props?.resourceBindings?.title || `resource.utfallBesvarelse.utfallSvar.${utfallType?.toLowerCase()}.header`
+                title: props?.resourceBindings?.title
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || `resource.kommentar.title`

@@ -23,7 +23,6 @@ export function renderUtfallSvarType(component, utfallTypeKey) {
         },
         resourceValues: {
             data,
-            utfallType: utfallTypeKey
         }
     });
     return createCustomElement("custom-group-utfall-svar-type", htmlAttributes);

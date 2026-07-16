@@ -63,18 +63,6 @@ describe("CustomGroupUtfallSvarType", () => {
         expect(instance.hasValidationMessages).toBe(true);
     });
 
-    it("should generate correct resourceBindings for utfallType", () => {
-        getComponentDataValue.mockReturnValue("data");
-        hasValue.mockReturnValue(true);
-        hasMissingTextResources.mockReturnValue([]);
-        hasValidationMessages.mockReturnValue(false);
-
-        const props = { resourceValues: { utfallType: "YES" } };
-        const instance = new CustomGroupUtfallSvarType(props);
-
-        expect(instance.resourceBindings.title).toBe("resource.utfallBesvarelse.utfallSvar.yes.header");
-    });
-
     it("hasContent should delegate to hasValue", () => {
         hasValue.mockReturnValue(true);
         const instance = new CustomGroupUtfallSvarType({});
@@ -97,19 +85,5 @@ describe("CustomGroupUtfallSvarType", () => {
         const props = { some: "prop" };
         expect(instance.getValueFromFormData(props)).toBe("data");
         expect(getComponentDataValue).toHaveBeenCalledWith(props);
-    });
-
-    it("getResourceBindings should generate correct keys", () => {
-        const instance = new CustomGroupUtfallSvarType({});
-        const props = { resourceValues: { utfallType: "NO" } };
-        const result = instance.getResourceBindings(props);
-        expect(result.utfallSvarType.title).toBe("resource.utfallBesvarelse.utfallSvar.no.header");
-    });
-
-    it("getResourceBindings should handle missing utfallType gracefully", () => {
-        const instance = new CustomGroupUtfallSvarType({});
-        const props = {};
-        const result = instance.getResourceBindings(props);
-        expect(result.utfallSvarType.title).toBe("resource.utfallBesvarelse.utfallSvar.undefined.header");
     });
 });
