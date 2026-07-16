@@ -1,3 +1,6 @@
+// Global functions
+import { getComponentDataValue } from "../../functions/helpers.js";
+
 /**
  * Class representing a CustomComponent.
  * @class
@@ -56,5 +59,22 @@ export default class CustomComponent {
         if (props?.order) {
             this.order = props.order;
         }
+    }
+
+    /**
+     * Extracts the component's primary data value from its props.
+     *
+     * This default implementation is the standardized way to read primary data: it delegates to
+     * `getComponentDataValue`, which resolves the value from `resourceValues.data` (child components) or
+     * `formData.simpleBinding` / `formData.data` (bound components). New components should rely on this default
+     * and only override `getValueFromFormData` when they need to transform, wrap, or combine the raw value
+     * (e.g. instantiating a model class or formatting) — always building on `getComponentDataValue` rather than
+     * reading other props for the primary data.
+     *
+     * @param {Object} props - The properties containing the component's data.
+     * @returns {*} The extracted primary data value.
+     */
+    getValueFromFormData(props) {
+        return getComponentDataValue(props);
     }
 }
