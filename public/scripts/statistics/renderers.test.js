@@ -40,7 +40,11 @@ jest.mock("../languages.js", () => ({
 }));
 
 jest.mock("./componentUsageRenderers.js", () => ({
-    renderComponentUsageList: jest.fn()
+    renderComponentUsageList: jest.fn(),
+    renderSelectApplicationFilterForComponentUsageList: jest.fn(),
+    renderSelectComponentTypeFilterForComponentUsageList: jest.fn(),
+    renderTextInputFilterForComponentUsageList: jest.fn(),
+    renderUsageFilterForComponentUsageList: jest.fn()
 }));
 
 jest.mock("../../../src/functions/htmlElementHelpers.js", () => ({
@@ -52,6 +56,7 @@ import {
     getDisplayLayoutMainHeading,
     getLocalTextResourcesForApp,
     renderAdminSidebar,
+    renderComponentUsagePage,
     renderLogoImage,
     renderPackageVersionsPage,
     renderResourceUsagePage,
@@ -67,7 +72,13 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.js";
-import { renderComponentUsageList } from "./componentUsageRenderers.js";
+import {
+    renderComponentUsageList,
+    renderSelectApplicationFilterForComponentUsageList,
+    renderSelectComponentTypeFilterForComponentUsageList,
+    renderTextInputFilterForComponentUsageList,
+    renderUsageFilterForComponentUsageList
+} from "./componentUsageRenderers.js";
 
 describe("renderAdminSidebar", () => {
     beforeEach(() => {
@@ -164,6 +175,7 @@ describe("internal renderers functions", () => {
         globalThis.multilingualAppResourceValues = [];
         globalThis.exampleData = [{ dataType: "dt", data: { file1: {} } }];
         globalThis.altinnStudioForms = [{ appName: "app1", appOwner: "owner1", dataType: "dt" }];
+        globalThis.componentUsage = [{ tagName: "custom-field", usages: [] }];
 
         // Setup mock return values
         renderDefaultTextResourcesList.mockReturnValue(document.createElement("div"));
@@ -171,6 +183,15 @@ describe("internal renderers functions", () => {
         renderTextInputFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
         renderUsageFilterForTextResourcesList.mockReturnValue(document.createElement("div"));
         renderComponentUsageList.mockReturnValue(document.createElement("div"));
+        renderSelectApplicationFilterForComponentUsageList.mockReturnValue(document.createElement("div"));
+        renderSelectComponentTypeFilterForComponentUsageList.mockReturnValue(document.createElement("div"));
+        renderTextInputFilterForComponentUsageList.mockReturnValue(document.createElement("div"));
+        renderUsageFilterForComponentUsageList.mockReturnValue(document.createElement("div"));
+    });
+    it("renderComponentUsagePage runs without error", () => {
+        const el = document.createElement("div");
+        expect(() => renderComponentUsagePage(el)).not.toThrow();
+        expect(el.textContent).toContain("Component usage");
     });
     it("renderResourceUsagePage runs without error", () => {
         const el = document.createElement("div");

@@ -1,4 +1,14 @@
-import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters";
+import {
+    filterComponentsByApplication,
+    filterComponentsByTextInput,
+    filterComponentsByType,
+    filterComponentsByUsage,
+    filterResources,
+    filterResourcesByApplication,
+    filterTextResourcesByTextInput,
+    getComponentType,
+    getResourcesWithSameValue
+} from "./filters";
 
 describe("filterResources", () => {
     const resources = [
@@ -160,5 +170,97 @@ describe("getResourcesWithSameValue", () => {
     it("returns empty array if resources is empty", () => {
         const result = getResourcesWithSameValue([], resources[0]);
         expect(result).toEqual([]);
+    });
+});
+
+describe("getComponentType", () => {
+    it("categorizes base, layout and data components", () => {
+        expect(getComponentType("custom-field")).toBe("base");
+        expect(getComponentType("custom-table")).toBe("base");
+        expect(getComponentType("custom-dispensasjon")).toBe("layout");
+        expect(getComponentType("custom-gjenpart-nabovarsel")).toBe("layout");
+        expect(getComponentType("custom-field-data")).toBe("data");
+        expect(getComponentType("custom-table-part")).toBe("data");
+    });
+
+    it("treats unknown tag names as data", () => {
+        expect(getComponentType("something-unknown")).toBe("data");
+        expect(getComponentType(undefined)).toBe("data");
+    });
+});
+
+describe("filterComponentsByUsage", () => {
+    const components = [
+        { tagName: "custom-field", usages: [] },
+        { tagName: "custom-header", usages: [{ id: "a" }] },
+        { tagName: "custom-table", usages: [{ id: "b" }, { id: "c" }] }
+    ];
+
+    it("returns unused components", () => {
+        expect(filterComponentsByUsage(components, "unused").map((c) => c.tagName)).toEqual(["custom-field"]);
+    });
+
+    it("returns components used exactly once", () => {
+        expect(filterComponentsByUsage(components, "used-once").map((c) => c.tagName)).toEqual(["custom-header"]);
+    });
+
+    it("returns all components for 'all' or unknown", () => {
+        expect(filterComponentsByUsage(components, "all")).toHaveLength(components.length);
+        expect(filterComponentsByUsage(components, "whatever")).toHaveLength(components.length);
+    });
+});
+
+describe("filterComponentsByApplication", () => {
+    const components = [
+        { tagName: "custom-field", usages: [{ appOwner: "Owner1", appName: "App1" }] },
+        { tagName: "custom-header", usages: [{ appOwner: "Owner2", appName: "App1" }] },
+        { tagName: "custom-table", usages: [{ appOwner: "Owner1", appName: "App1" }, { appOwner: "Owner2", appName: "App2" }] },
+        { tagName: "custom-list", usages: [] }
+    ];
+
+    it("filters by owner and name and does not collide on same name", () => {
+        const result = filterComponentsByApplication(components, "Owner1", "App1");
+        expect(result.map((c) => c.tagName)).toEqual(["custom-field", "custom-table"]);
+    });
+
+    it("returns all when owner and name are falsy", () => {
+        expect(filterComponentsByApplication(components, "", "")).toHaveLength(components.length);
+    });
+});
+
+describe("filterComponentsByType", () => {
+    const components = [
+        { tagName: "custom-field", usages: [] },
+        { tagName: "custom-field-data", usages: [] },
+        { tagName: "custom-dispensasjon", usages: [] }
+    ];
+
+    it("filters by category", () => {
+        expect(filterComponentsByType(components, "base").map((c) => c.tagName)).toEqual(["custom-field"]);
+        expect(filterComponentsByType(components, "data").map((c) => c.tagName)).toEqual(["custom-field-data"]);
+        expect(filterComponentsByType(components, "layout").map((c) => c.tagName)).toEqual(["custom-dispensasjon"]);
+    });
+
+    it("returns all when type is falsy", () => {
+        expect(filterComponentsByType(components, "")).toHaveLength(components.length);
+    });
+});
+
+describe("filterComponentsByTextInput", () => {
+    const components = [
+        { tagName: "custom-field", usages: [{ id: "firstName" }] },
+        { tagName: "custom-table", usages: [{ id: "personTable" }] }
+    ];
+
+    it("matches by tag name", () => {
+        expect(filterComponentsByTextInput(components, "table", "tag").map((c) => c.tagName)).toEqual(["custom-table"]);
+    });
+
+    it("matches by usage id", () => {
+        expect(filterComponentsByTextInput(components, "firstname", "id").map((c) => c.tagName)).toEqual(["custom-field"]);
+    });
+
+    it("returns all when the text filter is empty", () => {
+        expect(filterComponentsByTextInput(components, "", "tag")).toHaveLength(components.length);
     });
 });
