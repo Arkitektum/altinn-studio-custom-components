@@ -5,10 +5,10 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.5.0"
-  checksum: 10c0/18cac65683b09b4f17475cd29f470b56a86b64d2a5f8a9a540f2241a6131efe4a88d07449caa6351828709b7d5876960b89d89e06b723fcf92dabbf31a826554
+"@arkitektum/altinn-studio-custom-components-utils@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.5.1"
+  checksum: 10c0/4ac0a1677596927f09bf9b9d52cdaf706f2fe2f63c78b4ac77c0145896dfe198d5c1e5a019220b781f013009f4f42c3f13d869dbb32ac72a56ac8594734ed9f4
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.5.0"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.5.1"
     "@arkitektum/client-logger": "npm:^1.2.1"
     "@babel/preset-env": "npm:^8.0.2"
     "@eslint/js": "npm:^10.0.1"
@@ -4546,9 +4546,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.5.389":
-  version: 1.5.392
-  resolution: "electron-to-chromium@npm:1.5.392"
-  checksum: 10c0/13b691fb97ef02f6c3da6fecb530d667a2c72c951aaca2c5c13271074d6e2f9a9bb23c84939a6b9274fef1611247f3a7affba7b3961d0bdc0324d59f97046269
+  version: 1.5.393
+  resolution: "electron-to-chromium@npm:1.5.393"
+  checksum: 10c0/d8ef05aa8511bafb6b60506683dddbb968829f966af2aec582f06c208dc3598d7c5fc68b69ea2303befde1177637c19e53065a0fb7f47ca09c4928436c5768e7
   languageName: node
   linkType: hard
 
