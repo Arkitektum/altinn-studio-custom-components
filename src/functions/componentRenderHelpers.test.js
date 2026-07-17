@@ -1,7 +1,7 @@
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
 import { getComponentContainerElement } from "./helpers.js";
 import { instantiateComponent } from "./componentHelpers.js";
-import { renderCustomComponent } from "./componentRenderHelpers";
+import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers";
 import { renderFeedbackListElement } from "./feedbackHelpers.js";
 
 jest.mock("./componentHelpers.js", () => ({ instantiateComponent: jest.fn() }));
@@ -109,5 +109,99 @@ describe("renderCustomComponent", () => {
         renderCustomComponent(host, { type: "data", render: jest.fn() });
 
         expect(renderFeedbackListElement).not.toHaveBeenCalled();
+    });
+
+    it("validates host data attributes by default", () => {
+        const host = document.createElement("custom-field-data");
+        host.setAttribute("formdata", JSON.stringify({ unexpectedKey: "x" }));
+        instantiateComponent.mockReturnValue({ isEmpty: false });
+        getComponentContainerElement.mockReturnValue(document.createElement("div"));
+        const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+        renderCustomComponent(host, { type: "data", render: jest.fn() });
+
+        expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("unrecognized formData keys: unexpectedKey"));
+        errorSpy.mockRestore();
+    });
+
+    it("skips data-attribute validation when validateData is false", () => {
+        const host = document.createElement("custom-field-grid");
+        host.setAttribute("formdata", JSON.stringify({ unexpectedKey: "x" }));
+        instantiateComponent.mockReturnValue({ isEmpty: false });
+        getComponentContainerElement.mockReturnValue(document.createElement("div"));
+        const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+        renderCustomComponent(host, { type: "data", render: jest.fn(), validateData: false });
+
+        expect(errorSpy).not.toHaveBeenCalled();
+        errorSpy.mockRestore();
+    });
+});
+
+describe("validateHostDataAttributes", () => {
+    let errorSpy;
+
+    beforeEach(() => {
+        errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        errorSpy.mockRestore();
+    });
+
+    it("reports unrecognized formData keys with a hint pointing to getComponentDataValue", () => {
+        const host = document.createElement("custom-field-data");
+        host.setAttribute("formdata", JSON.stringify({ data: "ok", unexpectedKey: "x" }));
+
+        validateHostDataAttributes(host, "data");
+
+        expect(errorSpy).toHaveBeenCalledTimes(1);
+        const message = errorSpy.mock.calls[0][0];
+        expect(message).toContain("unrecognized formData keys: unexpectedKey");
+        expect(message).toContain("getComponentDataValue");
+    });
+
+    it("does not report when all formData keys are allowed for the type", () => {
+        const host = document.createElement("custom-field-data");
+        host.setAttribute("formdata", JSON.stringify({ data: "ok", simpleBinding: "value" }));
+
+        validateHostDataAttributes(host, "data");
+
+        expect(errorSpy).not.toHaveBeenCalled();
+    });
+
+    it("reports unrecognized resourceValues keys", () => {
+        const host = document.createElement("custom-field-data");
+        host.setAttribute("resourcevalues", JSON.stringify({ data: "ok", bogus: 1 }));
+
+        validateHostDataAttributes(host, "data");
+
+        expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("unrecognized resourceValues keys: bogus"));
+    });
+
+    it("allows all keys for layout components (allow-all sentinel)", () => {
+        const host = document.createElement("custom-dispensasjon");
+        host.setAttribute("formdata", JSON.stringify({ tiltakshaver: {}, someUnlistedModelProp: {} }));
+        host.setAttribute("resourcevalues", JSON.stringify({ anything: 1 }));
+
+        validateHostDataAttributes(host, "layout");
+
+        expect(errorSpy).not.toHaveBeenCalled();
+    });
+
+    it("reports invalid JSON without throwing", () => {
+        const host = document.createElement("custom-field-data");
+        host.setAttribute("formdata", "{ not valid json");
+
+        expect(() => validateHostDataAttributes(host, "data")).not.toThrow();
+        expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining('invalid JSON in its "formdata" attribute'));
+    });
+
+    it("does nothing when there are no data attributes", () => {
+        const host = document.createElement("custom-field-data");
+
+        validateHostDataAttributes(host, "data");
+
+        expect(errorSpy).not.toHaveBeenCalled();
     });
 });
