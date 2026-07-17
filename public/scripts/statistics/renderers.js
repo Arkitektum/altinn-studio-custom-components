@@ -31,6 +31,15 @@ export function renderResourceUsagePage(containerElement) {
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const displayLayouts = globalThis.displayLayouts;
 
+    // Reset any filter state left over from a previous visit to this page. The filter controls below are recreated at
+    // their defaults, so the persisted globals would otherwise be silently re-applied the first time any one control
+    // changes, leaving the list and the controls out of sync.
+    globalThis.textFilter = "";
+    globalThis.matchBy = "id";
+    globalThis.selectedFilter = "all";
+    globalThis.selectedAppOwner = "";
+    globalThis.selectedAppName = "";
+
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Resource usage";
 

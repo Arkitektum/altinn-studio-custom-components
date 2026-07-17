@@ -342,10 +342,11 @@ function handleFilterChange(containerElement, textResources) {
     const textFilter = globalThis.textFilter || "";
     const matchBy = globalThis.matchBy || "id";
     const selectedFilter = globalThis.selectedFilter || "all";
+    const selectedAppOwner = globalThis.selectedAppOwner || "";
     const selectedAppName = globalThis.selectedAppName || "";
     let filteredResources = filterTextResourcesByTextInput(textResources, textFilter, matchBy);
     filteredResources = filterResources(filteredResources, selectedFilter);
-    filteredResources = filterResourcesByApplication(filteredResources, selectedAppName);
+    filteredResources = filterResourcesByApplication(filteredResources, selectedAppOwner, selectedAppName);
 
     const existingListElement = containerElement.querySelector("#default-text-resources-list");
     if (existingListElement) {
