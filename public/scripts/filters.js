@@ -45,16 +45,21 @@ export function filterResources(resources, filterValue) {
 /**
  * Filters a list of resources to include only those used by a specific application.
  *
+ * An application is identified by the combination of its owner and name, since the same app name can exist under
+ * different owners. When both are falsy the list is returned unchanged; when only one is provided, only that field
+ * is matched.
+ *
  * @param {Array<Object>} resources - The array of resource objects to filter.
+ * @param {string} appOwner - The owner of the application to filter resources by.
  * @param {string} appName - The name of the application to filter resources by.
  * @returns {Array<Object>} The filtered array of resources used by the specified application.
  */
-export function filterResourcesByApplication(resources, appName) {
-    if (!appName) {
+export function filterResourcesByApplication(resources, appOwner, appName) {
+    if (!appOwner && !appName) {
         return resources;
     }
     return resources.filter((res) => {
-        return res?.usage?.some((usage) => usage.appName === appName);
+        return res?.usage?.some((usage) => (!appOwner || usage.appOwner === appOwner) && (!appName || usage.appName === appName));
     });
 }
 
