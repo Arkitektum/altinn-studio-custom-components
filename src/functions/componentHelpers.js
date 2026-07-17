@@ -185,7 +185,7 @@ export function getComponentForTagName(tagName) {
 
 export function instantiateComponent(element) {
     const componentProps = element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element;
-    const tagName = componentProps?.tagName || componentProps?.getAttribute("tagname") || "custom-component";
+    const tagName = componentProps?.tagName || componentProps?.getAttribute?.("tagname") || "custom-component";
     const ComponentClass = getComponentForTagName(tagName);
     if (ComponentClass) {
         return new ComponentClass(componentProps);
