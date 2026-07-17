@@ -12,19 +12,19 @@ import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } 
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.js";
 import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.js";
 import {
-    renderDefaultTextResourcesList,
-    renderSelectApplicationFilterForTextResourcesList,
-    renderTextInputFilterForTextResourcesList,
-    renderUsageFilterForTextResourcesList
-} from "../textResourceUsageRenderers.js";
-import { languages } from "../languages.js";
-import {
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
     renderTextInputFilterForComponentUsageList,
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.js";
+import {
+    renderDefaultTextResourcesList,
+    renderSelectApplicationFilterForTextResourcesList,
+    renderTextInputFilterForTextResourcesList,
+    renderUsageFilterForTextResourcesList
+} from "../textResourceUsageRenderers.js";
+import { languages } from "../languages.js";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.js";
 
 /**

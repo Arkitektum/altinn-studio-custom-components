@@ -18,7 +18,7 @@ export default defineConfig([
         }
     },
     {
-        ignores: ["dist/**", "docs/**", "node_modules/", "**/vendor/*.js"]
+        ignores: ["dist/**", "docs/**", "coverage/**", "node_modules/", "**/vendor/*.js"]
     },
     {
         files: ["**/*.test.js", "**/*.spec.js"], // 👈 Only apply to test files

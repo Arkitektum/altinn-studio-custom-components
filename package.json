@@ -22,7 +22,7 @@
         "test": "jest",
         "build": "yarn symlinks && NODE_ENV=production webpack && yarn copy-dist-resources",
         "start": "yarn symlinks && webpack serve --config webpack.config.dev.js",
-        "lint": "eslint src --ext .js"
+        "lint": "eslint ."
     },
     "repository": {
         "type": "git",
