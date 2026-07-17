@@ -359,8 +359,8 @@ function handleFilterChange(containerElement, textResources) {
 /**
  * Renders a set of usage filters for a text resources list.
  *
- * @param {HTMLElement} containerElement - The container element where the filter will be rendered. (Currently unused)
- * @param {Array} textResources - The list of text resources to filter. (Currently unused)
+ * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
+ * @param {Array} textResources - The full list of text resources to filter when the selection changes.
  * @returns {HTMLDivElement} The DOM element containing the rendered usage filters for the text resources list.
  */
 export function renderUsageFilterForTextResourcesList(containerElement, textResources) {
@@ -448,8 +448,8 @@ export function renderUsageFilterForTextResourcesList(containerElement, textReso
 /**
  * Renders a select dropdown for filtering a list of text resources by application.
  *
- * @param {HTMLElement} containerElement - The container element where the filter will be rendered. (Currently unused)
- * @param {Array} textResources - The list of text resources to be filtered. (Currently unused)
+ * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
+ * @param {Array} textResources - The full list of text resources to filter when the selection changes.
  * @param {Array<{ appName: string }>} applications - The list of applications to populate the filter dropdown.
  * @returns {HTMLElement} The DOM element containing the application filter select dropdown.
  */
@@ -497,8 +497,8 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
  * to filter by either resource ID or value. The filter values are stored globally and trigger
  * a filter change handler when updated.
  *
- * @param {HTMLElement} containerElement - The container element where the filter UI could be rendered (currently unused).
- * @param {Array<Object>} textResources - The list of text resources to be filtered (currently unused).
+ * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
+ * @param {Array<Object>} textResources - The full list of text resources to filter when the input changes.
  * @returns {HTMLDivElement} The DOM element containing the filter UI.
  */
 export function renderTextInputFilterForTextResourcesList(containerElement, textResources) {
