@@ -273,6 +273,12 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOp
         const [appOwner, appName] = event.target.value.split("/");
         selectedOptions.displayLayoutAppName = appName;
         selectedOptions.displayLayoutAppOwner = appOwner;
+        // Reset the per-application selections so a form type / data file from the previously selected application
+        // isn't carried over to one that doesn't have it (which would leave nothing to render). They fall back to the
+        // first entry in each list: "main" resolves to the first display layout, and empty fileNames get defaulted
+        // to the first available data file by setDefaultSelectedFileNameForDisplayLayouts.
+        selectedOptions.formType = "main";
+        selectedOptions.fileNames = {};
         updateBodyClassNamesForApplication(appOwner, appName);
         const exampleData = globalThis.exampleData || (await fetchExampleData());
         const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
