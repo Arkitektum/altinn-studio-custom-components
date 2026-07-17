@@ -89,19 +89,25 @@ describe("filterResources", () => {
 
 describe("filterResourcesByApplication", () => {
     const resources = [
-        { usage: [{ appName: "App1" }], resource: { id: "id1" } },
-        { usage: [{ appName: "App2" }], resource: { id: "id2" } },
-        { usage: [{ appName: "App1" }, { appName: "App2" }], resource: { id: "id3" } },
+        { usage: [{ appOwner: "Owner1", appName: "App1" }], resource: { id: "id1" } },
+        { usage: [{ appOwner: "Owner2", appName: "App2" }], resource: { id: "id2" } },
+        { usage: [{ appOwner: "Owner1", appName: "App1" }, { appOwner: "Owner2", appName: "App2" }], resource: { id: "id3" } },
+        { usage: [{ appOwner: "Owner2", appName: "App1" }], resource: { id: "id5" } },
         { usage: [], resource: { id: "id4" } }
     ];
 
-    it("filters by application name", () => {
-        const result = filterResourcesByApplication(resources, "App1");
+    it("filters by application owner and name", () => {
+        const result = filterResourcesByApplication(resources, "Owner1", "App1");
         expect(result.map((r) => r.resource.id)).toEqual(["id1", "id3"]);
     });
 
-    it("returns all if appName is falsy", () => {
-        const result = filterResourcesByApplication(resources, "");
+    it("does not match a same-named app under a different owner", () => {
+        const result = filterResourcesByApplication(resources, "Owner1", "App1");
+        expect(result.map((r) => r.resource.id)).not.toContain("id5");
+    });
+
+    it("returns all if owner and name are falsy", () => {
+        const result = filterResourcesByApplication(resources, "", "");
         expect(result).toHaveLength(resources.length);
     });
 });
