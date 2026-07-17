@@ -3,7 +3,16 @@ import CustomSummationArealdisponering from "./CustomSummationArealdisponering";
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {
-    return jest.fn().mockImplementation(() => {});
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
 });
 jest.mock("../../data-classes/Arealdisponering.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, bebyggelsen: data.bebyggelsen, tomtearealet: data.tomtearealet }));

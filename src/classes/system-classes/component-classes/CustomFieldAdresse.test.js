@@ -5,9 +5,16 @@ jest.mock("../../data-classes/Adresse", () => {
     return jest.fn().mockImplementation((data) => data);
 });
 jest.mock("../CustomComponent", () => {
-    return jest.fn().mockImplementation(function (props) {
-        this.props = props;
-    });
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
 });
 jest.mock("../../../functions/helpers", () => ({
     getComponentDataValue: jest.fn((props) => props.formData || {}),

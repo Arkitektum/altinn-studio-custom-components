@@ -5,7 +5,18 @@ import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraa
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 
 // Mocks
-jest.mock("../CustomComponent.js");
+jest.mock("../CustomComponent.js", () => {
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
+});
 jest.mock("../../data-classes/KontrollAnsvarsomraade.js");
 jest.mock("../../../functions/helpers.js");
 jest.mock("../../../functions/validations.js");

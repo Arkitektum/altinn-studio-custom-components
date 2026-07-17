@@ -5,7 +5,18 @@ import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan";
 import { getComponentResourceValue } from "../../../functions/helpers";
 
 jest.mock("../../layout-classes/Gjennomfoeringsplan");
-jest.mock("../CustomComponent");
+jest.mock("../CustomComponent", () => {
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
+});
 jest.mock("../../../functions/helpers");
 jest.mock("../../../functions/validations");
 jest.mock("@arkitektum/altinn-studio-custom-components-utils");

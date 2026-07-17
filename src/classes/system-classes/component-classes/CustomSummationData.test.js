@@ -19,10 +19,15 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
 
 // Mock CustomComponent base class
 jest.mock("../CustomComponent.js", () => {
-    class CustomComponent {}
-    return {
-        __esModule: true,
-        default: CustomComponent
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
     };
 });
 
