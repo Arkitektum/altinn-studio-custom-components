@@ -1,3 +1,5 @@
+import { filterComponentsByApplication, filterComponentsByTextInput, filterComponentsByType, filterComponentsByUsage } from "../filters.js";
+
 /**
  * Get the number of unique apps using a component.
  * A component can be used multiple times in the same app, but we only want to count unique apps using the component.
@@ -348,4 +350,203 @@ export function renderComponentUsageList(componentUsage) {
         componentUsageListElement.appendChild(listItemElement);
     });
     return componentUsageListElement;
+}
+
+/**
+ * Applies the currently selected filters (stored on globalThis) to the component list and re-renders it.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list.
+ * @param {Array<Object>} components - The full list of component usage objects to filter and render.
+ */
+function handleComponentFilterChange(containerElement, components) {
+    const usageFilter = globalThis.componentUsageFilter || "all";
+    const selectedAppOwner = globalThis.componentSelectedAppOwner || "";
+    const selectedAppName = globalThis.componentSelectedAppName || "";
+    const typeFilter = globalThis.componentTypeFilter || "";
+    const textFilter = globalThis.componentTextFilter || "";
+    const matchBy = globalThis.componentMatchBy || "tag";
+
+    let filteredComponents = filterComponentsByUsage(components, usageFilter);
+    filteredComponents = filterComponentsByApplication(filteredComponents, selectedAppOwner, selectedAppName);
+    filteredComponents = filterComponentsByType(filteredComponents, typeFilter);
+    filteredComponents = filterComponentsByTextInput(filteredComponents, textFilter, matchBy);
+
+    const existingListElement = containerElement.querySelector("#component-usage-list");
+    if (existingListElement) {
+        existingListElement.remove();
+    }
+    const newListElement = renderComponentUsageList(filteredComponents);
+    containerElement.appendChild(newListElement);
+}
+
+/**
+ * Appends a labelled <select> built from the given options to a `.filter-container` and returns it.
+ *
+ * @param {string} labelText - The label shown next to the select.
+ * @param {string} selectId - The id assigned to the select element.
+ * @param {Array<{ value: string, text: string }>} options - The options to render, first one selected by default.
+ * @param {Function} onChange - Called with the select's value whenever the selection changes.
+ * @returns {HTMLFormElement} The container element holding the label and select.
+ */
+function renderLabelledSelectFilter(labelText, selectId, options, onChange) {
+    const filterContainerElement = document.createElement("form");
+    filterContainerElement.classList.add("filter-container");
+
+    const labelElement = document.createElement("label");
+    labelElement.htmlFor = selectId;
+    labelElement.innerHTML = labelText;
+    filterContainerElement.appendChild(labelElement);
+
+    const selectElement = document.createElement("select");
+    selectElement.id = selectId;
+    options.forEach((option) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = option.value;
+        optionElement.textContent = option.text;
+        selectElement.appendChild(optionElement);
+    });
+
+    selectElement.onchange = () => onChange(selectElement.value);
+
+    filterContainerElement.appendChild(selectElement);
+    return filterContainerElement;
+}
+
+/**
+ * Renders the "Filter by usage" dropdown (All / Unused / Used once) for the component usage list.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
+ * @param {Array<Object>} components - The full list of component usage objects to filter when the selection changes.
+ * @returns {HTMLFormElement} The DOM element containing the usage filter.
+ */
+export function renderUsageFilterForComponentUsageList(containerElement, components) {
+    return renderLabelledSelectFilter(
+        "Filter by usage:",
+        "component-usage-filter-select",
+        [
+            { value: "all", text: "All" },
+            { value: "unused", text: "Unused" },
+            { value: "used-once", text: "Used once" }
+        ],
+        (value) => {
+            globalThis.componentUsageFilter = value;
+            handleComponentFilterChange(containerElement, components);
+        }
+    );
+}
+
+/**
+ * Renders the "Component type" dropdown (All / Base / Data / Layout) for the component usage list.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
+ * @param {Array<Object>} components - The full list of component usage objects to filter when the selection changes.
+ * @returns {HTMLFormElement} The DOM element containing the component type filter.
+ */
+export function renderSelectComponentTypeFilterForComponentUsageList(containerElement, components) {
+    return renderLabelledSelectFilter(
+        "Component type",
+        "component-type-filter-select",
+        [
+            { value: "", text: "All" },
+            { value: "base", text: "Base" },
+            { value: "data", text: "Data" },
+            { value: "layout", text: "Layout" }
+        ],
+        (value) => {
+            globalThis.componentTypeFilter = value;
+            handleComponentFilterChange(containerElement, components);
+        }
+    );
+}
+
+/**
+ * Renders a select dropdown for filtering the component usage list by application.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
+ * @param {Array<Object>} components - The full list of component usage objects to filter when the selection changes.
+ * @param {Array<{ appOwner: string, appName: string }>} applications - The list of applications to populate the dropdown.
+ * @returns {HTMLDivElement} The DOM element containing the application filter select dropdown.
+ */
+export function renderSelectApplicationFilterForComponentUsageList(containerElement, components, applications) {
+    const selectContainerElement = document.createElement("div");
+    selectContainerElement.classList.add("filter-container");
+
+    const applicationSelectLabelElement = document.createElement("label");
+    applicationSelectLabelElement.htmlFor = "component-application-filter-select";
+    applicationSelectLabelElement.innerHTML = "Application";
+    selectContainerElement.appendChild(applicationSelectLabelElement);
+
+    const applicationSelectElement = document.createElement("select");
+    applicationSelectElement.id = "component-application-filter-select";
+
+    const defaultOptionElement = document.createElement("option");
+    defaultOptionElement.value = "";
+    defaultOptionElement.innerHTML = "All applications";
+    applicationSelectElement.appendChild(defaultOptionElement);
+
+    (applications || []).forEach((app) => {
+        const appOptionElement = document.createElement("option");
+        appOptionElement.value = `${app?.appOwner}/${app?.appName}`;
+        appOptionElement.textContent = `${app?.appOwner}/${app?.appName}`;
+        applicationSelectElement.appendChild(appOptionElement);
+    });
+
+    applicationSelectElement.onchange = () => {
+        const [appOwner, appName] = applicationSelectElement.value.split("/");
+        globalThis.componentSelectedAppOwner = appOwner || "";
+        globalThis.componentSelectedAppName = appName || "";
+        handleComponentFilterChange(containerElement, components);
+    };
+
+    selectContainerElement.appendChild(applicationSelectElement);
+    return selectContainerElement;
+}
+
+/**
+ * Renders a text input filter for the component usage list, with a select to match by either tag name or usage ID.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
+ * @param {Array<Object>} components - The full list of component usage objects to filter when the input changes.
+ * @returns {HTMLDivElement} The DOM element containing the text input filter.
+ */
+export function renderTextInputFilterForComponentUsageList(containerElement, components) {
+    const textInputContainerElement = document.createElement("div");
+    textInputContainerElement.classList.add("filter-container");
+
+    const textInputLabelElement = document.createElement("label");
+    textInputLabelElement.htmlFor = "component-text-filter-input";
+    textInputLabelElement.innerHTML = "Filter by text";
+    textInputContainerElement.appendChild(textInputLabelElement);
+
+    const textFilterInputElement = document.createElement("input");
+    textFilterInputElement.id = "component-text-filter-input";
+    textFilterInputElement.type = "text";
+    textFilterInputElement.placeholder = "Enter text to filter components";
+    textInputContainerElement.appendChild(textFilterInputElement);
+
+    const matchBySelectElement = document.createElement("select");
+    matchBySelectElement.id = "component-match-by-select";
+
+    const matchByTagOptionElement = document.createElement("option");
+    matchByTagOptionElement.value = "tag";
+    matchByTagOptionElement.innerHTML = "Match by tag";
+    matchBySelectElement.appendChild(matchByTagOptionElement);
+
+    const matchByIdOptionElement = document.createElement("option");
+    matchByIdOptionElement.value = "id";
+    matchByIdOptionElement.innerHTML = "Match by ID";
+    matchBySelectElement.appendChild(matchByIdOptionElement);
+
+    textInputContainerElement.appendChild(matchBySelectElement);
+
+    const updateComponentListBasedOnTextInputFilter = () => {
+        globalThis.componentTextFilter = textFilterInputElement.value;
+        globalThis.componentMatchBy = matchBySelectElement.value;
+        handleComponentFilterChange(containerElement, components);
+    };
+
+    textFilterInputElement.oninput = updateComponentListBasedOnTextInputFilter;
+    matchBySelectElement.onchange = updateComponentListBasedOnTextInputFilter;
+
+    return textInputContainerElement;
 }

@@ -18,7 +18,13 @@ import {
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.js";
 import { languages } from "../languages.js";
-import { renderComponentUsageList } from "./componentUsageRenderers.js";
+import {
+    renderComponentUsageList,
+    renderSelectApplicationFilterForComponentUsageList,
+    renderSelectComponentTypeFilterForComponentUsageList,
+    renderTextInputFilterForComponentUsageList,
+    renderUsageFilterForComponentUsageList
+} from "./componentUsageRenderers.js";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.js";
 
 /**
@@ -57,9 +63,25 @@ export function renderResourceUsagePage(containerElement) {
  */
 export function renderComponentUsagePage(containerElement) {
     const componentUsage = globalThis.componentUsage;
+    const displayLayouts = globalThis.displayLayouts;
+
+    // Reset any filter state left over from a previous visit to this page. The filter controls below are recreated at
+    // their defaults, so the persisted globals would otherwise be silently re-applied the first time any one control
+    // changes, leaving the list and the controls out of sync.
+    globalThis.componentUsageFilter = "all";
+    globalThis.componentSelectedAppOwner = "";
+    globalThis.componentSelectedAppName = "";
+    globalThis.componentTypeFilter = "";
+    globalThis.componentTextFilter = "";
+    globalThis.componentMatchBy = "tag";
+
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Component usage";
     containerElement.appendChild(titleElement);
+    containerElement.appendChild(renderUsageFilterForComponentUsageList(containerElement, componentUsage));
+    containerElement.appendChild(renderSelectApplicationFilterForComponentUsageList(containerElement, componentUsage, displayLayouts));
+    containerElement.appendChild(renderSelectComponentTypeFilterForComponentUsageList(containerElement, componentUsage));
+    containerElement.appendChild(renderTextInputFilterForComponentUsageList(containerElement, componentUsage));
     containerElement.appendChild(renderComponentUsageList(componentUsage));
 }
 

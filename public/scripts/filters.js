@@ -107,3 +107,119 @@ export function getResourcesWithSameValue(resources, resource) {
           })
         : [];
 }
+
+/**
+ * Tag names of the base components. Source of truth: the directories under src/components/base-components.
+ * Any component that is neither a base nor a layout component is treated as a data component (the catch-all),
+ * so only these two smaller sets need to be listed explicitly.
+ */
+export const BASE_COMPONENT_TAG_NAMES = [
+    "custom-description-list",
+    "custom-divider",
+    "custom-feedback",
+    "custom-field",
+    "custom-header",
+    "custom-list",
+    "custom-matrix",
+    "custom-paragraph",
+    "custom-summation",
+    "custom-table"
+];
+
+/**
+ * Tag names of the layout components. Source of truth: the directories under src/components/layout-components
+ * (their tag names are the directory name prefixed with "custom-").
+ */
+export const LAYOUT_COMPONENT_TAG_NAMES = ["custom-dispensasjon", "custom-dispensasjonsvarsel", "custom-gjennomfoeringsplan", "custom-gjenpart-nabovarsel"];
+
+/**
+ * Resolves the category of a component from its tag name.
+ *
+ * @param {string} tagName - The component tag name (e.g. "custom-field").
+ * @returns {"base"|"layout"|"data"} The component category. Anything not explicitly a base or layout component is "data".
+ */
+export function getComponentType(tagName) {
+    if (BASE_COMPONENT_TAG_NAMES.includes(tagName)) {
+        return "base";
+    }
+    if (LAYOUT_COMPONENT_TAG_NAMES.includes(tagName)) {
+        return "layout";
+    }
+    return "data";
+}
+
+/**
+ * Filters an array of component usage objects based on how many times each component is used.
+ *
+ * @param {Array<Object>} components - The array of component usage objects, each with a `usages` array.
+ * @param {string} filterValue - The filter criteria. Can be one of:
+ *   - "unused": Returns components with no usages.
+ *   - "used-once": Returns components used exactly once.
+ *   - "all": Returns all components (default).
+ * @returns {Array<Object>} The filtered array of components.
+ */
+export function filterComponentsByUsage(components, filterValue) {
+    switch (filterValue) {
+        case "unused":
+            return components.filter((component) => (component?.usages?.length || 0) === 0);
+        case "used-once":
+            return components.filter((component) => (component?.usages?.length || 0) === 1);
+        default:
+            return components;
+    }
+}
+
+/**
+ * Filters a list of components to include only those used by a specific application.
+ *
+ * An application is identified by the combination of its owner and name. When both are falsy the list is returned
+ * unchanged; when only one is provided, only that field is matched.
+ *
+ * @param {Array<Object>} components - The array of component usage objects to filter.
+ * @param {string} appOwner - The owner of the application to filter components by.
+ * @param {string} appName - The name of the application to filter components by.
+ * @returns {Array<Object>} The filtered array of components used by the specified application.
+ */
+export function filterComponentsByApplication(components, appOwner, appName) {
+    if (!appOwner && !appName) {
+        return components;
+    }
+    return components.filter((component) => {
+        return component?.usages?.some((usage) => (!appOwner || usage.appOwner === appOwner) && (!appName || usage.appName === appName));
+    });
+}
+
+/**
+ * Filters a list of components by their category ("base", "data" or "layout").
+ *
+ * @param {Array<Object>} components - The array of component usage objects to filter.
+ * @param {string} type - The component category to keep. When falsy, all components are returned.
+ * @returns {Array<Object>} The filtered array of components.
+ */
+export function filterComponentsByType(components, type) {
+    if (!type) {
+        return components;
+    }
+    return components.filter((component) => getComponentType(component?.tagName) === type);
+}
+
+/**
+ * Filters an array of components based on a text input and a matching criterion.
+ *
+ * @param {Array<Object>} components - The array of component usage objects to filter.
+ * @param {string} textFilter - The text input to filter components by.
+ * @param {'tag'|'id'} matchBy - Whether to match against the component tag name ('tag') or the ids of its usages ('id').
+ * @returns {Array<Object>} The filtered array of components.
+ */
+export function filterComponentsByTextInput(components, textFilter, matchBy) {
+    if (!textFilter?.length) {
+        return components;
+    }
+    const lowerCaseTextFilter = textFilter.toLowerCase();
+    return components.filter((component) => {
+        if (matchBy === "id") {
+            return component?.usages?.some((usage) => usage?.id?.toString().toLowerCase().includes(lowerCaseTextFilter));
+        }
+        return component?.tagName?.toString().toLowerCase().includes(lowerCaseTextFilter);
+    });
+}
