@@ -1,5 +1,5 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -7,7 +7,6 @@ import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasMissingTextResources } from "../../../functions/validations.js";
 
 /**
  * CustomGrouplistNaboGjenboerEiendom is a custom component class for handling and displaying
@@ -65,26 +64,6 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
             title: getTextResourceFromResourceBinding(resourceBindings?.naboGjenboerEiendom?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.naboGjenboerEiendom?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on the provided resource bindings.
-     *
-     * @param {Object} resourceBindings - An object containing resource binding keys.
-     * @returns {Array|string|boolean} The result of the validation, which may be an array of messages, a string, or a boolean indicating missing resources.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

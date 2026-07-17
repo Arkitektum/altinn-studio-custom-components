@@ -3,7 +3,16 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock CustomComponent since it's a superclass
 jest.mock("../CustomComponent.js", () => {
-    return class {};
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
 });
 
 // Mock hasValue helper

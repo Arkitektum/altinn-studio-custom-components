@@ -81,16 +81,6 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data contains any content.
-     *
-     * @param {Object} data - The data object to check.
-     * @returns {boolean} Returns true if the data contains a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Generates an object containing resource binding configurations for various fields.
      * Each field includes localized titles and optional empty field text, with fallbacks to default resource keys.
      * The returned object can be customized based on the provided props, including conditional inclusion of titles and empty field text for "ansvarsomraade".

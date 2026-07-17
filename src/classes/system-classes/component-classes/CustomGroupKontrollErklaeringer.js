@@ -64,16 +64,6 @@ export default class CustomGroupKontrollErklaeringer extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Generates an object containing resource bindings for various text fields,
      * providing default values if not specified in the props.
      *

@@ -54,16 +54,6 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data value contains content.
-     *
-     * @param {*} data - The value from the data to check.
-     * @returns {boolean} Returns true if the value has content, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Retrieves the value for the component from the provided form data.
      * If the form data contains a value, it creates and returns a new instance of the Dispensasjonsvarsel class using that data.
      *

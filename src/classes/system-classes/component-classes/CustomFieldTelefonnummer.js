@@ -1,5 +1,5 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -67,16 +67,6 @@ export default class CustomFieldTelefonnummer extends CustomComponent {
         const telefonnumreString = this.formatPhoneNumbers(telefonnumre);
 
         return telefonnumreString;
-    }
-
-    /**
-     * Checks if the provided form data contains a value for the 'simpleBinding' property.
-     *
-     * @param {Object} data - The data object to check.
-     * @returns {boolean} Returns true if 'data' has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**

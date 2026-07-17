@@ -3,7 +3,16 @@ import CustomTableEiendom from "./CustomTableEiendom";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
-    return class {};
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    return class {
+        hasContent(data) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
 });
 jest.mock("../../data-classes/Eiendom.js", () => {
     return function Eiendom(data) {

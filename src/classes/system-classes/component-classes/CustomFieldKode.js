@@ -36,16 +36,6 @@ export default class CustomFieldKode extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data value has content.
-     *
-     * @param {*} data - The value from the data to check.
-     * @returns {boolean} Returns true if the data value has content, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Formats a kode object by combining its value and description.
      *
      * If both `kodeverdi` and `kodebeskrivelse` are present, returns them as

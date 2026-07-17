@@ -1,5 +1,4 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -43,16 +42,6 @@ export default class CustomFieldBooleanData extends CustomComponent {
             title: getComponentResourceValue(props, "title"),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
-    }
-
-    /**
-     * Determines if the provided data value contains content.
-     *
-     * @param {*} data - The value from the data to check.
-     * @returns {boolean} True if the data value has content; otherwise, false.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**

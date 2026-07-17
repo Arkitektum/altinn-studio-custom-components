@@ -49,16 +49,6 @@ export default class CustomDispensasjon extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data value contains content.
-     *
-     * @param {*} data - The value from the data to check.
-     * @returns {boolean} Returns true if the value has content, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Retrieves a value from the provided form data and returns a new Dispensasjon instance if the data is valid.
      *
      * @param {Object} props - The properties object containing form data.

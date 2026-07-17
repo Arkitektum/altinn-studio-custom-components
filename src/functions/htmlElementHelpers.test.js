@@ -91,6 +91,33 @@ describe("getPropsFromElementAttributes", () => {
         expect(props.enableLinks).toBe(false);
     });
 
+    test("does not throw on malformed JSON attributes and treats them as absent", () => {
+        const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+        const element = createElementWithAttributes({
+            formdata: "{ not valid json",
+            texts: "also broken",
+            styleOverride: "}{",
+            order: "nope",
+            tableColumns: "[",
+            resourceBindings: "{bad}",
+            resourceValues: "undefined"
+        });
+
+        let props;
+        expect(() => {
+            props = getPropsFromElementAttributes(element);
+        }).not.toThrow();
+
+        expect(props.formData).toBe(false);
+        expect(props.texts).toBe(false);
+        expect(props.styleOverride).toBe(false);
+        expect(props.tableColumns).toBe(false);
+        expect(props.resourceBindings).toBe(false);
+        expect(props.resourceValues).toBe(false);
+        expect(errorSpy).toHaveBeenCalled();
+        errorSpy.mockRestore();
+    });
+
     test("falls back to element tagName when tagName attribute is missing", () => {
         const el = document.createElement("section");
         el.setAttribute("formdata", JSON.stringify({}));

@@ -1,9 +1,5 @@
 // Dependencies
-import {
-    getTextResourceFromResourceBinding,
-    getTextResourcesFromResourceBindings,
-    hasValue
-} from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, getTextResourcesFromResourceBindings } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -11,7 +7,7 @@ import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.js";
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * CustomFieldUtfallSvarStatus is a custom component class for handling the display and validation
@@ -46,26 +42,6 @@ export default class CustomFieldUtfallSvarStatus extends CustomComponent {
             title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.utfallSvarStatus?.title),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on the provided resource bindings.
-     *
-     * @param {Object} resourceBindings - The resource bindings to check for missing text resources.
-     * @returns {Array|string|boolean} The result of the missing text resources check, which may be an array of messages, a string, or a boolean depending on implementation.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

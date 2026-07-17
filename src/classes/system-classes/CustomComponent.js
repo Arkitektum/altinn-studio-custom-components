@@ -1,5 +1,9 @@
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
 import { getComponentDataValue } from "../../functions/helpers.js";
+import { hasMissingTextResources } from "../../functions/validations.js";
 
 /**
  * Class representing a CustomComponent.
@@ -76,5 +80,31 @@ export default class CustomComponent {
      */
     getValueFromFormData(props) {
         return getComponentDataValue(props);
+    }
+
+    /**
+     * Determines whether the component has content to display.
+     *
+     * Default implementation: the component has content when its resolved data value is non-empty. Components with a
+     * different notion of emptiness (e.g. table data keyed on rows) override this.
+     *
+     * @param {*} data - The resolved data value to check.
+     * @returns {boolean} True when the data has a value.
+     */
+    hasContent(data) {
+        return hasValue(data);
+    }
+
+    /**
+     * Computes validation messages for the component's resource bindings.
+     *
+     * Default implementation: reports missing text resources for the given bindings. Components that validate
+     * differently (e.g. table headers) override this.
+     *
+     * @param {Object} resourceBindings - The resource bindings to validate.
+     * @returns {Array|string|boolean} The missing-text-resource validation result.
+     */
+    getValidationMessages(resourceBindings) {
+        return hasMissingTextResources(resourceBindings);
     }
 }

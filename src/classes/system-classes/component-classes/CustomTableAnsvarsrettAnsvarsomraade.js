@@ -90,16 +90,6 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
     }
 
     /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Generates a resource bindings object for various fields, providing default resource keys if not specified in props.
      *
      * @param {Object} props - The properties object containing resource bindings and configuration flags.

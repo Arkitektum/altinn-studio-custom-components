@@ -4,6 +4,14 @@
     "description": "Custom components for Altinn Studio",
     "main": "dist/main.js",
     "module": "dist/main.js",
+    "exports": {
+        ".": "./dist/main.js",
+        "./styles.css": "./dist/main.css",
+        "./resources.json": "./dist/resources.json",
+        "./resources/nb.json": "./dist/resource.nb.json",
+        "./package.json": "./package.json",
+        "./dist/*": "./dist/*"
+    },
     "files": [
         "dist",
         "README.md"
@@ -14,7 +22,7 @@
         "test": "jest",
         "build": "yarn symlinks && NODE_ENV=production webpack && yarn copy-dist-resources",
         "start": "yarn symlinks && webpack serve --config webpack.config.dev.js",
-        "lint": "eslint src --ext .js"
+        "lint": "eslint ."
     },
     "repository": {
         "type": "git",

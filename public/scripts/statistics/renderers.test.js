@@ -67,18 +67,18 @@ import {
 
 // Import the mocked modules to set up their implementations
 import {
-    renderDefaultTextResourcesList,
-    renderSelectApplicationFilterForTextResourcesList,
-    renderTextInputFilterForTextResourcesList,
-    renderUsageFilterForTextResourcesList
-} from "../textResourceUsageRenderers.js";
-import {
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
     renderTextInputFilterForComponentUsageList,
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.js";
+import {
+    renderDefaultTextResourcesList,
+    renderSelectApplicationFilterForTextResourcesList,
+    renderTextInputFilterForTextResourcesList,
+    renderUsageFilterForTextResourcesList
+} from "../textResourceUsageRenderers.js";
 
 describe("renderAdminSidebar", () => {
     beforeEach(() => {

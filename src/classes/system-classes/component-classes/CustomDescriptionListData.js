@@ -35,16 +35,6 @@ export default class CustomDescriptionListData extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Generates an array of description list items from the provided items array,
      * extracting term and description values using the specified keys. If a format is provided
      * for a term or description, it uses the formatString function to format the data.

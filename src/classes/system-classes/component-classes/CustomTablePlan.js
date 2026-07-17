@@ -1,5 +1,5 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import AndrePlaner from "../../data-classes/AndrePlaner.js";
@@ -73,16 +73,6 @@ export default class CustomTablePlan extends CustomComponent {
      */
     getValidationMessages(textResourceBindings) {
         return hasMissingTextResources(textResourceBindings);
-    }
-
-    /**
-     * Checks if the provided data contains any content.
-     *
-     * @param {Object} data - The data object to check.
-     * @returns {boolean} Returns true if the data contains a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**

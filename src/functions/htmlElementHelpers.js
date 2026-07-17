@@ -75,13 +75,38 @@ function getBooleanAttributeValueFromElement(element, attributeName) {
 }
 
 /**
+ * Safely reads and parses a JSON attribute from an element.
+ *
+ * Unlike a bare `JSON.parse`, a missing attribute or malformed JSON returns the fallback instead of throwing, so a
+ * single bad attribute can't abort the whole component render (which propagates up through
+ * `getPropsFromElementAttributes` → `instantiateComponent` → `connectedCallback`).
+ *
+ * @param {HTMLElement} element - The element to read the attribute from.
+ * @param {string} attributeName - The attribute name to read (HTML attribute lookup is case-insensitive).
+ * @param {*} [fallback=null] - The value returned when the attribute is absent or invalid.
+ * @returns {*} The parsed value, or the fallback.
+ */
+function parseJsonAttribute(element, attributeName, fallback = null) {
+    const raw = element?.getAttribute(attributeName);
+    if (!raw) {
+        return fallback;
+    }
+    try {
+        return JSON.parse(raw);
+    } catch {
+        console.error(`Invalid JSON in "${attributeName}" attribute; ignoring it.`);
+        return fallback;
+    }
+}
+
+/**
  * Extracts and parses the form data from a given HTML element's "formdata" attribute.
  *
  * @param {HTMLElement} element - The HTML element containing the "formdata" attribute.
  * @returns {Object|null} The parsed form data object if it exists and is valid, otherwise null.
  */
 function getFormDataFromElement(element) {
-    const formData = JSON.parse(element?.getAttribute("formdata"));
+    const formData = parseJsonAttribute(element, "formdata");
     return hasValue(formData) && formData;
 }
 
@@ -114,7 +139,7 @@ function getTextFromElement(element) {
  * @returns {Object|boolean} The parsed "texts" object if it exists and is valid, otherwise `false`.
  */
 function getTextsFromElement(element) {
-    const texts = JSON.parse(element?.getAttribute("texts"));
+    const texts = parseJsonAttribute(element, "texts");
     return hasValue(texts) && texts;
 }
 
@@ -166,7 +191,7 @@ function getHideIfEmpty(element) {
  * @returns {Object|false} The parsed style override object if it exists and is valid, otherwise `false`.
  */
 function getStyleOverride(element) {
-    const styleOverride = JSON.parse(element?.getAttribute("styleOverride") || "{}");
+    const styleOverride = parseJsonAttribute(element, "styleOverride");
     return hasValue(styleOverride) && styleOverride;
 }
 
@@ -210,7 +235,7 @@ function getItemKey(element) {
  * @returns {Object|false} The order object if valid, otherwise false.
  */
 function getOrder(element) {
-    const order = JSON.parse(element?.getAttribute("order") || "{}");
+    const order = parseJsonAttribute(element, "order");
     return hasValue(order) && order;
 }
 
@@ -291,7 +316,7 @@ function getFormat(element) {
  * @returns {any|null} The parsed table columns if present and valid, otherwise null.
  */
 function getTableColumns(element) {
-    const tableColumns = JSON.parse(element?.getAttribute("tableColumns"));
+    const tableColumns = parseJsonAttribute(element, "tableColumns");
     return hasValue(tableColumns) && tableColumns;
 }
 
@@ -313,7 +338,7 @@ function getShowRowNumbers(element) {
  * @returns {Object|false} The parsed resource bindings object if present and valid, otherwise false.
  */
 function getResourceBindings(element) {
-    const textResourceBindings = JSON.parse(element?.getAttribute("resourceBindings"));
+    const textResourceBindings = parseJsonAttribute(element, "resourceBindings");
     return hasValue(textResourceBindings) && textResourceBindings;
 }
 
@@ -325,7 +350,7 @@ function getResourceBindings(element) {
  * @returns {Object|false} The parsed resource values object if present and valid, otherwise false.
  */
 function getResourceValues(element) {
-    const resourceValues = JSON.parse(element?.getAttribute("resourceValues"));
+    const resourceValues = parseJsonAttribute(element, "resourceValues");
     return hasValue(resourceValues) && resourceValues;
 }
 

@@ -1,5 +1,4 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -32,16 +31,6 @@ export default class CustomListVedlegg extends CustomComponent {
             title: getComponentResourceValue(props, "title"),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
-    }
-
-    /**
-     * Checks if the provided data has content by delegating to the hasValue function.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} True if the data has content, false otherwise.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**

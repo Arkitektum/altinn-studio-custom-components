@@ -139,24 +139,6 @@ export default class CustomFieldAdresse extends CustomComponent {
     }
 
     /**
-     * Determines if the provided data contains any address information.
-     *
-     * Checks if any of the address lines (adresselinje1, adresselinje2, adresselinje3)
-     * or either the postal code (postnr) or city (poststed) fields have content.
-     *
-     * @param {Object} data - The data object containing address information.
-     * @param {string} [data.adresselinje1] - First address line.
-     * @param {string} [data.adresselinje2] - Second address line.
-     * @param {string} [data.adresselinje3] - Third address line.
-     * @param {string} [data.postnr] - Postal code.
-     * @param {string} [data.poststed] - City.
-     * @returns {boolean} True if any address line, postal code, or city has content; otherwise, false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Generates text resource bindings for the address component based on the provided props.
      *
      * @param {Object} props - The properties object.

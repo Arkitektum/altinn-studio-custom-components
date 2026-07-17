@@ -1,13 +1,13 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * CustomGrouplistSjekklistekrav is a custom component class for handling grouped checklist requirements.
@@ -70,26 +70,6 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
             description: getTextResourceFromResourceBinding(resourceBindings?.sjekklistekrav?.description),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.sjekklistekrav?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Determines if the provided data contains any content.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} True if the data has content, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on provided resource bindings.
-     *
-     * @param {Object} resourceBindings - The resource bindings to check for missing text resources.
-     * @returns {Array|string} - The validation messages indicating missing text resources.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

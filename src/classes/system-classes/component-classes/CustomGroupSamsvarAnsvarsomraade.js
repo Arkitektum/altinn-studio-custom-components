@@ -1,13 +1,13 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * Initializes a new instance of the CustomGroupSamsvarAnsvarsomraade class.
@@ -38,26 +38,6 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
         this.resourceValues = {
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.ansvarsomraade?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on provided resource bindings.
-     *
-     * @param {Object} resourceBindings - The resource bindings to check for missing text resources.
-     * @returns {Array|string|boolean} - The result of checking for missing text resources, which may be an array of messages, a string, or a boolean depending on implementation.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**
