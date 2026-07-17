@@ -6,8 +6,8 @@ import CustomComponent from "../CustomComponent.js";
 import KravTilByggegrunn from "../../data-classes/KravTilByggegrunn.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * CustomGroupRammebetingelserKravTilByggegrunn is a custom component class for handling "krav til byggegrunn" group data and resource bindings.
@@ -41,26 +41,6 @@ export default class CustomGroupRammebetingelserKravTilByggegrunn extends Custom
                 : getTextResourceFromResourceBinding(resourceBindings?.rammebetingelserKravTilByggegrunn?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.rammebetingelserKravTilByggegrunn?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on provided resource bindings.
-     *
-     * @param {Object} resourceBindings - The resource bindings to check for missing text resources.
-     * @returns {Array|string|boolean} - The result of checking for missing text resources, which may be an array of messages, a string, or a boolean depending on implementation.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

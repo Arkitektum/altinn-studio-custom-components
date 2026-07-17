@@ -80,16 +80,6 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data contains any content.
-     *
-     * @param {Object} data - The data object to check.
-     * @returns {boolean} Returns true if the data contains a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Checks if the given `omraaderisiko` object has a valid `risikotype` with a `kodebeskrivelse` value.
      *
      * @param {Object} omraaderisiko - The object to check for a risikotype.

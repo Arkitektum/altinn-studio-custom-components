@@ -1,13 +1,13 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * CustomGroupUtfallSvar is a custom component class for handling grouped "utfallSvar" (outcome answers).
@@ -40,26 +40,6 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
         this.resourceValues = {
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.utfallSvar?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on the provided resource bindings.
-     *
-     * @param {Object} resourceBindings - An object containing resource binding keys to validate.
-     * @returns {boolean} Returns true if there are missing text resources, otherwise false.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

@@ -6,8 +6,8 @@ import CustomComponent from "../CustomComponent.js";
 import Vannforsyning from "../../data-classes/Vannforsyning.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * CustomGroupVannforsyning is a specialized component class for handling water supply group data.
@@ -45,26 +45,6 @@ export default class CustomGroupVannforsyning extends CustomComponent {
                 : getTextResourceFromResourceBinding(resourceBindings?.vannforsyning?.title),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.vannforsyning?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on provided resource bindings.
-     *
-     * @param {Object} resourceBindings - The resource bindings to check for missing text resources.
-     * @returns {Array|string|boolean} - The result of checking for missing text resources, which may be an array of messages, a string, or a boolean depending on implementation.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

@@ -1,12 +1,11 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.js";
 
 /**
  * CustomGroupUtfallSvarType is a custom component class that handles the logic for displaying
@@ -45,26 +44,6 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
         this.resourceValues = {
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
-    }
-
-    /**
-     * Checks if the provided data has a value.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} Returns true if the data has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
-     * Retrieves validation messages based on the provided resource bindings.
-     *
-     * @param {Object} resourceBindings - An object containing resource binding keys.
-     * @returns {Array|string|boolean} The result of checking for missing text resources, which could be an array of messages, a string, or a boolean depending on implementation.
-     */
-    getValidationMessages(resourceBindings) {
-        return hasMissingTextResources(resourceBindings);
     }
 
     /**

@@ -85,16 +85,6 @@ export default class CustomTableNaboGjenboerEiendom extends CustomComponent {
     }
 
     /**
-     * Determines if the provided data has content by delegating to the hasValue function.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} True if the data has content; otherwise, false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Checks if the given property `kommunenavn` exists and has a value in the provided `eiendom` object.
      *
      * @param {Object} eiendom - The object representing an estate or property.

@@ -1,5 +1,5 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -68,16 +68,6 @@ export default class CustomFieldPartNavn extends CustomComponent {
         const part = new Part(data);
         const name = this.formatName(part, this.hideOrgNr);
         return name;
-    }
-
-    /**
-     * Checks if the provided data contains a value in the 'simpleBinding' property.
-     *
-     * @param {Object} data - The data object to check.
-     * @returns {boolean} Returns true if 'data' has a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**

@@ -1,5 +1,4 @@
 // Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -39,16 +38,6 @@ export default class CustomFieldKommunensSaksnummer extends CustomComponent {
             title: getComponentResourceValue(props, "title"),
             data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
         };
-    }
-
-    /**
-     * Checks if the provided data value has content.
-     *
-     * @param {*} data - The value from the data to check.
-     * @returns {boolean} Returns true if the data value has content, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**

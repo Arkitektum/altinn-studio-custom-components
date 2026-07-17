@@ -81,16 +81,6 @@ export default class CustomTableEiendom extends CustomComponent {
     }
 
     /**
-     * Checks if the provided data contains any content.
-     *
-     * @param {Object} data - The data object to check.
-     * @returns {boolean} Returns true if the data contains a value, otherwise false.
-     */
-    hasContent(data) {
-        return hasValue(data);
-    }
-
-    /**
      * Checks if the given `eiendom` object has a non-empty `kommunenavn` property.
      *
      * @param {Object} eiendom - The object representing an eiendom (property).

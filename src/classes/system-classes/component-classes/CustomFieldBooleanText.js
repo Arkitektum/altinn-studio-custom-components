@@ -1,5 +1,5 @@
 // Dependencies
-import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
@@ -36,16 +36,6 @@ export default class CustomFieldBooleanText extends CustomComponent {
             title: !props?.hideTitle && getComponentResourceValue(props, "title"),
             data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.booleanText?.emptyFieldText) : data
         };
-    }
-
-    /**
-     * Determines if the provided data has content by delegating to the hasValue function.
-     *
-     * @param {*} data - The data to check for content.
-     * @returns {boolean} True if the data has content; otherwise, false.
-     */
-    hasContent(data) {
-        return hasValue(data);
     }
 
     /**
