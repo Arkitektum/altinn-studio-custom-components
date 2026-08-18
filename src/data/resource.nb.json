@@ -815,7 +815,7 @@
         },
         {
             "id": "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title",
-            "value": "Finnes det avløpssystem for overvann?"
+            "value": "Blir takvann/overvann ført til avløpssystem for overvann?"
         },
         {
             "id": "resource.rammebetingelser.overvann.ledesOvervannTilTerreng.title",

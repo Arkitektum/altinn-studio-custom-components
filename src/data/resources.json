@@ -1220,7 +1220,7 @@
     {
         "id": "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title",
         "values": {
-            "nb": "Finnes det avløpssystem for overvann?"
+            "nb": "Blir takvann/overvann ført til avløpssystem for overvann?"
         }
     },
     {
