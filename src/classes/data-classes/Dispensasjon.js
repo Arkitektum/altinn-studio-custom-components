@@ -1,4 +1,4 @@
-import Kode from "./Kode";
+import Kode from "./Kode.js";
 
 /**
  * @typedef {Object} DispensasjonProps

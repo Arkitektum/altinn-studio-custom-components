@@ -1,4 +1,4 @@
-import Dispensasjon from "./Dispensasjon";
+import Dispensasjon from "./Dispensasjon.js";
 
 /**
  * @typedef {Object} DispensasjonOversiktProps

@@ -1,5 +1,5 @@
 // Dependencies
-import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers";
+import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
