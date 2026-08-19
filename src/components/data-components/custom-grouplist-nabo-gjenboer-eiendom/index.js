@@ -2,10 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderNaboGjenboerEiendomGroup } from "./renderers.js";
@@ -13,36 +10,28 @@ import { renderDivider, renderEmptyFieldText, renderHeaderElement, renderNaboGje
 export default customElements.define(
     "custom-grouplist-nabo-gjenboer-eiendom",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    // Reached only when the component should not hide itself, so an empty one still explains itself.
+                    if (component?.isEmpty) {
+                        host.appendChild(renderEmptyFieldText(component));
+                        return;
+                    }
+                    if (!component?.resourceValues?.data) {
+                        return;
+                    }
+                    if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                        host.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                    }
+                    for (const naboGjenboerEiendom of component?.resourceValues?.data ?? []) {
+                        host.appendChild(renderNaboGjenboerEiendomGroup(naboGjenboerEiendom, component));
+                        host.appendChild(renderDivider());
+                    }
                 }
-            } else if (component?.isEmpty) {
-                const emptyFieldTextElement = renderEmptyFieldText(component);
-                this.appendChild(emptyFieldTextElement);
-                addDevToolsOverlay(this, component, "data");
-            } else if (component?.resourceValues?.data) {
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
-                }
-                for (const naboGjenboerEiendom of component?.resourceValues?.data ?? []) {
-                    const naboGjenboerEiendomElement = renderNaboGjenboerEiendomGroup(naboGjenboerEiendom, component);
-                    this.appendChild(naboGjenboerEiendomElement);
-                    const dividerElement = renderDivider();
-                    this.appendChild(dividerElement);
-                }
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );

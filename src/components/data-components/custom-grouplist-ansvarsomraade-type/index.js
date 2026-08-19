@@ -2,10 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderAnsvarsomraadeType, renderEmptyFieldText, renderHeaderElement } from "./renderers.js";
@@ -13,34 +10,27 @@ import { renderAnsvarsomraadeType, renderEmptyFieldText, renderHeaderElement } f
 export default customElements.define(
     "custom-grouplist-ansvarsomraade-type",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    // Reached only when the component should not hide itself, so an empty one still explains itself.
+                    if (component?.isEmpty) {
+                        host.appendChild(renderEmptyFieldText(component));
+                        return;
+                    }
+                    if (!component?.resourceValues?.data) {
+                        return;
+                    }
+                    if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
+                        host.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
+                    }
+                    for (const ansvarsomraadeTypeKey of Object.keys(component?.resourceValues?.data)) {
+                        host.appendChild(renderAnsvarsomraadeType(component, ansvarsomraadeTypeKey));
+                    }
                 }
-            } else if (component?.isEmpty) {
-                const emptyFieldTextElement = renderEmptyFieldText(component);
-                this.appendChild(emptyFieldTextElement);
-                addDevToolsOverlay(this, component, "data");
-            } else if (component?.resourceValues?.data) {
-                if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
-                    this.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
-                }
-                for (const ansvarsomraadeTypeKey of Object.keys(component?.resourceValues?.data)) {
-                    const ansvarsomraadeTypeElement = renderAnsvarsomraadeType(component, ansvarsomraadeTypeKey);
-                    this.appendChild(ansvarsomraadeTypeElement);
-                }
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );

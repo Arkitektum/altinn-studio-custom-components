@@ -1,8 +1,5 @@
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
-import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Local functions
 import { renderEmptyFieldText, renderVegtypeTillatelseElement } from "./renderers.js";
@@ -10,34 +7,25 @@ import { renderEmptyFieldText, renderVegtypeTillatelseElement } from "./renderer
 export default customElements.define(
     "custom-grouplist-vegtype-tillatelse",
     class extends HTMLElement {
-        async connectedCallback() {
-            const component = instantiateComponent(this);
-            const componentContainerElement = getComponentContainerElement(this);
-            if (component?.hideIfEmpty && component.isEmpty && !!componentContainerElement) {
-                if (isDevMode()) {
-                    const hiddenEl = renderHiddenDevToolsElement(this, component, "data");
-                    if (hiddenEl) this.appendChild(hiddenEl);
-                } else {
-                    componentContainerElement.style.display = "none";
-                }
-            } else if (component?.isEmpty) {
-                const emptyFieldTextElement = renderEmptyFieldText(component);
-                this.appendChild(emptyFieldTextElement);
-                addDevToolsOverlay(this, component, "data");
-            } else if (component?.resourceValues?.data) {
-                const vegtypeTillatelseData = component.resourceValues.data;
-                if (Array.isArray(vegtypeTillatelseData)) {
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "data",
+                withFeedback: true,
+                render: (host, component) => {
+                    // Reached only when the component should not hide itself, so an empty one still explains itself.
+                    if (component?.isEmpty) {
+                        host.appendChild(renderEmptyFieldText(component));
+                        return;
+                    }
+                    const vegtypeTillatelseData = component?.resourceValues?.data;
+                    if (!Array.isArray(vegtypeTillatelseData)) {
+                        return;
+                    }
                     for (const vegtypeTillatelse of vegtypeTillatelseData) {
-                        const vegtypeTillatelseElement = renderVegtypeTillatelseElement(component, vegtypeTillatelse);
-                        this.appendChild(vegtypeTillatelseElement);
+                        host.appendChild(renderVegtypeTillatelseElement(component, vegtypeTillatelse));
                     }
                 }
-                addDevToolsOverlay(this, component, "data");
-            }
-            const feedbackListElement = component?.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
-            if (feedbackListElement) {
-                this.appendChild(feedbackListElement);
-            }
+            });
         }
     }
 );

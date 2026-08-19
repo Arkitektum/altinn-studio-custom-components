@@ -2,9 +2,8 @@
 import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
 import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };
@@ -13,17 +12,19 @@ export default customElements.define(
     "custom-header-text-data",
     class extends HTMLElement {
         connectedCallback() {
-            const component = instantiateComponent(this);
-            if (!component?.isChildComponent) {
-                const containerElement = getComponentContainerElement(this);
-                addStyle(containerElement, {
-                    padding: "0 0.75rem"
-                });
-            }
-            const htmlAttributes = new CustomElementHtmlAttributes(component);
-            this.innerHTML = "";
-            this.appendChild(createCustomElement("custom-header", htmlAttributes));
-            addDevToolsOverlay(this, component, "data");
+            renderCustomComponent(this, {
+                type: "data",
+                render: (host, component) => {
+                    if (!component?.isChildComponent) {
+                        addStyle(getComponentContainerElement(host), {
+                            padding: "0 0.75rem"
+                        });
+                    }
+                    const htmlAttributes = new CustomElementHtmlAttributes(component);
+                    host.innerHTML = "";
+                    host.appendChild(createCustomElement("custom-header", htmlAttributes));
+                }
+            });
         }
     }
 );
