@@ -202,6 +202,67 @@ describe("getComponentContainerElement", () => {
         const el = document.createElement("div");
         expect(getComponentContainerElement(el)).toBeNull();
     });
+    it("finds the container for an id containing quotes without throwing", () => {
+        const el = document.createElement("div");
+        el.id = 'my"comp';
+        const container = document.createElement("div");
+        container.setAttribute("data-summary-target", 'my"comp');
+        container.appendChild(el);
+        document.body.appendChild(container);
+        expect(() => getComponentContainerElement(el)).not.toThrow();
+        expect(getComponentContainerElement(el)).toBe(container);
+        document.body.removeChild(container);
+    });
+    it("finds the container for an id containing a backslash", () => {
+        const el = document.createElement("div");
+        el.id = "my\\comp";
+        const container = document.createElement("div");
+        container.setAttribute("data-summary-target", "my\\comp");
+        container.appendChild(el);
+        document.body.appendChild(container);
+        expect(getComponentContainerElement(el)).toBe(container);
+        document.body.removeChild(container);
+    });
+    it("returns the nearest matching ancestor, not an outer one", () => {
+        const outer = document.createElement("div");
+        outer.setAttribute("data-summary-target", "my-comp");
+        const inner = document.createElement("div");
+        inner.setAttribute("data-summary-target", "my-comp");
+        const el = document.createElement("div");
+        el.id = "my-comp";
+        inner.appendChild(el);
+        outer.appendChild(inner);
+        document.body.appendChild(outer);
+        expect(getComponentContainerElement(el)).toBe(inner);
+        document.body.removeChild(outer);
+    });
+    it("does not match a container targeting a different id", () => {
+        const el = document.createElement("div");
+        el.id = "my-comp";
+        const container = document.createElement("div");
+        container.setAttribute("data-summary-target", "other-comp");
+        container.appendChild(el);
+        document.body.appendChild(container);
+        expect(getComponentContainerElement(el)).toBeNull();
+        document.body.removeChild(container);
+    });
+    it("still pairs an id-less component with its empty-target container", () => {
+        const el = document.createElement("div");
+        const container = document.createElement("div");
+        container.setAttribute("data-summary-target", "");
+        container.appendChild(el);
+        document.body.appendChild(container);
+        expect(getComponentContainerElement(el)).toBe(container);
+        document.body.removeChild(container);
+    });
+    it("returns the component itself when it carries the matching target", () => {
+        const el = document.createElement("div");
+        el.id = "my-comp";
+        el.setAttribute("data-summary-target", "my-comp");
+        document.body.appendChild(el);
+        expect(getComponentContainerElement(el)).toBe(el);
+        document.body.removeChild(el);
+    });
 });
 
 describe("getTextResourceFromResourceBinding", () => {

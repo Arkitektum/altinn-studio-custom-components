@@ -114,6 +114,29 @@ export function validateFormData(data, dataKeys, componentName) {
 }
 
 /**
+ * Finds the nearest element, starting at `element` itself, whose `data-summary-target` equals `id`.
+ *
+ * This walks the ancestor chain rather than using `closest()` with an interpolated attribute selector: an `id` is
+ * author-controlled through the layout JSON, and one containing a quote or backslash makes the selector invalid, so
+ * `closest()` throws a `SyntaxError` that escapes `connectedCallback` and aborts the whole component render.
+ * Comparing attribute values directly cannot throw and needs no CSS escaping, while matching exactly what the
+ * selector matched — including the empty `id` case, where `addContainerElement` sets `data-summary-target=""` from
+ * the component's own empty id.
+ *
+ * @param {HTMLElement} element - The element to start searching from.
+ * @param {string} id - The component id the container is expected to target.
+ * @returns {HTMLElement | null} The matching element, or null when there is none.
+ */
+function findSummaryTargetElement(element, id) {
+    for (let current = element; current; current = current.parentElement) {
+        if (current.getAttribute?.("data-summary-target") === id) {
+            return current;
+        }
+    }
+    return null;
+}
+
+/**
  * Retrieves the container element for a given component.
  *
  * @param {HTMLElement} component - The component element for which to find the container.
@@ -122,14 +145,10 @@ export function validateFormData(data, dataKeys, componentName) {
  */
 export function getComponentContainerElement(component) {
     const isChildComponent = component.getAttribute("isChildComponent") === "true";
-    const containerElement = component.closest(`[data-summary-target="${component.id}"]`);
     if (isChildComponent) {
         return component;
-    } else if (containerElement) {
-        return containerElement;
-    } else {
-        return null;
     }
+    return findSummaryTargetElement(component, component.id);
 }
 
 /**
