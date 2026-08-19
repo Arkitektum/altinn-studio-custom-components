@@ -1,6 +1,7 @@
 // Global functions
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
 import { getComponentContainerElement } from "./helpers.js";
+import { hasRenderedContent } from "./htmlElementHelpers.js";
 import { instantiateComponent } from "./componentHelpers.js";
 import { renderFeedbackListElement } from "./feedbackHelpers.js";
 
@@ -102,14 +103,66 @@ export function validateHostDataAttributes(host, type) {
 }
 
 /**
+ * The DevTools category for whole-form layout components.
+ *
+ * Layout components are treated differently from base and data components when they turn out to be empty: their
+ * `hideIfEmpty` defaults to true, since an empty whole-form layout is never meaningful, and they are removed from
+ * the document rather than merely hidden, so no stray tag is left behind in the summary view or the generated PDF.
+ */
+const LAYOUT_TYPE = "layout";
+
+/**
+ * Resolves the effective `hideIfEmpty` flag for a component.
+ *
+ * An explicit `hideIfEmpty` attribute on the host always wins, so a layout opts out with `hideIfEmpty="false"`. With
+ * the attribute absent, layout components default to true and every other type falls back to the flag its component
+ * class resolved from its props. The attribute is read from the host rather than taken from the component because the
+ * component classes deliberately drop falsy props, which would make an explicit `false` indistinguishable from absent.
+ *
+ * @param {HTMLElement} host - The custom element instance.
+ * @param {Object} component - The instantiated component.
+ * @param {string} type - The component type ("base", "data" or "layout").
+ * @returns {boolean} True when the component should hide itself while empty.
+ */
+function resolveHideIfEmpty(host, component, type) {
+    const attributeValue = host?.getAttribute?.("hideIfEmpty");
+    if (attributeValue !== null && attributeValue !== undefined) {
+        return attributeValue === "true" || attributeValue === "";
+    }
+    return type === LAYOUT_TYPE || !!component?.hideIfEmpty;
+}
+
+/**
+ * Removes an empty component from the document.
+ *
+ * The container is preferred over the host when one exists, mirroring which element would otherwise have been
+ * hidden — removing only the host would leave an empty wrapper behind.
+ *
+ * @param {HTMLElement} host - The custom element instance.
+ * @param {HTMLElement|null} componentContainerElement - The component's container element, when it has one.
+ * @returns {void}
+ */
+function removeEmptyComponentElement(host, componentContainerElement) {
+    const elementToRemove = componentContainerElement || host;
+    elementToRemove?.remove?.();
+}
+
+/**
  * Runs the shared render lifecycle used by (almost) every custom element's `connectedCallback`:
  *
  * 1. Instantiate the component class from the element's attributes.
- * 2. If the component resolves to empty and should be hidden, hide its container (or, in DevTools mode, render a
- *    hidden-element placeholder badge). By default this is gated on the component's `hideIfEmpty` flag; pass
- *    `alwaysHideWhenEmpty` to hide whenever the component is empty regardless of the flag.
+ * 2. If the component resolves to empty and should be hidden, skip the render and hide its container (or, in DevTools
+ *    mode, render a hidden-element placeholder badge). This is gated on the effective `hideIfEmpty` flag — true by
+ *    default for layout components, otherwise taken from the component — and `alwaysHideWhenEmpty` forces it on.
  * 3. Otherwise invoke the component-specific `render` callback and attach the DevTools overlay.
  * 4. Optionally append a validation feedback list when `withFeedback` is set and the component has messages.
+ * 5. For layout components, drop the element entirely when nothing was rendered inside it.
+ *
+ * Layout components are removed from the document instead of being hidden, because hiding relies on a container that
+ * a top-level layout usually does not have, and because a hidden-but-present tag still leaves a gap behind. The
+ * emptiness check runs on the rendered output, so a layout whose data is present but whose every child resolved to
+ * empty is dropped too. It runs last on purpose: the DevTools overlay and the feedback list both count as content, so
+ * a layout that has validation messages to show is kept.
  *
  * Component-specific markup lives entirely in the `render` callback, so callers keep full control over how
  * (and whether) they clear/append content.
@@ -130,12 +183,15 @@ export function renderCustomComponent(host, { type, render, withFeedback = false
     }
     const component = instantiateComponent(host);
     const componentContainerElement = getComponentContainerElement(host);
-    const shouldHideWhenEmpty = alwaysHideWhenEmpty || component?.hideIfEmpty;
-    if (shouldHideWhenEmpty && component?.isEmpty && !!componentContainerElement) {
+    const isLayout = type === LAYOUT_TYPE;
+    const shouldHideWhenEmpty = alwaysHideWhenEmpty || resolveHideIfEmpty(host, component, type);
+    // A layout is removed rather than hidden, so unlike the other types it does not need a container to hide.
+    const canHideWhenEmpty = isLayout || !!componentContainerElement;
+    if (shouldHideWhenEmpty && component?.isEmpty && canHideWhenEmpty) {
         if (isDevMode()) {
             const hiddenEl = renderHiddenDevToolsElement(host, component, type);
             if (hiddenEl) host.appendChild(hiddenEl);
-        } else {
+        } else if (!isLayout) {
             componentContainerElement.style.display = "none";
         }
     } else {
@@ -147,6 +203,9 @@ export function renderCustomComponent(host, { type, render, withFeedback = false
         if (feedbackListElement) {
             host.appendChild(feedbackListElement);
         }
+    }
+    if (isLayout && shouldHideWhenEmpty && !isDevMode() && !hasRenderedContent(host)) {
+        removeEmptyComponentElement(host, componentContainerElement);
     }
     return component;
 }

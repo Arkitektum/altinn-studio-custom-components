@@ -406,3 +406,71 @@ export function updateBodyClassNamesForApplication(org, app) {
     removeAllBodyClassNamesForApplication();
     addBodyClassNamesForApplication(org, app);
 }
+
+/**
+ * Elements that render something on their own, without containing any text.
+ *
+ * Purely decorative elements (`hr`, `br`) are deliberately absent: a layout that rendered nothing but dividers has
+ * no content worth keeping.
+ */
+const SELF_RENDERING_TAG_NAMES = new Set([
+    "audio",
+    "canvas",
+    "embed",
+    "iframe",
+    "img",
+    "input",
+    "object",
+    "picture",
+    "select",
+    "svg",
+    "textarea",
+    "video"
+]);
+
+/**
+ * Determines whether an element is hidden by one of the mechanisms this package uses to hide empty components.
+ *
+ * Only inline styles and the `hidden` attribute are considered. Resolving stylesheet rules would need
+ * `getComputedStyle` on a laid-out document, which is not meaningful during the synchronous render this supports.
+ *
+ * @param {Element} element - The element to check.
+ * @returns {boolean} True when the element is hidden.
+ */
+function isHiddenElement(element) {
+    return element?.hidden === true || element?.style?.display === "none";
+}
+
+/**
+ * Determines whether an element actually rendered anything a user can see.
+ *
+ * Walks the subtree looking for non-whitespace text or an element that renders on its own (an image, a form control,
+ * …), skipping subtrees that are hidden. This is the rendered-output counterpart to a component class's data-level
+ * `isEmpty`: a component can hold data and still render nothing once every child resolves to empty and hides itself.
+ *
+ * @param {Element} element - The element whose rendered output should be inspected.
+ * @returns {boolean} True when the subtree contains visible content.
+ */
+export function hasRenderedContent(element) {
+    if (!element?.childNodes?.length) {
+        return false;
+    }
+    for (const node of element.childNodes) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (node.textContent?.trim()) {
+                return true;
+            }
+            continue;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE || isHiddenElement(node)) {
+            continue;
+        }
+        if (SELF_RENDERING_TAG_NAMES.has(node.tagName.toLowerCase())) {
+            return true;
+        }
+        if (hasRenderedContent(node)) {
+            return true;
+        }
+    }
+    return false;
+}

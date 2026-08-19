@@ -79,6 +79,8 @@ The typical flow (see `src/components/data-components/custom-field-data/index.js
 
 1. `instantiateComponent(this)` builds the component-class instance from the element's attributes.
 2. If the component is configured with `hideIfEmpty` and resolves to empty, it is hidden (or shown as a placeholder in DevTools mode).
+   Layout components differ here: `hideIfEmpty` defaults to **true** (opt out with `hideIfEmpty="false"`), and an empty layout is **removed from the document** rather than hidden with `display: none` — a top-level layout usually has no container to hide, and a hidden-but-present tag still leaves a gap in the summary view and the generated PDF.
+   Emptiness is checked twice for a layout: once on the data (`isEmpty`) before rendering, and once on the rendered output afterwards, so a layout whose data is present but whose every child resolved to empty is dropped too. Validation feedback counts as content, so a layout that has messages to show is kept.
 3. Otherwise the class produces `CustomElementHtmlAttributes`, and `createCustomElement(...)` (from the utils package) renders the underlying base element into the DOM.
 
 ---
@@ -139,7 +141,7 @@ By convention these classes implement:
 | `getResourceBindings` | Return all resource bindings the component needs. Every binding has a default and can be overridden. |
 | `getComponentUsage` | List the tag names of the component's direct children. Used by the Statistics tool to know which components are used indirectly. |
 | `getValidationMessages` | Apply the component's validation rules and return a `ValidationMessages` object (often via `hasMissingTextResources`). |
-| `hasContent` | Decide whether the component actually renders anything; drives `isEmpty` and therefore `hideIfEmpty`. Returns `true` only if something will actually be rendered. |
+| `hasContent` | Decide whether the component actually renders anything; drives `isEmpty` and therefore `hideIfEmpty`. Returns `true` only if something will actually be rendered. For layout components this is the data-level check; the rendered output is verified separately by `hasRenderedContent` (see §3). |
 
 ---
 

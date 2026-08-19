@@ -138,6 +138,151 @@ describe("renderCustomComponent", () => {
     });
 });
 
+describe("renderCustomComponent — layout components", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        isDevMode.mockReturnValue(false);
+        getComponentContainerElement.mockReturnValue(null);
+        document.body.innerHTML = "";
+    });
+
+    function createLayoutHost(attributes = {}) {
+        const host = document.createElement("custom-dispensasjon");
+        Object.entries(attributes).forEach(([name, value]) => host.setAttribute(name, value));
+        document.body.appendChild(host);
+        return host;
+    }
+
+    it("hides an empty layout by default, without the host asking for it", () => {
+        const host = createLayoutHost();
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "layout", render });
+
+        expect(render).not.toHaveBeenCalled();
+        expect(document.body.contains(host)).toBe(false);
+    });
+
+    it("removes an empty layout even though it has no container to hide", () => {
+        const host = createLayoutHost();
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        getComponentContainerElement.mockReturnValue(null);
+
+        renderCustomComponent(host, { type: "layout", render: jest.fn() });
+
+        expect(document.body.contains(host)).toBe(false);
+    });
+
+    it("removes the container rather than the host when the layout has one", () => {
+        const container = document.createElement("div");
+        document.body.appendChild(container);
+        const host = document.createElement("custom-dispensasjon");
+        container.appendChild(host);
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        getComponentContainerElement.mockReturnValue(container);
+
+        renderCustomComponent(host, { type: "layout", render: jest.fn() });
+
+        expect(document.body.contains(container)).toBe(false);
+    });
+
+    it("removes a layout that holds data but renders nothing visible", () => {
+        const host = createLayoutHost();
+        instantiateComponent.mockReturnValue({ isEmpty: false });
+        const render = jest.fn((hostElement) => {
+            const emptyChild = document.createElement("div");
+            emptyChild.style.display = "none";
+            emptyChild.textContent = "Ikke registrert";
+            hostElement.appendChild(emptyChild);
+        });
+
+        renderCustomComponent(host, { type: "layout", render });
+
+        expect(render).toHaveBeenCalled();
+        expect(document.body.contains(host)).toBe(false);
+    });
+
+    it("keeps a layout that rendered content", () => {
+        const host = createLayoutHost();
+        instantiateComponent.mockReturnValue({ isEmpty: false });
+        const render = jest.fn((hostElement) => {
+            const paragraph = document.createElement("p");
+            paragraph.textContent = "Dispensasjonen gjelder";
+            hostElement.appendChild(paragraph);
+        });
+
+        renderCustomComponent(host, { type: "layout", render });
+
+        expect(document.body.contains(host)).toBe(true);
+    });
+
+    it('renders and keeps an empty layout when the host opts out with hideIfEmpty="false"', () => {
+        const host = createLayoutHost({ hideIfEmpty: "false" });
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "layout", render });
+
+        expect(render).toHaveBeenCalled();
+        expect(document.body.contains(host)).toBe(true);
+    });
+
+    it("renders a DevTools placeholder instead of removing an empty layout in dev mode", () => {
+        const host = createLayoutHost();
+        const hidden = document.createElement("span");
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        isDevMode.mockReturnValue(true);
+        renderHiddenDevToolsElement.mockReturnValue(hidden);
+
+        renderCustomComponent(host, { type: "layout", render: jest.fn() });
+
+        expect(host.contains(hidden)).toBe(true);
+        expect(document.body.contains(host)).toBe(true);
+    });
+
+    it("keeps an empty layout whose only content is its validation feedback", () => {
+        const host = createLayoutHost();
+        const feedback = document.createElement("ul");
+        feedback.textContent = "Mangler tekstressurs";
+        instantiateComponent.mockReturnValue({ isEmpty: true, hasValidationMessages: true, validationMessages: {} });
+        renderFeedbackListElement.mockReturnValue(feedback);
+
+        renderCustomComponent(host, { type: "layout", render: jest.fn(), withFeedback: true });
+
+        expect(host.contains(feedback)).toBe(true);
+        expect(document.body.contains(host)).toBe(true);
+    });
+
+    it("hides rather than removes an empty data component, leaving its tag in place", () => {
+        const container = document.createElement("div");
+        document.body.appendChild(container);
+        const host = document.createElement("custom-field-data");
+        container.appendChild(host);
+        instantiateComponent.mockReturnValue({ hideIfEmpty: true, isEmpty: true });
+        getComponentContainerElement.mockReturnValue(container);
+
+        renderCustomComponent(host, { type: "data", render: jest.fn() });
+
+        expect(container.style.display).toBe("none");
+        expect(document.body.contains(container)).toBe(true);
+        expect(container.contains(host)).toBe(true);
+    });
+
+    it("does not remove an empty data component that has no container", () => {
+        const host = document.createElement("custom-field-data");
+        document.body.appendChild(host);
+        instantiateComponent.mockReturnValue({ hideIfEmpty: true, isEmpty: true });
+        getComponentContainerElement.mockReturnValue(null);
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(render).toHaveBeenCalled();
+        expect(document.body.contains(host)).toBe(true);
+    });
+});
+
 describe("validateHostDataAttributes", () => {
     let errorSpy;
 

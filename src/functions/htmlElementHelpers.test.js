@@ -184,3 +184,65 @@ describe("updateBodyClassNamesForApplication", () => {
         expect(document.body.classList.contains("keep-me")).toBe(true);
     });
 });
+
+describe("hasRenderedContent", () => {
+    const { hasRenderedContent } = require("./htmlElementHelpers.js");
+
+    function elementFromHtml(html) {
+        const element = document.createElement("div");
+        element.innerHTML = html;
+        return element;
+    }
+
+    test("returns false for a missing element", () => {
+        expect(hasRenderedContent(null)).toBe(false);
+        expect(hasRenderedContent(undefined)).toBe(false);
+    });
+
+    test("returns false for an element without children", () => {
+        expect(hasRenderedContent(document.createElement("div"))).toBe(false);
+    });
+
+    test("returns false when the only text is whitespace", () => {
+        expect(hasRenderedContent(elementFromHtml("  \n\t  "))).toBe(false);
+    });
+
+    test("returns true for direct text content", () => {
+        expect(hasRenderedContent(elementFromHtml("Innhold"))).toBe(true);
+    });
+
+    test("returns true for text nested several levels deep", () => {
+        expect(hasRenderedContent(elementFromHtml("<div><span><b>Innhold</b></span></div>"))).toBe(true);
+    });
+
+    test("returns false when every wrapper is empty", () => {
+        expect(hasRenderedContent(elementFromHtml("<div><span></span></div><div></div>"))).toBe(false);
+    });
+
+    test("ignores content inside an element hidden with display:none", () => {
+        const element = elementFromHtml('<div style="display: none">Tom felt</div>');
+        expect(hasRenderedContent(element)).toBe(false);
+    });
+
+    test("ignores content inside an element with the hidden attribute", () => {
+        expect(hasRenderedContent(elementFromHtml("<div hidden>Tom felt</div>"))).toBe(false);
+    });
+
+    test("returns true when a visible sibling accompanies a hidden one", () => {
+        const element = elementFromHtml('<div style="display: none">Tom felt</div><div>Innhold</div>');
+        expect(hasRenderedContent(element)).toBe(true);
+    });
+
+    test("returns true for elements that render without text content", () => {
+        expect(hasRenderedContent(elementFromHtml('<img src="tegning.png" alt="Tegning" />'))).toBe(true);
+        expect(hasRenderedContent(elementFromHtml('<input type="text" />'))).toBe(true);
+    });
+
+    test("does not count decorative elements as content", () => {
+        expect(hasRenderedContent(elementFromHtml("<hr /><br />"))).toBe(false);
+    });
+
+    test("returns true for a table that has cell content", () => {
+        expect(hasRenderedContent(elementFromHtml("<table><tbody><tr><td>Gnr</td></tr></tbody></table>"))).toBe(true);
+    });
+});

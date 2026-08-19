@@ -49,7 +49,6 @@ export default customElements.define(
         connectedCallback() {
             renderCustomComponent(this, {
                 type: "layout",
-                alwaysHideWhenEmpty: true,
                 render: (host, component) => {
                     const layoutContainerElement = renderLayoutContainerElement();
                     const dispensasjonHeaderElement = renderDispensasjonHeader(component);

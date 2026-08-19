@@ -29,7 +29,6 @@ export default customElements.define(
             setPageOrientation("landscape");
             renderCustomComponent(this, {
                 type: "layout",
-                alwaysHideWhenEmpty: true,
                 render: (host, component) => {
                     const layoutContainerElement = renderLayoutContainerElement();
 
