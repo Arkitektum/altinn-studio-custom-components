@@ -59,10 +59,10 @@ export default class CustomGroupUtfallSvarType extends CustomComponent {
     /**
      * Generates resource binding objects for various fields based on provided props.
      *
-     * @param {Object} props - The properties object containing resource values and bindings.
-     * @param {Object} [props.resourceValues] - Contains values such as utfallType.
-     * @param {string} [props.resourceValues.utfallType] - The type of outcome used to construct resource keys.
+     * @param {Object} props - The properties object containing resource bindings.
      * @param {Object} [props.resourceBindings] - Optional custom resource bindings for each field.
+     * @param {string} [props.resourceBindings.title] - Title for the utfall type. The caller resolves this from the
+     *   utfall type, because it varies per type and so has no default here.
      * @param {Object} [props.resourceBindings.kommentar] - Custom binding for kommentar.
      * @param {Object} [props.resourceBindings.tema] - Custom binding for tema.
      * @param {Object} [props.resourceBindings.utfallSvarStatus] - Custom binding for utfallSvarStatus.
