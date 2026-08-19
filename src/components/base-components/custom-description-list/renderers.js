@@ -32,12 +32,14 @@ function renderFieldTitleElement(fieldTitle, fieldTitleId) {
 export function renderListElement(listItems, styleOverride, returnHtml = true) {
     const listElement = document.createElement("dl");
     for (const listItem of listItems) {
+        // Terms and descriptions are plain data values from the data model: use textContent so any HTML-like content
+        // is rendered as text, not interpreted (XSS-safe).
         const listItemTermElement = document.createElement("dt");
-        listItemTermElement.innerHTML = listItem?.term;
+        listItemTermElement.textContent = listItem?.term;
         listElement.appendChild(listItemTermElement);
 
         const listItemDescriptionElement = document.createElement("dd");
-        listItemDescriptionElement.innerHTML = listItem?.description;
+        listItemDescriptionElement.textContent = listItem?.description;
         listElement.appendChild(listItemDescriptionElement);
     }
     addStyle(listElement, styleOverride);

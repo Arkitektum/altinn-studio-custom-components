@@ -38,7 +38,9 @@ export function renderListElement(component, returnHtml = true, listType = "ul")
     const listElement = document.createElement(listType || "ul");
     listItems.forEach((listItem) => {
         const listItemElement = document.createElement("li");
-        listItemElement.innerHTML = listItem;
+        // List items are plain data values from the data model: use textContent so any HTML-like content is rendered
+        // as text, not interpreted (XSS-safe).
+        listItemElement.textContent = listItem;
         listElement.appendChild(listItemElement);
     });
     addStyle(listElement, component?.styleOverride);
