@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomTablePart from "./CustomTablePart";
-import Part from "../../data-classes/Part";
+import CustomTablePart from "./CustomTablePart.js";
+import Part from "../../data-classes/Part.js";
 
 // Mocks for global functions
 jest.mock("../../../functions/helpers", () => ({

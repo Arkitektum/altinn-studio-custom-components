@@ -1,4 +1,4 @@
-import CustomSummation from "./CustomSummation";
+import CustomSummation from "./CustomSummation.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the hasValue function

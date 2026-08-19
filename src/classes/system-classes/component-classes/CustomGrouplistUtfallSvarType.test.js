@@ -1,5 +1,5 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import CustomGrouplistUtfallSvarType from "./CustomGrouplistUtfallSvarType";
+import CustomGrouplistUtfallSvarType from "./CustomGrouplistUtfallSvarType.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 import { hasMissingTextResources } from "../../../functions/validations.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";

@@ -1,4 +1,4 @@
-import CustomMatrix from "./CustomMatrix";
+import CustomMatrix from "./CustomMatrix.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock CustomComponent since it's a superclass

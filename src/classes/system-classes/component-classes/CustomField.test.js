@@ -1,4 +1,4 @@
-import CustomField from "./CustomField";
+import CustomField from "./CustomField.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock hasValue to control its behavior

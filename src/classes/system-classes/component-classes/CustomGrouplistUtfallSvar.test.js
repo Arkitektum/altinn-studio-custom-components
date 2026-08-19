@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
-import CustomGrouplistUtfallSvar from "./CustomGrouplistUtfallSvar";
+import CustomGrouplistUtfallSvar from "./CustomGrouplistUtfallSvar.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mocks for dependencies

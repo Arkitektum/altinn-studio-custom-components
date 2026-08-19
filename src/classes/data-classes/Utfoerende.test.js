@@ -1,5 +1,5 @@
-import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse";
-import Utfoerende from "./Utfoerende";
+import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.js";
+import Utfoerende from "./Utfoerende.js";
 
 jest.mock("./MidlertidigBrukstillatelse");
 

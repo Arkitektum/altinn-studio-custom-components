@@ -1,5 +1,5 @@
 import { getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomGrouplistAnsvarsomraadeType from "./CustomGrouplistAnsvarsomraadeType";
+import CustomGrouplistAnsvarsomraadeType from "./CustomGrouplistAnsvarsomraadeType.js";
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 // Mocks for global functions and CustomComponent

@@ -1,6 +1,6 @@
-import AndrePlaner from "./AndrePlaner";
-import Plan from "./Plan";
-import Planer from "./Planer";
+import AndrePlaner from "./AndrePlaner.js";
+import Plan from "./Plan.js";
+import Planer from "./Planer.js";
 
 jest.mock("./AndrePlaner");
 jest.mock("./Plan");

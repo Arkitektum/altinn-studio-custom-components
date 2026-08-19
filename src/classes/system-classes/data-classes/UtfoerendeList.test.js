@@ -1,4 +1,4 @@
-import UtfoerendeList from "./UtfoerendeList";
+import UtfoerendeList from "./UtfoerendeList.js";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

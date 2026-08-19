@@ -1,5 +1,5 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import CustomFieldKommunensSaksnummer from "./CustomFieldKommunensSaksnummer";
+import CustomFieldKommunensSaksnummer from "./CustomFieldKommunensSaksnummer.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks

@@ -1,4 +1,4 @@
-import CustomFeedback from "./CustomFeedback";
+import CustomFeedback from "./CustomFeedback.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

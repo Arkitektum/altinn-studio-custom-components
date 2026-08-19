@@ -21,7 +21,7 @@ import {
     renderLayoutContainerElement,
     validateFormData,
     validateTexts
-} from "./helpers";
+} from "./helpers.js";
 
 describe("isNumberLargerThanZero", () => {
     it("returns true for numbers > 0", () => {

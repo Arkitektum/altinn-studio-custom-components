@@ -1,4 +1,4 @@
-import CustomFieldAdresse from "./CustomFieldAdresse";
+import CustomFieldAdresse from "./CustomFieldAdresse.js";
 
 // Mocks for dependencies
 jest.mock("../../data-classes/Adresse", () => {

@@ -1,4 +1,4 @@
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
 
 // Mock URLSearchParams to control isDevMode behavior
 const mockURLSearchParams = jest.fn();

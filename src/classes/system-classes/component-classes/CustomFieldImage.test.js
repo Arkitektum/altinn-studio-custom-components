@@ -1,4 +1,4 @@
-import CustomFieldImage from "./CustomFieldImage";
+import CustomFieldImage from "./CustomFieldImage.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 

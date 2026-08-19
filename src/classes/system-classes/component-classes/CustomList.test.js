@@ -1,5 +1,5 @@
-import CustomComponent from "../CustomComponent";
-import CustomList from "./CustomList";
+import CustomComponent from "../CustomComponent.js";
+import CustomList from "./CustomList.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock hasValue helper

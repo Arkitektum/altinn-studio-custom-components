@@ -1,5 +1,5 @@
-import Kode from "./Kode";
-import Respons from "./Respons";
+import Kode from "./Kode.js";
+import Respons from "./Respons.js";
 
 jest.mock("./Kode");
 

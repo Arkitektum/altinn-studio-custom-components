@@ -1,5 +1,5 @@
-import Adresse from "./Adresse";
-import Part from "./Part";
+import Adresse from "./Adresse.js";
+import Part from "./Part.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("./Adresse");

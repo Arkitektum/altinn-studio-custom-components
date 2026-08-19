@@ -1,5 +1,5 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import CustomListData from "./CustomListData";
+import CustomListData from "./CustomListData.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks

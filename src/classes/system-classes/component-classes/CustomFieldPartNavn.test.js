@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomFieldPartNavn from "./CustomFieldPartNavn";
+import CustomFieldPartNavn from "./CustomFieldPartNavn.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mocks

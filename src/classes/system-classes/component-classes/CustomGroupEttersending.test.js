@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomGroupEttersending from "./CustomGroupEttersending";
-import Ettersending from "../../data-classes/Ettersending";
+import CustomGroupEttersending from "./CustomGroupEttersending.js";
+import Ettersending from "../../data-classes/Ettersending.js";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers", () => ({

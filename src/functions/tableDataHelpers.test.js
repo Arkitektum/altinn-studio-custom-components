@@ -1,4 +1,4 @@
-import { removeEmptyRows, sortRowsByKey } from "./tableDataHelpers";
+import { removeEmptyRows, sortRowsByKey } from "./tableDataHelpers.js";
 import { instantiateComponent } from "./componentHelpers.js";
 
 jest.mock("./componentHelpers.js", () => ({

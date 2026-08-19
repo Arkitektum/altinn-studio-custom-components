@@ -1,4 +1,4 @@
-import Prosjekt from "./Prosjekt";
+import Prosjekt from "./Prosjekt.js";
 
 describe("Prosjekt", () => {
     it("should create an instance with the given properties", () => {

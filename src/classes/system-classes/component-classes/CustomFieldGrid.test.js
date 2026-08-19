@@ -1,4 +1,4 @@
-import CustomFieldGrid from "./CustomFieldGrid";
+import CustomFieldGrid from "./CustomFieldGrid.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Mocks

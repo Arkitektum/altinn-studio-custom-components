@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
-import CustomGroupVegtypeTillatelse from "./CustomGroupVegtypeTillatelse";
+import CustomGroupVegtypeTillatelse from "./CustomGroupVegtypeTillatelse.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mock dependencies

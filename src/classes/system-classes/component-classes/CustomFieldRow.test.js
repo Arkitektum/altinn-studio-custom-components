@@ -1,4 +1,4 @@
-import CustomFieldRow from "./CustomFieldRow";
+import CustomFieldRow from "./CustomFieldRow.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Mocks

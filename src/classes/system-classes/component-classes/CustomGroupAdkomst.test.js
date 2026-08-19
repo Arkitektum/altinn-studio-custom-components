@@ -1,4 +1,4 @@
-import CustomGroupAdkomst from "./CustomGroupAdkomst";
+import CustomGroupAdkomst from "./CustomGroupAdkomst.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const Adkomst = require("../../data-classes/Adkomst.js");
 

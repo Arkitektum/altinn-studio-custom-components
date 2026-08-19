@@ -1,6 +1,6 @@
-import Ettersending from "./Ettersending";
-import Kode from "./Kode";
-import Vedleggsliste from "./Vedleggsliste";
+import Ettersending from "./Ettersending.js";
+import Kode from "./Kode.js";
+import Vedleggsliste from "./Vedleggsliste.js";
 
 jest.mock("./Kode");
 jest.mock("./Vedleggsliste");

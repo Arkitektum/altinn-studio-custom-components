@@ -1,4 +1,4 @@
-import Loefteinnretninger from "./Loefteinnretninger";
+import Loefteinnretninger from "./Loefteinnretninger.js";
 
 describe("Loefteinnretninger", () => {
     it("should initialize all properties from props", () => {

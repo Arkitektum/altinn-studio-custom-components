@@ -1,5 +1,5 @@
-import CustomGrouplistNaboGjenboerEiendom from "./CustomGrouplistNaboGjenboerEiendom";
-import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom";
+import CustomGrouplistNaboGjenboerEiendom from "./CustomGrouplistNaboGjenboerEiendom.js";
+import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 const { getComponentDataValue } = require("../../../functions/helpers");
 
 // Mock the global function getComponentDataValue

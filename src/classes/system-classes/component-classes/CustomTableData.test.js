@@ -2,7 +2,7 @@ import { getComponentDataValue, getRowNumberTitle } from "../../../functions/hel
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
-import CustomTableData from "./CustomTableData";
+import CustomTableData from "./CustomTableData.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Mocks

@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomComponent from "../CustomComponent";
-import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger";
+import CustomComponent from "../CustomComponent.js";
+import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger.js";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers.js", () => ({

@@ -1,4 +1,4 @@
-import Arbeidsplasser from "./Arbeidsplasser";
+import Arbeidsplasser from "./Arbeidsplasser.js";
 
 describe("Arbeidsplasser", () => {
     it("should initialize all properties from props", () => {

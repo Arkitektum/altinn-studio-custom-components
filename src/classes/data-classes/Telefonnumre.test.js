@@ -1,4 +1,4 @@
-import Telefonnumre from "./Telefonnumre";
+import Telefonnumre from "./Telefonnumre.js";
 
 describe("Telefonnumre", () => {
     it("should create an instance with telefonnummer and mobilnummer", () => {

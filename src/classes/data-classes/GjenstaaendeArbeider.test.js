@@ -1,4 +1,4 @@
-import GjenstaaendeArbeider from "./GjenstaaendeArbeider";
+import GjenstaaendeArbeider from "./GjenstaaendeArbeider.js";
 
 describe("GjenstaaendeArbeider", () => {
     it("should set gjenstaaendeInnenfor and gjenstaaendeUtenfor from props", () => {

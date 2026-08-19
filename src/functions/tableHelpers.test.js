@@ -1,4 +1,4 @@
-import { getTableHeaders, getTableRows } from "./tableHelpers";
+import { getTableHeaders, getTableRows } from "./tableHelpers.js";
 import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the helper functions

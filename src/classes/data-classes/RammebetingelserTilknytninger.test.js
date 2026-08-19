@@ -1,8 +1,8 @@
-import Adkomst from "./Adkomst";
-import Avloep from "./Avloep";
-import Overvann from "./Overvann";
-import RammebetingelserTilknytninger from "./RammebetingelserTilknytninger";
-import Vannforsyning from "./Vannforsyning";
+import Adkomst from "./Adkomst.js";
+import Avloep from "./Avloep.js";
+import Overvann from "./Overvann.js";
+import RammebetingelserTilknytninger from "./RammebetingelserTilknytninger.js";
+import Vannforsyning from "./Vannforsyning.js";
 
 jest.mock("./Adkomst");
 jest.mock("./Avloep");

@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomComponent from "../CustomComponent";
-import CustomGroupSjekklistekravHeaderText from "./CustomGroupSjekklistekravHeaderText";
+import CustomComponent from "../CustomComponent.js";
+import CustomGroupSjekklistekravHeaderText from "./CustomGroupSjekklistekravHeaderText.js";
 
 // Mock the utility functions
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

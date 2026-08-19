@@ -1,7 +1,7 @@
 import * as helpers from "../../../functions/helpers.js";
 import * as validations from "../../../functions/validations.js";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade";
+import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade.js";
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 
 // Mocks

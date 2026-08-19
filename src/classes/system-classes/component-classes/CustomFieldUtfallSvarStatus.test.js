@@ -3,8 +3,8 @@ import {
     getTextResourcesFromResourceBindings,
     hasValue
 } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomFieldUtfallSvarStatus from "./CustomFieldUtfallSvarStatus";
-import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus";
+import CustomFieldUtfallSvarStatus from "./CustomFieldUtfallSvarStatus.js";
+import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 
 // Mocks for helper functions and classes

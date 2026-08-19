@@ -1,4 +1,4 @@
-import CustomGroupAvloep from "./CustomGroupAvloep";
+import CustomGroupAvloep from "./CustomGroupAvloep.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 

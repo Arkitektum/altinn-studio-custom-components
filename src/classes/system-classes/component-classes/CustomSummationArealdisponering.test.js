@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomSummationArealdisponering from "./CustomSummationArealdisponering";
+import CustomSummationArealdisponering from "./CustomSummationArealdisponering.js";
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {

@@ -1,4 +1,4 @@
-import { formatName } from "./functions";
+import { formatName } from "./functions.js";
 
 describe("formatName", () => {
     it("should return only the name when hideOrgNr is true", () => {

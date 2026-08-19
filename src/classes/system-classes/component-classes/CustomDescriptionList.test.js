@@ -1,4 +1,4 @@
-import CustomDescriptionList from "./CustomDescriptionList";
+import CustomDescriptionList from "./CustomDescriptionList.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the hasValue function

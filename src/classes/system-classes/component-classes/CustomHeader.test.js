@@ -1,5 +1,5 @@
-import CustomComponent from "../CustomComponent";
-import CustomHeader from "./CustomHeader";
+import CustomComponent from "../CustomComponent.js";
+import CustomHeader from "./CustomHeader.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

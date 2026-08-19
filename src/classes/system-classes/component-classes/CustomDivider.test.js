@@ -1,5 +1,5 @@
-import CustomComponent from "../CustomComponent";
-import CustomDivider from "./CustomDivider";
+import CustomComponent from "../CustomComponent.js";
+import CustomDivider from "./CustomDivider.js";
 
 describe("CustomDivider", () => {
     it("should be an instance of CustomDivider", () => {

@@ -1,5 +1,5 @@
 import { getComponentDataTitle, getComponentResourceValue } from "../../../functions/helpers.js";
-import CustomHeaderTextData from "./CustomHeaderTextData";
+import CustomHeaderTextData from "./CustomHeaderTextData.js";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({

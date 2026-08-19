@@ -1,7 +1,7 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
-import CustomGroupKontrollErklaeringer from "./CustomGroupKontrollErklaeringer";
-import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade";
+import CustomGroupKontrollErklaeringer from "./CustomGroupKontrollErklaeringer.js";
+import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mock dependencies

@@ -1,4 +1,4 @@
-import { formatAdresse } from "./functions";
+import { formatAdresse } from "./functions.js";
 
 describe("formatAdresse", () => {
     it("should format a complete address with all fields", () => {

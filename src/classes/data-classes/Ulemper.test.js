@@ -1,4 +1,4 @@
-import Ulemper from "./Ulemper";
+import Ulemper from "./Ulemper.js";
 
 describe("Ulemper", () => {
     it("should create an instance with the provided effekt property", () => {

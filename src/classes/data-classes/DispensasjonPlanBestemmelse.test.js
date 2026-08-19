@@ -1,6 +1,6 @@
-import DispensasjonPlanBestemmelse from "./DispensasjonPlanBestemmelse";
-import NasjonalArealplanId from "./NasjonalArealplanId";
-import Planbestemmelse from "./Planbestemmelse";
+import DispensasjonPlanBestemmelse from "./DispensasjonPlanBestemmelse.js";
+import NasjonalArealplanId from "./NasjonalArealplanId.js";
+import Planbestemmelse from "./Planbestemmelse.js";
 
 jest.mock("./NasjonalArealplanId");
 jest.mock("./Planbestemmelse");

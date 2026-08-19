@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomTablePartGjennomfoeringsplan from "./CustomTablePartGjennomfoeringsplan";
+import CustomTablePartGjennomfoeringsplan from "./CustomTablePartGjennomfoeringsplan.js";
 
 // Mocks for global functions
 jest.mock("../../../functions/helpers", () => ({

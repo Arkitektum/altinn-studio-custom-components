@@ -1,4 +1,4 @@
-import CustomGroupVannforsyning from "./CustomGroupVannforsyning";
+import CustomGroupVannforsyning from "./CustomGroupVannforsyning.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 const Vannforsyning = require("../../data-classes/Vannforsyning.js");

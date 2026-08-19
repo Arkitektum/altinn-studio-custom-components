@@ -1,4 +1,4 @@
-import FaseSamsvarKontrollList from "./FaseSamsvarKontrollList";
+import FaseSamsvarKontrollList from "./FaseSamsvarKontrollList.js";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the getTextResourceFromResourceBinding function

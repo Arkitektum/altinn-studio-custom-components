@@ -1,8 +1,8 @@
-import EiendomByggested from "../data-classes/EiendomByggested";
-import GjenpartNabovarsel from "./GjenpartNabovarsel";
-import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer";
-import Part from "../data-classes/Part";
-import Planer from "../data-classes/Planer";
+import EiendomByggested from "../data-classes/EiendomByggested.js";
+import GjenpartNabovarsel from "./GjenpartNabovarsel.js";
+import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.js";
+import Part from "../data-classes/Part.js";
+import Planer from "../data-classes/Planer.js";
 
 describe("GjenpartNabovarsel", () => {
     const mockPart = { navn: "Ola Nordmann", adresse: "Testveien 1" };

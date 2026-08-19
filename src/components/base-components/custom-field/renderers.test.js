@@ -1,4 +1,4 @@
-import { renderFieldElement } from "./renderers";
+import { renderFieldElement } from "./renderers.js";
 
 describe("renderFieldElement", () => {
     it("renders a plain string value as text", () => {

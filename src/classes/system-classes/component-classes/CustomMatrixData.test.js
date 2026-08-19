@@ -1,7 +1,7 @@
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
-import CustomMatrixData from "./CustomMatrixData";
+import CustomMatrixData from "./CustomMatrixData.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 

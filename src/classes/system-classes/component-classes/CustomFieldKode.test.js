@@ -1,5 +1,5 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import CustomFieldKode from "./CustomFieldKode";
+import CustomFieldKode from "./CustomFieldKode.js";
 import Kode from "../../data-classes/Kode.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

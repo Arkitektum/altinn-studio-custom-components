@@ -1,4 +1,4 @@
-import NasjonalArealplanId from "./NasjonalArealplanId";
+import NasjonalArealplanId from "./NasjonalArealplanId.js";
 
 describe("NasjonalArealplanId", () => {
     it("should create an instance with the given planidentifikasjon", () => {

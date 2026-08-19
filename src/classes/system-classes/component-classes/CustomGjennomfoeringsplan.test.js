@@ -1,8 +1,8 @@
 import { getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations";
-import CustomGjennomfoeringsplan from "./CustomGjennomfoeringsplan";
-import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan";
-import { getComponentResourceValue } from "../../../functions/helpers";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import CustomGjennomfoeringsplan from "./CustomGjennomfoeringsplan.js";
+import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
+import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 jest.mock("../../layout-classes/Gjennomfoeringsplan");
 jest.mock("../CustomComponent", () => {

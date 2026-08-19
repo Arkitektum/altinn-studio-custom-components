@@ -1,5 +1,5 @@
-import Kode from "./Kode";
-import Omraaderisiko from "./Omraaderisiko";
+import Kode from "./Kode.js";
+import Omraaderisiko from "./Omraaderisiko.js";
 
 jest.mock("./Kode");
 

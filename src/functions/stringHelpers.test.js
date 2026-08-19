@@ -1,4 +1,4 @@
-import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers";
+import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.js";
 
 describe("escapeHtml", () => {
     it("escapes &, < and >", () => {

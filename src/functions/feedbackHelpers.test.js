@@ -1,5 +1,5 @@
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
-import { renderFeedbackListElement } from "./feedbackHelpers";
+import { renderFeedbackListElement } from "./feedbackHelpers.js";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils");
 

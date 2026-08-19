@@ -1,4 +1,4 @@
-import CustomFeedbacklistData from "./CustomFeedbacklistData";
+import CustomFeedbacklistData from "./CustomFeedbacklistData.js";
 
 // Mocks
 const mockGetComponentDataValue = jest.fn();

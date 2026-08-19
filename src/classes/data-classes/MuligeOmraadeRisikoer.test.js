@@ -1,5 +1,5 @@
-import MuligeOmraadeRisikoer from "./MuligeOmraadeRisikoer";
-import Omraaderisiko from "./Omraaderisiko";
+import MuligeOmraadeRisikoer from "./MuligeOmraadeRisikoer.js";
+import Omraaderisiko from "./Omraaderisiko.js";
 
 describe("MuligeOmraadeRisikoer", () => {
     it("should initialize with null if no omraadeRisiko is provided", () => {

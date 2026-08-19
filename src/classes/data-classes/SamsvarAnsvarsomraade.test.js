@@ -1,7 +1,7 @@
-import Kode from "./Kode";
-import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList";
-import SamsvarAnsvarsomraade from "./SamsvarAnsvarsomraade";
-import Utfoerende from "./Utfoerende";
+import Kode from "./Kode.js";
+import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.js";
+import SamsvarAnsvarsomraade from "./SamsvarAnsvarsomraade.js";
+import Utfoerende from "./Utfoerende.js";
 
 jest.mock("../system-classes/data-classes/ProsjekterendeList");
 jest.mock("./Kode");

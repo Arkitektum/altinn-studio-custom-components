@@ -1,7 +1,7 @@
-import GjenboerEiendomByggested from "./GjenboerEiendomByggested";
-import NaboGjenboerEiendom from "./NaboGjenboerEiendom";
-import Part from "./Part";
-import Respons from "./Respons";
+import GjenboerEiendomByggested from "./GjenboerEiendomByggested.js";
+import NaboGjenboerEiendom from "./NaboGjenboerEiendom.js";
+import Part from "./Part.js";
+import Respons from "./Respons.js";
 
 jest.mock("./GjenboerEiendomByggested");
 jest.mock("./Part");

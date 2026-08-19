@@ -1,4 +1,4 @@
-import Metadata from "./Metadata";
+import Metadata from "./Metadata.js";
 
 describe("Metadata", () => {
     it("should create an instance with the provided properties", () => {

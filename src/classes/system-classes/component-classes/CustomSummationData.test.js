@@ -4,7 +4,7 @@ import {
     hasValue
 } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent.js";
-import CustomSummationData from "./CustomSummationData";
+import CustomSummationData from "./CustomSummationData.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 // Mock dependencies

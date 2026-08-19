@@ -1,4 +1,4 @@
-import ProsjekterendeList from "./ProsjekterendeList";
+import ProsjekterendeList from "./ProsjekterendeList.js";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the getTextResourceFromResourceBinding function

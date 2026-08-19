@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList";
+import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList.js";
 
 // Mock the helper functions
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

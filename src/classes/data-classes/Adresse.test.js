@@ -1,4 +1,4 @@
-import Adresse from "./Adresse";
+import Adresse from "./Adresse.js";
 
 describe("Adresse", () => {
     it("should set all properties when all props are provided", () => {

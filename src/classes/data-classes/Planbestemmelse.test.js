@@ -1,4 +1,4 @@
-import Planbestemmelse from "./Planbestemmelse";
+import Planbestemmelse from "./Planbestemmelse.js";
 
 describe("Planbestemmelse", () => {
     it("should create an instance with the provided nummerering", () => {

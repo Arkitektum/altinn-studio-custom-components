@@ -1,4 +1,4 @@
-import { setPageOrientation } from "./printHelpers";
+import { setPageOrientation } from "./printHelpers.js";
 
 describe("setPageOrientation", () => {
     beforeEach(() => {

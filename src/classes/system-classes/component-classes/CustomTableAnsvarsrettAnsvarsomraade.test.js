@@ -1,8 +1,8 @@
-import * as helpers from "../../../functions/helpers";
-import * as validations from "../../../functions/validations";
+import * as helpers from "../../../functions/helpers.js";
+import * as validations from "../../../functions/validations.js";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade";
-import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade";
+import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade.js";
+import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade.js";
 
 // Mock dependencies
 jest.mock("../../data-classes/AnsvarsrettAnsvarsomraade");

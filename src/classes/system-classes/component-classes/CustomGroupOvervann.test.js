@@ -1,4 +1,4 @@
-import CustomGroupOvervann from "./CustomGroupOvervann";
+import CustomGroupOvervann from "./CustomGroupOvervann.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
 const Overvann = require("../../data-classes/Overvann.js");

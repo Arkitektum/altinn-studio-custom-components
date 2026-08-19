@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomTableArbeidsplasser from "./CustomTableArbeidsplasser";
+import CustomTableArbeidsplasser from "./CustomTableArbeidsplasser.js";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

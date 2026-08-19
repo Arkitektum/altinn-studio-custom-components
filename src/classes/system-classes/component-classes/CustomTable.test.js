@@ -1,5 +1,5 @@
-import CustomComponent from "../CustomComponent";
-import CustomTable from "./CustomTable";
+import CustomComponent from "../CustomComponent.js";
+import CustomTable from "./CustomTable.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

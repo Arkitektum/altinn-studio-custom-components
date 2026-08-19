@@ -1,4 +1,4 @@
-import ArealdisponeringSummation from "./ArealdisponeringSummation";
+import ArealdisponeringSummation from "./ArealdisponeringSummation.js";
 
 // Mock the hasValue function
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

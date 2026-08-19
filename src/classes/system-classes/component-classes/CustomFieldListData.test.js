@@ -1,4 +1,4 @@
-import CustomFieldListData from "./CustomFieldListData";
+import CustomFieldListData from "./CustomFieldListData.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

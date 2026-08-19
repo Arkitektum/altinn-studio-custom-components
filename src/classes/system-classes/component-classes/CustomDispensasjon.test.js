@@ -1,4 +1,4 @@
-import CustomDispensasjon from "./CustomDispensasjon";
+import CustomDispensasjon from "./CustomDispensasjon.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks

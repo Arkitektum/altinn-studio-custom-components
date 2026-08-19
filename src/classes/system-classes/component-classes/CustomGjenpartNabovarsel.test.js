@@ -1,5 +1,5 @@
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
-import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel";
+import CustomGjenpartNabovarsel from "./CustomGjenpartNabovarsel.js";
 import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 import { getComponentResourceValue } from "../../../functions/helpers.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";

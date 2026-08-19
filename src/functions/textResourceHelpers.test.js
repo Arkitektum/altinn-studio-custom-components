@@ -1,5 +1,5 @@
-import { fetchTextResources } from "./textResourceHelpers";
-import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers";
+import { fetchTextResources } from "./textResourceHelpers.js";
+import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("./clientLoggerHelpers", () => ({

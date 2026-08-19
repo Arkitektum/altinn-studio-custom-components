@@ -1,4 +1,4 @@
-import CustomComponent from "./CustomComponent";
+import CustomComponent from "./CustomComponent.js";
 
 describe("CustomComponent", () => {
     it("should set all properties when provided", () => {

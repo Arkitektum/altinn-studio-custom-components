@@ -1,7 +1,7 @@
-import Ansvarsomraade from "./Ansvarsomraade";
-import Kode from "./Kode";
-import Part from "./Part";
-import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList";
+import Ansvarsomraade from "./Ansvarsomraade.js";
+import Kode from "./Kode.js";
+import Part from "./Part.js";
+import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList.js";
 
 jest.mock("./Kode");
 jest.mock("./Part");

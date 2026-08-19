@@ -1,4 +1,4 @@
-import CustomParagraphText from "./CustomParagraphText";
+import CustomParagraphText from "./CustomParagraphText.js";
 import { getComponentResourceValue } from "../../../functions/helpers.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

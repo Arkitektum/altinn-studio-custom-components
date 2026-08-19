@@ -1,5 +1,5 @@
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
-import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers";
+import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers.js";
 import { getComponentContainerElement } from "./helpers.js";
 import { instantiateComponent } from "./componentHelpers.js";
 import { renderFeedbackListElement } from "./feedbackHelpers.js";

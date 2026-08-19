@@ -1,4 +1,4 @@
-import Varighet from "./Varighet";
+import Varighet from "./Varighet.js";
 
 describe("Varighet", () => {
     it("should create an instance with default values when no props are provided", () => {

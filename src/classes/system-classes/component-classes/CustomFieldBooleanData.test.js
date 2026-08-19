@@ -1,4 +1,4 @@
-import CustomFieldBooleanData from "./CustomFieldBooleanData";
+import CustomFieldBooleanData from "./CustomFieldBooleanData.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock dependencies

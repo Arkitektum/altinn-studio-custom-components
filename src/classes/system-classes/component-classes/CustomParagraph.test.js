@@ -1,4 +1,4 @@
-import CustomParagraph from "./CustomParagraph";
+import CustomParagraph from "./CustomParagraph.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock CustomComponent since it's a superclass

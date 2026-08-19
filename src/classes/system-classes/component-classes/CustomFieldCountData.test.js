@@ -1,5 +1,5 @@
 import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.js";
-import CustomFieldCountData from "./CustomFieldCountData";
+import CustomFieldCountData from "./CustomFieldCountData.js";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.js", () => ({

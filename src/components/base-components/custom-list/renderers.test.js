@@ -1,4 +1,4 @@
-import { renderListElement, renderListFieldElement } from "./renderers";
+import { renderListElement, renderListFieldElement } from "./renderers.js";
 
 describe("renderListElement", () => {
     it("renders each data value as a list item", () => {

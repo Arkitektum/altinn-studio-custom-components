@@ -1,4 +1,4 @@
-import { getTitleForFeedbackType } from "./functions";
+import { getTitleForFeedbackType } from "./functions.js";
 
 describe("getTitleForFeedbackType", () => {
     it('should return "Errors (3)" when feedbackType is "error" and feedbackCount is 3', () => {

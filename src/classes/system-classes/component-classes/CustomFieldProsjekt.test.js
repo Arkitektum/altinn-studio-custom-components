@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomFieldProsjekt from "./CustomFieldProsjekt";
+import CustomFieldProsjekt from "./CustomFieldProsjekt.js";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {

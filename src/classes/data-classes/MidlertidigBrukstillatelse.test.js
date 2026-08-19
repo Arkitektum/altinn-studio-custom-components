@@ -1,6 +1,6 @@
-import GjenstaaendeArbeider from "./GjenstaaendeArbeider";
-import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse";
-import Sikkerhet from "./Sikkerhet";
+import GjenstaaendeArbeider from "./GjenstaaendeArbeider.js";
+import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.js";
+import Sikkerhet from "./Sikkerhet.js";
 
 jest.mock("./GjenstaaendeArbeider");
 jest.mock("./Sikkerhet");

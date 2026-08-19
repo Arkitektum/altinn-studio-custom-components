@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomGroupSamsvarErklaeringer from "./CustomGroupSamsvarErklaeringer";
+import CustomGroupSamsvarErklaeringer from "./CustomGroupSamsvarErklaeringer.js";
 const { hasMissingTextResources } = require("../../../functions/validations.js");
 
 // Mocks for dependencies
