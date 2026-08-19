@@ -79,6 +79,7 @@ The typical flow (see `src/components/data-components/custom-field-data/index.js
 
 1. `instantiateComponent(this)` builds the component-class instance from the element's attributes.
 2. If the component is configured with `hideIfEmpty` and resolves to empty, it is hidden (or shown as a placeholder in DevTools mode).
+   What gets hidden is the padded `[data-summary-target]` wrapper that `addContainerElement` puts around the component, when there is one — hiding only the component would leave that wrapper's `0.75rem` block padding behind as an empty band. This matters for child components in particular, whose "container" is the component itself.
    Layout components differ here: `hideIfEmpty` defaults to **true** (opt out with `hideIfEmpty="false"`), and an empty layout is **removed from the document** rather than hidden with `display: none` — a top-level layout usually has no container to hide, and a hidden-but-present tag still leaves a gap in the summary view and the generated PDF.
    Emptiness is checked twice for a layout: once on the data (`isEmpty`) before rendering, and once on the rendered output afterwards, so a layout whose data is present but whose every child resolved to empty is dropped too. Validation feedback counts as content, so a layout that has messages to show is kept.
 3. Otherwise the class produces `CustomElementHtmlAttributes`, and `createCustomElement(...)` (from the utils package) renders the underlying base element into the DOM.

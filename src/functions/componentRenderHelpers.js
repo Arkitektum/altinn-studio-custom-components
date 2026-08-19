@@ -133,17 +133,33 @@ function resolveHideIfEmpty(host, component, type) {
 }
 
 /**
- * Removes an empty component from the document.
+ * Finds the padded wrapper that `addContainerElement` puts around a single component.
  *
- * The container is preferred over the host when one exists, mirroring which element would otherwise have been
- * hidden — removing only the host would leave an empty wrapper behind.
+ * That wrapper carries `data-summary-target` plus `0.75rem` of block padding, and sits exactly two levels above the
+ * component (container → content → component). Hiding only the component leaves the padding behind as an empty band,
+ * which is why an empty component collapses the wrapper instead whenever it has one. This matters most for child
+ * components, where `getComponentContainerElement` returns the component itself and never reaches the wrapper.
+ *
+ * The depth is matched exactly rather than with `closest()`: climbing the ancestor chain could reach the wrapper of an
+ * enclosing group and collapse far more than the empty component.
  *
  * @param {HTMLElement} host - The custom element instance.
- * @param {HTMLElement|null} componentContainerElement - The component's container element, when it has one.
+ * @returns {HTMLElement|null} The wrapper, or null when the component is not wrapped by one.
+ */
+function getPaddedWrapperElement(host) {
+    const wrapper = host?.parentElement?.parentElement;
+    return wrapper?.hasAttribute?.("data-summary-target") ? wrapper : null;
+}
+
+/**
+ * Removes an empty component from the document.
+ *
+ * @param {HTMLElement} host - The custom element instance.
+ * @param {HTMLElement|null} elementToHideWhenEmpty - The element that stands in for the component when it is empty.
  * @returns {void}
  */
-function removeEmptyComponentElement(host, componentContainerElement) {
-    const elementToRemove = componentContainerElement || host;
+function removeEmptyComponentElement(host, elementToHideWhenEmpty) {
+    const elementToRemove = elementToHideWhenEmpty || host;
     elementToRemove?.remove?.();
 }
 
@@ -182,17 +198,18 @@ export function renderCustomComponent(host, { type, render, withFeedback = false
         validateHostDataAttributes(host, type);
     }
     const component = instantiateComponent(host);
-    const componentContainerElement = getComponentContainerElement(host);
     const isLayout = type === LAYOUT_TYPE;
+    // The padded wrapper wins over the container, so hiding an empty component collapses its padding too.
+    const elementToHideWhenEmpty = getPaddedWrapperElement(host) || getComponentContainerElement(host);
     const shouldHideWhenEmpty = alwaysHideWhenEmpty || resolveHideIfEmpty(host, component, type);
     // A layout is removed rather than hidden, so unlike the other types it does not need a container to hide.
-    const canHideWhenEmpty = isLayout || !!componentContainerElement;
+    const canHideWhenEmpty = isLayout || !!elementToHideWhenEmpty;
     if (shouldHideWhenEmpty && component?.isEmpty && canHideWhenEmpty) {
         if (isDevMode()) {
             const hiddenEl = renderHiddenDevToolsElement(host, component, type);
             if (hiddenEl) host.appendChild(hiddenEl);
         } else if (!isLayout) {
-            componentContainerElement.style.display = "none";
+            elementToHideWhenEmpty.style.display = "none";
         }
     } else {
         render(host, component);
@@ -205,7 +222,7 @@ export function renderCustomComponent(host, { type, render, withFeedback = false
         }
     }
     if (isLayout && shouldHideWhenEmpty && !isDevMode() && !hasRenderedContent(host)) {
-        removeEmptyComponentElement(host, componentContainerElement);
+        removeEmptyComponentElement(host, elementToHideWhenEmpty);
     }
     return component;
 }

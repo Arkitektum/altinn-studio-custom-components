@@ -138,6 +138,80 @@ describe("renderCustomComponent", () => {
     });
 });
 
+describe("renderCustomComponent — padded container wrapper", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+        isDevMode.mockReturnValue(false);
+        document.body.innerHTML = "";
+    });
+
+    /**
+     * Mirrors what `addContainerElement` builds: a padded `[data-summary-target]` container holding a content div
+     * that holds the component.
+     */
+    function buildWrappedField() {
+        const layoutContainer = document.createElement("div");
+        document.body.appendChild(layoutContainer);
+        const wrapper = document.createElement("div");
+        wrapper.setAttribute("data-summary-target", "");
+        wrapper.style.padding = "0.75rem 0px";
+        const contentElement = document.createElement("div");
+        const host = document.createElement("custom-field-boolean-text");
+        host.setAttribute("isChildComponent", "true");
+        host.setAttribute("hideIfEmpty", "true");
+        contentElement.appendChild(host);
+        wrapper.appendChild(contentElement);
+        layoutContainer.appendChild(wrapper);
+        return { wrapper, host };
+    }
+
+    it("hides the padded wrapper rather than the component, so its padding collapses too", () => {
+        const { wrapper, host } = buildWrappedField();
+        // A child component's container is the component itself, which would leave the wrapper's padding behind.
+        getComponentContainerElement.mockReturnValue(host);
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(wrapper.style.display).toBe("none");
+        expect(render).not.toHaveBeenCalled();
+    });
+
+    it("keeps the wrapper visible when the component has content", () => {
+        const { wrapper, host } = buildWrappedField();
+        getComponentContainerElement.mockReturnValue(host);
+        instantiateComponent.mockReturnValue({ isEmpty: false });
+
+        renderCustomComponent(host, { type: "data", render: jest.fn() });
+
+        expect(wrapper.style.display).not.toBe("none");
+    });
+
+    it("does not collapse an enclosing group's wrapper when the component is not directly wrapped", () => {
+        const groupWrapper = document.createElement("div");
+        groupWrapper.setAttribute("data-summary-target", "");
+        document.body.appendChild(groupWrapper);
+        const groupContent = document.createElement("div");
+        const groupHost = document.createElement("custom-group-avloep");
+        groupContent.appendChild(groupHost);
+        groupWrapper.appendChild(groupContent);
+        const layoutContainer = document.createElement("div");
+        groupHost.appendChild(layoutContainer);
+        const host = document.createElement("custom-field-boolean-text");
+        host.setAttribute("isChildComponent", "true");
+        host.setAttribute("hideIfEmpty", "true");
+        layoutContainer.appendChild(host);
+        getComponentContainerElement.mockReturnValue(host);
+        instantiateComponent.mockReturnValue({ isEmpty: true });
+
+        renderCustomComponent(host, { type: "data", render: jest.fn() });
+
+        expect(groupWrapper.style.display).not.toBe("none");
+        expect(host.style.display).toBe("none");
+    });
+});
+
 describe("renderCustomComponent — layout components", () => {
     beforeEach(() => {
         jest.clearAllMocks();
