@@ -19,7 +19,8 @@ export function renderFeedbackListElement(title, feedbackMessages, feedbackType,
 
     const summaryElement = document.createElement("summary");
     summaryElement.classList.add("feedback-summary");
-    summaryElement.innerHTML = title;
+    // Use textContent so any HTML-like content in the title is rendered as text, not interpreted (XSS-safe).
+    summaryElement.textContent = title;
     feedbackDetailsElement.appendChild(summaryElement);
 
     const feedbackListElement = document.createElement("div");

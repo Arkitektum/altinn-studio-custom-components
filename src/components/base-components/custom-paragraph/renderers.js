@@ -14,7 +14,9 @@ export function renderParagraphElement(component) {
     const text = component?.resourceValues?.title;
     const styleOverride = component?.styleOverride;
     const paragraphElement = document.createElement("p");
-    paragraphElement.innerHTML = text;
+    // The title reaches this renderer from a text resource or a resourceValues override: use textContent so any
+    // HTML-like content is rendered as text, not interpreted (XSS-safe).
+    paragraphElement.textContent = text;
     addStyle(paragraphElement, styleOverride);
     return paragraphElement.outerHTML;
 }

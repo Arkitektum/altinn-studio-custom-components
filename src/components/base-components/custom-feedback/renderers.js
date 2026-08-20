@@ -7,7 +7,9 @@
  */
 export function renderFeedbackElement(text, feedbackType) {
     const feedbackElement = document.createElement("p");
-    feedbackElement.innerHTML = text;
+    // The feedback text is a plain data value from the data model (see CustomFeedback/CustomFeedbackData): use
+    // textContent so any HTML-like content is rendered as text, not interpreted (XSS-safe).
+    feedbackElement.textContent = text;
     feedbackElement.classList.add(feedbackType);
     return feedbackElement.outerHTML;
 }

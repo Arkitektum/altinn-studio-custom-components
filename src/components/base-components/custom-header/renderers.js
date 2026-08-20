@@ -17,7 +17,9 @@ export function renderHeaderElement(component) {
     const size = component?.size;
     const styleOverride = component?.styleOverride;
     const headerElement = document.createElement(isValidHeaderSize(size) ? size : defaultHeaderSize);
-    headerElement.innerHTML = text;
+    // The title can carry a data value from the data model (custom-header-text-data joins formData.dataTitle into it):
+    // use textContent so any HTML-like content is rendered as text, not interpreted (XSS-safe).
+    headerElement.textContent = text;
     addStyle(headerElement, styleOverride);
     return headerElement.outerHTML;
 }
