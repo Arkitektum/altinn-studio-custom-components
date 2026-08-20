@@ -19,7 +19,7 @@ function renderFieldTitleElement(fieldTitle, fieldTitleId, inline) {
         fieldTitleLabelElement.id = fieldTitleId;
     }
     fieldTitleLabelElement.classList.add("field-title");
-    fieldTitleLabelElement.innerText = `${fieldTitle}${inline ? ":" : ""}`;
+    fieldTitleLabelElement.textContent = `${fieldTitle}${inline ? ":" : ""}`;
     return fieldTitleLabelElement;
 }
 

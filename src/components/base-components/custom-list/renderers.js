@@ -17,7 +17,7 @@ function renderFieldTitleElement(fieldTitle, fieldTitleId) {
         fieldTitleLabelElement.id = fieldTitleId;
     }
     fieldTitleLabelElement.classList.add("field-title");
-    fieldTitleLabelElement.innerText = fieldTitle;
+    fieldTitleLabelElement.textContent = fieldTitle;
     return fieldTitleLabelElement;
 }
 

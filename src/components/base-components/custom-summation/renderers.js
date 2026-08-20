@@ -32,7 +32,7 @@ export function renderHeaderElement(title, size) {
 function renderSummationItemOperatorElement(summationItemOperator) {
     const fieldOperatorElement = document.createElement("span");
     fieldOperatorElement.classList.add("summation-item-operator");
-    fieldOperatorElement.innerText = summationItemOperator;
+    fieldOperatorElement.textContent = summationItemOperator;
     return fieldOperatorElement;
 }
 
@@ -49,7 +49,7 @@ function renderSummationItemTitleElement(summationItemTitle, summationItemTitleI
         fieldTitleLabelElement.id = summationItemTitleId;
     }
     fieldTitleLabelElement.classList.add("summation-item-title");
-    fieldTitleLabelElement.innerText = summationItemTitle;
+    fieldTitleLabelElement.textContent = summationItemTitle;
     return fieldTitleLabelElement;
 }
 
@@ -66,7 +66,7 @@ function renderSummationItemDataElement(summationItemData, summationItemUnit) {
         return fieldDataElement;
     }
     fieldDataElement.classList.add("summation-item-data");
-    fieldDataElement.innerText = summationItemData + (summationItemUnit?.length ? ` ${summationItemUnit}` : "");
+    fieldDataElement.textContent = summationItemData + (summationItemUnit?.length ? ` ${summationItemUnit}` : "");
     return fieldDataElement;
 }
 

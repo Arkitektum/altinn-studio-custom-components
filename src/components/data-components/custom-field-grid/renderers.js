@@ -16,7 +16,7 @@ export function renderFieldGridElement(component) {
     if (hasValue(title)) {
         const titleElement = document.createElement("div");
         titleElement.classList.add("custom-field-grid-title");
-        titleElement.innerText = title;
+        titleElement.textContent = title;
         containerElement.appendChild(titleElement);
     }
 
@@ -28,12 +28,12 @@ export function renderFieldGridElement(component) {
     if (hasValue(termHeader) || hasValue(valueHeader)) {
         const termHeaderElement = document.createElement("div");
         termHeaderElement.classList.add("custom-field-grid-term", "custom-field-grid-header");
-        termHeaderElement.innerText = hasValue(termHeader) ? termHeader : "";
+        termHeaderElement.textContent = hasValue(termHeader) ? termHeader : "";
         bodyElement.appendChild(termHeaderElement);
 
         const valueHeaderElement = document.createElement("div");
         valueHeaderElement.classList.add("custom-field-grid-value", "custom-field-grid-header");
-        valueHeaderElement.innerText = hasValue(valueHeader) ? valueHeader : "";
+        valueHeaderElement.textContent = hasValue(valueHeader) ? valueHeader : "";
         bodyElement.appendChild(valueHeaderElement);
     }
 
@@ -44,7 +44,7 @@ export function renderFieldGridElement(component) {
         }
         const termElement = document.createElement("div");
         termElement.classList.add("custom-field-grid-term");
-        termElement.innerText = hasValue(row?.term) ? row.term : "";
+        termElement.textContent = hasValue(row?.term) ? row.term : "";
         bodyElement.appendChild(termElement);
 
         const valueElement = document.createElement("div");

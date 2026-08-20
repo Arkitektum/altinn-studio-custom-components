@@ -15,7 +15,7 @@ export function renderImageElement(component) {
     if (hasValue(title)) {
         const titleElement = document.createElement("div");
         titleElement.classList.add("custom-field-image-title");
-        titleElement.innerText = title;
+        titleElement.textContent = title;
         containerElement.appendChild(titleElement);
     }
 
