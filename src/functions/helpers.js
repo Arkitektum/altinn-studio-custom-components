@@ -119,12 +119,13 @@ export function validateFormData(data, dataKeys, componentName) {
  * This walks the ancestor chain rather than using `closest()` with an interpolated attribute selector: an `id` is
  * author-controlled through the layout JSON, and one containing a quote or backslash makes the selector invalid, so
  * `closest()` throws a `SyntaxError` that escapes `connectedCallback` and aborts the whole component render.
- * Comparing attribute values directly cannot throw and needs no CSS escaping, while matching exactly what the
- * selector matched — including the empty `id` case, where `addContainerElement` sets `data-summary-target=""` from
- * the component's own empty id.
+ * Comparing attribute values directly cannot throw and needs no CSS escaping.
+ *
+ * Only meaningful for a non-empty `id`; see `getComponentContainerElement` for why an empty one cannot be resolved
+ * by walking ancestors.
  *
  * @param {HTMLElement} element - The element to start searching from.
- * @param {string} id - The component id the container is expected to target.
+ * @param {string} id - The non-empty component id the container is expected to target.
  * @returns {HTMLElement | null} The matching element, or null when there is none.
  */
 function findSummaryTargetElement(element, id) {
@@ -139,6 +140,14 @@ function findSummaryTargetElement(element, id) {
 /**
  * Retrieves the container element for a given component.
  *
+ * An `id` is optional in the layout JSON, and `addContainerElement` sets `data-summary-target` from whatever the
+ * component's id is — so every id-less component's container targets the empty string. Walking ancestors for `""`
+ * would therefore match the *first* id-less container above the component, which need not be its own: for a
+ * component nested deeper than its wrapper, that is another component's container, and the caller goes on to hide
+ * or even remove it along with everything else inside. An empty id is matched structurally instead, against the
+ * wrapper `addContainerElement` places directly around the component (container → content → component), which is
+ * the only container that can belong to it.
+ *
  * @param {HTMLElement} component - The component element for which to find the container.
  * @returns {HTMLElement | null} - The container element if found, or null if no container exists.
  *                                 If the component is marked as a child component, it returns the component itself.
@@ -147,6 +156,10 @@ export function getComponentContainerElement(component) {
     const isChildComponent = component.getAttribute("isChildComponent") === "true";
     if (isChildComponent) {
         return component;
+    }
+    if (!component.id) {
+        const wrapper = component.parentElement?.parentElement;
+        return wrapper?.getAttribute?.("data-summary-target") === "" ? wrapper : null;
     }
     return findSummaryTargetElement(component, component.id);
 }

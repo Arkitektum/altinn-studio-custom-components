@@ -236,6 +236,34 @@ describe("getComponentContainerElement", () => {
         expect(getComponentContainerElement(el)).toBe(inner);
         document.body.removeChild(outer);
     });
+    it("finds its own wrapper for a component without an id", () => {
+        // addContainerElement's shape: container -> content -> component, with the container targeting the
+        // component's (empty) id.
+        const container = document.createElement("div");
+        container.setAttribute("data-summary-target", "");
+        const content = document.createElement("div");
+        const el = document.createElement("div");
+        content.appendChild(el);
+        container.appendChild(content);
+        document.body.appendChild(container);
+        expect(getComponentContainerElement(el)).toBe(container);
+        document.body.removeChild(container);
+    });
+    it("does not match another id-less component's container", () => {
+        // Every id-less component's container targets "", so walking ancestors for "" could match a container that
+        // belongs to a different component — which the caller would then hide or remove wholesale.
+        const otherContainer = document.createElement("div");
+        otherContainer.setAttribute("data-summary-target", "");
+        const otherContent = document.createElement("div");
+        const unrelatedMarkup = document.createElement("div");
+        const el = document.createElement("div");
+        unrelatedMarkup.appendChild(el);
+        otherContent.appendChild(unrelatedMarkup);
+        otherContainer.appendChild(otherContent);
+        document.body.appendChild(otherContainer);
+        expect(getComponentContainerElement(el)).toBeNull();
+        document.body.removeChild(otherContainer);
+    });
     it("does not match a container targeting a different id", () => {
         const el = document.createElement("div");
         el.id = "my-comp";
