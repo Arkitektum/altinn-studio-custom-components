@@ -138,15 +138,23 @@ function findSummaryTargetElement(element, id) {
 }
 
 /**
+ * How far above an id-less component its own container can sit: `addContainerElement` nests the component two
+ * levels inside it (container → content → component), and a container may also wrap it directly.
+ */
+const EMPTY_ID_CONTAINER_MAX_DEPTH = 2;
+
+/**
  * Retrieves the container element for a given component.
  *
  * An `id` is optional in the layout JSON, and `addContainerElement` sets `data-summary-target` from whatever the
- * component's id is — so every id-less component's container targets the empty string. Walking ancestors for `""`
- * would therefore match the *first* id-less container above the component, which need not be its own: for a
- * component nested deeper than its wrapper, that is another component's container, and the caller goes on to hide
- * or even remove it along with everything else inside. An empty id is matched structurally instead, against the
- * wrapper `addContainerElement` places directly around the component (container → content → component), which is
- * the only container that can belong to it.
+ * component's id is — so every id-less component's container targets the empty string. Walking the whole ancestor
+ * chain for `""` would therefore match the *first* id-less container above the component, however far up that is,
+ * which need not be its own: for a component nested well below its wrapper that is another component's container,
+ * and the caller goes on to hide or even remove it along with everything else inside.
+ *
+ * An empty id is therefore resolved within the depth its own container can occupy: the component itself, a
+ * container wrapping it directly, or the `addContainerElement` shape (container → content → component). Anything
+ * further up cannot belong to it.
  *
  * @param {HTMLElement} component - The component element for which to find the container.
  * @returns {HTMLElement | null} - The container element if found, or null if no container exists.
@@ -158,8 +166,15 @@ export function getComponentContainerElement(component) {
         return component;
     }
     if (!component.id) {
-        const wrapper = component.parentElement?.parentElement;
-        return wrapper?.getAttribute?.("data-summary-target") === "" ? wrapper : null;
+        // The component itself, its parent, or its grandparent — the deepest an id-less component sits inside its
+        // own container. Bounded rather than walking to the first empty-target container anywhere above it.
+        let current = component;
+        for (let depth = 0; current && depth <= EMPTY_ID_CONTAINER_MAX_DEPTH; depth++, current = current.parentElement) {
+            if (current.getAttribute?.("data-summary-target") === "") {
+                return current;
+            }
+        }
+        return null;
     }
     return findSummaryTargetElement(component, component.id);
 }
