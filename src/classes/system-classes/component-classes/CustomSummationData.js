@@ -49,7 +49,9 @@ export default class CustomSummationData extends CustomComponent {
         }
         return items.map((item) => {
             return {
-                resourceValues: { ...item.resourceValues, ...getTextResourcesFromResourceBindings(item?.resourceBindings) }
+                // Both reads are optional: `items` comes straight from the data model, so a row can be null and a row
+                // can omit `resourceBindings` (spreading a nullish value yields no keys).
+                resourceValues: { ...item?.resourceValues, ...getTextResourcesFromResourceBindings(item?.resourceBindings) }
             };
         });
     }

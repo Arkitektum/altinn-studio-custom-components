@@ -113,6 +113,25 @@ describe("CustomSummationData", () => {
 
             expect(result).toEqual([{ resourceValues: { foo: "bar", a: "A-value" } }, { resourceValues: { baz: "qux", b: "B-value" } }]);
         });
+
+        it("should handle an item without resourceBindings", () => {
+            // resourceBindings is optional, so a row straight from the data model may not carry any.
+            getTextResourcesFromResourceBindings.mockReturnValue({});
+
+            const instance = Object.create(CustomSummationData.prototype);
+            const result = instance.getResourcesForDataItems([{ resourceValues: { foo: "bar" } }]);
+
+            expect(result).toEqual([{ resourceValues: { foo: "bar" } }]);
+        });
+
+        it("should handle a null item", () => {
+            getTextResourcesFromResourceBindings.mockReturnValue({});
+
+            const instance = Object.create(CustomSummationData.prototype);
+            const result = instance.getResourcesForDataItems([null, { resourceValues: { foo: "bar" } }]);
+
+            expect(result).toEqual([{ resourceValues: {} }, { resourceValues: { foo: "bar" } }]);
+        });
     });
 
     describe("getValueFromFormData", () => {
