@@ -79,9 +79,10 @@ function renderSummationItemDataElement(summationItemData, summationItemUnit) {
  * @param {string} [summationItem.resourceValues.title] - The title of the summation item.
  * @param {string} [summationItem.resourceValues.data] - The data value of the summation item.
  * @param {string} [summationItem.resourceValues.unit] - The unit to append to the data value.
- * @returns {string} The HTML string representing the summation item element.
+ * @param {boolean} [returnHtml=true] - Whether to return an HTML string or the DOM element.
+ * @returns {string|HTMLElement} The rendered summation item as an HTML string or DOM element based on returnHtml.
  */
-export function renderSummationItemElement(summationItem) {
+export function renderSummationItemElement(summationItem, returnHtml = true) {
     const summationItemElement = document.createElement("div");
     summationItemElement.classList.add("summation-item");
 
@@ -105,7 +106,7 @@ export function renderSummationItemElement(summationItem) {
         summationItemDataElement.setAttribute("aria-labelledby", summationItemTitleId);
     }
     summationItemElement.appendChild(summationItemDataElement);
-    return summationItemElement.outerHTML;
+    return returnHtml ? summationItemElement.outerHTML : summationItemElement;
 }
 
 /**
@@ -117,10 +118,11 @@ export function renderSummationItemElement(summationItem) {
 export function renderSummationElement(data) {
     const summationElement = document.createElement("div");
     summationElement.classList.add("custom-summation");
-    if (data && Array.isArray(data) && data.length) {
+    if (Array.isArray(data)) {
         data.forEach((summationItem) => {
-            const summationItemElement = renderSummationItemElement(summationItem);
-            summationElement.innerHTML += summationItemElement;
+            // Append the element rather than concatenating its serialized HTML: `innerHTML +=` re-parses everything
+            // already in the container on every item, discarding and rebuilding the nodes it had just created.
+            summationElement.appendChild(renderSummationItemElement(summationItem, false));
         });
     }
     return summationElement;
