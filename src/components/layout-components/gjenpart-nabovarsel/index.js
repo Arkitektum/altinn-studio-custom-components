@@ -22,6 +22,7 @@ import {
     renderSoekerElement,
     renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement,
     renderSoeknadGjelderBrukTiltaksformaalElement,
+    renderSoeknadGjelderFoelgebrevElement,
     renderSoeknadGjelderTypeElement
 } from "./renderers.js";
 
@@ -46,6 +47,7 @@ export default customElements.define(
                     const soeknadGjelderTypeElement = renderSoeknadGjelderTypeElement(component);
                     const soeknadGjelderBrukTiltaksformaalElement = renderSoeknadGjelderBrukTiltaksformaalElement(component);
                     const soeknadGjelderBrukBeskrivPlanlagtFormaalElement = renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement(component);
+                    const soeknadGjelderFoelgebrevElement = renderSoeknadGjelderFoelgebrevElement(component);
 
                     const planerGjeldendePlanHeaderElement = renderPlanerGjeldendePlanHeaderElement(component);
                     const planerGjeldendePlanNavnElement = renderPlanGjeldendePlanNavnElement(component);
@@ -73,7 +75,8 @@ export default customElements.define(
                         detErVarsletOmHeaderElement,
                         soeknadGjelderTypeElement,
                         soeknadGjelderBrukTiltaksformaalElement,
-                        soeknadGjelderBrukBeskrivPlanlagtFormaalElement
+                        soeknadGjelderBrukBeskrivPlanlagtFormaalElement,
+                        soeknadGjelderFoelgebrevElement
                     ]);
 
                     // Gjeldende plan

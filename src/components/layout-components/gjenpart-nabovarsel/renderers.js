@@ -302,6 +302,22 @@ export function renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement(component)
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
+export function renderSoeknadGjelderFoelgebrevElement(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        hideTitle: false,
+        resourceBindings: {
+            title: component.resourceBindings?.soeknadGjelderFoelgebrev?.title
+        },
+        resourceValues: {
+            data: data?.soeknadGjelder?.foelgebrev
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
 /**
  * Renders a custom header element for "Planer Gjeldende Plan".
  *

@@ -138,6 +138,10 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
                     "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
                 emptyFieldText: props?.resourceBindings?.soeknadGjelderBrukBeskrivPlanlagtFormaal?.emptyFieldText || "resource.emptyFieldText.default"
             },
+            soeknadGjelderFoelgebrev: {
+                title: props?.resourceBindings?.soeknadGjelderFoelgebrev?.title || "resource.foelgebrev.title",
+                emptyFieldText: props?.resourceBindings?.soeknadGjelderFoelgebrev?.emptyFieldText || "resource.emptyFieldText.default"
+            },
             planerGjeldendePlan: {
                 title: props?.resourceBindings?.planerGjeldendePlan?.title || "resource.planer.gjeldendePlan.title"
             },
