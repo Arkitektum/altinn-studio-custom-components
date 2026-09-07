@@ -4,9 +4,9 @@ on:
     release:
         types: [created]
 
+# id-token: write is required for npm trusted publishing (OIDC)
 permissions:
     contents: read
-    packages: write
     id-token: write
 
 jobs:
@@ -17,11 +17,18 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v6
 
+            # No registry-url here on purpose: it would write an .npmrc with a
+            # ${NODE_AUTH_TOKEN} placeholder, and trusted publishing needs no token
             - name: Setup Node.js
               uses: actions/setup-node@v6
               with:
                   node-version: "24"
-                  registry-url: https://registry.npmjs.org/
+
+            # Trusted publishing requires npm 11.5.1 or newer
+            - name: Update npm
+              run: |
+                  npm install -g npm@latest
+                  npm --version
 
             # Enable Corepack and activate the Yarn version from package.json
             - name: Enable Corepack & activate Yarn 4
@@ -50,15 +57,8 @@ jobs:
                   fi
                   echo "value=$DIST_TAG" >> $GITHUB_OUTPUT
 
-            - name: Configure npm auth
-              run: |
-                  echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-                  npm whoami
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
-
+            # Authentication happens through the trusted publisher configured on npm,
+            # which also generates the provenance attestation automatically
             - name: Publish to npm
               if: ${{ success() }}
-              run: npm publish --provenance --tag ${{ steps.dist_tag.outputs.value }}
-              env:
-                  NODE_AUTH_TOKEN: ${{ secrets.PUBLISH_NPM_TOKEN }}
+              run: npm publish --registry https://registry.npmjs.org --tag ${{ steps.dist_tag.outputs.value }}
