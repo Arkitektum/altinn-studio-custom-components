@@ -91,7 +91,9 @@ import initCustomComponents from "../functions/init.js";
 // Stylesheet
 import "../styles/main.css" with { type: "css" };
 
-initCustomComponents();
+initCustomComponents().catch((error) => {
+    console.error("Failed to initialize custom components.", error);
+});
 
 export {
     customDescriptionList,
