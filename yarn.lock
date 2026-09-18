@@ -5,10 +5,10 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^1.5.3":
-  version: 1.5.3
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.5.3"
-  checksum: 10c0/34f85929cc952c96ef817f6915922e7e728685d88572aae534525c56d458e54ef0ebe7ac46f59afc1a0cb9dddaddf94f567d58adc11b067784ec7146297ec010
+"@arkitektum/altinn-studio-custom-components-utils@npm:^1.5.8":
+  version: 1.5.8
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:1.5.8"
+  checksum: 10c0/2214b21fc5a8f668b57a391934d4fa282b6a58f07ebc9c032fc5325764780df36f42306266d556c4bb29c4fb12c2f783883e8c45d51383aa3a242c49c213d69f
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.5.3"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^1.5.8"
     "@arkitektum/client-logger": "npm:^1.2.2"
     "@babel/preset-env": "npm:^8.0.5"
     "@eslint/js": "npm:^10.0.1"
