@@ -6,10 +6,9 @@ A collection of reusable custom components for **Altinn Studio**, designed to pr
 
 ---
 
-## 📦 Installation
+## Installation
 
-To integrate this package into your Altinn Studio application, follow
-the steps below.
+To integrate this package into your Altinn Studio application, follow the steps below.
 
 ### 1. Initialize npm
 
@@ -25,8 +24,7 @@ npm install @arkitektum/altinn-studio-custom-components --save
 
 ### 3. Configure asset handling in `/App/App.csproj`
 
-Add the following snippet to ensure npm packages are installed and
-copied to `wwwroot` during the build:
+Add the following snippet to ensure npm packages are installed and copied to `wwwroot` during the build:
 
 ```xml
 <Target Name="NpmInstall" Inputs="package.json" Outputs="node_modules/.install-stamp">
@@ -72,13 +70,11 @@ WORKDIR /App
 RUN apk add --no-cache npm
 ```
 
-After these steps, npm packages will be installed automatically during
-the build, and all assets will be copied into
-`wwwroot/altinn-studio-custom-components`.
+After these steps, npm packages will be installed automatically duringthe build, and all assets will be copied into `wwwroot/altinn-studio-custom-components`.
 
 ---
 
-## 🧩 Available Components
+## Available Components
 
 Components are grouped by category and tailored to display domain-specific data according to standards from **Direktoratet for Byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
 
@@ -88,7 +84,7 @@ For a full list of available components and examples, see the documentation site
 
 ---
 
-## 🧪 Development & Testing
+## Development & Testing
 
 > For a deeper look at how the package is structured and how it fits into the wider ecosystem, see [ARCHITECTURE.md](./ARCHITECTURE.md). For contribution guidelines (adding components, resources, releases), see [CONTRIBUTING.md](./CONTRIBUTING.md).
 
@@ -165,7 +161,7 @@ yarn lint
 
 ---
 
-## 🛠️ DevTools Mode
+## DevTools Mode
 
 DevTools mode adds inspection overlays to all custom components on the page, making it easier to debug and inspect component properties during development.
 
@@ -195,7 +191,7 @@ Clicking anywhere outside a panel closes it.
 
 ---
 
-## 🔗 Resources
+## Resources
 
 - [Architecture overview](./ARCHITECTURE.md)
 - [Contributing guide](./CONTRIBUTING.md)
@@ -207,6 +203,6 @@ Clicking anywhere outside a panel closes it.
 
 ---
 
-## 📝 Changelog
+## Changelog
 
 The [changelog](https://github.com/Arkitektum/altinn-studio-custom-components/releases) is regularly updated to reflect what's changed in each new release.
