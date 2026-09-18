@@ -349,7 +349,7 @@ export function renderPlanerGjeldendePlanHeaderElement(component) {
  * @param {string} component.resourceBindings.planerGjeldendePlanNavn.title - The title for the plan name field.
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
-export function renderPlanGjeldendePlanNavnElement(component) {
+export function renderPlanerGjeldendePlanNavnElement(component) {
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -363,6 +363,25 @@ export function renderPlanGjeldendePlanNavnElement(component) {
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderPlanerAndrePlanerElement(component) {
+    const data = component?.resourceValues?.data;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        hideTitle: false,
+        size: "h3",
+        resourceBindings: {
+            title: component.resourceBindings?.planerAndrePlaner?.title,
+            navn: { title: component.resourceBindings?.planerAndrePlanerNavn?.title },
+            plantype: { title: component.resourceBindings?.planerAndrePlanerPlantype?.title }
+        },
+        resourceValues: {
+            data: data?.planer?.andrePlaner?.plan
+        }
+    });
+    return addContainerElement(createCustomElement("custom-table-plan", htmlAttributes));
 }
 
 /**

@@ -16,8 +16,9 @@ import {
     renderKontaktpersonForNabovarseletElement,
     renderMetadataProsjektnavn,
     renderNaboGjenboerEiendom,
-    renderPlanGjeldendePlanNavnElement,
+    renderPlanerAndrePlanerElement,
     renderPlanerGjeldendePlanHeaderElement,
+    renderPlanerGjeldendePlanNavnElement,
     renderPlanerGjeldendePlanPlantypeElement,
     renderSoekerElement,
     renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement,
@@ -50,8 +51,10 @@ export default customElements.define(
                     const soeknadGjelderFoelgebrevElement = renderSoeknadGjelderFoelgebrevElement(component);
 
                     const planerGjeldendePlanHeaderElement = renderPlanerGjeldendePlanHeaderElement(component);
-                    const planerGjeldendePlanNavnElement = renderPlanGjeldendePlanNavnElement(component);
+                    const planerGjeldendePlanNavnElement = renderPlanerGjeldendePlanNavnElement(component);
                     const planerGjeldendePlanPlantypeElement = renderPlanerGjeldendePlanPlantypeElement(component);
+
+                    const planerAndrePlanerElement = renderPlanerAndrePlanerElement(component);
 
                     const dispensasjonOversiktElement = renderDispensasjonOversiktElement(component);
 
@@ -85,6 +88,9 @@ export default customElements.define(
                         planerGjeldendePlanNavnElement,
                         planerGjeldendePlanPlantypeElement
                     ]);
+
+                    // Andre planer
+                    appendChildren(layoutContainerElement, [planerAndrePlanerElement]);
 
                     // Dispensasjonsoversikt
                     appendChildren(layoutContainerElement, [dispensasjonOversiktElement]);

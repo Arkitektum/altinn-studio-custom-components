@@ -151,6 +151,15 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             planerGjeldendePlanPlantype: {
                 title: props?.resourceBindings?.planerGjeldendePlanPlantype?.title || "resource.planer.gjeldendePlan.plantype.title"
             },
+            planerAndrePlaner: {
+                title: props?.resourceBindings?.planerAndrePlaner?.title || "resource.planer.andrePlaner.title"
+            },
+            planerAndrePlanerNavn: {
+                title: props?.resourceBindings?.planerAndrePlanerNavn?.title || "resource.planer.andrePlaner.plan.navn.title"
+            },
+            planerAndrePlanerPlantype: {
+                title: props?.resourceBindings?.planerAndrePlanerPlantype?.title || "resource.planer.andrePlaner.plan.plantype.title"
+            },
             kontaktpersonForNabovarselet: {
                 title: props?.resourceBindings?.kontaktpersonForNabovarselet?.title || "resource.kontaktpersonForNabovarselet.title",
                 emptyFieldText: props?.resourceBindings?.kontaktpersonForNabovarselet?.emptyFieldText || "resource.emptyFieldText.default"
@@ -307,7 +316,8 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
             "custom-list-data",
             "custom-paragraph-text",
             "custom-table-eiendom",
-            "custom-table-part"
+            "custom-table-part",
+            "custom-table-plan"
         ];
     }
 }
