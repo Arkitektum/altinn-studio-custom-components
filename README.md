@@ -70,7 +70,7 @@ WORKDIR /App
 RUN apk add --no-cache npm
 ```
 
-After these steps, npm packages will be installed automatically duringthe build, and all assets will be copied into `wwwroot/altinn-studio-custom-components`.
+After these steps, npm packages will be installed automatically during the build, and all assets will be copied into `wwwroot/altinn-studio-custom-components`.
 
 ---
 
