@@ -328,12 +328,94 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement, selectedOp
 }
 
 /**
+ * Finds the example data for one data type, as seen by one app.
+ *
+ * Example data is keyed on the app and not only on the data type, because the API reads the main form examples from
+ * the FtPB testmotor, which is keyed by app id: dibk/fa-v3 and dibk/fa-v5 are both filed under the data type FA and
+ * hold different files. Matching on the data type alone showed one of them the other's examples.
+ *
+ * An entry naming no app is a subform's, whose examples are one shared set declared by several parents. Those match
+ * any app, which is why the app-specific entry is looked for first and the app-less one is the fallback.
+ *
+ * @param {Array<Object>} exampleData - The /api/exampleData payload.
+ * @param {Object} displayLayout - The selected display layout, naming the app with `appOwner` and `appName`.
+ * @param {string} dataType - The data type wanted.
+ * @returns {Object|undefined} The entry, or undefined when there is none for this data type.
+ */
+export function findExampleDataForApp(exampleData, displayLayout, dataType) {
+    if (!Array.isArray(exampleData) || !dataType) {
+        return undefined;
+    }
+    return (
+        exampleData.find(
+            (entry) => entry.dataType === dataType && entry.appName === displayLayout?.appName && entry.appOwner === displayLayout?.appOwner
+        ) ?? exampleData.find((entry) => entry.dataType === dataType && !entry.appName)
+    );
+}
+
+/**
+ * The file names one entry offers, in the order they are meant to be offered in.
+ *
+ * Read off the array rather than off object keys: the ordering prefix is stripped from the names before they reach
+ * here, so the array is the only thing that still carries the order.
+ *
+ * @param {Object} [exampleDataEntry]
+ * @returns {string[]}
+ */
+function getExampleFileNames(exampleDataEntry) {
+    return exampleDataEntry?.files?.map((file) => file.name) ?? [];
+}
+
+/**
+ * Says so when example data could not be fetched, rather than rendering nothing.
+ *
+ * A picker with no dropdown used to mean both "this data type has no examples" and "the examples could not be
+ * fetched". They are different answers, and only one of them is a problem worth chasing.
+ *
+ * @param {HTMLElement} containerElement - Where to append the message.
+ * @param {Object} [exampleDataEntry] - The entry, which carries `error` when there was one.
+ * @param {string} dataType - The data type the message is about.
+ * @returns {boolean} Whether a message was rendered, in which case there is no dropdown to render.
+ */
+export function renderExampleDataError(containerElement, exampleDataEntry, dataType) {
+    if (!exampleDataEntry?.error) {
+        return false;
+    }
+    const errorElement = document.createElement("p");
+    errorElement.textContent = `Example data for ${dataType} could not be fetched: ${exampleDataEntry.error}`;
+    containerElement.appendChild(errorElement);
+    return true;
+}
+
+/**
+ * The example data in the shape getDataForComponent expects: one entry per data type, files keyed by name.
+ *
+ * The app has already been resolved by the time this is built, so each data type appears once and the data-type
+ * matching inside getDataForComponent — including a component binding to a subform's data type — still resolves.
+ *
+ * @param {Array<Object>} exampleData - The /api/exampleData payload.
+ * @param {Object} displayLayout - The selected display layout, naming the app.
+ * @returns {Array<{dataType: string, data: Object}>}
+ */
+export function getDataModelsForApp(exampleData, displayLayout) {
+    if (!Array.isArray(exampleData)) {
+        return [];
+    }
+    return exampleData
+        .filter((entry) => !entry.appName || (entry.appName === displayLayout?.appName && entry.appOwner === displayLayout?.appOwner))
+        .map((entry) => ({
+            dataType: entry.dataType,
+            data: Object.fromEntries((entry.files ?? []).map((file) => [file.name, file.data]))
+        }));
+}
+
+/**
  * Renders a select dropdown to filter display layouts by filename.
  *
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `dataType` property.
  * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
- * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  * @returns {void}
  */
@@ -343,12 +425,12 @@ function renderSelectDisplayLayoutFilenameFilter(containerElement, displayLayout
     }
 
     const dataType = displayLayout?.dataType;
-    const appExampleData = appData.find((app) => app.dataType === dataType);
-    if (!appExampleData) {
+    const appExampleData = findExampleDataForApp(appData, displayLayout, dataType);
+    if (renderExampleDataError(containerElement, appExampleData, dataType)) {
         return;
     }
 
-    const files = Object.keys(appExampleData.data);
+    const files = getExampleFileNames(appExampleData);
 
     if (files.length === 0) {
         return;
@@ -454,7 +536,7 @@ function getSelectedFormType(displayLayout, formType) {
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current app display layout object, with `displayLayouts` and optional `subForms` arrays.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
- * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  *
  * @return {void}
@@ -517,7 +599,7 @@ function renderSelectFormTypeFilter(containerElement, displayLayout, selectedOpt
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
- * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  *
  * @return {void}
@@ -528,11 +610,11 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(containerElement, displa
         return;
     }
     const dataType = subForm?.dataType;
-    const appExampleData = appData.find((app) => app.dataType === dataType);
-    if (!appExampleData) {
+    const appExampleData = findExampleDataForApp(appData, displayLayout, dataType);
+    if (renderExampleDataError(containerElement, appExampleData, dataType)) {
         return;
     }
-    const files = Object.keys(appExampleData.data);
+    const files = getExampleFileNames(appExampleData);
     if (files.length === 0) {
         return;
     }
@@ -595,7 +677,7 @@ export function getDisplayLayoutMainHeading() {
  *
  * @param {Object} displayLayout - The display layout object, expected to have a `dataType` property and optionally a `subForms` property which is an array of subform objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
- * @param {Array<Object>} appData - Array of application data objects, each expected to have a `dataType` and `data` property.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  *
  * @returns {Object} An updated object mapping data types to the filenames that should be selected by default.
  */
@@ -605,11 +687,8 @@ export function setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appDa
     if (!dataType) {
         return selectedOptions.fileNames;
     }
-    const appExampleData = appData.find((app) => app.dataType === dataType);
-    if (!appExampleData) {
-        return selectedOptions.fileNames;
-    }
-    const files = Object.keys(appExampleData.data);
+    const appExampleData = findExampleDataForApp(appData, displayLayout, dataType);
+    const files = getExampleFileNames(appExampleData);
     if (files.length === 0) {
         return selectedOptions.fileNames;
     }
@@ -766,12 +845,15 @@ async function renderDisplayLayoutsPage(containerElement, appData, applicationMe
         (app) => app.appName === selectedDisplayLayoutAppName && app.appOwner === selectedDisplayLayoutAppOwner
     )?.dataType;
 
+    // Built once rather than per component, and narrowed to this app before the data types inside it are matched.
+    const dataModels = getDataModelsForApp(appData, displayLayout);
+
     const resultsElements = components
         .map((component) => {
             if (!component?.tagName) {
                 return;
             }
-            const formData = getDataForComponent(component, appData, dataType, selectedOptions.fileNames);
+            const formData = getDataForComponent(component, dataModels, dataType, selectedOptions.fileNames);
             const htmlAttributes = new CustomElementHtmlAttributes({
                 ...component,
                 formData

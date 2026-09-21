@@ -52,11 +52,14 @@ jest.mock("../../../src/functions/htmlElementHelpers.js", () => ({
 }));
 
 import {
+    findExampleDataForApp,
     getApplicationMetadataForSelectedApp,
+    getDataModelsForApp,
     getDisplayLayoutMainHeading,
     getLocalTextResourcesForApp,
     renderAdminSidebar,
     renderComponentUsagePage,
+    renderExampleDataError,
     renderLogoImage,
     renderPackageVersionsPage,
     renderResourceUsagePage,
@@ -173,7 +176,18 @@ describe("internal renderers functions", () => {
         globalThis.appResourceValues = [{ appName: "app1", appOwner: "owner1", resources: [{ id: "appLogo.url", value: "logo.svg" }] }];
         globalThis.multilingualDefaultTextResources = [];
         globalThis.multilingualAppResourceValues = [];
-        globalThis.exampleData = [{ dataType: "dt", data: { file1: {} } }];
+        globalThis.exampleData = [
+            {
+                appOwner: "owner1",
+                appName: "app1",
+                dataType: "dt",
+                error: null,
+                files: [
+                    { name: "Standard", data: {} },
+                    { name: "Maksimumsversjon", data: {} }
+                ]
+            }
+        ];
         globalThis.altinnStudioForms = [{ appName: "app1", appOwner: "owner1", dataType: "dt" }];
         globalThis.componentUsage = [{ tagName: "custom-field", usages: [] }];
 
@@ -216,6 +230,119 @@ describe("internal renderers functions", () => {
         const selectedOptions = { formType: "main", fileNames: {} };
         const result = setDefaultSelectedFileNameForDisplayLayouts(globalThis.displayLayouts[0], globalThis.exampleData, selectedOptions);
         expect(result).toEqual({});
+    });
+    it("setDefaultSelectedFileNameForDisplayLayouts defaults to the first file in the order the API gave them", () => {
+        // "Standard" comes first in the payload but second alphabetically, so a stray sort would show up here. The
+        // ordering prefix is stripped before the names get this far, which is why the array order is all there is.
+        const displayLayout = { appName: "app1", appOwner: "owner1", dataType: "dt" };
+        const result = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, globalThis.exampleData, { formType: "main", fileNames: {} });
+        expect(result).toEqual({ dt: "Standard" });
+    });
+    it("setDefaultSelectedFileNameForDisplayLayouts does not default from another app's examples", () => {
+        const displayLayout = { appName: "app2", appOwner: "owner1", dataType: "dt" };
+        const result = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, globalThis.exampleData, { formType: "main", fileNames: {} });
+        expect(result).toEqual({});
+    });
+});
+
+describe("findExampleDataForApp", () => {
+    const faV3 = { appOwner: "dibk", appName: "fa-v3", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 3 } }] };
+    const faV5 = { appOwner: "dibk", appName: "fa-v5", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 5 } }] };
+    const subForm = {
+        appOwner: null,
+        appName: null,
+        dataType: "GjennomfoeringsplanDataV7",
+        error: null,
+        files: [{ name: "GjennomfoeringsplanDataV7", data: {} }]
+    };
+    const exampleData = [faV3, faV5, subForm];
+
+    it("gives each app its own examples when two apps share a data type", () => {
+        // fa-v3 and fa-v5 are both filed under FA and hold different data. Matched on the data type alone, whichever
+        // came first in the list answered for both.
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "fa-v5" }, "FA")).toBe(faV5);
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "fa-v3" }, "FA")).toBe(faV3);
+    });
+
+    it("falls back to an entry naming no app, which is how one subform matches every parent that declares it", () => {
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "es-v2" }, "GjennomfoeringsplanDataV7")).toBe(subForm);
+    });
+
+    it("gives an app nothing rather than another app's examples", () => {
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "mb-v5" }, "FA")).toBeUndefined();
+    });
+
+    it("tells apps in different organisations apart", () => {
+        expect(findExampleDataForApp(exampleData, { appOwner: "dat", appName: "fa-v5" }, "FA")).toBeUndefined();
+    });
+
+    it("copes with no example data and no data type", () => {
+        expect(findExampleDataForApp(undefined, { appOwner: "dibk", appName: "fa-v5" }, "FA")).toBeUndefined();
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "fa-v5" }, undefined)).toBeUndefined();
+    });
+});
+
+describe("getDataModelsForApp", () => {
+    const faV3 = { appOwner: "dibk", appName: "fa-v3", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 3 } }] };
+    const faV5 = { appOwner: "dibk", appName: "fa-v5", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 5 } }] };
+    const subForm = {
+        appOwner: null,
+        appName: null,
+        dataType: "GjennomfoeringsplanDataV7",
+        error: null,
+        files: [{ name: "GjennomfoeringsplanDataV7", data: { plan: true } }]
+    };
+    const exampleData = [faV3, faV5, subForm];
+
+    it("keeps this app's own data type and drops the other app's", () => {
+        // getDataForComponent matches on the data type, so FA has to appear once. Which one it is, is decided here.
+        const dataModels = getDataModelsForApp(exampleData, { appOwner: "dibk", appName: "fa-v5" });
+
+        expect(dataModels.filter((dataModel) => dataModel.dataType === "FA")).toEqual([{ dataType: "FA", data: { Standard: { version: 5 } } }]);
+    });
+
+    it("keeps subforms, so a component binding to a subform's data type still resolves", () => {
+        const dataModels = getDataModelsForApp(exampleData, { appOwner: "dibk", appName: "fa-v5" });
+
+        expect(dataModels).toContainEqual({
+            dataType: "GjennomfoeringsplanDataV7",
+            data: { GjennomfoeringsplanDataV7: { plan: true } }
+        });
+    });
+
+    it("keys the files by name, which is what selectedOptions.fileNames holds", () => {
+        const dataModels = getDataModelsForApp(exampleData, { appOwner: "dibk", appName: "fa-v3" });
+        const fa = dataModels.find((dataModel) => dataModel.dataType === "FA");
+
+        expect(fa.data.Standard).toEqual({ version: 3 });
+    });
+
+    it("copes with an entry that has no files and with no example data", () => {
+        const noFiles = [{ appOwner: "dibk", appName: "ts-v1", dataType: "TS", error: null }];
+
+        expect(getDataModelsForApp(noFiles, { appOwner: "dibk", appName: "ts-v1" })).toEqual([{ dataType: "TS", data: {} }]);
+        expect(getDataModelsForApp(undefined, { appOwner: "dibk", appName: "fa-v5" })).toEqual([]);
+    });
+});
+
+describe("renderExampleDataError", () => {
+    it("says the examples could not be fetched, rather than rendering nothing", () => {
+        // "No examples for this data type" and "the examples could not be fetched" used to look identical: no
+        // dropdown either way.
+        const containerElement = document.createElement("div");
+        const rendered = renderExampleDataError(containerElement, { dataType: "FA", error: "the testmotor could not be reached" }, "FA");
+
+        expect(rendered).toBe(true);
+        expect(containerElement.textContent).toContain("Example data for FA could not be fetched");
+        expect(containerElement.textContent).toContain("the testmotor could not be reached");
+    });
+
+    it("stays quiet when there simply are no examples", () => {
+        const containerElement = document.createElement("div");
+
+        expect(renderExampleDataError(containerElement, { dataType: "TS", error: null, files: [] }, "TS")).toBe(false);
+        expect(renderExampleDataError(containerElement, undefined, "TS")).toBe(false);
+        expect(containerElement.childElementCount).toBe(0);
     });
     it("getApplicationMetadataForSelectedApp returns metadata or null", () => {
         const metaArr = [{ appName: "app1", appOwner: "owner1", metadata: { foo: 1 } }];
