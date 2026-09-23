@@ -33,7 +33,7 @@ export default customElements.define(
                         const emptyFieldTextElement = renderEmptyFieldText(component);
                         host.appendChild(emptyFieldTextElement);
                     } else {
-                        const funksjonKodeverdi = component.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
+                        const funksjonKodeverdi = component?.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
                         const containerElement = document.createElement("div");
 
                         containerElement.appendChild(renderHeaderElement(component?.resourceBindings?.ansvarsomraade?.title, component?.size));

@@ -14,7 +14,7 @@ export function renderDispensasjonsvarselHeader(component, size = "h1") {
         isChildComponent: true,
         size: size,
         resourceBindings: {
-            title: component.resourceBindings?.dispensasjonsvarsel?.title
+            title: component?.resourceBindings?.dispensasjonsvarsel?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -37,7 +37,7 @@ export function renderEmne(component) {
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            title: component.resourceBindings?.emne?.title
+            title: component?.resourceBindings?.emne?.title
         },
         resourceValues: {
             data
@@ -58,7 +58,7 @@ export function renderBestemmelseHeader(component, size = "h2") {
         isChildComponent: true,
         size: size,
         resourceBindings: {
-            title: component.resourceBindings?.bestemmelse?.title
+            title: component?.resourceBindings?.bestemmelse?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -124,7 +124,7 @@ export function renderDispVarselBeskrivelseHeader(component, size = "h2") {
         isChildComponent: true,
         size: size,
         resourceBindings: {
-            title: component.resourceBindings?.dispVarselBeskrivelse?.title
+            title: component?.resourceBindings?.dispVarselBeskrivelse?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -163,7 +163,7 @@ export function renderSpoersmaalOmDispensasjonssoeknaden(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         resourceBindings: {
-            title: component.resourceBindings?.spoersmaalOmDispensasjonssoeknaden?.title
+            title: component?.resourceBindings?.spoersmaalOmDispensasjonssoeknaden?.title
         },
         styleOverride: {
             fontWeight: "600"

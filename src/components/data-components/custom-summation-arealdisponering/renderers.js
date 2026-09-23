@@ -42,10 +42,10 @@ function renderSummationDataElement(data) {
  * Renders a container element displaying summation data for "bebyggelsen" and "tomtearealet" if available.
  *
  * @param {Object} component - The component object containing resource values and data.
- * @param {Object} [component.resourceValues] - The resource values of the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "bebyggelsen" and "tomtearealet".
- * @param {Object} [component.resourceValues.data.tomtearealet] - The data for "tomtearealet".
- * @param {Object} [component.resourceValues.data.bebyggelsen] - The data for "bebyggelsen".
+ * @param {Object} [component?.resourceValues] - The resource values of the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "bebyggelsen" and "tomtearealet".
+ * @param {Object} [component?.resourceValues.data.tomtearealet] - The data for "tomtearealet".
+ * @param {Object} [component?.resourceValues.data.bebyggelsen] - The data for "bebyggelsen".
  * @returns {HTMLDivElement|null} A div element containing the rendered summation data elements, or null if no data is available.
  */
 export function renderSummationArealdisponering(component) {
@@ -76,8 +76,8 @@ export function renderSummationArealdisponering(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

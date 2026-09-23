@@ -71,11 +71,11 @@ export function renderHeaderElement(title, size) {
  * Renders a table element based on the provided component configuration.
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceValues] - Resource values for the table.
- * @param {Object} [component.resourceValues.data] - Data for table headers and rows.
- * @param {string[]} [component.resourceValues.data.tableHeaders] - Array of table header strings.
- * @param {Array} [component.resourceValues.data.tableRows] - Array of table row data.
- * @param {string} [component.resourceValues.title] - Title for the table caption.
+ * @param {Object} [component?.resourceValues] - Resource values for the table.
+ * @param {Object} [component?.resourceValues.data] - Data for table headers and rows.
+ * @param {string[]} [component?.resourceValues.data.tableHeaders] - Array of table header strings.
+ * @param {Array} [component?.resourceValues.data.tableRows] - Array of table row data.
+ * @param {string} [component?.resourceValues.title] - Title for the table caption.
  * @param {boolean} [component.hideTitle] - If true, hides the table title.
  * @param {string} [component.size] - Size of the table header element.
  * @param {Object} [component.styleOverride] - Style overrides for the table element.

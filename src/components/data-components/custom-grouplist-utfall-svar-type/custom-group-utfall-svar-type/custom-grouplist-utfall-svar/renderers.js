@@ -25,7 +25,7 @@ export function renderHeaderElement(title, size = "h2") {
  * @param {Object} utfallSvar - The data to be rendered in the custom group element.
  * @param {Object} component - The component configuration object.
  * @param {boolean} [component.enableLinks] - Whether to enable links in the rendered element.
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for the component.
  * @returns {HTMLElement} The created custom group element for "utfallSvar".
  */
 export function renderUtfallSvarGroup(utfallSvar, component) {
@@ -45,8 +45,8 @@ export function renderUtfallSvarGroup(utfallSvar, component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

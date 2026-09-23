@@ -23,8 +23,8 @@ export function renderHeaderElement(title, size = "h2") {
  * Renders a custom element displaying the count of dispensasjon data for a given component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for the component.
  * @returns {HTMLElement} The custom element with the specified attributes.
  */
 export function renderDispensasjonCount(component) {
@@ -47,8 +47,8 @@ export function renderDispensasjonCount(component) {
  * Renders a custom table element displaying dispensasjon data for a given component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for the component.
  * @returns {HTMLElement} The custom table element with the specified attributes.
  */
 export function renderDispensasjonTable(component) {
@@ -96,8 +96,8 @@ export function renderDispensasjonTable(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

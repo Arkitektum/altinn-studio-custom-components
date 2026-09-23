@@ -13,7 +13,7 @@ export function renderGjennomfoeringsplanHeader(component, size = "h1") {
         isChildComponent: true,
         size: size,
         resourceBindings: {
-            title: component.resourceBindings?.gjennomfoeringsplan?.title
+            title: component?.resourceBindings?.gjennomfoeringsplan?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -23,16 +23,16 @@ export function renderGjennomfoeringsplanHeader(component, size = "h1") {
  * Renders a subheader for the "Gjennomføringsplan" component.
  *
  * @param {Object} component - The component object containing resource bindings.
- * @param {Object} [component.resourceBindings] - Optional resource bindings for the component.
- * @param {Object} [component.resourceBindings.gjennomfoeringsplan] - Resource bindings specific to "gjennomfoeringsplan".
- * @param {string} [component.resourceBindings.gjennomfoeringsplan.description] - The description to be used as the title.
+ * @param {Object} [component?.resourceBindings] - Optional resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.gjennomfoeringsplan] - Resource bindings specific to "gjennomfoeringsplan".
+ * @param {string} [component?.resourceBindings.gjennomfoeringsplan.description] - The description to be used as the title.
  * @returns {HTMLElement} The rendered custom paragraph text element wrapped in a container.
  */
 export function renderGjennomfoeringsplanSubHeader(component) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         resourceBindings: {
-            title: component.resourceBindings?.gjennomfoeringsplan?.description
+            title: component?.resourceBindings?.gjennomfoeringsplan?.description
         }
     });
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
@@ -50,7 +50,7 @@ export function renderPlanenGjelderHeader(component, size = "h2") {
         isChildComponent: true,
         size: size,
         resourceBindings: {
-            title: component.resourceBindings?.planenGjelder?.title
+            title: component?.resourceBindings?.planenGjelder?.title
         }
     });
     return createCustomElement("custom-header-text", htmlAttributes);
@@ -64,11 +64,11 @@ export function renderPlanenGjelderHeader(component, size = "h2") {
  * with a custom field displaying the version information.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing the version.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.versjon] - The version resource binding.
- * @param {string} [component.resourceBindings.versjon.title] - The title for the version field.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing the version.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.versjon] - The version resource binding.
+ * @param {string} [component?.resourceBindings.versjon.title] - The title for the version field.
  * @returns {HTMLElement} A container element with the rendered version field.
  */
 export function renderVersjon(component) {
@@ -79,7 +79,7 @@ export function renderVersjon(component) {
         hideIfEmpty: true,
         grid,
         resourceBindings: {
-            title: component.resourceBindings?.versjon?.title
+            title: component?.resourceBindings?.versjon?.title
         },
         resourceValues: {
             data: data?.versjon
@@ -92,11 +92,11 @@ export function renderVersjon(component) {
  * Renders the "Kommunens Saksnummer" custom field component.
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceValues.data] - The data values for the component.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.kommunensSaksnummer] - The resource binding for "kommunensSaksnummer".
- * @param {string} [component.resourceBindings.kommunensSaksnummer.title] - The title for the "kommunensSaksnummer" field.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - The data values for the component.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.kommunensSaksnummer] - The resource binding for "kommunensSaksnummer".
+ * @param {string} [component?.resourceBindings.kommunensSaksnummer.title] - The title for the "kommunensSaksnummer" field.
  * @returns {HTMLElement} The rendered custom field component wrapped in a container element.
  */
 export function renderKommunensSaksnummer(component) {
@@ -107,7 +107,7 @@ export function renderKommunensSaksnummer(component) {
         hideIfEmpty: true,
         grid,
         resourceBindings: {
-            title: component.resourceBindings?.kommunensSaksnummer?.title
+            title: component?.resourceBindings?.kommunensSaksnummer?.title
         },
         resourceValues: {
             data: data?.kommunensSaksnummer
@@ -120,13 +120,13 @@ export function renderKommunensSaksnummer(component) {
  * Renders the metadata project name field as a custom element with specific HTML attributes.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing metadata.
- * @param {Object} [component.resourceValues.data.metadata] - The metadata object.
- * @param {string} [component.resourceValues.data.metadata.prosjektnavn] - The project name to display.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.metadataProsjektnavn] - The resource binding for the project name.
- * @param {string} [component.resourceBindings.metadataProsjektnavn.title] - The title for the project name field.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing metadata.
+ * @param {Object} [component?.resourceValues.data.metadata] - The metadata object.
+ * @param {string} [component?.resourceValues.data.metadata.prosjektnavn] - The project name to display.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.metadataProsjektnavn] - The resource binding for the project name.
+ * @param {string} [component?.resourceBindings.metadataProsjektnavn.title] - The title for the project name field.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataProsjektnavn(component) {
@@ -137,7 +137,7 @@ export function renderMetadataProsjektnavn(component) {
         hideIfEmpty: true,
         grid,
         resourceBindings: {
-            title: component.resourceBindings?.metadataProsjektnavn?.title
+            title: component?.resourceBindings?.metadataProsjektnavn?.title
         },
         resourceValues: {
             data: data?.metadata?.prosjektnavn
@@ -150,11 +150,11 @@ export function renderMetadataProsjektnavn(component) {
  * Renders a custom field data element for the metadata FTB ID of a component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values associated with the component.
- * @param {Object} component.resourceValues.data - The data object containing metadata.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.metadataFtbId - The metadata FTB ID bindings.
- * @param {string} component.resourceBindings.metadataFtbId.title - The title for the metadata FTB ID.
+ * @param {Object} component?.resourceValues - The resource values associated with the component.
+ * @param {Object} component?.resourceValues.data - The data object containing metadata.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.metadataFtbId - The metadata FTB ID bindings.
+ * @param {string} component?.resourceBindings.metadataFtbId.title - The title for the metadata FTB ID.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataFtbId(component) {
@@ -165,7 +165,7 @@ export function renderMetadataFtbId(component) {
         hideIfEmpty: true,
         grid,
         resourceBindings: {
-            title: component.resourceBindings?.metadataFtbId?.title
+            title: component?.resourceBindings?.metadataFtbId?.title
         },
         resourceValues: {
             data: data?.metadata?.ftbId
@@ -178,11 +178,11 @@ export function renderMetadataFtbId(component) {
  * Renders a custom table element for displaying property (eiendom) and building location (byggested) information.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing eiendomByggested information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.eiendomByggested] - The resource bindings specific to eiendomByggested.
- * @param {string} [component.resourceBindings.eiendomByggested.title] - The title binding for the eiendomByggested.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing eiendomByggested information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.eiendomByggested] - The resource bindings specific to eiendomByggested.
+ * @param {string} [component?.resourceBindings.eiendomByggested.title] - The title binding for the eiendomByggested.
  * @returns {HTMLElement} The custom table element for displaying property and building location data.
  */
 export function renderEiendomByggested(component) {
@@ -192,7 +192,7 @@ export function renderEiendomByggested(component) {
         hideIfEmpty: true,
         size: "h3",
         resourceBindings: {
-            title: component.resourceBindings?.eiendomByggested?.title
+            title: component?.resourceBindings?.eiendomByggested?.title
         },
         resourceValues: {
             data: data?.eiendomByggested?.eiendom
@@ -208,14 +208,14 @@ export function renderEiendomByggested(component) {
  * responsibility class (from "ansvarligSoekerTiltaksklasse.kodeverdi").
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "ansvarligSoeker" and "ansvarligSoekerTiltaksklasse".
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.ansvarligSoeker] - The resource binding for "ansvarligSoeker".
- * @param {string} [component.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" part.
- * @param {Object} [component.resourceBindings.ansvarligSoekerNavn] - The resource binding for "ansvarligSoekerNavn".
- * @param {Object} [component.resourceBindings.ansvarligSoekerOrganisasjonsnummer] - The resource binding for "ansvarligSoekerOrganisasjonsnummer".
- * @param {Object} [component.resourceBindings.tiltaksklasse] - The resource binding for "tiltaksklasse".
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "ansvarligSoeker" and "ansvarligSoekerTiltaksklasse".
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.ansvarligSoeker] - The resource binding for "ansvarligSoeker".
+ * @param {string} [component?.resourceBindings.ansvarligSoeker.title] - The title for the "ansvarligSoeker" part.
+ * @param {Object} [component?.resourceBindings.ansvarligSoekerNavn] - The resource binding for "ansvarligSoekerNavn".
+ * @param {Object} [component?.resourceBindings.ansvarligSoekerOrganisasjonsnummer] - The resource binding for "ansvarligSoekerOrganisasjonsnummer".
+ * @param {Object} [component?.resourceBindings.tiltaksklasse] - The resource binding for "tiltaksklasse".
  * @returns {HTMLElement} The custom element representing the "Ansvarlig Søker" part.
  */
 export function renderAnsvarligSoeker(component) {
@@ -231,18 +231,18 @@ export function renderAnsvarligSoeker(component) {
         hideIfEmpty: true,
         size: "h3",
         resourceBindings: {
-            title: component.resourceBindings?.ansvarligSoeker?.title,
+            title: component?.resourceBindings?.ansvarligSoeker?.title,
             navn: {
-                title: component.resourceBindings?.ansvarligSoekerNavn?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText
+                title: component?.resourceBindings?.ansvarligSoekerNavn?.title,
+                emptyFieldText: component?.resourceBindings?.ansvarligSoekerNavn?.emptyFieldText
             },
             organisasjonsnummer: {
-                title: component.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.title,
-                emptyFieldText: component.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.emptyFieldText
+                title: component?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.title,
+                emptyFieldText: component?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.emptyFieldText
             },
             tiltaksklasse: {
-                title: component.resourceBindings?.tiltaksklasse?.title,
-                emptyFieldText: component.resourceBindings?.tiltaksklasse?.emptyFieldText
+                title: component?.resourceBindings?.tiltaksklasse?.title,
+                emptyFieldText: component?.resourceBindings?.tiltaksklasse?.emptyFieldText
             }
         },
         resourceValues: {
@@ -256,20 +256,20 @@ export function renderAnsvarligSoeker(component) {
  * Renders a custom element for displaying "ansvarsomraade" (area of responsibility) in a table format.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing gjennomfoeringsplan and ansvarsomraade.
- * @param {Object} [component.resourceBindings] - The resource bindings for various fields.
- * @param {Object} [component.resourceBindings.ansvarsfordeling] - The ansvarsfordeling resource binding.
- * @param {string} [component.resourceBindings.ansvarsfordeling.title] - The title for the ansvarsfordeling.
- * @param {string} [component.resourceBindings.tiltaksklasse] - The tiltaksklasse resource binding.
- * @param {string} [component.resourceBindings.ansvarsomraade] - The ansvarsomraade resource binding.
- * @param {string} [component.resourceBindings.foretak] - The foretak resource binding.
- * @param {string} [component.resourceBindings.planlagteSamsvarKontrollErklaeringer] - The planlagteSamsvarKontrollErklaeringer resource binding.
- * @param {string} [component.resourceBindings.ansvarsomraadeStatus] - The ansvarsomraadeStatus resource binding.
- * @param {string} [component.resourceBindings.samsvarKontrollPlanlagtVedRammetillatelse] - The samsvarKontrollPlanlagtVedRammetillatelse resource binding.
- * @param {string} [component.resourceBindings.samsvarKontrollPlanlagtVedIgangsettingstillatelse] - The samsvarKontrollPlanlagtVedIgangsettingstillatelse resource binding.
- * @param {string} [component.resourceBindings.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse] - The samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse resource binding.
- * @param {string} [component.resourceBindings.samsvarKontrollPlanlagtVedFerdigattest] - The samsvarKontrollPlanlagtVedFerdigattest resource binding.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing gjennomfoeringsplan and ansvarsomraade.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for various fields.
+ * @param {Object} [component?.resourceBindings.ansvarsfordeling] - The ansvarsfordeling resource binding.
+ * @param {string} [component?.resourceBindings.ansvarsfordeling.title] - The title for the ansvarsfordeling.
+ * @param {string} [component?.resourceBindings.tiltaksklasse] - The tiltaksklasse resource binding.
+ * @param {string} [component?.resourceBindings.ansvarsomraade] - The ansvarsomraade resource binding.
+ * @param {string} [component?.resourceBindings.foretak] - The foretak resource binding.
+ * @param {string} [component?.resourceBindings.planlagteSamsvarKontrollErklaeringer] - The planlagteSamsvarKontrollErklaeringer resource binding.
+ * @param {string} [component?.resourceBindings.ansvarsomraadeStatus] - The ansvarsomraadeStatus resource binding.
+ * @param {string} [component?.resourceBindings.samsvarKontrollPlanlagtVedRammetillatelse] - The samsvarKontrollPlanlagtVedRammetillatelse resource binding.
+ * @param {string} [component?.resourceBindings.samsvarKontrollPlanlagtVedIgangsettingstillatelse] - The samsvarKontrollPlanlagtVedIgangsettingstillatelse resource binding.
+ * @param {string} [component?.resourceBindings.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse] - The samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse resource binding.
+ * @param {string} [component?.resourceBindings.samsvarKontrollPlanlagtVedFerdigattest] - The samsvarKontrollPlanlagtVedFerdigattest resource binding.
  * @returns {HTMLElement} The custom element representing the ansvarsomraade table.
  */
 export function renderAnsvarsomraade(component) {
@@ -279,16 +279,16 @@ export function renderAnsvarsomraade(component) {
         hideIfEmpty: true,
         size: "h3",
         resourceBindings: {
-            title: component.resourceBindings?.ansvarsfordeling?.title,
-            tiltaksklasse: component.resourceBindings?.tiltaksklasse,
-            ansvarsomraade: component.resourceBindings?.ansvarsomraade,
-            foretak: component.resourceBindings?.foretak,
-            planlagteSamsvarKontrollErklaeringer: component.resourceBindings?.planlagteSamsvarKontrollErklaeringer,
-            ansvarsomraadeStatus: component.resourceBindings?.ansvarsomraadeStatus,
-            samsvarKontrollPlanlagtVedRammetillatelse: component.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse,
-            samsvarKontrollPlanlagtVedIgangsettingstillatelse: component.resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse,
-            samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: component.resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse,
-            samsvarKontrollPlanlagtVedFerdigattest: component.resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest
+            title: component?.resourceBindings?.ansvarsfordeling?.title,
+            tiltaksklasse: component?.resourceBindings?.tiltaksklasse,
+            ansvarsomraade: component?.resourceBindings?.ansvarsomraade,
+            foretak: component?.resourceBindings?.foretak,
+            planlagteSamsvarKontrollErklaeringer: component?.resourceBindings?.planlagteSamsvarKontrollErklaeringer,
+            ansvarsomraadeStatus: component?.resourceBindings?.ansvarsomraadeStatus,
+            samsvarKontrollPlanlagtVedRammetillatelse: component?.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse,
+            samsvarKontrollPlanlagtVedIgangsettingstillatelse: component?.resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse,
+            samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: component?.resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse,
+            samsvarKontrollPlanlagtVedFerdigattest: component?.resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest
         },
         resourceValues: {
             data: data?.gjennomfoeringsplan?.ansvarsomraade

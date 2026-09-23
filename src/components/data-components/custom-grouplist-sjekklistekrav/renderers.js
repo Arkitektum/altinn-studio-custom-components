@@ -23,9 +23,9 @@ export function renderHeaderElement(title, size = "h2") {
  * Renders a custom group list header element for "sjekklistekrav" (checklist requirements).
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceBindings] - Resource bindings for text values.
- * @param {string} [component.resourceBindings.sjekklistepunkt] - Text to display for checklist points.
- * @param {string} [component.resourceBindings.sjekklistepunktsvar] - Text to display for checklist point answers.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for text values.
+ * @param {string} [component?.resourceBindings.sjekklistepunkt] - Text to display for checklist points.
+ * @param {string} [component?.resourceBindings.sjekklistepunktsvar] - Text to display for checklist point answers.
  * @returns {HTMLElement|null} The custom group list header element or null if required bindings are missing.
  */
 export function renderSjekklistekravGroupListHeader(component) {
@@ -50,10 +50,10 @@ export function renderSjekklistekravGroupListHeader(component) {
  * @param {Object} sjekklistekrav - The checklist requirements data to be rendered.
  * @param {Object} component - The component configuration object.
  * @param {boolean} [component.enableLinks] - Whether to enable links in the rendered element.
- * @param {Object} [component.resourceBindings] - Resource bindings for text values.
- * @param {string} [component.resourceBindings.trueText] - Text to display for true values.
- * @param {string} [component.resourceBindings.falseText] - Text to display for false values.
- * @param {string} [component.resourceBindings.defaultText] - Default text to display.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for text values.
+ * @param {string} [component?.resourceBindings.trueText] - Text to display for true values.
+ * @param {string} [component?.resourceBindings.falseText] - Text to display for false values.
+ * @param {string} [component?.resourceBindings.defaultText] - Default text to display.
  * @returns {HTMLElement} The custom group element for the checklist requirements.
  */
 export function renderSjekklistekravGroup(sjekklistekrav, component) {
@@ -77,8 +77,8 @@ export function renderSjekklistekravGroup(sjekklistekrav, component) {
  * Renders a custom paragraph element displaying the description for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.description] - The description text to display.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.description] - The description text to display.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderDescription(component) {
@@ -96,8 +96,8 @@ export function renderDescription(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

@@ -20,8 +20,8 @@ function renderCustomFieldDataElement(resourceValues) {
  * Renders a list of custom field data elements into a container div.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - The resource values object.
- * @param {Array} [component.resourceValues.data] - The array of data items to render.
+ * @param {Object} [component?.resourceValues] - The resource values object.
+ * @param {Array} [component?.resourceValues.data] - The array of data items to render.
  * @returns {HTMLDivElement} A div element containing the rendered custom field data elements.
  */
 export function renderListFieldElement(component) {

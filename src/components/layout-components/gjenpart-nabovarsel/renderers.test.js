@@ -240,8 +240,11 @@ describe("every renderer", () => {
         }
     });
 
-    // There is deliberately no test for an absent component here. Most of these renderers throw on one, because they
-    // reach for `component.resourceBindings` without a guard, but renderDispensasjonOversiktElement guards it and
-    // renders anyway. That difference looks like an oversight rather than a decision, and pinning it would make it
-    // harder to put right.
+    it("renders without a component at all rather than throwing", () => {
+        // instantiateComponent answers null for a tag name it does not know, and renderCustomComponent hands that
+        // straight to the render callback, so an absent component has to come out as an empty section.
+        for (const [name, render] of Object.entries(renderers)) {
+            expect({ name, rendered: render(undefined) !== undefined }).toEqual({ name, rendered: true });
+        }
+    });
 });

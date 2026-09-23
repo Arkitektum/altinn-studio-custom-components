@@ -23,13 +23,13 @@ export function renderHeaderElement(title, size = "h2") {
  * Renders a custom boolean text field for "Er løfteinnretning i bygning" within a component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceValues.data - The data object containing boolean value.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.erLoefteinnretningIBygning - Bindings for the boolean field.
- * @param {string} component.resourceBindings.erLoefteinnretningIBygning.title - The title for the field.
- * @param {string} component.resourceBindings.erLoefteinnretningIBygning.trueText - Text to display when value is true.
- * @param {string} component.resourceBindings.erLoefteinnretningIBygning.falseText - Text to display when value is false.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceValues.data - The data object containing boolean value.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.erLoefteinnretningIBygning - Bindings for the boolean field.
+ * @param {string} component?.resourceBindings.erLoefteinnretningIBygning.title - The title for the field.
+ * @param {string} component?.resourceBindings.erLoefteinnretningIBygning.trueText - Text to display when value is true.
+ * @param {string} component?.resourceBindings.erLoefteinnretningIBygning.falseText - Text to display when value is false.
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderErLoefteinnretningIBygningElement(component) {
@@ -55,8 +55,8 @@ export function renderErLoefteinnretningIBygningElement(component) {
  * Renders a custom boolean text field for the "planleggesLoefteinnretningIBygning" property of a component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderPlanleggesLoefteinnretningIBygningElement(component) {
@@ -82,8 +82,8 @@ export function renderPlanleggesLoefteinnretningIBygningElement(component) {
  * Renders a custom element for displaying planned lifting devices.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderPlanlagteLoefteinnretningerElement(component) {
@@ -107,8 +107,8 @@ export function renderPlanlagteLoefteinnretningerElement(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

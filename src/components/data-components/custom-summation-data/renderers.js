@@ -5,7 +5,7 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
  * Renders a custom summation data element with specified HTML attributes.
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceValues] - Optional resource values to be passed to the custom element.
+ * @param {Object} [component?.resourceValues] - Optional resource values to be passed to the custom element.
  * @returns {HTMLElement} The created custom summation data element.
  */
 export function renderSummationData(component) {

@@ -22,7 +22,7 @@ export function renderFieldRowElement(component) {
     const cellsElement = document.createElement("div");
     cellsElement.classList.add("custom-field-row-cells");
 
-    const cells = Array.isArray(component?.resourceValues?.data) ? component.resourceValues.data : [];
+    const cells = Array.isArray(component?.resourceValues?.data) ? component?.resourceValues.data : [];
     for (const cell of cells) {
         const cellElement = document.createElement("div");
         cellElement.classList.add("custom-field-row-cell");

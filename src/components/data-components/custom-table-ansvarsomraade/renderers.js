@@ -5,8 +5,8 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
  * Renders a custom table for "Ansvarsomraade" with specified columns and attributes.
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceBindings] - Resource bindings for table columns and title.
- * @param {Object} [component.resourceValues] - Resource values for the table.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for table columns and title.
+ * @param {Object} [component?.resourceValues] - Resource values for the table.
  * @param {string} [component.size] - The size of the table.
  * @returns {HTMLElement} The rendered custom table element.
  */

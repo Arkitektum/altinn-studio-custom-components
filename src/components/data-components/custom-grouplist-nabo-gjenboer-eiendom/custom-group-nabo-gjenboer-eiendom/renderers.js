@@ -10,11 +10,11 @@ import {
  * Renders a custom element for displaying "Nabo Gjenboer Eiendom" data.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing property information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.eiendom] - The resource binding for "eiendom".
- * @param {string} [component.resourceBindings.eiendom.title] - The title for the "eiendom" resource.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing property information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.eiendom] - The resource binding for "eiendom".
+ * @param {string} [component?.resourceBindings.eiendom.title] - The title for the "eiendom" resource.
  * @returns {HTMLElement} The rendered custom table element wrapped in a container.
  */
 export function renderNaboGjenboerEiendomElement(component) {
@@ -38,11 +38,11 @@ export function renderNaboGjenboerEiendomElement(component) {
  * Renders a custom table part element for "eier" (owner) part type.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values associated with the component.
- * @param {Object} component.resourceValues.data - The data object containing "eier" information.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.eier - The resource bindings specific to "eier".
- * @param {string} component.resourceBindings.eier.title - The title for the "eier" part.
+ * @param {Object} component?.resourceValues - The resource values associated with the component.
+ * @param {Object} component?.resourceValues.data - The data object containing "eier" information.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.eier - The resource bindings specific to "eier".
+ * @param {string} component?.resourceBindings.eier.title - The title for the "eier" part.
  * @returns {HTMLElement} The rendered custom table part element wrapped in a container.
  */
 export function renderEierPartElement(component) {
@@ -66,13 +66,13 @@ export function renderEierPartElement(component) {
  * Renders a custom address element for the "eier" (owner) within a group component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "eier" information.
- * @param {Object} [component.resourceValues.data.eier] - The "eier" (owner) object.
- * @param {string} [component.resourceValues.data.eier.adresse] - The address of the "eier".
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.eierAdresse] - The resource binding for the address.
- * @param {string} [component.resourceBindings.eierAdresse.title] - The title for the address field.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "eier" information.
+ * @param {Object} [component?.resourceValues.data.eier] - The "eier" (owner) object.
+ * @param {string} [component?.resourceValues.data.eier.adresse] - The address of the "eier".
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.eierAdresse] - The resource binding for the address.
+ * @param {string} [component?.resourceBindings.eierAdresse.title] - The title for the address field.
  * @returns {HTMLElement} The rendered custom address element wrapped in a container.
  */
 export function renderEierAdresseElement(component) {
@@ -94,11 +94,11 @@ export function renderEierAdresseElement(component) {
  * Renders a custom element displaying the "Respons Nabovarsel Sendt Via" field.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceValues.data] - The data object containing response information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.responsNabovarselSendtVia] - The resource binding for the title.
- * @param {string} [component.resourceBindings.responsNabovarselSendtVia.title] - The title for the field.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing response information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.responsNabovarselSendtVia] - The resource binding for the title.
+ * @param {string} [component?.resourceBindings.responsNabovarselSendtVia.title] - The title for the field.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsNabovarselSendtViaElement(component) {
@@ -124,10 +124,10 @@ export function renderResponsNabovarselSendtViaElement(component) {
  * The element is wrapped in a container element before being returned.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceValues.data - The data object containing "respons".
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.responsNabovarselSendt - The resource binding for the title.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceValues.data - The data object containing "respons".
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.responsNabovarselSendt - The resource binding for the title.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsNabovarselSendtElement(component) {
@@ -153,9 +153,9 @@ export function renderResponsNabovarselSendtElement(component) {
  * from the component's resource values. It then creates a custom element with the appropriate attributes and data.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values, including response data.
- * @param {Object} component.resourceValues.data - The data object containing response flags.
- * @param {Object} component.resourceBindings - The resource bindings for text resources.
+ * @param {Object} component?.resourceValues - The resource values, including response data.
+ * @param {Object} component?.resourceValues.data - The data object containing response flags.
+ * @param {Object} component?.resourceBindings - The resource bindings for text resources.
  * @returns {HTMLElement} The custom element representing the response status.
  */
 export function renderResponsErMerknadEllerSamtykkeMottattElement(component) {
@@ -188,16 +188,16 @@ export function renderResponsErMerknadEllerSamtykkeMottattElement(component) {
  * response flags in the component's resource values.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - Contains the data for the component.
- * @param {Object} component.resourceValues.data - The data object with response information.
- * @param {Object} component.resourceValues.data.respons - The response object.
- * @param {boolean} component.resourceValues.data.respons.erMerknadMottatt - Indicates if a remark was received (true/false/null).
- * @param {boolean} component.resourceValues.data.respons.erSamtykkeMottatt - Indicates if consent was received (true/false/null).
- * @param {string} [component.resourceValues.data.respons.merknadMottattDato] - The date a remark was received.
- * @param {string} [component.resourceValues.data.respons.samtykkeMottattDato] - The date consent was received.
- * @param {Object} component.resourceBindings - Contains title bindings for the fields.
- * @param {string} [component.resourceBindings.responsMerknadMottattDato.title] - The title for the remark received date.
- * @param {string} [component.resourceBindings.responsSamtykkeMottattDato.title] - The title for the consent received date.
+ * @param {Object} component?.resourceValues - Contains the data for the component.
+ * @param {Object} component?.resourceValues.data - The data object with response information.
+ * @param {Object} component?.resourceValues.data.respons - The response object.
+ * @param {boolean} component?.resourceValues.data.respons.erMerknadMottatt - Indicates if a remark was received (true/false/null).
+ * @param {boolean} component?.resourceValues.data.respons.erSamtykkeMottatt - Indicates if consent was received (true/false/null).
+ * @param {string} [component?.resourceValues.data.respons.merknadMottattDato] - The date a remark was received.
+ * @param {string} [component?.resourceValues.data.respons.samtykkeMottattDato] - The date consent was received.
+ * @param {Object} component?.resourceBindings - Contains title bindings for the fields.
+ * @param {string} [component?.resourceBindings.responsMerknadMottattDato.title] - The title for the remark received date.
+ * @param {string} [component?.resourceBindings.responsSamtykkeMottattDato.title] - The title for the consent received date.
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderResponsSamtykkeEllerMerknadMottattElement(component) {
@@ -231,8 +231,8 @@ export function renderResponsSamtykkeEllerMerknadMottattElement(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

@@ -24,7 +24,7 @@ export default customElements.define(
                     } else {
                         host.appendChild(renderErklaeringTekstElement(component));
 
-                        let funksjon = component.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
+                        let funksjon = component?.resourceValues?.data?.funksjon?.kodeverdi?.toUpperCase();
                         if (funksjon === "KONTROLL") {
                             host.appendChild(renderKONTROLLTekstElement(component));
                         }

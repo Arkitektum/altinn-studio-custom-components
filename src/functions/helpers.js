@@ -182,14 +182,14 @@ export function getComponentContainerElement(component) {
 /**
  * Retrieves the data value from a component object.
  *
- * If the component is a child component, it returns the value from `component.resourceValues.data`.
+ * If the component is a child component, it returns the value from `component?.resourceValues.data`.
  * Otherwise, it returns the value from `component.formData.simpleBinding` if available,
  * or falls back to `component.formData.data`.
  *
  * @param {Object} component - The component object to extract the data value from.
  * @param {boolean} component.isChildComponent - Indicates if the component is a child component.
- * @param {Object} [component.resourceValues] - Resource values for child components.
- * @param {*} [component.resourceValues.data] - Data value for child components.
+ * @param {Object} [component?.resourceValues] - Resource values for child components.
+ * @param {*} [component?.resourceValues.data] - Data value for child components.
  * @param {Object} [component.formData] - Form data for non-child components.
  * @param {*} [component.formData.simpleBinding] - Simple binding data for non-child components.
  * @param {*} [component.formData.data] - Data value for non-child components.
@@ -197,7 +197,7 @@ export function getComponentContainerElement(component) {
  */
 export function getComponentDataValue(component) {
     if (component.isChildComponent) {
-        return component.resourceValues?.data;
+        return component?.resourceValues?.data;
     } else {
         if (typeof component.formData?.simpleBinding === "boolean") {
             // Special case for boolean values
@@ -217,7 +217,7 @@ export function getComponentDataValue(component) {
  */
 export function getComponentDataTitle(component) {
     if (component.isChildComponent) {
-        return component.resourceValues?.dataTitle;
+        return component?.resourceValues?.dataTitle;
     } else if (component.formData?.dataTitle != null) {
         return component.formData?.dataTitle;
     }
@@ -230,10 +230,10 @@ export function getComponentDataTitle(component) {
  *
  * @param {Object} component - The component object to extract data from.
  * @param {boolean} component.isChildComponent - Indicates if the component is a child component.
- * @param {Object} [component.resourceValues] - Resource values for child components.
- * @param {*} [component.resourceValues.trueData] - Data value for true state in resource values.
- * @param {*} [component.resourceValues.falseData] - Data value for false state in resource values.
- * @param {*} [component.resourceValues.defaultData] - Data value for default state in resource values.
+ * @param {Object} [component?.resourceValues] - Resource values for child components.
+ * @param {*} [component?.resourceValues.trueData] - Data value for true state in resource values.
+ * @param {*} [component?.resourceValues.falseData] - Data value for false state in resource values.
+ * @param {*} [component?.resourceValues.defaultData] - Data value for default state in resource values.
  * @param {Object} [component.formData] - Form data for non-child components.
  * @param {*} [component.formData.trueData] - Data value for true state in form data.
  * @param {*} [component.formData.falseData] - Data value for false state in form data.
@@ -243,9 +243,9 @@ export function getComponentDataTitle(component) {
 export function getComponentBooleanDataValues(component) {
     if (component.isChildComponent) {
         return {
-            trueData: component.resourceValues?.trueData,
-            falseData: component.resourceValues?.falseData,
-            defaultData: component.resourceValues?.defaultData
+            trueData: component?.resourceValues?.trueData,
+            falseData: component?.resourceValues?.falseData,
+            defaultData: component?.resourceValues?.defaultData
         };
     }
     return {
@@ -265,9 +265,9 @@ export function getComponentBooleanDataValues(component) {
  */
 export function getComponentBooleanTextValues(component, resourceBindings) {
     return {
-        trueText: component.resourceValues?.trueText || getTextResourceFromResourceBinding(resourceBindings?.trueText),
-        falseText: component.resourceValues?.falseText || getTextResourceFromResourceBinding(resourceBindings?.falseText),
-        defaultText: component.resourceValues?.defaultText || getTextResourceFromResourceBinding(resourceBindings?.defaultText)
+        trueText: component?.resourceValues?.trueText || getTextResourceFromResourceBinding(resourceBindings?.trueText),
+        falseText: component?.resourceValues?.falseText || getTextResourceFromResourceBinding(resourceBindings?.falseText),
+        defaultText: component?.resourceValues?.defaultText || getTextResourceFromResourceBinding(resourceBindings?.defaultText)
     };
 }
 
@@ -282,7 +282,7 @@ export function getComponentBooleanTextValues(component, resourceBindings) {
  */
 export function getComponentResourceValue(component, resourceKey) {
     if (hasValue(component?.resourceValues?.[resourceKey])) {
-        return component.resourceValues?.[resourceKey];
+        return component?.resourceValues?.[resourceKey];
     } else {
         return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey]);
     }

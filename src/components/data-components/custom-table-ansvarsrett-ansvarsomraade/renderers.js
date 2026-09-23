@@ -5,8 +5,8 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
  * Renders a custom table for "Ansvarsrett Ansvarsomraade" with specified columns and attributes.
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceBindings] - Resource bindings for table columns and title.
- * @param {Object} [component.resourceValues] - Resource values for the table.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for table columns and title.
+ * @param {Object} [component?.resourceValues] - Resource values for the table.
  * @param {string} [component.size] - The size of the table.
  * @returns {HTMLElement} The rendered custom table element.
  */
@@ -117,8 +117,8 @@ function setErklaeringTitle(component, funksjonListe) {
 
 function setFunksjonListe(component) {
     const funksjonListe = [];
-    if (component?.resourceValues?.data && Array.isArray(component.resourceValues.data)) {
-        component.resourceValues.data.forEach((element) => {
+    if (component?.resourceValues?.data && Array.isArray(component?.resourceValues.data)) {
+        component?.resourceValues.data.forEach((element) => {
             const kodeverdi = element?.funksjon?.kodeverdi;
             if (typeof kodeverdi === "string" && kodeverdi) {
                 funksjonListe.push(kodeverdi.toUpperCase());

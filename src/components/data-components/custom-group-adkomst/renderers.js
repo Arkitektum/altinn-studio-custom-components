@@ -23,8 +23,8 @@ export function renderHeaderElement(title, size = "h3") {
  * Renders a custom boolean text field element for "Er Ny Eller Endret Adkomst".
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderErNyEllerEndretAdkomstElement(component) {
@@ -50,10 +50,10 @@ export function renderErNyEllerEndretAdkomstElement(component) {
  * Renders a custom element for displaying vegtype and tillatelse information.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {string} [component.resourceBindings.adkomstVegtype] - The resource binding for vegtype.
- * @param {string} [component.resourceBindings.adkomstErTillatelseGitt] - The resource binding for tillatelse.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {string} [component?.resourceBindings.adkomstVegtype] - The resource binding for vegtype.
+ * @param {string} [component?.resourceBindings.adkomstErTillatelseGitt] - The resource binding for tillatelse.
  * @returns {HTMLElement} The rendered custom element.
  */
 export function renderVegtypeTillatelseElement(component) {
@@ -76,8 +76,8 @@ export function renderVegtypeTillatelseElement(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

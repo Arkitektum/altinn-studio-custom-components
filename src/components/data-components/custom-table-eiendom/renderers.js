@@ -9,8 +9,8 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
  * and some columns allow style overrides.
  *
  * @param {Object} component - The component configuration object containing resource bindings and values.
- * @param {Object} [component.resourceBindings] - Resource bindings for column titles and empty field text.
- * @param {Object} [component.resourceValues] - Resource values for the table.
+ * @param {Object} [component?.resourceBindings] - Resource bindings for column titles and empty field text.
+ * @param {Object} [component?.resourceValues] - Resource values for the table.
  * @param {string} [component.size] - Size attribute for the custom table element.
  * @returns {HTMLElement} The rendered custom table element.
  */

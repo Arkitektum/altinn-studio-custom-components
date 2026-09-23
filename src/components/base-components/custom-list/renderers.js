@@ -25,8 +25,8 @@ function renderFieldTitleElement(fieldTitle, fieldTitleId) {
  * Renders a list element (ul or ol) with items from component data
  * @param {Object} component - The component object containing list configuration
  * @param {string} [component.listType] - Type of list element to create ('ul' or 'ol')
- * @param {Object} [component.resourceValues] - Container for list data
- * @param {Array<string>} [component.resourceValues.data] - Array of list item content
+ * @param {Object} [component?.resourceValues] - Container for list data
+ * @param {Array<string>} [component?.resourceValues.data] - Array of list item content
  * @param {Object} [component.styleOverride] - Style overrides to apply to the list element
  * @param {boolean} [returnHtml=true] - Whether to return HTML string or DOM element
  * @param {string} [listType="ul"] - Default list type if not specified in component
@@ -54,8 +54,8 @@ export function renderListElement(component, returnHtml = true, listType = "ul")
  * aria-labelledby for accessibility.
  *
  * @param {Object} component - The component configuration object
- * @param {Object} [component.resourceValues] - Resource values containing component text
- * @param {string} [component.resourceValues.title] - The title text for the field
+ * @param {Object} [component?.resourceValues] - Resource values containing component text
+ * @param {string} [component?.resourceValues.title] - The title text for the field
  * @returns {string} The outer HTML string of the rendered field element
  */
 export function renderListFieldElement(component) {

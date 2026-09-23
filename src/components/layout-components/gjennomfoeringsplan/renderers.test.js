@@ -189,11 +189,11 @@ describe("every renderer", () => {
         }
     });
 
-    it("needs a component to render from", () => {
-        // Documented rather than desired: resourceValues is reached through `component?.` but resourceBindings is not,
-        // so an absent component throws here rather than rendering nothing.
-        for (const render of Object.values(renderers)) {
-            expect(() => render(undefined)).toThrow(TypeError);
+    it("renders without a component at all rather than throwing", () => {
+        // instantiateComponent answers null for a tag name it does not know, and renderCustomComponent hands that
+        // straight to the render callback, so an absent component has to come out as an empty section.
+        for (const [name, render] of Object.entries(renderers)) {
+            expect({ name, threw: false, rendered: render(undefined) !== undefined }).toEqual({ name, threw: false, rendered: true });
         }
     });
 });

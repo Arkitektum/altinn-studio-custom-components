@@ -9,9 +9,9 @@ import { renderLayoutContainerElement } from "../../../../functions/helpers.js";
  * Creates a custom field element with the checklist item title spanning 11 columns.
  *
  * @param {Object} component - The component object containing resource values and configuration
- * @param {Object} [component.resourceValues] - Resource values for the component
- * @param {Object} [component.resourceValues.data] - Data containing checklist item values
- * @param {string} [component.resourceValues.data.sjekklistepunkt] - The checklist item text
+ * @param {Object} [component?.resourceValues] - Resource values for the component
+ * @param {Object} [component?.resourceValues.data] - Data containing checklist item values
+ * @param {string} [component?.resourceValues.data.sjekklistepunkt] - The checklist item text
  * @param {boolean} [component.enableLinks] - Whether to enable links in the component
  * @returns {HTMLElement} A container element with the custom field for the checklist item text
  */
@@ -36,9 +36,9 @@ export function renderSjekklistepunkTextHeader(component) {
  * Creates a custom field element with the checklist item answer title spanning 1 column.
  *
  * @param {Object} component - The component object containing resource values and configuration
- * @param {Object} [component.resourceValues] - Resource values for the component
- * @param {Object} [component.resourceValues.data] - Data containing checklist item values
- * @param {string} [component.resourceValues.data.sjekklistepunktsvar] - The checklist item answer text
+ * @param {Object} [component?.resourceValues] - Resource values for the component
+ * @param {Object} [component?.resourceValues.data] - Data containing checklist item values
+ * @param {string} [component?.resourceValues.data.sjekklistepunktsvar] - The checklist item answer text
  * @returns {HTMLElement} A container element with the custom field for the checklist item value
  */
 export function renderSjekklistepunkValueHeader(component) {
@@ -61,10 +61,10 @@ export function renderSjekklistepunkValueHeader(component) {
  * Combines both the text header and value header components in a layout container.
  *
  * @param {Object} component - The component object containing resource values and configuration
- * @param {Object} [component.resourceValues] - Resource values for the component
- * @param {Object} [component.resourceValues.data] - Data containing checklist item values
- * @param {string} [component.resourceValues.data.sjekklistepunkt] - The checklist item text
- * @param {string} [component.resourceValues.data.sjekklistepunktsvar] - The checklist item answer text
+ * @param {Object} [component?.resourceValues] - Resource values for the component
+ * @param {Object} [component?.resourceValues.data] - Data containing checklist item values
+ * @param {string} [component?.resourceValues.data.sjekklistepunkt] - The checklist item text
+ * @param {string} [component?.resourceValues.data.sjekklistepunktsvar] - The checklist item answer text
  * @param {boolean} [component.enableLinks] - Whether to enable links in the component
  * @returns {HTMLElement} A layout container element containing both header components
  */

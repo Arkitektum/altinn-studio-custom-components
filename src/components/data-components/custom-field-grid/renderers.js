@@ -37,7 +37,7 @@ export function renderFieldGridElement(component) {
         bodyElement.appendChild(valueHeaderElement);
     }
 
-    const rows = Array.isArray(component?.resourceValues?.data) ? component.resourceValues.data : [];
+    const rows = Array.isArray(component?.resourceValues?.data) ? component?.resourceValues.data : [];
     for (const row of rows) {
         if (row?.isEmpty) {
             continue;

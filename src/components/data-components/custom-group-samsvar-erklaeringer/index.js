@@ -29,7 +29,7 @@ export default customElements.define(
                         const emptyFieldTextElement = renderEmptyFieldText(component);
                         host.appendChild(emptyFieldTextElement);
                     } else {
-                        component.resourceValues?.data?.forEach((element) => {
+                        component?.resourceValues?.data?.forEach((element) => {
                             funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase());
                         });
 

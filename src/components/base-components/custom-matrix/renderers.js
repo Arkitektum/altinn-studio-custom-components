@@ -94,11 +94,11 @@ export function renderHeaderElement(title, size) {
  * Renders a matrix element based on the provided component configuration.
  *
  * @param {Object} component - The component configuration object.
- * @param {Object} [component.resourceValues] - Resource values for the matrix.
- * @param {Object} [component.resourceValues.data] - Data for matrix headers and rows.
- * @param {string[]} [component.resourceValues.data.matrixHeaders] - Array of matrix header strings.
- * @param {Array} [component.resourceValues.data.matrixRows] - Array of matrix row data.
- * @param {string} [component.resourceValues.title] - Title for the matrix caption.
+ * @param {Object} [component?.resourceValues] - Resource values for the matrix.
+ * @param {Object} [component?.resourceValues.data] - Data for matrix headers and rows.
+ * @param {string[]} [component?.resourceValues.data.matrixHeaders] - Array of matrix header strings.
+ * @param {Array} [component?.resourceValues.data.matrixRows] - Array of matrix row data.
+ * @param {string} [component?.resourceValues.title] - Title for the matrix caption.
  * @param {boolean} [component.hideTitle] - If true, hides the matrix title.
  * @param {string} [component.size] - Size of the matrix header element.
  * @param {Object} [component.styleOverride] - Style overrides for the matrix element.

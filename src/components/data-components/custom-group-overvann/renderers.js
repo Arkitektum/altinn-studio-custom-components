@@ -26,14 +26,14 @@ export function renderHeaderElement(title, size = "h3") {
  * with localized text, based on the provided component's resource bindings and values.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} component.resourceBindings - Resource bindings for localization.
- * @param {Object} component.resourceBindings.ledesOvervannTilTerreng - Bindings for the specific field.
- * @param {string} component.resourceBindings.ledesOvervannTilTerreng.title - The title for the field.
- * @param {string} component.resourceBindings.ledesOvervannTilTerreng.trueText - Text to display when value is true.
- * @param {string} component.resourceBindings.ledesOvervannTilTerreng.falseText - Text to display when value is false.
- * @param {Object} component.resourceValues - Resource values containing data.
- * @param {Object} component.resourceValues.data - Data object for the field.
- * @param {boolean} component.resourceValues.data.ledesOvervannTilTerreng - Boolean value to display.
+ * @param {Object} component?.resourceBindings - Resource bindings for localization.
+ * @param {Object} component?.resourceBindings.ledesOvervannTilTerreng - Bindings for the specific field.
+ * @param {string} component?.resourceBindings.ledesOvervannTilTerreng.title - The title for the field.
+ * @param {string} component?.resourceBindings.ledesOvervannTilTerreng.trueText - Text to display when value is true.
+ * @param {string} component?.resourceBindings.ledesOvervannTilTerreng.falseText - Text to display when value is false.
+ * @param {Object} component?.resourceValues - Resource values containing data.
+ * @param {Object} component?.resourceValues.data - Data object for the field.
+ * @param {boolean} component?.resourceValues.data.ledesOvervannTilTerreng - Boolean value to display.
  * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
 export function renderLedesOvervannTilTerrengElement(component) {
@@ -59,8 +59,8 @@ export function renderLedesOvervannTilTerrengElement(component) {
  * Renders a custom boolean text field element for "ledesOvervannTilAvloepssystem".
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderLedesOvervannTilAvloepssystemElement(component) {
@@ -86,8 +86,8 @@ export function renderLedesOvervannTilAvloepssystemElement(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

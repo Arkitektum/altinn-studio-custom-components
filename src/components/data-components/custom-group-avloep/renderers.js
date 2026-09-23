@@ -23,13 +23,13 @@ export function renderHeaderElement(title, size = "h3") {
  * Renders a custom element for displaying the "tilknytningstype" field of a component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "tilknytningstype".
- * @param {Object} [component.resourceValues.data.tilknytningstype] - The tilknytningstype object.
- * @param {string} [component.resourceValues.data.tilknytningstype.kodebeskrivelse] - The description code for tilknytningstype.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.tilknytningstype] - The tilknytningstype resource binding.
- * @param {string} [component.resourceBindings.tilknytningstype.title] - The title for the tilknytningstype field.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "tilknytningstype".
+ * @param {Object} [component?.resourceValues.data.tilknytningstype] - The tilknytningstype object.
+ * @param {string} [component?.resourceValues.data.tilknytningstype.kodebeskrivelse] - The description code for tilknytningstype.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.tilknytningstype] - The tilknytningstype resource binding.
+ * @param {string} [component?.resourceBindings.tilknytningstype.title] - The title for the tilknytningstype field.
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderTilknytningstypeElement(component) {
@@ -54,11 +54,11 @@ export function renderTilknytningstypeElement(component) {
  * based on the provided component's resource values and bindings. It wraps the element in a container.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing the description.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.beskrivelse] - The bindings for the description.
- * @param {string} [component.resourceBindings.beskrivelse.title] - The title for the description.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing the description.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.beskrivelse] - The bindings for the description.
+ * @param {string} [component?.resourceBindings.beskrivelse.title] - The title for the description.
  * @returns {HTMLElement} The rendered custom description element wrapped in a container.
  */
 export function renderBeskrivelseElement(component) {
@@ -84,8 +84,8 @@ export function renderBeskrivelseElement(component) {
  * using resource bindings and values from the provided component object.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderKrysserAvloepAnnensGrunnElement(component) {
@@ -115,13 +115,13 @@ export function renderKrysserAvloepAnnensGrunnElement(component) {
  * as a renderer for a boolean field indicating whether a registered declaration exists.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceValues.data - The data object containing field values.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.harTinglystErklaering - Resource bindings for the specific field.
- * @param {string} component.resourceBindings.harTinglystErklaering.title - The title for the field.
- * @param {string} component.resourceBindings.harTinglystErklaering.trueText - Text to display when value is true.
- * @param {string} component.resourceBindings.harTinglystErklaering.falseText - Text to display when value is false.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceValues.data - The data object containing field values.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.harTinglystErklaering - Resource bindings for the specific field.
+ * @param {string} component?.resourceBindings.harTinglystErklaering.title - The title for the field.
+ * @param {string} component?.resourceBindings.harTinglystErklaering.trueText - Text to display when value is true.
+ * @param {string} component?.resourceBindings.harTinglystErklaering.falseText - Text to display when value is false.
  * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
  */
 export function renderHarTinglystErklaeringElement(component) {
@@ -151,13 +151,13 @@ export function renderHarTinglystErklaeringElement(component) {
  * as a renderer for a boolean field indicating whether a water closet will be installed.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceValues.data - The data object containing field values.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.skalInstallereVannklosett - Resource bindings for the specific field.
- * @param {string} component.resourceBindings.skalInstallereVannklosett.title - The title for the field.
- * @param {string} component.resourceBindings.skalInstallereVannklosett.trueText - Text to display when value is true.
- * @param {string} component.resourceBindings.skalInstallereVannklosett.falseText - Text to display when value is false.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceValues.data - The data object containing field values.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.skalInstallereVannklosett - Resource bindings for the specific field.
+ * @param {string} component?.resourceBindings.skalInstallereVannklosett.title - The title for the field.
+ * @param {string} component?.resourceBindings.skalInstallereVannklosett.trueText - Text to display when value is true.
+ * @param {string} component?.resourceBindings.skalInstallereVannklosett.falseText - Text to display when value is false.
  * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
  */
 export function renderSkalInstallereVannklosettElement(component) {
@@ -187,13 +187,13 @@ export function renderSkalInstallereVannklosettElement(component) {
  * as a renderer for a boolean field indicating whether a discharge permit exists.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component.resourceValues - The resource values for the component.
- * @param {Object} component.resourceValues.data - The data object containing field values.
- * @param {Object} component.resourceBindings - The resource bindings for the component.
- * @param {Object} component.resourceBindings.harUtslippstillatelse - Resource bindings for the specific field.
- * @param {string} component.resourceBindings.harUtslippstillatelse.title - The title for the field.
- * @param {string} component.resourceBindings.harUtslippstillatelse.trueText - Text to display when value is true.
- * @param {string} component.resourceBindings.harUtslippstillatelse.falseText - Text to display when value is false.
+ * @param {Object} component?.resourceValues - The resource values for the component.
+ * @param {Object} component?.resourceValues.data - The data object containing field values.
+ * @param {Object} component?.resourceBindings - The resource bindings for the component.
+ * @param {Object} component?.resourceBindings.harUtslippstillatelse - Resource bindings for the specific field.
+ * @param {string} component?.resourceBindings.harUtslippstillatelse.title - The title for the field.
+ * @param {string} component?.resourceBindings.harUtslippstillatelse.trueText - Text to display when value is true.
+ * @param {string} component?.resourceBindings.harUtslippstillatelse.falseText - Text to display when value is false.
  * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
  */
 export function renderHarUtslippstillatelseElement(component) {
@@ -219,8 +219,8 @@ export function renderHarUtslippstillatelseElement(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

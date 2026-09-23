@@ -26,14 +26,14 @@ export function renderHeaderElement(title, size = "h2") {
  * constructs the necessary HTML attributes, and returns the custom element.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing adkomst information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.adkomst] - The adkomst resource binding.
- * @param {string} [component.resourceBindings.adkomst.title] - The title for the adkomst element.
- * @param {string} [component.resourceBindings.adkomstErNyEllerEndretAdkomst] - Indicates if the adkomst is new or changed.
- * @param {string} [component.resourceBindings.adkomstVegtype] - The type of road (vegtype) for the adkomst.
- * @param {string} [component.resourceBindings.adkomstErTillatelseGitt] - Indicates if the adkomst has been granted permission.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing adkomst information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.adkomst] - The adkomst resource binding.
+ * @param {string} [component?.resourceBindings.adkomst.title] - The title for the adkomst element.
+ * @param {string} [component?.resourceBindings.adkomstErNyEllerEndretAdkomst] - Indicates if the adkomst is new or changed.
+ * @param {string} [component?.resourceBindings.adkomstVegtype] - The type of road (vegtype) for the adkomst.
+ * @param {string} [component?.resourceBindings.adkomstErTillatelseGitt] - Indicates if the adkomst has been granted permission.
  * @returns {HTMLElement} The rendered custom "adkomst" element.
  */
 export function renderAdkomstElement(component) {
@@ -58,14 +58,14 @@ export function renderAdkomstElement(component) {
  * Renders a custom group element for "avløp" (sewage) with specific HTML attributes.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceValues.data] - The data object containing avløp information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.avloep] - The resource binding for avløp.
- * @param {string} [component.resourceBindings.avloep.title] - The title for the avløp element.
- * @param {string} [component.resourceBindings.avloepHarTinglystErklaering] - Binding for "har tinglyst erklæring".
- * @param {string} [component.resourceBindings.avloepKrysserAvloepAnnensGrunn] - Binding for "krysser avløp annens grunn".
- * @param {string} [component.resourceBindings.avloepTilknytningstype] - Binding for "tilknytningstype".
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing avløp information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.avloep] - The resource binding for avløp.
+ * @param {string} [component?.resourceBindings.avloep.title] - The title for the avløp element.
+ * @param {string} [component?.resourceBindings.avloepHarTinglystErklaering] - Binding for "har tinglyst erklæring".
+ * @param {string} [component?.resourceBindings.avloepKrysserAvloepAnnensGrunn] - Binding for "krysser avløp annens grunn".
+ * @param {string} [component?.resourceBindings.avloepTilknytningstype] - Binding for "tilknytningstype".
  * @returns {HTMLElement} The rendered custom group avløp element.
  */
 export function renderAvloepElement(component) {
@@ -92,13 +92,13 @@ export function renderAvloepElement(component) {
  * Renders a custom "overvann" (stormwater) element using the provided component's resource values and bindings.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing "overvann" information.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component.resourceBindings.overvann] - The resource binding for "overvann" with a title.
- * @param {string} [component.resourceBindings.overvann.title] - The title for the "overvann" section.
- * @param {string} [component.resourceBindings.overvannLedesOvervannTilAvloepssystem] - Binding for "ledesOvervannTilAvloepssystem".
- * @param {string} [component.resourceBindings.overvannLedesOvervannTilTerreng] - Binding for "ledesOvervannTilTerreng".
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "overvann" information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.overvann] - The resource binding for "overvann" with a title.
+ * @param {string} [component?.resourceBindings.overvann.title] - The title for the "overvann" section.
+ * @param {string} [component?.resourceBindings.overvannLedesOvervannTilAvloepssystem] - Binding for "ledesOvervannTilAvloepssystem".
+ * @param {string} [component?.resourceBindings.overvannLedesOvervannTilTerreng] - Binding for "ledesOvervannTilTerreng".
  * @returns {HTMLElement} The rendered custom "overvann" element.
  */
 export function renderOvervannElement(component) {
@@ -122,15 +122,15 @@ export function renderOvervannElement(component) {
  * Renders a custom vannforsyning (water supply) element using the provided component's resource bindings and values.
  *
  * @param {Object} component - The component object containing resource bindings and values.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing vannforsyning information.
- * @param {Object} [component.resourceBindings] - The resource bindings for vannforsyning fields.
- * @param {Object} [component.resourceBindings.vannforsyning] - The vannforsyning resource binding.
- * @param {string} [component.resourceBindings.vannforsyning.title] - The title for vannforsyning.
- * @param {string} [component.resourceBindings.vannforsyningBeskrivelse] - The description for vannforsyning.
- * @param {string} [component.resourceBindings.vannforsyningHarTinglystErklaering] - Indicates if there is a registered declaration.
- * @param {string} [component.resourceBindings.vannforsyningKrysserVannforsyningAnnensGrunn] - Indicates if the water supply crosses another's property.
- * @param {string} [component.resourceBindings.vannforsyningTilknytningstype] - The type of connection for vannforsyning.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing vannforsyning information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for vannforsyning fields.
+ * @param {Object} [component?.resourceBindings.vannforsyning] - The vannforsyning resource binding.
+ * @param {string} [component?.resourceBindings.vannforsyning.title] - The title for vannforsyning.
+ * @param {string} [component?.resourceBindings.vannforsyningBeskrivelse] - The description for vannforsyning.
+ * @param {string} [component?.resourceBindings.vannforsyningHarTinglystErklaering] - Indicates if there is a registered declaration.
+ * @param {string} [component?.resourceBindings.vannforsyningKrysserVannforsyningAnnensGrunn] - Indicates if the water supply crosses another's property.
+ * @param {string} [component?.resourceBindings.vannforsyningTilknytningstype] - The type of connection for vannforsyning.
  * @returns {HTMLElement} The rendered vannforsyning custom element.
  */
 export function renderVannforsyningElement(component) {
@@ -156,8 +156,8 @@ export function renderVannforsyningElement(component) {
  * Renders a custom paragraph element displaying the empty field text for a given component.
  *
  * @param {Object} component - The component object containing resource values.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {string} [component.resourceValues.data] - The text to display as the empty field.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
  * @returns {HTMLElement} The custom paragraph element with the specified attributes.
  */
 export function renderEmptyFieldText(component) {

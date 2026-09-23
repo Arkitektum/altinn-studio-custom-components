@@ -23,8 +23,8 @@ export function renderHeaderElement(title, size = "h3") {
  * Renders a custom field data element for the "beskrivelse" property of the given component.
  *
  * @param {Object} component - The component object containing resource values and configuration.
- * @param {Object} [component.resourceValues] - Resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - Data object containing the "beskrivelse" property.
+ * @param {Object} [component?.resourceValues] - Resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - Data object containing the "beskrivelse" property.
  * @param {boolean} [component.enableLinks] - Flag to enable or disable links in the rendered element.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
@@ -64,9 +64,9 @@ export function renderStatusElement(component) {
  * Renders a custom field data element for the "tema" (topic) code description.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - Resource values for the component.
- * @param {Object} [component.resourceValues.data] - Data object containing "tema".
- * @param {Object} [component.resourceBindings] - Resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - Resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - Data object containing "tema".
+ * @param {Object} [component?.resourceBindings] - Resource bindings for the component.
  * @param {boolean} [component.enableLinks] - Flag to enable links in the rendered element.
  * @returns {HTMLElement} The rendered custom field data container element.
  */
@@ -90,8 +90,8 @@ export function renderTemaElement(component) {
  * Renders a custom comment element for a component.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values for the component.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
  * @param {boolean} [component.enableLinks] - Flag to enable links in the element.
  * @returns {HTMLElement} The rendered custom comment element wrapped in a container.
  */
@@ -116,9 +116,9 @@ export function renderKommentarElement(component) {
  * Renders a custom list element for attachments ("vedleggsliste").
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component.resourceValues] - The resource values associated with the component.
- * @param {Object} [component.resourceValues.data] - The data object containing vedleggsliste.
- * @param {Object} [component.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing vedleggsliste.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
  * @returns {HTMLElement} The rendered custom list element wrapped in a container.
  */
 export function renderVedleggslisteElement(component) {
