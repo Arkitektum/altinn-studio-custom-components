@@ -1,5 +1,5 @@
 // Dependencies
-import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
  *
@@ -73,9 +73,13 @@ export function renderBestemmelseHeader(component, size = "h2") {
  * @returns {HTMLElement} A custom field data element with the appropriate resource binding for the title and the determined data value.
  */
 export function renderPlannavnParagrafnummer(component) {
+    const plannavn = component?.resourceValues?.data?.plannavn;
+    const paragrafnummer = component?.resourceValues?.data?.paragrafnummer;
+    // A provision belonging to a plan is named by the plan and the section together, but either may be missing,
+    // and joining them blindly would write the word "undefined" into the document.
     const data = component?.isPlanBestemmelsesType
-        ? `${component?.resourceValues?.data?.plannavn} ${component?.resourceValues?.data?.paragrafnummer}`
-        : component?.resourceValues?.data?.paragrafnummer;
+        ? [plannavn, paragrafnummer].filter((part) => hasValue(part)).join(" ")
+        : paragrafnummer;
     const title = component?.resourceValues?.data?.bestemmelsestype?.kodebeskrivelse;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,

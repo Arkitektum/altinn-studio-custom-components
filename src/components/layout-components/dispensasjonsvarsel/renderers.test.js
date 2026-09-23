@@ -102,6 +102,24 @@ describe("the provision being departed from", () => {
         // An act is already named by the heading above, so repeating it in every row would only add noise.
         expect(attributes(renderers.renderPlannavnParagrafnummer(component)).resourceValues).toEqual({ data: "5" });
     });
+
+    /** The value shown for a plan provision holding only what is given here. */
+    const planProvision = (data) =>
+        attributes(renderers.renderPlannavnParagrafnummer({ isPlanBestemmelsesType: true, resourceValues: { data } })).resourceValues;
+
+    it("shows whichever of the two is there when the other is missing", () => {
+        // Joining them blindly wrote the word "undefined" into the document, which no reader could make sense of.
+        expect(planProvision({ paragrafnummer: "5" })).toEqual({ data: "5" });
+        expect(planProvision({ plannavn: "Kommuneplan" })).toEqual({ data: "Kommuneplan" });
+    });
+
+    it("shows nothing at all when neither is there, so the field can hide itself", () => {
+        expect(planProvision({})).toBeNull();
+    });
+
+    it("keeps a section number of zero, which is a number rather than nothing", () => {
+        expect(planProvision({ plannavn: "Kommuneplan", paragrafnummer: 0 })).toEqual({ data: "Kommuneplan 0" });
+    });
 });
 
 describe("the text of the provision", () => {
