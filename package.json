@@ -36,6 +36,7 @@
     "devDependencies": {
         "@babel/preset-env": "^8.0.6",
         "@eslint/js": "^10.0.1",
+        "@microsoft/eslint-formatter-sarif": "^3.1.0",
         "copyfiles": "^2.4.1",
         "css-loader": "^7.1.5",
         "css-minimizer-webpack-plugin": "^8.0.0",
