@@ -1,0 +1,50 @@
+// Dependencies
+import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
+/**
+ * Renders a feedback list element with the given title, feedback messages, feedback type, and optional style override.
+ *
+ * @param {string} title - The title of the feedback list.
+ * @param {Array<string>} feedbackMessages - An array of feedback messages to be displayed.
+ * @param {string} feedbackType - The type of feedback (e.g., "error", "warning", "info").
+ * @param {Object} [styleOverride] - Optional style overrides to be applied to the feedback list element.
+ * @returns {string} The outer HTML of the rendered feedback list element.
+ */
+export function renderFeedbackListElement(
+    title: string,
+    feedbackMessages: unknown[],
+    feedbackType: string | undefined,
+    styleOverride?: Record<string, string>
+) {
+    const feedbackDetailsElement = document.createElement("details");
+    feedbackDetailsElement.classList.add("feedback-details");
+    feedbackDetailsElement.classList.add(feedbackType!);
+    feedbackDetailsElement.setAttribute("open", true as unknown as string);
+    addStyle(feedbackDetailsElement, styleOverride);
+
+    const summaryElement = document.createElement("summary");
+    summaryElement.classList.add("feedback-summary");
+    // Use textContent so any HTML-like content in the title is rendered as text, not interpreted (XSS-safe).
+    summaryElement.textContent = title;
+    feedbackDetailsElement.appendChild(summaryElement);
+
+    const feedbackListElement = document.createElement("div");
+    feedbackListElement.classList.add("feedback-list");
+
+    feedbackMessages.forEach((message: unknown) => {
+        const feedbackListItemElement = document.createElement("div");
+        feedbackListItemElement.classList.add("feedback-list-item");
+        const htmlAttributes = new CustomElementHtmlAttributes({
+            isChildComponent: true,
+            feedbackType: "default",
+            resourceValues: {
+                data: message
+            }
+        });
+        feedbackListItemElement.appendChild(createCustomElement("custom-feedback-data", htmlAttributes));
+        feedbackListElement.appendChild(feedbackListItemElement);
+    });
+
+    feedbackDetailsElement.appendChild(feedbackListElement);
+    return feedbackDetailsElement.outerHTML;
+}

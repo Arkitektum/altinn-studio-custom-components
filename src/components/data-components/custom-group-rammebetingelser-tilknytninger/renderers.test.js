@@ -1,5 +1,5 @@
-import * as adkomstRenderers from "../custom-group-adkomst/renderers.js";
-import * as avloepRenderers from "../custom-group-avloep/renderers.js";
+import * as adkomstRenderers from "../custom-group-adkomst/renderers.ts";
+import * as avloepRenderers from "../custom-group-avloep/renderers.ts";
 import * as overvannRenderers from "../custom-group-overvann/renderers.js";
 import * as renderers from "./renderers.js";
 import * as vannforsyningRenderers from "../custom-group-vannforsyning/renderers.js";

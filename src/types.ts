@@ -175,6 +175,8 @@ export interface InstantiatedComponent {
     order?: ComponentOrder;
     /** Which list element a list component renders as. */
     listType?: string;
+    /** The alt text an image component carries, which the element takes as its own attribute. */
+    alt?: string;
     // Worked out by CustomDispensasjonsvarsel, and read by the renderer that decides what a varsel shows.
     isPlanBestemmelsesType?: boolean;
     isAndrePlanbestemmelser?: boolean;
