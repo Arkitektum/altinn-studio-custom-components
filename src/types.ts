@@ -42,6 +42,57 @@ export interface TableColumn {
 }
 
 /**
+ * Everything a component can be configured with, which is what an element's attributes are read into and what a
+ * component class is constructed from.
+ *
+ * Every field is optional: a component says only what it needs, and the rest take their meaning from the element
+ * that renders it. The values are whatever the attribute parsed to, which is why several are left unknown.
+ */
+export interface ComponentProps {
+    tagName?: string;
+    text?: unknown;
+    texts?: unknown;
+    inline?: boolean;
+    hideTitle?: boolean;
+    hideIfEmpty?: boolean;
+    hideOrgNr?: boolean;
+    enableLinks?: boolean;
+    showRowNumbers?: boolean;
+    isChildComponent?: boolean;
+    size?: string;
+    format?: string;
+    feedbackType?: string;
+    order?: unknown;
+    itemKey?: string;
+    itemTermKey?: string;
+    itemDescriptionKey?: string;
+    dataItemKey?: string;
+    dataTitleItemKey?: string;
+    formData?: unknown;
+    tableColumns?: TableColumn[];
+    resourceBindings?: unknown;
+    resourceValues?: unknown;
+    styleOverride?: Record<string, string>;
+}
+
+/**
+ * What a component class answers once it has been built from an element's props.
+ *
+ * The classes are one per component and share no base beyond CustomComponent, so this names the few things every
+ * caller reads off one rather than the union of eighty classes, which has nothing in common.
+ */
+export interface InstantiatedComponent {
+    /** Whether the component resolved to nothing, which is what decides if it hides itself. */
+    isEmpty?: boolean;
+    hideIfEmpty?: boolean;
+    /** Messages gathered while building it, keyed by severity. */
+    validationMessages?: unknown;
+    hasValidationMessages?: unknown;
+    resourceValues?: unknown;
+    resourceBindings?: unknown;
+}
+
+/**
  * One field carried alongside a log entry, naming something about where the entry came from.
  *
  * Shaped as the client logger declares it. A value can be missing in practice, when whatever it names could not be

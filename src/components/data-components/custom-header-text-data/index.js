@@ -3,7 +3,7 @@ import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@ark
 
 // Global functions
 import { getComponentContainerElement } from "../../../functions/helpers.js";
-import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };

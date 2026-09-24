@@ -5,7 +5,7 @@ import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } fro
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 /**
  * CustomFieldGrid renders a vertical key/value table (label column + value column),

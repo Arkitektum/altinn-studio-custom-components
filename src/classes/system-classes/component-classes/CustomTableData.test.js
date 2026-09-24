@@ -3,7 +3,7 @@ import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.t
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
 import CustomTableData from "./CustomTableData.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -30,7 +30,7 @@ jest.mock("../../../functions/tableHelpers.ts", () => ({
     getTableHeaders: jest.fn(),
     getTableRows: jest.fn()
 }));
-jest.mock("../../../functions/componentHelpers.js", () => ({
+jest.mock("../../../functions/componentHelpers.ts", () => ({
     instantiateComponent: jest.fn()
 }));
 jest.mock("../../../functions/validations.ts", () => ({

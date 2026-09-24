@@ -1,5 +1,5 @@
 // Global functions
-import { instantiateComponent } from "./componentHelpers.js";
+import { instantiateComponent } from "./componentHelpers.ts";
 
 /**
  * Sorts a shallow copy of the provided rows by a key, so the caller's array (often a reference into the

@@ -28,7 +28,8 @@ export const dateTimeFormat: Record<"dateTime" | "date" | "time", Record<string,
     }
 };
 
-export const dateTimeLocale = {
+/** The Intl locale each kind of value is formatted in, keyed by language. Every kind has a `default`. */
+export const dateTimeLocale: Record<"dateTime" | "date" | "time", Record<string, string>> = {
     dateTime: {
         default: "no-NO"
     },

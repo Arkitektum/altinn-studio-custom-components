@@ -1,4 +1,3 @@
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { fetchTextResources } from "./textResourceHelpers.ts";
 import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";

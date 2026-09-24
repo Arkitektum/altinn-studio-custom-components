@@ -3,7 +3,7 @@ import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-
 
 // Global functions
 import { generateUniqueId } from "../../../functions/helpers.js";
-import { injectAnchorElements } from "../../../functions/dataFormatHelpers.js";
+import { injectAnchorElements } from "../../../functions/dataFormatHelpers.ts";
 
 /**
  * Creates and returns a span element representing a field title.

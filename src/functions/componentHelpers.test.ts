@@ -1,6 +1,6 @@
 import { customElementTagNames } from "@arkitektum/altinn-studio-custom-components-utils";
 
-import { componentMap, getComponentForTagName, instantiateComponent } from "./componentHelpers.js";
+import { componentMap, getComponentForTagName, instantiateComponent } from "./componentHelpers.ts";
 
 /**
  * The `custom-component` key is the internal base/fallback and is intentionally not part of the public tag allow-list.
@@ -51,6 +51,6 @@ describe("instantiateComponent", () => {
         const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
         expect(instantiateComponent({ tagName: "custom-does-not-exist" })).toBeNull();
         expect(warnSpy).toHaveBeenCalled();
-        warnSpy.mockRestore();
+        jest.mocked(warnSpy).mockRestore();
     });
 });

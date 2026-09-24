@@ -1,5 +1,4 @@
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils");

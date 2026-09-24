@@ -9,7 +9,7 @@ import { getDataModels, getLayoutCode, getTextResources } from "./localStorage.j
 
 // Global functions
 import { getDefaultValueForResource } from "./getters.js";
-import { instantiateComponent } from "../../src/functions/componentHelpers.js";
+import { instantiateComponent } from "../../src/functions/componentHelpers.ts";
 
 // Altinn-specific resource bindings used across validation logic
 const ALTINN_RESOURCE_BINDINGS = [

@@ -1,4 +1,3 @@
-import { describe, expect, it, jest } from "@jest/globals";
 import { hasMissingTextResources, hasValidationMessages, validateTableHeadersTextResourceBindings } from "./validations.ts";
 
 // Mock ValidationMessages class

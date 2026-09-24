@@ -1,5 +1,5 @@
 // Global functions
-import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 
 // Local functions
 import { renderFieldElement } from "./renderers.js";

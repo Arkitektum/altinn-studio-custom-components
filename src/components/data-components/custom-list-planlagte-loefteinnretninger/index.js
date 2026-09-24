@@ -2,7 +2,7 @@
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 
 // Local functions
 import { renderPlanlagteLoefteinnretningerList } from "./renderers.js";

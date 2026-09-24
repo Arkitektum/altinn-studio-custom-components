@@ -11,7 +11,7 @@ import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.ts";
  * @param {string} language - The language to check against the available date-time languages.
  * @returns {string} The provided language if available, or "default" if not.
  */
-export function getAvailableDateTimeLanguageOrDefault(language) {
+export function getAvailableDateTimeLanguageOrDefault(language: string): string {
     if (availableDateTimeLanguages.includes(language)) {
         return language;
     }
@@ -25,16 +25,16 @@ export function getAvailableDateTimeLanguageOrDefault(language) {
  * @param {string} dateString - The date string to parse (expected format: "dd.mm.yyyy").
  * @returns {string|null} The ISO formatted date string if valid, otherwise null.
  */
-export function parseDateString(dateString) {
+export function parseDateString(dateString: string): string | null {
     // Match the string against the dd.mm.yyyy format
     const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
     const match = regex.exec(dateString);
 
     if (!match) return null;
 
-    const day = Number.parseInt(match[1], 10);
-    const month = Number.parseInt(match[2], 10) - 1; // JavaScript months are 0-based
-    const year = Number.parseInt(match[3], 10);
+    const day = Number.parseInt(match[1]!, 10);
+    const month = Number.parseInt(match[2]!, 10) - 1; // JavaScript months are 0-based
+    const year = Number.parseInt(match[3]!, 10);
 
     const date = new Date(Date.UTC(year, month, day));
 
@@ -52,14 +52,14 @@ export function parseDateString(dateString) {
  * @param {string} timeString - The time string to parse (e.g., "13:45" or "13:45:30").
  * @returns {string|null} The ISO 8601 formatted string representing the time, or null if the input is invalid.
  */
-export function parseTimeString(timeString) {
+export function parseTimeString(timeString: string) {
     // Match the string against the hh:mm:ss format
     const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
     const match = regex.exec(timeString);
     if (!match) return null;
-    const hours = Number.parseInt(match[1], 10);
-    const minutes = Number.parseInt(match[2], 10);
-    const seconds = match[3] ? Number.parseInt(match[3], 10) : 0;
+    const hours = Number.parseInt(match[1]!, 10);
+    const minutes = Number.parseInt(match[2]!, 10);
+    const seconds = match[3] ? Number.parseInt(match[3]!, 10) : 0;
     if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
         return null; // Invalid time
     }
@@ -67,8 +67,8 @@ export function parseTimeString(timeString) {
     return date.toISOString(); // Return in ISO format
 }
 
-export function isValidDateString(dateString) {
-    const date = new Date(dateString);
+export function isValidDateString(dateString?: string | Date | null): boolean {
+    const date = new Date(dateString ?? "");
     return !!dateString && !Number.isNaN(date.getTime());
 }
 
@@ -79,7 +79,7 @@ export function isValidDateString(dateString) {
  * @param {string} [language="default"] - The language code to use for localization. Defaults to "default".
  * @returns {string} - The formatted date-time string or an error message if the input is invalid.
  */
-export function formatDateTime(dateTime, language = "default") {
+export function formatDateTime(dateTime?: string | null, language = "default"): string {
     if (!dateTime) {
         return "";
     }
@@ -93,7 +93,7 @@ export function formatDateTime(dateTime, language = "default") {
         dateTime = dateTime + "T00:00:00"; // Append time if not present
     }
 
-    const locale = dateTimeLocale.dateTime[language];
+    const locale = dateTimeLocale.dateTime[language]!;
 
     const options = dateTimeFormat.dateTime[locale] || dateTimeFormat.dateTime.default;
     return new Intl.DateTimeFormat(locale, options).format(new Date(dateTime));
@@ -106,15 +106,15 @@ export function formatDateTime(dateTime, language = "default") {
  * @param {string} [language="default"] - The language code for formatting (e.g., "en", "no"). Defaults to "default".
  * @returns {string} The formatted date string.
  */
-export function formatDate(date, language = "default") {
+export function formatDate(date?: string | Date | null, language = "default"): string {
     if (!date) {
         return "";
     }
     if (!isValidDateString(date)) {
-        date = parseDateString(date);
+        date = parseDateString(date as string) as string;
     }
     language = getAvailableDateTimeLanguageOrDefault(language);
-    const locale = dateTimeLocale.date[language];
+    const locale = dateTimeLocale.date[language]!;
     const options = dateTimeFormat.date[locale] || dateTimeFormat.date.default;
     return new Intl.DateTimeFormat(locale, options).format(new Date(date));
 }
@@ -130,7 +130,7 @@ export function formatDate(date, language = "default") {
  * @param {string} [language="default"] - The language/locale to use for formatting.
  * @returns {string} The formatted time string.
  */
-export function formatTime(time, language = "default") {
+export function formatTime(time?: string | null, language = "default"): string {
     if (!time) {
         return "";
     }
@@ -139,12 +139,12 @@ export function formatTime(time, language = "default") {
         time = "1970-01-01T" + time; // Append date if not present
     }
     if (!isValidDateString(time)) {
-        time = parseTimeString(time);
+        time = parseTimeString(time) as string;
     }
 
     // Format the time string
     language = getAvailableDateTimeLanguageOrDefault(language);
-    const locale = dateTimeLocale.time[language];
+    const locale = dateTimeLocale.time[language]!;
     const options = dateTimeFormat.time[locale] || dateTimeFormat.time.default;
     return new Intl.DateTimeFormat(locale, options).format(new Date(time));
 }
@@ -155,7 +155,7 @@ export function formatTime(time, language = "default") {
  * @param {string} data - The input string to format.
  * @returns {string|undefined} The trimmed substring after the last hyphen, or undefined if input is not provided.
  */
-export function formatAR(data) {
+export function formatAR(data?: string): string | undefined {
     const splicedData = data?.substring(data?.lastIndexOf("-") + 1);
     return splicedData?.trim();
 }
@@ -166,7 +166,7 @@ export function formatAR(data) {
  * @param {number|string} value - The value to format.
  * @returns {string} The formatted string with square meters unit.
  */
-export function formatMeterSquared(value) {
+export function formatMeterSquared(value: unknown): string {
     if (value === null || value === undefined || value === "") {
         return "";
     }
@@ -181,16 +181,16 @@ export function formatMeterSquared(value) {
  * @param {string} [language="default"] - The language to use for formatting (default is "default").
  * @returns {string} - The formatted string.
  */
-export function formatString(string, format, language = "default") {
+export function formatString(string: unknown, format?: string, language = "default"): unknown {
     switch (format) {
         case "dateTime":
-            return formatDateTime(string, language);
+            return formatDateTime(string as string, language);
         case "date":
-            return formatDate(string, language);
+            return formatDate(string as string, language);
         case "time":
-            return formatTime(string, language);
+            return formatTime(string as string, language);
         case "AR":
-            return formatAR(string);
+            return formatAR(string as string);
         case "meterSquared":
             return formatMeterSquared(string);
         default:
@@ -210,7 +210,7 @@ export function formatString(string, format, language = "default") {
  * @param {string} text - The input text potentially containing URLs.
  * @returns {string} The HTML string with URLs converted to anchor tags.
  */
-export function injectAnchorElements(text) {
+export function injectAnchorElements(text: string): string {
     // One canonical URL pattern
     const urlPattern = String.raw`(?:https?:\/\/(?:www\.)?[a-zA-Z0-9][a-zA-Z0-9-]*\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]*\.[^\s]{2,})`;
 
@@ -229,8 +229,8 @@ export function injectAnchorElements(text) {
                 // Trim common trailing punctuation off the link and re-attach after the anchor
                 const regex = /^(.*?)([).,!?:;]+)?$/;
                 const m = regex.exec(part);
-                const raw = m[1];
-                const trail = m[2] ?? "";
+                const raw = m![1]!;
+                const trail = m![2] ?? "";
                 const href = raw.startsWith("http") ? raw : `https://${raw}`;
                 // The URL token can contain quotes/angle brackets (the pattern allows any non-whitespace),
                 // so escape it before interpolating into the attribute and the link text to prevent HTML injection.

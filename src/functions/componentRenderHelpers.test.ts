@@ -1,10 +1,10 @@
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
-import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers.js";
+import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers.ts";
 import { getComponentContainerElement } from "./helpers.js";
-import { instantiateComponent } from "./componentHelpers.js";
+import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
-jest.mock("./componentHelpers.js", () => ({ instantiateComponent: jest.fn() }));
+jest.mock("./componentHelpers.ts", () => ({ instantiateComponent: jest.fn() }));
 jest.mock("./devToolsHelpers.js", () => ({
     addDevToolsOverlay: jest.fn(),
     isDevMode: jest.fn(),
@@ -21,9 +21,9 @@ describe("renderCustomComponent", () => {
     it("hides the container and skips render when hideIfEmpty and empty (not dev mode)", () => {
         const host = document.createElement("div");
         const container = document.createElement("div");
-        instantiateComponent.mockReturnValue({ hideIfEmpty: true, isEmpty: true });
-        getComponentContainerElement.mockReturnValue(container);
-        isDevMode.mockReturnValue(false);
+        jest.mocked(instantiateComponent).mockReturnValue({ hideIfEmpty: true, isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(container);
+        jest.mocked(isDevMode).mockReturnValue(false);
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render });
@@ -36,10 +36,10 @@ describe("renderCustomComponent", () => {
     it("renders a DevTools placeholder when hidden in dev mode", () => {
         const host = document.createElement("div");
         const hidden = document.createElement("span");
-        instantiateComponent.mockReturnValue({ hideIfEmpty: true, isEmpty: true });
-        getComponentContainerElement.mockReturnValue(document.createElement("div"));
-        isDevMode.mockReturnValue(true);
-        renderHiddenDevToolsElement.mockReturnValue(hidden);
+        jest.mocked(instantiateComponent).mockReturnValue({ hideIfEmpty: true, isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(document.createElement("div"));
+        jest.mocked(isDevMode).mockReturnValue(true);
+        jest.mocked(renderHiddenDevToolsElement).mockReturnValue(hidden);
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render });
@@ -51,9 +51,9 @@ describe("renderCustomComponent", () => {
     it("does not hide an empty component without hideIfEmpty by default (renders instead)", () => {
         const host = document.createElement("div");
         const container = document.createElement("div");
-        instantiateComponent.mockReturnValue({ isEmpty: true });
-        getComponentContainerElement.mockReturnValue(container);
-        isDevMode.mockReturnValue(false);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(container);
+        jest.mocked(isDevMode).mockReturnValue(false);
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render });
@@ -65,9 +65,9 @@ describe("renderCustomComponent", () => {
     it("hides an empty component when alwaysHideWhenEmpty is set, even without hideIfEmpty", () => {
         const host = document.createElement("div");
         const container = document.createElement("div");
-        instantiateComponent.mockReturnValue({ isEmpty: true });
-        getComponentContainerElement.mockReturnValue(container);
-        isDevMode.mockReturnValue(false);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(container);
+        jest.mocked(isDevMode).mockReturnValue(false);
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render, alwaysHideWhenEmpty: true });
@@ -78,13 +78,17 @@ describe("renderCustomComponent", () => {
 
     it("invokes render and attaches the DevTools overlay when not hidden", () => {
         const host = document.createElement("div");
-        instantiateComponent.mockReturnValue({ isEmpty: false });
-        getComponentContainerElement.mockReturnValue(document.createElement("div"));
-        const render = jest.fn((h) => h.appendChild(document.createElement("p")));
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false });
+        jest.mocked(getComponentContainerElement).mockReturnValue(document.createElement("div"));
+        const render: jest.Mock<(host: HTMLElement, component: unknown) => void> = jest.fn((h: HTMLElement) => {
+            h.appendChild(document.createElement("p"));
+        });
 
         renderCustomComponent(host, { type: "base", render });
 
-        expect(render).toHaveBeenCalledWith(host, expect.any(Object));
+        expect(render).toHaveBeenCalledTimes(1);
+        expect(render.mock.calls[0]![0]).toBe(host);
+        expect(render.mock.calls[0]![1]).toBeInstanceOf(Object);
         expect(addDevToolsOverlay).toHaveBeenCalledWith(host, expect.any(Object), "base");
         expect(host.querySelector("p")).not.toBeNull();
     });
@@ -92,9 +96,9 @@ describe("renderCustomComponent", () => {
     it("appends a feedback list when withFeedback and there are validation messages", () => {
         const host = document.createElement("div");
         const feedback = document.createElement("ul");
-        instantiateComponent.mockReturnValue({ isEmpty: false, hasValidationMessages: true, validationMessages: {} });
-        getComponentContainerElement.mockReturnValue(null);
-        renderFeedbackListElement.mockReturnValue(feedback);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false, hasValidationMessages: true, validationMessages: {} });
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
+        jest.mocked(renderFeedbackListElement).mockReturnValue(feedback);
 
         renderCustomComponent(host, { type: "data", render: jest.fn(), withFeedback: true });
 
@@ -103,8 +107,8 @@ describe("renderCustomComponent", () => {
 
     it("does not append feedback when withFeedback is false", () => {
         const host = document.createElement("div");
-        instantiateComponent.mockReturnValue({ isEmpty: false, hasValidationMessages: true, validationMessages: {} });
-        getComponentContainerElement.mockReturnValue(null);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false, hasValidationMessages: true, validationMessages: {} });
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
 
         renderCustomComponent(host, { type: "data", render: jest.fn() });
 
@@ -114,34 +118,34 @@ describe("renderCustomComponent", () => {
     it("validates host data attributes by default", () => {
         const host = document.createElement("custom-field-data");
         host.setAttribute("formdata", JSON.stringify({ unexpectedKey: "x" }));
-        instantiateComponent.mockReturnValue({ isEmpty: false });
-        getComponentContainerElement.mockReturnValue(document.createElement("div"));
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false });
+        jest.mocked(getComponentContainerElement).mockReturnValue(document.createElement("div"));
         const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
         renderCustomComponent(host, { type: "data", render: jest.fn() });
 
         expect(errorSpy).toHaveBeenCalledWith(expect.stringContaining("unrecognized formData keys: unexpectedKey"));
-        errorSpy.mockRestore();
+        jest.mocked(errorSpy).mockRestore();
     });
 
     it("skips data-attribute validation when validateData is false", () => {
         const host = document.createElement("custom-field-grid");
         host.setAttribute("formdata", JSON.stringify({ unexpectedKey: "x" }));
-        instantiateComponent.mockReturnValue({ isEmpty: false });
-        getComponentContainerElement.mockReturnValue(document.createElement("div"));
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false });
+        jest.mocked(getComponentContainerElement).mockReturnValue(document.createElement("div"));
         const errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
 
         renderCustomComponent(host, { type: "data", render: jest.fn(), validateData: false });
 
         expect(errorSpy).not.toHaveBeenCalled();
-        errorSpy.mockRestore();
+        jest.mocked(errorSpy).mockRestore();
     });
 });
 
 describe("renderCustomComponent — padded container wrapper", () => {
     beforeEach(() => {
         jest.clearAllMocks();
-        isDevMode.mockReturnValue(false);
+        jest.mocked(isDevMode).mockReturnValue(false);
         document.body.innerHTML = "";
     });
 
@@ -168,8 +172,8 @@ describe("renderCustomComponent — padded container wrapper", () => {
     it("hides the padded wrapper rather than the component, so its padding collapses too", () => {
         const { wrapper, host } = buildWrappedField();
         // A child component's container is the component itself, which would leave the wrapper's padding behind.
-        getComponentContainerElement.mockReturnValue(host);
-        instantiateComponent.mockReturnValue({ isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(host);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render });
@@ -180,8 +184,8 @@ describe("renderCustomComponent — padded container wrapper", () => {
 
     it("keeps the wrapper visible when the component has content", () => {
         const { wrapper, host } = buildWrappedField();
-        getComponentContainerElement.mockReturnValue(host);
-        instantiateComponent.mockReturnValue({ isEmpty: false });
+        jest.mocked(getComponentContainerElement).mockReturnValue(host);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false });
 
         renderCustomComponent(host, { type: "data", render: jest.fn() });
 
@@ -202,8 +206,8 @@ describe("renderCustomComponent — padded container wrapper", () => {
         host.setAttribute("isChildComponent", "true");
         host.setAttribute("hideIfEmpty", "true");
         layoutContainer.appendChild(host);
-        getComponentContainerElement.mockReturnValue(host);
-        instantiateComponent.mockReturnValue({ isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(host);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
 
         renderCustomComponent(host, { type: "data", render: jest.fn() });
 
@@ -215,12 +219,12 @@ describe("renderCustomComponent — padded container wrapper", () => {
 describe("renderCustomComponent — layout components", () => {
     beforeEach(() => {
         jest.clearAllMocks();
-        isDevMode.mockReturnValue(false);
-        getComponentContainerElement.mockReturnValue(null);
+        jest.mocked(isDevMode).mockReturnValue(false);
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
         document.body.innerHTML = "";
     });
 
-    function createLayoutHost(attributes = {}) {
+    function createLayoutHost(attributes: Record<string, string> = {}) {
         const host = document.createElement("custom-dispensasjon");
         Object.entries(attributes).forEach(([name, value]) => host.setAttribute(name, value));
         document.body.appendChild(host);
@@ -229,7 +233,7 @@ describe("renderCustomComponent — layout components", () => {
 
     it("hides an empty layout by default, without the host asking for it", () => {
         const host = createLayoutHost();
-        instantiateComponent.mockReturnValue({ isEmpty: true });
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "layout", render });
@@ -240,8 +244,8 @@ describe("renderCustomComponent — layout components", () => {
 
     it("removes an empty layout even though it has no container to hide", () => {
         const host = createLayoutHost();
-        instantiateComponent.mockReturnValue({ isEmpty: true });
-        getComponentContainerElement.mockReturnValue(null);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
 
         renderCustomComponent(host, { type: "layout", render: jest.fn() });
 
@@ -253,8 +257,8 @@ describe("renderCustomComponent — layout components", () => {
         document.body.appendChild(container);
         const host = document.createElement("custom-dispensasjon");
         container.appendChild(host);
-        instantiateComponent.mockReturnValue({ isEmpty: true });
-        getComponentContainerElement.mockReturnValue(container);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(container);
 
         renderCustomComponent(host, { type: "layout", render: jest.fn() });
 
@@ -263,8 +267,8 @@ describe("renderCustomComponent — layout components", () => {
 
     it("removes a layout that holds data but renders nothing visible", () => {
         const host = createLayoutHost();
-        instantiateComponent.mockReturnValue({ isEmpty: false });
-        const render = jest.fn((hostElement) => {
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false });
+        const render = jest.fn((hostElement: HTMLElement) => {
             const emptyChild = document.createElement("div");
             emptyChild.style.display = "none";
             emptyChild.textContent = "Ikke registrert";
@@ -279,8 +283,8 @@ describe("renderCustomComponent — layout components", () => {
 
     it("keeps a layout that rendered content", () => {
         const host = createLayoutHost();
-        instantiateComponent.mockReturnValue({ isEmpty: false });
-        const render = jest.fn((hostElement) => {
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false });
+        const render = jest.fn((hostElement: HTMLElement) => {
             const paragraph = document.createElement("p");
             paragraph.textContent = "Dispensasjonen gjelder";
             hostElement.appendChild(paragraph);
@@ -293,7 +297,7 @@ describe("renderCustomComponent — layout components", () => {
 
     it('renders and keeps an empty layout when the host opts out with hideIfEmpty="false"', () => {
         const host = createLayoutHost({ hideIfEmpty: "false" });
-        instantiateComponent.mockReturnValue({ isEmpty: true });
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "layout", render });
@@ -305,9 +309,9 @@ describe("renderCustomComponent — layout components", () => {
     it("renders a DevTools placeholder instead of removing an empty layout in dev mode", () => {
         const host = createLayoutHost();
         const hidden = document.createElement("span");
-        instantiateComponent.mockReturnValue({ isEmpty: true });
-        isDevMode.mockReturnValue(true);
-        renderHiddenDevToolsElement.mockReturnValue(hidden);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
+        jest.mocked(isDevMode).mockReturnValue(true);
+        jest.mocked(renderHiddenDevToolsElement).mockReturnValue(hidden);
 
         renderCustomComponent(host, { type: "layout", render: jest.fn() });
 
@@ -319,8 +323,8 @@ describe("renderCustomComponent — layout components", () => {
         const host = createLayoutHost();
         const feedback = document.createElement("ul");
         feedback.textContent = "Mangler tekstressurs";
-        instantiateComponent.mockReturnValue({ isEmpty: true, hasValidationMessages: true, validationMessages: {} });
-        renderFeedbackListElement.mockReturnValue(feedback);
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true, hasValidationMessages: true, validationMessages: {} });
+        jest.mocked(renderFeedbackListElement).mockReturnValue(feedback);
 
         renderCustomComponent(host, { type: "layout", render: jest.fn(), withFeedback: true });
 
@@ -333,8 +337,8 @@ describe("renderCustomComponent — layout components", () => {
         document.body.appendChild(container);
         const host = document.createElement("custom-field-data");
         container.appendChild(host);
-        instantiateComponent.mockReturnValue({ hideIfEmpty: true, isEmpty: true });
-        getComponentContainerElement.mockReturnValue(container);
+        jest.mocked(instantiateComponent).mockReturnValue({ hideIfEmpty: true, isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(container);
 
         renderCustomComponent(host, { type: "data", render: jest.fn() });
 
@@ -346,8 +350,8 @@ describe("renderCustomComponent — layout components", () => {
     it("does not remove an empty data component that has no container", () => {
         const host = document.createElement("custom-field-data");
         document.body.appendChild(host);
-        instantiateComponent.mockReturnValue({ hideIfEmpty: true, isEmpty: true });
-        getComponentContainerElement.mockReturnValue(null);
+        jest.mocked(instantiateComponent).mockReturnValue({ hideIfEmpty: true, isEmpty: true });
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render });
@@ -358,14 +362,14 @@ describe("renderCustomComponent — layout components", () => {
 });
 
 describe("validateHostDataAttributes", () => {
-    let errorSpy;
+    let errorSpy: ReturnType<typeof jest.spyOn>;
 
     beforeEach(() => {
         errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
     });
 
     afterEach(() => {
-        errorSpy.mockRestore();
+        jest.mocked(errorSpy).mockRestore();
     });
 
     it("reports unrecognized formData keys with a hint pointing to getComponentDataValue", () => {
@@ -375,7 +379,7 @@ describe("validateHostDataAttributes", () => {
         validateHostDataAttributes(host, "data");
 
         expect(errorSpy).toHaveBeenCalledTimes(1);
-        const message = errorSpy.mock.calls[0][0];
+        const message = jest.mocked(errorSpy).mock.calls[0][0];
         expect(message).toContain("unrecognized formData keys: unexpectedKey");
         expect(message).toContain("getComponentDataValue");
     });

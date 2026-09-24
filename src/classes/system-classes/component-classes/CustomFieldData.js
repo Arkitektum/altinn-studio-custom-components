@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import { formatString } from "../../../functions/dataFormatHelpers.js";
+import { formatString } from "../../../functions/dataFormatHelpers.ts";
 
 /**
  * CustomFieldData is a class that extends CustomComponent to handle custom field data logic.

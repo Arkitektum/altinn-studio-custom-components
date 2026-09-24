@@ -3,7 +3,6 @@
  * @jest-environment-options {"url": "https://org.example/dibk/varselplanoppstartuttalelse-v3/#/instance/512345/abc-def?query=1"}
  */
 
-import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";

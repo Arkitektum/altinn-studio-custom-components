@@ -2,7 +2,7 @@
 import ValidationMessages from "../../../classes/system-classes/ValidationMessages.js";
 
 // Global functions
-import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 
 // Local functions
 import { renderValidationMessagesElement } from "./renderers.js";

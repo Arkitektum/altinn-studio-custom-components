@@ -1,5 +1,5 @@
 import CustomFieldRow from "./CustomFieldRow.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -14,7 +14,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../../functions/componentHelpers.js", () => ({
+jest.mock("../../../functions/componentHelpers.ts", () => ({
     instantiateComponent: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

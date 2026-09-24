@@ -1,4 +1,3 @@
-import { describe, expect, it } from "@jest/globals";
 import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.ts";
 
 describe("escapeHtml", () => {

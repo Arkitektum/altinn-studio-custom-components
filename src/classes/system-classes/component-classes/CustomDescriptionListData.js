@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
-import { formatString } from "../../../functions/dataFormatHelpers.js";
+import { formatString } from "../../../functions/dataFormatHelpers.ts";
 
 /**
  * CustomDescriptionListData is a custom component class for handling description list data.

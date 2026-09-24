@@ -1,8 +1,9 @@
 // Global functions
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
+import type { InstantiatedComponent } from "../types.ts";
 import { getComponentContainerElement } from "./helpers.js";
 import { hasRenderedContent } from "./htmlElementHelpers.js";
-import { instantiateComponent } from "./componentHelpers.js";
+import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
 // Constants
@@ -26,7 +27,7 @@ const DATA_CONTRACT_HINT =
  * @param {string} componentName - The name of the component, used in error messages.
  * @returns {Object|null} The parsed object, or null if absent/invalid.
  */
-function parseHostJsonAttribute(host, attributeName, componentName) {
+function parseHostJsonAttribute(host: HTMLElement, attributeName: string, componentName: string): unknown {
     const raw = host?.getAttribute(attributeName);
     if (!raw) {
         return null;
@@ -47,7 +48,7 @@ function parseHostJsonAttribute(host, attributeName, componentName) {
  * @param {string} componentName - The name of the component.
  * @returns {void}
  */
-function validateFormData(formData, type, componentName) {
+function validateFormData(formData: unknown, type: string, componentName: string): void {
     const allowedKeys = allowedFormDataKeysForTypes[type];
     // `null` (or an unconfigured type) means "allow all keys" — skip validation.
     if (!formData || allowedKeys == null) {
@@ -69,7 +70,7 @@ function validateFormData(formData, type, componentName) {
  * @param {string} componentName - The name of the component.
  * @returns {void}
  */
-function validateResourceValues(resourceValues, type, componentName) {
+function validateResourceValues(resourceValues: unknown, type: string, componentName: string): void {
     const allowedKeys = allowedResourceValuesKeysForTypes[type];
     // `null` (or an unconfigured type) means "allow all keys" — skip validation.
     if (!resourceValues || allowedKeys == null) {
@@ -94,7 +95,7 @@ function validateResourceValues(resourceValues, type, componentName) {
  * @param {HTMLElement} host - The custom element instance.
  * @param {string} type - The component type (e.g., "base", "data", "layout").
  */
-export function validateHostDataAttributes(host, type) {
+export function validateHostDataAttributes(host: HTMLElement, type: string): void {
     const componentName = host?.tagName?.toLowerCase() || "unknown";
     const formData = parseHostJsonAttribute(host, "formdata", componentName);
     const resourceValues = parseHostJsonAttribute(host, "resourcevalues", componentName);
@@ -124,7 +125,7 @@ const LAYOUT_TYPE = "layout";
  * @param {string} type - The component type ("base", "data" or "layout").
  * @returns {boolean} True when the component should hide itself while empty.
  */
-function resolveHideIfEmpty(host, component, type) {
+function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolean } | null, type: string): boolean {
     const attributeValue = host?.getAttribute?.("hideIfEmpty");
     if (attributeValue !== null && attributeValue !== undefined) {
         return attributeValue === "true" || attributeValue === "";
@@ -146,7 +147,7 @@ function resolveHideIfEmpty(host, component, type) {
  * @param {HTMLElement} host - The custom element instance.
  * @returns {HTMLElement|null} The wrapper, or null when the component is not wrapped by one.
  */
-function getPaddedWrapperElement(host) {
+function getPaddedWrapperElement(host: HTMLElement): HTMLElement | null {
     const wrapper = host?.parentElement?.parentElement;
     return wrapper?.hasAttribute?.("data-summary-target") ? wrapper : null;
 }
@@ -158,7 +159,7 @@ function getPaddedWrapperElement(host) {
  * @param {HTMLElement|null} elementToHideWhenEmpty - The element that stands in for the component when it is empty.
  * @returns {void}
  */
-function removeEmptyComponentElement(host, elementToHideWhenEmpty) {
+function removeEmptyComponentElement(host: HTMLElement, elementToHideWhenEmpty: HTMLElement | null): void {
     const elementToRemove = elementToHideWhenEmpty || host;
     elementToRemove?.remove?.();
 }
@@ -193,7 +194,24 @@ function removeEmptyComponentElement(host, elementToHideWhenEmpty) {
  *   whose `formData` keys are dynamic (e.g. one binding per row) and therefore can't be described by a fixed allow-list.
  * @returns {Object} The instantiated component.
  */
-export function renderCustomComponent(host, { type, render, withFeedback = false, alwaysHideWhenEmpty = false, validateData = true }) {
+export function renderCustomComponent(
+    host: HTMLElement,
+    {
+        type,
+        render,
+        withFeedback = false,
+        alwaysHideWhenEmpty = false,
+        validateData = true
+    }: {
+        /** Which family the component belongs to: "base", "data" or "layout". */
+        type: string;
+        /** Draws the component into the host, given whatever the component class resolved. */
+        render: (host: HTMLElement, component: InstantiatedComponent | null) => void;
+        withFeedback?: boolean;
+        alwaysHideWhenEmpty?: boolean;
+        validateData?: boolean;
+    }
+) {
     if (validateData) {
         validateHostDataAttributes(host, type);
     }
@@ -209,7 +227,7 @@ export function renderCustomComponent(host, { type, render, withFeedback = false
             const hiddenEl = renderHiddenDevToolsElement(host, component, type);
             if (hiddenEl) host.appendChild(hiddenEl);
         } else if (!isLayout) {
-            elementToHideWhenEmpty.style.display = "none";
+            elementToHideWhenEmpty!.style.display = "none";
         }
     } else {
         render(host, component);

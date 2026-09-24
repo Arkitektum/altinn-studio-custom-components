@@ -9,7 +9,7 @@ import {
     isValidDateString,
     parseDateString,
     parseTimeString
-} from "./dataFormatHelpers.js";
+} from "./dataFormatHelpers.ts";
 
 // Mocks for constants and helpers
 jest.mock("../constants/dateTimeFormats.ts", () => ({
@@ -38,7 +38,7 @@ jest.mock("../constants/dateTimeFormats.ts", () => ({
     }
 }));
 jest.mock("./helpers.js", () => ({
-    hasValue: (v) => v !== undefined && v !== null && v !== ""
+    hasValue: (v: unknown) => v !== undefined && v !== null && v !== ""
 }));
 
 describe("getAvailableDateTimeLanguageOrDefault", () => {
@@ -157,7 +157,7 @@ describe("formatAR", () => {
     });
     it("returns undefined for empty input", () => {
         expect(formatAR(undefined)).toBeUndefined();
-        expect(formatAR(null)).toBeUndefined();
+        expect(formatAR(null as unknown as string)).toBeUndefined();
     });
 });
 

@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
 import { setPageOrientation } from "./printHelpers.ts";
 
 describe("setPageOrientation", () => {

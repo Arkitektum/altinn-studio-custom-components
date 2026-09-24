@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
 import CustomMatrixData from "./CustomMatrixData.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -33,7 +33,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn(),
     validateTableHeadersTextResourceBindings: jest.fn()
 }));
-jest.mock("../../../functions/componentHelpers.js", () => ({
+jest.mock("../../../functions/componentHelpers.ts", () => ({
     instantiateComponent: jest.fn()
 }));
 

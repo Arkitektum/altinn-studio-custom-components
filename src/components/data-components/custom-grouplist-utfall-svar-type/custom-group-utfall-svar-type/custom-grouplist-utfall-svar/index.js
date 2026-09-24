@@ -2,7 +2,7 @@
 import { createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { renderCustomComponent } from "../../../../../functions/componentRenderHelpers.js";
+import { renderCustomComponent } from "../../../../../functions/componentRenderHelpers.ts";
 
 // Local functions
 import { renderEmptyFieldText, renderHeaderElement, renderUtfallSvarGroup } from "./renderers.js";

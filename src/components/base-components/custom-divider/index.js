@@ -3,7 +3,7 @@ import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
 import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
-import { instantiateComponent } from "../../../functions/componentHelpers.js";
+import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 // Stylesheet
 import "./styles.css" with { type: "css" };

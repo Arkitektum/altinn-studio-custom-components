@@ -83,6 +83,7 @@ import CustomTablePartGjennomfoeringsplan from "../classes/system-classes/compon
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.js";
 
 // Global functions
+import type { ComponentProps, InstantiatedComponent } from "../types.ts";
 import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";
 
 /**
@@ -178,14 +179,26 @@ export const componentMap = {
     "custom-table-plan": CustomTablePlan
 };
 
-export function getComponentForTagName(tagName) {
+export function getComponentForTagName(tagName: string) {
     const tagNameLower = tagName.toLowerCase();
-    return componentMap[tagNameLower] || null;
+    // The map is keyed by the tags this package defines; anything else is a caller asking for something that does
+    // not exist, which is what the null answer is for.
+    return componentMap[tagNameLower as keyof typeof componentMap] || null;
 }
 
-export function instantiateComponent(element) {
-    const componentProps = element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element;
-    const tagName = componentProps?.tagName || componentProps?.getAttribute?.("tagname") || "custom-component";
+export function instantiateComponent(element: unknown): InstantiatedComponent | null {
+    // Either the attributes read off a real element, or props handed straight in. htmlElementHelpers is still
+    // JavaScript, so what it answers is inferred rather than declared; naming the shape here is what the rest of
+    // this function reads it as.
+    const componentProps = (
+        element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element
+    ) as ComponentProps;
+    // An element-like stand-in that is not an HTMLElement still answers getAttribute, which is how a component
+    // built in a test finds its tag name.
+    const tagName =
+        componentProps?.tagName ||
+        (componentProps as { getAttribute?: (name: string) => string | null })?.getAttribute?.("tagname") ||
+        "custom-component";
     const ComponentClass = getComponentForTagName(tagName);
     if (ComponentClass) {
         return new ComponentClass(componentProps);

@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, it, jest } from "@jest/globals";
 import { getTableHeaders, getTableRows } from "./tableHelpers.ts";
 import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

@@ -2,7 +2,7 @@
 import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.ts";
 import { renderLayoutContainerElement } from "../../../functions/helpers.js";
 
