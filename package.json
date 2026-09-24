@@ -22,7 +22,8 @@
         "test": "jest",
         "build": "yarn symlinks && NODE_ENV=production webpack && yarn copy-dist-resources",
         "start": "yarn symlinks && webpack serve --config webpack.config.dev.js",
-        "lint": "eslint ."
+        "lint": "eslint .",
+        "typecheck": "tsc --noEmit"
     },
     "repository": {
         "type": "git",
@@ -34,9 +35,13 @@
     },
     "homepage": "https://github.com/Arkitektum/altinn-studio-custom-components#readme",
     "devDependencies": {
+        "@babel/core": "^8.0.6",
         "@babel/preset-env": "^8.0.6",
+        "@babel/preset-typescript": "^8.0.1",
         "@eslint/js": "^10.0.1",
+        "@jest/globals": "^30.5.2",
         "@microsoft/eslint-formatter-sarif": "^3.1.0",
+        "babel-loader": "^10.1.1",
         "copyfiles": "^2.4.1",
         "css-loader": "^7.1.5",
         "css-minimizer-webpack-plugin": "^8.0.0",
@@ -52,6 +57,8 @@
         "mini-css-extract-plugin": "^2.10.2",
         "prettier": "3.9.8",
         "style-loader": "^4.0.0",
+        "typescript": "^6.0.3",
+        "typescript-eslint": "^8.70.1",
         "webpack": "^5.111.1",
         "webpack-cli": "^7.2.3",
         "webpack-dev-server": "^6.0.0"

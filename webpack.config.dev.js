@@ -41,8 +41,16 @@ module.exports = {
             chunks: ["main", "statistics"]
         })
     ],
+    resolve: {
+        extensions: [".ts", ".js"]
+    },
     module: {
         rules: [
+            {
+                test: /\.ts$/i,
+                exclude: /node_modules/,
+                use: "babel-loader"
+            },
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]

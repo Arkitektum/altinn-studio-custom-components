@@ -6,12 +6,12 @@ module.exports = {
     verbose: true,
     setupFilesAfterEnv: ["<rootDir>/setup-jest.js"],
     transform: {
-        "^.+\\.[jt]sx?$": ["babel-jest", { "presets": ["@babel/preset-env"] }]
+        "^.+\\.[jt]sx?$": ["babel-jest", { "presets": ["@babel/preset-env", "@babel/preset-typescript"] }]
     },
     testMatch: [
-        "<rootDir>/src/**/*.test.js",
-        "<rootDir>/src/**/*.spec.js",
-        "<rootDir>/public/**/*.test.js",
-        "<rootDir>/public/**/*.spec.js"
+        "<rootDir>/src/**/*.test.{js,ts}",
+        "<rootDir>/src/**/*.spec.{js,ts}",
+        "<rootDir>/public/**/*.test.{js,ts}",
+        "<rootDir>/public/**/*.spec.{js,ts}"
     ]
 };
