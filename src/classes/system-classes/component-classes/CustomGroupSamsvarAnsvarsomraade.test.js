@@ -1,7 +1,7 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent.js";
 import CustomGroupSamsvarAnsvarsomraade from "./CustomGroupSamsvarAnsvarsomraade.js";
-import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.js";
+import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.ts";
 
 // Mock dependencies
 jest.mock("../../../functions/helpers.ts", () => ({

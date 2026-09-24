@@ -1,6 +1,15 @@
+import type { MidlertidigBrukstillatelseProps } from "./MidlertidigBrukstillatelse.ts";
 // Classes
 import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.ts";
 import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.js";
+
+/** What the form data holds for a Utfoerende, before it is read into the class. */
+export interface UtfoerendeProps {
+    midlertidigBrukstillatelse?: MidlertidigBrukstillatelseProps | null;
+    erOkForFerdigattest?: boolean;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
+}
 
 /**
  * Represents an executing entity with temporary usage permission and attestation status.
@@ -17,7 +26,11 @@ import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.js";
  * @property {UtfoerendeList} utfoerendeList - List of executing entities.
  */
 export default class Utfoerende {
-    constructor(props, resourceBindings) {
+    declare midlertidigBrukstillatelse: MidlertidigBrukstillatelse | null | undefined;
+    declare erOkForFerdigattest?: boolean;
+    declare utfoerendeList: UtfoerendeList | null | undefined;
+
+    constructor(props?: UtfoerendeProps | null, resourceBindings?: Record<string, unknown>) {
         this.midlertidigBrukstillatelse = props?.midlertidigBrukstillatelse && new MidlertidigBrukstillatelse(props.midlertidigBrukstillatelse);
         this.erOkForFerdigattest = props?.erOkForFerdigattest;
         this.utfoerendeList = new UtfoerendeList(

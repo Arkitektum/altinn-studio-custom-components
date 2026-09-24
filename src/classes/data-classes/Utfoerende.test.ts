@@ -1,5 +1,5 @@
 import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.ts";
-import Utfoerende from "./Utfoerende.js";
+import Utfoerende from "./Utfoerende.ts";
 
 jest.mock("./MidlertidigBrukstillatelse");
 
@@ -15,7 +15,7 @@ describe("Utfoerende", () => {
             erOkForFerdigattest: true
         };
 
-        const instance = new Utfoerende(props);
+        const instance = new Utfoerende(props as never);
 
         expect(MidlertidigBrukstillatelse).toHaveBeenCalledWith(mbData);
         expect(instance.midlertidigBrukstillatelse).toBeInstanceOf(MidlertidigBrukstillatelse);
@@ -24,7 +24,7 @@ describe("Utfoerende", () => {
 
     it("should set midlertidigBrukstillatelse to undefined if not provided", () => {
         const props = { erOkForFerdigattest: false };
-        const instance = new Utfoerende(props);
+        const instance = new Utfoerende(props as never);
 
         expect(MidlertidigBrukstillatelse).not.toHaveBeenCalled();
         expect(instance.midlertidigBrukstillatelse).toBeUndefined();
@@ -32,7 +32,7 @@ describe("Utfoerende", () => {
     });
 
     it("should handle missing props gracefully", () => {
-        const instance = new Utfoerende({});
+        const instance = new Utfoerende({} as never);
         expect(instance.midlertidigBrukstillatelse).toBeUndefined();
         expect(instance.erOkForFerdigattest).toBeUndefined();
     });

@@ -1,4 +1,4 @@
-import Ansvarsomraade from "./Ansvarsomraade.js";
+import Ansvarsomraade from "./Ansvarsomraade.ts";
 import Kode from "./Kode.ts";
 import Part from "./Part.ts";
 import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList.js";
@@ -23,7 +23,7 @@ describe("Ansvarsomraade", () => {
     });
 
     it("should initialize all properties correctly", () => {
-        const instance = new Ansvarsomraade(props, resourceBindings);
+        const instance = new Ansvarsomraade(props as never, resourceBindings);
 
         expect(Kode).toHaveBeenCalledWith(props.funksjon);
         expect(Kode).toHaveBeenCalledWith(props.tiltaksklasse);
@@ -43,7 +43,7 @@ describe("Ansvarsomraade", () => {
 
     it("should handle missing optional properties", () => {
         const minimalProps = {};
-        const instance = new Ansvarsomraade(minimalProps, resourceBindings);
+        const instance = new Ansvarsomraade(minimalProps as never, resourceBindings);
 
         expect(instance.funksjon).toBeFalsy();
         expect(instance.tiltaksklasse).toBeFalsy();
@@ -54,7 +54,7 @@ describe("Ansvarsomraade", () => {
 
     it("should not instantiate Kode or Part if their props are missing", () => {
         const partialProps = { ansvarsomraade: "A" };
-        new Ansvarsomraade(partialProps, resourceBindings);
+        new Ansvarsomraade(partialProps as never, resourceBindings);
 
         expect(Kode).not.toHaveBeenCalled();
         expect(Part).not.toHaveBeenCalled();

@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/AnsvarsrettAnsvarsomraade.js", () => {
+jest.mock("../../data-classes/AnsvarsrettAnsvarsomraade.ts", () => {
     return jest.fn().mockImplementation((data, bindings) => ({ data, bindings }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

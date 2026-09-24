@@ -15,7 +15,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn((msgs) => Array.isArray(msgs) && msgs.length > 0)
 }));
 jest.mock(
-    "../../data-classes/SamsvarAnsvarsomraade.js",
+    "../../data-classes/SamsvarAnsvarsomraade.ts",
     () =>
         function SamsvarAnsvarsomraade(data, resourceBindings) {
             this.data = data;

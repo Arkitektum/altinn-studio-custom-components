@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
+import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

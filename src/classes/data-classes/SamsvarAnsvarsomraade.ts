@@ -1,7 +1,21 @@
+import type { KodeProps } from "./Kode.ts";
+import type { UtfoerendeProps } from "./Utfoerende.ts";
 // Classes
 import Kode from "./Kode.ts";
 import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.js";
-import Utfoerende from "./Utfoerende.js";
+import Utfoerende from "./Utfoerende.ts";
+
+/** What the form data holds for a SamsvarAnsvarsomraade, before it is read into the class. */
+export interface SamsvarAnsvarsomraadeProps {
+    funksjon?: KodeProps | null;
+    beskrivelseAvAnsvarsomraadet?: unknown;
+    utfoerende?: UtfoerendeProps | null;
+    datoAnsvarsrettErklaert?: unknown;
+    erAnsvarsomraadetAvsluttet?: unknown;
+    soeknadssystemetsReferanse?: unknown;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
+}
 
 /**
  * Represents a SamsvarAnsvarsomraade (Compliance Area of Responsibility).
@@ -18,7 +32,15 @@ import Utfoerende from "./Utfoerende.js";
  * @property {string} soeknadssystemetsReferanse - Reference from the application system.
  */
 export default class SamsvarAnsvarsomraade {
-    constructor(props, resourceBindings) {
+    declare funksjon: Kode | null | undefined;
+    declare beskrivelseAvAnsvarsomraadet?: unknown;
+    declare prosjekterendeList: ProsjekterendeList | null | undefined;
+    declare utfoerende: Utfoerende | null | undefined;
+    declare datoAnsvarsrettErklaert?: unknown;
+    declare erAnsvarsomraadetAvsluttet?: unknown;
+    declare soeknadssystemetsReferanse?: unknown;
+
+    constructor(props?: SamsvarAnsvarsomraadeProps, resourceBindings?: Record<string, unknown>) {
         this.funksjon = props?.funksjon && new Kode(props.funksjon);
         this.beskrivelseAvAnsvarsomraadet = props?.beskrivelseAvAnsvarsomraadet;
         this.prosjekterendeList = new ProsjekterendeList(props?.prosjekterende, resourceBindings);

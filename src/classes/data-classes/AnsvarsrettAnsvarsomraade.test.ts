@@ -1,4 +1,4 @@
-import AnsvarsrettAnsvarsomraade from "./AnsvarsrettAnsvarsomraade.js";
+import AnsvarsrettAnsvarsomraade from "./AnsvarsrettAnsvarsomraade.ts";
 import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList.js";
 import Kode from "./Kode.ts";
 
@@ -23,7 +23,7 @@ describe("AnsvarsrettAnsvarsomraade", () => {
             soeknadssystemetsReferanse: "ref123"
         };
 
-        const instance = new AnsvarsrettAnsvarsomraade(props, resourceBindings);
+        const instance = new AnsvarsrettAnsvarsomraade(props as never, resourceBindings);
 
         expect(Kode).toHaveBeenCalledWith("funksjonKode");
         expect(instance.funksjon).toBeInstanceOf(Kode);
@@ -44,7 +44,7 @@ describe("AnsvarsrettAnsvarsomraade", () => {
     it("should handle missing optional properties", () => {
         const props = {};
 
-        const instance = new AnsvarsrettAnsvarsomraade(props, resourceBindings);
+        const instance = new AnsvarsrettAnsvarsomraade(props as never, resourceBindings);
 
         expect(instance.funksjon).toBeUndefined();
         expect(instance.beskrivelseAvAnsvarsomraadet).toBeUndefined();
@@ -62,7 +62,7 @@ describe("AnsvarsrettAnsvarsomraade", () => {
             soeknadssystemetsReferanse: "ref123"
         };
 
-        const instance = new AnsvarsrettAnsvarsomraade(props, resourceBindings);
+        const instance = new AnsvarsrettAnsvarsomraade(props as never, resourceBindings);
 
         expect(instance.funksjon).toBeUndefined();
         expect(instance.tiltaksklasse).toBeUndefined();

@@ -1,7 +1,7 @@
 import Kode from "./Kode.ts";
 import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.js";
-import SamsvarAnsvarsomraade from "./SamsvarAnsvarsomraade.js";
-import Utfoerende from "./Utfoerende.js";
+import SamsvarAnsvarsomraade from "./SamsvarAnsvarsomraade.ts";
+import Utfoerende from "./Utfoerende.ts";
 
 jest.mock("../system-classes/data-classes/ProsjekterendeList");
 jest.mock("./Kode");
@@ -35,7 +35,7 @@ describe("SamsvarAnsvarsomraade", () => {
         (ProsjekterendeList as unknown as jest.Mock).mockImplementation(() => prosjekterendeListInstance);
         (Utfoerende as unknown as jest.Mock).mockImplementation(() => utfoerendeInstance);
 
-        const instance = new SamsvarAnsvarsomraade(props, resourceBindings);
+        const instance = new SamsvarAnsvarsomraade(props as never, resourceBindings);
 
         expect(Kode).toHaveBeenCalledWith(props.funksjon);
         expect(ProsjekterendeList).toHaveBeenCalledWith(props.prosjekterende, resourceBindings);
@@ -67,7 +67,7 @@ describe("SamsvarAnsvarsomraade", () => {
         (ProsjekterendeList as unknown as jest.Mock).mockImplementation(() => prosjekterendeListInstance);
         (Utfoerende as unknown as jest.Mock).mockImplementation(() => utfoerendeInstance);
 
-        const instance = new SamsvarAnsvarsomraade(props, resourceBindings);
+        const instance = new SamsvarAnsvarsomraade(props as never, resourceBindings);
 
         expect(Kode).toHaveBeenCalledWith(props.funksjon);
         expect(ProsjekterendeList).toHaveBeenCalledWith(undefined, resourceBindings);
@@ -91,7 +91,7 @@ describe("SamsvarAnsvarsomraade", () => {
         (ProsjekterendeList as unknown as jest.Mock).mockImplementation(() => prosjekterendeListInstance);
         (Utfoerende as unknown as jest.Mock).mockImplementation(() => utfoerendeInstance);
 
-        const instance = new SamsvarAnsvarsomraade(undefined, resourceBindings);
+        const instance = new SamsvarAnsvarsomraade(undefined as never, resourceBindings);
 
         expect(Kode).not.toHaveBeenCalled();
         expect(ProsjekterendeList).toHaveBeenCalledWith(undefined, resourceBindings);

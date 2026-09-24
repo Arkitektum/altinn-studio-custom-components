@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Ansvarsomraade.js", () => {
+jest.mock("../../data-classes/Ansvarsomraade.ts", () => {
     return function Ansvarsomraade(data, resourceBindings) {
         this.data = data;
         this.resourceBindings = resourceBindings;

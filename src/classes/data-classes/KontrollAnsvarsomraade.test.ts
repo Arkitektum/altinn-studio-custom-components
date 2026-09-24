@@ -1,5 +1,5 @@
 import Kode from "./Kode.ts";
-import KontrollAnsvarsomraade from "./KontrollAnsvarsomraade.js";
+import KontrollAnsvarsomraade from "./KontrollAnsvarsomraade.ts";
 import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
 
 jest.mock("../system-classes/data-classes/KontrollerendeList");
@@ -29,7 +29,7 @@ describe("KontrollAnsvarsomraade", () => {
         const kontrollerendeListInstance = { list: [1] };
         (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
-        const instance = new KontrollAnsvarsomraade(props, resourceBindings);
+        const instance = new KontrollAnsvarsomraade(props as never, resourceBindings);
 
         expect(Kode).toHaveBeenCalledWith(props.funksjon);
         expect(instance.funksjon).toBe(kodeInstance);
@@ -50,7 +50,7 @@ describe("KontrollAnsvarsomraade", () => {
         const kontrollerendeListInstance = {};
         (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
-        const instance = new KontrollAnsvarsomraade(props, resourceBindings);
+        const instance = new KontrollAnsvarsomraade(props as never, resourceBindings);
 
         expect(instance.funksjon).toBeUndefined();
         expect(instance.beskrivelseAvAnsvarsomraadet).toBeUndefined();
@@ -66,7 +66,7 @@ describe("KontrollAnsvarsomraade", () => {
         const kontrollerendeListInstance = {};
         (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
-        const instance = new KontrollAnsvarsomraade(props, resourceBindings);
+        const instance = new KontrollAnsvarsomraade(props as never, resourceBindings);
 
         expect(Kode).not.toHaveBeenCalled();
         expect(instance.funksjon).toBeUndefined();
@@ -78,7 +78,7 @@ describe("KontrollAnsvarsomraade", () => {
         const kontrollerendeListInstance = {};
         (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
-        const instance = new KontrollAnsvarsomraade(props, resourceBindings);
+        const instance = new KontrollAnsvarsomraade(props as never, resourceBindings);
 
         expect(KontrollerendeList).toHaveBeenCalledWith(props.kontrollerende, resourceBindings);
         expect(instance.kontrollerendeList).toBe(kontrollerendeListInstance);
