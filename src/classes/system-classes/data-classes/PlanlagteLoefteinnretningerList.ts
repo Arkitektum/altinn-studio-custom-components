@@ -4,10 +4,10 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 /** Which lift devices are planned, as the form data flags them. */
 export interface PlanlagteLoefteinnretningerProps {
-    planleggesHeis?: boolean;
-    planleggesLoefteplattform?: boolean;
-    planleggesRulletrapp?: boolean;
-    planleggesTrappeheis?: boolean;
+    planleggesHeis?: boolean | null;
+    planleggesLoefteplattform?: boolean | null;
+    planleggesRulletrapp?: boolean | null;
+    planleggesTrappeheis?: boolean | null;
 }
 
 /** One binding per lift device, naming the text resource it is shown as. */

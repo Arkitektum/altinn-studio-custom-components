@@ -97,7 +97,7 @@ export interface ComponentProps {
     size?: string;
     format?: string;
     feedbackType?: string;
-    order?: unknown;
+    order?: ComponentOrder;
     itemKey?: string;
     itemTermKey?: string;
     itemDescriptionKey?: string;
@@ -108,6 +108,17 @@ export interface ComponentProps {
     resourceBindings?: Record<string, ResourceBindingValue>;
     resourceValues?: Record<string, unknown>;
     styleOverride?: Record<string, string>;
+}
+
+/**
+ * How a table or matrix is sorted: which column, and which way.
+ *
+ * Both are optional because a component need not say: an unsorted one names no key, and a component that names one
+ * without a direction is sorted ascending.
+ */
+export interface ComponentOrder {
+    key?: string | null;
+    direction?: string;
 }
 
 /**

@@ -19,6 +19,9 @@ declare global {
     const beforeAll: typeof import("@jest/globals").beforeAll;
     const afterAll: typeof import("@jest/globals").afterAll;
 
+    /** Node's `global`, which the tests reach for when they stand in a window or a text-resource collection. */
+    const global: typeof globalThis;
+
     /**
      * `require`, which the mock factories use.
      *

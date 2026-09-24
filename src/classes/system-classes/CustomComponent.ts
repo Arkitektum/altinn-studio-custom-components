@@ -1,4 +1,4 @@
-import type { ComponentProps, ResourceBindingGroup } from "../../types.ts";
+import type { ComponentOrder, ComponentProps, ResourceBindingGroup } from "../../types.ts";
 import type ValidationMessages from "./ValidationMessages.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -25,7 +25,7 @@ export default class CustomComponent {
     declare hideOrgNr?: boolean;
     declare format?: string;
     declare enableLinks?: boolean;
-    declare order?: unknown;
+    declare order?: ComponentOrder;
 
     // What a subclass works out for itself and a renderer then reads off it. Declared here because every renderer
     // reads them off whichever component it was handed, and named widely because each subclass decides for itself

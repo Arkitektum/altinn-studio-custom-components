@@ -1,0 +1,182 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+// Dependencies
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Classes
+import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade.ts";
+import CustomComponent from "../CustomComponent.ts";
+
+// Global functions
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+
+/**
+ * CustomTableAnsvarsrettAnsvarsomraade is a custom component class for handling and displaying
+ * a table of "ansvarsomraade" (areas of responsibility) data, including resource bindings,
+ * validation messages, and resource values for UI rendering.
+ *
+ * @extends CustomComponent
+ *
+ * @class
+ * @param {Object} props - The properties object containing form data, resource bindings, and configuration flags.
+ * @param {Object} [props.resourceBindings] - Optional resource binding overrides for each field.
+ * @param {Object} [props.resourceValues] - Optional resource values, used to determine if the title should be included.
+ * @param {boolean|string} [props.hideTitle] - If true, omits the 'ansvarsomraader' title from the resource bindings.
+ * @param {boolean|string} [props.hideIfEmpty] - If true, omits the 'emptyFieldText' for 'ansvarsomraader'.
+ *
+ * @property {boolean} isEmpty - Indicates if the component data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for the component.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceBindings - Resource bindings object for various fields.
+ * @property {Object} resourceValues - Resource values for UI rendering, including title and data.
+ *
+ */
+export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponent {
+    declare resourceValues: { title?: unknown; data?: unknown; simpleBinding?: unknown };
+    declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const resourceBindings = this.getResourceBindings(props);
+        const data = this.getValueFromFormData(props, resourceBindings);
+
+        const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+
+        this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = resourceBindings;
+        this.resourceValues = {
+            title: props?.resourceValues?.title,
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.ansvarsomraader?.emptyFieldText) : data,
+            simpleBinding: props?.formData?.simpleBinding
+        };
+    }
+
+    /**
+     * Retrieves a list of "ansvarsomraade" values from the form data.
+     *
+     * @param {Object} props - The properties object containing form data and component information.
+     * @param {Object} resourceBindings - The resource bindings used to extract specific data.
+     * @returns {Array} The list of "ansvarsomraade" values extracted from the form data.
+     */
+    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+        const formDataWithoutSimpleBinding = { ...props.formData };
+        delete formDataWithoutSimpleBinding.simpleBinding;
+        const data = getComponentDataValue({ ...props, formData: formDataWithoutSimpleBinding });
+        const ansvarsomraadeList = this.getAnsvarsomraadeListFromData(data, resourceBindings);
+        return ansvarsomraadeList;
+    }
+
+    /**
+     * Converts input data into a list of AnsvarsrettAnsvarsomraade instances.
+     *
+     * @param {*} data - The input data, expected to be an array of ansvarsomraade objects.
+     * @param {*} resourceBindings - Resource bindings to be passed to each AnsvarsrettAnsvarsomraade instance.
+     * @returns {AnsvarsrettAnsvarsomraade[]|undefined} An array of AnsvarsrettAnsvarsomraade instances if data is valid, otherwise undefined.
+     */
+    getAnsvarsomraadeListFromData(data: unknown, resourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
+        if (!hasValue(data)) {
+            return undefined;
+        }
+        return Array.isArray(data) ? data.map((ansvarsomraade) => new AnsvarsrettAnsvarsomraade(ansvarsomraade, resourceBindings)) : [];
+    }
+
+    /**
+     * Retrieves validation messages based on the provided text resource bindings.
+     *
+     * @param {Object} textResourceBindings - An object containing text resource bindings to be validated.
+     * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
+     */
+    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
+        return hasMissingTextResources(textResourceBindings);
+    }
+
+    /**
+     * Generates a resource bindings object for various fields, providing default resource keys if not specified in props.
+     *
+     * @param {Object} props - The properties object containing resource bindings and configuration flags.
+     * @param {Object} [props.resourceBindings] - Optional resource binding overrides for each field.
+     * @param {Object} [props.resourceBindings.funksjon] - Resource bindings for 'funksjon' field.
+     * @param {Object} [props.resourceBindings.beskrivelseAvAnsvarsomraadet] - Resource bindings for 'beskrivelseAvAnsvarsomraadet' field.
+     * @param {Object} [props.resourceBindings.tiltaksklasse] - Resource bindings for 'tiltaksklasse' field.
+     * @param {Object} [props.resourceBindings.faseSamsvarKontroll] - Resource bindings for 'faseSamsvarKontrollKontroll' field.
+     * @param {Object} [props.resourceBindings.dekkesOmraadeAvSentralGodkjenning] - Resource bindings for 'dekkesOmraadeAvSentralGodkjenning' field.
+     * @param {Object} [props.resourceBindings.rammetillatelse] - Resource bindings for 'rammetillatelse' field.
+     * @param {Object} [props.resourceBindings.igangsettingstillatelse] - Resource bindings for 'igangsettingstillatelse' field.
+     * @param {Object} [props.resourceBindings.midlertidigBrukstillatelse] - Resource bindings for 'midlertidigBrukstillatelse' field.
+     * @param {Object} [props.resourceBindings.ferdigattest] - Resource bindings for 'ferdigattest' field.
+     * @param {boolean|string} [props.hideTitle] - If true, omits the 'ansvarsomraader' title from the resource bindings.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits the 'emptyFieldText' for 'ansvarsomraader'.
+     * @param {Object} [props.resourceValues] - Optional resource values, used to determine if the title should be included.
+     * @returns {Object} Resource bindings object with titles and empty field texts for each field, using defaults if not provided.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        const resourceBindings: Record<string, ResourceBindingGroup> = {
+            funksjon: {
+                title: props?.resourceBindings?.funksjon?.title || "resource.funksjon.title",
+                emptyFieldText: props?.resourceBindings?.funksjon?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            beskrivelseAvAnsvarsomraadet: {
+                title: props?.resourceBindings?.beskrivelseAvAnsvarsomraadet?.title || "resource.beskrivelseAvAnsvarsomraadet.title",
+                emptyFieldText: props?.resourceBindings?.beskrivelseAvAnsvarsomraadet?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            tiltaksklasse: {
+                title: props?.resourceBindings?.tiltaksklasse?.title || "resource.tiltaksklasse.title",
+                emptyFieldText: props?.resourceBindings?.tiltaksklasse?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            faseSamsvarKontroll: {
+                titleKontroll: props?.resourceBindings?.faseSamsvarKontroll?.titleKontroll || "resource.faseSamsvarKontroll.titleKontroll",
+                titleMix: props?.resourceBindings?.faseSamsvarKontroll?.titleMix || "resource.faseSamsvarKontroll.titleMix",
+                titleProUtf: props?.resourceBindings?.faseSamsvarKontroll?.titleProUtf || "resource.faseSamsvarKontroll.titleProUtf",
+                emptyFieldText: props?.resourceBindings?.faseSamsvarKontroll?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            dekkesOmraadeAvSentralGodkjenning: {
+                title: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.title || "resource.dekkesOmraadeAvSentralGodkjenning.title",
+                trueText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText?.title || "resource.trueText.default",
+                falseText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText?.title || "resource.falseText.default",
+                defaultText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText || "resource.emptyFieldText.default"
+            },
+            rammetillatelse: {
+                title: props?.resourceBindings?.rammetillatelse?.title || "resource.rammesoeknad.title",
+                emptyFieldText: props?.resourceBindings?.rammetillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            igangsettingstillatelse: {
+                title: props?.resourceBindings?.igangsettingstillatelse?.title || "resource.igangsettingstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.igangsettingstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            midlertidigBrukstillatelse: {
+                title: props?.resourceBindings?.midlertidigBrukstillatelse?.title || "resource.midlertidigBrukstillatelse.title",
+                emptyFieldText: props?.resourceBindings?.midlertidigBrukstillatelse?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            ferdigattest: {
+                title: props?.resourceBindings?.ferdigattest?.title || "resource.ferdigattest.title",
+                emptyFieldText: props?.resourceBindings?.ferdigattest?.emptyFieldText || "resource.emptyFieldText.default"
+            }
+        };
+        if (props?.hideTitle !== true && props?.hideTitle !== "true" && !hasValue(props?.resourceValues?.title)) {
+            resourceBindings.ansvarsomraader = {
+                titleSingle: props?.resourceBindings?.titleSingle || "resource.ansvarsomraade.title",
+                titlePlural: props?.resourceBindings?.titlePlural || "resource.ansvarsomraader.title"
+            };
+        }
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.ansvarsomraader = {
+                ...resourceBindings.ansvarsomraader,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
+    }
+
+    /**
+     * Returns an array of component tag names that are used within this component for rendering its content.
+     * This information can be used for documentation, analysis, or tooling purposes to understand component dependencies.
+     *
+     * @returns {Array<string>} An array of component tag names used within this component.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-feedbacklist-validation-messages", "custom-field-boolean-text", "custom-field-data", "custom-list-data", "custom-table-data"];
+    }
+}
