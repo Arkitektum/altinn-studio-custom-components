@@ -99,7 +99,7 @@ Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn bui
      Return `true` **only** if the component will actually render something (e.g. if it has data but nothing is rendered, return `false`).
 
 4. **Register the tag name in the allow-list.**
-   Add the new tag name to `customElementTagNames.js` in the [`altinn-studio-custom-components-utils`](https://github.com/Arkitektum/altinn-studio-custom-components-utils) package.
+   Add the new tag name to `customElementTagNames.ts` in the [`altinn-studio-custom-components-utils`](https://github.com/Arkitektum/altinn-studio-custom-components-utils) package, then release it and bump the dependency here.
    This is required for security reasons — `createCustomElement` throws for any tag name not on the list, so the component will not render until it is added (and the updated utils version is released and bumped here).
 
 5. **Add tests.**

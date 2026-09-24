@@ -23,23 +23,31 @@ It is **not** a framework or a server component — everything runs client-side 
 This repository is one of several related packages and applications.
 Understanding the boundaries between them is the key to understanding the architecture.
 
-| Repository / package | Role |
-| -------------------- | ---- |
-| **`altinn-studio-custom-components`** (this repo) | The custom components themselves. Published as `@arkitektum/altinn-studio-custom-components`. |
-| **`@arkitektum/altinn-studio-custom-components-utils`** | Shared functions and classes used across the packages — most importantly `createCustomElement`, `CustomElementHtmlAttributes`, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
-| **`@arkitektum/client-logger`** | Helper functions/classes for logging to Elastic from the browser. A runtime dependency of this package. |
-| **`altinn-studio-custom-components-api`** | A small Node API that backs the local **Statistics** dev tool (reads layouts, package versions, app resources, etc.). Not published; used only during development. |
-| **`altinn-studio-custom-components-docs`** | A GitHub Pages app that showcases every component with example data. The public component gallery. |
+Two families of repositories share this directory. The **components family** builds and documents the custom elements an Altinn app renders. The **tooling family** posts and inspects data against a local Altinn. They are separate, and the only thing they have in common is two small packages that each family's backend uses.
+
+**Published libraries**
+
+| Package | Role |
+| ------- | ---- |
+| **`@arkitektum/altinn-studio-custom-components`** (this repo) | The custom components themselves. |
+| **`@arkitektum/altinn-studio-custom-components-utils`** | Shared functions and classes — most importantly `createCustomElement`, `CustomElementHtmlAttributes`, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
+| **`@arkitektum/client-logger`** | Helper functions and classes for logging to Elastic from the browser. A runtime dependency of this package. |
+| **`@arkitektum/ftpb-testmotor-client`** | Reads example form data from the FtPB testmotor. Used by the statistics API and by the API tools. Nothing in this repository uses it. |
+| **`@arkitektum/ftpb-app-catalogue`** | The Altinn Studio apps the tooling knows about, and the data type each one's form data lives under. Used by the statistics API and by the API tools. Nothing in this repository uses it. |
+
+**Applications** (none published)
+
+| Repository | Role |
+| ---------- | ---- |
+| **`altinn-studio-custom-components-docs`** | A GitHub Pages app showing every component with example data. The public gallery. Consumes this package and `-utils` from npm. |
+| **`altinn-studio-custom-components-api`** | A small Node API backing the local **Statistics** dev tool in this repository. Runs on a developer's machine, not deployed. It reports which version of this package each app uses, but does not import it. |
+| **`altinn-studio-api-tools`** | A separate tool for posting payloads to a local Altinn and reading them back. Nothing to do with the components; it appears here only because it shares the two FtPB packages with the statistics API. |
 | **Altinn apps** (e.g. the example app) | The .NET/Altinn applications that consume this package, reference it in `App/package.json`, and copy it into `App/wwwroot` at build time. |
 
 ```text
-                          localhost:9001
-                     (custom-components-api)
-                              ▲
-                              │
-   client-logger    utils ────┼──── api repo
-        │             │       │
-        ▼             ▼       ▼
+   client-logger      utils
+        │                │
+        ▼                ▼
   ┌───────────────────────────────────────┐        ┌──────────────── Altinn Studio ─────────────┐
   │   @arkitektum/altinn-studio-          │        │  Altinn app                                │
   │   custom-components  (THIS PACKAGE) ──┼───────▶│   App/package.json  → dependency           │
@@ -47,7 +55,17 @@ Understanding the boundaries between them is the key to understanding the archit
         │            │              │              │   App/ui/*.json     → component usage      │
         ▼            ▼              ▼              │   App/config/texts/resource.<lang>.json    │
    devTools.html  statistics.html  docs site       │     → local resources (override globals)   │
-                                                   └────────────────────────────────────────────┘
+                          │           ▲            └────────────────────────────────────────────┘
+                       HTTP           └── depends on utils directly as well
+                          ▼
+                   localhost:9001
+              (custom-components-api)
+                          │
+                          ▼
+        ftpb-testmotor-client, ftpb-app-catalogue
+                          ▲
+                          └── also used by altinn-studio-api-tools, which is
+                              otherwise unrelated to the components
 
   Global resources:  src/data/resources.json ──▶ generated  src/data/resource.<lang>.json
 ```
