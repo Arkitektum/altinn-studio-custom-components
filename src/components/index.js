@@ -1,14 +1,14 @@
 // Base components
-import customDescriptionList from "./base-components/custom-description-list/index.js";
-import customDivider from "./base-components/custom-divider/index.js";
-import customFeedback from "./base-components/custom-feedback/index.js";
-import customField from "./base-components/custom-field/index.js";
-import customHeader from "./base-components/custom-header/index.js";
-import customList from "./base-components/custom-list/index.js";
-import customMatrix from "./base-components/custom-matrix/index.js";
-import customParagraph from "./base-components/custom-paragraph/index.js";
-import customSummation from "./base-components/custom-summation/index.js";
-import customTable from "./base-components/custom-table/index.js";
+import customDescriptionList from "./base-components/custom-description-list/index.ts";
+import customDivider from "./base-components/custom-divider/index.ts";
+import customFeedback from "./base-components/custom-feedback/index.ts";
+import customField from "./base-components/custom-field/index.ts";
+import customHeader from "./base-components/custom-header/index.ts";
+import customList from "./base-components/custom-list/index.ts";
+import customMatrix from "./base-components/custom-matrix/index.ts";
+import customParagraph from "./base-components/custom-paragraph/index.ts";
+import customSummation from "./base-components/custom-summation/index.ts";
+import customTable from "./base-components/custom-table/index.ts";
 
 // Data components
 import customDescriptionListData from "./data-components/custom-description-list-data/index.js";
@@ -80,10 +80,10 @@ import customTablePartGjennomfoeringsplan from "./data-components/custom-table-p
 import customTablePlan from "./data-components/custom-table-plan/index.js";
 
 // Layout components
-import dispensasjon from "./layout-components/dispensasjon/index.js";
-import dispensasjonsvarsel from "./layout-components/dispensasjonsvarsel/index.js";
-import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.js";
-import gjenpartNabovarsel from "./layout-components/gjenpart-nabovarsel/index.js";
+import dispensasjon from "./layout-components/dispensasjon/index.ts";
+import dispensasjonsvarsel from "./layout-components/dispensasjonsvarsel/index.ts";
+import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.ts";
+import gjenpartNabovarsel from "./layout-components/gjenpart-nabovarsel/index.ts";
 
 // Global functions
 import initCustomComponents from "../functions/init.ts";

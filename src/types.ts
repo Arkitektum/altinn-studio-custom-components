@@ -141,10 +141,15 @@ export interface BooleanTextValues {
 }
 
 /**
- * What a component class answers once it has been built from an element's props.
+ * What a component class answers once it has been built from an element's props, and what a renderer is handed.
  *
- * The classes are one per component and share no base beyond CustomComponent, so this names the few things every
- * caller reads off one rather than the union of eighty classes, which has nothing in common.
+ * The classes are one per component and share no base beyond CustomComponent, so this names what every caller can
+ * read off one: the few things CustomComponent works out, and the configuration it carries over from the props.
+ *
+ * The resource values and bindings are left open. A renderer goes with exactly one component class and reads what
+ * that class put there, which differs per class and runs as deep as the model the data came from; modelling it
+ * would mean typing each class's resourceValues.data as the data class it holds, which is a change to the classes
+ * rather than to their renderers.
  */
 export interface InstantiatedComponent {
     /** Whether the component resolved to nothing, which is what decides if it hides itself. */
@@ -154,8 +159,26 @@ export interface InstantiatedComponent {
     /** Messages gathered while building it, keyed by severity. */
     validationMessages?: unknown;
     hasValidationMessages?: unknown;
-    resourceValues?: object;
-    resourceBindings?: object;
+    resourceValues?: ResourceBindingValue;
+    resourceBindings?: ResourceBindingValue;
+    // Carried over from the props by CustomComponent, and read again by whatever renders the component.
+    tagName?: string;
+    inline?: boolean;
+    hideTitle?: boolean | string;
+    size?: string;
+    styleOverride?: Record<string, string>;
+    isChildComponent?: boolean;
+    feedbackType?: string;
+    hideOrgNr?: boolean;
+    format?: string;
+    enableLinks?: boolean;
+    order?: ComponentOrder;
+    /** Which list element a list component renders as. */
+    listType?: string;
+    // Worked out by CustomDispensasjonsvarsel, and read by the renderer that decides what a varsel shows.
+    isPlanBestemmelsesType?: boolean;
+    isAndrePlanbestemmelser?: boolean;
+    isAnnetLovForskrift?: boolean;
 }
 
 /**
