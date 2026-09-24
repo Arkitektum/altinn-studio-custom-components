@@ -8,8 +8,8 @@ module.exports = {
     mode: "development",
     entry: {
         main: "./src/components/index.ts",
-        devTools: "./public/scripts/devTools/index.js",
-        statistics: "./public/scripts/statistics/index.js"
+        devTools: "./public/scripts/devTools/index.ts",
+        statistics: "./public/scripts/statistics/index.ts"
     },
     output: {
         filename: "[name].js",
