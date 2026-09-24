@@ -70,8 +70,6 @@ Two families of repositories share this directory. The **components family** bui
   Global resources:  src/data/resources.json ──▶ generated  src/data/resource.<lang>.json
 ```
 
-See [`temp-data/relations.jpg`](./temp-data/relations.jpg) for the original overview sketch (note: `temp-data/` is working material and is not part of the published package).
-
 ---
 
 ## 3. Runtime model
