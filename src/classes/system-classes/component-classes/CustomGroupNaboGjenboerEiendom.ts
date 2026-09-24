@@ -1,0 +1,179 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { NaboGjenboerEiendomProps } from "../../data-classes/NaboGjenboerEiendom.ts";
+// Dependencies
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.ts";
+
+// Global functions
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
+
+/**
+ * CustomGroupNaboGjenboerEiendom is a custom component class for handling
+ * neighbor/adjacent property information within a form. It extends CustomComponent
+ * and provides logic for extracting, validating, and binding resources for
+ * property-related fields.
+ *
+ * @class
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties object for the component.
+ * @param {Object} [props.resourceBindings] - Optional custom resource binding values for fields.
+ * @param {boolean|string} [props.hideIfEmpty] - If true, omits the `naboGjenboerEiendom` resource binding.
+ *
+ * @property {boolean} isEmpty - Indicates if the component data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for missing or invalid resources.
+ * @property {boolean} hasValidationMessages - Indicates if there are any validation messages.
+ * @property {Object} resourceBindings - Resource binding configuration for the component fields.
+ * @property {Object} resourceValues - Resource values for the component, including empty field text or data.
+ */
+export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
+    declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
+    declare resourceValues: { data?: unknown };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
+
+        const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+
+        this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = resourceBindings || {};
+        this.resourceValues = {
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.naboGjenboerEiendom?.emptyFieldText) : data
+        };
+    }
+
+    /**
+     * Retrieves the component data from the provided props,
+     * creates a new instance of NaboGjenboerEiendom with that data,
+     * and returns the instance.
+     *
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {NaboGjenboerEiendom} An instance of NaboGjenboerEiendom initialized with the component data.
+     */
+    getValueFromFormData(props: ComponentProps): unknown {
+        const data = getComponentDataValue(props);
+        const naboGjenboerEiendom = new NaboGjenboerEiendom(data as NaboGjenboerEiendomProps | undefined);
+        return naboGjenboerEiendom;
+    }
+
+    /**
+     * Generates a set of resource binding objects for various property fields,
+     * providing default resource keys if custom values are not supplied via props.
+     *
+     * @param {Object} props - The properties object containing optional resourceBindings and configuration.
+     * @param {Object} [props.resourceBindings] - Optional custom resource binding values for fields.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits the `naboGjenboerEiendom` resource binding.
+     * @returns {Object} An object mapping field keys to their respective resource binding configurations.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        const resourceBindings: Record<string, ResourceBindingGroup> = {
+            eiendomMatrikkelinformasjon: {
+                title: props?.resourceBindings?.eiendom?.title || "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title"
+            },
+            eiendomMatrikkelinformasjonAdresse: {
+                title: props?.resourceBindings?.adresse?.title || "resource.adresse.title",
+                emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
+            },
+            eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title || "resource.eiendom.gaardsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title || "resource.eiendom.bruksnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title || "resource.eiendom.seksjonsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer: {
+                title: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title || "resource.eiendom.festenummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomMatrikkelinformasjonBolignummer: {
+                title: props?.resourceBindings?.bolignummer?.title || "resource.eiendom.bolignummer.title",
+                emptyFieldText: props?.resourceBindings?.bolignummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eiendomMatrikkelinformasjonBygningsnummer: {
+                title: props?.resourceBindings?.bygningsnummer?.title || "resource.eiendom.bygningsnummer.title",
+                emptyFieldText: props?.resourceBindings?.bygningsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eier: {
+                title: props?.resourceBindings?.eier?.title || "resource.eierFesterAvNaboeiendom.title"
+            },
+            eierNavn: {
+                title: props?.resourceBindings?.eierNavn?.title || "resource.navn.title",
+                emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eierTelefonnummer: {
+                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.telefonnummer.title",
+                emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eierEpost: {
+                title: props?.resourceBindings?.eierEpost?.title || "resource.epostadresse.title",
+                emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            eierAdresse: {
+                title: props?.resourceBindings?.eierAdresse?.title || "resource.adresse.title"
+            },
+            responsNabovarselSendtVia: {
+                title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",
+                emptyFieldText: props?.resourceBindings?.responsNabovarselSendtVia?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            responsNabovarselSendt: {
+                title: props?.resourceBindings?.responsNabovarselSendt?.title || "resource.respons.nabovarselSendt.title",
+                emptyFieldText: props?.resourceBindings?.responsNabovarselSendt?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            responsErMerknadEllerSamtykkeMottatt: {
+                title: props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title || "resource.status.title",
+                falseText:
+                    props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.falseText ||
+                    "resource.respons.erMerknadEllerSamtykkeMottatt.falseText"
+            },
+            responsErMerknadMottatt: {
+                trueText: props?.resourceBindings?.responsErMerknadMottatt?.trueText || "resource.respons.erMerknadMottatt.trueText"
+            },
+            responsErSamtykkeMottatt: {
+                trueText: props?.resourceBindings?.responsErSamtykkeMottatt?.trueText || "resource.respons.erSamtykkeMottatt.trueText"
+            },
+            responsMerknadMottattDato: {
+                title: props?.resourceBindings?.responsMerknadMottattDato?.title || "resource.respons.merknadMottattDato.title"
+            },
+            responsSamtykkeMottattDato: {
+                title: props?.resourceBindings?.responsSamtykkeMottattDato?.title || "resource.respons.samtykkeMottattDato.title"
+            }
+        };
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.naboGjenboerEiendom = {
+                ...resourceBindings.naboGjenboerEiendom,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
+    }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return [
+            "custom-feedbacklist-validation-messages",
+            "custom-field-adresse",
+            "custom-field-data",
+            "custom-paragraph",
+            "custom-table-nabo-gjenboer-eiendom",
+            "custom-table-part"
+        ];
+    }
+}

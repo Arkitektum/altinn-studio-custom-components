@@ -1,0 +1,104 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+// Dependencies
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+
+// Global functions
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
+
+/**
+ * CustomGroupUtfallSvarType is a custom component class that handles the logic for displaying
+ * and validating a group outcome answer type within a form. It extends the CustomComponent base class
+ * and manages resource bindings, validation messages, and resource values for rendering.
+ *
+ * @class
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties passed to the component, including form data and resource values.
+ *
+ * @property {boolean} isEmpty - Indicates whether the component's data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for the component, if any.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages present.
+ * @property {Object} resourceValues - Contains resource values for rendering, such as title and data.
+ */
+export default class CustomGroupUtfallSvarType extends CustomComponent {
+    declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
+    declare resourceValues: { data?: unknown };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
+
+        const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+
+        this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = {
+            title: resourceBindings?.utfallSvarType?.title,
+            kommentar: resourceBindings?.kommentar,
+            tema: resourceBindings?.tema,
+            utfallSvarStatus: resourceBindings?.utfallSvarStatus,
+            vedleggsliste: resourceBindings?.vedleggsliste
+        };
+        this.resourceValues = {
+            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+        };
+    }
+
+    /**
+     * Retrieves the value for this component from the provided form data.
+     *
+     * @param {Object} props - The properties containing form data and component information.
+     * @returns {*} The value extracted from the form data for this component.
+     */
+    getValueFromFormData(props: ComponentProps): unknown {
+        return getComponentDataValue(props);
+    }
+
+    /**
+     * Generates resource binding objects for various fields based on provided props.
+     *
+     * @param {Object} props - The properties object containing resource bindings.
+     * @param {Object} [props.resourceBindings] - Optional custom resource bindings for each field.
+     * @param {string} [props.resourceBindings.title] - Title for the utfall type. The caller resolves this from the
+     *   utfall type, because it varies per type and so has no default here.
+     * @param {Object} [props.resourceBindings.kommentar] - Custom binding for kommentar.
+     * @param {Object} [props.resourceBindings.tema] - Custom binding for tema.
+     * @param {Object} [props.resourceBindings.utfallSvarStatus] - Custom binding for utfallSvarStatus.
+     * @param {Object} [props.resourceBindings.vedleggsliste] - Custom binding for vedleggsliste.
+     * @returns {Object} An object containing resource bindings for utfallSvarType, kommentar, tema, utfallSvarStatus, and vedleggsliste.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        return {
+            utfallSvarType: {
+                title: props?.resourceBindings?.title
+            },
+            kommentar: {
+                title: props?.resourceBindings?.kommentar?.title || `resource.kommentar.title`
+            },
+            tema: {
+                title: props?.resourceBindings?.tema?.title || `resource.tema.title`
+            },
+            utfallSvarStatus: {
+                title: props?.resourceBindings?.utfallSvarStatus?.title || `resource.status.title`
+            },
+            vedleggsliste: {
+                title: props?.resourceBindings?.vedleggsliste?.title || `resource.vedlegg.title`
+            }
+        };
+    }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-feedbacklist-validation-messages", "custom-grouplist-utfall-svar", "custom-paragraph"];
+    }
+}

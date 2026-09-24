@@ -3,7 +3,7 @@ import type { TitleResourceBinding } from "../../../types.ts";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /** Which lift devices are planned, as the form data flags them. */
-export interface LoefteinnretningerProps {
+export interface PlanlagteLoefteinnretningerProps {
     planleggesHeis?: boolean;
     planleggesLoefteplattform?: boolean;
     planleggesRulletrapp?: boolean;
@@ -11,7 +11,7 @@ export interface LoefteinnretningerProps {
 }
 
 /** One binding per lift device, naming the text resource it is shown as. */
-export interface LoefteinnretningerResourceBindings {
+export interface PlanlagteLoefteinnretningerResourceBindings {
     planleggesHeis?: TitleResourceBinding;
     planleggesLoefteplattform?: TitleResourceBinding;
     planleggesRulletrapp?: TitleResourceBinding;
@@ -38,7 +38,7 @@ export interface LoefteinnretningerResourceBindings {
 export default class PlanlagteLoefteinnretningerList {
     declare resourceValues: { data: (string | undefined)[] };
 
-    constructor(loefteinnretninger?: LoefteinnretningerProps | null, resourceBindings?: LoefteinnretningerResourceBindings) {
+    constructor(loefteinnretninger?: PlanlagteLoefteinnretningerProps | null, resourceBindings?: PlanlagteLoefteinnretningerResourceBindings) {
         this.resourceValues = {
             data: this.getPlanlagteLoefteinnretningItems(loefteinnretninger, resourceBindings)
         };
@@ -53,8 +53,8 @@ export default class PlanlagteLoefteinnretningerList {
      * @returns {Array<string>} An array of text resources for the planned lift devices.
      */
     getPlanlagteLoefteinnretningItems(
-        loefteinnretninger?: LoefteinnretningerProps | null,
-        resourceBindings?: LoefteinnretningerResourceBindings
+        loefteinnretninger?: PlanlagteLoefteinnretningerProps | null,
+        resourceBindings?: PlanlagteLoefteinnretningerResourceBindings
     ): (string | undefined)[] {
         // The cast records what the filter leaves behind, which the type system does not track.
         return [

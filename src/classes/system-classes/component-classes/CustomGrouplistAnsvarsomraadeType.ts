@@ -1,0 +1,156 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+// Dependencies
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+
+// Global functions
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
+
+/**
+ * CustomGrouplistAnsvarsomraadeType is a custom component class for handling grouped list data
+ * related to "Ansvarsområde" (area of responsibility) in Altinn Studio custom components.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties for the component, including form data and resource bindings.
+ * @property {boolean} isEmpty - Indicates if the component data is empty.
+ * @property {Object} resourceBindings - Resource binding keys for various fields.
+ * @property {Object} resourceValues - Contains resolved resource values for title and data.
+ */
+/** One item in the list, of which only the funksjon code is read: it is what the items are grouped by. */
+export interface AnsvarsomraadeGroupItem {
+    funksjon?: { kodeverdi?: string | null } | null;
+}
+
+export default class CustomGrouplistAnsvarsomraadeType extends CustomComponent {
+    declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
+    declare resourceValues: { title?: unknown; data?: unknown };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
+
+        const isEmpty = !this.hasContent(data);
+
+        this.isEmpty = isEmpty;
+        this.resourceBindings = resourceBindings;
+        this.resourceValues = {
+            title: !props?.hideTitle && getComponentResourceValue(props, "title"),
+            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+        };
+    }
+
+    /**
+     * Retrieves the component data value from the provided props and groups array items by their 'Funksjon' property.
+     *
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {Object} The grouped array items based on the 'Funksjon' property.
+     */
+    getValueFromFormData(props: ComponentProps): unknown {
+        const data = getComponentDataValue(props);
+        return this.groupArrayItemsByFunksjon(data);
+    }
+
+    /**
+     * Groups items in an array by the `kodeverdi` property found in each item's `funksjon` object.
+     *
+     * @param {Array<Object>} array - The array of objects to group.
+     * @returns {Object} An object where each key is a `kodeverdi` and the value is an array of objects with that `kodeverdi`.
+     */
+    groupArrayItemsByFunksjon(array: unknown): Record<string, AnsvarsomraadeGroupItem[]> {
+        return hasValue(array)
+            ? (array as AnsvarsomraadeGroupItem[]).reduce((acc: Record<string, AnsvarsomraadeGroupItem[]>, obj) => {
+                  const key = obj?.funksjon?.kodeverdi;
+                  if (!key?.length) {
+                      return acc;
+                  }
+                  if (!acc[key]) {
+                      acc[key] = [];
+                  }
+                  acc[key].push(obj);
+                  return acc;
+              }, {})
+            : {};
+    }
+
+    /**
+     * Generates an object containing resource bindings for various fields, using provided props.
+     * Default resource keys are used if specific bindings are not provided in props.
+     * Optionally includes 'ansvarsfordeling' field based on `hideTitle` and `hideIfEmpty` props.
+     *
+     * @param {Object} props - The properties object containing resource bindings and options.
+     * @param {Object} [props.resourceBindings] - Custom resource bindings for fields.
+     * @param {boolean|string} [props.hideTitle] - If true, omits the 'ansvarsfordeling' title field.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits the 'ansvarsfordeling' emptyFieldText field.
+     * @returns {Object} An object with resource bindings for each field.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        const resourceBindings: Record<string, ResourceBindingGroup> = {
+            tiltaksklasse: {
+                title: props?.resourceBindings?.tiltaksklasse?.title || "resource.tiltaksklasse.title",
+                emptyFieldText: props?.resourceBindings?.tiltaksklasse?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            ansvarsomraade: {
+                title: props?.resourceBindings?.ansvarsomraade?.title || "resource.beskrivelseAvAnsvarsomraadet.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsomraade?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            foretak: {
+                title: props?.resourceBindings?.foretak?.title || "resource.ansvarligForetak.title",
+                emptyFieldText: props?.resourceBindings?.foretak?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            planlagteSamsvarKontrollErklaeringer: {
+                title: props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.title || "resource.planlagteSamsvarKontrollErklaeringer.title",
+                emptyFieldText:
+                    props?.resourceBindings?.planlagteSamsvarKontrollErklaeringer?.emptyFieldText ||
+                    "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
+                emptyFieldTextAvsluttet: props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldTextAvsluttet || "resource.emptyFieldText.default"
+            },
+            ansvarsomraadeStatus: {
+                title: props?.resourceBindings?.ansvarsomraadeStatus?.title || "resource.ansvarsomraadeStatus.title",
+                emptyFieldText: props?.resourceBindings?.ansvarsomraadeStatus?.emptyFieldText || "resource.emptyFieldText.default"
+            },
+            samsvarKontrollPlanlagtVedRammetillatelse: {
+                title: props?.resourceBindings?.samsvarKontrollPlanlagtVedRammetillatelse?.title || "resource.rammesoeknad.title"
+            },
+            samsvarKontrollPlanlagtVedIgangsettingstillatelse: {
+                title:
+                    props?.resourceBindings?.samsvarKontrollPlanlagtVedIgangsettingstillatelse?.title ||
+                    "resource.samsvarKontrollPlanlagtVedIgangsettingstillatelse.title"
+            },
+            samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse: {
+                title:
+                    props?.resourceBindings?.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse?.title ||
+                    "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title"
+            },
+            samsvarKontrollPlanlagtVedFerdigattest: {
+                title:
+                    props?.resourceBindings?.samsvarKontrollPlanlagtVedFerdigattest?.title || "resource.samsvarKontrollPlanlagtVedFerdigattest.title"
+            }
+        };
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
+            resourceBindings.ansvarsfordeling = {
+                title: props?.resourceBindings?.title || "resource.ansvarsfordeling.title"
+            };
+        }
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.ansvarsfordeling = {
+                ...resourceBindings.ansvarsfordeling,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
+    }
+
+    /**
+     * Returns an array of component tag names that are used within this component for rendering its content.
+     * This information can be used for documentation, analysis, or tooling purposes to understand component dependencies.
+     *
+     * @returns {Array<string>} An array of component tag names used within this component.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-header-text", "custom-table-ansvarsomraade", "custom-paragraph", "custom-feedbacklist-validation-messages"];
+    }
+}

@@ -22,13 +22,13 @@ import Varighet from "../data-classes/Varighet.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /** What the form data holds for the tiltakstyper of a Dispensasjon, before the codes are read into the class. */
-export interface TiltakstyperProps {
+export interface DispensasjonTiltakstyperProps {
     kode?: KodeProps[] | null;
     [key: string]: unknown;
 }
 
 /** The tiltakstyper once read, which is the codes and nothing else. */
-export interface Tiltakstyper {
+export interface DispensasjonTiltakstyper {
     /** Null when the form data named the tiltakstyper but listed no codes under it. */
     kode: Kode[] | null;
 }
@@ -51,7 +51,7 @@ export interface DispensasjonProps {
     stedfesting?: StedfestingProps | null;
     tiltakshaver?: PartProps | null;
     varighet?: VarighetProps | null;
-    tiltakstyper?: TiltakstyperProps | null;
+    tiltakstyper?: DispensasjonTiltakstyperProps | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }
@@ -77,7 +77,7 @@ export default class Dispensasjon {
     declare tiltakshaver: Part | undefined | null;
     declare varighet: Varighet | undefined | null;
     /** Only set when the form data named one, which is what lets a caller tell an absent one from an empty one. */
-    declare tiltakstyper?: Tiltakstyper;
+    declare tiltakstyper?: DispensasjonTiltakstyper;
 
     /**
      * Creates an instance of Dispensasjon.
@@ -129,7 +129,7 @@ export default class Dispensasjon {
      * @param {Array} [props.tiltakstyper.kode] - An array of type codes.
      * @returns {Object|null} An object containing the extracted type information, or null if not available.
      */
-    getTiltakstyperFromProps(props?: DispensasjonProps): Tiltakstyper | null {
+    getTiltakstyperFromProps(props?: DispensasjonProps): DispensasjonTiltakstyper | null {
         if (props && hasValue(props?.tiltakstyper)) {
             return {
                 kode: this.getKodeFromType(props.tiltakstyper)
@@ -144,7 +144,7 @@ export default class Dispensasjon {
      * @param {Array} [type.kode] - An array of type codes.
      * @returns {Array|null} An array of Kode instances, or null if no valid codes are found.
      */
-    getKodeFromType(type?: TiltakstyperProps | null): Kode[] | null {
+    getKodeFromType(type?: DispensasjonTiltakstyperProps | null): Kode[] | null {
         if (Array.isArray(type?.kode) && type?.kode?.length) {
             return type?.kode?.map((item) => {
                 return new Kode(item);
