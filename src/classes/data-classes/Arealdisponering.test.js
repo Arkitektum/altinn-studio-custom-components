@@ -1,4 +1,4 @@
-import Arealdisponering from "./Arealdisponering.js";
+import Arealdisponering from "./Arealdisponering.ts";
 
 describe("Arealdisponering", () => {
     it("should assign all properties from props", () => {

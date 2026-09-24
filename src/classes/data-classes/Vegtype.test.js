@@ -1,7 +1,7 @@
-import Kode from "./Kode.js";
-import Vegtype from "./Vegtype.js";
+import Kode from "./Kode.ts";
+import Vegtype from "./Vegtype.ts";
 
-jest.mock("./Kode.js"); // Mock the Kode class
+jest.mock("./Kode.ts"); // Mock the Kode class
 
 describe("Vegtype", () => {
     beforeEach(() => {

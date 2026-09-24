@@ -4,7 +4,7 @@ import {
     hasValue
 } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomFieldUtfallSvarStatus from "./CustomFieldUtfallSvarStatus.js";
-import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
+import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.ts";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 // Mocks for helper functions and classes
@@ -23,7 +23,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn(),
     getTextResourcesFromResourceBindings: jest.fn()
 }));
-jest.mock("../../data-classes/UtfallSvarStatus.js");
+jest.mock("../../data-classes/UtfallSvarStatus.ts");
 
 const { getComponentDataValue, getComponentResourceValue, getTextResources, validateTexts } = require("../../../functions/helpers.ts");
 

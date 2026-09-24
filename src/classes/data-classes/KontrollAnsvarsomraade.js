@@ -1,5 +1,5 @@
 // Classes
-import Kode from "./Kode.js";
+import Kode from "./Kode.ts";
 import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
 
 /**

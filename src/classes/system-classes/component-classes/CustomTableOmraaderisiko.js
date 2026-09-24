@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Omraaderisiko from "../../data-classes/Omraaderisiko.js";
+import Omraaderisiko from "../../data-classes/Omraaderisiko.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";

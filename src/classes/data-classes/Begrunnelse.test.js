@@ -1,6 +1,6 @@
-import Begrunnelse from "./Begrunnelse.js";
-import Fordeler from "./Fordeler.js";
-import Ulemper from "./Ulemper.js";
+import Begrunnelse from "./Begrunnelse.ts";
+import Fordeler from "./Fordeler.ts";
+import Ulemper from "./Ulemper.ts";
 
 jest.mock("./Fordeler");
 jest.mock("./Ulemper");

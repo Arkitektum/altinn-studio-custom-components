@@ -15,7 +15,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Telefonnumre.js", () => {
+jest.mock("../../data-classes/Telefonnumre.ts", () => {
     return function Telefonnumre(data) {
         return data;
     };

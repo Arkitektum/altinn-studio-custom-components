@@ -1,6 +1,6 @@
-import Adresse from "./Adresse.js";
-import Eiendom from "./Eiendom.js";
-import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon.js";
+import Adresse from "./Adresse.ts";
+import Eiendom from "./Eiendom.ts";
+import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon.ts";
 
 jest.mock("./Adresse");
 jest.mock("./Eiendomsidentifikasjon");

@@ -15,7 +15,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/KommunensSaksnummer.js", () => {
+jest.mock("../../data-classes/KommunensSaksnummer.ts", () => {
     return function KommunensSaksnummer(data) {
         return data;
     };

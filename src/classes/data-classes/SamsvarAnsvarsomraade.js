@@ -1,5 +1,5 @@
 // Classes
-import Kode from "./Kode.js";
+import Kode from "./Kode.ts";
 import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.js";
 import Utfoerende from "./Utfoerende.js";
 

@@ -1,4 +1,4 @@
-import KommunensSaksnummer from "./KommunensSaksnummer.js";
+import KommunensSaksnummer from "./KommunensSaksnummer.ts";
 
 describe("KommunensSaksnummer", () => {
     it("should create an instance with the correct properties when valid props are provided", () => {

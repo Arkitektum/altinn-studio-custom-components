@@ -1,4 +1,4 @@
-import GenerelleVilkaar from "./GenerelleVilkaar.js";
+import GenerelleVilkaar from "./GenerelleVilkaar.ts";
 
 describe("GenerelleVilkaar", () => {
     it("should create an instance with the provided norskSvenskDansk value", () => {

@@ -1,6 +1,6 @@
 import Dispensasjon from "./Dispensasjon.js";
-import Kode from "../data-classes/Kode.js";
-import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.js";
+import Kode from "../data-classes/Kode.ts";
+import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.ts";
 
 describe("Dispensasjon", () => {
     const baseProps = {

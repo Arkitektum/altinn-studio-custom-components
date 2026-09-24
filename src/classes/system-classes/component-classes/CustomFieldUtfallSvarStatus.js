@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, getTextResourcesFromResourceBinding
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
+import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.ts";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.ts";

@@ -1,7 +1,7 @@
 import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent.js";
 import CustomGroupNaboGjenboerEiendom from "./CustomGroupNaboGjenboerEiendom.js";
-import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
+import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.ts";
 
 // Mock helpers and validations
 jest.mock("../../../functions/helpers", () => ({

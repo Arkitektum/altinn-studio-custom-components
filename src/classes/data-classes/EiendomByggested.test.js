@@ -1,5 +1,5 @@
-import Eiendom from "./Eiendom.js";
-import EiendomByggested from "./EiendomByggested.js";
+import Eiendom from "./Eiendom.ts";
+import EiendomByggested from "./EiendomByggested.ts";
 
 // Import the class to test
 

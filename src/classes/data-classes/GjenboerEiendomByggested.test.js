@@ -1,7 +1,7 @@
-import GjenboerEiendom from './GjenboerEiendom.js';
-import GjenboerEiendomByggested from './GjenboerEiendomByggested.js';
+import GjenboerEiendom from './GjenboerEiendom.ts';
+import GjenboerEiendomByggested from './GjenboerEiendomByggested.ts';
 
-jest.mock('./GjenboerEiendom.js');
+jest.mock('./GjenboerEiendom.ts');
 
 describe('GjenboerEiendomByggested', () => {
     beforeEach(() => {

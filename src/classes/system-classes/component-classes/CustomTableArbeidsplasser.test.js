@@ -14,7 +14,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Arbeidsplasser.js", () => {
+jest.mock("../../data-classes/Arbeidsplasser.ts", () => {
     return function Arbeidsplasser(data) {
         return { ...data };
     };

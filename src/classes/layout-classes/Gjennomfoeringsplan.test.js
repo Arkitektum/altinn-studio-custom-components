@@ -1,9 +1,9 @@
-import EiendomByggested from "../data-classes/EiendomByggested.js";
+import EiendomByggested from "../data-classes/EiendomByggested.ts";
 import Gjennomfoeringsplan from "./Gjennomfoeringsplan.js";
-import Kode from "../data-classes/Kode.js";
-import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
-import Metadata from "../data-classes/Metadata.js";
-import Part from "../data-classes/Part.js";
+import Kode from "../data-classes/Kode.ts";
+import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.ts";
+import Metadata from "../data-classes/Metadata.ts";
+import Part from "../data-classes/Part.ts";
 
 jest.mock("../data-classes/Part");
 jest.mock("../data-classes/EiendomByggested");

@@ -2,7 +2,7 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import Arbeidsplasser from "../../data-classes/Arbeidsplasser.js";
+import Arbeidsplasser from "../../data-classes/Arbeidsplasser.ts";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions

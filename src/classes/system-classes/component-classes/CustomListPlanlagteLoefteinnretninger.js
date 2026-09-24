@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Loefteinnretninger from "../../data-classes/Loefteinnretninger.js";
+import Loefteinnretninger from "../../data-classes/Loefteinnretninger.ts";
 import PlanlagteLoefteinnretningerList from "../data-classes/PlanlagteLoefteinnretningerList.js";
 
 // Global functions

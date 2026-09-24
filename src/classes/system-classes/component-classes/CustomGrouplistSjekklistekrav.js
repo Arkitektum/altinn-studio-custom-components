@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
+import Sjekklistekrav from "../../data-classes/Sjekklistekrav.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

@@ -1,4 +1,4 @@
-import UtfallType from "./UtfallType.js";
+import UtfallType from "./UtfallType.ts";
 
 describe("UtfallType", () => {
     it("should create an instance with the provided kodeverdi", () => {

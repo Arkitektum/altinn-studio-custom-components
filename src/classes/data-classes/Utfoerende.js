@@ -1,5 +1,5 @@
 // Classes
-import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.js";
+import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.ts";
 import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.js";
 
 /**

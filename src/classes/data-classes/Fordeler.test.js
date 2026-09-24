@@ -1,4 +1,4 @@
-import Fordeler from "./Fordeler.js";
+import Fordeler from "./Fordeler.ts";
 
 describe("Fordeler", () => {
     it("should create an instance with the provided effekt property", () => {

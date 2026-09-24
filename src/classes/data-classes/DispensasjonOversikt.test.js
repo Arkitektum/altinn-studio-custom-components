@@ -1,5 +1,5 @@
-import Dispensasjon from "./Dispensasjon.js";
-import DispensasjonOversikt from "./DispensasjonOversikt.js";
+import Dispensasjon from "./Dispensasjon.ts";
+import DispensasjonOversikt from "./DispensasjonOversikt.ts";
 
 jest.mock("./Dispensasjon");
 

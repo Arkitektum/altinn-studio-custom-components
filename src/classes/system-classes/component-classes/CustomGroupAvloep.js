@@ -2,7 +2,7 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import Avloep from "../../data-classes/Avloep.js";
+import Avloep from "../../data-classes/Avloep.ts";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions

@@ -1,4 +1,4 @@
-import Kode from "./Kode.js";
+import Kode from "./Kode.ts";
 
 describe("Kode", () => {
     it("should create an instance of Kode with the provided kodebeskrivelse", () => {

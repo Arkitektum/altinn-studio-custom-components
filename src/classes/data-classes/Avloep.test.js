@@ -1,5 +1,5 @@
-import Avloep from "./Avloep.js";
-import Kode from "./Kode.js";
+import Avloep from "./Avloep.ts";
+import Kode from "./Kode.ts";
 
 describe("Avloep", () => {
     it("should initialize properties correctly", () => {

@@ -14,7 +14,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Prosjekt.js", () => {
+jest.mock("../../data-classes/Prosjekt.ts", () => {
     return function Prosjekt(data) {
         return data;
     };

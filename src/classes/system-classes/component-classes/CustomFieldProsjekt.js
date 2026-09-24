@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Prosjekt from "../../data-classes/Prosjekt.js";
+import Prosjekt from "../../data-classes/Prosjekt.ts";
 
 /**
  * CustomFieldProsjekt is a custom component class for handling and displaying project-related form data.

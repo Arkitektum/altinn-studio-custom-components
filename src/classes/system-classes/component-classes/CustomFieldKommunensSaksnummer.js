@@ -2,7 +2,7 @@
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.js";
+import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.ts";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";

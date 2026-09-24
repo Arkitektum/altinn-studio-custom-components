@@ -1,5 +1,5 @@
 import CustomGroupRammebetingelserKravTilByggegrunn from "./CustomGroupRammebetingelserKravTilByggegrunn.js";
-import KravTilByggegrunn from "../../data-classes/KravTilByggegrunn.js";
+import KravTilByggegrunn from "../../data-classes/KravTilByggegrunn.ts";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),

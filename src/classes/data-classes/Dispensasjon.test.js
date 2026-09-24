@@ -1,5 +1,5 @@
-import Dispensasjon from "./Dispensasjon.js";
-import Kode from "./Kode.js";
+import Dispensasjon from "./Dispensasjon.ts";
+import Kode from "./Kode.ts";
 
 jest.mock("./Kode");
 

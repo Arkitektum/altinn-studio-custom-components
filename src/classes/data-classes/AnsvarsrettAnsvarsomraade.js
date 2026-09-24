@@ -1,6 +1,6 @@
 // Classes
 import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList.js";
-import Kode from "./Kode.js";
+import Kode from "./Kode.ts";
 
 /**
  * Class representing a responsibility area.

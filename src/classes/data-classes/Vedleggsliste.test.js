@@ -1,5 +1,5 @@
-import Vedlegg from "./Vedlegg.js";
-import Vedleggsliste from "./Vedleggsliste.js";
+import Vedlegg from "./Vedlegg.ts";
+import Vedleggsliste from "./Vedleggsliste.ts";
 
 // Import the class to test
 

@@ -1,5 +1,5 @@
 // Classes
-import Kode from "../data-classes/Kode.js";
+import Kode from "../data-classes/Kode.ts";
 
 /**
  * Represents a dispensasjonsvarsel object with properties corresponding to the expected structure of the data.

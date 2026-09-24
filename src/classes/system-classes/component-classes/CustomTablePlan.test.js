@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/AndrePlaner.js", () => {
+jest.mock("../../data-classes/AndrePlaner.ts", () => {
     return function AndrePlaner({ plan }) {
         this.plan = plan;
     };

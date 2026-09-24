@@ -14,7 +14,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Eiendom.js", () => {
+jest.mock("../../data-classes/Eiendom.ts", () => {
     return function Eiendom(data) {
         Object.assign(this, data);
     };

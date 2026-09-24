@@ -2,7 +2,7 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import Arealdisponering from "../../data-classes/Arealdisponering.js";
+import Arealdisponering from "../../data-classes/Arealdisponering.ts";
 import ArealdisponeringSummation from "../data-classes/ArealdisponeringSummation.js";
 import CustomComponent from "../CustomComponent.js";
 

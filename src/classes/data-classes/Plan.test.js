@@ -1,12 +1,12 @@
-import Kode from "./Kode.js";
-import Plan from "./Plan.js";
+import Kode from "./Kode.ts";
+import Plan from "./Plan.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock hasValue and Kode for isolated testing
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn()
 }));
-jest.mock("./Kode.js");
+jest.mock("./Kode.ts");
 
 describe("Plan", () => {
     beforeEach(() => {

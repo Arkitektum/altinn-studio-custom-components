@@ -2,7 +2,7 @@
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import AndrePlaner from "../../data-classes/AndrePlaner.js";
+import AndrePlaner from "../../data-classes/AndrePlaner.ts";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions

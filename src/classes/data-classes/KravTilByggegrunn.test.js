@@ -1,5 +1,5 @@
-import KravTilByggegrunn from "./KravTilByggegrunn.js";
-import MuligeOmraadeRisikoer from "./MuligeOmraadeRisikoer.js";
+import KravTilByggegrunn from "./KravTilByggegrunn.ts";
+import MuligeOmraadeRisikoer from "./MuligeOmraadeRisikoer.ts";
 
 describe("KravTilByggegrunn", () => {
     it("should initialize muligeOmraadeRisikoer as instance if provided", () => {

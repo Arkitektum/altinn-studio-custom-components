@@ -1,5 +1,5 @@
-import Kode from "./Kode.js";
-import Tiltakstyper from "./Tiltakstyper.js";
+import Kode from "./Kode.ts";
+import Tiltakstyper from "./Tiltakstyper.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("./Kode");

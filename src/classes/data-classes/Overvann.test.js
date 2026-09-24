@@ -1,4 +1,4 @@
-import Overvann from "./Overvann.js";
+import Overvann from "./Overvann.ts";
 
 describe("Overvann", () => {
     it("should initialize properties from props", () => {

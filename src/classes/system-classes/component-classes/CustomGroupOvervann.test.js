@@ -1,7 +1,7 @@
 import CustomGroupOvervann from "./CustomGroupOvervann.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
-const Overvann = require("../../data-classes/Overvann.js");
+const Overvann = require("../../data-classes/Overvann.ts");
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {
@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Overvann.js", () => {
+jest.mock("../../data-classes/Overvann.ts", () => {
     return jest.fn().mockImplementation((data) => ({ ...data }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

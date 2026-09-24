@@ -14,7 +14,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Arealdisponering.js", () => {
+jest.mock("../../data-classes/Arealdisponering.ts", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, bebyggelsen: data.bebyggelsen, tomtearealet: data.tomtearealet }));
 });
 jest.mock("../data-classes/ArealdisponeringSummation.js", () => {

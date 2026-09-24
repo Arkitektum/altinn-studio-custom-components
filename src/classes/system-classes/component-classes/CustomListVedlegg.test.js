@@ -1,6 +1,6 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 import CustomListVedlegg from "./CustomListVedlegg.js";
-import Vedlegg from "../../data-classes/Vedlegg.js";
+import Vedlegg from "../../data-classes/Vedlegg.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks for global functions

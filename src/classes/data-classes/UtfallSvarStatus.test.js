@@ -1,4 +1,4 @@
-import UtfallSvarStatus from "./UtfallSvarStatus.js";
+import UtfallSvarStatus from "./UtfallSvarStatus.ts";
 
 describe("UtfallSvarStatus", () => {
     it("should create an instance with default values when no props are provided", () => {

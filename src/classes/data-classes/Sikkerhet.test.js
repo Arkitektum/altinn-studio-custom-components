@@ -1,4 +1,4 @@
-import Sikkerhet from "./Sikkerhet.js";
+import Sikkerhet from "./Sikkerhet.ts";
 
 describe("Sikkerhet", () => {
     it("should initialize all properties when all props are provided", () => {

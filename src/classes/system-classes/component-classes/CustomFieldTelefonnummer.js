@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Telefonnumre from "../../data-classes/Telefonnumre.js";
+import Telefonnumre from "../../data-classes/Telefonnumre.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

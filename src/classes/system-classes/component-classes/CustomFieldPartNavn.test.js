@@ -6,7 +6,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
 jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
-jest.mock("../../data-classes/Part.js", () => {
+jest.mock("../../data-classes/Part.ts", () => {
     return jest.fn().mockImplementation((data) => data);
 });
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

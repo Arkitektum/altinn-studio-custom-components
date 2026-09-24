@@ -15,7 +15,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Avloep.js", () => {
+jest.mock("../../data-classes/Avloep.ts", () => {
     return jest.fn().mockImplementation((data) => ({ mockAvloep: true, data }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

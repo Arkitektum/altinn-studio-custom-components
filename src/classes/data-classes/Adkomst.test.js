@@ -1,8 +1,8 @@
-import Adkomst from './Adkomst.js';
-import Vegtype from './Vegtype.js';
+import Adkomst from './Adkomst.ts';
+import Vegtype from './Vegtype.ts';
 
 // Mock Vegtype class
-jest.mock('./Vegtype.js', () => {
+jest.mock('./Vegtype.ts', () => {
     return jest.fn().mockImplementation((arg) => {
         return { mocked: true, arg };
     });

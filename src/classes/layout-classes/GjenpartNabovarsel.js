@@ -1,10 +1,10 @@
 // Classes
-import DispensasjonOversikt from "../data-classes/DispensasjonOversikt.js";
-import EiendomByggested from "../data-classes/EiendomByggested.js";
-import Metadata from "../data-classes/Metadata.js";
-import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.js";
-import Part from "../data-classes/Part.js";
-import Planer from "../data-classes/Planer.js";
+import DispensasjonOversikt from "../data-classes/DispensasjonOversikt.ts";
+import EiendomByggested from "../data-classes/EiendomByggested.ts";
+import Metadata from "../data-classes/Metadata.ts";
+import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.ts";
+import Part from "../data-classes/Part.ts";
+import Planer from "../data-classes/Planer.ts";
 
 /**
  * Class representing a GjenpartNabovarsel.

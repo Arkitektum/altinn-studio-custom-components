@@ -1,9 +1,9 @@
 // Classes
-import EiendomByggested from "../data-classes/EiendomByggested.js";
-import Kode from "../data-classes/Kode.js";
-import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
-import Metadata from "../data-classes/Metadata.js";
-import Part from "../data-classes/Part.js";
+import EiendomByggested from "../data-classes/EiendomByggested.ts";
+import Kode from "../data-classes/Kode.ts";
+import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.ts";
+import Metadata from "../data-classes/Metadata.ts";
+import Part from "../data-classes/Part.ts";
 
 /**
  * Class representing a Gjennomfoeringsplan.

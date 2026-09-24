@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Loefteinnretninger.js", () => {
+jest.mock("../../data-classes/Loefteinnretninger.ts", () => {
     return jest.fn().mockImplementation((data) => ({ mockData: data }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

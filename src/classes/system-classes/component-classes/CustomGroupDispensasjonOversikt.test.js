@@ -1,5 +1,5 @@
 import CustomGroupDispensasjonOversikt from "./CustomGroupDispensasjonOversikt.js";
-import DispensasjonOversikt from "../../data-classes/DispensasjonOversikt.js";
+import DispensasjonOversikt from "../../data-classes/DispensasjonOversikt.ts";
 
 jest.mock("../../data-classes/DispensasjonOversikt");
 

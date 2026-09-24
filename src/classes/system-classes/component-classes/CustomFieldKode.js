@@ -3,7 +3,7 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Kode from "../../data-classes/Kode.js";
+import Kode from "../../data-classes/Kode.ts";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";

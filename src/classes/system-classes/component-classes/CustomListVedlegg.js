@@ -2,7 +2,7 @@
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Vedlegg from "../../data-classes/Vedlegg.js";
+import Vedlegg from "../../data-classes/Vedlegg.ts";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";

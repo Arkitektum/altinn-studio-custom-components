@@ -1,7 +1,7 @@
 import CustomGroupVannforsyning from "./CustomGroupVannforsyning.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 const { hasMissingTextResources } = require("../../../functions/validations.ts");
-const Vannforsyning = require("../../data-classes/Vannforsyning.js");
+const Vannforsyning = require("../../data-classes/Vannforsyning.ts");
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Vannforsyning.js", () => {
+jest.mock("../../data-classes/Vannforsyning.ts", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isVannforsyning: true }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

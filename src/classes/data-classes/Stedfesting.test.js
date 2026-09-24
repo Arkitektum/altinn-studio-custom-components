@@ -1,6 +1,6 @@
-import Kode from "./Kode.js";
-import Posisjon from "./Posisjon.js";
-import Stedfesting from "./Stedfesting.js";
+import Kode from "./Kode.ts";
+import Posisjon from "./Posisjon.ts";
+import Stedfesting from "./Stedfesting.ts";
 
 jest.mock("./Posisjon");
 jest.mock("./Kode");

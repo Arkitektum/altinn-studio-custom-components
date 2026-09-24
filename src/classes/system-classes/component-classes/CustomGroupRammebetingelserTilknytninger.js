@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTilknytninger.js";
+import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTilknytninger.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

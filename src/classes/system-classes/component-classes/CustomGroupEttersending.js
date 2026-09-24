@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 // Classes
 import CustomComponent from "../CustomComponent.js";
-import Ettersending from "../../data-classes/Ettersending.js";
+import Ettersending from "../../data-classes/Ettersending.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

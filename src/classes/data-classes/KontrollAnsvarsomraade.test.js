@@ -1,4 +1,4 @@
-import Kode from "./Kode.js";
+import Kode from "./Kode.ts";
 import KontrollAnsvarsomraade from "./KontrollAnsvarsomraade.js";
 import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
 

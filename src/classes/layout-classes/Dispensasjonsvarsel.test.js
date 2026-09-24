@@ -1,5 +1,5 @@
 import Dispensasjonsvarsel from "./Dispensasjonsvarsel.js";
-import Kode from "../data-classes/Kode.js";
+import Kode from "../data-classes/Kode.ts";
 
 describe("Dispensasjonsvarsel", () => {
     it("should initialize all properties correctly", () => {

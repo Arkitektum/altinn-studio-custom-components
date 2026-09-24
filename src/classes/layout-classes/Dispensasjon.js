@@ -1,13 +1,13 @@
 // Classes
-import Begrunnelse from "../data-classes/Begrunnelse.js";
-import EiendomByggested from "../data-classes/EiendomByggested.js";
-import Kode from "../data-classes/Kode.js";
-import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.js";
-import Metadata from "../data-classes/Metadata.js";
-import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.js";
-import Part from "../data-classes/Part.js";
-import Stedfesting from "../data-classes/Stedfesting.js";
-import Varighet from "../data-classes/Varighet.js";
+import Begrunnelse from "../data-classes/Begrunnelse.ts";
+import EiendomByggested from "../data-classes/EiendomByggested.ts";
+import Kode from "../data-classes/Kode.ts";
+import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.ts";
+import Metadata from "../data-classes/Metadata.ts";
+import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.ts";
+import Part from "../data-classes/Part.ts";
+import Stedfesting from "../data-classes/Stedfesting.ts";
+import Varighet from "../data-classes/Varighet.ts";
 
 // Global functions
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";

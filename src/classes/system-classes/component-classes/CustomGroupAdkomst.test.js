@@ -1,6 +1,6 @@
 import CustomGroupAdkomst from "./CustomGroupAdkomst.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-const Adkomst = require("../../data-classes/Adkomst.js");
+const Adkomst = require("../../data-classes/Adkomst.ts");
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -15,7 +15,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Adkomst.js", () => {
+jest.mock("../../data-classes/Adkomst.ts", () => {
     return jest.fn().mockImplementation((data) => ({ mockAdkomst: true, data }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

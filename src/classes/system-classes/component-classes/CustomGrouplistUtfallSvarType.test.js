@@ -1,6 +1,6 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 import CustomGrouplistUtfallSvarType from "./CustomGrouplistUtfallSvarType.js";
-import UtfallSvar from "../../data-classes/UtfallSvar.js";
+import UtfallSvar from "../../data-classes/UtfallSvar.ts";
 import { hasMissingTextResources } from "../../../functions/validations.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -17,7 +17,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/UtfallSvar.js", () => {
+jest.mock("../../data-classes/UtfallSvar.ts", () => {
     return jest.fn().mockImplementation((obj) => ({ ...obj, __isUtfallSvar: true }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

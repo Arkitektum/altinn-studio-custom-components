@@ -1,5 +1,5 @@
-import Kode from "./Kode.js";
-import Vannforsyning from "./Vannforsyning.js";
+import Kode from "./Kode.ts";
+import Vannforsyning from "./Vannforsyning.ts";
 
 describe("Vannforsyning", () => {
     it("should initialize all properties correctly", () => {

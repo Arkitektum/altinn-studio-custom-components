@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../data-classes/Sjekklistekrav.js", () => {
+jest.mock("../../data-classes/Sjekklistekrav.ts", () => {
     return function Sjekklistekrav(data) {
         this.mockData = data;
     };

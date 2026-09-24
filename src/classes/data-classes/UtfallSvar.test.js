@@ -1,7 +1,7 @@
-import Kode from "./Kode.js";
-import UtfallSvar from "./UtfallSvar.js";
-import UtfallType from "./UtfallType.js";
-import Vedleggsliste from "./Vedleggsliste.js";
+import Kode from "./Kode.ts";
+import UtfallSvar from "./UtfallSvar.ts";
+import UtfallType from "./UtfallType.ts";
+import Vedleggsliste from "./Vedleggsliste.ts";
 
 jest.mock("./Kode");
 jest.mock("./UtfallType");

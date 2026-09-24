@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomTableOmraaderisiko from "./CustomTableOmraaderisiko.js";
-import Omraaderisiko from "../../data-classes/Omraaderisiko.js";
+import Omraaderisiko from "../../data-classes/Omraaderisiko.ts";
 
 // Mocks for helpers and validations
 jest.mock("../../../functions/helpers", () => ({

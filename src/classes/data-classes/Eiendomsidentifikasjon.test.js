@@ -1,4 +1,4 @@
-import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon.js";
+import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon.ts";
 
 describe("Eiendomsidentifikasjon", () => {
     it("should create an instance with all properties set", () => {
