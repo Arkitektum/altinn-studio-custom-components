@@ -1,5 +1,6 @@
 // Dependencies
 import { ClientLogger } from "@arkitektum/client-logger";
+import type { LogCustomField } from "../types.ts";
 
 // Constants
 import { altinnAppOrigins, clientLoggerApiUrls } from "../constants/urls.ts";
@@ -7,13 +8,21 @@ import { altinnAppOrigins, clientLoggerApiUrls } from "../constants/urls.ts";
 /**
  * Fetch with timeout and client logger integration.
  *
- * @param {string} url - The URL to fetch.
- * @param {object} options - The fetch options.
- * @param {number} timeout - The timeout in milliseconds.
- * @param {ClientLogger} clientLogger - The client logger instance.
- * @returns {Promise<Response>} - The fetch response.
+ * @param url - The URL to fetch.
+ * @param options - The fetch options.
+ * @param timeout - The timeout in milliseconds.
+ * @param clientLogger - The client logger instance, when there is one to log through.
+ * @param customFields - Extra fields carried on every log entry this call makes.
+ * @returns The fetch response, or nothing when the request failed: the failure is logged rather than thrown, so
+ *   a page that cannot reach something still renders.
  */
-export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout = 3000, clientLogger = null, customFields = []) {
+export async function fetchWithTimeoutAndClientLogger(
+    url: string,
+    options: RequestInit = {},
+    timeout = 3000,
+    clientLogger: ClientLogger | null = null,
+    customFields: LogCustomField[] = []
+): Promise<Response | undefined> {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
@@ -36,7 +45,7 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
         return response;
     } catch (error) {
         clearTimeout(timeoutId);
-        if (error.name === "AbortError") {
+        if ((error as Error).name === "AbortError") {
             clientLogger?.postLogData([
                 {
                     level: "Error",
@@ -49,11 +58,11 @@ export async function fetchWithTimeoutAndClientLogger(url, options = {}, timeout
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Request to ${url} failed with error: ${error.message}`,
+                    message: `Request to ${url} failed with error: ${(error as Error).message}`,
                     custom_fields: customFields
                 }
             ]);
-            console.error(`Request to ${url} failed with error: ${error.message}`);
+            console.error(`Request to ${url} failed with error: ${(error as Error).message}`);
         }
     }
 }
@@ -88,6 +97,8 @@ function getClientLoggerApiUrl() {
 export function getClientLoggerInstance() {
     const apiUrl = getClientLoggerApiUrl();
     const appName = "a3-pdf";
-    const clientLogger = new ClientLogger(apiUrl, null, appName);
+    // The package declares the source map argument as a string, but it is optional in practice and this call has
+    // never had one. The assertion is erased at build time, so nothing about the call changes.
+    const clientLogger = new ClientLogger(apiUrl, null as unknown as string, appName);
     return clientLogger;
 }

@@ -1,17 +1,23 @@
 // Global functions
-import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.js";
-import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.js";
+import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
+import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
+import type { ClientLogger } from "@arkitektum/client-logger";
+import type { LogCustomField } from "../types.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
 
 /**
  * Loads a script asynchronously by creating a script element and appending it to the document body.
  *
- * @param {string} src - The source URL of the script to load.
- * @param {object} [clientLogger=null] - Optional client logger instance for logging errors.
- * @param {Array} [clientLoggerCustomFields=[]] - Optional custom fields for the client logger.
- * @returns {Promise<HTMLScriptElement>} A promise that resolves with the script element when the script is loaded, or rejects with an error if the script fails to load.
+ * @param src - The source URL of the script to load.
+ * @param clientLogger - Optional client logger instance for logging errors.
+ * @param clientLoggerCustomFields - Optional custom fields for the client logger.
+ * @returns A promise that resolves with the script element when the script is loaded, or rejects with an error if the script fails to load.
  */
-function loadScriptAsync(src, clientLogger = null, clientLoggerCustomFields = []) {
+function loadScriptAsync(
+    src: string,
+    clientLogger: ClientLogger | null = null,
+    clientLoggerCustomFields: LogCustomField[] = []
+): Promise<HTMLScriptElement> {
     return new Promise((resolve, reject) => {
         const script = document.createElement("script");
         script.src = src;
@@ -36,13 +42,14 @@ function loadScriptAsync(src, clientLogger = null, clientLoggerCustomFields = []
 /**
  * Fetches the default text resources for a given language, with an optional fallback language if the primary fetch fails.
  *
- * @param {Location} location
- * @returns {string} The instance ID extracted from the location hash.
+ * @param location - Where the page is, which carries the instance id in its hash.
+ * @returns The instance ID extracted from the location hash.
  */
-function getInstanceIdFromLocation(location) {
+function getInstanceIdFromLocation(location: Location): string {
     const splittedHash = location?.hash?.split("/");
     const instanceIdWithQuery = `${splittedHash?.[2]}/${splittedHash?.[3]}`;
-    return instanceIdWithQuery.split("?")[0];
+    // Splitting a string always yields a first part, even when there was no separator to split on.
+    return instanceIdWithQuery.split("?")[0]!;
 }
 
 /**
@@ -53,16 +60,22 @@ function getInstanceIdFromLocation(location) {
  * so the caller can fall back to the default language instead of leaving the app unrendered.
  *
  * @async
- * @param {string} origin - The origin URL of the app.
- * @param {string} org - The organization identifier.
- * @param {string} app - The application identifier.
- * @param {ClientLogger} clientLogger - The client logger instance.
- * @param {Array<Object>} clientLoggerCustomFields - Custom fields to include in the client logger.
- * @returns {Promise<string|null>} The user's language preference, or null if it could not be determined.
+ * @param origin - The origin URL of the app.
+ * @param org - The organization identifier.
+ * @param app - The application identifier.
+ * @param clientLogger - The client logger instance.
+ * @param clientLoggerCustomFields - Custom fields to include in the client logger.
+ * @returns The user's language preference, or null if it could not be determined.
  */
-async function fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCustomFields) {
+async function fetchUserLanguage(
+    origin: string,
+    org: string,
+    app: string,
+    clientLogger: ClientLogger | null,
+    clientLoggerCustomFields: LogCustomField[]
+): Promise<string | null> {
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
-    const logError = (message) => {
+    const logError = (message: string) => {
         clientLogger?.postLogData([
             {
                 level: "Error",
@@ -77,7 +90,7 @@ async function fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCus
     try {
         userProfileResponse = await fetchWithTimeoutAndClientLogger(userProfileApiUrl, {}, 5000, clientLogger, clientLoggerCustomFields);
     } catch (error) {
-        logError(`Failed to fetch user profile data from ${userProfileApiUrl}. Error: ${error?.message}`);
+        logError(`Failed to fetch user profile data from ${userProfileApiUrl}. Error: ${(error as Error)?.message}`);
         return null;
     }
 
@@ -93,7 +106,7 @@ async function fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCus
     try {
         userProfileData = await userProfileResponse.json();
     } catch (error) {
-        logError(`Could not parse user profile data from ${userProfileApiUrl}. Error: ${error?.message}`);
+        logError(`Could not parse user profile data from ${userProfileApiUrl}. Error: ${(error as Error)?.message}`);
         return null;
     }
 
@@ -125,7 +138,7 @@ export default async function initCustomComponents() {
     const app = appId?.[2];
     const altinnAppFrontendVersionFallback = "4.29.0";
     const altinnAppFrontendVersion =
-        document.querySelector("meta[data-altinn-app-frontend-version]")?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
+        document.querySelector<HTMLMetaElement>("meta[data-altinn-app-frontend-version]")?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
 
     let clientLogger = null;
     try {
@@ -133,10 +146,12 @@ export default async function initCustomComponents() {
     } catch (error) {
         console.error("Could not create the client logger instance.", error);
     }
+    // Both are parsed out of the URL and either can come back missing. The logger takes that in its stride, so
+    // they are carried as they are rather than being filled in with something that was never true.
     const clientLoggerCustomFields = [
         { key: "instanceId", value: instanceId },
         { key: "app", value: app }
-    ];
+    ] as LogCustomField[];
 
     if (!origin || !org || !app) {
         console.error("Could not determine the origin, organization, or application from the URL.");
@@ -163,7 +178,7 @@ export default async function initCustomComponents() {
         clientLogger?.postLogData([
             {
                 level: "Error",
-                message: `Failed to prepare text resources for language '${selectedLanguage}'. Error: ${error?.message}`,
+                message: `Failed to prepare text resources for language '${selectedLanguage}'. Error: ${(error as Error)?.message}`,
                 custom_fields: clientLoggerCustomFields
             }
         ]);

@@ -41,6 +41,17 @@ export interface TableColumn {
     styleOverride?: Record<string, string>;
 }
 
+/**
+ * One field carried alongside a log entry, naming something about where the entry came from.
+ *
+ * Shaped as the client logger declares it. A value can be missing in practice, when whatever it names could not be
+ * worked out, and the one place that happens says so where the fields are built.
+ */
+export interface LogCustomField {
+    key: string;
+    value: string;
+}
+
 /** A column heading, once its text resource has been resolved. */
 export interface TableHeader {
     /** Absent when the column named no heading binding, which is how a column renders without one. */

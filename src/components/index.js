@@ -86,7 +86,7 @@ import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.j
 import gjenpartNabovarsel from "./layout-components/gjenpart-nabovarsel/index.js";
 
 // Global functions
-import initCustomComponents from "../functions/init.js";
+import initCustomComponents from "../functions/init.ts";
 
 // Stylesheet
 import "../styles/main.css" with { type: "css" };

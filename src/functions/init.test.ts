@@ -3,16 +3,18 @@
  * @jest-environment-options {"url": "https://org.example/dibk/varselplanoppstartuttalelse-v3/#/instance/512345/abc-def?query=1"}
  */
 
-import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.js";
-import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.js";
-import initCustomComponents from "./init.js";
+import { afterEach, beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
+import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
+import type { ClientLogger } from "@arkitektum/client-logger";
+import initCustomComponents from "./init.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
 
-jest.mock("./textResourceHelpers.js", () => ({
+jest.mock("./textResourceHelpers.ts", () => ({
     fetchTextResources: jest.fn(),
     fetchDefaultTextResources: jest.fn()
 }));
-jest.mock("./clientLoggerHelpers.js", () => ({
+jest.mock("./clientLoggerHelpers.ts", () => ({
     fetchWithTimeoutAndClientLogger: jest.fn(),
     getClientLoggerInstance: jest.fn()
 }));
@@ -26,23 +28,26 @@ describe("initCustomComponents", () => {
     const app = "varselplanoppstartuttalelse-v3";
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
 
-    let clientLogger;
-    let appendChildSpy;
+    // The logger stands in for the real one: the tests only ever read what it was asked to log.
+    let clientLogger: ClientLogger & { postLogData: jest.Mock };
+    let appendChildSpy: jest.SpiedFunction<typeof document.body.appendChild>;
+    let errorSpy: ReturnType<typeof jest.spyOn>;
+    let logSpy: ReturnType<typeof jest.spyOn>;
 
     beforeEach(() => {
         jest.clearAllMocks();
-        jest.spyOn(console, "error").mockImplementation(() => {});
-        jest.spyOn(console, "log").mockImplementation(() => {});
+        errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+        logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
-        clientLogger = { postLogData: jest.fn() };
-        getClientLoggerInstance.mockReturnValue(clientLogger);
+        clientLogger = { postLogData: jest.fn() } as unknown as ClientLogger & { postLogData: jest.Mock };
+        jest.mocked(getClientLoggerInstance).mockReturnValue(clientLogger);
 
-        fetchTextResources.mockResolvedValue({ resources: [] });
-        fetchDefaultTextResources.mockResolvedValue({ resources: [] });
+        jest.mocked(fetchTextResources).mockResolvedValue({ resources: [] });
+        jest.mocked(fetchDefaultTextResources).mockResolvedValue({ resources: [] });
 
         // jsdom never loads the script, so resolve loadScriptAsync by firing onload on append.
         appendChildSpy = jest.spyOn(document.body, "appendChild").mockImplementation((element) => {
-            element.onload?.();
+            (element as HTMLScriptElement).onload?.(new Event("load"));
             return element;
         });
 
@@ -53,18 +58,18 @@ describe("initCustomComponents", () => {
 
     afterEach(() => {
         appendChildSpy.mockRestore();
-        console.error.mockRestore();
-        console.log.mockRestore();
+        errorSpy.mockRestore();
+        logSpy.mockRestore();
     });
 
-    const getLoadedScriptSrc = () => appendChildSpy.mock.calls[0]?.[0]?.src;
+    const getLoadedScriptSrc = () => (appendChildSpy.mock.calls[0]?.[0] as HTMLScriptElement | undefined)?.src;
 
     it("uses the language from the user profile when the profile request succeeds", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: true,
             status: 200,
             json: async () => ({ profileSettingPreference: { language: "en" } })
-        });
+        } as unknown as Response);
 
         await initCustomComponents();
 
@@ -75,14 +80,14 @@ describe("initCustomComponents", () => {
     });
 
     it("falls back to nb and still loads the app frontend when the profile request returns 500", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: false,
             status: 500,
             statusText: "Internal Server Error",
             json: async () => {
                 throw new SyntaxError("Unexpected end of JSON input");
             }
-        });
+        } as unknown as Response);
 
         const domContentLoadedListener = jest.fn();
         document.addEventListener("DOMContentLoaded", domContentLoadedListener);
@@ -98,13 +103,13 @@ describe("initCustomComponents", () => {
     });
 
     it("falls back to nb when the profile response body cannot be parsed as JSON", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: true,
             status: 200,
             json: async () => {
                 throw new SyntaxError("Unexpected end of JSON input");
             }
-        });
+        } as unknown as Response);
 
         await initCustomComponents();
 
@@ -113,7 +118,7 @@ describe("initCustomComponents", () => {
     });
 
     it("falls back to nb when the profile request rejects", async () => {
-        fetchWithTimeoutAndClientLogger.mockRejectedValueOnce(new Error("network error"));
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockRejectedValueOnce(new Error("network error"));
 
         await initCustomComponents();
 
@@ -122,7 +127,7 @@ describe("initCustomComponents", () => {
     });
 
     it("falls back to nb when the profile request times out and no response is returned", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce(undefined);
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce(undefined);
 
         await initCustomComponents();
 
@@ -131,11 +136,11 @@ describe("initCustomComponents", () => {
     });
 
     it("falls back to nb when the profile has no language preference", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: true,
             status: 200,
             json: async () => ({ profileSettingPreference: {} })
-        });
+        } as unknown as Response);
 
         await initCustomComponents();
 
@@ -146,12 +151,12 @@ describe("initCustomComponents", () => {
     });
 
     it("still loads the app frontend when text resource loading rejects", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: true,
             status: 200,
             json: async () => ({ profileSettingPreference: { language: "nn" } })
-        });
-        fetchTextResources.mockRejectedValueOnce(new Error("boom"));
+        } as unknown as Response);
+        jest.mocked(fetchTextResources).mockRejectedValueOnce(new Error("boom"));
 
         await initCustomComponents();
 
@@ -162,17 +167,17 @@ describe("initCustomComponents", () => {
     });
 
     it("still loads the app frontend when the client logger cannot be created", async () => {
-        getClientLoggerInstance.mockImplementation(() => {
+        jest.mocked(getClientLoggerInstance).mockImplementation(() => {
             throw new Error("logger unavailable");
         });
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: false,
             status: 500,
             statusText: "Internal Server Error",
             json: async () => {
                 throw new SyntaxError("Unexpected end of JSON input");
             }
-        });
+        } as unknown as Response);
 
         await initCustomComponents();
 
@@ -181,11 +186,11 @@ describe("initCustomComponents", () => {
     });
 
     it("updates the body class names for the application", async () => {
-        fetchWithTimeoutAndClientLogger.mockResolvedValueOnce({
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
             ok: true,
             status: 200,
             json: async () => ({ profileSettingPreference: { language: "nb" } })
-        });
+        } as unknown as Response);
 
         await initCustomComponents();
 
