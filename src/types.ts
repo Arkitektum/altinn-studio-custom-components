@@ -68,10 +68,10 @@ export interface ComponentProps {
     itemDescriptionKey?: string;
     dataItemKey?: string;
     dataTitleItemKey?: string;
-    formData?: unknown;
+    formData?: Record<string, unknown>;
     tableColumns?: TableColumn[];
-    resourceBindings?: unknown;
-    resourceValues?: unknown;
+    resourceBindings?: Record<string, unknown>;
+    resourceValues?: Record<string, unknown>;
     styleOverride?: Record<string, string>;
 }
 
@@ -88,8 +88,8 @@ export interface InstantiatedComponent {
     /** Messages gathered while building it, keyed by severity. */
     validationMessages?: unknown;
     hasValidationMessages?: unknown;
-    resourceValues?: unknown;
-    resourceBindings?: unknown;
+    resourceValues?: object;
+    resourceBindings?: object;
 }
 
 /**

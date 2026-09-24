@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import Part from "../../data-classes/Part.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomFieldPartNavn is a custom component class for handling and formatting part names,

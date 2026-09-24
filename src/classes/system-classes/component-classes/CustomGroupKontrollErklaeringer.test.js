@@ -2,7 +2,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomGroupKontrollErklaeringer from "./CustomGroupKontrollErklaeringer.js";
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mock dependencies
 jest.mock("../CustomComponent.js", () => {
@@ -23,7 +23,7 @@ jest.mock("../../data-classes/KontrollAnsvarsomraade.js", () => {
         mockBindings: bindings
     }));
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

@@ -3,7 +3,7 @@ import CustomGrouplistAnsvarsomraadeType from "./CustomGrouplistAnsvarsomraadeTy
 const { hasMissingTextResources } = require("../../../functions/validations.ts");
 
 // Mocks for global functions and CustomComponent
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn()
 }));
@@ -15,7 +15,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn()
 }));
 
-const { getComponentDataValue, getComponentResourceValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue, getComponentResourceValue } = require("../../../functions/helpers.ts");
 
 describe("CustomGrouplistAnsvarsomraadeType", () => {
     beforeEach(() => {

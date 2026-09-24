@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomGrouplistNaboGjenboerEiendom is a custom component class for handling and displaying

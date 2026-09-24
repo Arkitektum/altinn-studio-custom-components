@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTilknytninger.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**

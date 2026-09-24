@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**

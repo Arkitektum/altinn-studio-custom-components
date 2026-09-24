@@ -2,7 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { getComponentDataValue } from "../../functions/helpers.js";
+import { getComponentDataValue } from "../../functions/helpers.ts";
 import { hasMissingTextResources } from "../../functions/validations.ts";
 
 /**

@@ -1,4 +1,4 @@
-import * as helpers from "../../../functions/helpers.js";
+import * as helpers from "../../../functions/helpers.ts";
 import CustomComponent from "../CustomComponent.js";
 import CustomHeaderText from "./CustomHeaderText.js";
 

@@ -5,10 +5,10 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent.js";
 import CustomSummationData from "./CustomSummationData.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mock dependencies
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

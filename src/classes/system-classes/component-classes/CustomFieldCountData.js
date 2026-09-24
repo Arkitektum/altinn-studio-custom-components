@@ -2,7 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.ts";
 
 /**
  * CustomFieldCountData is a custom component class that manages and displays the count of items in a field.

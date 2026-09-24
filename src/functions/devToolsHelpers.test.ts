@@ -1,8 +1,9 @@
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
+import type { InstantiatedComponent } from "../types.ts";
 
 // Mock URLSearchParams to control isDevMode behavior
 const mockURLSearchParams = jest.fn();
-globalThis.URLSearchParams = mockURLSearchParams;
+globalThis.URLSearchParams = mockURLSearchParams as unknown as typeof URLSearchParams;
 
 describe("devToolsHelpers", () => {
     beforeEach(() => {
@@ -10,8 +11,8 @@ describe("devToolsHelpers", () => {
         document.body.innerHTML = "";
 
         // Reset URLSearchParams mock
-        mockURLSearchParams.mockReset();
-        mockURLSearchParams.mockReturnValue({
+        jest.mocked(mockURLSearchParams).mockReset();
+        jest.mocked(mockURLSearchParams).mockReturnValue({
             get: jest.fn().mockReturnValue(null)
         });
     });
@@ -23,7 +24,7 @@ describe("devToolsHelpers", () => {
 
     describe("isDevMode", () => {
         it("returns true when devtools parameter is 'true'", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
@@ -31,7 +32,7 @@ describe("devToolsHelpers", () => {
         });
 
         it("returns false when devtools parameter is not 'true'", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("false")
             });
 
@@ -39,7 +40,7 @@ describe("devToolsHelpers", () => {
         });
 
         it("returns false when devtools parameter is missing", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue(null)
             });
 
@@ -48,7 +49,8 @@ describe("devToolsHelpers", () => {
     });
 
     describe("addDevToolsOverlay", () => {
-        let element, component;
+        let element: HTMLElement;
+        let component: InstantiatedComponent;
 
         beforeEach(() => {
             element = document.createElement("div");
@@ -56,12 +58,12 @@ describe("devToolsHelpers", () => {
                 id: "test-id",
                 type: "test-type",
                 visible: true
-            };
+            } as unknown as InstantiatedComponent;
             document.body.appendChild(element);
         });
 
         it("does nothing when not in dev mode", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue(null)
             });
 
@@ -71,7 +73,7 @@ describe("devToolsHelpers", () => {
         });
 
         it("adds overlay elements when in dev mode", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
@@ -82,7 +84,7 @@ describe("devToolsHelpers", () => {
         });
 
         it("sets element position to relative if not already set", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
@@ -92,7 +94,7 @@ describe("devToolsHelpers", () => {
         });
 
         it("does not override existing position", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
             element.style.position = "absolute";
@@ -103,42 +105,43 @@ describe("devToolsHelpers", () => {
         });
 
         it("creates different button styles for different types", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
             // Test base type (default)
             addDevToolsOverlay(element, component);
             let button = element.querySelector("button");
-            expect(button.textContent).toBe("B");
+            expect(button!.textContent).toBe("B");
 
             // Clear and test data type
             element.innerHTML = "";
             addDevToolsOverlay(element, component, "data");
             button = element.querySelector("button");
-            expect(button.textContent).toBe("D");
+            expect(button!.textContent).toBe("D");
 
             // Clear and test layout type
             element.innerHTML = "";
             addDevToolsOverlay(element, component, "layout");
             button = element.querySelector("button");
-            expect(button.textContent).toBe("L");
+            expect(button!.textContent).toBe("L");
         });
     });
 
     describe("renderHiddenDevToolsElement", () => {
-        let element, component;
+        let element: HTMLElement;
+        let component: InstantiatedComponent;
 
         beforeEach(() => {
             element = document.createElement("span");
             component = {
                 type: "hidden",
                 visible: false
-            };
+            } as unknown as InstantiatedComponent;
         });
 
         it("returns null when not in dev mode", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue(null)
             });
 
@@ -148,24 +151,24 @@ describe("devToolsHelpers", () => {
         });
 
         it("returns container element when in dev mode", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
             const result = renderHiddenDevToolsElement(element, component);
 
             expect(result).toBeTruthy();
-            expect(result.tagName).toBe("DIV");
+            expect(result!.tagName).toBe("DIV");
         });
 
         it("includes type labels and hidden indicator", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
             const container = renderHiddenDevToolsElement(element, component);
 
-            const spans = container.querySelectorAll("span");
+            const spans = container!.querySelectorAll("span");
             expect(spans.length).toBeGreaterThanOrEqual(3);
 
             // Should contain "hidden" text
@@ -174,32 +177,32 @@ describe("devToolsHelpers", () => {
         });
 
         it("creates different styles for different component types", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
             // Test base type - check for RGBA values (browsers convert hex to RGBA)
             const baseContainer = renderHiddenDevToolsElement(element, component);
-            expect(baseContainer.style.background).toMatch(/rgba\(26, 26, 53|#1a1a35/);
+            expect(baseContainer!.style.background).toMatch(/rgba\(26, 26, 53|#1a1a35/);
 
             // Test data type
             const dataContainer = renderHiddenDevToolsElement(element, component, "data");
-            expect(dataContainer.style.background).toMatch(/rgba\(13, 37, 24|#0d2518/);
+            expect(dataContainer!.style.background).toMatch(/rgba\(13, 37, 24|#0d2518/);
 
             // Test layout type
             const layoutContainer = renderHiddenDevToolsElement(element, component, "layout");
-            expect(layoutContainer.style.background).toMatch(/rgba\(30, 8, 56|#1e0838/);
+            expect(layoutContainer!.style.background).toMatch(/rgba\(30, 8, 56|#1e0838/);
         });
     });
 
     describe("panel interactions", () => {
         it("shows panel when button is clicked", () => {
-            mockURLSearchParams.mockReturnValue({
+            jest.mocked(mockURLSearchParams).mockReturnValue({
                 get: jest.fn().mockReturnValue("true")
             });
 
             const element = document.createElement("div");
-            const component = { type: "test" };
+            const component = { type: "test" } as unknown as InstantiatedComponent;
             document.body.appendChild(element);
 
             addDevToolsOverlay(element, component);
@@ -210,9 +213,9 @@ describe("devToolsHelpers", () => {
 
             expect(panel).toBeTruthy();
 
-            button.click();
+            button!.click();
 
-            expect(panel.style.display).toBe("block");
+            expect(panel!.style.display).toBe("block");
         });
     });
 });

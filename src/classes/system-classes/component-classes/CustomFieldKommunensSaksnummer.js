@@ -5,7 +5,7 @@ import CustomComponent from "../CustomComponent.js";
 import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomFieldKommunensSaksnummer is a custom component class for handling and displaying

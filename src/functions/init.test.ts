@@ -7,7 +7,7 @@ import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHel
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
 import initCustomComponents from "./init.ts";
-import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
+import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
 
 jest.mock("./textResourceHelpers.ts", () => ({
     fetchTextResources: jest.fn(),
@@ -17,7 +17,7 @@ jest.mock("./clientLoggerHelpers.ts", () => ({
     fetchWithTimeoutAndClientLogger: jest.fn(),
     getClientLoggerInstance: jest.fn()
 }));
-jest.mock("./htmlElementHelpers.js", () => ({
+jest.mock("./htmlElementHelpers.ts", () => ({
     updateBodyClassNamesForApplication: jest.fn()
 }));
 

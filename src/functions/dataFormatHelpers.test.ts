@@ -37,7 +37,7 @@ jest.mock("../constants/dateTimeFormats.ts", () => ({
         time: { en: "en", no: "no", default: "en" }
     }
 }));
-jest.mock("./helpers.js", () => ({
+jest.mock("./helpers.ts", () => ({
     hasValue: (v: unknown) => v !== undefined && v !== null && v !== ""
 }));
 

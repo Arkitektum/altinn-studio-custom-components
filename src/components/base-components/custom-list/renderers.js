@@ -2,7 +2,7 @@
 import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { generateUniqueId } from "../../../functions/helpers.js";
+import { generateUniqueId } from "../../../functions/helpers.ts";
 
 /**
  * Creates a span element representing a field title with a specific class and optional ID.

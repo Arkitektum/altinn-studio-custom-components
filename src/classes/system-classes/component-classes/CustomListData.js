@@ -4,7 +4,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomListData is a custom component class that handles list data extraction and resource value management.

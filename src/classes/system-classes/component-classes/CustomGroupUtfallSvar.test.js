@@ -3,7 +3,7 @@ import { hasMissingTextResources, hasValidationMessages } from "../../../functio
 import CustomComponent from "../CustomComponent.js";
 import CustomGroupUtfallSvar from "./CustomGroupUtfallSvar.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks for helpers and validations
 jest.mock("../../../functions/helpers", () => ({

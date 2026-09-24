@@ -2,7 +2,7 @@
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { renderLayoutContainerElement } from "../../../../functions/helpers.js";
+import { renderLayoutContainerElement } from "../../../../functions/helpers.ts";
 
 /**
  * Renders a custom header element if the text is provided.

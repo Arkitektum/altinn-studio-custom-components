@@ -1,5 +1,5 @@
 import CustomFieldImage from "./CustomFieldImage.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
@@ -15,7 +15,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

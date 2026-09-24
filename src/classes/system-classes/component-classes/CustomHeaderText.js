@@ -2,7 +2,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomHeaderText is a custom component class for rendering header text with configurable size and resource values.

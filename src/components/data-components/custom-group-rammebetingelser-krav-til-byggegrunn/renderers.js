@@ -2,7 +2,7 @@
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { getAdjustedHeaderSize } from "../../../functions/helpers.js";
+import { getAdjustedHeaderSize } from "../../../functions/helpers.ts";
 
 /**
  * Renders a custom header element with the specified title and size.

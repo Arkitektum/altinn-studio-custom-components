@@ -1,4 +1,5 @@
 // Dependencies
+import type { ComponentProps, InstantiatedComponent } from "../types.ts";
 import { addStyle, getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
@@ -9,7 +10,7 @@ import { addStyle, getTextResourceFromResourceBinding, hasValue } from "@arkitek
  * @param {number|string} value - The value to check.
  * @returns {boolean} True if the value is a number greater than zero, otherwise false.
  */
-export function isNumberLargerThanZero(value) {
+export function isNumberLargerThanZero(value: unknown): boolean {
     const num = typeof value === "number" ? value : Number(value);
     return typeof num === "number" && !Number.isNaN(num) && num > 0;
 }
@@ -22,8 +23,8 @@ export function isNumberLargerThanZero(value) {
  * @param {string} [component.texts.emptyFieldText] - The text to display for an empty field.
  * @returns {string} The empty field text if defined, otherwise an empty string.
  */
-export function getEmptyFieldText(component) {
-    const emptyFieldText = component?.resourceValues?.emptyFieldText;
+export function getEmptyFieldText(component?: InstantiatedComponent | null): string | undefined {
+    const emptyFieldText = (component?.resourceValues as Record<string, unknown> | undefined)?.emptyFieldText as string | undefined;
     return emptyFieldText || "";
 }
 
@@ -34,8 +35,10 @@ export function getEmptyFieldText(component) {
  * @param {Object} component - The component object containing resource bindings.
  * @returns {string} The row number title or "#" if not defined.
  */
-export function getRowNumberTitle(component) {
-    const rowNumberTitle = getTextResourceFromResourceBinding(component?.resourceBindings?.rowNumberTitle);
+export function getRowNumberTitle(component?: InstantiatedComponent | null): string | undefined {
+    const rowNumberTitle = getTextResourceFromResourceBinding(
+        (component?.resourceBindings as Record<string, unknown> | undefined)?.rowNumberTitle as string | undefined
+    );
     return rowNumberTitle || "#";
 }
 
@@ -85,7 +88,12 @@ export function renderLayoutContainerElement() {
  * @param {Array<string>} keys - An array of keys to validate in the texts object.
  * @param {string} componentName - The name of the component for which the texts are being validated.
  */
-export function validateTexts(texts, fallbackTexts, keys, componentName) {
+export function validateTexts(
+    texts: Record<string, unknown>,
+    fallbackTexts: Record<string, unknown>,
+    keys: string[],
+    componentName: string
+): void {
     for (const key of keys) {
         if (texts[key] === undefined || texts[key] === null) {
             if (fallbackTexts?.[key] !== undefined && fallbackTexts?.[key] !== null) {
@@ -105,7 +113,7 @@ export function validateTexts(texts, fallbackTexts, keys, componentName) {
  * @param {string[]} dataKeys - An array of keys to check in the form data.
  * @param {string} componentName - The name of the component for context in warning messages.
  */
-export function validateFormData(data, dataKeys, componentName) {
+export function validateFormData(data: Record<string, unknown>, dataKeys: string[], componentName: string): void {
     for (const key of dataKeys) {
         if (data[key] === undefined || data[key] === null) {
             console.warn(`Missing dataModelBindings.${key} for "${componentName}".`);
@@ -128,7 +136,7 @@ export function validateFormData(data, dataKeys, componentName) {
  * @param {string} id - The non-empty component id the container is expected to target.
  * @returns {HTMLElement | null} The matching element, or null when there is none.
  */
-function findSummaryTargetElement(element, id) {
+function findSummaryTargetElement(element: HTMLElement | null, id: string): HTMLElement | null {
     for (let current = element; current; current = current.parentElement) {
         if (current.getAttribute?.("data-summary-target") === id) {
             return current;
@@ -160,7 +168,7 @@ const EMPTY_ID_CONTAINER_MAX_DEPTH = 2;
  * @returns {HTMLElement | null} - The container element if found, or null if no container exists.
  *                                 If the component is marked as a child component, it returns the component itself.
  */
-export function getComponentContainerElement(component) {
+export function getComponentContainerElement(component: HTMLElement): HTMLElement | null {
     const isChildComponent = component.getAttribute("isChildComponent") === "true";
     if (isChildComponent) {
         return component;
@@ -168,7 +176,7 @@ export function getComponentContainerElement(component) {
     if (!component.id) {
         // The component itself, its parent, or its grandparent — the deepest an id-less component sits inside its
         // own container. Bounded rather than walking to the first empty-target container anywhere above it.
-        let current = component;
+        let current: HTMLElement | null = component;
         for (let depth = 0; current && depth <= EMPTY_ID_CONTAINER_MAX_DEPTH; depth++, current = current.parentElement) {
             if (current.getAttribute?.("data-summary-target") === "") {
                 return current;
@@ -195,7 +203,7 @@ export function getComponentContainerElement(component) {
  * @param {*} [component.formData.data] - Data value for non-child components.
  * @returns {*} The extracted data value from the component.
  */
-export function getComponentDataValue(component) {
+export function getComponentDataValue(component: ComponentProps): unknown {
     if (component.isChildComponent) {
         return component?.resourceValues?.data;
     } else {
@@ -215,7 +223,7 @@ export function getComponentDataValue(component) {
  * @param {string} [component.formData.dataTitle] - The data title to retrieve.
  * @returns {string|undefined} The data title if present, otherwise undefined.
  */
-export function getComponentDataTitle(component) {
+export function getComponentDataTitle(component: ComponentProps): unknown {
     if (component.isChildComponent) {
         return component?.resourceValues?.dataTitle;
     } else if (component.formData?.dataTitle != null) {
@@ -240,7 +248,7 @@ export function getComponentDataTitle(component) {
  * @param {*} [component.formData.defaultData] - Data value for default state in form data.
  * @returns {Object} An object containing `trueData`, `falseData`, and `defaultData`.
  */
-export function getComponentBooleanDataValues(component) {
+export function getComponentBooleanDataValues(component: ComponentProps): unknown {
     if (component.isChildComponent) {
         return {
             trueData: component?.resourceValues?.trueData,
@@ -263,11 +271,11 @@ export function getComponentBooleanDataValues(component) {
  * @param {Object} resourceBindings - The resource bindings object for fallback text resources.
  * @returns {Object} An object containing `trueText`, `falseText`, and `defaultText` strings.
  */
-export function getComponentBooleanTextValues(component, resourceBindings) {
+export function getComponentBooleanTextValues(component: ComponentProps, resourceBindings?: Record<string, unknown>): unknown {
     return {
-        trueText: component?.resourceValues?.trueText || getTextResourceFromResourceBinding(resourceBindings?.trueText),
-        falseText: component?.resourceValues?.falseText || getTextResourceFromResourceBinding(resourceBindings?.falseText),
-        defaultText: component?.resourceValues?.defaultText || getTextResourceFromResourceBinding(resourceBindings?.defaultText)
+        trueText: component?.resourceValues?.trueText || getTextResourceFromResourceBinding(resourceBindings?.trueText as string | undefined),
+        falseText: component?.resourceValues?.falseText || getTextResourceFromResourceBinding(resourceBindings?.falseText as string | undefined),
+        defaultText: component?.resourceValues?.defaultText || getTextResourceFromResourceBinding(resourceBindings?.defaultText as string | undefined)
     };
 }
 
@@ -280,11 +288,11 @@ export function getComponentBooleanTextValues(component, resourceBindings) {
  * @param {string} resourceKey - The key identifying the resource to retrieve.
  * @returns {*} The value of the resource, or the result from the resource binding lookup.
  */
-export function getComponentResourceValue(component, resourceKey) {
+export function getComponentResourceValue(component: ComponentProps, resourceKey: string): unknown {
     if (hasValue(component?.resourceValues?.[resourceKey])) {
         return component?.resourceValues?.[resourceKey];
     } else {
-        return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey]);
+        return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey] as string | undefined);
     }
 }
 
@@ -295,7 +303,7 @@ export function getComponentResourceValue(component, resourceKey) {
  * @param {number} offset - The amount to adjust the header size by (positive or negative).
  * @returns {string} The adjusted header size as a string (e.g., "h3"), clamped between "h1" and "h6".
  */
-export function getAdjustedHeaderSize(initialHeaderSize, offset) {
+export function getAdjustedHeaderSize(initialHeaderSize: string, offset: number): string {
     const initialNumber = Number.parseInt(initialHeaderSize.toLowerCase().replace("h", ""), 10);
     let adjustedNumber = initialNumber + offset;
     if (adjustedNumber < 1) {

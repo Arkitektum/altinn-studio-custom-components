@@ -2,7 +2,7 @@ import { getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-com
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomGjennomfoeringsplan from "./CustomGjennomfoeringsplan.js";
 import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
-import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
 jest.mock("../../layout-classes/Gjennomfoeringsplan");
 jest.mock("../CustomComponent", () => {

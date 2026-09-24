@@ -25,7 +25,7 @@ import {
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.js";
 import { languages } from "../languages.js";
-import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.js";
+import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
 /**
  * Renders the resource usage page by appending various filter controls and the default text resources list

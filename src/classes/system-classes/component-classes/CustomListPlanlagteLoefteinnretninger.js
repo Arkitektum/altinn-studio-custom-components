@@ -8,7 +8,7 @@ import PlanlagteLoefteinnretningerList from "../data-classes/PlanlagteLoefteinnr
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomListPlanlagteLoefteinnretninger is a custom component class for handling planned lift installations.

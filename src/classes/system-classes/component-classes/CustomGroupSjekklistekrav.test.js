@@ -2,7 +2,7 @@ import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomGroupSjekklistekrav from "./CustomGroupSjekklistekrav.js";
 import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
@@ -20,7 +20,7 @@ jest.mock("../CustomComponent.js", () => {
 jest.mock("../../data-classes/Sjekklistekrav.js", () => {
     return jest.fn().mockImplementation((data) => ({ mockData: data }));
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

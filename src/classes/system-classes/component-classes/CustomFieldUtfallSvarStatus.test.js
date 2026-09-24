@@ -8,7 +8,7 @@ import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 // Mocks for helper functions and classes
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
     getTextResources: jest.fn(),
@@ -25,7 +25,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
 }));
 jest.mock("../../data-classes/UtfallSvarStatus.js");
 
-const { getComponentDataValue, getComponentResourceValue, getTextResources, validateTexts } = require("../../../functions/helpers.js");
+const { getComponentDataValue, getComponentResourceValue, getTextResources, validateTexts } = require("../../../functions/helpers.ts");
 
 describe("CustomFieldUtfallSvarStatus", () => {
     beforeEach(() => {

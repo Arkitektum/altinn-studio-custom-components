@@ -2,7 +2,7 @@
 import { CustomElementHtmlAttributes, addStyle, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { getComponentContainerElement } from "../../../functions/helpers.js";
+import { getComponentContainerElement } from "../../../functions/helpers.ts";
 import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 
 // Stylesheet

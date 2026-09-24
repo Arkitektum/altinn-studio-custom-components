@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import CustomFieldBooleanText from "./CustomFieldBooleanText.js";
 
 // Mock helper functions
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentBooleanTextValues: jest.fn(),
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn()
@@ -13,7 +13,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn()
 }));
 
-const { getComponentBooleanTextValues, getComponentDataValue, getComponentResourceValue } = require("../../../functions/helpers.js");
+const { getComponentBooleanTextValues, getComponentDataValue, getComponentResourceValue } = require("../../../functions/helpers.ts");
 
 describe("CustomFieldBooleanText", () => {
     beforeEach(() => {

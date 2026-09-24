@@ -6,7 +6,7 @@ import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomGjennomfoeringsplan is a custom component class that extends CustomComponent.

@@ -5,7 +5,7 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentDataTitle, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 import { formatString } from "../../../functions/dataFormatHelpers.ts";
 
 /**

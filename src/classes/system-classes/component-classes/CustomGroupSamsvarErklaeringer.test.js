@@ -3,7 +3,7 @@ import CustomGroupSamsvarErklaeringer from "./CustomGroupSamsvarErklaeringer.js"
 const { hasMissingTextResources } = require("../../../functions/validations.ts");
 
 // Mocks for dependencies
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn(() => [{ id: 1 }, { id: 2 }])
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -23,7 +23,7 @@ jest.mock(
         }
 );
 
-const { getComponentDataValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
 
 describe("CustomGroupSamsvarErklaeringer", () => {
     beforeEach(() => {

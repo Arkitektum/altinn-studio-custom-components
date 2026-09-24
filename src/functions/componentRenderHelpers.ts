@@ -1,8 +1,8 @@
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
 import type { InstantiatedComponent } from "../types.ts";
-import { getComponentContainerElement } from "./helpers.js";
-import { hasRenderedContent } from "./htmlElementHelpers.js";
+import { getComponentContainerElement } from "./helpers.ts";
+import { hasRenderedContent } from "./htmlElementHelpers.ts";
 import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 

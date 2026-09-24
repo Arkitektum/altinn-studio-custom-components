@@ -8,7 +8,7 @@ import CustomComponent from "../CustomComponent.js";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
 import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomMatrixData is a custom component class for rendering and managing table data.

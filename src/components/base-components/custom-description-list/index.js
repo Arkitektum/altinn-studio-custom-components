@@ -1,5 +1,5 @@
 // Global functions
-import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.js";
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.ts";
 import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 // Local functions

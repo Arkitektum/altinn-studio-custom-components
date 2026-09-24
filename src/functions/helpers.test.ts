@@ -21,7 +21,7 @@ import {
     renderLayoutContainerElement,
     validateFormData,
     validateTexts
-} from "./helpers.js";
+} from "./helpers.ts";
 
 describe("isNumberLargerThanZero", () => {
     it("returns true for numbers > 0", () => {
@@ -56,7 +56,7 @@ describe("getEmptyFieldText", () => {
 
 describe("getRowNumberTitle", () => {
     beforeEach(() => {
-        global.window = Object.create(window);
+        globalThis.window = Object.create(window);
         window.textResources = { resources: [{ id: "rowTitle", value: "Row #" }] };
     });
     it("returns text resource if found", () => {
@@ -121,11 +121,11 @@ describe("addContainerElement", () => {
         expect(container.style.flexBasis).toBe("50%");
         expect(container.style.maxWidth).toBe("50%");
         expect(container.style.padding).toBe("0.75rem 0px");
-        expect(container.firstChild.firstChild).toBe(comp);
+        expect(container.firstChild!.firstChild).toBe(comp);
     });
     it("creates container with 100% styles if flex is false", () => {
         const child = document.createElement("span");
-        const container = addContainerElement(child, false);
+        const container = addContainerElement(child, false as unknown as null);
         expect(container.style.maxWidth).toBe("100%");
         expect(container.style.flexBasis).toBe("100%");
     });
@@ -153,8 +153,14 @@ describe("getTextResources", () => {
 });
 
 describe("validateTexts", () => {
-    beforeEach(() => jest.spyOn(console, "warn").mockImplementation(() => {}));
-    afterEach(() => console.warn.mockRestore());
+    let warnSpy: ReturnType<typeof jest.spyOn>;
+
+    beforeEach(() => {
+        warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+    });
+    afterEach(() => {
+        warnSpy.mockRestore();
+    });
     it("warns if text missing and fallback exists", () => {
         validateTexts({ a: null }, { a: "fallback" }, ["a"], "Comp");
         expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('Using fallback text: "fallback"'));
@@ -170,8 +176,14 @@ describe("validateTexts", () => {
 });
 
 describe("validateFormData", () => {
-    beforeEach(() => jest.spyOn(console, "warn").mockImplementation(() => {}));
-    afterEach(() => console.warn.mockRestore());
+    let warnSpy: ReturnType<typeof jest.spyOn>;
+
+    beforeEach(() => {
+        warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+    });
+    afterEach(() => {
+        warnSpy.mockRestore();
+    });
     it("warns if data missing", () => {
         validateFormData({ a: null }, ["a"], "Comp");
         expect(console.warn).toHaveBeenCalledWith(expect.stringContaining("Missing dataModelBindings.a"));

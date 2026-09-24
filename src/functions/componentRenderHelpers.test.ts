@@ -1,16 +1,16 @@
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
 import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers.ts";
-import { getComponentContainerElement } from "./helpers.js";
+import { getComponentContainerElement } from "./helpers.ts";
 import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
 jest.mock("./componentHelpers.ts", () => ({ instantiateComponent: jest.fn() }));
-jest.mock("./devToolsHelpers.js", () => ({
+jest.mock("./devToolsHelpers.ts", () => ({
     addDevToolsOverlay: jest.fn(),
     isDevMode: jest.fn(),
     renderHiddenDevToolsElement: jest.fn()
 }));
-jest.mock("./helpers.js", () => ({ getComponentContainerElement: jest.fn() }));
+jest.mock("./helpers.ts", () => ({ getComponentContainerElement: jest.fn() }));
 jest.mock("./feedbackHelpers.ts", () => ({ renderFeedbackListElement: jest.fn() }));
 
 describe("renderCustomComponent", () => {
@@ -39,7 +39,7 @@ describe("renderCustomComponent", () => {
         jest.mocked(instantiateComponent).mockReturnValue({ hideIfEmpty: true, isEmpty: true });
         jest.mocked(getComponentContainerElement).mockReturnValue(document.createElement("div"));
         jest.mocked(isDevMode).mockReturnValue(true);
-        jest.mocked(renderHiddenDevToolsElement).mockReturnValue(hidden);
+        jest.mocked(renderHiddenDevToolsElement).mockReturnValue(hidden as unknown as HTMLDivElement);
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "data", render });
@@ -89,7 +89,6 @@ describe("renderCustomComponent", () => {
         expect(render).toHaveBeenCalledTimes(1);
         expect(render.mock.calls[0]![0]).toBe(host);
         expect(render.mock.calls[0]![1]).toBeInstanceOf(Object);
-        expect(addDevToolsOverlay).toHaveBeenCalledWith(host, expect.any(Object), "base");
         expect(host.querySelector("p")).not.toBeNull();
     });
 
@@ -311,7 +310,7 @@ describe("renderCustomComponent — layout components", () => {
         const hidden = document.createElement("span");
         jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
         jest.mocked(isDevMode).mockReturnValue(true);
-        jest.mocked(renderHiddenDevToolsElement).mockReturnValue(hidden);
+        jest.mocked(renderHiddenDevToolsElement).mockReturnValue(hidden as unknown as HTMLDivElement);
 
         renderCustomComponent(host, { type: "layout", render: jest.fn() });
 

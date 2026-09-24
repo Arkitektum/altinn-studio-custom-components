@@ -19,7 +19,7 @@ jest.mock("../../data-classes/Arbeidsplasser.js", () => {
         return { ...data };
     };
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -32,7 +32,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 describe("CustomTableArbeidsplasser", () => {

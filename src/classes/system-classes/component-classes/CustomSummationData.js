@@ -9,7 +9,7 @@ import {
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomSummationData is a custom component class that processes form data,

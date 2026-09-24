@@ -7,7 +7,7 @@ import Eiendom from "../../data-classes/Eiendom.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomTableEiendom is a specialized component class for handling and displaying

@@ -2,7 +2,7 @@
 import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { generateUniqueId } from "../../../functions/helpers.js";
+import { generateUniqueId } from "../../../functions/helpers.ts";
 import { injectAnchorElements } from "../../../functions/dataFormatHelpers.ts";
 
 /**

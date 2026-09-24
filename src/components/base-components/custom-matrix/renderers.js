@@ -2,7 +2,7 @@
 import { CustomElementHtmlAttributes, addStyle, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { getEmptyFieldText } from "../../../functions/helpers.js";
+import { getEmptyFieldText } from "../../../functions/helpers.ts";
 
 /**
  * Creates a table header (th) element with the specified text and style.

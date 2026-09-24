@@ -1,4 +1,5 @@
 // Global functions
+import type { InstantiatedComponent } from "../types.ts";
 import { escapeHtml } from "./stringHelpers.ts";
 
 const TYPE_CONFIG = {
@@ -7,14 +8,16 @@ const TYPE_CONFIG = {
     layout: { label: "L", color: "#cba6f7", bgColor: "#1e0838", bgColorHidden: "#1e0838cc", borderColor: "#5a2a7a", rightPx: 50, typeName: "Layout" }
 };
 
-const allPanels = new Set();
+// Declared as an annotation rather than a type argument on the call: the coverage instrumenter re-emits the
+// expression and a type argument survives it, which breaks the file at runtime.
+const allPanels: Set<HTMLElement> = new Set();
 let documentListenerRegistered = false;
 
 /**
  * Registers a panel to be managed by the DevTools helper functions.
  * @param {HTMLElement} panel - The panel element to register.
  */
-function registerPanel(panel) {
+function registerPanel(panel: HTMLElement): void {
     allPanels.add(panel);
     if (!documentListenerRegistered) {
         documentListenerRegistered = true;
@@ -41,7 +44,7 @@ function closeAllPanels() {
  */
 export function isDevMode() {
     const validDevtoolsValues = ["true", "true/"];
-    return validDevtoolsValues.includes(new URLSearchParams(globalThis.location?.search ?? "").get("devtools"));
+    return validDevtoolsValues.includes(new URLSearchParams(globalThis.location?.search ?? "").get("devtools") ?? "");
 }
 
 /**
@@ -50,17 +53,17 @@ export function isDevMode() {
  * @param {number} [maxLen=80] - The maximum length of the string.
  * @returns {string} The truncated string.
  */
-function truncate(str, maxLen = 300) {
+function truncate(str: string, maxLen = 300): string {
     return str.length > maxLen ? str.slice(0, maxLen) + "\u2026" : str;
 }
 
 /**
  * Extracts and formats the properties of a component for display in the DevTools panel, filtering out undefined, null, false, and empty string values.
- * @param {*} component - The component object to extract properties from.
- * @returns {Array} An array of key-value pairs representing the component's properties.
+ * @param component - The component object to extract properties from.
+ * @returns The component's properties, each as a key and a value rendered for display.
  */
-function getComponentProperties(component) {
-    return Object.entries(component)
+function getComponentProperties(component: InstantiatedComponent | null): { key: string; value: string }[] {
+    return Object.entries(component ?? {})
         .filter(([, v]) => v !== undefined && v !== null && v !== false && v !== "")
         .map(([key, value]) => ({
             key,
@@ -77,8 +80,14 @@ function getComponentProperties(component) {
  * @param {*} type - The type of the component (default is "base").
  * @returns {HTMLElement} The DevTools panel element.
  */
-function buildPanel(tagName, elementId, props, hidden, type) {
-    const cfg = TYPE_CONFIG[type] ?? TYPE_CONFIG.base;
+function buildPanel(
+    tagName: string,
+    elementId: string | null,
+    props: { key: string; value: string }[],
+    hidden: boolean,
+    type: string
+): HTMLElement {
+    const cfg = TYPE_CONFIG[type as keyof typeof TYPE_CONFIG] ?? TYPE_CONFIG.base;
     const panel = document.createElement("div");
     panel.style.cssText = [
         "display: none",
@@ -127,8 +136,8 @@ function buildPanel(tagName, elementId, props, hidden, type) {
  * @param {*} type - The type of the component (default is "base").
  * @returns {HTMLElement} The button element for the DevTools overlay.
  */
-function buildButton(hidden, type) {
-    const cfg = TYPE_CONFIG[type] ?? TYPE_CONFIG.base;
+function buildButton(hidden: boolean, type: string): HTMLElement {
+    const cfg = TYPE_CONFIG[type as keyof typeof TYPE_CONFIG] ?? TYPE_CONFIG.base;
     const button = document.createElement("button");
     button.style.cssText = [
         "position: absolute",
@@ -163,7 +172,7 @@ function buildButton(hidden, type) {
  * @param {*} type - The type of the component (default is "base").
  * @returns {void}
  */
-export function addDevToolsOverlay(element, component, type = "base") {
+export function addDevToolsOverlay(element: HTMLElement, component: InstantiatedComponent | null, type = "base"): void {
     if (!isDevMode()) return;
     if (!element.style.position) {
         element.style.position = "relative";
@@ -190,9 +199,9 @@ export function addDevToolsOverlay(element, component, type = "base") {
  * @param {*} type - The type of the component (default is "base").
  * @returns {HTMLElement|null} The container element for the hidden DevTools overlay, or null if not in dev mode.
  */
-export function renderHiddenDevToolsElement(element, component, type = "base") {
+export function renderHiddenDevToolsElement(element: HTMLElement, component: InstantiatedComponent | null, type = "base") {
     if (!isDevMode()) return null;
-    const cfg = TYPE_CONFIG[type] ?? TYPE_CONFIG.base;
+    const cfg = TYPE_CONFIG[type as keyof typeof TYPE_CONFIG] ?? TYPE_CONFIG.base;
     const tagName = element.tagName.toLowerCase();
     const props = getComponentProperties(component);
 

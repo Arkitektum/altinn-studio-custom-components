@@ -84,7 +84,7 @@ import CustomTablePlan from "../classes/system-classes/component-classes/CustomT
 
 // Global functions
 import type { ComponentProps, InstantiatedComponent } from "../types.ts";
-import { getPropsFromElementAttributes } from "./htmlElementHelpers.js";
+import { getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
 
 /**
  * Maps every registered custom element tag name to its component class.

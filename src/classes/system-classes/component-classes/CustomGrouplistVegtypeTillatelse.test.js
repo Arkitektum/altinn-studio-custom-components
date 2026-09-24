@@ -1,7 +1,7 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomGrouplistVegtypeTillatelse from "./CustomGrouplistVegtypeTillatelse.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {
@@ -21,7 +21,7 @@ jest.mock("../data-classes/VegtypeTillatelseList.js", () => {
         resourceValues: { data: data ? "mockedData" : undefined }
     }));
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn((props) => props?.formData)
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

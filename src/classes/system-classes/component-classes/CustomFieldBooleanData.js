@@ -10,7 +10,7 @@ import {
     getComponentResourceValue,
     isNumberLargerThanZero,
     validateFormData
-} from "../../../functions/helpers.js";
+} from "../../../functions/helpers.ts";
 
 /**
  * CustomFieldBooleanData is a custom component class for handling boolean-based field data.

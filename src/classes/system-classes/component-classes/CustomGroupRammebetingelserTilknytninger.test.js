@@ -3,7 +3,7 @@ import CustomComponent from "../CustomComponent.js";
 import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger.js";
 
 // Mock helpers and validations
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn()
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -16,7 +16,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn()
 }));
 
-const { getComponentDataValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 describe("CustomGroupRammebetingelserTilknytninger", () => {

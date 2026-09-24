@@ -8,7 +8,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomSummationArealdisponering is a custom component class for handling area disposition summation logic.

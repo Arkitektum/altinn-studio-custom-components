@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.js";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**

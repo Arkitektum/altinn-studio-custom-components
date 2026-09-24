@@ -5,7 +5,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomFieldImage renders an image (PNG/JPEG/SVG/…) from a source string.

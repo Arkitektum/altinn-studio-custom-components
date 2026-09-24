@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomGrouplistUtfallSvarType is a custom component class that extends CustomComponent.

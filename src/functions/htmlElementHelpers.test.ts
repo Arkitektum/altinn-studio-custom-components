@@ -1,8 +1,8 @@
-import { addBodyClassNamesForApplication, getPropsFromElementAttributes } from "./htmlElementHelpers.js";
+import { addBodyClassNamesForApplication, getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
 
 /* @jest-environment jsdom */
 
-function createElementWithAttributes(attrs = {}) {
+function createElementWithAttributes(attrs: Record<string, string> = {}) {
     const el = document.createElement("div");
     Object.entries(attrs).forEach(([key, value]) => {
         el.setAttribute(key, value);
@@ -38,30 +38,30 @@ describe("getPropsFromElementAttributes", () => {
 
         const props = getPropsFromElementAttributes(element);
 
-        expect(props.formData).toEqual({ a: 1 });
-        expect(props.tagName).toBe("custom-tag");
-        expect(props.text).toBe("Hello");
-        expect(props.texts).toEqual({ title: "World" });
-        expect(props.inline).toBe(true);
-        expect(props.hideTitle).toBe(true);
+        expect(props!.formData).toEqual({ a: 1 });
+        expect(props!.tagName).toBe("custom-tag");
+        expect(props!.text).toBe("Hello");
+        expect(props!.texts).toEqual({ title: "World" });
+        expect(props!.inline).toBe(true);
+        expect(props!.hideTitle).toBe(true);
         // size depends on external validation, so only check type if present
-        if (props.size !== undefined) {
-            expect(typeof props.size).toBe("string");
+        if (props!.size !== undefined) {
+            expect(typeof props!.size).toBe("string");
         }
-        expect(props.hideIfEmpty).toBe(true);
-        expect(props.styleOverride).toEqual({ color: "red" });
-        expect(props.isChildComponent).toBe(true);
-        expect(props.feedbackType).toBe("info");
-        expect(props.itemKey).toBe("item-1");
-        expect(props.dataItemKey).toBe("data-1");
-        expect(props.dataTitleItemKey).toBe("data-title-1");
-        expect(props.hideOrgNr).toBe(true);
-        expect(props.format).toBe("uppercase");
-        expect(props.tableColumns).toEqual([{ key: "col1" }, { key: "col2" }]);
-        expect(props.showRowNumbers).toBe(true);
-        expect(props.resourceBindings).toEqual({ title: "res.title" });
-        expect(props.resourceValues).toEqual({ value: "res.value" });
-        expect(props.enableLinks).toBe(true);
+        expect(props!.hideIfEmpty).toBe(true);
+        expect(props!.styleOverride).toEqual({ color: "red" });
+        expect(props!.isChildComponent).toBe(true);
+        expect(props!.feedbackType).toBe("info");
+        expect(props!.itemKey).toBe("item-1");
+        expect(props!.dataItemKey).toBe("data-1");
+        expect(props!.dataTitleItemKey).toBe("data-title-1");
+        expect(props!.hideOrgNr).toBe(true);
+        expect(props!.format).toBe("uppercase");
+        expect(props!.tableColumns).toEqual([{ key: "col1" }, { key: "col2" }]);
+        expect(props!.showRowNumbers).toBe(true);
+        expect(props!.resourceBindings).toEqual({ title: "res.title" });
+        expect(props!.resourceValues).toEqual({ value: "res.value" });
+        expect(props!.enableLinks).toBe(true);
     });
 
     test("boolean attributes return false when set to other values", () => {
@@ -82,13 +82,13 @@ describe("getPropsFromElementAttributes", () => {
         });
 
         const props = getPropsFromElementAttributes(element);
-        expect(props.inline).toBe(false);
-        expect(props.hideTitle).toBe(false);
-        expect(props.hideIfEmpty).toBe(false);
-        expect(props.isChildComponent).toBe(false);
-        expect(props.hideOrgNr).toBe(false);
-        expect(props.showRowNumbers).toBe(false);
-        expect(props.enableLinks).toBe(false);
+        expect(props!.inline).toBe(false);
+        expect(props!.hideTitle).toBe(false);
+        expect(props!.hideIfEmpty).toBe(false);
+        expect(props!.isChildComponent).toBe(false);
+        expect(props!.hideOrgNr).toBe(false);
+        expect(props!.showRowNumbers).toBe(false);
+        expect(props!.enableLinks).toBe(false);
     });
 
     test("does not throw on malformed JSON attributes and treats them as absent", () => {
@@ -103,19 +103,19 @@ describe("getPropsFromElementAttributes", () => {
             resourceValues: "undefined"
         });
 
-        let props;
+        let props: ReturnType<typeof getPropsFromElementAttributes> | undefined;
         expect(() => {
             props = getPropsFromElementAttributes(element);
         }).not.toThrow();
 
-        expect(props.formData).toBe(false);
-        expect(props.texts).toBe(false);
-        expect(props.styleOverride).toBe(false);
-        expect(props.tableColumns).toBe(false);
-        expect(props.resourceBindings).toBe(false);
-        expect(props.resourceValues).toBe(false);
+        expect(props!.formData).toBe(false);
+        expect(props!.texts).toBe(false);
+        expect(props!.styleOverride).toBe(false);
+        expect(props!.tableColumns).toBe(false);
+        expect(props!.resourceBindings).toBe(false);
+        expect(props!.resourceValues).toBe(false);
         expect(errorSpy).toHaveBeenCalled();
-        errorSpy.mockRestore();
+        jest.mocked(errorSpy).mockRestore();
     });
 
     test("falls back to element tagName when tagName attribute is missing", () => {
@@ -128,7 +128,7 @@ describe("getPropsFromElementAttributes", () => {
         el.setAttribute("resourceValues", JSON.stringify({}));
 
         const props = getPropsFromElementAttributes(el);
-        expect(props.tagName).toBe("section");
+        expect(props!.tagName).toBe("section");
     });
 });
 
@@ -144,7 +144,7 @@ describe("addBodyClassNamesForApplication", () => {
     });
 
     test("does not add class names if org or app is missing", () => {
-        addBodyClassNamesForApplication(null, "bar");
+        addBodyClassNamesForApplication(null as unknown as string, "bar");
         expect(document.body.classList.contains("app-bar")).toBe(false);
         addBodyClassNamesForApplication("foo", undefined);
         expect(document.body.classList.contains("org-foo")).toBe(false);
@@ -152,7 +152,8 @@ describe("addBodyClassNamesForApplication", () => {
 });
 
 describe("removeAllBodyClassNamesForApplication", () => {
-    const { removeAllBodyClassNamesForApplication } = require("./htmlElementHelpers.js");
+    const actual: typeof import("./htmlElementHelpers.ts") = jest.requireActual("./htmlElementHelpers.ts");
+    const { removeAllBodyClassNamesForApplication } = actual;
 
     afterEach(() => {
         document.body.className = "";
@@ -168,7 +169,8 @@ describe("removeAllBodyClassNamesForApplication", () => {
 });
 
 describe("updateBodyClassNamesForApplication", () => {
-    const { updateBodyClassNamesForApplication } = require("./htmlElementHelpers.js");
+    const actual: typeof import("./htmlElementHelpers.ts") = jest.requireActual("./htmlElementHelpers.ts");
+    const { updateBodyClassNamesForApplication } = actual;
 
     afterEach(() => {
         document.body.className = "";
@@ -186,9 +188,10 @@ describe("updateBodyClassNamesForApplication", () => {
 });
 
 describe("hasRenderedContent", () => {
-    const { hasRenderedContent } = require("./htmlElementHelpers.js");
+    const actual: typeof import("./htmlElementHelpers.ts") = jest.requireActual("./htmlElementHelpers.ts");
+    const { hasRenderedContent } = actual;
 
-    function elementFromHtml(html) {
+    function elementFromHtml(html: string) {
         const element = document.createElement("div");
         element.innerHTML = html;
         return element;

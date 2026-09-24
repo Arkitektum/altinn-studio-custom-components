@@ -2,7 +2,7 @@
 import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.js";
+import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.ts";
 import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 // Local functions

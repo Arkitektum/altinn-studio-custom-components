@@ -1,8 +1,8 @@
-import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.ts";
 import CustomFieldCountData from "./CustomFieldCountData.js";
 
 // Mock dependencies
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn(),
     isNumberLargerThanZero: jest.fn()

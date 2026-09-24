@@ -6,7 +6,7 @@ import Adkomst from "../../data-classes/Adkomst.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**

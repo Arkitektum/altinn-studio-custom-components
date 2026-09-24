@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
 
 // Global functions
-import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**

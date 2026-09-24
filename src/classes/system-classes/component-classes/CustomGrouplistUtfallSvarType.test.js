@@ -1,4 +1,4 @@
-import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 import CustomGrouplistUtfallSvarType from "./CustomGrouplistUtfallSvarType.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";
 import { hasMissingTextResources } from "../../../functions/validations.ts";
@@ -20,7 +20,7 @@ jest.mock("../CustomComponent.js", () => {
 jest.mock("../../data-classes/UtfallSvar.js", () => {
     return jest.fn().mockImplementation((obj) => ({ ...obj, __isUtfallSvar: true }));
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn(),
     getComponentResourceValue: jest.fn()
 }));

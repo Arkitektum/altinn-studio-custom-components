@@ -5,7 +5,7 @@ import CustomComponent from "../CustomComponent.js";
 import ValidationMessages from "../ValidationMessages.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomFeedbacklistValidationMessages is a custom component class responsible for handling

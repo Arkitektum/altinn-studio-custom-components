@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import Telefonnumre from "../../data-classes/Telefonnumre.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomFieldTelefonnummer is a custom component class for handling and displaying phone numbers.

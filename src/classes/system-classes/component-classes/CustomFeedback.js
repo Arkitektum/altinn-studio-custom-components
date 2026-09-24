@@ -4,7 +4,7 @@
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomFeedback is a custom component class that extends CustomComponent.

@@ -1,9 +1,9 @@
 import CustomParagraphText from "./CustomParagraphText.js";
-import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock dependencies
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentResourceValue: jest.fn()
 }));
 

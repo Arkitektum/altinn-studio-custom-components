@@ -32,7 +32,7 @@ import { hasValue, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-co
  *   @property {string} sortKey - The sort key associated with the element.
  *   @property {string} endSymbol - The end symbol for the element.
  */
-export function getPropsFromElementAttributes(element) {
+export function getPropsFromElementAttributes(element: HTMLElement) {
     return {
         formData: getFormDataFromElement(element),
         tagName: getTagNameFromElement(element),
@@ -69,7 +69,7 @@ export function getPropsFromElementAttributes(element) {
  * @param {string} attributeName - The name of the attribute to check.
  * @returns {boolean} True if the attribute value is "true" or "", otherwise false.
  */
-function getBooleanAttributeValueFromElement(element, attributeName) {
+function getBooleanAttributeValueFromElement(element: HTMLElement, attributeName: string) {
     const attribute = element?.getAttribute(attributeName);
     return attribute === "true" || attribute === "";
 }
@@ -86,7 +86,7 @@ function getBooleanAttributeValueFromElement(element, attributeName) {
  * @param {*} [fallback=null] - The value returned when the attribute is absent or invalid.
  * @returns {*} The parsed value, or the fallback.
  */
-function parseJsonAttribute(element, attributeName, fallback = null) {
+function parseJsonAttribute(element: HTMLElement, attributeName: string, fallback: unknown = null) {
     const raw = element?.getAttribute(attributeName);
     if (!raw) {
         return fallback;
@@ -105,7 +105,7 @@ function parseJsonAttribute(element, attributeName, fallback = null) {
  * @param {HTMLElement} element - The HTML element containing the "formdata" attribute.
  * @returns {Object|null} The parsed form data object if it exists and is valid, otherwise null.
  */
-function getFormDataFromElement(element) {
+function getFormDataFromElement(element: HTMLElement) {
     const formData = parseJsonAttribute(element, "formdata");
     return hasValue(formData) && formData;
 }
@@ -116,7 +116,7 @@ function getFormDataFromElement(element) {
  * @param {HTMLElement} element - The HTML element from which to extract the tag name.
  * @returns {string|boolean} The tag name in lowercase if it exists and is valid, otherwise `false`.
  */
-function getTagNameFromElement(element) {
+function getTagNameFromElement(element: HTMLElement) {
     const tagName = element?.getAttribute("tagName") || element?.tagName?.toLowerCase();
     return hasValue(tagName) && tagName;
 }
@@ -127,7 +127,7 @@ function getTagNameFromElement(element) {
  * @param {Element} element - The DOM element from which to retrieve the text attribute.
  * @returns {string|false} The value of the text attribute if it exists and is valid; otherwise, false.
  */
-function getTextFromElement(element) {
+function getTextFromElement(element: HTMLElement) {
     const text = element?.getAttribute("text");
     return hasValue(text) && text;
 }
@@ -138,7 +138,7 @@ function getTextFromElement(element) {
  * @param {Element} element - The DOM element from which to retrieve the "texts" attribute.
  * @returns {Object|boolean} The parsed "texts" object if it exists and is valid, otherwise `false`.
  */
-function getTextsFromElement(element) {
+function getTextsFromElement(element: HTMLElement) {
     const texts = parseJsonAttribute(element, "texts");
     return hasValue(texts) && texts;
 }
@@ -149,7 +149,7 @@ function getTextsFromElement(element) {
  * @param {HTMLElement} element - The HTML element to check for the "inline" attribute.
  * @returns {boolean} True if the "inline" attribute is present and truthy, otherwise false.
  */
-function getInlineFromElement(element) {
+function getInlineFromElement(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "inline");
 }
 
@@ -159,7 +159,7 @@ function getInlineFromElement(element) {
  * @param {HTMLElement} element - The HTML element to check for the "hideTitle" attribute.
  * @returns {boolean} True if the "hideTitle" attribute is present and evaluates to true; otherwise, false.
  */
-function getHideTitle(element) {
+function getHideTitle(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "hideTitle");
 }
 
@@ -169,7 +169,7 @@ function getHideTitle(element) {
  * @param {HTMLElement} element - The HTML element from which to retrieve the size attribute.
  * @returns {string|undefined} The validated size as a lowercase string, or undefined if invalid or not present.
  */
-function getSize(element) {
+function getSize(element: HTMLElement) {
     const size = element?.getAttribute("size");
     return isValidHeaderSize(size) ? size?.toString().toLowerCase() : undefined;
 }
@@ -180,7 +180,7 @@ function getSize(element) {
  * @param {HTMLElement} element - The HTML element to check for the "hideIfEmpty" attribute.
  * @returns {boolean} True if the "hideIfEmpty" attribute is present and truthy; otherwise, false.
  */
-function getHideIfEmpty(element) {
+function getHideIfEmpty(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "hideIfEmpty");
 }
 
@@ -190,7 +190,7 @@ function getHideIfEmpty(element) {
  * @param {HTMLElement} element - The HTML element from which to extract the style override.
  * @returns {Object|false} The parsed style override object if it exists and is valid, otherwise `false`.
  */
-function getStyleOverride(element) {
+function getStyleOverride(element: HTMLElement) {
     const styleOverride = parseJsonAttribute(element, "styleOverride");
     return hasValue(styleOverride) && styleOverride;
 }
@@ -201,7 +201,7 @@ function getStyleOverride(element) {
  * @param {HTMLElement} element - The HTML element to check.
  * @returns {boolean} True if the element has the "isChildComponent" attribute set to a truthy value, otherwise false.
  */
-function getIsChildComponent(element) {
+function getIsChildComponent(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "isChildComponent");
 }
 
@@ -211,7 +211,7 @@ function getIsChildComponent(element) {
  * @param {HTMLElement} element - The DOM element from which to retrieve the feedback type.
  * @returns {string|boolean} The feedback type if it exists and has a value, otherwise `false`.
  */
-function getFeedbackType(element) {
+function getFeedbackType(element: HTMLElement) {
     const feedbackType = element?.getAttribute("feedbackType");
     return hasValue(feedbackType) && feedbackType;
 }
@@ -222,7 +222,7 @@ function getFeedbackType(element) {
  * @param {HTMLElement} element - The DOM element from which to retrieve the "itemKey" attribute.
  * @returns {string|boolean} The value of the "itemKey" attribute if it exists and is valid; otherwise, returns false.
  */
-function getItemKey(element) {
+function getItemKey(element: HTMLElement) {
     const itemKey = element?.getAttribute("itemKey");
     return hasValue(itemKey) && itemKey;
 }
@@ -234,7 +234,7 @@ function getItemKey(element) {
  * @param {HTMLElement} element - The HTML element from which to retrieve the "sortKey" attribute.
  * @returns {Object|false} The order object if valid, otherwise false.
  */
-function getOrder(element) {
+function getOrder(element: HTMLElement) {
     const order = parseJsonAttribute(element, "order");
     return hasValue(order) && order;
 }
@@ -246,7 +246,7 @@ function getOrder(element) {
  * @param {Element} element - The HTML element from which to retrieve the attribute.
  * @returns {string|false} The value of the "itemTermKey" attribute if valid, otherwise false.
  */
-function getItemTermKey(element) {
+function getItemTermKey(element: HTMLElement) {
     const itemTermKey = element?.getAttribute("itemTermKey");
     return hasValue(itemTermKey) && itemTermKey;
 }
@@ -258,7 +258,7 @@ function getItemTermKey(element) {
  * @param {Element} element - The HTML element from which to retrieve the attribute.
  * @returns {string|false} The value of the "itemDescriptionKey" attribute if present and valid, otherwise false.
  */
-function getItemDescriptionKey(element) {
+function getItemDescriptionKey(element: HTMLElement) {
     const itemDescriptionKey = element?.getAttribute("itemDescriptionKey");
     return hasValue(itemDescriptionKey) && itemDescriptionKey;
 }
@@ -270,7 +270,7 @@ function getItemDescriptionKey(element) {
  * @param {HTMLElement} element - The HTML element to extract the dataItemKey from.
  * @returns {(string|false)} The value of the dataItemKey attribute if present and valid, otherwise false.
  */
-function getDataItemKey(element) {
+function getDataItemKey(element: HTMLElement) {
     const dataItemKey = element?.getAttribute("dataItemKey");
     return hasValue(dataItemKey) && dataItemKey;
 }
@@ -282,7 +282,7 @@ function getDataItemKey(element) {
  * @param {HTMLElement} element - The HTML element from which to retrieve the attribute.
  * @returns {string|false} The value of the "dataTitleItemKey" attribute if valid, otherwise false.
  */
-function getDataTitleItemKey(element) {
+function getDataTitleItemKey(element: HTMLElement) {
     const dataTitleItemKey = element?.getAttribute("dataTitleItemKey");
     return hasValue(dataTitleItemKey) && dataTitleItemKey;
 }
@@ -293,7 +293,7 @@ function getDataTitleItemKey(element) {
  * @param {HTMLElement} element - The HTML element to check for the "hideOrgNr" attribute.
  * @returns {boolean} True if the "hideOrgNr" attribute is present and evaluates to true; otherwise, false.
  */
-function getHideOrgNr(element) {
+function getHideOrgNr(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "hideOrgNr");
 }
 
@@ -304,7 +304,7 @@ function getHideOrgNr(element) {
  * @returns {string|boolean} The value of the "format" attribute if it exists and is valid,
  *                           otherwise returns `false`.
  */
-function getFormat(element) {
+function getFormat(element: HTMLElement) {
     const format = element?.getAttribute("format");
     return hasValue(format) && format;
 }
@@ -315,7 +315,7 @@ function getFormat(element) {
  * @param {HTMLElement} element - The HTML element from which to extract the "tableColumns" attribute.
  * @returns {any|null} The parsed table columns if present and valid, otherwise null.
  */
-function getTableColumns(element) {
+function getTableColumns(element: HTMLElement) {
     const tableColumns = parseJsonAttribute(element, "tableColumns");
     return hasValue(tableColumns) && tableColumns;
 }
@@ -326,7 +326,7 @@ function getTableColumns(element) {
  * @param {HTMLElement} element - The HTML element to extract the attribute from.
  * @returns {boolean} True if the "showRowNumbers" attribute is present and truthy, otherwise false.
  */
-function getShowRowNumbers(element) {
+function getShowRowNumbers(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "showRowNumbers");
 }
 
@@ -337,7 +337,7 @@ function getShowRowNumbers(element) {
  * @param {Element} element - The DOM element from which to retrieve the attribute.
  * @returns {Object|false} The parsed resource bindings object if present and valid, otherwise false.
  */
-function getResourceBindings(element) {
+function getResourceBindings(element: HTMLElement) {
     const textResourceBindings = parseJsonAttribute(element, "resourceBindings");
     return hasValue(textResourceBindings) && textResourceBindings;
 }
@@ -349,7 +349,7 @@ function getResourceBindings(element) {
  * @param {Element} element - The HTML element from which to retrieve the "resourceValues" attribute.
  * @returns {Object|false} The parsed resource values object if present and valid, otherwise false.
  */
-function getResourceValues(element) {
+function getResourceValues(element: HTMLElement) {
     const resourceValues = parseJsonAttribute(element, "resourceValues");
     return hasValue(resourceValues) && resourceValues;
 }
@@ -360,7 +360,7 @@ function getResourceValues(element) {
  * @param {HTMLElement} element - The HTML element to check for the "enableLinks" attribute.
  * @returns {boolean} True if the "enableLinks" attribute is set and evaluates to true; otherwise, false.
  */
-function getEnableLinks(element) {
+function getEnableLinks(element: HTMLElement) {
     return getBooleanAttributeValueFromElement(element, "enableLinks");
 }
 
@@ -373,7 +373,7 @@ function getEnableLinks(element) {
  * @returns {void}
  * @example
  */
-export function addBodyClassNamesForApplication(org, app) {
+export function addBodyClassNamesForApplication(org?: string, app?: string): void {
     if (org && app) {
         document.body.classList.add(`org-${org}`, `app-${app}`);
     }
@@ -402,7 +402,7 @@ export function removeAllBodyClassNamesForApplication() {
  * @returns {void}
  * @example
  */
-export function updateBodyClassNamesForApplication(org, app) {
+export function updateBodyClassNamesForApplication(org?: string, app?: string): void {
     removeAllBodyClassNamesForApplication();
     addBodyClassNamesForApplication(org, app);
 }
@@ -437,7 +437,7 @@ const SELF_RENDERING_TAG_NAMES = new Set([
  * @param {Element} element - The element to check.
  * @returns {boolean} True when the element is hidden.
  */
-function isHiddenElement(element) {
+function isHiddenElement(element: HTMLElement) {
     return element?.hidden === true || element?.style?.display === "none";
 }
 
@@ -451,7 +451,7 @@ function isHiddenElement(element) {
  * @param {Element} element - The element whose rendered output should be inspected.
  * @returns {boolean} True when the subtree contains visible content.
  */
-export function hasRenderedContent(element) {
+export function hasRenderedContent(element?: HTMLElement | null) {
     if (!element?.childNodes?.length) {
         return false;
     }
@@ -462,13 +462,13 @@ export function hasRenderedContent(element) {
             }
             continue;
         }
-        if (node.nodeType !== Node.ELEMENT_NODE || isHiddenElement(node)) {
+        if (node.nodeType !== Node.ELEMENT_NODE || isHiddenElement(node as HTMLElement)) {
             continue;
         }
-        if (SELF_RENDERING_TAG_NAMES.has(node.tagName.toLowerCase())) {
+        if (SELF_RENDERING_TAG_NAMES.has((node as HTMLElement).tagName.toLowerCase())) {
             return true;
         }
-        if (hasRenderedContent(node)) {
+        if (hasRenderedContent(node as HTMLElement)) {
             return true;
         }
     }

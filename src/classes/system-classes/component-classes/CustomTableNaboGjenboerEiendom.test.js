@@ -19,7 +19,7 @@ jest.mock("../../data-classes/Eiendom.js", () => {
         Object.assign(this, data);
     };
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn((props) => props.formData)
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -31,7 +31,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn((messages) => messages && messages.length > 0)
 }));
 
-const { getComponentDataValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 describe("CustomTableNaboGjenboerEiendom", () => {

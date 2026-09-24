@@ -7,7 +7,7 @@ import Part from "../../data-classes/Part.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomTablePart is a specialized component class for handling custom table parts in a form.

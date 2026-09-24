@@ -7,7 +7,7 @@ import Dispensasjon from "../../layout-classes/Dispensasjon.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomDispensasjon is a custom component class for handling "dispensasjon" (exemption) data and logic.

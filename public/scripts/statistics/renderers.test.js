@@ -47,7 +47,7 @@ jest.mock("./componentUsageRenderers.js", () => ({
     renderUsageFilterForComponentUsageList: jest.fn()
 }));
 
-jest.mock("../../../src/functions/htmlElementHelpers.js", () => ({
+jest.mock("../../../src/functions/htmlElementHelpers.ts", () => ({
     updateBodyClassNamesForApplication: jest.fn()
 }));
 

@@ -5,7 +5,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.js";
+import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.ts";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
 import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.ts";

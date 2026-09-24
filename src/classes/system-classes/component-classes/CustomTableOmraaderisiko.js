@@ -7,7 +7,7 @@ import Omraaderisiko from "../../data-classes/Omraaderisiko.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomTableOmraaderisiko is a custom component class for handling "omraaderisiko" table data and resource bindings.

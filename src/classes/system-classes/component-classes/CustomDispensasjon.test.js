@@ -5,7 +5,7 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 jest.mock("../../layout-classes/Dispensasjon.js", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isDispensasjon: true }));
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentResourceValue: jest.fn((props, key) => `resourceValue:${key}`)
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -16,7 +16,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
-const { getComponentResourceValue } = require("../../../functions/helpers.js");
+const { getComponentResourceValue } = require("../../../functions/helpers.ts");
 const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 describe("CustomDispensasjon", () => {

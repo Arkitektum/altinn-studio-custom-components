@@ -2,7 +2,7 @@
 import { CustomElementHtmlAttributes, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { generateUniqueId } from "../../../functions/helpers.js";
+import { generateUniqueId } from "../../../functions/helpers.ts";
 
 /**
  * Renders a custom header element with the specified title and size.

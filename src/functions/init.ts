@@ -3,7 +3,7 @@ import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHel
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
 import type { LogCustomField } from "../types.ts";
-import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.js";
+import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
 
 /**
  * Loads a script asynchronously by creating a script element and appending it to the document body.
@@ -138,7 +138,7 @@ export default async function initCustomComponents() {
     const app = appId?.[2];
     const altinnAppFrontendVersionFallback = "4.29.0";
     const altinnAppFrontendVersion =
-        document.querySelector<HTMLMetaElement>("meta[data-altinn-app-frontend-version]")?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
+        (document.querySelector("meta[data-altinn-app-frontend-version]") as HTMLMetaElement | null)?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
 
     let clientLogger = null;
     try {

@@ -7,7 +7,7 @@ import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomDispensasjonsvarsel is a custom component class that extends the base CustomComponent class. It is designed to represent a "dispensasjonsvarsel" (dispensation notice) in a user interface, providing functionality to determine if the component has content, retrieve values from form data, and manage resource bindings and validation messages.

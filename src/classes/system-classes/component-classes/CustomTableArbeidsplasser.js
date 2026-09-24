@@ -7,7 +7,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 /**
  * CustomTableArbeidsplasser is a custom component class for handling and displaying workplace data in a table format.

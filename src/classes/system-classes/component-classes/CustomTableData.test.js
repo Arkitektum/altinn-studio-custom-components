@@ -1,4 +1,4 @@
-import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.js";
+import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.ts";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
@@ -18,7 +18,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn(),
     getRowNumberTitle: jest.fn()
 }));

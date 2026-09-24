@@ -18,7 +18,7 @@ jest.mock("../CustomComponent.js", () => {
 jest.mock("../../data-classes/Adkomst.js", () => {
     return jest.fn().mockImplementation((data) => ({ mockAdkomst: true, data }));
 });
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataValue: jest.fn((props) => props.mockData || null)
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -31,7 +31,7 @@ jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
-const { getComponentDataValue } = require("../../../functions/helpers.js");
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
 const { hasMissingTextResources } = require("../../../functions/validations.ts");
 
 describe("CustomGroupAdkomst", () => {

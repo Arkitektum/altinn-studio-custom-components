@@ -1,4 +1,4 @@
-import * as helpers from "../../../functions/helpers.js";
+import * as helpers from "../../../functions/helpers.ts";
 import * as validations from "../../../functions/validations.ts";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade.js";
@@ -18,7 +18,7 @@ jest.mock("../CustomComponent.js", () => {
     };
 });
 jest.mock("../../data-classes/KontrollAnsvarsomraade.js");
-jest.mock("../../../functions/helpers.js");
+jest.mock("../../../functions/helpers.ts");
 jest.mock("../../../functions/validations.ts");
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),

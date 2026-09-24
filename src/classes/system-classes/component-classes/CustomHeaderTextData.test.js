@@ -1,8 +1,8 @@
-import { getComponentDataTitle, getComponentResourceValue } from "../../../functions/helpers.js";
+import { getComponentDataTitle, getComponentResourceValue } from "../../../functions/helpers.ts";
 import CustomHeaderTextData from "./CustomHeaderTextData.js";
 
 // Mock dependencies
-jest.mock("../../../functions/helpers.js", () => ({
+jest.mock("../../../functions/helpers.ts", () => ({
     getComponentDataTitle: jest.fn(),
     getComponentResourceValue: jest.fn()
 }));

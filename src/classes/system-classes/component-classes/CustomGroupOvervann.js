@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import Overvann from "../../data-classes/Overvann.js";
 
 // Global functions
-import { getComponentDataValue } from "../../../functions/helpers.js";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
