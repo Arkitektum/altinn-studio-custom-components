@@ -15,7 +15,7 @@ export interface VegtypeProps {
  * @param {Array<Object>} [props.kode] - An array of kode items to be mapped to Kode instances.
  */
 export default class Vegtype {
-    declare kode?: unknown[] | null;
+    declare kode?: Kode[] | null;
 
     constructor(props?: VegtypeProps) {
         this.kode =

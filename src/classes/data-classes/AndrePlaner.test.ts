@@ -46,7 +46,7 @@ describe("AndrePlaner", () => {
         const andrePlaner = new AndrePlaner({ plan: [{ id: 1 }, { id: 2 }] });
 
         expect(andrePlaner.plan).toHaveLength(1);
-        expect((andrePlaner.plan as { navn?: string }[])[0]!.navn).toBe("Plan 2");
+        expect(andrePlaner.plan![0]!.navn).toBe("Plan 2");
     });
 
     it("should handle empty plan array", () => {

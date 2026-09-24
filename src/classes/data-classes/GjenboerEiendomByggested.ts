@@ -14,7 +14,7 @@ export interface GjenboerEiendomByggestedProps {
  * @class
  */
 export default class GjenboerEiendomByggested {
-    declare eiendom?: unknown[] | null;
+    declare eiendom?: GjenboerEiendom[] | null;
 
     /**
      * Constructs a new instance of the class.

@@ -10,7 +10,7 @@ export interface EiendomProps {
     eiendomsidentifikasjon?: EiendomsidentifikasjonProps | undefined | null;
     bolignummer?: string | null;
     bygningsnummer?: string | null;
-    kommunenavn?: unknown;
+    kommunenavn?: string | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }
@@ -24,7 +24,7 @@ export default class Eiendom {
     declare eiendomsidentifikasjon: Eiendomsidentifikasjon | undefined | null;
     declare bolignummer?: string | null;
     declare bygningsnummer?: string | null;
-    declare kommunenavn: unknown | null;
+    declare kommunenavn?: string | null;
 
     /**
      * Constructs an instance of the Eiendom class.

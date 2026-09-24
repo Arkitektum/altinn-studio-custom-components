@@ -3,7 +3,7 @@ import type { KodeProps } from "./Kode.ts";
 
 /** What the form data holds for a Dispensasjon, before it is read into the class. */
 export interface DispensasjonProps {
-    dispensasjonReferanse?: unknown;
+    dispensasjonReferanse?: string | null;
     dispensasjonKategori?: KodeProps | undefined | null;
     dispensasjonTittel?: KodeProps | undefined | null;
     bestemmelserType?: KodeProps | undefined | null;
@@ -19,7 +19,7 @@ export interface DispensasjonProps {
  * @property {Object} [bestemmelserType] - The type of provisions. Instance of Kode.
  */
 export default class Dispensasjon {
-    declare dispensasjonReferanse?: unknown;
+    declare dispensasjonReferanse?: string | null;
     declare dispensasjonKategori: Kode | undefined | null;
     declare dispensasjonTittel: Kode | undefined | null;
     declare bestemmelserType: Kode | undefined | null;

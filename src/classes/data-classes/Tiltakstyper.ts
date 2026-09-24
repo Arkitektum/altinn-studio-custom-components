@@ -12,6 +12,12 @@ export interface TiltakstyperProps {
     [key: string]: unknown;
 }
 
+/** The tiltakstyper once read, which is the codes and nothing else. */
+export interface TiltakstyperType {
+    /** Null when the form data named the type but listed no codes under it. */
+    kode: Kode[] | null;
+}
+
 /**
  * Class representing Tiltakstyper.
  * This class is used to handle the "Tiltakstyper" data structure,
@@ -19,7 +25,8 @@ export interface TiltakstyperProps {
  * @class
  */
 export default class Tiltakstyper {
-    declare type?: unknown;
+    /** Only set when the form data named a type, which is what leaves an absent one absent. */
+    declare type?: TiltakstyperType;
 
     /**
      * Creates an instance of Tiltakstyper.

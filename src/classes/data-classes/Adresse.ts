@@ -5,7 +5,7 @@ export interface AdresseProps {
     adresselinje3?: string | null;
     postnr?: string | null;
     poststed?: string | null;
-    kommunenavn?: unknown;
+    kommunenavn?: string | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }
@@ -31,9 +31,9 @@ export default class Adresse {
     declare adresselinje3?: string | null;
     declare postnr?: string | null;
     declare poststed?: string | null;
-    declare kommunenavn: unknown | null;
+    declare kommunenavn?: string | null;
 
-    constructor(props?: AdresseProps) {
+    constructor(props?: AdresseProps | null) {
         this.adresselinje1 = props?.adresselinje1;
         this.adresselinje2 = props?.adresselinje2;
         this.adresselinje3 = props?.adresselinje3;

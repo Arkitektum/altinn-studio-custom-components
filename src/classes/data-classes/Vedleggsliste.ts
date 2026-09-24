@@ -14,7 +14,7 @@ export interface VedleggslisteProps {
  * @class
  */
 export default class Vedleggsliste {
-    declare vedlegg?: unknown;
+    declare vedlegg?: Vedlegg[];
 
     /**
      * Creates an instance of Vedleggsliste.

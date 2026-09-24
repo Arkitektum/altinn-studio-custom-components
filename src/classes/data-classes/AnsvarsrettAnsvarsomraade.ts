@@ -7,11 +7,11 @@ import Kode from "./Kode.ts";
 /** What the form data holds for a AnsvarsrettAnsvarsomraade, before it is read into the class. */
 export interface AnsvarsrettAnsvarsomraadeProps {
     funksjon?: KodeProps | null;
-    beskrivelseAvAnsvarsomraadet?: unknown;
+    beskrivelseAvAnsvarsomraadet?: string | null;
     tiltaksklasse?: KodeProps | null;
     faseSamsvarKontroll?: FaseSamsvarKontrollProps | null;
-    dekkesOmraadeAvSentralGodkjenning?: unknown;
-    soeknadssystemetsReferanse?: unknown;
+    dekkesOmraadeAvSentralGodkjenning?: boolean | null;
+    soeknadssystemetsReferanse?: string | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }
@@ -22,11 +22,11 @@ export interface AnsvarsrettAnsvarsomraadeProps {
  */
 export default class AnsvarsrettAnsvarsomraade {
     declare funksjon: Kode | null | undefined;
-    declare beskrivelseAvAnsvarsomraadet?: unknown;
+    declare beskrivelseAvAnsvarsomraadet?: string | null;
     declare tiltaksklasse: Kode | null | undefined;
-    declare dekkesOmraadeAvSentralGodkjenning?: unknown;
+    declare dekkesOmraadeAvSentralGodkjenning?: boolean | null;
     declare faseSamsvarKontrollList: FaseSamsvarKontrollList | null | undefined;
-    declare soeknadssystemetsReferanse?: unknown;
+    declare soeknadssystemetsReferanse?: string | null;
 
     constructor(props: AnsvarsrettAnsvarsomraadeProps, resourceBindings?: Record<string, unknown>) {
         this.funksjon = props?.funksjon && new Kode(props.funksjon);

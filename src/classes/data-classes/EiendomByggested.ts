@@ -14,7 +14,7 @@ export interface EiendomByggestedProps {
  * @class
  */
 export default class EiendomByggested {
-    declare eiendom?: unknown;
+    declare eiendom?: Eiendom[] | null;
 
     /**
      * Constructs an instance of the EiendomByggested class.

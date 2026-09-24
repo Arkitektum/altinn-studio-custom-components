@@ -9,7 +9,7 @@ import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-cla
 export interface AnsvarsomraadeProps {
     funksjon?: KodeProps | null;
     tiltaksklasse?: KodeProps | null;
-    ansvarsomraade?: unknown;
+    ansvarsomraade?: string | null;
     foretak?: PartProps | null;
     ansvarsomraadeStatus?: KodeProps | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
@@ -23,7 +23,7 @@ export interface AnsvarsomraadeProps {
 export default class Ansvarsomraade {
     declare funksjon: Kode | null | undefined;
     declare tiltaksklasse: Kode | null | undefined;
-    declare ansvarsomraade?: unknown;
+    declare ansvarsomraade?: string | null;
     declare foretak: Part | null | undefined;
     declare planlagteSamsvarKontrollErklaeringerList: PlanlagteSamsvarKontrollErklaeringerList | null | undefined;
     declare ansvarsomraadeStatus: Kode | null | undefined;

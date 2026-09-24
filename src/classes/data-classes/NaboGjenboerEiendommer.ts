@@ -14,7 +14,7 @@ export interface NaboGjenboerEiendommerProps {
  * @class
  */
 export default class NaboGjenboerEiendommer {
-    declare naboGjenboerEiendom?: unknown[] | null;
+    declare naboGjenboerEiendom?: NaboGjenboerEiendom[];
 
     /**
      * Constructs an instance of the class, initializing the `naboGjenboerEiendom` property.

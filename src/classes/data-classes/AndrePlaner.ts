@@ -17,7 +17,7 @@ export interface AndrePlanerProps {
  * @class
  */
 export default class AndrePlaner {
-    declare plan?: unknown[] | null;
+    declare plan?: Plan[];
 
     /**
      * Constructs an instance of AndrePlaner.

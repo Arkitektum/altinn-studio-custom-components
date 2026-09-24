@@ -14,7 +14,7 @@ export interface PartProps {
     mobilnummer?: string | null;
     telefon?: string | null;
     adresse?: AdresseProps | null;
-    kontaktperson?: unknown;
+    kontaktperson?: PartProps | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }
@@ -45,7 +45,8 @@ export default class Part {
     declare mobilnummer?: string | null;
     declare telefon?: string | null;
     declare adresse?: Adresse | null;
-    declare kontaktperson?: unknown;
+    /** A Part in its own right, and only set when the form data named one. */
+    declare kontaktperson?: Part;
 
     constructor(props?: PartProps) {
         const adresse = this.getAdresse(props);
@@ -75,7 +76,7 @@ export default class Part {
      */
     getAdresse(props?: PartProps) {
         if (hasValue(props?.adresse)) {
-            return new Adresse(props?.adresse as never);
+            return new Adresse(props?.adresse);
         }
         return undefined;
     }
@@ -92,7 +93,7 @@ export default class Part {
             return undefined;
         }
         if (hasValue(props.kontaktperson)) {
-            return new Part(props.kontaktperson as never);
+            return new Part(props.kontaktperson);
         }
         return undefined;
     }

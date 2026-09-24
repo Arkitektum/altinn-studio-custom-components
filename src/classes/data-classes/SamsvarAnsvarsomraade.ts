@@ -9,12 +9,12 @@ import Utfoerende from "./Utfoerende.ts";
 /** What the form data holds for a SamsvarAnsvarsomraade, before it is read into the class. */
 export interface SamsvarAnsvarsomraadeProps {
     funksjon?: KodeProps | null;
-    beskrivelseAvAnsvarsomraadet?: unknown;
+    beskrivelseAvAnsvarsomraadet?: string | null;
     prosjekterende?: ProsjekterendeProps | null;
     utfoerende?: UtfoerendeProps | null;
-    datoAnsvarsrettErklaert?: unknown;
-    erAnsvarsomraadetAvsluttet?: unknown;
-    soeknadssystemetsReferanse?: unknown;
+    datoAnsvarsrettErklaert?: string | null;
+    erAnsvarsomraadetAvsluttet?: boolean | null;
+    soeknadssystemetsReferanse?: string | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }
@@ -35,12 +35,12 @@ export interface SamsvarAnsvarsomraadeProps {
  */
 export default class SamsvarAnsvarsomraade {
     declare funksjon: Kode | null | undefined;
-    declare beskrivelseAvAnsvarsomraadet?: unknown;
+    declare beskrivelseAvAnsvarsomraadet?: string | null;
     declare prosjekterendeList: ProsjekterendeList | null | undefined;
     declare utfoerende: Utfoerende | null | undefined;
-    declare datoAnsvarsrettErklaert?: unknown;
-    declare erAnsvarsomraadetAvsluttet?: unknown;
-    declare soeknadssystemetsReferanse?: unknown;
+    declare datoAnsvarsrettErklaert?: string | null;
+    declare erAnsvarsomraadetAvsluttet?: boolean | null;
+    declare soeknadssystemetsReferanse?: string | null;
 
     constructor(props?: SamsvarAnsvarsomraadeProps, resourceBindings?: Record<string, unknown>) {
         this.funksjon = props?.funksjon && new Kode(props.funksjon);

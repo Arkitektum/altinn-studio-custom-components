@@ -13,7 +13,7 @@ export interface DispensasjonOversiktProps {
  * @property {Array} [dispensasjon] - An array of Dispensasjon instances.
  */
 export default class DispensasjonOversikt {
-    declare dispensasjon?: unknown;
+    declare dispensasjon?: Dispensasjon[] | null;
 
     constructor(props?: DispensasjonOversiktProps) {
         this.dispensasjon =
