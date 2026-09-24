@@ -125,7 +125,7 @@ const LAYOUT_TYPE = "layout";
  * @param {string} type - The component type ("base", "data" or "layout").
  * @returns {boolean} True when the component should hide itself while empty.
  */
-function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolean } | null, type: string): boolean {
+function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolean | string } | null, type: string): boolean {
     const attributeValue = host?.getAttribute?.("hideIfEmpty");
     if (attributeValue !== null && attributeValue !== undefined) {
         return attributeValue === "true" || attributeValue === "";

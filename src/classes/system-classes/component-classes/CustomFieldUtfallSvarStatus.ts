@@ -1,0 +1,123 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { UtfallSvarStatusProps } from "../../data-classes/UtfallSvarStatus.ts";
+// Dependencies
+import { getTextResourceFromResourceBinding, getTextResourcesFromResourceBindings } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.ts";
+
+// Global functions
+import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
+
+/**
+ * CustomFieldUtfallSvarStatus is a custom component class for handling the display and validation
+ * of "utfall svar status" (outcome answer status) in a form. It manages resource bindings,
+ * retrieves and formats status text, and handles validation messages.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} [props.resourceBindings] - Optional resource bindings for localization.
+ * @param {string} [props.resourceBindings.title] - Optional override for the title resource key.
+ *
+ * @property {boolean} isEmpty - Indicates if the component's data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for the component.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceValues - Contains localized title and data for the component.
+ *
+ */
+export default class CustomFieldUtfallSvarStatus extends CustomComponent {
+    declare resourceValues: { title?: unknown; data?: unknown };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const resourceBindings = this.getResourceBindings(props);
+        const data = this.getValueFromFormData(props, resourceBindings?.utfallSvarStatus);
+
+        const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+
+        this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceValues = {
+            title: !props?.hideTitle && getTextResourceFromResourceBinding(resourceBindings?.utfallSvarStatus?.title),
+            data: isEmpty ? getComponentResourceValue(props, "emptyFieldText") : data
+        };
+    }
+
+    /**
+     * Returns the appropriate status text based on the provided utfallSvarStatus object.
+     * It prioritizes text resources from resourceBindings, falling back to default texts if necessary.
+     *
+     * @param {Object} utfallSvarStatus - The status object indicating the current state.
+     * @param {boolean} [utfallSvarStatus.erUtfallBesvaresSenere] - Indicates if the outcome will be answered later.
+     * @param {boolean} [utfallSvarStatus.erUtfallBesvart] - Indicates if the outcome has already been answered.
+     * @param {Object} resourceBindings - The resource bindings containing text resources.
+     * @param {string} componentId - The ID of the component for validation context.
+     * @returns {string} The status text corresponding to the current utfallSvarStatus.
+     */
+    getStatusText(utfallSvarStatus?: UtfallSvarStatus, resourceBindings?: ResourceBindingGroup, componentId?: string): unknown {
+        const texts = getTextResourcesFromResourceBindings(resourceBindings);
+        const textKeys = ["erUtfallBesvaresSenere", "erUtfallBesvart", "status"];
+        const fallbackTexts = {
+            erUtfallBesvaresSenere: "Besvares senere",
+            erUtfallBesvart: "Svar innsendt tidligere",
+            status: "Besvares nå"
+        };
+        validateTexts(texts, fallbackTexts, textKeys, componentId);
+        if (utfallSvarStatus?.erUtfallBesvaresSenere) {
+            return texts?.erUtfallBesvaresSenere !== undefined && texts?.erUtfallBesvaresSenere !== null
+                ? texts.erUtfallBesvaresSenere
+                : fallbackTexts.erUtfallBesvaresSenere;
+        } else if (utfallSvarStatus?.erUtfallBesvart) {
+            return texts?.erUtfallBesvart !== undefined && texts?.erUtfallBesvart !== null ? texts.erUtfallBesvart : fallbackTexts.erUtfallBesvart;
+        } else {
+            return texts?.status ? texts.status : fallbackTexts.status;
+        }
+    }
+
+    /**
+     * Retrieves the status text for a component based on form data and resource bindings.
+     *
+     * @param {Object} props - The properties of the component, including form data and optional id.
+     * @param {Object} resourceBindings - The resource bindings used for localization or status mapping.
+     * @returns {string} The status text derived from the form data and resource bindings.
+     */
+    getValueFromFormData(props: ComponentProps, resourceBindings?: ResourceBindingGroup): unknown {
+        const data = getComponentDataValue(props) as UtfallSvarStatusProps | undefined;
+        const utfallSvarStatus = new UtfallSvarStatus(data);
+        return this.getStatusText(utfallSvarStatus, resourceBindings, props?.id);
+    }
+
+    /**
+     * Retrieves the resource bindings for the component, providing default resource keys if not specified in props.
+     *
+     * @param {Object} props - The properties object that may contain resourceBindings.
+     * @param {Object} [props.resourceBindings] - Optional resource bindings overrides.
+     * @param {string} [props.resourceBindings.title] - Optional override for the title resource key.
+     * @returns {Object} An object containing the `utfallSvarStatus` resource bindings.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        const resourceBindings = {
+            title: props?.resourceBindings?.title || "resource.status.title",
+            erUtfallBesvaresSenere: props?.resourceBindings?.erUtfallBesvaresSenere || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+            erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
+            status: props?.resourceBindings?.status || "resource.utfallBesvarelse.utfallSvar.status"
+        };
+        return {
+            utfallSvarStatus: resourceBindings
+        };
+    }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-field", "custom-feedbacklist-validation-messages"];
+    }
+}

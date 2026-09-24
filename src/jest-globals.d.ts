@@ -19,6 +19,16 @@ declare global {
     const beforeAll: typeof import("@jest/globals").beforeAll;
     const afterAll: typeof import("@jest/globals").afterAll;
 
+    /**
+     * `require`, which the mock factories use.
+     *
+     * A factory runs before the imports, so it cannot reach one; requiring the module inside the factory is how
+     * jest expects that to be written. What comes back is whatever the module exports, so it is left open rather
+     * than restated here for every module a factory reaches for.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    function require(moduleName: string): any;
+
     /** The mock types, which are written as `jest.Mock` rather than imported. */
     namespace jest {
         type Mock<T extends FunctionLike = FunctionLike> = import("jest-mock").Mock<T>;

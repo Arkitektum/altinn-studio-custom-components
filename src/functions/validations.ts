@@ -1,6 +1,6 @@
 // Dependencies
+import type { ResourceBindingGroup, TableColumn } from "../types.ts";
 import { getDefaultTextResources, getTextResources } from "@arkitektum/altinn-studio-custom-components-utils";
-import type { TableColumn } from "../types.ts";
 import type { TextResourceCollection } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
@@ -12,7 +12,7 @@ import ValidationMessages from "../classes/system-classes/ValidationMessages.ts"
  * @param validationMessages - An object containing validation messages, keyed by severity.
  * @returns Whether any of them holds a message.
  */
-export function hasValidationMessages(validationMessages?: Record<string, unknown[]> | null): boolean {
+export function hasValidationMessages(validationMessages?: ValidationMessages | Record<string, unknown[]> | null): boolean {
     return !!validationMessages && Object.values(validationMessages).some((validationMessage) => validationMessage.length > 0);
 }
 
@@ -28,7 +28,7 @@ export function hasValidationMessages(validationMessages?: Record<string, unknow
  * @returns The updated ValidationMessages instance containing any errors or info about missing or empty text resources.
  */
 export function hasMissingTextResources(
-    textResourceBindings?: Record<string, Record<string, string>>,
+    textResourceBindings?: Record<string, ResourceBindingGroup | undefined>,
     validationMessages = new ValidationMessages()
 ) {
     const textResources = getTextResources() as TextResourceCollection | undefined;

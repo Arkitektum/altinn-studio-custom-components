@@ -1,5 +1,5 @@
 // Dependencies
-import type { ComponentProps, InstantiatedComponent } from "../types.ts";
+import type { BooleanDataValues, BooleanTextValues, ComponentProps, InstantiatedComponent } from "../types.ts";
 import { addStyle, getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 /**
@@ -92,7 +92,8 @@ export function validateTexts(
     texts: Record<string, unknown>,
     fallbackTexts: Record<string, unknown>,
     keys: string[],
-    componentName: string
+    /** A component without an id reaches here as undefined, and the warning then names it as such. */
+    componentName?: string
 ): void {
     for (const key of keys) {
         if (texts[key] === undefined || texts[key] === null) {
@@ -248,7 +249,7 @@ export function getComponentDataTitle(component: ComponentProps): unknown {
  * @param {*} [component.formData.defaultData] - Data value for default state in form data.
  * @returns {Object} An object containing `trueData`, `falseData`, and `defaultData`.
  */
-export function getComponentBooleanDataValues(component: ComponentProps): unknown {
+export function getComponentBooleanDataValues(component: ComponentProps): BooleanDataValues {
     if (component.isChildComponent) {
         return {
             trueData: component?.resourceValues?.trueData,
@@ -271,7 +272,7 @@ export function getComponentBooleanDataValues(component: ComponentProps): unknow
  * @param {Object} resourceBindings - The resource bindings object for fallback text resources.
  * @returns {Object} An object containing `trueText`, `falseText`, and `defaultText` strings.
  */
-export function getComponentBooleanTextValues(component: ComponentProps, resourceBindings?: Record<string, unknown>): unknown {
+export function getComponentBooleanTextValues(component: ComponentProps, resourceBindings?: Record<string, unknown>): BooleanTextValues {
     return {
         trueText: component?.resourceValues?.trueText || getTextResourceFromResourceBinding(resourceBindings?.trueText as string | undefined),
         falseText: component?.resourceValues?.falseText || getTextResourceFromResourceBinding(resourceBindings?.falseText as string | undefined),

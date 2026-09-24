@@ -1,4 +1,5 @@
-import type { ComponentProps } from "../../types.ts";
+import type { ComponentProps, ResourceBindingGroup } from "../../types.ts";
+import type ValidationMessages from "./ValidationMessages.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -15,9 +16,9 @@ export default class CustomComponent {
     // undefined. The subclasses read them off `this`, which is why they are declared here and not on the props.
     declare tagName?: string;
     declare inline?: boolean;
-    declare hideTitle?: boolean;
+    declare hideTitle?: boolean | string;
     declare size?: string;
-    declare hideIfEmpty?: boolean;
+    declare hideIfEmpty?: boolean | string;
     declare styleOverride?: Record<string, string>;
     declare isChildComponent?: boolean;
     declare feedbackType?: string;
@@ -25,6 +26,18 @@ export default class CustomComponent {
     declare format?: string;
     declare enableLinks?: boolean;
     declare order?: unknown;
+
+    // What a subclass works out for itself and a renderer then reads off it. Declared here because every renderer
+    // reads them off whichever component it was handed, and named widely because each subclass decides for itself
+    // what it renders; the ones that care narrow these.
+    /** Whether the component resolved to nothing, which is what decides whether it hides itself. */
+    declare isEmpty?: boolean;
+    /** What the component renders, one shape per component. */
+    declare resourceValues?: object;
+    /** Which text resources it asked for, kept so a renderer can report one that is missing. */
+    declare resourceBindings?: object;
+    declare validationMessages?: ValidationMessages;
+    declare hasValidationMessages?: boolean;
 
     /**
      * Constructs a new CustomComponent instance with the provided properties.
@@ -120,7 +133,7 @@ export default class CustomComponent {
      * @param {Object} resourceBindings - The resource bindings to validate.
      * @returns {Array|string|boolean} The missing-text-resource validation result.
      */
-    getValidationMessages(resourceBindings?: Record<string, Record<string, string>>) {
+    getValidationMessages(resourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
         return hasMissingTextResources(resourceBindings);
     }
 }

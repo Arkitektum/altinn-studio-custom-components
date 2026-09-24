@@ -42,6 +42,29 @@ export interface TableColumn {
 }
 
 /**
+ * One entry in a component's resourceBindings.
+ *
+ * A leaf component writes a binding id straight under the key; a composite one writes a group of ids under it, one
+ * per part it renders. Both shapes reach the same attribute and nothing narrows them at the boundary, so this is
+ * left open. Writing the union instead would put a narrowing at several hundred read sites without making one of
+ * them safer: the keys come from configuration, so a wrong key reads as absent either way.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ResourceBindingValue = any;
+
+/**
+ * A group of binding ids, as a component builds one for each part it renders.
+ *
+ * This is the shape a component class produces, as against the open one it is configured with: every id it names
+ * is a key into the text resources, and any of them may be left out.
+ */
+export interface ResourceBindingGroup {
+    title?: string;
+    emptyFieldText?: string;
+    [key: string]: string | undefined;
+}
+
+/**
  * Everything a component can be configured with, which is what an element's attributes are read into and what a
  * component class is constructed from.
  *
@@ -50,11 +73,23 @@ export interface TableColumn {
  */
 export interface ComponentProps {
     tagName?: string;
+    /** The element's id, which is also what a validation message names the component by. */
+    id?: string;
+    /** Worked out by a parent that already read the data, so a child need not read it again. */
+    isEmpty?: boolean;
     text?: unknown;
     texts?: unknown;
     inline?: boolean;
-    hideTitle?: boolean;
-    hideIfEmpty?: boolean;
+    /**
+     * Whether to hide the title.
+     *
+     * Widened to the string form because the guards in the component classes accept `"true"` as well as `true`.
+     * Props read off an element are parsed to a boolean, so the string only arises if something hands these props
+     * over directly.
+     */
+    hideTitle?: boolean | string;
+    /** Whether to hide the component when it resolves to nothing. Accepts the string form, as hideTitle does. */
+    hideIfEmpty?: boolean | string;
     hideOrgNr?: boolean;
     enableLinks?: boolean;
     showRowNumbers?: boolean;
@@ -70,9 +105,28 @@ export interface ComponentProps {
     dataTitleItemKey?: string;
     formData?: Record<string, unknown>;
     tableColumns?: TableColumn[];
-    resourceBindings?: Record<string, unknown>;
+    resourceBindings?: Record<string, ResourceBindingValue>;
     resourceValues?: Record<string, unknown>;
     styleOverride?: Record<string, string>;
+}
+
+/**
+ * The three values a boolean component can resolve to, before its condition picks one of them.
+ *
+ * Read either from the resource values, for a child component, or from the form data. Each is left unknown: what a
+ * component shows for true is whatever its layout put there.
+ */
+export interface BooleanDataValues {
+    trueData?: unknown;
+    falseData?: unknown;
+    defaultData?: unknown;
+}
+
+/** The same three, for a boolean component that shows a text resource rather than a value from the form data. */
+export interface BooleanTextValues {
+    trueText?: unknown;
+    falseText?: unknown;
+    defaultText?: unknown;
 }
 
 /**
@@ -84,7 +138,8 @@ export interface ComponentProps {
 export interface InstantiatedComponent {
     /** Whether the component resolved to nothing, which is what decides if it hides itself. */
     isEmpty?: boolean;
-    hideIfEmpty?: boolean;
+    /** Carried straight over from the props, string form and all, and read as a truthy value. */
+    hideIfEmpty?: boolean | string;
     /** Messages gathered while building it, keyed by severity. */
     validationMessages?: unknown;
     hasValidationMessages?: unknown;
