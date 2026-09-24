@@ -2,7 +2,7 @@
 import { ClientLogger } from "@arkitektum/client-logger";
 
 // Constants
-import { altinnAppOrigins, clientLoggerApiUrls } from "../constants/urls.js";
+import { altinnAppOrigins, clientLoggerApiUrls } from "../constants/urls.ts";
 
 /**
  * Fetch with timeout and client logger integration.

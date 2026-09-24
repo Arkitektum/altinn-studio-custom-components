@@ -10,13 +10,13 @@
  * receive many domain-specific keys in `formData` (one per model prop). Enumerating them here would be a
  * hand-maintained mirror of every layout model, so those types opt out of key validation entirely.
  */
-export const allowedFormDataKeysForTypes = {
+export const allowedFormDataKeysForTypes: Record<string, string[] | null> = {
     base: ["data", "title"],
     data: ["data", "title", "dataTitle", "trueData", "falseData", "defaultData", "simpleBinding"],
     layout: null
 };
 
-export const allowedResourceValuesKeysForTypes = {
+export const allowedResourceValuesKeysForTypes: Record<string, string[] | null> = {
     base: ["data", "title"],
     data: ["data", "emptyFieldText", "title"],
     layout: null

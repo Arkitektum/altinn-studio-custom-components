@@ -1,6 +1,7 @@
-export const availableDateTimeLanguages = ["default"];
+export const availableDateTimeLanguages: string[] = ["default"];
 
-export const dateTimeFormat = {
+/** The Intl options each kind of value is formatted with, keyed by locale. Every kind has a `default`. */
+export const dateTimeFormat: Record<"dateTime" | "date" | "time", Record<string, Intl.DateTimeFormatOptions>> = {
     dateTime: {
         default: {
             day: "2-digit",

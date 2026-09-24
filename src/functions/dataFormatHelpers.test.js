@@ -12,7 +12,7 @@ import {
 } from "./dataFormatHelpers.js";
 
 // Mocks for constants and helpers
-jest.mock("../constants/dateTimeFormats.js", () => ({
+jest.mock("../constants/dateTimeFormats.ts", () => ({
     availableDateTimeLanguages: ["en", "no", "default"],
     dateTimeFormat: {
         dateTime: {

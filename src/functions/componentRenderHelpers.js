@@ -6,7 +6,7 @@ import { instantiateComponent } from "./componentHelpers.js";
 import { renderFeedbackListElement } from "./feedbackHelpers.js";
 
 // Constants
-import { allowedFormDataKeysForTypes, allowedResourceValuesKeysForTypes } from "../constants/allowedPropertyKeys.js";
+import { allowedFormDataKeysForTypes, allowedResourceValuesKeysForTypes } from "../constants/allowedPropertyKeys.ts";
 
 /**
  * Reminder appended to validation errors, pointing developers at the standardized way to pass and read primary data.

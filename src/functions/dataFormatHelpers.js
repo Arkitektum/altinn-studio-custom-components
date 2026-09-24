@@ -1,5 +1,5 @@
 // Constants
-import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.js";
+import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.ts";
 
 // Global functions
 import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.js";
