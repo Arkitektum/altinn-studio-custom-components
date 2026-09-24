@@ -7,7 +7,7 @@ import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTi
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupRammebetingelserTilknytninger is a custom component class for handling

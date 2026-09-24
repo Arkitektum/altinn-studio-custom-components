@@ -1,6 +1,6 @@
 // Global functions
 import { renderCustomComponent } from "../../../../functions/componentRenderHelpers.js";
-import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers.js";
+import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers.ts";
 
 // Local functions
 import {

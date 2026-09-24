@@ -36,7 +36,7 @@ jest.mock("../validators.js", () => ({
         emptyTextResources: []
     }))
 }));
-jest.mock("../../../src/functions/feedbackHelpers.js", () => ({
+jest.mock("../../../src/functions/feedbackHelpers.ts", () => ({
     renderFeedbackListElement: jest.fn(() => mockCreateElement("ul"))
 }));
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({

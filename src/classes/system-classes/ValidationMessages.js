@@ -6,7 +6,7 @@ export default class ValidationMessages {
     /**
      * Constructs a new instance of the ValidationMessages class.
      *
-     * @param {Object} props - The properties object for initializing validation messages.
+     * @param {Object} [props] - The properties object for initializing validation messages.
      * @param {Array} [props.error=[]] - An array of error messages.
      * @param {Array} [props.warning=[]] - An array of warning messages.
      * @param {Array} [props.info=[]] - An array of informational messages.

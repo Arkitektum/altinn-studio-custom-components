@@ -6,7 +6,7 @@ import Arbeidsplasser from "../../data-classes/Arbeidsplasser.js";
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**

@@ -7,7 +7,7 @@ import Sjekklistekrav from "../../data-classes/Sjekklistekrav.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGrouplistSjekklistekrav is a custom component class for handling grouped checklist requirements.

@@ -1,5 +1,5 @@
 // Global functions
-import { escapeHtml } from "./stringHelpers.js";
+import { escapeHtml } from "./stringHelpers.ts";
 
 const TYPE_CONFIG = {
     base: { label: "B", color: "#89b4fa", bgColor: "#1a1a35", bgColorHidden: "#1a1a35cc", borderColor: "#3d3d7a", rightPx: 2, typeName: "Base" },

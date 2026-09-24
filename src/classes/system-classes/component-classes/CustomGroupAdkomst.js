@@ -7,7 +7,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupAdkomst is a specialized component class for handling "adkomst" (access) data and resource bindings.

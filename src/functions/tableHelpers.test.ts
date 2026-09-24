@@ -1,4 +1,5 @@
-import { getTableHeaders, getTableRows } from "./tableHelpers.js";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { getTableHeaders, getTableRows } from "./tableHelpers.ts";
 import { getTextResourceFromResourceBinding, getValueFromDataKey, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the helper functions
@@ -10,7 +11,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
 
 describe("getTableHeaders", () => {
     it("should return headers with resolved text and styleOverride", () => {
-        getTextResourceFromResourceBinding.mockImplementation((binding) => `text-for-${binding}`);
+        jest.mocked(getTextResourceFromResourceBinding).mockImplementation((binding) => `text-for-${binding}`);
 
         const columns = [
             {
@@ -34,7 +35,7 @@ describe("getTableHeaders", () => {
     });
 
     it("should handle missing resourceBindings gracefully", () => {
-        getTextResourceFromResourceBinding.mockReturnValue(undefined);
+        jest.mocked(getTextResourceFromResourceBinding).mockReturnValue(undefined);
 
         const columns = [{ styleOverride: { align: "left" } }];
 
@@ -50,9 +51,9 @@ describe("getTableRows", () => {
     });
 
     it("should generate rows for array data", () => {
-        getValueFromDataKey.mockImplementation((row, key) => row[key]);
-        getTextResourceFromResourceBinding.mockImplementation((binding) => `empty-${binding}`);
-        hasValue.mockImplementation((val) => !!val);
+        jest.mocked(getValueFromDataKey).mockImplementation((row, key) => (row as Record<string, unknown>)[key as string]);
+        jest.mocked(getTextResourceFromResourceBinding).mockImplementation((binding) => `empty-${binding}`);
+        jest.mocked(hasValue).mockImplementation((val) => !!val);
 
         const columns = [
             {
@@ -111,9 +112,9 @@ describe("getTableRows", () => {
     });
 
     it("should handle single object data", () => {
-        getValueFromDataKey.mockImplementation((row, key) => row[key]);
-        getTextResourceFromResourceBinding.mockReturnValue(undefined);
-        hasValue.mockReturnValue(false);
+        jest.mocked(getValueFromDataKey).mockImplementation((row, key) => (row as Record<string, unknown>)[key as string]);
+        jest.mocked(getTextResourceFromResourceBinding).mockReturnValue(undefined);
+        jest.mocked(hasValue).mockReturnValue(false);
 
         const columns = [{ dataKey: "foo", resourceBindings: {}, tagName: "td" }];
         const data = { foo: "bar" };
@@ -134,15 +135,15 @@ describe("getTableRows", () => {
     });
 
     it("should not add emptyFieldText if hasValue returns false", () => {
-        getValueFromDataKey.mockReturnValue("baz");
-        getTextResourceFromResourceBinding.mockReturnValue("");
-        hasValue.mockReturnValue(false);
+        jest.mocked(getValueFromDataKey).mockReturnValue("baz");
+        jest.mocked(getTextResourceFromResourceBinding).mockReturnValue("");
+        jest.mocked(hasValue).mockReturnValue(false);
 
         const columns = [{ dataKey: "foo", resourceBindings: { emptyFieldText: "emptyFoo" }, tagName: "td" }];
         const data = [{ foo: "baz" }];
 
         const result = getTableRows(columns, data);
 
-        expect(result[0][0].resourceValues).toEqual({ data: "baz" });
+        expect(result[0]![0]!.resourceValues).toEqual({ data: "baz" });
     });
 });

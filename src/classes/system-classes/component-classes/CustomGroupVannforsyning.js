@@ -7,7 +7,7 @@ import Vannforsyning from "../../data-classes/Vannforsyning.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupVannforsyning is a specialized component class for handling water supply group data.

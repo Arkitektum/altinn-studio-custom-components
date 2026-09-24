@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupVegtypeTillatelse is a custom component class for handling group data related to "vegtype tillatelse" (road type permission).

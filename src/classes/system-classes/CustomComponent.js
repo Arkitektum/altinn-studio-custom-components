@@ -3,7 +3,7 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
 import { getComponentDataValue } from "../../functions/helpers.js";
-import { hasMissingTextResources } from "../../functions/validations.js";
+import { hasMissingTextResources } from "../../functions/validations.ts";
 
 /**
  * Class representing a CustomComponent.

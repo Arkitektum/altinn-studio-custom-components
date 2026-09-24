@@ -6,9 +6,9 @@ import CustomComponent from "../CustomComponent.js";
 
 // Global functions
 import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.js";
-import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
-import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
-import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.js";
+import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
+import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
+import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.ts";
 
 /**
  * CustomTableData is a custom component class for rendering and managing table data.

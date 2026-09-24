@@ -1,6 +1,6 @@
 import { getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGrouplistAnsvarsomraadeType from "./CustomGrouplistAnsvarsomraadeType.js";
-const { hasMissingTextResources } = require("../../../functions/validations.js");
+const { hasMissingTextResources } = require("../../../functions/validations.ts");
 
 // Mocks for global functions and CustomComponent
 jest.mock("../../../functions/helpers.js", () => ({
@@ -11,7 +11,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
     getTextResources: jest.fn()
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn()
 }));
 

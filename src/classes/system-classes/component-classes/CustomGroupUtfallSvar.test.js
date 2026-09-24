@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomComponent from "../CustomComponent.js";
 import CustomGroupUtfallSvar from "./CustomGroupUtfallSvar.js";
 import UtfallSvar from "../../data-classes/UtfallSvar.js";

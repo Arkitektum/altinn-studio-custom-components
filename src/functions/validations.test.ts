@@ -1,19 +1,22 @@
-import { hasMissingTextResources, hasValidationMessages, validateTableHeadersTextResourceBindings } from "./validations.js";
+import { describe, expect, it, jest } from "@jest/globals";
+import { hasMissingTextResources, hasValidationMessages, validateTableHeadersTextResourceBindings } from "./validations.ts";
 
 // Mock ValidationMessages class
 export class ValidationMessages {
-    constructor() {
-        this.error = [];
-        this.info = [];
-    }
+    error: string[] = [];
+    warning: string[] = [];
+    info: string[] = [];
+    success: string[] = [];
+    default: string[] = [];
 }
 
 jest.mock("../classes/system-classes/ValidationMessages.js", () => {
     class ValidationMessages {
-        constructor() {
-            this.error = [];
-            this.info = [];
-        }
+        error: string[] = [];
+        warning: string[] = [];
+        info: string[] = [];
+        success: string[] = [];
+        default: string[] = [];
     }
     return {
         __esModule: true,

@@ -7,7 +7,7 @@ import Overvann from "../../data-classes/Overvann.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupOvervann is a custom component class for handling "overvann" (stormwater) group data.

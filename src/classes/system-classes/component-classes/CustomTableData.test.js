@@ -1,14 +1,14 @@
 import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.js";
-import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.js";
+import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.js";
+import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
 import CustomTableData from "./CustomTableData.js";
 import { instantiateComponent } from "../../../functions/componentHelpers.js";
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);
@@ -26,14 +26,14 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn()
 }));
-jest.mock("../../../functions/tableHelpers.js", () => ({
+jest.mock("../../../functions/tableHelpers.ts", () => ({
     getTableHeaders: jest.fn(),
     getTableRows: jest.fn()
 }));
 jest.mock("../../../functions/componentHelpers.js", () => ({
     instantiateComponent: jest.fn()
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasValidationMessages: jest.fn(),
     validateTableHeadersTextResourceBindings: jest.fn()
 }));

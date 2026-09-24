@@ -7,7 +7,7 @@ import KravTilByggegrunn from "../../data-classes/KravTilByggegrunn.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupRammebetingelserKravTilByggegrunn is a custom component class for handling "krav til byggegrunn" group data and resource bindings.

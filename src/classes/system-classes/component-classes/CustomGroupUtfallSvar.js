@@ -7,7 +7,7 @@ import UtfallSvar from "../../data-classes/UtfallSvar.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupUtfallSvar is a custom component class for handling grouped "utfallSvar" (outcome answers).

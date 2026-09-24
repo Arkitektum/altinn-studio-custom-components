@@ -1,5 +1,5 @@
 import * as helpers from "../../../functions/helpers.js";
-import * as validations from "../../../functions/validations.js";
+import * as validations from "../../../functions/validations.ts";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGroupKontrollAnsvarsomraade from "./CustomGroupKontrollAnsvarsomraade.js";
 import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js";
@@ -7,7 +7,7 @@ import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js
 // Mocks
 jest.mock("../CustomComponent.js", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);
@@ -19,7 +19,7 @@ jest.mock("../CustomComponent.js", () => {
 });
 jest.mock("../../data-classes/KontrollAnsvarsomraade.js");
 jest.mock("../../../functions/helpers.js");
-jest.mock("../../../functions/validations.js");
+jest.mock("../../../functions/validations.ts");
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
     getTextResourceFromResourceBinding: jest.fn()

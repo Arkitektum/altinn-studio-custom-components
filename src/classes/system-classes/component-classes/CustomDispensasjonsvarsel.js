@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**

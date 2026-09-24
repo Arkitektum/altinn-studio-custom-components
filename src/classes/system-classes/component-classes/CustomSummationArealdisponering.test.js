@@ -4,7 +4,7 @@ import CustomSummationArealdisponering from "./CustomSummationArealdisponering.j
 // Mocks for dependencies
 jest.mock("../CustomComponent.js", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);
@@ -33,13 +33,13 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn(),
     getTextResources: jest.fn()
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));
 
 const { getComponentDataValue } = require("../../../functions/helpers.js");
-const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
+const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 describe("CustomSummationArealdisponering", () => {
     beforeEach(() => {

@@ -3,7 +3,7 @@ import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./de
 import { getComponentContainerElement } from "./helpers.js";
 import { hasRenderedContent } from "./htmlElementHelpers.js";
 import { instantiateComponent } from "./componentHelpers.js";
-import { renderFeedbackListElement } from "./feedbackHelpers.js";
+import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
 // Constants
 import { allowedFormDataKeysForTypes, allowedResourceValuesKeysForTypes } from "../constants/allowedPropertyKeys.ts";

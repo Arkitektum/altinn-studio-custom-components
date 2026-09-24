@@ -1,11 +1,11 @@
 import CustomGroupAvloep from "./CustomGroupAvloep.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
+const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);
@@ -26,7 +26,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`),
     getTextResources: jest.fn(() => ({ resource1: "text1" }))
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(() => ["missing resource"]),
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));

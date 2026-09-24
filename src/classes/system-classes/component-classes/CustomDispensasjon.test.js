@@ -11,13 +11,13 @@ jest.mock("../../../functions/helpers.js", () => ({
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== "")
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(() => ["missing"]),
     hasValidationMessages: jest.fn((messages) => Array.isArray(messages) && messages.length > 0)
 }));
 
 const { getComponentResourceValue } = require("../../../functions/helpers.js");
-const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
+const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 describe("CustomDispensasjon", () => {
     beforeEach(() => {

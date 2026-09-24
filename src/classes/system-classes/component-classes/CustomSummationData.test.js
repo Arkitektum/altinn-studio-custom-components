@@ -20,7 +20,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
 // Mock CustomComponent base class
 jest.mock("../CustomComponent.js", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);

@@ -7,7 +7,7 @@ import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.js
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * Initializes a new instance of the CustomGroupKontrollAnsvarsomraade class.

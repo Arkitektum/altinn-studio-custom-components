@@ -6,7 +6,7 @@ import CustomComponent from "../CustomComponent.js";
 import Eiendom from "../../data-classes/Eiendom.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**

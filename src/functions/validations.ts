@@ -1,5 +1,7 @@
 // Dependencies
 import { getDefaultTextResources, getTextResources } from "@arkitektum/altinn-studio-custom-components-utils";
+import type { TableColumn } from "../types.ts";
+import type { TextResourceCollection } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
 import ValidationMessages from "../classes/system-classes/ValidationMessages.js";
@@ -7,10 +9,10 @@ import ValidationMessages from "../classes/system-classes/ValidationMessages.js"
 /**
  * Checks if there are any validation messages present.
  *
- * @param {Object} validationMessages - An object containing validation messages.
- * @returns {boolean} Returns `true` if there are any validation messages with a length greater than 0, otherwise `false`.
+ * @param validationMessages - An object containing validation messages, keyed by severity.
+ * @returns Whether any of them holds a message.
  */
-export function hasValidationMessages(validationMessages) {
+export function hasValidationMessages(validationMessages?: Record<string, unknown[]> | null): boolean {
     return !!validationMessages && Object.values(validationMessages).some((validationMessage) => validationMessage.length > 0);
 }
 
@@ -21,13 +23,16 @@ export function hasValidationMessages(validationMessages) {
  * text resource exists and is not empty. If a text resource is missing, an error message is added to
  * the validationMessages. If a text resource exists but its value is empty, an info message is added.
  *
- * @param {Object} textResourceBindings - An object mapping component names to their text resource keys.
- * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional ValidationMessages instance to collect errors and info.
- * @returns {ValidationMessages} The updated ValidationMessages instance containing any errors or info about missing or empty text resources.
+ * @param textResourceBindings - An object mapping component names to their text resource keys.
+ * @param validationMessages - An optional ValidationMessages instance to collect errors and info.
+ * @returns The updated ValidationMessages instance containing any errors or info about missing or empty text resources.
  */
-export function hasMissingTextResources(textResourceBindings, validationMessages = new ValidationMessages()) {
-    const textResources = getTextResources();
-    const defaultTextResources = getDefaultTextResources();
+export function hasMissingTextResources(
+    textResourceBindings?: Record<string, Record<string, string>>,
+    validationMessages = new ValidationMessages()
+) {
+    const textResources = getTextResources() as TextResourceCollection | undefined;
+    const defaultTextResources = getDefaultTextResources() as TextResourceCollection | undefined;
     for (const componentName in textResourceBindings) {
         for (const textResourceKey in textResourceBindings[componentName]) {
             const key = textResourceBindings[componentName][textResourceKey];
@@ -51,14 +56,16 @@ export function hasMissingTextResources(textResourceBindings, validationMessages
  * Checks each column's `textResourceBindings` against available text resources and default text resources.
  * Adds error messages for missing bindings and info messages for empty bindings to the provided `ValidationMessages` object.
  *
- * @param {Array<Object>} tableColumns - Array of table column objects, each possibly containing `textResourceBindings`.
- * @param {ValidationMessages} [validationMessages=new ValidationMessages()] - An optional ValidationMessages instance to collect errors and infos.
- * @returns {ValidationMessages} The updated ValidationMessages object containing any errors or info messages found.
+ * @param tableColumns - Array of table column objects, each possibly containing `textResourceBindings`.
+ * @param validationMessages - An optional ValidationMessages instance to collect errors and infos.
+ * @returns The updated ValidationMessages object containing any errors or info messages found.
  */
-export function validateTableHeadersTextResourceBindings(tableColumns, validationMessages = new ValidationMessages()) {
-    const textResources = getTextResources();
-    const defaultTextResources = getDefaultTextResources();
-    for (let columnIndex = 0; columnIndex < tableColumns?.length; columnIndex++) {
+export function validateTableHeadersTextResourceBindings(tableColumns?: TableColumn[], validationMessages = new ValidationMessages()) {
+    const textResources = getTextResources() as TextResourceCollection | undefined;
+    const defaultTextResources = getDefaultTextResources() as TextResourceCollection | undefined;
+    // `columnIndex < undefined` is false, so the loop already did nothing without any columns. Saying so is what
+    // lets the comparison be between two numbers.
+    for (let columnIndex = 0; columnIndex < (tableColumns?.length ?? 0); columnIndex++) {
         const column = tableColumns?.[columnIndex];
         for (const textResourceKey of Object.keys(column?.textResourceBindings || {})) {
             let textResource = textResources?.resources?.find((resource) => resource.id === column?.textResourceBindings?.[textResourceKey]);

@@ -1,5 +1,5 @@
 import { getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomGjennomfoeringsplan from "./CustomGjennomfoeringsplan.js";
 import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
 import { getComponentResourceValue } from "../../../functions/helpers.js";
@@ -7,7 +7,7 @@ import { getComponentResourceValue } from "../../../functions/helpers.js";
 jest.mock("../../layout-classes/Gjennomfoeringsplan");
 jest.mock("../CustomComponent", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);

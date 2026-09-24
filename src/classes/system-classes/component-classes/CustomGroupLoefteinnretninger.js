@@ -7,7 +7,7 @@ import Loefteinnretninger from "../../data-classes/Loefteinnretninger.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupLoefteinnretninger is a custom component class for handling lift-related groupings in forms.

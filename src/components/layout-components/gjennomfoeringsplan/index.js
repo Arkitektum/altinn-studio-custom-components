@@ -3,9 +3,9 @@ import { appendChildren } from "@arkitektum/altinn-studio-custom-components-util
 
 // Global functions
 import { renderCustomComponent } from "../../../functions/componentRenderHelpers.js";
-import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.js";
+import { renderFeedbackListElement } from "../../../functions/feedbackHelpers.ts";
 import { renderLayoutContainerElement } from "../../../functions/helpers.js";
-import { setPageOrientation } from "../../../functions/printHelpers.js";
+import { setPageOrientation } from "../../../functions/printHelpers.ts";
 
 // Local functions
 import {

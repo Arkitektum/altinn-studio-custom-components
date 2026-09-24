@@ -5,7 +5,7 @@ import CustomComponent from "../CustomComponent.js";
 import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentResourceValue } from "../../../functions/helpers.js";
 
 /**

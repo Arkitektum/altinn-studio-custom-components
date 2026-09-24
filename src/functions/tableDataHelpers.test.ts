@@ -1,4 +1,5 @@
-import { removeEmptyRows, sortRowsByKey } from "./tableDataHelpers.js";
+import { beforeEach, describe, expect, it, jest } from "@jest/globals";
+import { removeEmptyRows, sortRowsByKey } from "./tableDataHelpers.ts";
 import { instantiateComponent } from "./componentHelpers.js";
 
 jest.mock("./componentHelpers.js", () => ({
@@ -50,7 +51,7 @@ describe("sortRowsByKey", () => {
 describe("removeEmptyRows", () => {
     beforeEach(() => {
         jest.clearAllMocks();
-        instantiateComponent.mockImplementation((cell) => ({ isEmpty: cell.isEmpty }));
+        jest.mocked(instantiateComponent).mockImplementation((cell) => ({ isEmpty: cell.isEmpty }));
     });
 
     it("removes rows where all cells are empty", () => {

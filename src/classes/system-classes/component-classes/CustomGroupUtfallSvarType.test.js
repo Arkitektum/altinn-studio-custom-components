@@ -1,6 +1,6 @@
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.js";
 import { getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import CustomGroupUtfallSvarType from "./CustomGroupUtfallSvarType.js";
 
 // Mocks for dependencies
@@ -12,7 +12,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn(),
     getTextResources: jest.fn()
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));

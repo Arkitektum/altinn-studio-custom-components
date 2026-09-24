@@ -7,7 +7,7 @@ import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
 
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomFieldUtfallSvarStatus is a custom component class for handling the display and validation

@@ -14,7 +14,7 @@ import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, 
 import { renderValidationMessages, validateResources } from "../validators.js";
 
 // Global functions
-import { renderFeedbackListElement } from "../../../src/functions/feedbackHelpers.js";
+import { renderFeedbackListElement } from "../../../src/functions/feedbackHelpers.ts";
 
 /**
  * Renders the results by generating and displaying custom components based on the current layout code.

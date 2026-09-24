@@ -7,7 +7,7 @@ import VegtypeTillatelseList from "../data-classes/VegtypeTillatelseList.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGrouplistVegtypeTillatelse is a specialized component class for handling grouped lists of "vegtype tillatelse" (road type permissions).

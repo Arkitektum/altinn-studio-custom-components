@@ -2,7 +2,7 @@ import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./de
 import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers.js";
 import { getComponentContainerElement } from "./helpers.js";
 import { instantiateComponent } from "./componentHelpers.js";
-import { renderFeedbackListElement } from "./feedbackHelpers.js";
+import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
 jest.mock("./componentHelpers.js", () => ({ instantiateComponent: jest.fn() }));
 jest.mock("./devToolsHelpers.js", () => ({
@@ -11,7 +11,7 @@ jest.mock("./devToolsHelpers.js", () => ({
     renderHiddenDevToolsElement: jest.fn()
 }));
 jest.mock("./helpers.js", () => ({ getComponentContainerElement: jest.fn() }));
-jest.mock("./feedbackHelpers.js", () => ({ renderFeedbackListElement: jest.fn() }));
+jest.mock("./feedbackHelpers.ts", () => ({ renderFeedbackListElement: jest.fn() }));
 
 describe("renderCustomComponent", () => {
     beforeEach(() => {

@@ -7,7 +7,7 @@ import Ettersending from "../../data-classes/Ettersending.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupEttersending is a custom component class for handling Ettersending group logic.

@@ -7,7 +7,7 @@ import Loefteinnretninger from "../../data-classes/Loefteinnretninger.js";
 import PlanlagteLoefteinnretningerList from "../data-classes/PlanlagteLoefteinnretningerList.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 
 /**

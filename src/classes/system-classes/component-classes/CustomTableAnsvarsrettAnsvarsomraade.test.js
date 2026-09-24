@@ -1,5 +1,5 @@
 import * as helpers from "../../../functions/helpers.js";
-import * as validations from "../../../functions/validations.js";
+import * as validations from "../../../functions/validations.ts";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomraade.js";
 import CustomTableAnsvarsrettAnsvarsomraade from "./CustomTableAnsvarsrettAnsvarsomraade.js";

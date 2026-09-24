@@ -5,7 +5,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import CustomComponent from "../CustomComponent.js";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.js";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.js";
 import { getComponentDataValue } from "../../../functions/helpers.js";
 

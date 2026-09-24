@@ -1,6 +1,6 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomGroupSamsvarErklaeringer from "./CustomGroupSamsvarErklaeringer.js";
-const { hasMissingTextResources } = require("../../../functions/validations.js");
+const { hasMissingTextResources } = require("../../../functions/validations.ts");
 
 // Mocks for dependencies
 jest.mock("../../../functions/helpers.js", () => ({
@@ -10,7 +10,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     hasValue: jest.fn((val) => val !== undefined && val !== null && val !== ""),
     getTextResourceFromResourceBinding: jest.fn((key) => `text-for-${key}`)
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(() => []),
     hasValidationMessages: jest.fn((msgs) => Array.isArray(msgs) && msgs.length > 0)
 }));

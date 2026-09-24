@@ -4,10 +4,10 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
 /**
  * Renders a custom feedback list element containing validation messages.
  *
- * @param {Array|Object} validationMessages - The validation messages to display in the feedback list.
- * @returns {HTMLElement} The custom feedback list element with the provided validation messages.
+ * @param validationMessages - The validation messages to display in the feedback list.
+ * @returns The custom feedback list element with the provided validation messages.
  */
-export function renderFeedbackListElement(validationMessages) {
+export function renderFeedbackListElement(validationMessages: unknown): HTMLElement {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         resourceValues: {

@@ -7,7 +7,7 @@ import DispensasjonOversikt from "../../data-classes/DispensasjonOversikt.js";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.js";
-import { hasValidationMessages } from "../../../functions/validations.js";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomGroupDispensasjonOversikt is a custom component class that extends the base CustomComponent class.

@@ -5,7 +5,7 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 import CustomFieldUtfallSvarStatus from "./CustomFieldUtfallSvarStatus.js";
 import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.js";
-const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.js");
+const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
 
 // Mocks for helper functions and classes
 jest.mock("../../../functions/helpers.js", () => ({
@@ -14,7 +14,7 @@ jest.mock("../../../functions/helpers.js", () => ({
     getTextResources: jest.fn(),
     validateTexts: jest.fn()
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(),
     hasValidationMessages: jest.fn()
 }));

@@ -1,12 +1,12 @@
 import CustomGroupVannforsyning from "./CustomGroupVannforsyning.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-const { hasMissingTextResources } = require("../../../functions/validations.js");
+const { hasMissingTextResources } = require("../../../functions/validations.ts");
 const Vannforsyning = require("../../data-classes/Vannforsyning.js");
 
 // Mocks
 jest.mock("../CustomComponent.js", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
-    const { hasMissingTextResources } = require("../../../functions/validations.js");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
         hasContent(data) {
             return hasValue(data);
@@ -27,7 +27,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
     getTextResourceFromResourceBinding: jest.fn((key) => `RES_${key}`),
     getTextResources: jest.fn(() => ({ a: "A", b: "B" }))
 }));
-jest.mock("../../../functions/validations.js", () => ({
+jest.mock("../../../functions/validations.ts", () => ({
     hasMissingTextResources: jest.fn(() => false),
     hasValidationMessages: jest.fn((messages) => !!messages)
 }));

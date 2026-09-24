@@ -2,7 +2,7 @@
 import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.ts";
 
 // Global functions
-import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.js";
+import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.ts";
 
 /**
  * Returns the provided language if it is included in the list of available date-time languages.
