@@ -2,7 +2,7 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 
 /**
  * CustomField class extends CustomComponent to represent a customizable field component.

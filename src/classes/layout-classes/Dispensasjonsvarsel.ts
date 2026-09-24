@@ -1,5 +1,20 @@
+import type { KodeProps } from "../data-classes/Kode.ts";
 // Classes
 import Kode from "../data-classes/Kode.ts";
+
+/** What the form data holds for a Dispensasjonsvarsel, before it is read into the class. */
+export interface DispensasjonsvarselProps {
+    annetTema?: string | null;
+    bestemmelsesoverskrift?: string | null;
+    bestemmelsestekst?: string | null;
+    bestemmelsestype?: KodeProps | null;
+    dispVarselBeskrivelse?: string | null;
+    dispensasjonstema?: KodeProps | null;
+    paragrafnummer?: string | null;
+    plannavn?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
+}
 
 /**
  * Represents a dispensasjonsvarsel object with properties corresponding to the expected structure of the data.
@@ -16,7 +31,16 @@ import Kode from "../data-classes/Kode.ts";
  * @returns {Dispensasjonsvarsel} An instance of the Dispensasjonsvarsel class with the initialized properties.
  */
 export default class Dispensasjonsvarsel {
-    constructor(props) {
+    declare annetTema?: string | null;
+    declare bestemmelsesoverskrift?: string | null;
+    declare bestemmelsestekst?: string | null;
+    declare bestemmelsestype: Kode | undefined | null;
+    declare dispVarselBeskrivelse?: string | null;
+    declare dispensasjonstema: Kode | undefined | null;
+    declare paragrafnummer?: string | null;
+    declare plannavn?: string | null;
+
+    constructor(props?: DispensasjonsvarselProps) {
         this.annetTema = props?.annetTema;
         this.bestemmelsesoverskrift = props?.bestemmelsesoverskrift;
         this.bestemmelsestekst = props?.bestemmelsestekst;

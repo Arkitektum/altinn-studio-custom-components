@@ -1,3 +1,4 @@
+import type { ComponentProps } from "../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -10,6 +11,21 @@ import { hasMissingTextResources } from "../../functions/validations.ts";
  * @class
  */
 export default class CustomComponent {
+    // Each is assigned only when the props named a truthy value, so an unset one stays absent rather than
+    // undefined. The subclasses read them off `this`, which is why they are declared here and not on the props.
+    declare tagName?: string;
+    declare inline?: boolean;
+    declare hideTitle?: boolean;
+    declare size?: string;
+    declare hideIfEmpty?: boolean;
+    declare styleOverride?: Record<string, string>;
+    declare isChildComponent?: boolean;
+    declare feedbackType?: string;
+    declare hideOrgNr?: boolean;
+    declare format?: string;
+    declare enableLinks?: boolean;
+    declare order?: unknown;
+
     /**
      * Constructs a new CustomComponent instance with the provided properties.
      *
@@ -26,7 +42,7 @@ export default class CustomComponent {
      * @param {string} [props.format] - The format of the component's value.
      * @param {boolean} [props.enableLinks] - Whether to enable links in the component.
      */
-    constructor(props) {
+    constructor(props?: ComponentProps | null) {
         if (props?.tagName) {
             this.tagName = props.tagName;
         }
@@ -78,7 +94,7 @@ export default class CustomComponent {
      * @param {Object} props - The properties containing the component's data.
      * @returns {*} The extracted primary data value.
      */
-    getValueFromFormData(props) {
+    getValueFromFormData(props: ComponentProps): unknown {
         return getComponentDataValue(props);
     }
 
@@ -91,7 +107,7 @@ export default class CustomComponent {
      * @param {*} data - The resolved data value to check.
      * @returns {boolean} True when the data has a value.
      */
-    hasContent(data) {
+    hasContent(data: unknown): boolean {
         return hasValue(data);
     }
 
@@ -104,7 +120,7 @@ export default class CustomComponent {
      * @param {Object} resourceBindings - The resource bindings to validate.
      * @returns {Array|string|boolean} The missing-text-resource validation result.
      */
-    getValidationMessages(resourceBindings) {
+    getValidationMessages(resourceBindings?: Record<string, Record<string, string>>) {
         return hasMissingTextResources(resourceBindings);
     }
 }

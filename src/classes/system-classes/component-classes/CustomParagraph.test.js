@@ -2,7 +2,7 @@ import CustomParagraph from "./CustomParagraph.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock CustomComponent since it's a superclass
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {

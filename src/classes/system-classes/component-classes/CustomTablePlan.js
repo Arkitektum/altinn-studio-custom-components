@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 // Classes
 import AndrePlaner from "../../data-classes/AndrePlaner.ts";
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";

@@ -3,7 +3,7 @@ import type { PartProps } from "./Part.ts";
 // Classes
 import Kode from "./Kode.ts";
 import Part from "./Part.ts";
-import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList.js";
+import PlanlagteSamsvarKontrollErklaeringerList from "../system-classes/data-classes/PlanlagteSamsvarKontrollErklaeringerList.ts";
 
 /** What the form data holds for a Ansvarsomraade, before it is read into the class. */
 export interface AnsvarsomraadeProps {

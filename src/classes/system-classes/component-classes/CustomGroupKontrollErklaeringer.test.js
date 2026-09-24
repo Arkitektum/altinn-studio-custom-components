@@ -5,7 +5,7 @@ import KontrollAnsvarsomraade from "../../data-classes/KontrollAnsvarsomraade.ts
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mock dependencies
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {

@@ -1,6 +1,6 @@
 import Kode from "./Kode.ts";
 import KontrollAnsvarsomraade from "./KontrollAnsvarsomraade.ts";
-import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
+import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.ts";
 
 jest.mock("../system-classes/data-classes/KontrollerendeList");
 jest.mock("./Kode");

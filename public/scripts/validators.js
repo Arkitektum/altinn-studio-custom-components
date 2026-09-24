@@ -2,7 +2,7 @@
 import { getDataForComponent, getDefaultTextResources } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import ValidationMessages from "../../src/classes/system-classes/ValidationMessages.js";
+import ValidationMessages from "../../src/classes/system-classes/ValidationMessages.ts";
 
 // Local functions
 import { getDataModels, getLayoutCode, getTextResources } from "./localStorage.js";

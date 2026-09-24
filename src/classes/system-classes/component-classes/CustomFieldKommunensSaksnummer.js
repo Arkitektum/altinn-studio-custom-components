@@ -1,7 +1,7 @@
 // Dependencies
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.ts";
 
 // Global functions

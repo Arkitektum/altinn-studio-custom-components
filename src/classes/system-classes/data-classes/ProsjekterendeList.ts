@@ -1,5 +1,22 @@
+import type { TitleResourceBinding } from "../../../types.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
+/** Which permits the design work is signed off for, as the form data flags them. */
+export interface ProsjekterendeProps {
+    erOkForRammetillatelse?: boolean;
+    erOkForIgangsettingstillatelse?: boolean;
+    erOkForMidlertidigBrukstillatelse?: boolean;
+    erOkForFerdigattest?: boolean;
+}
+
+/** One binding per permit, naming the text resource it is shown as. */
+export interface ProsjekterendeResourceBindings {
+    rammetillatelse?: TitleResourceBinding;
+    igangsettingstillatelse?: TitleResourceBinding;
+    midlertidigBrukstillatelse?: TitleResourceBinding;
+    ferdigattest?: TitleResourceBinding;
+}
 
 /**
  * Constructs a new instance of the class.
@@ -9,7 +26,9 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
  * @param {any} resourceBindings - The resource bindings used for processing prosjekterende items.
  */
 export default class ProsjekterendeList {
-    constructor(prosjekterende, resourceBindings) {
+    declare resourceValues: { data: (string | undefined)[] };
+
+    constructor(prosjekterende?: ProsjekterendeProps | null, resourceBindings?: ProsjekterendeResourceBindings) {
         this.resourceValues = { data: this.getProsjekterendeItems(prosjekterende, resourceBindings) };
     }
 
@@ -27,7 +46,8 @@ export default class ProsjekterendeList {
      * @param {Object} [resourceBindings.ferdigattest] - Resource binding for "Ferdigattest".
      * @returns {Array<string>} An array of text resources for the permissions that are set to `true`.
      */
-    getProsjekterendeItems(prosjekterende, resourceBindings) {
+    getProsjekterendeItems(prosjekterende?: ProsjekterendeProps | null, resourceBindings?: ProsjekterendeResourceBindings): (string | undefined)[] {
+        // The cast records what the filter leaves behind, which the type system does not track.
         return [
             prosjekterende?.erOkForRammetillatelse === true ? getTextResourceFromResourceBinding(resourceBindings?.rammetillatelse?.title) : null,
             prosjekterende?.erOkForIgangsettingstillatelse === true
@@ -37,6 +57,6 @@ export default class ProsjekterendeList {
                 ? getTextResourceFromResourceBinding(resourceBindings?.midlertidigBrukstillatelse?.title)
                 : null,
             prosjekterende?.erOkForFerdigattest === true ? getTextResourceFromResourceBinding(resourceBindings?.ferdigattest?.title) : null
-        ].filter((item) => item !== null);
+        ].filter((item) => item !== null) as (string | undefined)[];
     }
 }

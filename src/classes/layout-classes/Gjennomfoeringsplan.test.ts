@@ -1,5 +1,5 @@
 import EiendomByggested from "../data-classes/EiendomByggested.ts";
-import Gjennomfoeringsplan from "./Gjennomfoeringsplan.js";
+import Gjennomfoeringsplan from "./Gjennomfoeringsplan.ts";
 import Kode from "../data-classes/Kode.ts";
 import KommunensSaksnummer from "../data-classes/KommunensSaksnummer.ts";
 import Metadata from "../data-classes/Metadata.ts";
@@ -13,11 +13,11 @@ jest.mock("../data-classes/Metadata");
 
 describe("Gjennomfoeringsplan", () => {
     beforeEach(() => {
-        Part.mockClear();
-        EiendomByggested.mockClear();
-        Kode.mockClear();
-        KommunensSaksnummer.mockClear();
-        Metadata.mockClear();
+        (Part as unknown as jest.Mock).mockClear();
+        (EiendomByggested as unknown as jest.Mock).mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
+        (KommunensSaksnummer as unknown as jest.Mock).mockClear();
+        (Metadata as unknown as jest.Mock).mockClear();
     });
 
     it("should construct all properties when all props are provided", () => {

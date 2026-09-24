@@ -1,7 +1,7 @@
 import type { MidlertidigBrukstillatelseProps } from "./MidlertidigBrukstillatelse.ts";
 // Classes
 import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.ts";
-import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.js";
+import UtfoerendeList from "../system-classes/data-classes/UtfoerendeList.ts";
 
 /** What the form data holds for a Utfoerende, before it is read into the class. */
 export interface UtfoerendeProps {

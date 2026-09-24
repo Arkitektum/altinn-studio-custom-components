@@ -1,5 +1,5 @@
 import * as helpers from "../../../functions/helpers.ts";
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import CustomHeaderText from "./CustomHeaderText.js";
 
 describe("CustomHeaderText", () => {

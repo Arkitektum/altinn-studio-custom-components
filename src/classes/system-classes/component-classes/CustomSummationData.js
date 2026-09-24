@@ -6,7 +6,7 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

@@ -1,4 +1,4 @@
-import PlanlagteLoefteinnretningerList from "./PlanlagteLoefteinnretningerList.js";
+import PlanlagteLoefteinnretningerList from "./PlanlagteLoefteinnretningerList.ts";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock getTextResourceFromResourceBinding

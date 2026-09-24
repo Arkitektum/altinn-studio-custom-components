@@ -3,7 +3,7 @@ import CustomFieldTelefonnummer from "./CustomFieldTelefonnummer.js";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {

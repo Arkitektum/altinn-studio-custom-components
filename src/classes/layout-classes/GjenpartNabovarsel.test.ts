@@ -1,11 +1,14 @@
 import EiendomByggested from "../data-classes/EiendomByggested.ts";
-import GjenpartNabovarsel from "./GjenpartNabovarsel.js";
+import GjenpartNabovarsel from "./GjenpartNabovarsel.ts";
 import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.ts";
 import Part from "../data-classes/Part.ts";
+import type { PartProps } from "../data-classes/Part.ts";
 import Planer from "../data-classes/Planer.ts";
 
 describe("GjenpartNabovarsel", () => {
-    const mockPart = { navn: "Ola Nordmann", adresse: "Testveien 1" };
+    // A stand-in, not a real Part: the address is a string where the model holds an object. The test only checks
+    // that whatever is handed over reaches the Part constructor.
+    const mockPart = { navn: "Ola Nordmann", adresse: "Testveien 1" } as unknown as PartProps;
     const mockEiendomByggested = { adresse: "Byggested 2" };
     const mockNaboGjenboerEiendommer = { eiendommer: ["Eiendom 1", "Eiendom 2"] };
     const mockPlaner = { planNavn: "Reguleringsplan" };

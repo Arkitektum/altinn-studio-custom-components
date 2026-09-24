@@ -1,4 +1,5 @@
-import CustomComponent from "./CustomComponent.js";
+import type { ComponentProps } from "../../types.ts";
+import CustomComponent from "./CustomComponent.ts";
 
 describe("CustomComponent", () => {
     it("should set all properties when provided", () => {
@@ -65,6 +66,7 @@ describe("CustomComponent", () => {
     });
 
     it("should not set properties if falsy (except for string/objects)", () => {
+        // Cast because the props type has no null for styleOverride; feeding one is the point of this test.
         const props = {
             tagName: "", // falsy string
             inline: false, // falsy boolean
@@ -77,7 +79,7 @@ describe("CustomComponent", () => {
             hideOrgNr: false,
             format: "", // falsy string
             enableLinks: false
-        };
+        } as unknown as ComponentProps;
         const component = new CustomComponent(props);
 
         expect(component.tagName).toBeUndefined();

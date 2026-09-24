@@ -3,7 +3,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import Adkomst from "../../data-classes/Adkomst.ts";
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

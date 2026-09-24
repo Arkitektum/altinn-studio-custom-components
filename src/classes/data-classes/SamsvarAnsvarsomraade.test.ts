@@ -1,5 +1,5 @@
 import Kode from "./Kode.ts";
-import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.js";
+import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.ts";
 import SamsvarAnsvarsomraade from "./SamsvarAnsvarsomraade.ts";
 import Utfoerende from "./Utfoerende.ts";
 

@@ -1,4 +1,4 @@
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import CustomHeader from "./CustomHeader.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

@@ -4,7 +4,7 @@ const { hasMissingTextResources } = require("../../../functions/validations.ts")
 const Vannforsyning = require("../../data-classes/Vannforsyning.ts");
 
 // Mocks
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {

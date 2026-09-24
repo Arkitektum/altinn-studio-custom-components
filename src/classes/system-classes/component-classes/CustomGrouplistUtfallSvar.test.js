@@ -4,7 +4,7 @@ import CustomGrouplistUtfallSvar from "./CustomGrouplistUtfallSvar.js";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks for dependencies
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {

@@ -1,5 +1,5 @@
 // Classes
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
 import { getComponentDataTitle, getComponentResourceValue } from "../../../functions/helpers.ts";

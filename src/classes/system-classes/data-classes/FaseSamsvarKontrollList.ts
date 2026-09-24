@@ -1,5 +1,22 @@
+import type { TitleResourceBinding } from "../../../types.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
+/** Which phases a samsvar kontroll covers, as the form data flags them. */
+export interface FaseSamsvarKontrollProps {
+    harSamsvarKontrollVedRammetillatelse?: boolean;
+    harSamsvarKontrollVedIgangsettingstillatelse?: boolean;
+    harSamsvarKontrollVedMidlertidigBrukstillatelse?: boolean;
+    harSamsvarKontrollVedFerdigattest?: boolean;
+}
+
+/** One binding per phase, naming the text resource that phase is shown as. */
+export interface FaseSamsvarKontrollResourceBindings {
+    rammetillatelse?: TitleResourceBinding;
+    igangsettingstillatelse?: TitleResourceBinding;
+    midlertidigBrukstillatelse?: TitleResourceBinding;
+    ferdigattest?: TitleResourceBinding;
+}
 
 /**
  * Represents a list of "samsvar kontroll" phases with their corresponding text resources.
@@ -15,7 +32,9 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
  * @property {Object} resourceValues - Contains the resulting array of text resources under the `data` property.
  */
 export default class FaseSamsvarKontrollList {
-    constructor(faseSamsvarKontroll, resourceBindings) {
+    declare resourceValues: { data: (string | undefined)[] };
+
+    constructor(faseSamsvarKontroll?: FaseSamsvarKontrollProps | null, resourceBindings?: FaseSamsvarKontrollResourceBindings) {
         this.resourceValues = {
             data: this.getFaseSamsvarKontrollItems(faseSamsvarKontroll, resourceBindings)
         };
@@ -28,7 +47,11 @@ export default class FaseSamsvarKontrollList {
      * @param {Object} resourceBindings - An object containing resource bindings for each phase, with a `title` property.
      * @returns {string[]} An array of text resources corresponding to the phases where the flag is true.
      */
-    getFaseSamsvarKontrollItems(faseSamsvarKontroll, resourceBindings) {
+    getFaseSamsvarKontrollItems(
+        faseSamsvarKontroll?: FaseSamsvarKontrollProps | null,
+        resourceBindings?: FaseSamsvarKontrollResourceBindings
+    ): (string | undefined)[] {
+        // The cast records what the filter leaves behind, which the type system does not track.
         return [
             faseSamsvarKontroll?.harSamsvarKontrollVedRammetillatelse === true
                 ? getTextResourceFromResourceBinding(resourceBindings?.rammetillatelse?.title)
@@ -42,6 +65,6 @@ export default class FaseSamsvarKontrollList {
             faseSamsvarKontroll?.harSamsvarKontrollVedFerdigattest === true
                 ? getTextResourceFromResourceBinding(resourceBindings?.ferdigattest?.title)
                 : null
-        ].filter((item) => item !== null);
+        ].filter((item) => item !== null) as (string | undefined)[];
     }
 }

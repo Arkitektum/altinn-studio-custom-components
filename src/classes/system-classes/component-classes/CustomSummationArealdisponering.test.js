@@ -2,7 +2,7 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import CustomSummationArealdisponering from "./CustomSummationArealdisponering.js";
 
 // Mocks for dependencies
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
@@ -17,7 +17,7 @@ jest.mock("../CustomComponent.js", () => {
 jest.mock("../../data-classes/Arealdisponering.ts", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, bebyggelsen: data.bebyggelsen, tomtearealet: data.tomtearealet }));
 });
-jest.mock("../data-classes/ArealdisponeringSummation.js", () => {
+jest.mock("../data-classes/ArealdisponeringSummation.ts", () => {
     return jest.fn().mockImplementation((arealdisponering, resourceBindings) => ({
         ...arealdisponering,
         resourceBindings,

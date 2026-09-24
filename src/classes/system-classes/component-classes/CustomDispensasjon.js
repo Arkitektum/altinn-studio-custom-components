@@ -2,8 +2,8 @@
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
-import Dispensasjon from "../../layout-classes/Dispensasjon.js";
+import CustomComponent from "../CustomComponent.ts";
+import Dispensasjon from "../../layout-classes/Dispensasjon.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";

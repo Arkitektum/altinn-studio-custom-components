@@ -1,4 +1,4 @@
-import Dispensasjonsvarsel from "./Dispensasjonsvarsel.js";
+import Dispensasjonsvarsel from "./Dispensasjonsvarsel.ts";
 import Kode from "../data-classes/Kode.ts";
 
 describe("Dispensasjonsvarsel", () => {
@@ -18,12 +18,12 @@ describe("Dispensasjonsvarsel", () => {
         expect(instance.bestemmelsesoverskrift).toBe("overskrift");
         expect(instance.bestemmelsestekst).toBe("tekst");
         expect(instance.bestemmelsestype).toBeInstanceOf(Kode);
-        expect(instance.bestemmelsestype.kodeverdi).toBe("type");
-        expect(instance.bestemmelsestype.kodebeskrivelse).toBe("TypeNavn");
+        expect(instance.bestemmelsestype!.kodeverdi).toBe("type");
+        expect(instance.bestemmelsestype!.kodebeskrivelse).toBe("TypeNavn");
         expect(instance.dispVarselBeskrivelse).toBe("beskrivelse");
         expect(instance.dispensasjonstema).toBeInstanceOf(Kode);
-        expect(instance.dispensasjonstema.kodeverdi).toBe("disp");
-        expect(instance.dispensasjonstema.kodebeskrivelse).toBe("DispNavn");
+        expect(instance.dispensasjonstema!.kodeverdi).toBe("disp");
+        expect(instance.dispensasjonstema!.kodebeskrivelse).toBe("DispNavn");
         expect(instance.paragrafnummer).toBe("§1");
         expect(instance.plannavn).toBe("Planen");
     });

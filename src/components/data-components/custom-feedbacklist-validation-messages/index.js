@@ -1,5 +1,5 @@
 // Classes
-import ValidationMessages from "../../../classes/system-classes/ValidationMessages.js";
+import ValidationMessages from "../../../classes/system-classes/ValidationMessages.ts";
 
 // Global functions
 import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";

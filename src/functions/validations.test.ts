@@ -9,7 +9,7 @@ export class ValidationMessages {
     default: string[] = [];
 }
 
-jest.mock("../classes/system-classes/ValidationMessages.js", () => {
+jest.mock("../classes/system-classes/ValidationMessages.ts", () => {
     class ValidationMessages {
         error: string[] = [];
         warning: string[] = [];

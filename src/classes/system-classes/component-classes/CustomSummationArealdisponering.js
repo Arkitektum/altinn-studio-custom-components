@@ -3,8 +3,8 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import Arealdisponering from "../../data-classes/Arealdisponering.ts";
-import ArealdisponeringSummation from "../data-classes/ArealdisponeringSummation.js";
-import CustomComponent from "../CustomComponent.js";
+import ArealdisponeringSummation from "../data-classes/ArealdisponeringSummation.ts";
+import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";

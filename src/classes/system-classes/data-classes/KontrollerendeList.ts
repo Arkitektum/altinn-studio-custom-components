@@ -1,5 +1,20 @@
+import type { TitleResourceBinding } from "../../../types.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
+/** Which kinds of deviation a control found, as the form data flags them. */
+export interface KontrollerendeProps {
+    harObserverteAvvik?: boolean;
+    harAapneAvvik?: boolean;
+    harIngenAvvik?: boolean;
+}
+
+/** One binding per kind of deviation, naming the text resource it is shown as. */
+export interface KontrollerendeResourceBindings {
+    harObserverteAvvik?: TitleResourceBinding;
+    harAapneAvvik?: TitleResourceBinding;
+    harIngenAvvik?: TitleResourceBinding;
+}
 
 /**
  * Creates an instance of KontrollerendeList.
@@ -7,7 +22,9 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
  * @param {any} resourceBindings - Resource bindings used for item generation.
  */
 export default class KontrollerendeList {
-    constructor(kontrollerende, resourceBindings) {
+    declare resourceValues: { data: (string | undefined)[] };
+
+    constructor(kontrollerende?: KontrollerendeProps | null, resourceBindings?: KontrollerendeResourceBindings) {
         this.resourceValues = { data: this.getKontrollerendeItems(kontrollerende, resourceBindings) };
     }
 
@@ -24,11 +41,12 @@ export default class KontrollerendeList {
      * @param {Object} [resourceBindings.harIngenAvvik] - Resource binding for no deviations.
      * @returns {Array<string>} An array of text resources corresponding to the true properties in `kontrollerende`.
      */
-    getKontrollerendeItems(kontrollerende, resourceBindings) {
+    getKontrollerendeItems(kontrollerende?: KontrollerendeProps | null, resourceBindings?: KontrollerendeResourceBindings): (string | undefined)[] {
+        // The cast records what the filter leaves behind, which the type system does not track.
         return [
             kontrollerende?.harObserverteAvvik === true ? getTextResourceFromResourceBinding(resourceBindings?.harObserverteAvvik?.title) : null,
             kontrollerende?.harAapneAvvik === true ? getTextResourceFromResourceBinding(resourceBindings?.harAapneAvvik?.title) : null,
             kontrollerende?.harIngenAvvik === true ? getTextResourceFromResourceBinding(resourceBindings?.harIngenAvvik?.title) : null
-        ].filter((item) => item !== null);
+        ].filter((item) => item !== null) as (string | undefined)[];
     }
 }

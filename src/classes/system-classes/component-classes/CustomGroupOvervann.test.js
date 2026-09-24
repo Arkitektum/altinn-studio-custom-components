@@ -4,7 +4,7 @@ const { hasMissingTextResources, hasValidationMessages } = require("../../../fun
 const Overvann = require("../../data-classes/Overvann.ts");
 
 // Mocks for dependencies
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {

@@ -103,6 +103,16 @@ export interface LogCustomField {
     value: string;
 }
 
+/**
+ * One text resource binding, naming the title to show for a single entry.
+ *
+ * The list classes under system-classes/data-classes are handed one of these per entry they can produce, and a
+ * binding may be absent: a component builds them from its own bindings, which need not carry every entry.
+ */
+export interface TitleResourceBinding {
+    title?: string;
+}
+
 /** A column heading, once its text resource has been resolved. */
 export interface TableHeader {
     /** Absent when the column named no heading binding, which is how a column renders without one. */

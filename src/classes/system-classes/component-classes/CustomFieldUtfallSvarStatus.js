@@ -2,7 +2,7 @@
 import { getTextResourceFromResourceBinding, getTextResourcesFromResourceBindings } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.ts";
 
 // Global functions

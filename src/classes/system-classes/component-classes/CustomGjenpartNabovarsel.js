@@ -1,8 +1,8 @@
 // Dependencies
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
-import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.js";
+import CustomComponent from "../CustomComponent.ts";
+import GjenpartNabovarsel from "../../layout-classes/GjenpartNabovarsel.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";

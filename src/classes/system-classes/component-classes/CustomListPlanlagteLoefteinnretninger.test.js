@@ -4,7 +4,7 @@ import CustomListPlanlagteLoefteinnretninger from "./CustomListPlanlagteLoeftein
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
@@ -19,7 +19,7 @@ jest.mock("../CustomComponent.js", () => {
 jest.mock("../../data-classes/Loefteinnretninger.ts", () => {
     return jest.fn().mockImplementation((data) => ({ mockData: data }));
 });
-jest.mock("../data-classes/PlanlagteLoefteinnretningerList.js", () => {
+jest.mock("../data-classes/PlanlagteLoefteinnretningerList.ts", () => {
     return jest.fn().mockImplementation((loefteinnretninger) => ({
         resourceValues: { data: loefteinnretninger.mockData }
     }));

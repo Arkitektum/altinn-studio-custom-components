@@ -1,4 +1,4 @@
-import ValidationMessages from "./ValidationMessages.js";
+import ValidationMessages from "./ValidationMessages.ts";
 
 describe("ValidationMessages", () => {
     it("should initialize with default empty arrays when no props are provided", () => {

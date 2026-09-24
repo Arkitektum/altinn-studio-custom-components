@@ -2,8 +2,8 @@
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
-import VegtypeTillatelseList from "../data-classes/VegtypeTillatelseList.js";
+import CustomComponent from "../CustomComponent.ts";
+import VegtypeTillatelseList from "../data-classes/VegtypeTillatelseList.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

@@ -1,8 +1,8 @@
 // Dependencies
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
-import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.js";
+import CustomComponent from "../CustomComponent.ts";
+import Gjennomfoeringsplan from "../../layout-classes/Gjennomfoeringsplan.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";

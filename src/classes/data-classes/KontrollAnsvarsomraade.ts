@@ -1,7 +1,8 @@
 import type { KodeProps } from "./Kode.ts";
+import type { KontrollerendeProps } from "../system-classes/data-classes/KontrollerendeList.ts";
 // Classes
 import Kode from "./Kode.ts";
-import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.js";
+import KontrollerendeList from "../system-classes/data-classes/KontrollerendeList.ts";
 
 /** What the form data holds for a KontrollAnsvarsomraade, before it is read into the class. */
 export interface KontrollAnsvarsomraadeProps {
@@ -10,6 +11,7 @@ export interface KontrollAnsvarsomraadeProps {
     datoAnsvarsrettErklaert?: string;
     erAnsvarsomraadetAvsluttet?: boolean;
     soeknadssystemetsReferanse?: string;
+    kontrollerende?: KontrollerendeProps | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
     [key: string]: unknown;
 }

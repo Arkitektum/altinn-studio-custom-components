@@ -1,4 +1,4 @@
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import CustomTable from "./CustomTable.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 

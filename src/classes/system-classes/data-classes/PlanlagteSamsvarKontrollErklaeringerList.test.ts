@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList.js";
+import PlanlagteSamsvarKontrollErklaeringerList from "./PlanlagteSamsvarKontrollErklaeringerList.ts";
 
 // Mock the helper functions
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -31,8 +31,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(list.resourceValues.data).toHaveLength(1);
-        expect(list.resourceValues.data[0].title.data).toBe("rammetillatelse-title");
-        expect(list.resourceValues.data[0].signingDate).toEqual({ data: "2024-06-01", format: "date" });
+        expect(list.resourceValues.data[0]!.title.data).toBe("rammetillatelse-title");
+        expect(list.resourceValues.data[0]!.signingDate).toEqual({ data: "2024-06-01", format: "date" });
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("rammetillatelse-title");
         expect(hasValue).toHaveBeenCalledWith("2024-06-01");
     });
@@ -45,8 +45,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(list.resourceValues.data).toHaveLength(1);
-        expect(list.resourceValues.data[0].title.data).toBe("igangsettingstillatelse-title");
-        expect(list.resourceValues.data[0].signingDate).toEqual({ data: "2024-06-02", format: "date" });
+        expect(list.resourceValues.data[0]!.title.data).toBe("igangsettingstillatelse-title");
+        expect(list.resourceValues.data[0]!.signingDate).toEqual({ data: "2024-06-02", format: "date" });
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("igangsettingstillatelse-title");
         expect(hasValue).toHaveBeenCalledWith("2024-06-02");
     });
@@ -59,8 +59,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(list.resourceValues.data).toHaveLength(1);
-        expect(list.resourceValues.data[0].title.data).toBe("midlertidig-brukstillatelse-title");
-        expect(list.resourceValues.data[0].signingDate).toEqual({ data: "2024-06-03", format: "date" });
+        expect(list.resourceValues.data[0]!.title.data).toBe("midlertidig-brukstillatelse-title");
+        expect(list.resourceValues.data[0]!.signingDate).toEqual({ data: "2024-06-03", format: "date" });
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("midlertidig-brukstillatelse-title");
         expect(hasValue).toHaveBeenCalledWith("2024-06-03");
     });
@@ -73,8 +73,8 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(list.resourceValues.data).toHaveLength(1);
-        expect(list.resourceValues.data[0].title.data).toBe("ferdigattest-title");
-        expect(list.resourceValues.data[0].signingDate).toEqual({ data: "2024-06-04", format: "date" });
+        expect(list.resourceValues.data[0]!.title.data).toBe("ferdigattest-title");
+        expect(list.resourceValues.data[0]!.signingDate).toEqual({ data: "2024-06-04", format: "date" });
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("ferdigattest-title");
         expect(hasValue).toHaveBeenCalledWith("2024-06-04");
     });
@@ -89,44 +89,44 @@ describe("PlanlagteSamsvarKontrollErklaeringerList", () => {
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
         expect(list.resourceValues.data).toHaveLength(2);
-        expect(list.resourceValues.data[0].title.data).toBe("rammetillatelse-title");
-        expect(list.resourceValues.data[1].title.data).toBe("igangsettingstillatelse-title");
+        expect(list.resourceValues.data[0]!.title.data).toBe("rammetillatelse-title");
+        expect(list.resourceValues.data[1]!.title.data).toBe("igangsettingstillatelse-title");
     });
 
     it('handles missing signing date with status "aktiv" (not avsluttet)', () => {
-        hasValue.mockReturnValue(false);
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
         const props = {
             samsvarKontrollPlanlagtVedRammetillatelse: true,
             samsvarKontrollForeliggerVedRammetillatelse: undefined,
             ansvarsomraadeStatus: { kodeverdi: "aktiv" }
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
-        expect(list.resourceValues.data[0].signingDate.data).toBe("empty-field");
+        expect(list.resourceValues.data[0]!.signingDate.data).toBe("empty-field");
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("empty-field");
     });
 
     it('handles missing signing date with status "avsluttet"', () => {
-        hasValue.mockReturnValue(false);
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
         const props = {
             samsvarKontrollPlanlagtVedRammetillatelse: true,
             samsvarKontrollForeliggerVedRammetillatelse: undefined,
             ansvarsomraadeStatus: { kodeverdi: "avsluttet" }
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings);
-        expect(list.resourceValues.data[0].signingDate.data).toBe("empty-field-avsluttet");
+        expect(list.resourceValues.data[0]!.signingDate.data).toBe("empty-field-avsluttet");
         expect(getTextResourceFromResourceBinding).toHaveBeenCalledWith("empty-field-avsluttet");
     });
 
     it("handles missing resourceBindings gracefully", () => {
-        hasValue.mockReturnValue(false);
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
         const props = {
             samsvarKontrollPlanlagtVedRammetillatelse: true,
             samsvarKontrollForeliggerVedRammetillatelse: undefined,
             ansvarsomraadeStatus: { kodeverdi: "aktiv" }
         };
         const list = new PlanlagteSamsvarKontrollErklaeringerList(props, undefined);
-        expect(list.resourceValues.data[0].title.data).toBe(undefined);
-        expect(list.resourceValues.data[0].signingDate.data).toBe(undefined);
+        expect(list.resourceValues.data[0]!.title.data).toBe(undefined);
+        expect(list.resourceValues.data[0]!.signingDate.data).toBe(undefined);
     });
 
     it("returns empty array if no props are true", () => {

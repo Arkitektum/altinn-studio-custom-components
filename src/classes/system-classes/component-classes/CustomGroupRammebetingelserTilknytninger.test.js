@@ -1,5 +1,5 @@
 import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import CustomGroupRammebetingelserTilknytninger from "./CustomGroupRammebetingelserTilknytninger.js";
 
 // Mock helpers and validations

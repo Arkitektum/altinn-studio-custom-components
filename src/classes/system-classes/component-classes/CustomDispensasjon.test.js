@@ -2,7 +2,7 @@ import CustomDispensasjon from "./CustomDispensasjon.js";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mocks
-jest.mock("../../layout-classes/Dispensasjon.js", () => {
+jest.mock("../../layout-classes/Dispensasjon.ts", () => {
     return jest.fn().mockImplementation((data) => ({ ...data, __isDispensasjon: true }));
 });
 jest.mock("../../../functions/helpers.ts", () => ({

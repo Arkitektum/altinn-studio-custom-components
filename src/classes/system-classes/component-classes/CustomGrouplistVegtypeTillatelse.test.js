@@ -4,7 +4,7 @@ import CustomGrouplistVegtypeTillatelse from "./CustomGrouplistVegtypeTillatelse
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
 // Mocks for dependencies
-jest.mock("../CustomComponent.js", () => {
+jest.mock("../CustomComponent.ts", () => {
     const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
     const { hasMissingTextResources } = require("../../../functions/validations.ts");
     return class {
@@ -16,7 +16,7 @@ jest.mock("../CustomComponent.js", () => {
         }
     };
 });
-jest.mock("../data-classes/VegtypeTillatelseList.js", () => {
+jest.mock("../data-classes/VegtypeTillatelseList.ts", () => {
     return jest.fn().mockImplementation((data) => ({
         resourceValues: { data: data ? "mockedData" : undefined }
     }));

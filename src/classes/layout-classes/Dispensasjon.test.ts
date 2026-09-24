@@ -1,4 +1,4 @@
-import Dispensasjon from "./Dispensasjon.js";
+import Dispensasjon from "./Dispensasjon.ts";
 import Kode from "../data-classes/Kode.ts";
 import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.ts";
 
@@ -40,8 +40,8 @@ describe("Dispensasjon", () => {
         expect(disp.tiltakshaver).toBeDefined();
         expect(disp.varighet).toBeDefined();
         expect(disp.tiltakstyper).toBeDefined();
-        expect(Array.isArray(disp.tiltakstyper.kode)).toBe(true);
-        expect(disp.tiltakstyper.kode[0]).toBeInstanceOf(Kode);
+        expect(Array.isArray(disp.tiltakstyper!.kode)).toBe(true);
+        expect(disp.tiltakstyper!.kode![0]).toBeInstanceOf(Kode);
     });
 
     it("should handle missing props gracefully", () => {
@@ -59,8 +59,8 @@ describe("Dispensasjon", () => {
             const disp = new Dispensasjon();
             const result = disp.getTiltakstyperFromProps({ tiltakstyper: { kode: [{ kodeverdi: "A", kodebeskrivelse: "desc" }] } });
             expect(result).toHaveProperty("kode");
-            expect(Array.isArray(result.kode)).toBe(true);
-            expect(result.kode[0]).toBeInstanceOf(Kode);
+            expect(Array.isArray(result!.kode)).toBe(true);
+            expect(result!.kode![0]).toBeInstanceOf(Kode);
         });
     });
 
@@ -73,7 +73,7 @@ describe("Dispensasjon", () => {
             const disp = new Dispensasjon();
             const arr = disp.getKodeFromType({ kode: [{ kodeverdi: "A", kodebeskrivelse: "desc" }] });
             expect(Array.isArray(arr)).toBe(true);
-            expect(arr[0]).toBeInstanceOf(Kode);
+            expect(arr![0]).toBeInstanceOf(Kode);
         });
     });
 });

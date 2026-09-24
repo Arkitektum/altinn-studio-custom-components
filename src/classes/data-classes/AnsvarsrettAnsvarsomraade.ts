@@ -1,6 +1,7 @@
+import type { FaseSamsvarKontrollProps } from "../system-classes/data-classes/FaseSamsvarKontrollList.ts";
 import type { KodeProps } from "./Kode.ts";
 // Classes
-import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList.js";
+import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList.ts";
 import Kode from "./Kode.ts";
 
 /** What the form data holds for a AnsvarsrettAnsvarsomraade, before it is read into the class. */
@@ -8,6 +9,7 @@ export interface AnsvarsrettAnsvarsomraadeProps {
     funksjon?: KodeProps | null;
     beskrivelseAvAnsvarsomraadet?: unknown;
     tiltaksklasse?: KodeProps | null;
+    faseSamsvarKontroll?: FaseSamsvarKontrollProps | null;
     dekkesOmraadeAvSentralGodkjenning?: unknown;
     soeknadssystemetsReferanse?: unknown;
     /** The form data carries whatever the model held, which is more than this class reads. */

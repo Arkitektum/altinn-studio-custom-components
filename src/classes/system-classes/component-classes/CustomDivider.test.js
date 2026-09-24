@@ -1,4 +1,4 @@
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import CustomDivider from "./CustomDivider.js";
 
 describe("CustomDivider", () => {

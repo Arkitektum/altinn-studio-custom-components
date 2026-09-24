@@ -1,7 +1,7 @@
 // Dependencies
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import Vedlegg from "../../data-classes/Vedlegg.ts";
 
 // Global functions

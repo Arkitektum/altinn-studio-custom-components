@@ -1,8 +1,9 @@
-import ArealdisponeringSummation from "./ArealdisponeringSummation.js";
+import ArealdisponeringSummation from "./ArealdisponeringSummation.ts";
+import type { ArealdisponeringSummationProps } from "./ArealdisponeringSummation.ts";
 
 // Mock the hasValue function
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
-    hasValue: (val) => val !== undefined && val !== null && val !== ""
+    hasValue: (val: unknown) => val !== undefined && val !== null && val !== ""
 }));
 
 describe("ArealdisponeringSummation", () => {
@@ -90,13 +91,14 @@ describe("ArealdisponeringSummation", () => {
     });
 
     it("should filter out null/undefined/empty values", () => {
+        // Cast because the empty string is not a figure the props type describes; feeding one is the point.
         const partialArealdisponering = {
             beregnetMaksByggeareal: undefined,
             arealBebyggelseEksisterende: null,
             arealBebyggelseSomSkalRives: "",
             arealBebyggelseNytt: 40,
             arealSumByggesak: 220
-        };
+        } as unknown as ArealdisponeringSummationProps;
         const summation = new ArealdisponeringSummation(partialArealdisponering, resourceBindings);
 
         expect(summation.bebyggelsen.resourceValues.data).toEqual([

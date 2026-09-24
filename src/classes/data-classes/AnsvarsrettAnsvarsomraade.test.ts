@@ -1,5 +1,5 @@
 import AnsvarsrettAnsvarsomraade from "./AnsvarsrettAnsvarsomraade.ts";
-import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList.js";
+import FaseSamsvarKontrollList from "../system-classes/data-classes/FaseSamsvarKontrollList.ts";
 import Kode from "./Kode.ts";
 
 jest.mock("./Kode");

@@ -1,8 +1,8 @@
 // Dependencies
 
 // Classes
-import CustomComponent from "../CustomComponent.js";
-import ValidationMessages from "../ValidationMessages.js";
+import CustomComponent from "../CustomComponent.ts";
+import ValidationMessages from "../ValidationMessages.ts";
 
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";

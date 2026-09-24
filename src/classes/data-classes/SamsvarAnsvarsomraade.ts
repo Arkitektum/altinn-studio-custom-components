@@ -1,14 +1,16 @@
 import type { KodeProps } from "./Kode.ts";
+import type { ProsjekterendeProps } from "../system-classes/data-classes/ProsjekterendeList.ts";
 import type { UtfoerendeProps } from "./Utfoerende.ts";
 // Classes
 import Kode from "./Kode.ts";
-import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.js";
+import ProsjekterendeList from "../system-classes/data-classes/ProsjekterendeList.ts";
 import Utfoerende from "./Utfoerende.ts";
 
 /** What the form data holds for a SamsvarAnsvarsomraade, before it is read into the class. */
 export interface SamsvarAnsvarsomraadeProps {
     funksjon?: KodeProps | null;
     beskrivelseAvAnsvarsomraadet?: unknown;
+    prosjekterende?: ProsjekterendeProps | null;
     utfoerende?: UtfoerendeProps | null;
     datoAnsvarsrettErklaert?: unknown;
     erAnsvarsomraadetAvsluttet?: unknown;

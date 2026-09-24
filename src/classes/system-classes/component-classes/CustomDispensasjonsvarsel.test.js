@@ -1,5 +1,5 @@
 import CustomDispensasjonsvarsel from "./CustomDispensasjonsvarsel.js";
-import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.js";
+import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.ts";
 
 // Mock dependencies
 jest.mock("../../layout-classes/Dispensasjonsvarsel", () => {

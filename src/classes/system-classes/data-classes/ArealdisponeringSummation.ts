@@ -1,12 +1,71 @@
+import type { TitleResourceBinding } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+/**
+ * The area figures a summation reads, which is what the Arealdisponering model holds.
+ *
+ * Named here rather than taken from that model so the summation accepts an instance of it as readily as the raw
+ * form data.
+ */
+export interface ArealdisponeringSummationProps {
+    beregnetMaksByggeareal?: number | null;
+    arealBebyggelseEksisterende?: number | null;
+    arealBebyggelseSomSkalRives?: number | null;
+    arealBebyggelseNytt?: number | null;
+    parkeringsarealTerreng?: number | null;
+    arealSumByggesak?: number | null;
+    tomtearealByggeomraade?: number | null;
+    tomtearealSomLeggesTil?: number | null;
+    tomtearealSomTrekkesFra?: number | null;
+    tomtearealBeregnet?: number | null;
+}
+
+/** The bindings one summed field carries, which is whatever the component that renders the field names. */
+export type ArealdisponeringFieldBinding = Record<string, string>;
+
+/** The headings of the two groups, and one binding per field under them. */
+export interface ArealdisponeringResourceBindings {
+    tomtearealet?: TitleResourceBinding;
+    bebyggelsen?: TitleResourceBinding;
+    beregnetMaksByggeareal?: ArealdisponeringFieldBinding;
+    arealBebyggelseEksisterende?: ArealdisponeringFieldBinding;
+    arealBebyggelseSomSkalRives?: ArealdisponeringFieldBinding;
+    arealBebyggelseNytt?: ArealdisponeringFieldBinding;
+    parkeringsarealTerreng?: ArealdisponeringFieldBinding;
+    arealSumByggesak?: ArealdisponeringFieldBinding;
+    tomtearealByggeomraade?: ArealdisponeringFieldBinding;
+    tomtearealSomLeggesTil?: ArealdisponeringFieldBinding;
+    tomtearealSomTrekkesFra?: ArealdisponeringFieldBinding;
+    tomtearealBeregnet?: ArealdisponeringFieldBinding;
+}
+
+/** One summed field, as the table that renders the summation is handed it. */
+export interface ArealdisponeringSummationItem {
+    resourceValues: {
+        data?: number | null;
+        /** True for the one field that is the sum of the others, which is how the table sets it apart. */
+        isTotal: boolean;
+    };
+    /** Absent when the caller named no binding for the field, which is what the table then renders without. */
+    resourceBindings?: ArealdisponeringFieldBinding;
+}
+
+/** One group of summed fields: its heading, and the fields that have a value. */
+export interface ArealdisponeringSummationGroup {
+    resourceBindings: TitleResourceBinding;
+    resourceValues: { data: ArealdisponeringSummationItem[] };
+}
 
 /**
  * Class representing a summation of area disposition.
  * @class
  */
 export default class ArealdisponeringSummation {
-    constructor(arealdisponering, resourceBindings) {
+    declare tomtearealet: ArealdisponeringSummationGroup;
+    declare bebyggelsen: ArealdisponeringSummationGroup;
+
+    constructor(arealdisponering?: ArealdisponeringSummationProps | null, resourceBindings?: ArealdisponeringResourceBindings) {
         this.tomtearealet = {
             resourceBindings: {
                 title: resourceBindings?.tomtearealet?.title
@@ -34,7 +93,11 @@ export default class ArealdisponeringSummation {
      * @param {Object} resourceBindings - The object containing resource bindings for each area type.
      * @returns {Array<Object>} An array of objects, each with `resourceValues` and `resourceBindings` properties.
      */
-    getBebyggelsenItems(arealdisponering, resourceBindings) {
+    getBebyggelsenItems(
+        arealdisponering?: ArealdisponeringSummationProps | null,
+        resourceBindings?: ArealdisponeringResourceBindings
+    ): ArealdisponeringSummationItem[] {
+        // The cast records what the filter leaves behind, which the type system does not track.
         return [
             hasValue(arealdisponering?.beregnetMaksByggeareal)
                 ? {
@@ -90,7 +153,7 @@ export default class ArealdisponeringSummation {
                       resourceBindings: resourceBindings?.arealSumByggesak
                   }
                 : null
-        ].filter((item) => item !== null);
+        ].filter((item) => item !== null) as ArealdisponeringSummationItem[];
     }
 
     /**
@@ -102,7 +165,11 @@ export default class ArealdisponeringSummation {
      * @param {Object} resourceBindings - The object containing resource bindings for each tomteareal field.
      * @returns {Array<Object>} An array of tomteareal items, each with resourceValues and resourceBindings.
      */
-    getTomtearealetItems(arealdisponering, resourceBindings) {
+    getTomtearealetItems(
+        arealdisponering?: ArealdisponeringSummationProps | null,
+        resourceBindings?: ArealdisponeringResourceBindings
+    ): ArealdisponeringSummationItem[] {
+        // The cast records what the filter leaves behind, which the type system does not track.
         return [
             hasValue(arealdisponering?.tomtearealByggeomraade)
                 ? {
@@ -140,6 +207,6 @@ export default class ArealdisponeringSummation {
                       resourceBindings: resourceBindings?.tomtearealBeregnet
                   }
                 : null
-        ].filter((item) => item !== null);
+        ].filter((item) => item !== null) as ArealdisponeringSummationItem[];
     }
 }

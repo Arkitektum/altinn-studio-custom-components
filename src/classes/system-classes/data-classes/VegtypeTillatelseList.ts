@@ -1,10 +1,29 @@
+import type { KodeProps } from "../../data-classes/Kode.ts";
+
+/** What the form data holds for the road types and the permissions granted for them. */
+export interface VegtypeTillatelseProps {
+    vegtype?: { kode?: KodeProps[] | null } | null;
+    erTillatelseGittKommunalVeg?: boolean | null;
+    erTillatelseGittPrivatVeg?: boolean | null;
+    erTillatelseGittRiksFylkesveg?: boolean | null;
+}
+
+/** One road type paired with whether permission was granted for it. */
+export interface VegtypeTillatelse {
+    kode: KodeProps;
+    /** Null when the road type is not one the form asks about, and undefined when it asked and got no answer. */
+    erTillatelseGitt?: boolean | null;
+}
+
 /**
  * Class representing a list of vegtype tillatelse (road type permissions).
  * This class processes the provided properties to generate a list of road types
  * along with their corresponding permission status.
  */
 export default class VegtypeTillatelseList {
-    constructor(props) {
+    declare resourceValues: { data: VegtypeTillatelse[] };
+
+    constructor(props?: VegtypeTillatelseProps | null) {
         this.resourceValues = {
             data: this.getVegtypeTillatelseList(props)
         };
@@ -22,7 +41,7 @@ export default class VegtypeTillatelseList {
      *        Accepted values: "KommunalVeg", "PrivatVeg", "RiksFylkesveg".
      * @returns {boolean|null} The boolean value for the specified road type, or null if not found.
      */
-    getBooleanValueForErTillatelseGitt(props, vegtypeKodeverdi) {
+    getBooleanValueForErTillatelseGitt(props?: VegtypeTillatelseProps | null, vegtypeKodeverdi?: string | null): boolean | null | undefined {
         switch (vegtypeKodeverdi) {
             case "KommunalVeg":
                 return props?.erTillatelseGittKommunalVeg;
@@ -45,7 +64,7 @@ export default class VegtypeTillatelseList {
      *   - {any} kode: The kode object from the vegtype.kode array.
      *   - {boolean} erTillatelseGitt: Whether tillatelse is given for the kode.
      */
-    getVegtypeTillatelseList(props) {
+    getVegtypeTillatelseList(props?: VegtypeTillatelseProps | null): VegtypeTillatelse[] {
         return Array.isArray(props?.vegtype?.kode) && props?.vegtype?.kode?.length > 0
             ? props.vegtype.kode.map((kode) => {
                   return {

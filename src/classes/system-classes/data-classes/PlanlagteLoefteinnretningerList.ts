@@ -1,5 +1,22 @@
+import type { TitleResourceBinding } from "../../../types.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
+/** Which lift devices are planned, as the form data flags them. */
+export interface LoefteinnretningerProps {
+    planleggesHeis?: boolean;
+    planleggesLoefteplattform?: boolean;
+    planleggesRulletrapp?: boolean;
+    planleggesTrappeheis?: boolean;
+}
+
+/** One binding per lift device, naming the text resource it is shown as. */
+export interface LoefteinnretningerResourceBindings {
+    planleggesHeis?: TitleResourceBinding;
+    planleggesLoefteplattform?: TitleResourceBinding;
+    planleggesRulletrapp?: TitleResourceBinding;
+    planleggesTrappeheis?: TitleResourceBinding;
+}
 
 /**
  * Represents a list of planned lift device items.
@@ -19,7 +36,9 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
  * @returns {Array<string>} An array of text resources for the planned lift devices.
  */
 export default class PlanlagteLoefteinnretningerList {
-    constructor(loefteinnretninger, resourceBindings) {
+    declare resourceValues: { data: (string | undefined)[] };
+
+    constructor(loefteinnretninger?: LoefteinnretningerProps | null, resourceBindings?: LoefteinnretningerResourceBindings) {
         this.resourceValues = {
             data: this.getPlanlagteLoefteinnretningItems(loefteinnretninger, resourceBindings)
         };
@@ -33,7 +52,11 @@ export default class PlanlagteLoefteinnretningerList {
      * @param {Object} resourceBindings - An object containing resource bindings for each lift device type.
      * @returns {Array<string>} An array of text resources for the planned lift devices.
      */
-    getPlanlagteLoefteinnretningItems(loefteinnretninger, resourceBindings) {
+    getPlanlagteLoefteinnretningItems(
+        loefteinnretninger?: LoefteinnretningerProps | null,
+        resourceBindings?: LoefteinnretningerResourceBindings
+    ): (string | undefined)[] {
+        // The cast records what the filter leaves behind, which the type system does not track.
         return [
             loefteinnretninger?.planleggesHeis === true ? getTextResourceFromResourceBinding(resourceBindings?.planleggesHeis?.title) : null,
             loefteinnretninger?.planleggesLoefteplattform === true
@@ -45,6 +68,6 @@ export default class PlanlagteLoefteinnretningerList {
             loefteinnretninger?.planleggesTrappeheis === true
                 ? getTextResourceFromResourceBinding(resourceBindings?.planleggesTrappeheis?.title)
                 : null
-        ].filter((item) => item !== null);
+        ].filter((item) => item !== null) as (string | undefined)[];
     }
 }

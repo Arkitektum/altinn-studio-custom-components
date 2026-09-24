@@ -1,4 +1,4 @@
-import KontrollerendeList from "./KontrollerendeList.js";
+import KontrollerendeList from "./KontrollerendeList.ts";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Mock the getTextResourceFromResourceBinding function

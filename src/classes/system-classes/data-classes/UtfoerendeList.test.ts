@@ -1,4 +1,4 @@
-import UtfoerendeList from "./UtfoerendeList.js";
+import UtfoerendeList from "./UtfoerendeList.ts";
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
@@ -14,7 +14,9 @@ describe("UtfoerendeList", () => {
     });
 
     it("returns both items when both flags are true", () => {
-        getTextResourceFromResourceBinding.mockImplementationOnce(() => midlertidigTitle).mockImplementationOnce(() => ferdigattestTitle);
+        (getTextResourceFromResourceBinding as unknown as jest.Mock)
+            .mockImplementationOnce(() => midlertidigTitle)
+            .mockImplementationOnce(() => ferdigattestTitle);
 
         const resourceBindings = {
             midlertidigBrukstillatelse: { title: "midlertidig_key" },
@@ -29,7 +31,7 @@ describe("UtfoerendeList", () => {
     });
 
     it("returns only Ferdigattest when only erOkForFerdigattest is true", () => {
-        getTextResourceFromResourceBinding.mockImplementationOnce(() => ferdigattestTitle);
+        (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementationOnce(() => ferdigattestTitle);
 
         const resourceBindings = {
             midlertidigBrukstillatelse: { title: "midlertidig_key" },
@@ -43,7 +45,7 @@ describe("UtfoerendeList", () => {
     });
 
     it("returns only Midlertidig Brukstillatelse when only erOkForMidlertidigBrukstillatelse is true", () => {
-        getTextResourceFromResourceBinding.mockImplementationOnce(() => midlertidigTitle);
+        (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementationOnce(() => midlertidigTitle);
 
         const resourceBindings = {
             midlertidigBrukstillatelse: { title: "midlertidig_key" },
@@ -69,7 +71,7 @@ describe("UtfoerendeList", () => {
     });
 
     it("handles missing resourceBindings gracefully", () => {
-        getTextResourceFromResourceBinding.mockImplementation(() => undefined);
+        (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementation(() => undefined);
 
         const list = new UtfoerendeList(true, true, {});
 
@@ -77,7 +79,7 @@ describe("UtfoerendeList", () => {
     });
 
     it("filters out null values from the result", () => {
-        getTextResourceFromResourceBinding.mockImplementation(() => null);
+        (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementation(() => null);
 
         const list = new UtfoerendeList(true, true, {
             midlertidigBrukstillatelse: { title: "midlertidig_key" },

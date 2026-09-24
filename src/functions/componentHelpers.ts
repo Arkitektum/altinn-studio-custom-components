@@ -1,5 +1,5 @@
 // Classes
-import CustomComponent from "../classes/system-classes/CustomComponent.js";
+import CustomComponent from "../classes/system-classes/CustomComponent.ts";
 import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.js";
 import CustomDescriptionListData from "../classes/system-classes/component-classes/CustomDescriptionListData.js";
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.js";

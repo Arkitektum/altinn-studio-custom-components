@@ -1,3 +1,12 @@
+import type { BegrunnelseProps } from "../data-classes/Begrunnelse.ts";
+import type { EiendomByggestedProps } from "../data-classes/EiendomByggested.ts";
+import type { KodeProps } from "../data-classes/Kode.ts";
+import type { KommunensSaksnummerProps } from "../data-classes/KommunensSaksnummer.ts";
+import type { MetadataProps } from "../data-classes/Metadata.ts";
+import type { NasjonalArealplanIdProps } from "../data-classes/NasjonalArealplanId.ts";
+import type { PartProps } from "../data-classes/Part.ts";
+import type { StedfestingProps } from "../data-classes/Stedfesting.ts";
+import type { VarighetProps } from "../data-classes/Varighet.ts";
 // Classes
 import Begrunnelse from "../data-classes/Begrunnelse.ts";
 import EiendomByggested from "../data-classes/EiendomByggested.ts";
@@ -12,11 +21,64 @@ import Varighet from "../data-classes/Varighet.ts";
 // Global functions
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
+/** What the form data holds for the tiltakstyper of a Dispensasjon, before the codes are read into the class. */
+export interface TiltakstyperProps {
+    kode?: KodeProps[] | null;
+    [key: string]: unknown;
+}
+
+/** The tiltakstyper once read, which is the codes and nothing else. */
+export interface Tiltakstyper {
+    /** Null when the form data named the tiltakstyper but listed no codes under it. */
+    kode: Kode[] | null;
+}
+
+/** What the form data holds for a Dispensasjon, before it is read into the class. */
+export interface DispensasjonProps {
+    begrunnelse?: BegrunnelseProps | null;
+    bestemmelsestype?: KodeProps | null;
+    dispensasjonsbeskrivelse?: string | null;
+    dispensasjonsreferanse?: string | null;
+    dispensasjonstema?: KodeProps | null;
+    eiendomByggested?: EiendomByggestedProps | null;
+    /** Passed through untouched, so what it holds is whatever the model held. */
+    generelleVilkaar?: unknown;
+    kommunensSaksnummer?: KommunensSaksnummerProps | null;
+    metadata?: MetadataProps | null;
+    nasjonalArealplanId?: NasjonalArealplanIdProps | null;
+    paragrafnummer?: string | null;
+    plannavn?: string | null;
+    stedfesting?: StedfestingProps | null;
+    tiltakshaver?: PartProps | null;
+    varighet?: VarighetProps | null;
+    tiltakstyper?: TiltakstyperProps | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
+}
+
 /**
  * Class representing a Dispensasjon.
  * @class
  */
 export default class Dispensasjon {
+    declare begrunnelse: Begrunnelse | undefined | null;
+    declare bestemmelsestype: Kode | undefined | null;
+    declare dispensasjonsbeskrivelse?: string | null;
+    declare dispensasjonsreferanse?: string | null;
+    declare dispensasjonstema: Kode | undefined | null;
+    declare eiendomByggested: EiendomByggested | undefined | null;
+    declare generelleVilkaar?: unknown;
+    declare kommunensSaksnummer: KommunensSaksnummer | undefined | null;
+    declare metadata: Metadata | undefined | null;
+    declare nasjonalArealplanId: NasjonalArealplanId | undefined | null;
+    declare paragrafnummer?: string | null;
+    declare plannavn?: string | null;
+    declare stedfesting: Stedfesting | undefined | null;
+    declare tiltakshaver: Part | undefined | null;
+    declare varighet: Varighet | undefined | null;
+    /** Only set when the form data named one, which is what lets a caller tell an absent one from an empty one. */
+    declare tiltakstyper?: Tiltakstyper;
+
     /**
      * Creates an instance of Dispensasjon.
      * @param {Object} props - The properties object.
@@ -37,7 +99,7 @@ export default class Dispensasjon {
      * @param {Object} [props.tiltakshaver] - The tiltakshaver object containing information about the party responsible for the measure.
      * @param {Object} [props.varighet] - The varighet object containing duration information for the exemption.
      */
-    constructor(props) {
+    constructor(props?: DispensasjonProps) {
         const tiltakstyper = props ? this.getTiltakstyperFromProps(props) : null;
         this.begrunnelse = props?.begrunnelse && new Begrunnelse(props.begrunnelse);
         this.bestemmelsestype = props?.bestemmelsestype && new Kode(props.bestemmelsestype);
@@ -67,7 +129,7 @@ export default class Dispensasjon {
      * @param {Array} [props.tiltakstyper.kode] - An array of type codes.
      * @returns {Object|null} An object containing the extracted type information, or null if not available.
      */
-    getTiltakstyperFromProps(props) {
+    getTiltakstyperFromProps(props?: DispensasjonProps): Tiltakstyper | null {
         if (props && hasValue(props?.tiltakstyper)) {
             return {
                 kode: this.getKodeFromType(props.tiltakstyper)
@@ -82,7 +144,7 @@ export default class Dispensasjon {
      * @param {Array} [type.kode] - An array of type codes.
      * @returns {Array|null} An array of Kode instances, or null if no valid codes are found.
      */
-    getKodeFromType(type) {
+    getKodeFromType(type?: TiltakstyperProps | null): Kode[] | null {
         if (Array.isArray(type?.kode) && type?.kode?.length) {
             return type?.kode?.map((item) => {
                 return new Kode(item);

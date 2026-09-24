@@ -1,7 +1,7 @@
 import * as helpers from "../../../functions/helpers.ts";
-import CustomComponent from "../CustomComponent.js";
+import CustomComponent from "../CustomComponent.ts";
 import CustomFeedbacklistValidationMessages from "./CustomFeedbacklistValidationMessages.js";
-import ValidationMessages from "../ValidationMessages.js";
+import ValidationMessages from "../ValidationMessages.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 jest.mock("../../../functions/helpers", () => ({

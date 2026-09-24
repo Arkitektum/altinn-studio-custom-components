@@ -1,4 +1,4 @@
-import VegtypeTillatelseList from "./VegtypeTillatelseList.js";
+import VegtypeTillatelseList from "./VegtypeTillatelseList.ts";
 
 describe("VegtypeTillatelseList", () => {
     const kodeKommunal = { kodeverdi: "KommunalVeg", navn: "Kommunal veg" };
