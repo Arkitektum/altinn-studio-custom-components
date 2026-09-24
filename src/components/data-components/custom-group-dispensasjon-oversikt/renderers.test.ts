@@ -1,10 +1,5 @@
 import * as renderers from "./renderers.ts";
-
-/** One column of the table, of which the assertions read the binding and the key it draws from. */
-interface TableColumnEntry {
-    dataKey?: string;
-    resourceBindings?: { title?: string };
-}
+import type { TableColumn } from "../../../types.ts";
 
 /** The exemptions applied for, listed and counted. */
 const component = {
@@ -43,7 +38,7 @@ function attributes(rendered: HTMLElement) {
         isChildComponent: read("ischildcomponent"),
         hideIfEmpty: read("hideifempty"),
         showRowNumbers: read("showrownumbers"),
-        columns: readJson("tablecolumns"),
+        columns: readJson("tablecolumns") as TableColumn[],
         resourceBindings: readJson("resourcebindings"),
         resourceValues: readJson("resourcevalues"),
         wrapped: rendered.tagName === "DIV"
@@ -92,7 +87,7 @@ describe("the table", () => {
     });
 
     it("draws the category, the title and the kind of provision", () => {
-        expect(attributes(renderers.renderDispensasjonTable(component)).columns.map((entry: TableColumnEntry) => entry.dataKey)).toEqual([
+        expect(attributes(renderers.renderDispensasjonTable(component)).columns.map((entry) => entry.dataKey)).toEqual([
             "dispensasjonKategori.kodebeskrivelse",
             "dispensasjonTittel.kodebeskrivelse",
             "bestemmelserType.kodebeskrivelse"
@@ -102,7 +97,7 @@ describe("the table", () => {
     it("takes each column's title from the exemption bindings rather than a binding of its own", () => {
         // The three titles sit together under dispensasjon, so they are read by name rather than through a title
         // property the way most bindings are.
-        const columns = attributes(renderers.renderDispensasjonTable(component)).columns as TableColumnEntry[];
+        const columns = attributes(renderers.renderDispensasjonTable(component)).columns as TableColumn[];
 
         expect(columns.map((entry) => entry.resourceBindings!.title)).toEqual([
             "Kategori",
@@ -113,13 +108,13 @@ describe("the table", () => {
 
     it("gives every column the same text for an empty cell", () => {
         for (const entry of attributes(renderers.renderDispensasjonTable(component)).columns) {
-            expect({ key: entry.dataKey, text: entry.resourceBindings.emptyFieldText }).toEqual({ key: entry.dataKey, text: "-" });
+            expect({ key: entry.dataKey, text: entry.resourceBindings!.emptyFieldText }).toEqual({ key: entry.dataKey, text: "-" });
         }
     });
 
     it("shows all three by their descriptions, not their codes", () => {
         for (const entry of attributes(renderers.renderDispensasjonTable(component)).columns) {
-            expect({ key: entry.dataKey, ends: entry.dataKey.endsWith(".kodebeskrivelse") }).toEqual({ key: entry.dataKey, ends: true });
+            expect({ key: entry.dataKey, ends: entry.dataKey!.endsWith(".kodebeskrivelse") }).toEqual({ key: entry.dataKey, ends: true });
         }
     });
 });
