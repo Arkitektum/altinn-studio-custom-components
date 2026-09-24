@@ -5,7 +5,7 @@ const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 
 module.exports = {
     mode: "production",
-    entry: "./src/components/index.js",
+    entry: "./src/components/index.ts",
     output: {
         filename: "main.js",
         path: path.resolve(__dirname, "dist")

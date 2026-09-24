@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     mode: "development",
     entry: {
-        main: "./src/components/index.js",
+        main: "./src/components/index.ts",
         devTools: "./public/scripts/devTools/index.js",
         statistics: "./public/scripts/statistics/index.js"
     },
