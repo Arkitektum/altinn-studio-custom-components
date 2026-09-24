@@ -4,7 +4,9 @@ import Vedlegg from "./Vedlegg.ts";
 
 /** What the form data holds for a Vedleggsliste, before it is read into the class. */
 export interface VedleggslisteProps {
-    vedlegg?: VedleggProps[] | undefined;
+    vedlegg?: VedleggProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**

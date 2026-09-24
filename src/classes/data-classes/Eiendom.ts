@@ -6,11 +6,13 @@ import Eiendomsidentifikasjon from "./Eiendomsidentifikasjon.ts";
 
 /** What the form data holds for a Eiendom, before it is read into the class. */
 export interface EiendomProps {
-    adresse?: AdresseProps | undefined;
-    eiendomsidentifikasjon?: EiendomsidentifikasjonProps | undefined;
-    bolignummer?: string;
-    bygningsnummer?: string;
+    adresse?: AdresseProps | undefined | null;
+    eiendomsidentifikasjon?: EiendomsidentifikasjonProps | undefined | null;
+    bolignummer?: string | null;
+    bygningsnummer?: string | null;
     kommunenavn?: unknown;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -18,10 +20,10 @@ export interface EiendomProps {
  * @class
  */
 export default class Eiendom {
-    declare adresse: Adresse | undefined;
-    declare eiendomsidentifikasjon: Eiendomsidentifikasjon | undefined;
-    declare bolignummer?: string;
-    declare bygningsnummer?: string;
+    declare adresse: Adresse | undefined | null;
+    declare eiendomsidentifikasjon: Eiendomsidentifikasjon | undefined | null;
+    declare bolignummer?: string | null;
+    declare bygningsnummer?: string | null;
     declare kommunenavn: unknown | null;
 
     /**

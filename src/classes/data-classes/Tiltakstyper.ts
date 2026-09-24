@@ -7,7 +7,9 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Tiltakstyper, before it is read into the class. */
 export interface TiltakstyperProps {
-    type?: { kode?: KodeProps[] };
+    type?: { kode?: KodeProps[] | null } | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -54,7 +56,7 @@ export default class Tiltakstyper {
      * @param {Array} [type.kode] - An array of type codes.
      * @returns {Array|null} An array of Kode instances, or null if no valid codes are found.
      */
-    getKodeFromType(type?: { kode?: KodeProps[] }) {
+    getKodeFromType(type?: { kode?: KodeProps[] | null } | null) {
         if (Array.isArray(type?.kode) && type?.kode?.length) {
             return type?.kode?.map((item: KodeProps) => {
                 return new Kode(item);

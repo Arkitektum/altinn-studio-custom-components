@@ -4,7 +4,9 @@ import GjenboerEiendom from "./GjenboerEiendom.ts";
 
 /** What the form data holds for a GjenboerEiendomByggested, before it is read into the class. */
 export interface GjenboerEiendomByggestedProps {
-    eiendom?: GjenboerEiendomProps[] | undefined;
+    eiendom?: GjenboerEiendomProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -12,7 +14,7 @@ export interface GjenboerEiendomByggestedProps {
  * @class
  */
 export default class GjenboerEiendomByggested {
-    declare eiendom?: unknown[];
+    declare eiendom?: unknown[] | null;
 
     /**
      * Constructs a new instance of the class.

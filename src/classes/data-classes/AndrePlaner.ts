@@ -7,7 +7,9 @@ import Plan from "./Plan.ts";
 
 /** What the form data holds for a AndrePlaner, before it is read into the class. */
 export interface AndrePlanerProps {
-    plan?: PlanProps[] | undefined;
+    plan?: PlanProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -15,7 +17,7 @@ export interface AndrePlanerProps {
  * @class
  */
 export default class AndrePlaner {
-    declare plan?: unknown[];
+    declare plan?: unknown[] | null;
 
     /**
      * Constructs an instance of AndrePlaner.

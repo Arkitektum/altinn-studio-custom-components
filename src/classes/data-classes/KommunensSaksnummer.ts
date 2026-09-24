@@ -1,7 +1,9 @@
 /** What the form data holds for a KommunensSaksnummer, before it is read into the class. */
 export interface KommunensSaksnummerProps {
-    saksaar?: number;
-    sakssekvensnummer?: number;
+    saksaar?: number | null;
+    sakssekvensnummer?: number | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -9,8 +11,8 @@ export interface KommunensSaksnummerProps {
  * @class
  */
 export default class KommunensSaksnummer {
-    declare saksaar?: number;
-    declare sakssekvensnummer?: number;
+    declare saksaar?: number | null;
+    declare sakssekvensnummer?: number | null;
 
     /**
      * Creates an instance of KommunensSaksnummer.

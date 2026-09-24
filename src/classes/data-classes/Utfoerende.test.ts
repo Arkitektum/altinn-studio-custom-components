@@ -5,7 +5,7 @@ jest.mock("./MidlertidigBrukstillatelse");
 
 describe("Utfoerende", () => {
     beforeEach(() => {
-        MidlertidigBrukstillatelse.mockClear();
+        (MidlertidigBrukstillatelse as unknown as jest.Mock).mockClear();
     });
 
     it("should create an instance with midlertidigBrukstillatelse and erOkForFerdigattest", () => {

@@ -4,9 +4,11 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Sjekklistekrav, before it is read into the class. */
 export interface SjekklistekravProps {
-    sjekklistepunktsvar?: boolean;
-    sjekklistepunkt?: KodeProps | undefined;
-    dokumentasjon?: string;
+    sjekklistepunktsvar?: boolean | null;
+    sjekklistepunkt?: KodeProps | undefined | null;
+    dokumentasjon?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -14,9 +16,9 @@ export interface SjekklistekravProps {
  * @class
  */
 export default class Sjekklistekrav {
-    declare sjekklistepunktsvar?: boolean;
-    declare sjekklistepunkt: Kode | undefined;
-    declare dokumentasjon?: string;
+    declare sjekklistepunktsvar?: boolean | null;
+    declare sjekklistepunkt: Kode | undefined | null;
+    declare dokumentasjon?: string | null;
 
     /**
      * Constructs a new instance of Sjekklistekrav.

@@ -1,6 +1,8 @@
 /** What the form data holds for a GenerelleVilkaar, before it is read into the class. */
 export interface GenerelleVilkaarProps {
-    norskSvenskDansk?: string;
+    norskSvenskDansk?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -8,7 +10,7 @@ export interface GenerelleVilkaarProps {
  * @class
  */
 export default class GenerelleVilkaar {
-    declare norskSvenskDansk?: string;
+    declare norskSvenskDansk?: string | null;
 
     /**
      * Constructs an instance of the GenerelleVilkaar class.

@@ -1,7 +1,9 @@
 /** What the form data holds for a Prosjekt, before it is read into the class. */
 export interface ProsjektProps {
-    prosjektnavn?: string;
-    prosjektnr?: number;
+    prosjektnavn?: string | null;
+    prosjektnr?: number | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -9,8 +11,8 @@ export interface ProsjektProps {
  * @class
  */
 export default class Prosjekt {
-    declare prosjektnavn?: string;
-    declare prosjektnr?: number;
+    declare prosjektnavn?: string | null;
+    declare prosjektnr?: number | null;
 
     /**
      * Creates an instance of Prosjekt.

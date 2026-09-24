@@ -7,8 +7,8 @@ jest.mock("./Plan");
 
 describe("Planer", () => {
     beforeEach(() => {
-        AndrePlaner.mockClear();
-        Plan.mockClear();
+        (AndrePlaner as unknown as jest.Mock).mockClear();
+        (Plan as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize andrePlaner and gjeldendePlan when props are provided", () => {

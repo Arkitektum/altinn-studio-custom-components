@@ -9,9 +9,9 @@ jest.mock("./Respons");
 
 describe("NaboGjenboerEiendom", () => {
     beforeEach(() => {
-        GjenboerEiendomByggested.mockClear();
-        Part.mockClear();
-        Respons.mockClear();
+        (GjenboerEiendomByggested as unknown as jest.Mock).mockClear();
+        (Part as unknown as jest.Mock).mockClear();
+        (Respons as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize eiendommer, eier, and respons when props are provided", () => {

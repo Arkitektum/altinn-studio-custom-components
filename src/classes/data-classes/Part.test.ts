@@ -20,9 +20,9 @@ describe("Part", () => {
             mobilnummer: "87654321"
         };
 
-        hasValue.mockReturnValue(true);
+        jest.mocked(hasValue).mockReturnValue(true);
         const mockAdresseInstance = { adresselinje1: "Test Street", poststed: "Test City" };
-        Adresse.mockImplementation(() => mockAdresseInstance);
+        (Adresse as unknown as jest.Mock).mockImplementation(() => mockAdresseInstance);
 
         const part = new Part(props);
 
@@ -47,7 +47,7 @@ describe("Part", () => {
             mobilnummer: "87654321"
         };
 
-        hasValue.mockReturnValue(false);
+        jest.mocked(hasValue).mockReturnValue(false);
 
         const part = new Part(props);
 

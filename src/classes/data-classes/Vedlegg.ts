@@ -4,8 +4,10 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Vedlegg, before it is read into the class. */
 export interface VedleggProps {
-    filnavn?: string;
-    vedleggstype?: KodeProps | undefined;
+    filnavn?: string | null;
+    vedleggstype?: KodeProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -19,8 +21,8 @@ export default class Vedlegg {
      * @param {string} props.filnavn - The filename of the attachment.
      * @param {Object|string} props.vedleggstype - The type of the attachment, either an object or a string.
      */
-    declare filnavn?: string;
-    declare vedleggstype: Kode | undefined;
+    declare filnavn?: string | null;
+    declare vedleggstype: Kode | undefined | null;
 
     /**
      * Constructs a new instance of Vedlegg.

@@ -5,7 +5,7 @@ jest.mock('./GjenboerEiendom.ts');
 
 describe('GjenboerEiendomByggested', () => {
     beforeEach(() => {
-        GjenboerEiendom.mockClear();
+        (GjenboerEiendom as unknown as jest.Mock).mockClear();
     });
 
     it('should initialize eiendom as undefined if props is undefined', () => {
@@ -26,7 +26,7 @@ describe('GjenboerEiendomByggested', () => {
     it('should map each item in props.eiendom to a GjenboerEiendom instance', () => {
         const eiendomItems = [{ id: 1 }, { id: 2 }];
         const mockInstances = [{ mock: 1 }, { mock: 2 }];
-        GjenboerEiendom
+        (GjenboerEiendom as unknown as jest.Mock)
             .mockImplementationOnce(() => mockInstances[0])
             .mockImplementationOnce(() => mockInstances[1]);
 
@@ -40,6 +40,6 @@ describe('GjenboerEiendomByggested', () => {
 
     it('should not throw if props.eiendom is not an array', () => {
         expect(() => new GjenboerEiendomByggested({ eiendom: null })).not.toThrow();
-        expect(() => new GjenboerEiendomByggested({ eiendom: 123 })).toThrow();
+        expect(() => new GjenboerEiendomByggested({ eiendom: 123 } as never)).toThrow();
     });
 });

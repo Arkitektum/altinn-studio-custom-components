@@ -1,11 +1,13 @@
 /** What the form data holds for a Adresse, before it is read into the class. */
 export interface AdresseProps {
-    adresselinje1?: string;
-    adresselinje2?: string;
-    adresselinje3?: string;
-    postnr?: string;
-    poststed?: string;
+    adresselinje1?: string | null;
+    adresselinje2?: string | null;
+    adresselinje3?: string | null;
+    postnr?: string | null;
+    poststed?: string | null;
     kommunenavn?: unknown;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -24,11 +26,11 @@ export default class Adresse {
      * @param {string|null} [props.kommunenavn=null] - The municipality name.
      */
 
-    declare adresselinje1?: string;
-    declare adresselinje2?: string;
-    declare adresselinje3?: string;
-    declare postnr?: string;
-    declare poststed?: string;
+    declare adresselinje1?: string | null;
+    declare adresselinje2?: string | null;
+    declare adresselinje3?: string | null;
+    declare postnr?: string | null;
+    declare poststed?: string | null;
     declare kommunenavn: unknown | null;
 
     constructor(props?: AdresseProps) {

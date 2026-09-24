@@ -98,7 +98,7 @@ describe("Dispensasjon", () => {
     });
 
     it("should create an instance of Dispensasjon with undefined properties if props is null", () => {
-        const dispensasjon = new Dispensasjon(null);
+        const dispensasjon = new Dispensasjon(null as never);
 
         expect(dispensasjon.dispensasjonReferanse).toBeUndefined();
         expect(dispensasjon.dispensasjonKategori).toBeUndefined();
@@ -178,7 +178,7 @@ describe("Dispensasjon", () => {
             bestemmelserType: ""
         };
 
-        const dispensasjon = new Dispensasjon(props);
+        const dispensasjon = new Dispensasjon(props as never);
 
         expect(dispensasjon.dispensasjonReferanse).toBe("");
         expect(dispensasjon.dispensasjonKategori).toBe(false);

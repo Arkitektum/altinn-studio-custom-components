@@ -6,9 +6,11 @@ import Planbestemmelse from "./Planbestemmelse.ts";
 
 /** What the form data holds for a DispensasjonPlanBestemmelse, before it is read into the class. */
 export interface DispensasjonPlanBestemmelseProps {
-    navn?: string;
-    nasjonalArealplanId?: NasjonalArealplanIdProps | undefined;
-    planbestemmelse?: PlanbestemmelseProps | undefined;
+    navn?: string | null;
+    nasjonalArealplanId?: NasjonalArealplanIdProps | undefined | null;
+    planbestemmelse?: PlanbestemmelseProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -16,9 +18,9 @@ export interface DispensasjonPlanBestemmelseProps {
  * @class
  */
 export default class DispensasjonPlanBestemmelse {
-    declare navn?: string;
-    declare nasjonalArealplanId: NasjonalArealplanId | undefined;
-    declare planbestemmelse: Planbestemmelse | undefined;
+    declare navn?: string | null;
+    declare nasjonalArealplanId: NasjonalArealplanId | undefined | null;
+    declare planbestemmelse: Planbestemmelse | undefined | null;
 
     /**
      * Constructs an instance of DispensasjonPlanBestemmelse.

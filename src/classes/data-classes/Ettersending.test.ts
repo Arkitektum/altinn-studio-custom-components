@@ -7,8 +7,8 @@ jest.mock("./Vedleggsliste");
 
 describe("Ettersending", () => {
     beforeEach(() => {
-        Kode.mockClear();
-        Vedleggsliste.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
+        (Vedleggsliste as unknown as jest.Mock).mockClear();
     });
 
     it("should set kommentar, tema, tittel, and vedleggsliste when all props are provided", () => {
@@ -18,7 +18,7 @@ describe("Ettersending", () => {
             tittel: "Test tittel",
             vedleggsliste: [{ id: 1 }]
         };
-        const ettersending = new Ettersending(props);
+        const ettersending = new Ettersending(props as never);
 
         expect(ettersending.kommentar).toBe(props.kommentar);
         expect(Kode).toHaveBeenCalledWith(props.tema);
@@ -30,21 +30,21 @@ describe("Ettersending", () => {
 
     it("should set undefined for tema if not provided", () => {
         const props = { kommentar: "Test", tittel: "Title", vedleggsliste: [] };
-        const ettersending = new Ettersending(props);
+        const ettersending = new Ettersending(props as never);
 
         expect(ettersending.tema).toBeUndefined();
     });
 
     it("should set undefined for vedleggsliste if not provided", () => {
         const props = { kommentar: "Test", tittel: "Title", tema: "Tema" };
-        const ettersending = new Ettersending(props);
+        const ettersending = new Ettersending(props as never);
 
         expect(ettersending.vedleggsliste).toBeUndefined();
     });
 
     it("should set undefined for kommentar and tittel if not provided", () => {
         const props = { tema: "Tema", vedleggsliste: [] };
-        const ettersending = new Ettersending(props);
+        const ettersending = new Ettersending(props as never);
 
         expect(ettersending.kommentar).toBeUndefined();
         expect(ettersending.tittel).toBeUndefined();

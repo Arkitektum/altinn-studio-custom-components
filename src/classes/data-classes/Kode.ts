@@ -1,7 +1,9 @@
 /** What the form data holds for a Kode, before it is read into the class. */
 export interface KodeProps {
-    kodeverdi?: string;
-    kodebeskrivelse?: string;
+    kodeverdi?: string | null;
+    kodebeskrivelse?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -9,8 +11,8 @@ export interface KodeProps {
  * @class
  */
 export default class Kode {
-    declare kodeverdi?: string;
-    declare kodebeskrivelse?: string;
+    declare kodeverdi?: string | null;
+    declare kodebeskrivelse?: string | null;
 
     /**
      * Create a Kode.

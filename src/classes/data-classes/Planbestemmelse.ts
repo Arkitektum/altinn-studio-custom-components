@@ -1,6 +1,8 @@
 /** What the form data holds for a Planbestemmelse, before it is read into the class. */
 export interface PlanbestemmelseProps {
-    nummerering?: string;
+    nummerering?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -8,7 +10,7 @@ export interface PlanbestemmelseProps {
  * @class
  */
 export default class Planbestemmelse {
-    declare nummerering?: string;
+    declare nummerering?: string | null;
 
     /**
      * Creates an instance of the Planbestemmelse class.

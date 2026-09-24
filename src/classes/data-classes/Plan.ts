@@ -7,8 +7,10 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Plan, before it is read into the class. */
 export interface PlanProps {
-    navn?: string;
-    plantype?: KodeProps | undefined;
+    navn?: string | null;
+    plantype?: KodeProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -19,8 +21,8 @@ export interface PlanProps {
  * @param {Object} [props.plantype] - The type of the plan, used to instantiate a Kode object.
  */
 export default class Plan {
-    declare navn?: string;
-    declare plantype: Kode | undefined;
+    declare navn?: string | null;
+    declare plantype: Kode | undefined | null;
 
     constructor(props?: PlanProps) {
         if (!hasPlanItemContent(props)) {

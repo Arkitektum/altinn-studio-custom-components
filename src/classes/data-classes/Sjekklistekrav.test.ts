@@ -5,7 +5,7 @@ jest.mock("./Kode");
 
 describe("Sjekklistekrav", () => {
     beforeEach(() => {
-        Kode.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize properties from props", () => {

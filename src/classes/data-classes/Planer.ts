@@ -6,8 +6,10 @@ import Plan from "./Plan.ts";
 
 /** What the form data holds for a Planer, before it is read into the class. */
 export interface PlanerProps {
-    andrePlaner?: AndrePlanerProps | undefined;
-    gjeldendePlan?: PlanProps | undefined;
+    andrePlaner?: AndrePlanerProps | undefined | null;
+    gjeldendePlan?: PlanProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -15,8 +17,8 @@ export interface PlanerProps {
  * @class
  */
 export default class Planer {
-    declare andrePlaner: AndrePlaner | undefined;
-    declare gjeldendePlan: Plan | undefined;
+    declare andrePlaner: AndrePlaner | undefined | null;
+    declare gjeldendePlan: Plan | undefined | null;
 
     /**
      * Constructs a new instance of the class.

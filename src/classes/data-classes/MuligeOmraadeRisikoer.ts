@@ -4,7 +4,9 @@ import Omraaderisiko from "./Omraaderisiko.ts";
 
 /** What the form data holds for a MuligeOmraadeRisikoer, before it is read into the class. */
 export interface MuligeOmraadeRisikoerProps {
-    omraadeRisiko?: OmraaderisikoProps[] | undefined;
+    omraadeRisiko?: OmraaderisikoProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**

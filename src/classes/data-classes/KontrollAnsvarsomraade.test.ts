@@ -9,8 +9,8 @@ describe("KontrollAnsvarsomraade", () => {
     const resourceBindings = { some: "resource" };
 
     beforeEach(() => {
-        KontrollerendeList.mockClear();
-        Kode.mockClear();
+        (KontrollerendeList as unknown as jest.Mock).mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize all properties correctly when all props are provided", () => {
@@ -24,10 +24,10 @@ describe("KontrollAnsvarsomraade", () => {
         };
 
         const kodeInstance = { kode: "A1" };
-        Kode.mockImplementation(() => kodeInstance);
+        (Kode as unknown as jest.Mock).mockImplementation(() => kodeInstance);
 
         const kontrollerendeListInstance = { list: [1] };
-        KontrollerendeList.mockImplementation(() => kontrollerendeListInstance);
+        (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
         const instance = new KontrollAnsvarsomraade(props, resourceBindings);
 
@@ -48,7 +48,7 @@ describe("KontrollAnsvarsomraade", () => {
         const props = {};
 
         const kontrollerendeListInstance = {};
-        KontrollerendeList.mockImplementation(() => kontrollerendeListInstance);
+        (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
         const instance = new KontrollAnsvarsomraade(props, resourceBindings);
 
@@ -64,7 +64,7 @@ describe("KontrollAnsvarsomraade", () => {
         const props = { funksjon: undefined };
 
         const kontrollerendeListInstance = {};
-        KontrollerendeList.mockImplementation(() => kontrollerendeListInstance);
+        (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
         const instance = new KontrollAnsvarsomraade(props, resourceBindings);
 
@@ -76,7 +76,7 @@ describe("KontrollAnsvarsomraade", () => {
         const props = { kontrollerende: [1, 2, 3] };
 
         const kontrollerendeListInstance = {};
-        KontrollerendeList.mockImplementation(() => kontrollerendeListInstance);
+        (KontrollerendeList as unknown as jest.Mock).mockImplementation(() => kontrollerendeListInstance);
 
         const instance = new KontrollAnsvarsomraade(props, resourceBindings);
 

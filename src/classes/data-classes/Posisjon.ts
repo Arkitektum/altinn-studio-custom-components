@@ -4,8 +4,10 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Posisjon, before it is read into the class. */
 export interface PosisjonProps {
-    koordinatsystem?: KodeProps | undefined;
-    koordinater?: string;
+    koordinatsystem?: KodeProps | undefined | null;
+    koordinater?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -13,8 +15,8 @@ export interface PosisjonProps {
  * @class
  */
 export default class Posisjon {
-    declare koordinatsystem: Kode | undefined;
-    declare koordinater?: string;
+    declare koordinatsystem: Kode | undefined | null;
+    declare koordinater?: string | null;
 
     /**
      * Constructs a new instance of the Posisjon class.

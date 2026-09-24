@@ -13,10 +13,10 @@ describe("Tiltakstyper", () => {
     describe("constructor", () => {
         it("should initialize type when props are provided", () => {
             const mockProps = { type: { kode: ["code1", "code2"] } };
-            hasValue.mockReturnValue(true);
-            Kode.mockImplementation((item) => ({ value: item }));
+            jest.mocked(hasValue).mockReturnValue(true);
+            (Kode as unknown as jest.Mock).mockImplementation((item) => ({ value: item }));
 
-            const instance = new Tiltakstyper(mockProps);
+            const instance = new Tiltakstyper(mockProps as never);
 
             expect(instance.type).toEqual({
                 kode: [{ value: "code1" }, { value: "code2" }]
@@ -33,11 +33,11 @@ describe("Tiltakstyper", () => {
     describe("getTypeFromProps", () => {
         it("should return type object when props.type is valid", () => {
             const mockProps = { type: { kode: ["code1", "code2"] } };
-            hasValue.mockReturnValue(true);
-            Kode.mockImplementation((item) => ({ value: item }));
+            jest.mocked(hasValue).mockReturnValue(true);
+            (Kode as unknown as jest.Mock).mockImplementation((item) => ({ value: item }));
 
             const instance = new Tiltakstyper();
-            const result = instance.getTypeFromProps(mockProps);
+            const result = instance.getTypeFromProps(mockProps as never);
 
             expect(result).toEqual({
                 kode: [{ value: "code1" }, { value: "code2" }]
@@ -46,10 +46,10 @@ describe("Tiltakstyper", () => {
 
         it("should return null when props.type is invalid", () => {
             const mockProps = { type: null };
-            hasValue.mockReturnValue(false);
+            jest.mocked(hasValue).mockReturnValue(false);
 
             const instance = new Tiltakstyper();
-            const result = instance.getTypeFromProps(mockProps);
+            const result = instance.getTypeFromProps(mockProps as never);
 
             expect(result).toBeNull();
         });
@@ -58,10 +58,10 @@ describe("Tiltakstyper", () => {
     describe("getKodeFromType", () => {
         it("should return an array of Kode instances when type.kode is valid", () => {
             const mockType = { kode: ["code1", "code2"] };
-            Kode.mockImplementation((item) => ({ value: item }));
+            (Kode as unknown as jest.Mock).mockImplementation((item) => ({ value: item }));
 
             const instance = new Tiltakstyper();
-            const result = instance.getKodeFromType(mockType);
+            const result = instance.getKodeFromType(mockType as never);
 
             expect(result).toEqual([{ value: "code1" }, { value: "code2" }]);
             expect(Kode).toHaveBeenCalledTimes(2);
@@ -73,7 +73,7 @@ describe("Tiltakstyper", () => {
             const mockType = { kode: null };
 
             const instance = new Tiltakstyper();
-            const result = instance.getKodeFromType(mockType);
+            const result = instance.getKodeFromType(mockType as never);
 
             expect(result).toBeNull();
         });
@@ -82,7 +82,7 @@ describe("Tiltakstyper", () => {
             const mockType = { kode: [] };
 
             const instance = new Tiltakstyper();
-            const result = instance.getKodeFromType(mockType);
+            const result = instance.getKodeFromType(mockType as never);
 
             expect(result).toBeNull();
         });

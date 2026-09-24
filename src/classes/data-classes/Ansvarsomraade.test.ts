@@ -17,9 +17,9 @@ describe("Ansvarsomraade", () => {
     const resourceBindings = { some: "binding" };
 
     beforeEach(() => {
-        Kode.mockClear();
-        Part.mockClear();
-        PlanlagteSamsvarKontrollErklaeringerList.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
+        (Part as unknown as jest.Mock).mockClear();
+        (PlanlagteSamsvarKontrollErklaeringerList as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize all properties correctly", () => {

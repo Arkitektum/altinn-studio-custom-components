@@ -4,7 +4,9 @@ import NaboGjenboerEiendom from "./NaboGjenboerEiendom.ts";
 
 /** What the form data holds for a NaboGjenboerEiendommer, before it is read into the class. */
 export interface NaboGjenboerEiendommerProps {
-    naboGjenboerEiendom?: NaboGjenboerEiendomProps[] | undefined;
+    naboGjenboerEiendom?: NaboGjenboerEiendomProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -12,7 +14,7 @@ export interface NaboGjenboerEiendommerProps {
  * @class
  */
 export default class NaboGjenboerEiendommer {
-    declare naboGjenboerEiendom?: unknown[];
+    declare naboGjenboerEiendom?: unknown[] | null;
 
     /**
      * Constructs an instance of the class, initializing the `naboGjenboerEiendom` property.

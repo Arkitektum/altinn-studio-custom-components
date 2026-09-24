@@ -4,9 +4,11 @@ import type { KodeProps } from "./Kode.ts";
 /** What the form data holds for a Dispensasjon, before it is read into the class. */
 export interface DispensasjonProps {
     dispensasjonReferanse?: unknown;
-    dispensasjonKategori?: KodeProps | undefined;
-    dispensasjonTittel?: KodeProps | undefined;
-    bestemmelserType?: KodeProps | undefined;
+    dispensasjonKategori?: KodeProps | undefined | null;
+    dispensasjonTittel?: KodeProps | undefined | null;
+    bestemmelserType?: KodeProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -18,9 +20,9 @@ export interface DispensasjonProps {
  */
 export default class Dispensasjon {
     declare dispensasjonReferanse?: unknown;
-    declare dispensasjonKategori: Kode | undefined;
-    declare dispensasjonTittel: Kode | undefined;
-    declare bestemmelserType: Kode | undefined;
+    declare dispensasjonKategori: Kode | undefined | null;
+    declare dispensasjonTittel: Kode | undefined | null;
+    declare bestemmelserType: Kode | undefined | null;
 
     constructor(props?: DispensasjonProps) {
         this.dispensasjonReferanse = props?.dispensasjonReferanse;

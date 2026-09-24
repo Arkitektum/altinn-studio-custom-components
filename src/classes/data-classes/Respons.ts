@@ -4,12 +4,14 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Respons, before it is read into the class. */
 export interface ResponsProps {
-    erMerknadMottatt?: boolean;
-    erSamtykkeMottatt?: boolean;
-    nabovarselSendt?: string;
-    nabovarselSendtVia?: KodeProps | undefined;
-    samtykkeMottattDato?: string;
-    merknadMottattDato?: string;
+    erMerknadMottatt?: boolean | null;
+    erSamtykkeMottatt?: boolean | null;
+    nabovarselSendt?: string | null;
+    nabovarselSendtVia?: KodeProps | undefined | null;
+    samtykkeMottattDato?: string | null;
+    merknadMottattDato?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -17,12 +19,12 @@ export interface ResponsProps {
  * @class
  */
 export default class Respons {
-    declare erMerknadMottatt?: boolean;
-    declare erSamtykkeMottatt?: boolean;
-    declare nabovarselSendt?: string;
-    declare nabovarselSendtVia: Kode | undefined;
-    declare samtykkeMottattDato?: string;
-    declare merknadMottattDato?: string;
+    declare erMerknadMottatt?: boolean | null;
+    declare erSamtykkeMottatt?: boolean | null;
+    declare nabovarselSendt?: string | null;
+    declare nabovarselSendtVia: Kode | undefined | null;
+    declare samtykkeMottattDato?: string | null;
+    declare merknadMottattDato?: string | null;
 
     /**
      * Constructs a new Respons instance.

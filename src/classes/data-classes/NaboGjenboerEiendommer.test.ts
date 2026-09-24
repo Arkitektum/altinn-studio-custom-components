@@ -5,7 +5,7 @@ jest.mock("./NaboGjenboerEiendom");
 
 describe("NaboGjenboerEiendommer", () => {
     beforeEach(() => {
-        NaboGjenboerEiendom.mockClear();
+        (NaboGjenboerEiendom as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize naboGjenboerEiendom as undefined if no props are given", () => {
@@ -26,8 +26,8 @@ describe("NaboGjenboerEiendommer", () => {
         expect(NaboGjenboerEiendom).toHaveBeenNthCalledWith(1, items[0]);
         expect(NaboGjenboerEiendom).toHaveBeenNthCalledWith(2, items[1]);
         expect(instance.naboGjenboerEiendom).toHaveLength(2);
-        expect(instance.naboGjenboerEiendom[0]).toBeInstanceOf(NaboGjenboerEiendom);
-        expect(instance.naboGjenboerEiendom[1]).toBeInstanceOf(NaboGjenboerEiendom);
+        expect(instance.naboGjenboerEiendom![0]).toBeInstanceOf(NaboGjenboerEiendom);
+        expect(instance.naboGjenboerEiendom![1]).toBeInstanceOf(NaboGjenboerEiendom);
     });
 
     it("should handle empty array for naboGjenboerEiendom", () => {

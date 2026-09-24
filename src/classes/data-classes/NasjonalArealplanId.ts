@@ -1,6 +1,8 @@
 /** What the form data holds for a NasjonalArealplanId, before it is read into the class. */
 export interface NasjonalArealplanIdProps {
-    planidentifikasjon?: string;
+    planidentifikasjon?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -8,7 +10,7 @@ export interface NasjonalArealplanIdProps {
  * @class
  */
 export default class NasjonalArealplanId {
-    declare planidentifikasjon?: string;
+    declare planidentifikasjon?: string | null;
 
     /**
      * Creates an instance of the NasjonalArealplanId class.

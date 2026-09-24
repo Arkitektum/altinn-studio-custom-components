@@ -47,7 +47,7 @@ describe("DispensasjonOversikt", () => {
     });
 
     it("should create an instance of DispensasjonOversikt with undefined dispensasjon if props is null", () => {
-        const dispensasjonOversikt = new DispensasjonOversikt(null);
+        const dispensasjonOversikt = new DispensasjonOversikt(null as never);
 
         expect(dispensasjonOversikt.dispensasjon).toBeUndefined();
         expect(Dispensasjon).not.toHaveBeenCalled();

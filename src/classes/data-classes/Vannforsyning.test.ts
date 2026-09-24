@@ -15,8 +15,8 @@ describe("Vannforsyning", () => {
         expect(vannforsyning.harTinglystErklaering).toBe(props.harTinglystErklaering);
         expect(vannforsyning.krysserVannforsyningAnnensGrunn).toBe(props.krysserVannforsyningAnnensGrunn);
         expect(vannforsyning.tilknytningstype).toBeInstanceOf(Kode);
-        expect(vannforsyning.tilknytningstype.kodeverdi).toBe(props.tilknytningstype.kodeverdi);
-        expect(vannforsyning.tilknytningstype.kodebeskrivelse).toBe(props.tilknytningstype.kodebeskrivelse);
+        expect(vannforsyning!.tilknytningstype!.kodeverdi).toBe(props.tilknytningstype.kodeverdi);
+        expect(vannforsyning!.tilknytningstype!.kodebeskrivelse).toBe(props.tilknytningstype.kodebeskrivelse);
     });
 
     it("should set tilknytningstype to undefined if not provided", () => {

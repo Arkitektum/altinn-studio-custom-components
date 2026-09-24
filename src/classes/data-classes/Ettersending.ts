@@ -6,10 +6,12 @@ import Vedleggsliste from "./Vedleggsliste.ts";
 
 /** What the form data holds for a Ettersending, before it is read into the class. */
 export interface EttersendingProps {
-    kommentar?: string;
-    tema?: KodeProps | undefined;
-    tittel?: string;
-    vedleggsliste?: VedleggslisteProps | undefined;
+    kommentar?: string | null;
+    tema?: KodeProps | undefined | null;
+    tittel?: string | null;
+    vedleggsliste?: VedleggslisteProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -17,10 +19,10 @@ export interface EttersendingProps {
  * @class
  */
 export default class Ettersending {
-    declare kommentar?: string;
-    declare tema: Kode | undefined;
-    declare tittel?: string;
-    declare vedleggsliste: Vedleggsliste | undefined;
+    declare kommentar?: string | null;
+    declare tema: Kode | undefined | null;
+    declare tittel?: string | null;
+    declare vedleggsliste: Vedleggsliste | undefined | null;
 
     /**
      * Constructs an instance of Ettersending.

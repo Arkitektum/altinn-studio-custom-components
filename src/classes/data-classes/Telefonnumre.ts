@@ -1,8 +1,10 @@
 /** What the form data holds for a Telefonnumre, before it is read into the class. */
 export interface TelefonnumreProps {
-    telefonnummer?: string;
-    mobilnummer?: string;
-    telefon?: string;
+    telefonnummer?: string | null;
+    mobilnummer?: string | null;
+    telefon?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -10,9 +12,9 @@ export interface TelefonnumreProps {
  * @class
  */
 export default class Telefonnumre {
-    declare telefonnummer?: string;
-    declare mobilnummer?: string;
-    declare telefon?: string;
+    declare telefonnummer?: string | null;
+    declare mobilnummer?: string | null;
+    declare telefon?: string | null;
 
     /**
      * Create a Telefonnumre instance.

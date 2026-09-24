@@ -21,7 +21,7 @@ describe("DispensasjonPlanBestemmelse", () => {
 
     it("should initialize nasjonalArealplanId as an instance of NasjonalArealplanId when provided", () => {
         const nasjonalArealplanIdProps = { id: "123" };
-        NasjonalArealplanId.mockImplementation(() => nasjonalArealplanIdProps);
+        (NasjonalArealplanId as unknown as jest.Mock).mockImplementation(() => nasjonalArealplanIdProps);
 
         const props = { nasjonalArealplanId: nasjonalArealplanIdProps };
         const instance = new DispensasjonPlanBestemmelse(props);
@@ -32,7 +32,7 @@ describe("DispensasjonPlanBestemmelse", () => {
 
     it("should initialize planbestemmelse as an instance of Planbestemmelse when provided", () => {
         const planbestemmelseProps = { type: "Test Type" };
-        Planbestemmelse.mockImplementation(() => planbestemmelseProps);
+        (Planbestemmelse as unknown as jest.Mock).mockImplementation(() => planbestemmelseProps);
 
         const props = { planbestemmelse: planbestemmelseProps };
         const instance = new DispensasjonPlanBestemmelse(props);

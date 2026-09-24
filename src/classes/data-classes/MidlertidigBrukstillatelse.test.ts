@@ -7,8 +7,8 @@ jest.mock("./Sikkerhet");
 
 describe("MidlertidigBrukstillatelse", () => {
     beforeEach(() => {
-        GjenstaaendeArbeider.mockClear();
-        Sikkerhet.mockClear();
+        (GjenstaaendeArbeider as unknown as jest.Mock).mockClear();
+        (Sikkerhet as unknown as jest.Mock).mockClear();
     });
 
     it("should set erOkForMidlertidigBrukstillatelse from props", () => {
@@ -19,7 +19,7 @@ describe("MidlertidigBrukstillatelse", () => {
     it("should instantiate GjenstaaendeArbeider if props.gjenstaaendeArbeider is provided", () => {
         const gaProps = { foo: "bar" };
         const fakeGA = { some: "instance" };
-        GjenstaaendeArbeider.mockImplementation(() => fakeGA);
+        (GjenstaaendeArbeider as unknown as jest.Mock).mockImplementation(() => fakeGA);
 
         const instance = new MidlertidigBrukstillatelse({ gjenstaaendeArbeider: gaProps });
         expect(GjenstaaendeArbeider).toHaveBeenCalledWith(gaProps);
@@ -35,7 +35,7 @@ describe("MidlertidigBrukstillatelse", () => {
     it("should instantiate Sikkerhet if props.sikkerhet is provided", () => {
         const sikkerhetProps = { baz: "qux" };
         const fakeSikkerhet = { another: "instance" };
-        Sikkerhet.mockImplementation(() => fakeSikkerhet);
+        (Sikkerhet as unknown as jest.Mock).mockImplementation(() => fakeSikkerhet);
 
         const instance = new MidlertidigBrukstillatelse({ sikkerhet: sikkerhetProps });
         expect(Sikkerhet).toHaveBeenCalledWith(sikkerhetProps);

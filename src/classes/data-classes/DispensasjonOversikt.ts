@@ -3,7 +3,9 @@ import type { DispensasjonProps } from "./Dispensasjon.ts";
 
 /** What the form data holds for a DispensasjonOversikt, before it is read into the class. */
 export interface DispensasjonOversiktProps {
-    dispensasjon?: DispensasjonProps[] | undefined;
+    dispensasjon?: DispensasjonProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**

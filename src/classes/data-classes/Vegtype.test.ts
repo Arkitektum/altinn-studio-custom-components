@@ -5,7 +5,7 @@ jest.mock("./Kode.ts"); // Mock the Kode class
 
 describe("Vegtype", () => {
     beforeEach(() => {
-        Kode.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize kode as an array of Kode instances when props.kode is provided", () => {

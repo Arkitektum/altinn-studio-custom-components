@@ -4,8 +4,10 @@ import Eiendom from "./Eiendom.ts";
 
 /** What the form data holds for a GjenboerEiendom, before it is read into the class. */
 export interface GjenboerEiendomProps {
-    matrikkelinformasjon?: EiendomProps | undefined;
-    sluttbrukersystemReferanse?: string;
+    matrikkelinformasjon?: EiendomProps | undefined | null;
+    sluttbrukersystemReferanse?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -13,8 +15,8 @@ export interface GjenboerEiendomProps {
  * @class
  */
 export default class GjenboerEiendom {
-    declare matrikkelinformasjon: Eiendom | undefined;
-    declare sluttbrukersystemReferanse?: string;
+    declare matrikkelinformasjon: Eiendom | undefined | null;
+    declare sluttbrukersystemReferanse?: string | null;
 
     /**
      * Constructs a new GjenboerEiendom instance.

@@ -1,8 +1,10 @@
 /** What the form data holds for a Metadata, before it is read into the class. */
 export interface MetadataProps {
-    ftbId?: string;
-    prosjektnavn?: string;
-    prosjektnr?: string;
+    ftbId?: string | null;
+    prosjektnavn?: string | null;
+    prosjektnr?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -10,9 +12,9 @@ export interface MetadataProps {
  * @class
  */
 export default class Metadata {
-    declare ftbId?: string;
-    declare prosjektnavn?: string;
-    declare prosjektnr?: string;
+    declare ftbId?: string | null;
+    declare prosjektnavn?: string | null;
+    declare prosjektnr?: string | null;
 
     /**
      * Creates an instance of the Metadata class.

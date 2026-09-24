@@ -8,14 +8,16 @@ import Vedleggsliste from "./Vedleggsliste.ts";
 
 /** What the form data holds for a UtfallSvar, before it is read into the class. */
 export interface UtfallSvarProps {
-    beskrivelse?: string;
-    erUtfallBesvaresSenere?: boolean;
-    erUtfallBesvart?: boolean;
-    kommentar?: string;
-    tema?: KodeProps | undefined;
-    tittel?: string;
-    utfallType?: UtfallTypeProps | undefined;
-    vedleggsliste?: VedleggslisteProps | undefined;
+    beskrivelse?: string | null;
+    erUtfallBesvaresSenere?: boolean | null;
+    erUtfallBesvart?: boolean | null;
+    kommentar?: string | null;
+    tema?: KodeProps | undefined | null;
+    tittel?: string | null;
+    utfallType?: UtfallTypeProps | undefined | null;
+    vedleggsliste?: VedleggslisteProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -23,14 +25,14 @@ export interface UtfallSvarProps {
  * @class
  */
 export default class UtfallSvar {
-    declare beskrivelse?: string;
-    declare erUtfallBesvaresSenere?: boolean;
-    declare erUtfallBesvart?: boolean;
-    declare kommentar?: string;
-    declare tema: Kode | undefined;
-    declare tittel?: string;
-    declare utfallType: UtfallType | undefined;
-    declare vedleggsliste: Vedleggsliste | undefined;
+    declare beskrivelse?: string | null;
+    declare erUtfallBesvaresSenere?: boolean | null;
+    declare erUtfallBesvart?: boolean | null;
+    declare kommentar?: string | null;
+    declare tema: Kode | undefined | null;
+    declare tittel?: string | null;
+    declare utfallType: UtfallType | undefined | null;
+    declare vedleggsliste: Vedleggsliste | undefined | null;
 
     /**
      * Constructs an instance of the UtfallSvar class.

@@ -10,10 +10,12 @@ import Vannforsyning from "./Vannforsyning.ts";
 
 /** What the form data holds for a RammebetingelserTilknytninger, before it is read into the class. */
 export interface RammebetingelserTilknytningerProps {
-    adkomst?: AdkomstProps | undefined;
-    avloep?: AvloepProps | undefined;
-    overvann?: OvervannProps | undefined;
-    vannforsyning?: VannforsyningProps | undefined;
+    adkomst?: AdkomstProps | undefined | null;
+    avloep?: AvloepProps | undefined | null;
+    overvann?: OvervannProps | undefined | null;
+    vannforsyning?: VannforsyningProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -31,10 +33,10 @@ export interface RammebetingelserTilknytningerProps {
  * @property {Vannforsyning} vannforsyning - Instance of Vannforsyning if provided in props.
  */
 export default class RammebetingelserTilknytninger {
-    declare adkomst: Adkomst | undefined;
-    declare avloep: Avloep | undefined;
-    declare overvann: Overvann | undefined;
-    declare vannforsyning: Vannforsyning | undefined;
+    declare adkomst: Adkomst | undefined | null;
+    declare avloep: Avloep | undefined | null;
+    declare overvann: Overvann | undefined | null;
+    declare vannforsyning: Vannforsyning | undefined | null;
 
     constructor(props?: RammebetingelserTilknytningerProps) {
         this.adkomst = props?.adkomst && new Adkomst(props.adkomst);

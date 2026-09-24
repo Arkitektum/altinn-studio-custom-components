@@ -9,8 +9,8 @@ describe("AnsvarsrettAnsvarsomraade", () => {
     const resourceBindings = { some: "resource" };
 
     beforeEach(() => {
-        Kode.mockClear();
-        FaseSamsvarKontrollList.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
+        (FaseSamsvarKontrollList as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize all properties correctly when all props are provided", () => {

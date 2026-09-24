@@ -1,6 +1,8 @@
 /** What the form data holds for a UtfallType, before it is read into the class. */
 export interface UtfallTypeProps {
-    kodeverdi?: string;
+    kodeverdi?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -8,7 +10,7 @@ export interface UtfallTypeProps {
  * @class
  */
 export default class UtfallType {
-    declare kodeverdi?: string;
+    declare kodeverdi?: string | null;
 
     /**
      * Creates an instance of UtfallType.

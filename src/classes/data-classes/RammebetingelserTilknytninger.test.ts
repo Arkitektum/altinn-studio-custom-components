@@ -11,10 +11,10 @@ jest.mock("./Vannforsyning");
 
 describe("RammebetingelserTilknytninger", () => {
     beforeEach(() => {
-        Adkomst.mockClear();
-        Avloep.mockClear();
-        Overvann.mockClear();
-        Vannforsyning.mockClear();
+        (Adkomst as unknown as jest.Mock).mockClear();
+        (Avloep as unknown as jest.Mock).mockClear();
+        (Overvann as unknown as jest.Mock).mockClear();
+        (Vannforsyning as unknown as jest.Mock).mockClear();
     });
 
     it("should create all properties when all props are provided", () => {

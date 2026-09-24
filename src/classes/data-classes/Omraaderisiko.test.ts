@@ -5,7 +5,7 @@ jest.mock("./Kode");
 
 describe("Omraaderisiko", () => {
     beforeEach(() => {
-        Kode.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
     });
 
     it("should create risikotype and sikkerhetsklasse as Kode instances when provided", () => {

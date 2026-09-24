@@ -1,7 +1,9 @@
 /** What the form data holds for a UtfallSvarStatus, before it is read into the class. */
 export interface UtfallSvarStatusProps {
-    erUtfallBesvaresSenere?: boolean;
-    erUtfallBesvart?: boolean;
+    erUtfallBesvaresSenere?: boolean | null;
+    erUtfallBesvart?: boolean | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -9,8 +11,8 @@ export interface UtfallSvarStatusProps {
  * @class
  */
 export default class UtfallSvarStatus {
-    declare erUtfallBesvaresSenere?: boolean;
-    declare erUtfallBesvart?: boolean;
+    declare erUtfallBesvaresSenere?: boolean | null;
+    declare erUtfallBesvart?: boolean | null;
 
     /**
      * Create an UtfallSvarStatus.

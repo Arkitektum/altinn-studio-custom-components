@@ -1,7 +1,9 @@
 /** What the form data holds for a Varighet, before it is read into the class. */
 export interface VarighetProps {
-    oenskesVarigDispensasjon?: boolean;
-    oensketVarighetTil?: string;
+    oenskesVarigDispensasjon?: boolean | null;
+    oensketVarighetTil?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -9,8 +11,8 @@ export interface VarighetProps {
  * @class
  */
 export default class Varighet {
-    declare oenskesVarigDispensasjon?: boolean;
-    declare oensketVarighetTil?: string;
+    declare oenskesVarigDispensasjon?: boolean | null;
+    declare oensketVarighetTil?: string | null;
 
     /**
      * Constructs an instance of the Varighet class.

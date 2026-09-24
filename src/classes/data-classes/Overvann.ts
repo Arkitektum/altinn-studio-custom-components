@@ -1,7 +1,9 @@
 /** What the form data holds for a Overvann, before it is read into the class. */
 export interface OvervannProps {
-    ledesOvervannTilAvloepssystem?: boolean;
-    ledesOvervannTilTerreng?: boolean;
+    ledesOvervannTilAvloepssystem?: boolean | null;
+    ledesOvervannTilTerreng?: boolean | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -13,8 +15,8 @@ export interface OvervannProps {
  * @param {boolean} [props.ledesOvervannTilTerreng] - Indicates if stormwater is led to the terrain.
  */
 export default class Overvann {
-    declare ledesOvervannTilAvloepssystem?: boolean;
-    declare ledesOvervannTilTerreng?: boolean;
+    declare ledesOvervannTilAvloepssystem?: boolean | null;
+    declare ledesOvervannTilTerreng?: boolean | null;
 
     constructor(props?: OvervannProps) {
         this.ledesOvervannTilAvloepssystem = props?.ledesOvervannTilAvloepssystem;

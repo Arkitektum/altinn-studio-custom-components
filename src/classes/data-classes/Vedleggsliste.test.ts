@@ -9,7 +9,7 @@ jest.mock("./Vedlegg");
 describe("Vedleggsliste", () => {
     beforeEach(() => {
         // Reset the mock before each test
-        Vedlegg.mockClear();
+        (Vedlegg as unknown as jest.Mock).mockClear();
     });
 
     it("should create an instance of Vedleggsliste with an empty vedlegg array when no props are provided", () => {

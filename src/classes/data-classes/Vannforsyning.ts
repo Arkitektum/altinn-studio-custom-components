@@ -4,10 +4,12 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Vannforsyning, before it is read into the class. */
 export interface VannforsyningProps {
-    beskrivelse?: string;
-    harTinglystErklaering?: boolean;
-    krysserVannforsyningAnnensGrunn?: boolean;
-    tilknytningstype?: KodeProps | undefined;
+    beskrivelse?: string | null;
+    harTinglystErklaering?: boolean | null;
+    krysserVannforsyningAnnensGrunn?: boolean | null;
+    tilknytningstype?: KodeProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -21,10 +23,10 @@ export interface VannforsyningProps {
  * @param {Object} [props.tilknytningstype] - Type of connection, used to instantiate a Kode object.
  */
 export default class Vannforsyning {
-    declare beskrivelse?: string;
-    declare harTinglystErklaering?: boolean;
-    declare krysserVannforsyningAnnensGrunn?: boolean;
-    declare tilknytningstype: Kode | undefined;
+    declare beskrivelse?: string | null;
+    declare harTinglystErklaering?: boolean | null;
+    declare krysserVannforsyningAnnensGrunn?: boolean | null;
+    declare tilknytningstype: Kode | undefined | null;
 
     constructor(props?: VannforsyningProps) {
         this.beskrivelse = props?.beskrivelse;

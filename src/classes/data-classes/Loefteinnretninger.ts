@@ -1,11 +1,13 @@
 /** What the form data holds for a Loefteinnretninger, before it is read into the class. */
 export interface LoefteinnretningerProps {
-    erLoefteinnretningIBygning?: boolean;
-    planleggesLoefteinnretningIBygning?: boolean;
-    planleggesHeis?: boolean;
-    planleggesTrappeheis?: boolean;
-    planleggesRulletrapp?: boolean;
-    planleggesLoefteplattform?: boolean;
+    erLoefteinnretningIBygning?: boolean | null;
+    planleggesLoefteinnretningIBygning?: boolean | null;
+    planleggesHeis?: boolean | null;
+    planleggesTrappeheis?: boolean | null;
+    planleggesRulletrapp?: boolean | null;
+    planleggesLoefteplattform?: boolean | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -13,12 +15,12 @@ export interface LoefteinnretningerProps {
  * @class
  */
 export default class Loefteinnretninger {
-    declare erLoefteinnretningIBygning?: boolean;
-    declare planleggesLoefteinnretningIBygning?: boolean;
-    declare planleggesHeis?: boolean;
-    declare planleggesTrappeheis?: boolean;
-    declare planleggesRulletrapp?: boolean;
-    declare planleggesLoefteplattform?: boolean;
+    declare erLoefteinnretningIBygning?: boolean | null;
+    declare planleggesLoefteinnretningIBygning?: boolean | null;
+    declare planleggesHeis?: boolean | null;
+    declare planleggesTrappeheis?: boolean | null;
+    declare planleggesRulletrapp?: boolean | null;
+    declare planleggesLoefteplattform?: boolean | null;
 
     /**
      * Creates an instance of Loefteinnretninger.

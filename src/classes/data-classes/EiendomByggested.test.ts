@@ -9,7 +9,7 @@ jest.mock("./Eiendom");
 describe("EiendomByggested", () => {
     beforeEach(() => {
         // Clear all instances and calls to constructor and methods
-        Eiendom.mockClear();
+        (Eiendom as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize with an empty eiendom array when no props are provided", () => {

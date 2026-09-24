@@ -2,6 +2,8 @@
 export interface GjenstaaendeArbeiderProps {
     gjenstaaendeInnenfor?: unknown;
     gjenstaaendeUtenfor?: unknown;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**

@@ -5,11 +5,13 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Avloep, before it is read into the class. */
 export interface AvloepProps {
-    harTinglystErklaering?: boolean;
-    krysserAvloepAnnensGrunn?: boolean;
-    tilknytningstype?: KodeProps | undefined;
-    skalInstallereVannklosett?: boolean;
-    harUtslippstillatelse?: boolean;
+    harTinglystErklaering?: boolean | null;
+    krysserAvloepAnnensGrunn?: boolean | null;
+    tilknytningstype?: KodeProps | undefined | null;
+    skalInstallereVannklosett?: boolean | null;
+    harUtslippstillatelse?: boolean | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -22,11 +24,11 @@ export interface AvloepProps {
  * @param {boolean} [props.harUtslippstillatelse] - Indicates if a discharge permit exists.
  */
 export default class Avloep {
-    declare harTinglystErklaering?: boolean;
-    declare krysserAvloepAnnensGrunn?: boolean;
-    declare tilknytningstype: Kode | undefined;
-    declare skalInstallereVannklosett?: boolean;
-    declare harUtslippstillatelse?: boolean;
+    declare harTinglystErklaering?: boolean | null;
+    declare krysserAvloepAnnensGrunn?: boolean | null;
+    declare tilknytningstype: Kode | undefined | null;
+    declare skalInstallereVannklosett?: boolean | null;
+    declare harUtslippstillatelse?: boolean | null;
 
     constructor(props?: AvloepProps) {
         this.harTinglystErklaering = props?.harTinglystErklaering;

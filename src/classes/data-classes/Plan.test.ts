@@ -14,14 +14,14 @@ describe("Plan", () => {
     });
 
     it("should not set properties if neither navn nor plantype.kodebeskrivelse has value", () => {
-        hasValue.mockReturnValue(false);
+        jest.mocked(hasValue).mockReturnValue(false);
         const plan = new Plan({});
         expect(plan.navn).toBeUndefined();
         expect(plan.plantype).toBeUndefined();
     });
 
     it("should set navn if navn has value", () => {
-        hasValue.mockImplementation((val) => val === "Testnavn");
+        jest.mocked(hasValue).mockImplementation((val) => val === "Testnavn");
         const plan = new Plan({ navn: "Testnavn" });
         expect(plan.navn).toBe("Testnavn");
         expect(plan.plantype).toBeUndefined();
@@ -29,7 +29,7 @@ describe("Plan", () => {
 
     it("should set plantype if plantype.kodebeskrivelse has value", () => {
         // First call: hasNavn (false), second call: hasPlantype (true)
-        hasValue.mockImplementationOnce(() => false).mockImplementationOnce(() => true);
+        jest.mocked(hasValue).mockImplementationOnce(() => false).mockImplementationOnce(() => true);
 
         const plantype = { kodebeskrivelse: "desc", kode: "123" };
         const plan = new Plan({ plantype });
@@ -40,7 +40,7 @@ describe("Plan", () => {
 
     it("should set both navn and plantype if both have value", () => {
         // First call: hasNavn (true), second call: hasPlantype (true)
-        hasValue.mockImplementationOnce(() => true).mockImplementationOnce(() => true);
+        jest.mocked(hasValue).mockImplementationOnce(() => true).mockImplementationOnce(() => true);
 
         const plantype = { kodebeskrivelse: "desc", kode: "123" };
         const plan = new Plan({ navn: "Testnavn", plantype });
@@ -50,7 +50,7 @@ describe("Plan", () => {
     });
 
     it("should handle undefined props gracefully", () => {
-        hasValue.mockReturnValue(false);
+        jest.mocked(hasValue).mockReturnValue(false);
         const plan = new Plan(undefined);
         expect(plan.navn).toBeUndefined();
         expect(plan.plantype).toBeUndefined();

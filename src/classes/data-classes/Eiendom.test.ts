@@ -7,8 +7,8 @@ jest.mock("./Eiendomsidentifikasjon");
 
 describe("Eiendom", () => {
     beforeEach(() => {
-        Adresse.mockClear();
-        Eiendomsidentifikasjon.mockClear();
+        (Adresse as unknown as jest.Mock).mockClear();
+        (Eiendomsidentifikasjon as unknown as jest.Mock).mockClear();
     });
 
     it("should create Adresse with props.adresse if provided", () => {

@@ -1,9 +1,11 @@
 /** What the form data holds for a Eiendomsidentifikasjon, before it is read into the class. */
 export interface EiendomsidentifikasjonProps {
-    gaardsnummer?: number;
-    bruksnummer?: number;
-    seksjonsnummer?: number;
-    festenummer?: number;
+    gaardsnummer?: number | null;
+    bruksnummer?: number | null;
+    seksjonsnummer?: number | null;
+    festenummer?: number | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -11,10 +13,10 @@ export interface EiendomsidentifikasjonProps {
  * @class
  */
 export default class Eiendomsidentifikasjon {
-    declare gaardsnummer?: number;
-    declare bruksnummer?: number;
-    declare seksjonsnummer?: number;
-    declare festenummer?: number;
+    declare gaardsnummer?: number | null;
+    declare bruksnummer?: number | null;
+    declare seksjonsnummer?: number | null;
+    declare festenummer?: number | null;
 
     /**
      * Constructs an instance of Eiendomsidentifikasjon.

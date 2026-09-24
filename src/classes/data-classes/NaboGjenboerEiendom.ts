@@ -8,9 +8,11 @@ import Respons from "./Respons.ts";
 
 /** What the form data holds for a NaboGjenboerEiendom, before it is read into the class. */
 export interface NaboGjenboerEiendomProps {
-    eiendommer?: GjenboerEiendomByggestedProps | undefined;
-    eier?: PartProps | undefined;
-    respons?: ResponsProps | undefined;
+    eiendommer?: GjenboerEiendomByggestedProps | undefined | null;
+    eier?: PartProps | undefined | null;
+    respons?: ResponsProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -18,9 +20,9 @@ export interface NaboGjenboerEiendomProps {
  * @class
  */
 export default class NaboGjenboerEiendom {
-    declare eiendommer: GjenboerEiendomByggested | undefined;
-    declare eier: Part | undefined;
-    declare respons: Respons | undefined;
+    declare eiendommer: GjenboerEiendomByggested | undefined | null;
+    declare eier: Part | undefined | null;
+    declare respons: Respons | undefined | null;
 
     /**
      * Constructs a new instance of the class with the provided properties.

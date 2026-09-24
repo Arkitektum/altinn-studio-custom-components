@@ -5,7 +5,7 @@ jest.mock("./Plan");
 
 describe("AndrePlaner", () => {
     beforeEach(() => {
-        Plan.mockClear();
+        (Plan as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize plan as undefined if props is undefined", () => {
@@ -22,7 +22,7 @@ describe("AndrePlaner", () => {
         // The mock has to produce a plan with something in it. AndrePlaner drops plans that hold nothing, and a bare
         // automocked instance holds nothing, so without this the filter would remove them and the mapping would look
         // broken when it is working.
-        Plan.mockImplementation(function (props) {
+        (Plan as unknown as jest.Mock).mockImplementation(function (this: Record<string, unknown>, props: { id?: number }) {
             this.navn = `Plan ${props.id}`;
         });
         const planItems = [{ id: 1 }, { id: 2 }];
@@ -37,7 +37,7 @@ describe("AndrePlaner", () => {
 
     it("should drop plan items that hold nothing", () => {
         // Which is what the filter in the constructor is for: an empty plan is not worth carrying or rendering.
-        Plan.mockImplementation(function (props) {
+        (Plan as unknown as jest.Mock).mockImplementation(function (this: Record<string, unknown>, props: { id?: number }) {
             if (props.id === 2) {
                 this.navn = "Plan 2";
             }
@@ -46,7 +46,7 @@ describe("AndrePlaner", () => {
         const andrePlaner = new AndrePlaner({ plan: [{ id: 1 }, { id: 2 }] });
 
         expect(andrePlaner.plan).toHaveLength(1);
-        expect(andrePlaner.plan[0].navn).toBe("Plan 2");
+        expect((andrePlaner.plan as { navn?: string }[])[0]!.navn).toBe("Plan 2");
     });
 
     it("should handle empty plan array", () => {

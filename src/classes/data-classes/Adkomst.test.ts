@@ -10,7 +10,7 @@ jest.mock('./Vegtype.ts', () => {
 
 describe('Adkomst', () => {
     beforeEach(() => {
-        Vegtype.mockClear();
+        (Vegtype as unknown as jest.Mock).mockClear();
     });
 
     it('should set erNyEllerEndretAdkomst from props', () => {
@@ -20,7 +20,7 @@ describe('Adkomst', () => {
 
     it('should instantiate Vegtype with props.vegtype if provided', () => {
         const vegtypeData = [{ kode: '1' }, { kode: '2' }];
-        const adkomst = new Adkomst({ vegtype: vegtypeData });
+        const adkomst = new Adkomst({ vegtype: vegtypeData } as never);
         expect(Vegtype).toHaveBeenCalledTimes(1);
         expect(Vegtype).toHaveBeenCalledWith(vegtypeData);
         expect(adkomst.vegtype).toEqual({ mocked: true, arg: vegtypeData });

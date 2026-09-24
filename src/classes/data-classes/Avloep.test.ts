@@ -15,8 +15,8 @@ describe("Avloep", () => {
         expect(avloep.harTinglystErklaering).toBe(true);
         expect(avloep.krysserAvloepAnnensGrunn).toBe(false);
         expect(avloep.tilknytningstype).toBeInstanceOf(Kode);
-        expect(avloep.tilknytningstype.kodeverdi).toBe("A");
-        expect(avloep.tilknytningstype.kodebeskrivelse).toBe("Test");
+        expect(avloep!.tilknytningstype!.kodeverdi).toBe("A");
+        expect(avloep!.tilknytningstype!.kodebeskrivelse).toBe("Test");
         expect(avloep.skalInstallereVannklosett).toBe(true);
         expect(avloep.harUtslippstillatelse).toBe(false);
     });

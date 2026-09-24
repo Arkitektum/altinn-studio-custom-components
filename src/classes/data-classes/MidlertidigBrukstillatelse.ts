@@ -5,9 +5,11 @@ import type { SikkerhetProps } from "./Sikkerhet.ts";
 
 /** What the form data holds for a MidlertidigBrukstillatelse, before it is read into the class. */
 export interface MidlertidigBrukstillatelseProps {
-    erOkForMidlertidigBrukstillatelse?: boolean;
-    gjenstaaendeArbeider?: GjenstaaendeArbeiderProps | undefined;
-    sikkerhet?: SikkerhetProps | undefined;
+    erOkForMidlertidigBrukstillatelse?: boolean | null;
+    gjenstaaendeArbeider?: GjenstaaendeArbeiderProps | undefined | null;
+    sikkerhet?: SikkerhetProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -20,9 +22,9 @@ export interface MidlertidigBrukstillatelseProps {
  * @param {Object} [props.sikkerhet] - Data for safety, used to instantiate a Sikkerhet object.
  */
 export default class MidlertidigBrukstillatelse {
-    declare erOkForMidlertidigBrukstillatelse?: boolean;
-    declare gjenstaaendeArbeider: GjenstaaendeArbeider | undefined;
-    declare sikkerhet: Sikkerhet | undefined;
+    declare erOkForMidlertidigBrukstillatelse?: boolean | null;
+    declare gjenstaaendeArbeider: GjenstaaendeArbeider | undefined | null;
+    declare sikkerhet: Sikkerhet | undefined | null;
 
     constructor(props?: MidlertidigBrukstillatelseProps) {
         this.erOkForMidlertidigBrukstillatelse = props?.erOkForMidlertidigBrukstillatelse;

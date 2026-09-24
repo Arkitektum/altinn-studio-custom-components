@@ -6,12 +6,14 @@ import Ulemper from "./Ulemper.ts";
 
 /** What the form data holds for a Begrunnelse, before it is read into the class. */
 export interface BegrunnelseProps {
-    hensynBakBestemmelsen?: string;
-    vurderingHensynBakBestemmelsen?: string;
-    vurderingHensynOverordnet?: string;
-    fordeler?: FordelerProps | undefined;
-    ulemper?: UlemperProps | undefined;
-    samletBegrunnelse?: string;
+    hensynBakBestemmelsen?: string | null;
+    vurderingHensynBakBestemmelsen?: string | null;
+    vurderingHensynOverordnet?: string | null;
+    fordeler?: FordelerProps | undefined | null;
+    ulemper?: UlemperProps | undefined | null;
+    samletBegrunnelse?: string | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -19,12 +21,12 @@ export interface BegrunnelseProps {
  * @class
  */
 export default class Begrunnelse {
-    declare hensynBakBestemmelsen?: string;
-    declare vurderingHensynBakBestemmelsen?: string;
-    declare vurderingHensynOverordnet?: string;
-    declare fordeler: Fordeler | undefined;
-    declare ulemper: Ulemper | undefined;
-    declare samletBegrunnelse?: string;
+    declare hensynBakBestemmelsen?: string | null;
+    declare vurderingHensynBakBestemmelsen?: string | null;
+    declare vurderingHensynOverordnet?: string | null;
+    declare fordeler: Fordeler | undefined | null;
+    declare ulemper: Ulemper | undefined | null;
+    declare samletBegrunnelse?: string | null;
 
     /**
      * Constructs a new instance of the Begrunnelse class.

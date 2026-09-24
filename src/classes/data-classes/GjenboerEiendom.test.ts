@@ -5,7 +5,7 @@ jest.mock("./Eiendom");
 
 describe("GjenboerEiendom", () => {
     beforeEach(() => {
-        Eiendom.mockClear();
+        (Eiendom as unknown as jest.Mock).mockClear();
     });
 
     it("should create an instance with matrikkelinformasjon and sluttbrukersystemReferanse", () => {

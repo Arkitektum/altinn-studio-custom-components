@@ -7,14 +7,16 @@ import Adresse from "./Adresse.ts";
 
 /** What the form data holds for a Part, before it is read into the class. */
 export interface PartProps {
-    navn?: string;
-    organisasjonsnummer?: string;
-    epost?: string;
-    telefonnummer?: string;
-    mobilnummer?: string;
-    telefon?: string;
-    adresse?: AdresseProps;
+    navn?: string | null;
+    organisasjonsnummer?: string | null;
+    epost?: string | null;
+    telefonnummer?: string | null;
+    mobilnummer?: string | null;
+    telefon?: string | null;
+    adresse?: AdresseProps | null;
     kontaktperson?: unknown;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -36,13 +38,13 @@ export default class Part {
      * @param {Object} [props.kontaktperson] - The contact person object.
      */
 
-    declare navn?: string;
-    declare organisasjonsnummer?: string;
-    declare epost?: string;
-    declare telefonnummer?: string;
-    declare mobilnummer?: string;
-    declare telefon?: string;
-    declare adresse?: Adresse;
+    declare navn?: string | null;
+    declare organisasjonsnummer?: string | null;
+    declare epost?: string | null;
+    declare telefonnummer?: string | null;
+    declare mobilnummer?: string | null;
+    declare telefon?: string | null;
+    declare adresse?: Adresse | null;
     declare kontaktperson?: unknown;
 
     constructor(props?: PartProps) {
@@ -73,7 +75,7 @@ export default class Part {
      */
     getAdresse(props?: PartProps) {
         if (hasValue(props?.adresse)) {
-            return new Adresse(props?.adresse);
+            return new Adresse(props?.adresse as never);
         }
         return undefined;
     }
@@ -90,7 +92,7 @@ export default class Part {
             return undefined;
         }
         if (hasValue(props.kontaktperson)) {
-            return new Part(props.kontaktperson);
+            return new Part(props.kontaktperson as never);
         }
         return undefined;
     }

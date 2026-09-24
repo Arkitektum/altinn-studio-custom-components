@@ -1,16 +1,18 @@
 /** What the form data holds for a Arealdisponering, before it is read into the class. */
 export interface ArealdisponeringProps {
-    arealBebyggelseEksisterende?: number;
-    arealBebyggelseNytt?: number;
-    arealBebyggelseSomSkalRives?: number;
-    arealSumByggesak?: number;
-    beregnetGradAvUtnytting?: number;
-    beregnetMaksByggeareal?: number;
-    parkeringsarealTerreng?: number;
-    tomtearealBeregnet?: number;
-    tomtearealByggeomraade?: number;
-    tomtearealSomLeggesTil?: number;
-    tomtearealSomTrekkesFra?: number;
+    arealBebyggelseEksisterende?: number | null;
+    arealBebyggelseNytt?: number | null;
+    arealBebyggelseSomSkalRives?: number | null;
+    arealSumByggesak?: number | null;
+    beregnetGradAvUtnytting?: number | null;
+    beregnetMaksByggeareal?: number | null;
+    parkeringsarealTerreng?: number | null;
+    tomtearealBeregnet?: number | null;
+    tomtearealByggeomraade?: number | null;
+    tomtearealSomLeggesTil?: number | null;
+    tomtearealSomTrekkesFra?: number | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -18,17 +20,17 @@ export interface ArealdisponeringProps {
  * @class
  */
 export default class Arealdisponering {
-    declare arealBebyggelseEksisterende?: number;
-    declare arealBebyggelseNytt?: number;
-    declare arealBebyggelseSomSkalRives?: number;
-    declare arealSumByggesak?: number;
-    declare beregnetGradAvUtnytting?: number;
-    declare beregnetMaksByggeareal?: number;
-    declare parkeringsarealTerreng?: number;
-    declare tomtearealBeregnet?: number;
-    declare tomtearealByggeomraade?: number;
-    declare tomtearealSomLeggesTil?: number;
-    declare tomtearealSomTrekkesFra?: number;
+    declare arealBebyggelseEksisterende?: number | null;
+    declare arealBebyggelseNytt?: number | null;
+    declare arealBebyggelseSomSkalRives?: number | null;
+    declare arealSumByggesak?: number | null;
+    declare beregnetGradAvUtnytting?: number | null;
+    declare beregnetMaksByggeareal?: number | null;
+    declare parkeringsarealTerreng?: number | null;
+    declare tomtearealBeregnet?: number | null;
+    declare tomtearealByggeomraade?: number | null;
+    declare tomtearealSomLeggesTil?: number | null;
+    declare tomtearealSomTrekkesFra?: number | null;
 
     /**
      * Creates an instance of Arealdisponering.

@@ -6,8 +6,10 @@ import Posisjon from "./Posisjon.ts";
 
 /** What the form data holds for a Stedfesting, before it is read into the class. */
 export interface StedfestingProps {
-    posisjon?: PosisjonProps | undefined;
-    vertikalnivaa?: KodeProps | undefined;
+    posisjon?: PosisjonProps | undefined | null;
+    vertikalnivaa?: KodeProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -15,8 +17,8 @@ export interface StedfestingProps {
  * @class
  */
 export default class Stedfesting {
-    declare posisjon: Posisjon | undefined;
-    declare vertikalnivaa: Kode | undefined;
+    declare posisjon: Posisjon | undefined | null;
+    declare vertikalnivaa: Kode | undefined | null;
 
     /**
      * Constructs a new instance of the class.

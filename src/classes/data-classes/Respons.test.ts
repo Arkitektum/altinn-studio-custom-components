@@ -5,7 +5,7 @@ jest.mock("./Kode");
 
 describe("Respons", () => {
     beforeEach(() => {
-        Kode.mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
     });
 
     it("should set all properties when all props are provided", () => {
@@ -17,7 +17,7 @@ describe("Respons", () => {
             samtykkeMottattDato: "2024-06-02"
         };
         const kodeInstance = { some: "kode" };
-        Kode.mockImplementation(() => kodeInstance);
+        (Kode as unknown as jest.Mock).mockImplementation(() => kodeInstance);
 
         const respons = new Respons(props);
 
@@ -58,9 +58,9 @@ describe("Respons", () => {
             nabovarselSendtVia: "SMS"
         };
         const kodeInstance = { kode: "SMS" };
-        Kode.mockImplementation(() => kodeInstance);
+        (Kode as unknown as jest.Mock).mockImplementation(() => kodeInstance);
 
-        const respons = new Respons(props);
+        const respons = new Respons(props as never);
 
         expect(Kode).toHaveBeenCalledWith("SMS");
         expect(respons.nabovarselSendtVia).toBe(kodeInstance);

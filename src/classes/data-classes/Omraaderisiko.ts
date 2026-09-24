@@ -4,8 +4,10 @@ import Kode from "./Kode.ts";
 
 /** What the form data holds for a Omraaderisiko, before it is read into the class. */
 export interface OmraaderisikoProps {
-    risikotype?: KodeProps | undefined;
-    sikkerhetsklasse?: KodeProps | undefined;
+    risikotype?: KodeProps | undefined | null;
+    sikkerhetsklasse?: KodeProps | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -17,8 +19,8 @@ export interface OmraaderisikoProps {
  * @param {Object} [props.sikkerhetsklasse] - The security class code object.
  */
 export default class Omraaderisiko {
-    declare risikotype: Kode | undefined;
-    declare sikkerhetsklasse: Kode | undefined;
+    declare risikotype: Kode | undefined | null;
+    declare sikkerhetsklasse: Kode | undefined | null;
 
     constructor(props?: OmraaderisikoProps) {
         this.risikotype = props?.risikotype && new Kode(props.risikotype);

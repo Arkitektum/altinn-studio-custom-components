@@ -11,9 +11,9 @@ describe("SamsvarAnsvarsomraade", () => {
     const resourceBindings = { some: "resource" };
 
     beforeEach(() => {
-        ProsjekterendeList.mockClear();
-        Kode.mockClear();
-        Utfoerende.mockClear();
+        (ProsjekterendeList as unknown as jest.Mock).mockClear();
+        (Kode as unknown as jest.Mock).mockClear();
+        (Utfoerende as unknown as jest.Mock).mockClear();
     });
 
     it("should initialize all properties correctly with full props", () => {
@@ -31,9 +31,9 @@ describe("SamsvarAnsvarsomraade", () => {
         const prosjekterendeListInstance = { __mock: "ProsjekterendeList" };
         const utfoerendeInstance = { __mock: "Utfoerende" };
 
-        Kode.mockImplementation(() => kodeInstance);
-        ProsjekterendeList.mockImplementation(() => prosjekterendeListInstance);
-        Utfoerende.mockImplementation(() => utfoerendeInstance);
+        (Kode as unknown as jest.Mock).mockImplementation(() => kodeInstance);
+        (ProsjekterendeList as unknown as jest.Mock).mockImplementation(() => prosjekterendeListInstance);
+        (Utfoerende as unknown as jest.Mock).mockImplementation(() => utfoerendeInstance);
 
         const instance = new SamsvarAnsvarsomraade(props, resourceBindings);
 
@@ -63,9 +63,9 @@ describe("SamsvarAnsvarsomraade", () => {
         const prosjekterendeListInstance = { __mock: "ProsjekterendeList" };
         const utfoerendeInstance = { __mock: "Utfoerende" };
 
-        Kode.mockImplementation(() => kodeInstance);
-        ProsjekterendeList.mockImplementation(() => prosjekterendeListInstance);
-        Utfoerende.mockImplementation(() => utfoerendeInstance);
+        (Kode as unknown as jest.Mock).mockImplementation(() => kodeInstance);
+        (ProsjekterendeList as unknown as jest.Mock).mockImplementation(() => prosjekterendeListInstance);
+        (Utfoerende as unknown as jest.Mock).mockImplementation(() => utfoerendeInstance);
 
         const instance = new SamsvarAnsvarsomraade(props, resourceBindings);
 
@@ -87,9 +87,9 @@ describe("SamsvarAnsvarsomraade", () => {
         const prosjekterendeListInstance = { __mock: "ProsjekterendeList" };
         const utfoerendeInstance = { __mock: "Utfoerende" };
 
-        Kode.mockImplementation(() => kodeInstance);
-        ProsjekterendeList.mockImplementation(() => prosjekterendeListInstance);
-        Utfoerende.mockImplementation(() => utfoerendeInstance);
+        (Kode as unknown as jest.Mock).mockImplementation(() => kodeInstance);
+        (ProsjekterendeList as unknown as jest.Mock).mockImplementation(() => prosjekterendeListInstance);
+        (Utfoerende as unknown as jest.Mock).mockImplementation(() => utfoerendeInstance);
 
         const instance = new SamsvarAnsvarsomraade(undefined, resourceBindings);
 

@@ -1,14 +1,16 @@
 /** What the form data holds for a Arbeidsplasser, before it is read into the class. */
 export interface ArbeidsplasserProps {
-    antallAnsatte?: number;
-    antallVirksomheter?: number;
-    beskrivelse?: string;
-    eksisterende?: boolean;
-    faste?: boolean;
-    framtidige?: boolean;
-    midlertidige?: boolean;
-    utleieBygg?: boolean;
-    veiledning?: boolean;
+    antallAnsatte?: number | null;
+    antallVirksomheter?: number | null;
+    beskrivelse?: string | null;
+    eksisterende?: boolean | null;
+    faste?: boolean | null;
+    framtidige?: boolean | null;
+    midlertidige?: boolean | null;
+    utleieBygg?: boolean | null;
+    veiledning?: boolean | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
@@ -16,15 +18,15 @@ export interface ArbeidsplasserProps {
  * @class
  */
 export default class Arbeidsplasser {
-    declare antallAnsatte?: number;
-    declare antallVirksomheter?: number;
-    declare beskrivelse?: string;
-    declare eksisterende?: boolean;
-    declare faste?: boolean;
-    declare framtidige?: boolean;
-    declare midlertidige?: boolean;
-    declare utleieBygg?: boolean;
-    declare veiledning?: boolean;
+    declare antallAnsatte?: number | null;
+    declare antallVirksomheter?: number | null;
+    declare beskrivelse?: string | null;
+    declare eksisterende?: boolean | null;
+    declare faste?: boolean | null;
+    declare framtidige?: boolean | null;
+    declare midlertidige?: boolean | null;
+    declare utleieBygg?: boolean | null;
+    declare veiledning?: boolean | null;
 
     /**
      * Constructs an instance of Arbeidsplasser.

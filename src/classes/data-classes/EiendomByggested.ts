@@ -4,7 +4,9 @@ import Eiendom from "./Eiendom.ts";
 
 /** What the form data holds for a EiendomByggested, before it is read into the class. */
 export interface EiendomByggestedProps {
-    eiendom?: EiendomProps[] | undefined;
+    eiendom?: EiendomProps[] | undefined | null;
+    /** The form data carries whatever the model held, which is more than this class reads. */
+    [key: string]: unknown;
 }
 
 /**
