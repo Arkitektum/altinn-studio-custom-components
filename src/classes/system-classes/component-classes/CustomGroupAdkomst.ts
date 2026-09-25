@@ -34,7 +34,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupAdkomst extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: Adkomst | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -61,7 +61,7 @@ export default class CustomGroupAdkomst extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {Adkomst} An instance of Adkomst initialized with the component data value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Adkomst {
         const data = getComponentDataValue(props);
         const adkomst = new Adkomst(data as AdkomstProps | undefined);
         return adkomst;

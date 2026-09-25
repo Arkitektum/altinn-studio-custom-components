@@ -285,13 +285,17 @@ export function getComponentBooleanTextValues(component: ComponentProps, resourc
  * If the value exists in the component's `resourceValues`, it is returned.
  * Otherwise, attempts to retrieve the value from the component's `resourceBindings`.
  *
+ * The keys this is asked for are text resources, `title` and `emptyFieldText`, so what comes back is the text either
+ * way. The value already on the component is cast rather than checked, because a caller that puts something other
+ * than a text under a text key has a problem this function cannot fix.
+ *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {string} resourceKey - The key identifying the resource to retrieve.
- * @returns {*} The value of the resource, or the result from the resource binding lookup.
+ * @returns {string|undefined} The text for the resource, or the result from the resource binding lookup.
  */
-export function getComponentResourceValue(component: ComponentProps, resourceKey: string): unknown {
+export function getComponentResourceValue(component: ComponentProps, resourceKey: string): string | undefined {
     if (hasValue(component?.resourceValues?.[resourceKey])) {
-        return component?.resourceValues?.[resourceKey];
+        return component?.resourceValues?.[resourceKey] as string | undefined;
     } else {
         return getTextResourceFromResourceBinding(component?.resourceBindings?.[resourceKey] as string | undefined);
     }
