@@ -23,7 +23,7 @@ describe("Posisjon", () => {
     });
 
     it("should create an instance of Posisjon with koordinater when provided", () => {
-        const mockKoordinater = "59.911491,10.757933";
+        const mockKoordinater = { koordinat: [59.911491, 10.757933] };
         const posisjon = new Posisjon({ koordinater: mockKoordinater });
 
         expect(posisjon.koordinater).toBe(mockKoordinater);
@@ -31,7 +31,7 @@ describe("Posisjon", () => {
 
     it("should handle both koordinatsystem and koordinater being provided", () => {
         const mockKoordinatsystem = { kode: "EPSG:4326" };
-        const mockKoordinater = "59.911491,10.757933";
+        const mockKoordinater = { koordinat: [59.911491, 10.757933] };
         const posisjon = new Posisjon({
             koordinatsystem: mockKoordinatsystem,
             koordinater: mockKoordinater

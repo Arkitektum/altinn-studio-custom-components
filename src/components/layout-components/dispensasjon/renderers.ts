@@ -560,9 +560,8 @@ export function renderStedfestingPosisjonKoordinatsystem(component?: Instantiate
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderStedfestingPosisjonKoordinater(component?: InstantiatedComponent | null) {
-    // Left unnarrowed: this reads koordinater.koordinat, while Posisjon declares koordinater as a string. The two
-    // test fixtures disagree about which is right, so narrowing here would pick a side on the model's behalf.
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

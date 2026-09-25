@@ -18,7 +18,7 @@ describe("Dispensasjon", () => {
         nasjonalArealplanId: { kodeverdi: "C", kodebeskrivelse: "plan" },
         paragrafnummer: "§1",
         plannavn: "plan",
-        stedfesting: { posisjon: { koordinater: "1,2" } },
+        stedfesting: { posisjon: { koordinater: { koordinat: [1, 2] } } },
         tiltakshaver: { navn: "Ola" },
         varighet: { oenskesVarigDispensasjon: true, oensketVarighetTil: "2026-01-01" },
         tiltakstyper: { kode: [{ kodeverdi: "X", kodebeskrivelse: "typeX" }] }
