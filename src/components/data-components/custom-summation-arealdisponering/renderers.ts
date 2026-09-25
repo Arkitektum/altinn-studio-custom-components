@@ -1,3 +1,4 @@
+import type ArealdisponeringSummation from "../../../classes/system-classes/data-classes/ArealdisponeringSummation.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -50,8 +51,9 @@ function renderSummationDataElement(data?: { resourceValues?: unknown; resourceB
  * @returns {HTMLDivElement|null} A div element containing the rendered summation data elements, or null if no data is available.
  */
 export function renderSummationArealdisponering(component?: InstantiatedComponent | null) {
-    const bebyggelsenData = component?.resourceValues?.data?.bebyggelsen;
-    const tomtearealetData = component?.resourceValues?.data?.tomtearealet;
+    // Drawn only on the non-empty branch, where the data is the summation rather than the empty-field text.
+    const bebyggelsenData = (component?.resourceValues?.data as ArealdisponeringSummation | undefined)?.bebyggelsen;
+    const tomtearealetData = (component?.resourceValues?.data as ArealdisponeringSummation | undefined)?.tomtearealet;
     if (bebyggelsenData || tomtearealetData) {
         const container = document.createElement("div");
         if (tomtearealetData) {

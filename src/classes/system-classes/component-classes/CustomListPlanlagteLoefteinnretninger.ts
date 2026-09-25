@@ -27,7 +27,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - The resolved text resource values for the component.
  */
 export default class CustomListPlanlagteLoefteinnretninger extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: (string | undefined)[] | string };
     declare resourceBindings: ResourceBindingGroup;
 
     constructor(props: ComponentProps) {
@@ -56,7 +56,10 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
      * @param {Object} resourceBindings - The resource bindings used to map data.
      * @returns {any|undefined} The extracted data if available, otherwise undefined.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(
+        props: ComponentProps,
+        resourceBindings?: Record<string, ResourceBindingGroup | undefined>
+    ): (string | undefined)[] | undefined {
         const data = getComponentDataValue(props);
         if (!hasValue(data)) {
             return undefined;

@@ -36,7 +36,7 @@ export interface ArealdisponeringSummationFields {
 }
 
 export default class CustomSummationArealdisponering extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: ArealdisponeringSummation | string };
     declare resourceBindings: ResourceBindingGroup;
 
     constructor(props: ComponentProps) {
@@ -66,7 +66,10 @@ export default class CustomSummationArealdisponering extends CustomComponent {
      * @param {Object} resourceBindings - Resource bindings required for summation processing.
      * @returns {ArealdisponeringSummation|undefined} An instance of ArealdisponeringSummation if the data is valid; otherwise, undefined.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(
+        props: ComponentProps,
+        resourceBindings?: Record<string, ResourceBindingGroup | undefined>
+    ): ArealdisponeringSummation | undefined {
         const data = getComponentDataValue(props);
         if (!hasValue(data)) {
             return undefined;

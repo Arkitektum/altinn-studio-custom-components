@@ -97,7 +97,7 @@ describe("CustomSummationArealdisponering", () => {
             (hasValue as unknown as jest.Mock).mockReturnValue(false);
             getComponentDataValue.mockReturnValue(undefined);
 
-            const result = instance.getValueFromFormData({}, {}) as unknown[];
+            const result = instance.getValueFromFormData({}, {});
             expect(result).toBeUndefined();
         });
 
@@ -107,7 +107,7 @@ describe("CustomSummationArealdisponering", () => {
             getComponentDataValue.mockReturnValue({ bebyggelsen: { resourceValues: { data: 1 } } });
             jest.spyOn(instance, "hasArealdisponeringSummationProps").mockReturnValue(true);
 
-            const result = instance.getValueFromFormData({}, {}) as unknown[];
+            const result = instance.getValueFromFormData({}, {});
             expect(result).toBeDefined();
             expect(instance.hasArealdisponeringSummationProps).toHaveBeenCalled();
         });
@@ -118,7 +118,7 @@ describe("CustomSummationArealdisponering", () => {
             getComponentDataValue.mockReturnValue({ bebyggelsen: { resourceValues: { data: 1 } } });
             jest.spyOn(instance, "hasArealdisponeringSummationProps").mockReturnValue(false);
 
-            const result = instance.getValueFromFormData({}, {}) as unknown[];
+            const result = instance.getValueFromFormData({}, {});
             expect(result).toBeUndefined();
         });
     });
