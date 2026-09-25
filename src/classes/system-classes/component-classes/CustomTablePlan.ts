@@ -6,6 +6,7 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 // Classes
 import AndrePlaner from "../../data-classes/AndrePlaner.ts";
 import CustomComponent from "../CustomComponent.ts";
+import type Plan from "../../data-classes/Plan.ts";
 
 // Global functions
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
@@ -37,7 +38,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Resource values for rendering.
  */
 export default class CustomTablePlan extends CustomComponent {
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: Plan[] | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 
     constructor(props: ComponentProps) {
@@ -64,7 +65,7 @@ export default class CustomTablePlan extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {*} The 'plan' value extracted from the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Plan[] | undefined {
         const data = getComponentDataValue(props);
         const andrePlaner = new AndrePlaner({ plan: data as PlanProps[] | null | undefined });
         return andrePlaner?.plan;

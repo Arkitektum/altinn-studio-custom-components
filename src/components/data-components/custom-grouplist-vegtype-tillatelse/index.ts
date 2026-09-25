@@ -1,3 +1,4 @@
+import type { VegtypeTillatelse } from "../../../classes/system-classes/data-classes/VegtypeTillatelseList.ts";
 // Global functions
 import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
 
@@ -17,7 +18,7 @@ export default customElements.define(
                         host.appendChild(renderEmptyFieldText(component));
                         return;
                     }
-                    const vegtypeTillatelseData = component?.resourceValues?.data;
+                    const vegtypeTillatelseData = component?.resourceValues?.data as VegtypeTillatelse[] | string | undefined;
                     if (!Array.isArray(vegtypeTillatelseData)) {
                         return;
                     }

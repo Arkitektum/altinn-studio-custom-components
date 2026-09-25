@@ -33,7 +33,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 
 export default class CustomGrouplistSjekklistekrav extends CustomComponent {
-    declare resourceValues: { title?: unknown; description?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; description?: unknown; data?: Sjekklistekrav[] | string };
     declare resourceBindings: ResourceBindingGroup;
 
     constructor(props: ComponentProps) {
@@ -83,7 +83,7 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {Sjekklistekrav[]} An array of Sjekklistekrav objects created from the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Sjekklistekrav[] | undefined {
         const data = getComponentDataValue(props);
         const sjekklistekravList = (data as SjekklistekravProps[] | undefined)?.map((item) => {
             return new Sjekklistekrav(item);

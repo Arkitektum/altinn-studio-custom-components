@@ -1,5 +1,5 @@
 import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
-import type { VegtypeTillatelseProps } from "../data-classes/VegtypeTillatelseList.ts";
+import type { VegtypeTillatelse, VegtypeTillatelseProps } from "../data-classes/VegtypeTillatelseList.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -26,7 +26,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Values derived from resource bindings and form data.
  */
 export default class CustomGrouplistVegtypeTillatelse extends CustomComponent {
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: VegtypeTillatelse[] | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 
     constructor(props: ComponentProps) {
@@ -56,7 +56,7 @@ export default class CustomGrouplistVegtypeTillatelse extends CustomComponent {
      * @param {Object} props - The properties object containing form data for the component.
      * @returns {*} The `data` property from the `resourceValues` of the `VegtypeTillatelseList`, or `undefined` if not available.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): VegtypeTillatelse[] {
         const data = getComponentDataValue(props);
         const vegTypeTillatelseList = new VegtypeTillatelseList(data as VegtypeTillatelseProps | null | undefined);
         return vegTypeTillatelseList?.resourceValues?.data;

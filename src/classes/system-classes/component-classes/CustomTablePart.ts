@@ -34,7 +34,7 @@ export interface PartFields {
 }
 
 export default class CustomTablePart extends CustomComponent {
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: Part | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 
     constructor(props: ComponentProps) {
@@ -62,7 +62,7 @@ export default class CustomTablePart extends CustomComponent {
      * @param {*} [props.formData.data] - The data to be used for creating the Part instance.
      * @returns {(Part|undefined)} Returns a Part instance if data is valid and has value, otherwise undefined.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Part | undefined {
         const data = getComponentDataValue(props);
         if (!hasValue(data)) {
             return undefined;

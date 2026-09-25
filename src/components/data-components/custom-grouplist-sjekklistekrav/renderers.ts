@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../types.ts";
+import type Sjekklistekrav from "../../../classes/data-classes/Sjekklistekrav.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -57,7 +58,7 @@ export function renderSjekklistekravGroupListHeader(component?: InstantiatedComp
  * @param {string} [component?.resourceBindings.defaultText] - Default text to display.
  * @returns {HTMLElement} The custom group element for the checklist requirements.
  */
-export function renderSjekklistekravGroup(sjekklistekrav: unknown, component: InstantiatedComponent | null | undefined) {
+export function renderSjekklistekravGroup(sjekklistekrav: Sjekklistekrav, component: InstantiatedComponent | null | undefined) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

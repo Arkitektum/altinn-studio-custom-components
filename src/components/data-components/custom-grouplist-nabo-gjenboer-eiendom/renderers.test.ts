@@ -1,7 +1,11 @@
 import * as renderers from "./renderers.ts";
+import type NaboGjenboerEiendom from "../../../classes/data-classes/NaboGjenboerEiendom.ts";
 
-/** One neighbour, as the group below will receive it. */
-const naboGjenboerEiendom = { eier: { navn: "Kari Nordmann" }, eiendommer: { eiendom: [{ adresse: "Storgata 3" }] } };
+/** One neighbour, as the group below will receive it. Only the fields the group reads are filled in. */
+const naboGjenboerEiendom = {
+    eier: { navn: "Kari Nordmann" },
+    eiendommer: { eiendom: [{ adresse: "Storgata 3" }] }
+} as unknown as NaboGjenboerEiendom;
 
 /** The list of neighbours. */
 const component = {

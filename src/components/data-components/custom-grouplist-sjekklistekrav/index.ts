@@ -1,3 +1,4 @@
+import type Sjekklistekrav from "../../../classes/data-classes/Sjekklistekrav.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -39,7 +40,8 @@ export default customElements.define(
                         if (sjekklistekravGroupListHeaderElement) {
                             sjekklistekravListElement.appendChild(sjekklistekravGroupListHeaderElement);
                         }
-                        for (const sjekklistekrav of component?.resourceValues?.data ?? []) {
+                        // Past the isEmpty branch above, so this is the list rather than the empty-field text.
+                        for (const sjekklistekrav of (component?.resourceValues?.data as Sjekklistekrav[] | undefined) ?? []) {
                             const sjekklistekravElement = renderSjekklistekravGroup(sjekklistekrav, component);
                             sjekklistekravListElement.appendChild(sjekklistekravElement);
                             const dividerElement = renderDivider();

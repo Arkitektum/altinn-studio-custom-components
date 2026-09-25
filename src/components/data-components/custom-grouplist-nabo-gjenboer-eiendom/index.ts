@@ -1,3 +1,4 @@
+import type NaboGjenboerEiendom from "../../../classes/data-classes/NaboGjenboerEiendom.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -26,7 +27,8 @@ export default customElements.define(
                     if (hasValue(component?.resourceValues?.title) && component?.hideTitle !== true) {
                         host.appendChild(renderHeaderElement(component?.resourceValues?.title, component?.size));
                     }
-                    for (const naboGjenboerEiendom of component?.resourceValues?.data ?? []) {
+                    // Past the isEmpty branch above, so this is the list rather than the empty-field text.
+                    for (const naboGjenboerEiendom of (component?.resourceValues?.data as NaboGjenboerEiendom[] | undefined) ?? []) {
                         host.appendChild(renderNaboGjenboerEiendomGroup(naboGjenboerEiendom, component));
                         host.appendChild(renderDivider());
                     }

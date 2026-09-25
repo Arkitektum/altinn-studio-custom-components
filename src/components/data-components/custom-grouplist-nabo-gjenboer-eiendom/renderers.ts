@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../types.ts";
+import type NaboGjenboerEiendom from "../../../classes/data-classes/NaboGjenboerEiendom.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -27,7 +28,10 @@ export function renderHeaderElement(title: string, size = "h3") {
  * @param {Object} component - The component configuration object, possibly containing resource bindings.
  * @returns {HTMLElement} The custom group element for "Nabo Gjenboer Eiendom".
  */
-export function renderNaboGjenboerEiendomGroup(naboGjenboerEiendom: unknown, component: InstantiatedComponent | null | undefined) {
+export function renderNaboGjenboerEiendomGroup(
+    naboGjenboerEiendom: NaboGjenboerEiendom | undefined,
+    component: InstantiatedComponent | null | undefined
+) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

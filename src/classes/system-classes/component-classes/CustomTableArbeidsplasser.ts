@@ -11,6 +11,12 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+/** One row of the arbeidsplasser table: a title and the text for the answer behind it. */
+export interface ArbeidsplasserBeroertRow {
+    title: string | undefined;
+    value: string | undefined;
+}
+
 /**
  * CustomTableArbeidsplasser is a custom component class for handling and displaying workplace data in a table format.
  * It processes form data, resource bindings, and validation messages for affected workplaces.
@@ -26,7 +32,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  */
 
 export default class CustomTableArbeidsplasser extends CustomComponent {
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: ArbeidsplasserBeroertRow[] | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 
     constructor(props: ComponentProps) {
@@ -53,7 +59,10 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
      * @param {Object} resourceBindings - Resource bindings used for data extraction.
      * @returns {Array|undefined} An array of affected workplaces if present, otherwise undefined.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(
+        props: ComponentProps,
+        resourceBindings?: Record<string, ResourceBindingGroup | undefined>
+    ): ArbeidsplasserBeroertRow[] | undefined {
         const arbeidsplasserBeroertKeys = this.getArbeidsplasserBeroertKeys();
         const data = getComponentDataValue(props);
         if (!hasValue(data)) {

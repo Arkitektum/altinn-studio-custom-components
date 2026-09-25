@@ -31,7 +31,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  */
 export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: NaboGjenboerEiendom[] | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -77,7 +77,7 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
      * @param {Object} props - The properties containing form data.
      * @returns {NaboGjenboerEiendom[]} An array of NaboGjenboerEiendom objects created from the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): NaboGjenboerEiendom[] | undefined {
         const data = getComponentDataValue(props) as NaboGjenboerEiendomProps[] | undefined;
         const naboGjenboerEiendomList = data?.map((item) => {
             return new NaboGjenboerEiendom(item);
