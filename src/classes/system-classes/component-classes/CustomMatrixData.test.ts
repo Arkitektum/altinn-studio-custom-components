@@ -1,4 +1,4 @@
-import type { ComponentProps, TableColumn } from "../../../types.ts";
+import type { ComponentProps, MatrixData, TableColumn } from "../../../types.ts";
 
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -80,7 +80,8 @@ describe("CustomMatrixData", () => {
                 tableColumns: [{ header: "A" }]
             };
 
-            const matrixData = { matrixHeaders: [{ text: "A" }], matrixRows: [[{ value: 1 }]] };
+            // A stand-in for a built matrix: the test only checks that it is stored as it came.
+            const matrixData = { matrixHeaders: [{ text: "A" }], matrixRows: [[{ value: 1 }]] } as unknown as MatrixData;
             (validateTableHeadersTextResourceBindings as unknown as jest.Mock).mockReturnValue([]);
             (hasValidationMessages as unknown as jest.Mock).mockReturnValue(false);
             (hasValue as unknown as jest.Mock).mockImplementation((value) => value !== null && value !== undefined && value !== "");

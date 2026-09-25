@@ -1,4 +1,4 @@
-import type { CellComponentProps, InstantiatedComponent, TableHeader } from "../../../types.ts";
+import type { CellComponentProps, InstantiatedComponent, MatrixData, TableHeader } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addStyle, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -106,7 +106,8 @@ export function renderHeaderElement(title: string, size?: string) {
  * @returns {HTMLTableElement} The rendered matrix element.
  */
 export function renderMatrixElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the built table rather than the empty-field text.
+    const data = component?.resourceValues?.data as MatrixData | undefined;
     const styleOverride = component?.styleOverride;
 
     const matrix = document.createElement("table");
@@ -123,14 +124,14 @@ export function renderMatrixElement(component?: InstantiatedComponent | null) {
 
     if (data?.matrixHeaders?.length && data?.matrixRows?.length) {
         // Render matrix column header elements
-        data.matrixHeaders.forEach((matrixHeader: TableHeader) => {
+        data.matrixHeaders.forEach((matrixHeader) => {
             tr.appendChild(renderMatrixColumnHeaderElement(matrixHeader));
         });
         thead.appendChild(tr);
         matrix.appendChild(thead);
         const tbody = document.createElement("tbody");
         // Render matrix rows
-        data.matrixRows.forEach((matrixRow: CellComponentProps[]) => {
+        data.matrixRows.forEach((matrixRow) => {
             tbody.appendChild(renderMatrixRowElement(matrixRow));
         });
         matrix.appendChild(tbody);

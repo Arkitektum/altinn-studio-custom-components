@@ -1,4 +1,4 @@
-import type { ComponentProps, TableColumn } from "../../../types.ts";
+import type { ComponentProps, TableColumn, TableData } from "../../../types.ts";
 
 import { getComponentDataValue, getRowNumberTitle } from "../../../functions/helpers.ts";
 import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.ts";
@@ -79,7 +79,8 @@ describe("CustomTableData", () => {
                 },
                 tableColumns: [{ header: "A" }]
             };
-            const tableData = { tableHeaders: ["A"], tableRows: [[1]] };
+            // A stand-in for a built table: the test only checks that it is stored as it came.
+            const tableData = { tableHeaders: ["A"], tableRows: [[1]] } as unknown as TableData;
             (getComponentDataValue as unknown as jest.Mock).mockReturnValue([1]);
             (hasValue as unknown as jest.Mock).mockReturnValue(true);
             (validateTableHeadersTextResourceBindings as unknown as jest.Mock).mockReturnValue([]);
@@ -87,9 +88,7 @@ describe("CustomTableData", () => {
             (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementation((key) => `resource:${key}`);
 
             // getValueFromFormData returns tableData
-            const getValueFromFormDataSpy = jest
-                .spyOn(CustomTableData.prototype, "getValueFromFormData")
-                .mockReturnValue(tableData);
+            const getValueFromFormDataSpy = jest.spyOn(CustomTableData.prototype, "getValueFromFormData").mockReturnValue(tableData);
 
             try {
                 const instance = new CustomTableData(props as unknown as ComponentProps);

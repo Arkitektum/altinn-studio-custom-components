@@ -1,4 +1,4 @@
-import type { CellComponentProps, ComponentOrder, ComponentProps, TableHeader } from "../../../types.ts";
+import type { CellComponentProps, ComponentOrder, ComponentProps, MatrixData, TableHeader } from "../../../types.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -36,7 +36,7 @@ export default class CustomMatrixData extends CustomComponent {
     /** Always set: the constructor works it out from the props, falling back to ascending. */
     declare order: ComponentOrder;
 
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: MatrixData | string | null };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -66,7 +66,7 @@ export default class CustomMatrixData extends CustomComponent {
      * @param {Object} props - The properties containing form data and configuration for the matrix.
      * @returns {{ matrixHeaders: Array, matrixRows: Array }} An object containing the extracted matrix headers and rows.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): MatrixData | null {
         const data = getComponentDataValue(props);
         if (!hasValue(data)) {
             return null;

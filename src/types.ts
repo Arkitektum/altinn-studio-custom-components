@@ -211,6 +211,18 @@ export interface TableHeader {
     styleOverride?: Record<string, string>;
 }
 
+/** What a table component is handed to draw: the headings, and one array of cells per row. */
+export interface TableData {
+    tableHeaders?: TableHeader[];
+    tableRows?: CellComponentProps[][];
+}
+
+/** The same for a matrix, which names its two halves for itself. */
+export interface MatrixData {
+    matrixHeaders?: TableHeader[];
+    matrixRows?: CellComponentProps[][];
+}
+
 /**
  * What one cell is handed, which is what any component is handed: the element to render, where its value came
  * from, and how to label it.

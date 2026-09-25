@@ -1,4 +1,4 @@
-import type { ComponentProps } from "../../../types.ts";
+import type { ComponentProps, TableData } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -20,6 +20,8 @@ import CustomComponent from "../CustomComponent.ts";
  * @property {Object} resourceValues - Stores the resource values provided in props.
  */
 export default class CustomTable extends CustomComponent {
+    declare resourceValues: { title?: unknown; data?: TableData | string };
+
     constructor(props: ComponentProps) {
         super(props);
         this.isEmpty = !this.hasContent(props);

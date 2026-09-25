@@ -1,4 +1,4 @@
-import type { CellComponentProps, InstantiatedComponent, TableHeader } from "../../../types.ts";
+import type { CellComponentProps, InstantiatedComponent, TableData, TableHeader } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addStyle, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -83,7 +83,8 @@ export function renderHeaderElement(title: string, size?: string) {
  * @returns {HTMLTableElement} The rendered table element.
  */
 export function renderTableElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the built table rather than the empty-field text.
+    const data = component?.resourceValues?.data as TableData | undefined;
     const styleOverride = component?.styleOverride;
 
     const table = document.createElement("table");
@@ -100,14 +101,14 @@ export function renderTableElement(component?: InstantiatedComponent | null) {
 
     if (data?.tableHeaders?.length && data?.tableRows?.length) {
         // Render table header elements
-        data.tableHeaders.forEach((tableHeader: TableHeader) => {
+        data.tableHeaders.forEach((tableHeader) => {
             tr.appendChild(renderTableHeaderElement(tableHeader));
         });
         thead.appendChild(tr);
         table.appendChild(thead);
         const tbody = document.createElement("tbody");
         // Render table rows
-        data.tableRows.forEach((tableRow: CellComponentProps[]) => {
+        data.tableRows.forEach((tableRow) => {
             tbody.appendChild(renderTableRowElement(tableRow));
         });
         table.appendChild(tbody);
