@@ -1,3 +1,4 @@
+import type DispensasjonOversikt from "../../../classes/data-classes/DispensasjonOversikt.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -29,7 +30,8 @@ export function renderHeaderElement(title: string, size = "h2") {
  * @returns {HTMLElement} The custom element with the specified attributes.
  */
 export function renderDispensasjonCount(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as DispensasjonOversikt | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -79,7 +81,8 @@ export function renderDispensasjonTable(component?: InstantiatedComponent | null
             }
         }
     ];
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as DispensasjonOversikt | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

@@ -56,7 +56,7 @@ export default class CustomGroupAdkomst extends CustomComponent {
     }
 
     /**
-     * Retrieves the value from form data and returns an instance of Avloep.
+     * Retrieves the value from form data and returns an instance of Adkomst.
      *
      * @param {Object} props - The properties containing form data.
      * @returns {Adkomst} An instance of Adkomst initialized with the component data value.

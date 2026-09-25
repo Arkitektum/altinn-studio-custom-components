@@ -1,3 +1,4 @@
+import type Avloep from "../../../classes/data-classes/Avloep.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -34,7 +35,8 @@ export function renderHeaderElement(title: string, size = "h3") {
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderTilknytningstypeElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Avloep | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -63,6 +65,8 @@ export function renderTilknytningstypeElement(component?: InstantiatedComponent 
  * @returns {HTMLElement} The rendered custom description element wrapped in a container.
  */
 export function renderBeskrivelseElement(component?: InstantiatedComponent | null) {
+    // Left unnarrowed on purpose: nothing imports this renderer, and the field it reads is one Avloep does not
+    // have. It is the vannforsyning renderer of the same name, where Vannforsyning does have a beskrivelse.
     const data = component?.resourceValues?.data;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
@@ -90,7 +94,8 @@ export function renderBeskrivelseElement(component?: InstantiatedComponent | nul
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderKrysserAvloepAnnensGrunnElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Avloep | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -126,7 +131,8 @@ export function renderKrysserAvloepAnnensGrunnElement(component?: InstantiatedCo
  * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
  */
 export function renderHarTinglystErklaeringElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Avloep | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -162,7 +168,8 @@ export function renderHarTinglystErklaeringElement(component?: InstantiatedCompo
  * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
  */
 export function renderSkalInstallereVannklosettElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Avloep | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -198,7 +205,8 @@ export function renderSkalInstallereVannklosettElement(component?: InstantiatedC
  * @returns {HTMLElement} The rendered custom boolean text field element wrapped in a container.
  */
 export function renderHarUtslippstillatelseElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Avloep | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,

@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../types.ts";
+import type Loefteinnretninger from "../../../classes/data-classes/Loefteinnretninger.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -34,7 +35,8 @@ export function renderHeaderElement(title: string, size = "h2") {
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderErLoefteinnretningIBygningElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Loefteinnretninger | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -61,7 +63,8 @@ export function renderErLoefteinnretningIBygningElement(component?: Instantiated
  * @returns {HTMLElement} The rendered custom field boolean text element wrapped in a container.
  */
 export function renderPlanleggesLoefteinnretningIBygningElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Loefteinnretninger | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -88,7 +91,8 @@ export function renderPlanleggesLoefteinnretningIBygningElement(component?: Inst
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderPlanlagteLoefteinnretningerElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Loefteinnretninger | undefined;
 
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,

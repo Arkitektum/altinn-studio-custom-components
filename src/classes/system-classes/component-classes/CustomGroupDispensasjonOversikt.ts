@@ -30,7 +30,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupDispensasjonOversikt extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: DispensasjonOversikt | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -57,7 +57,7 @@ export default class CustomGroupDispensasjonOversikt extends CustomComponent {
      * @param {*} props - The properties object containing form data.
      * @returns {DispensasjonOversikt} An instance of DispensasjonOversikt initialized with the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): DispensasjonOversikt {
         const data = getComponentDataValue(props);
         const dispensasjonOversikt = new DispensasjonOversikt(data as DispensasjonOversiktProps | undefined);
         return dispensasjonOversikt;

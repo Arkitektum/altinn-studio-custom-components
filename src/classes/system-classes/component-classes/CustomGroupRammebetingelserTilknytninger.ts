@@ -34,7 +34,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupRammebetingelserTilknytninger extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: RammebetingelserTilknytninger | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -62,7 +62,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
      * @param {Object} props - The properties containing form data for the component.
      * @returns {RammebetingelserTilknytninger} An instance of RammebetingelserTilknytninger initialized with the extracted data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): RammebetingelserTilknytninger {
         const data = getComponentDataValue(props);
         const rammebetingelserTilknytninger = new RammebetingelserTilknytninger(data as RammebetingelserTilknytningerProps | undefined);
         return rammebetingelserTilknytninger;

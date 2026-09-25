@@ -31,7 +31,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupLoefteinnretninger extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: Loefteinnretninger | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -58,7 +58,7 @@ export default class CustomGroupLoefteinnretninger extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {Loefteinnretninger} An instance of Loefteinnretninger initialized with the component data value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Loefteinnretninger {
         const data = getComponentDataValue(props);
         const avloep = new Loefteinnretninger(data as LoefteinnretningerProps | undefined);
         return avloep;

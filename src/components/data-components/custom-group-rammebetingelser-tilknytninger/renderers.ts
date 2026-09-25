@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../types.ts";
+import type RammebetingelserTilknytninger from "../../../classes/data-classes/RammebetingelserTilknytninger.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -38,7 +39,8 @@ export function renderHeaderElement(title: string, size = "h2") {
  * @returns {HTMLElement} The rendered custom "adkomst" element.
  */
 export function renderAdkomstElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as RammebetingelserTilknytninger | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -70,7 +72,8 @@ export function renderAdkomstElement(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom group avløp element.
  */
 export function renderAvloepElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as RammebetingelserTilknytninger | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -103,7 +106,8 @@ export function renderAvloepElement(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom "overvann" element.
  */
 export function renderOvervannElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as RammebetingelserTilknytninger | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -135,7 +139,8 @@ export function renderOvervannElement(component?: InstantiatedComponent | null) 
  * @returns {HTMLElement} The rendered vannforsyning custom element.
  */
 export function renderVannforsyningElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as RammebetingelserTilknytninger | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

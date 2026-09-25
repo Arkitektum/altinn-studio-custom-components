@@ -27,7 +27,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupRammebetingelserKravTilByggegrunn extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: KravTilByggegrunn | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -54,7 +54,7 @@ export default class CustomGroupRammebetingelserKravTilByggegrunn extends Custom
      * @param {*} props - The properties object containing form data.
      * @returns {KravTilByggegrunn} An instance of KravTilByggegrunn initialized with the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): KravTilByggegrunn {
         const data = getComponentDataValue(props);
         const kravTilByggegrunn = new KravTilByggegrunn(data as KravTilByggegrunnProps | undefined);
         return kravTilByggegrunn;

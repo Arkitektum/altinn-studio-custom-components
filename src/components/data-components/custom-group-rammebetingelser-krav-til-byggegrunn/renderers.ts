@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../types.ts";
+import type KravTilByggegrunn from "../../../classes/data-classes/KravTilByggegrunn.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -30,7 +31,8 @@ export function renderHeaderElement(title: string, size = "h2") {
  * @returns {HTMLElement} The created custom boolean field element.
  */
 export function renderHarMiljoeforholdElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as KravTilByggegrunn | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -53,7 +55,8 @@ export function renderHarMiljoeforholdElement(component?: InstantiatedComponent 
  * @returns {HTMLElement} The created custom table element.
  */
 export function renderOmraaderisiko(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data?.muligeOmraadeRisikoer?.omraadeRisiko;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = (component?.resourceValues?.data as KravTilByggegrunn | undefined)?.muligeOmraadeRisikoer?.omraadeRisiko;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

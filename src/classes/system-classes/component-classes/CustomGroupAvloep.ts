@@ -34,7 +34,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupAvloep extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: Avloep | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -61,7 +61,7 @@ export default class CustomGroupAvloep extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {Avloep} An instance of Avloep initialized with the component data value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Avloep {
         const data = getComponentDataValue(props);
         const avloep = new Avloep(data as AvloepProps | undefined);
         return avloep;

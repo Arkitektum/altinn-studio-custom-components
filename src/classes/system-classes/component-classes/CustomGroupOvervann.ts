@@ -35,7 +35,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupOvervann extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: Overvann | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -62,7 +62,7 @@ export default class CustomGroupOvervann extends CustomComponent {
      * @param {Object} props - The properties containing form data for the component.
      * @returns {Overvann} An instance of Overvann initialized with the extracted data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Overvann {
         const data = getComponentDataValue(props);
         const overvann = new Overvann(data as OvervannProps | undefined);
         return overvann;
