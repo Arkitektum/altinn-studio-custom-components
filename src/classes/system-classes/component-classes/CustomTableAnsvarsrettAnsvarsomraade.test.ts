@@ -141,7 +141,8 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
                 resourceValues: { title: "myTitle" }
             };
             const fakeBindings = { ansvarsomraader: { emptyFieldText: "empty" } };
-            const fakeData = ["data"];
+            // A stand-in for a built list: the test only checks it reaches hasContent and is stored as it came.
+            const fakeData = ["data"] as unknown as AnsvarsrettAnsvarsomraade[];
             const fakeValidationMessages = ["validation"];
             const fakeHasValidationMessages = true;
 

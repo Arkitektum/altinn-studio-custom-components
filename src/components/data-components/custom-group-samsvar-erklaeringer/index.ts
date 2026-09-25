@@ -1,3 +1,4 @@
+import type SamsvarAnsvarsomraade from "../../../classes/data-classes/SamsvarAnsvarsomraade.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -29,7 +30,7 @@ export default customElements.define(
                         const emptyFieldTextElement = renderEmptyFieldText(component);
                         host.appendChild(emptyFieldTextElement);
                     } else {
-                        component?.resourceValues?.data?.forEach((element: { funksjon?: { kodeverdi?: string } }) => {
+                        (component?.resourceValues?.data as SamsvarAnsvarsomraade[] | undefined)?.forEach((element) => {
                             funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase() as string);
                         });
 

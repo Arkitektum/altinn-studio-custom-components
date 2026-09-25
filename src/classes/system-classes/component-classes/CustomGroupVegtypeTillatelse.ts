@@ -1,4 +1,5 @@
 import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { VegtypeTillatelse } from "../data-classes/VegtypeTillatelseList.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -40,7 +41,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupVegtypeTillatelse extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: VegtypeTillatelse | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -64,8 +65,9 @@ export default class CustomGroupVegtypeTillatelse extends CustomComponent {
      * @param {Object} props - The properties containing form data for the component.
      * @returns {*} The value extracted from the form data for this component.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
-        const data = getComponentDataValue(props);
+    getValueFromFormData(props: ComponentProps): VegtypeTillatelse | undefined {
+        // One item off the list the parent grouplist built, which is what it hands each child.
+        const data = getComponentDataValue(props) as VegtypeTillatelse | undefined;
         return data;
     }
 

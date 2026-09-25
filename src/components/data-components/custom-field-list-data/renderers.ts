@@ -1,3 +1,4 @@
+import type { FieldListItem } from "../../../classes/system-classes/component-classes/CustomFieldListData.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -9,7 +10,7 @@ import { CustomElementHtmlAttributes, addContainerElement, createCustomElement }
  * @param {Object} resourceValues - The resource values to be passed to the custom element.
  * @returns {HTMLElement} The container element containing the custom field data element.
  */
-function renderCustomFieldDataElement(resourceValues: unknown) {
+function renderCustomFieldDataElement(resourceValues: FieldListItem) {
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         resourceValues
@@ -27,7 +28,7 @@ function renderCustomFieldDataElement(resourceValues: unknown) {
  */
 export function renderListFieldElement(component?: InstantiatedComponent | null) {
     const fieldListDataElement = document.createElement("div");
-    component?.resourceValues?.data?.forEach((item: unknown) => {
+    (component?.resourceValues?.data as FieldListItem[] | undefined)?.forEach((item) => {
         fieldListDataElement.appendChild(renderCustomFieldDataElement(item));
     });
     return fieldListDataElement;

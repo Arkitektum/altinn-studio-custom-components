@@ -1,3 +1,4 @@
+import type AnsvarsrettAnsvarsomraade from "../../../classes/data-classes/AnsvarsrettAnsvarsomraade.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -82,7 +83,7 @@ export function renderAnsvarsrettAnsvarsomraadeTable(component?: InstantiatedCom
         resourceValues: component?.resourceValues,
         resourceBindings: {
             title:
-                component?.resourceValues?.data?.length === 1
+                (component?.resourceValues?.data as AnsvarsrettAnsvarsomraade[] | undefined)?.length === 1
                     ? component?.resourceBindings?.ansvarsomraader?.titleSingle
                     : component?.resourceBindings?.ansvarsomraader?.titlePlural,
             emptyFieldText: component?.resourceBindings?.ansvarsomraader?.emptyFieldText

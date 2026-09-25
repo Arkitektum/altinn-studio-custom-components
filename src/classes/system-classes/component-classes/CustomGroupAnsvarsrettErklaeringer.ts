@@ -24,7 +24,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  */
 export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: AnsvarsrettAnsvarsomraade[] | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -51,7 +51,10 @@ export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent 
      * @param {Object} resourceBindings - The resource bindings used to extract specific data.
      * @returns {Array} The list of "ansvarsomraade" values extracted from the form data.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(
+        props: ComponentProps,
+        resourceBindings?: Record<string, ResourceBindingGroup | undefined>
+    ): AnsvarsrettAnsvarsomraade[] | undefined {
         const data = getComponentDataValue(props);
         const ansvarsomraadeList = this.getAnsvarsomraadeListFromData(data, resourceBindings);
         return ansvarsomraadeList;

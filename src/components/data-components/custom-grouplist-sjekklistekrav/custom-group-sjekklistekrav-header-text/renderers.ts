@@ -17,7 +17,8 @@ import { renderLayoutContainerElement } from "../../../../functions/helpers.ts";
  * @returns {HTMLElement} A container element with the custom field for the checklist item text
  */
 export function renderSjekklistepunkTextHeader(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as { sjekklistepunkt?: string; sjekklistepunktsvar?: string } | undefined;
     const grid = { xs: 11 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -43,7 +44,8 @@ export function renderSjekklistepunkTextHeader(component?: InstantiatedComponent
  * @returns {HTMLElement} A container element with the custom field for the checklist item value
  */
 export function renderSjekklistepunkValueHeader(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as { sjekklistepunkt?: string; sjekklistepunktsvar?: string } | undefined;
     const grid = { xs: 1 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,

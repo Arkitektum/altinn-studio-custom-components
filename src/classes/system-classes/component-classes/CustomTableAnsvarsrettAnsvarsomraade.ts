@@ -32,7 +32,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  *
  */
 export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown; simpleBinding?: unknown };
+    declare resourceValues: { title?: unknown; data?: AnsvarsrettAnsvarsomraade[] | string; simpleBinding?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 
     constructor(props: ComponentProps) {
@@ -61,7 +61,10 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
      * @param {Object} resourceBindings - The resource bindings used to extract specific data.
      * @returns {Array} The list of "ansvarsomraade" values extracted from the form data.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(
+        props: ComponentProps,
+        resourceBindings?: Record<string, ResourceBindingGroup | undefined>
+    ): AnsvarsrettAnsvarsomraade[] | undefined {
         const formDataWithoutSimpleBinding = { ...props.formData };
         delete formDataWithoutSimpleBinding.simpleBinding;
         const data = getComponentDataValue({ ...props, formData: formDataWithoutSimpleBinding });

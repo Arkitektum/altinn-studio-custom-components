@@ -1,3 +1,4 @@
+import type AnsvarsrettAnsvarsomraade from "../../../classes/data-classes/AnsvarsrettAnsvarsomraade.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -31,7 +32,7 @@ export default customElements.define(
                         const emptyFieldTextElement = renderEmptyFieldText(component);
                         host.appendChild(emptyFieldTextElement);
                     } else {
-                        component?.resourceValues?.data?.forEach((element: { funksjon?: { kodeverdi?: string } }) => {
+                        (component?.resourceValues?.data as AnsvarsrettAnsvarsomraade[] | undefined)?.forEach((element) => {
                             funksjonList.push(element.funksjon?.kodeverdi?.toUpperCase() as string);
                         });
 

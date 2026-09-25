@@ -7,7 +7,7 @@ import CustomComponent from "../CustomComponent.ts";
 
 export default class CustomGroupSjekklistekravHeaderText extends CustomComponent {
     declare resourceBindings: ResourceBindingGroup;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: { sjekklistepunkt?: string; sjekklistepunktsvar?: string } | string };
 
     constructor(props: ComponentProps) {
         super(props);

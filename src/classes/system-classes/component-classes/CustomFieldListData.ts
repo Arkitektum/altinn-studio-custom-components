@@ -8,6 +8,12 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+/** One entry of the list this component builds: a title and the value it labels, each taken from its own key. */
+export interface FieldListItem {
+    title: unknown;
+    data: unknown;
+}
+
 /**
  * CustomFieldListData is a custom component class for handling and transforming
  * list data structures, typically used in form data scenarios.
@@ -37,7 +43,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  */
 export default class CustomFieldListData extends CustomComponent {
     /** Only set when the component resolved a list, which is what leaves an unset one absent. */
-    declare resourceValues?: { data?: unknown };
+    declare resourceValues?: { data?: FieldListItem[] };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -86,7 +92,7 @@ export default class CustomFieldListData extends CustomComponent {
      * @returns {Array<{title: any, item: any}>|undefined} An array of objects each containing a title and item,
      *   or undefined if required keys are not present.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): FieldListItem[] | undefined {
         const dataItemKey = this.hasContent(props?.dataItemKey);
         const dataTitleItemKey = this.hasContent(props?.dataTitleItemKey);
         const data = getComponentDataValue(props);
