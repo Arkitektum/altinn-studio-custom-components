@@ -25,7 +25,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  */
 export default class CustomGroupKontrollErklaeringer extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: KontrollAnsvarsomraade | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -52,7 +52,7 @@ export default class CustomGroupKontrollErklaeringer extends CustomComponent {
      * @param {Object} resourceBindings - The resource bindings used for initialization.
      * @returns {KontrollAnsvarsomraade} An instance of KontrollAnsvarsomraade initialized with the extracted data and resource bindings.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): KontrollAnsvarsomraade {
         const data = getComponentDataValue(props);
         const kontrollAnsvarsomraade = new KontrollAnsvarsomraade(data as KontrollAnsvarsomraadeProps | undefined, resourceBindings);
         return kontrollAnsvarsomraade;

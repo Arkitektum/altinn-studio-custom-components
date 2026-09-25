@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../../types.ts";
+import type Sjekklistekrav from "../../../../classes/data-classes/Sjekklistekrav.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -36,7 +37,8 @@ export function renderHeaderElement(title: string, size = "h3") {
  * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
 export function renderSjekklistepunkText(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Sjekklistekrav | undefined;
     const grid = { xs: 11 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -67,7 +69,8 @@ export function renderSjekklistepunkText(component?: InstantiatedComponent | nul
  * @returns {HTMLElement} The rendered custom boolean text field wrapped in a container element.
  */
 export function renderSjekklistepunkValue(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Sjekklistekrav | undefined;
     const grid = { xs: 1 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,

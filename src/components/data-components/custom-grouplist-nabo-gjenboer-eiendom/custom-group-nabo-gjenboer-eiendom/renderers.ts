@@ -1,4 +1,5 @@
 import type { InstantiatedComponent } from "../../../../types.ts";
+import type NaboGjenboerEiendom from "../../../../classes/data-classes/NaboGjenboerEiendom.ts";
 // Dependencies
 import {
     CustomElementHtmlAttributes,
@@ -19,7 +20,8 @@ import {
  * @returns {HTMLElement} The rendered custom table element wrapped in a container.
  */
 export function renderNaboGjenboerEiendomElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -47,7 +49,8 @@ export function renderNaboGjenboerEiendomElement(component?: InstantiatedCompone
  * @returns {HTMLElement} The rendered custom table part element wrapped in a container.
  */
 export function renderEierPartElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -77,7 +80,8 @@ export function renderEierPartElement(component?: InstantiatedComponent | null) 
  * @returns {HTMLElement} The rendered custom address element wrapped in a container.
  */
 export function renderEierAdresseElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -103,7 +107,8 @@ export function renderEierAdresseElement(component?: InstantiatedComponent | nul
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsNabovarselSendtViaElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -132,7 +137,8 @@ export function renderResponsNabovarselSendtViaElement(component?: InstantiatedC
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsNabovarselSendtElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -160,7 +166,8 @@ export function renderResponsNabovarselSendtElement(component?: InstantiatedComp
  * @returns {HTMLElement} The custom element representing the response status.
  */
 export function renderResponsErMerknadEllerSamtykkeMottattElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const erMerknadMottatt = data?.respons?.erMerknadMottatt;
     const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
     let value: string | undefined = "";
@@ -202,7 +209,8 @@ export function renderResponsErMerknadEllerSamtykkeMottattElement(component?: In
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderResponsSamtykkeEllerMerknadMottattElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const erMerknadMottatt = data?.respons?.erMerknadMottatt;
     const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
     let value;

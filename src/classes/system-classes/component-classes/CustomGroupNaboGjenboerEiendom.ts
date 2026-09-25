@@ -32,7 +32,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: NaboGjenboerEiendom | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -59,7 +59,7 @@ export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
      * @param {Object} props - The properties containing form data for the component.
      * @returns {NaboGjenboerEiendom} An instance of NaboGjenboerEiendom initialized with the component data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): NaboGjenboerEiendom {
         const data = getComponentDataValue(props);
         const naboGjenboerEiendom = new NaboGjenboerEiendom(data as NaboGjenboerEiendomProps | undefined);
         return naboGjenboerEiendom;

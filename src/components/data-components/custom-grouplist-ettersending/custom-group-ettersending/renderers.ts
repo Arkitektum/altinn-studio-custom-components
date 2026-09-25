@@ -1,3 +1,4 @@
+import type Ettersending from "../../../../classes/data-classes/Ettersending.ts";
 import type { InstantiatedComponent } from "../../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -31,7 +32,8 @@ export function renderHeaderElement(title: string, size = "h3") {
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderTemaElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Ettersending | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -56,7 +58,8 @@ export function renderTemaElement(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom comment element wrapped in a container.
  */
 export function renderKommentarElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Ettersending | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: false,
@@ -82,7 +85,8 @@ export function renderKommentarElement(component?: InstantiatedComponent | null)
  * @returns {HTMLElement} The rendered custom list element wrapped in a container.
  */
 export function renderVedleggslisteElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Ettersending | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

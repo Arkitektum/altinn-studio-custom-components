@@ -28,7 +28,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupUtfallSvar extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: UtfallSvar | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -53,7 +53,7 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
      * @param {Object} props - The properties containing form data for the component.
      * @returns {UtfallSvar} An instance of UtfallSvar initialized with the component's data value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): UtfallSvar {
         const data = getComponentDataValue(props);
         const utfallSvar = new UtfallSvar(data as UtfallSvarProps | undefined);
         return utfallSvar;

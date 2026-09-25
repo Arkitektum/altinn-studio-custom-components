@@ -19,7 +19,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupEttersending extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: Ettersending | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -44,7 +44,7 @@ export default class CustomGroupEttersending extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {Ettersending} An instance of Ettersending initialized with the component data value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Ettersending {
         const data = getComponentDataValue(props);
         const ettersending = new Ettersending(data as EttersendingProps | undefined);
         return ettersending;

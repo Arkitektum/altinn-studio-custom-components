@@ -26,7 +26,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: SamsvarAnsvarsomraade | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -51,7 +51,7 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
      * @param {Object} props - The properties containing form data.
      * @returns {SamsvarAnsvarsomraade} An instance of SamsvarAnsvarsomraade initialized with the component data value.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): unknown {
+    getValueFromFormData(props: ComponentProps, resourceBindings?: Record<string, ResourceBindingGroup | undefined>): SamsvarAnsvarsomraade {
         const data = getComponentDataValue(props);
         const samsvarAnsvarsomraade = new SamsvarAnsvarsomraade(data as SamsvarAnsvarsomraadeProps | undefined, resourceBindings);
         return samsvarAnsvarsomraade;
