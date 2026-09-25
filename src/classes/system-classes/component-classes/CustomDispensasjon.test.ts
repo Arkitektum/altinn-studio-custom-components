@@ -28,6 +28,14 @@ describe("CustomDispensasjon", () => {
     });
 
     describe("constructor", () => {
+        it("shows the empty field text when there is no form data at all", () => {
+            // hasValue as it really behaves, rather than forced to one answer: it reports any boolean as content,
+            // which is what let an absent form data end up stored as false instead of the empty field text.
+            (hasValue as unknown as jest.Mock).mockImplementation((value: unknown) => value !== undefined && value !== null && value !== "");
+            const instance = new CustomDispensasjon({ formData: undefined } as unknown as ComponentProps);
+            expect(instance.isEmpty).toBe(true);
+            expect(instance.resourceValues.data).toBe("resourceValue:emptyFieldText");
+        });
         it("should set isEmpty to true if formData is empty", () => {
             (hasValue as unknown as jest.Mock).mockReturnValue(false);
             const instance = new CustomDispensasjon({ formData: "" } as unknown as ComponentProps);

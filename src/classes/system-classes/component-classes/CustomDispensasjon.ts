@@ -32,9 +32,7 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Values for resource bindings, including fallback for empty data.
  */
 export default class CustomDispensasjon extends CustomComponent {
-    // false is in the union because getValueFromFormData returns it for absent form data, and
-    // hasValue reports any boolean as content, so that false reaches here rather than the empty text.
-    declare resourceValues: { data?: Dispensasjon | string | false };
+    declare resourceValues: { data?: Dispensasjon | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -58,10 +56,10 @@ export default class CustomDispensasjon extends CustomComponent {
      *
      * @param {Object} props - The properties object containing form data.
      * @param {*} props.formData - The form data to be validated and used for instantiation.
-     * @returns {Dispensasjon|boolean} A new Dispensasjon instance if form data is valid, otherwise false.
+     * @returns {Dispensasjon|undefined} A new Dispensasjon instance if form data is present, otherwise undefined.
      */
-    getValueFromFormData(props: ComponentProps): Dispensasjon | false {
-        return hasValue(props?.formData) && new Dispensasjon(props.formData);
+    getValueFromFormData(props: ComponentProps): Dispensasjon | undefined {
+        return hasValue(props?.formData) ? new Dispensasjon(props.formData) : undefined;
     }
 
     /**

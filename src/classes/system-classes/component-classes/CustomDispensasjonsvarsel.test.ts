@@ -1,7 +1,6 @@
 import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
 
 import CustomDispensasjonsvarsel from "./CustomDispensasjonsvarsel.ts";
-import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.ts";
 
 // Mock dependencies
 jest.mock("../../layout-classes/Dispensasjonsvarsel", () => {
@@ -17,9 +16,6 @@ const mockHasMissingTextResources = jest.fn((bindings: object) => Object.keys(bi
 const prototype = CustomDispensasjonsvarsel.prototype as unknown as Record<string, unknown>;
 prototype.hasContent = mockHasValue;
 prototype.getValidationMessages = mockHasMissingTextResources;
-prototype.getValueFromFormData = function (props: ComponentProps) {
-    return mockHasValue(props?.formData) && new Dispensasjonsvarsel(props.formData);
-};
 prototype.getResourceBindings = function (props: ComponentProps) {
     return props.resourceBindings || {};
 };
@@ -56,9 +52,17 @@ describe("CustomDispensasjonsvarsel", () => {
         expect(instance.hasContent("")).toBe(false);
     });
 
-    it("getValueFromFormData returns Dispensasjonsvarsel instance or false", () => {
+    it("getValueFromFormData returns a Dispensasjonsvarsel instance, or undefined when there is no form data", () => {
         expect(instance.getValueFromFormData({ formData: { foo: "bar" } })).toEqual({ foo: "bar", mock: true });
-        expect(instance.getValueFromFormData({ formData: "" } as unknown as ComponentProps)).toBe(false);
+        expect(instance.getValueFromFormData({ formData: "" } as unknown as ComponentProps)).toBeUndefined();
+    });
+
+    it("shows the empty field text when there is no form data at all", () => {
+        // The real hasValue reports any boolean as content, which is how an absent form data used to end up stored
+        // as false rather than the empty field text.
+        const empty = new CustomDispensasjonsvarsel({ formData: undefined } as unknown as ComponentProps);
+        expect(empty.isEmpty).toBe(true);
+        expect(empty.resourceValues.data).not.toBe(false);
     });
 
     it("getValidationMessages returns correct value", () => {
