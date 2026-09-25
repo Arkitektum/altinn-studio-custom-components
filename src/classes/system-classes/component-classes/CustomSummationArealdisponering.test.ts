@@ -1,0 +1,255 @@
+import type { ResourceBindingGroup } from "../../../types.ts";
+
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import CustomSummationArealdisponering from "./CustomSummationArealdisponering.ts";
+
+// Mocks for dependencies
+jest.mock("../CustomComponent.ts", () => {
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
+    return class {
+        hasContent(data: unknown) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings: unknown) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
+});
+jest.mock("../../data-classes/Arealdisponering.ts", () => {
+    return jest.fn().mockImplementation((...args: unknown[]) => {
+        const data = args[0] as { bebyggelsen?: unknown; tomtearealet?: unknown };
+        return { ...data, bebyggelsen: data.bebyggelsen, tomtearealet: data.tomtearealet };
+    });
+});
+jest.mock("../data-classes/ArealdisponeringSummation.ts", () => {
+    return jest.fn().mockImplementation((...args: unknown[]) => {
+        const arealdisponering = args[0] as { bebyggelsen?: unknown; tomtearealet?: unknown };
+        return {
+            ...arealdisponering,
+            resourceBindings: args[1],
+            bebyggelsen: arealdisponering.bebyggelsen,
+            tomtearealet: arealdisponering.tomtearealet
+        };
+    });
+});
+jest.mock("../../../functions/helpers.ts", () => ({
+    getComponentDataValue: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResources: jest.fn()
+}));
+jest.mock("../../../functions/validations.ts", () => ({
+    hasMissingTextResources: jest.fn(),
+    hasValidationMessages: jest.fn()
+}));
+
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
+const { hasMissingTextResources, hasValidationMessages } = require("../../../functions/validations.ts");
+
+describe("CustomSummationArealdisponering", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    describe("constructor", () => {
+        it("should set isEmpty, validationMessages, hasValidationMessages, resourceBindings, and resourceValues correctly when data is present", () => {
+            const props = { resourceBindings: {} };
+            const fakeData = {
+                bebyggelsen: { resourceValues: { data: 1 } },
+                tomtearealet: { resourceValues: { data: 2 } }
+            };
+
+            getComponentDataValue.mockReturnValue(fakeData);
+            (hasValue as unknown as jest.Mock).mockImplementation((val) => !!val);
+            hasMissingTextResources.mockReturnValue(false);
+            hasValidationMessages.mockReturnValue(false);
+
+            const instance = new CustomSummationArealdisponering(props);
+
+            expect(instance.isEmpty).toBe(false);
+            expect(instance.validationMessages).toBe(false);
+            expect(instance.hasValidationMessages).toBe(false);
+            expect(instance.resourceBindings).toBeDefined();
+            expect(instance.resourceValues.data).toBeInstanceOf(Object);
+        });
+
+        it("should set isEmpty true and resourceValues.data to emptyFieldText when data is empty", () => {
+            const props = { resourceBindings: { emptyFieldText: "empty" } };
+            getComponentDataValue.mockReturnValue(undefined);
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+            (getTextResourceFromResourceBinding as unknown as jest.Mock).mockReturnValue("empty text");
+            hasMissingTextResources.mockReturnValue(false);
+            hasValidationMessages.mockReturnValue(false);
+
+            const instance = new CustomSummationArealdisponering(props);
+
+            expect(instance.isEmpty).toBe(true);
+            expect(instance.resourceValues.data).toBe("empty text");
+        });
+    });
+
+    describe("getValueFromFormData", () => {
+        it("should return undefined if hasValue returns false", () => {
+            const instance = new CustomSummationArealdisponering({});
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+            getComponentDataValue.mockReturnValue(undefined);
+
+            const result = instance.getValueFromFormData({}, {});
+            expect(result).toBeUndefined();
+        });
+
+        it("should return ArealdisponeringSummation if hasArealdisponeringSummationProps returns true", () => {
+            const instance = new CustomSummationArealdisponering({});
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            getComponentDataValue.mockReturnValue({ bebyggelsen: { resourceValues: { data: 1 } } });
+            jest.spyOn(instance, "hasArealdisponeringSummationProps").mockReturnValue(true);
+
+            const result = instance.getValueFromFormData({}, {});
+            expect(result).toBeDefined();
+            expect(instance.hasArealdisponeringSummationProps).toHaveBeenCalled();
+        });
+
+        it("should return undefined if hasArealdisponeringSummationProps returns false", () => {
+            const instance = new CustomSummationArealdisponering({});
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            getComponentDataValue.mockReturnValue({ bebyggelsen: { resourceValues: { data: 1 } } });
+            jest.spyOn(instance, "hasArealdisponeringSummationProps").mockReturnValue(false);
+
+            const result = instance.getValueFromFormData({}, {});
+            expect(result).toBeUndefined();
+        });
+    });
+
+    describe("hasArealdisponeringSummationProps", () => {
+        it("should return true if hasBebyggelsenData returns true", () => {
+            const instance = new CustomSummationArealdisponering({});
+            jest.spyOn(instance, "hasBebyggelsenData").mockReturnValue(true);
+            jest.spyOn(instance, "hasTomtearealetData").mockReturnValue(false);
+
+            expect(instance.hasArealdisponeringSummationProps({})).toBe(true);
+        });
+
+        it("should return true if hasTomtearealetData returns true", () => {
+            const instance = new CustomSummationArealdisponering({});
+            jest.spyOn(instance, "hasBebyggelsenData").mockReturnValue(false);
+            jest.spyOn(instance, "hasTomtearealetData").mockReturnValue(true);
+
+            expect(instance.hasArealdisponeringSummationProps({})).toBe(true);
+        });
+
+        it("should return false if both hasBebyggelsenData and hasTomtearealetData return false", () => {
+            const instance = new CustomSummationArealdisponering({});
+            jest.spyOn(instance, "hasBebyggelsenData").mockReturnValue(false);
+            jest.spyOn(instance, "hasTomtearealetData").mockReturnValue(false);
+
+            expect(instance.hasArealdisponeringSummationProps({})).toBe(false);
+        });
+    });
+
+    describe("hasBebyggelsenData", () => {
+        it("should return true if bebyggelsen.resourceValues.data has value", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            const instance = new CustomSummationArealdisponering({});
+            const obj = { bebyggelsen: { resourceValues: { data: 123 } } };
+            expect(instance.hasBebyggelsenData(obj)).toBe(true);
+        });
+
+        it("should return false if bebyggelsen.resourceValues.data does not have value", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+            const instance = new CustomSummationArealdisponering({});
+            const obj = { bebyggelsen: { resourceValues: { data: null } } };
+            expect(instance.hasBebyggelsenData(obj)).toBe(false);
+        });
+    });
+
+    describe("hasTomtearealetData", () => {
+        it("should return true if tomtearealet.resourceValues.data has value", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            const instance = new CustomSummationArealdisponering({});
+            const obj = { tomtearealet: { resourceValues: { data: 456 } } };
+            expect(instance.hasTomtearealetData(obj)).toBe(true);
+        });
+
+        it("should return false if tomtearealet.resourceValues.data does not have value", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+            const instance = new CustomSummationArealdisponering({});
+            const obj = { tomtearealet: { resourceValues: { data: null } } };
+            expect(instance.hasTomtearealetData(obj)).toBe(false);
+        });
+    });
+
+    describe("getValidationMessages", () => {
+        it("should call hasMissingTextResources with window.textResources if window is defined", () => {
+            // Set window.textResources before creating the instance
+            global.window = { textResources: ["a", "b"] } as unknown as Window & typeof globalThis;
+            hasMissingTextResources.mockReturnValue(true);
+            const instance = new CustomSummationArealdisponering({});
+            const result = instance.getValidationMessages({ foo: "bar" } as unknown as Record<string, ResourceBindingGroup>);
+            expect(result).toBe(true);
+            delete (global as { window?: unknown }).window;
+        });
+
+        it("should call hasMissingTextResources with empty array if window is undefined", () => {
+            hasMissingTextResources.mockReturnValue(false);
+            const instance = new CustomSummationArealdisponering({});
+            const result = instance.getValidationMessages({ foo: "bar" } as unknown as Record<string, ResourceBindingGroup>);
+            const calls = hasMissingTextResources.mock.calls;
+            expect(calls).toEqual(expect.arrayContaining([[{ foo: "bar" }]]));
+            expect(result).toBe(false);
+        });
+    });
+
+    describe("hasContent", () => {
+        it("should return true if hasValue returns true", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            const instance = new CustomSummationArealdisponering({});
+            expect(instance.hasContent("something")).toBe(true);
+        });
+
+        it("should return false if hasValue returns false", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+            const instance = new CustomSummationArealdisponering({});
+            expect(instance.hasContent(null)).toBe(false);
+        });
+    });
+
+    describe("getResourceBindings", () => {
+        it("should return default resource bindings if no props are provided", () => {
+            const instance = new CustomSummationArealdisponering({});
+            const result = instance.getResourceBindings({});
+            expect(result.tomtearealet!.title).toBe("resource.tomtearealet.title");
+            expect(result.bebyggelsen!.title).toBe("resource.rammebetingelser.arealdisponering.bebyggelsen.title");
+            expect(result.arealdisponering!.emptyFieldText).toBe("resource.emptyFieldText.default");
+        });
+
+        it("should override resource bindings with props.resourceBindings", () => {
+            const props = {
+                resourceBindings: {
+                    tomtearealet: { title: "custom.tomtearealet" },
+                    emptyFieldText: "custom.empty"
+                }
+            };
+            const instance = new CustomSummationArealdisponering(props);
+            const result = instance.getResourceBindings(props);
+            expect(result.tomtearealet!.title).toBe("custom.tomtearealet");
+            expect(result.arealdisponering!.emptyFieldText).toBe("custom.empty");
+        });
+
+        it("should not include part if hideIfEmpty is true", () => {
+            const props = { hideIfEmpty: true, resourceBindings: {} };
+            const instance = new CustomSummationArealdisponering(props);
+            const result = instance.getResourceBindings(props);
+            expect(result.part).toBeUndefined();
+        });
+
+        it('should not include part if hideIfEmpty is "true"', () => {
+            const props = { hideIfEmpty: "true", resourceBindings: {} };
+            const instance = new CustomSummationArealdisponering(props);
+            const result = instance.getResourceBindings(props);
+            expect(result.part).toBeUndefined();
+        });
+    });
+});

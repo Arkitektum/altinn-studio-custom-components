@@ -5,7 +5,7 @@ const ResourceGeneratorPlugin = require("./scripts/ResourceGeneratorPlugin");
 
 module.exports = {
     mode: "production",
-    entry: "./src/components/index.js",
+    entry: "./src/components/index.ts",
     output: {
         filename: "main.js",
         path: path.resolve(__dirname, "dist")
@@ -17,8 +17,16 @@ module.exports = {
             output: path.resolve(__dirname, "src/data")
         })
     ],
+    resolve: {
+        extensions: [".ts", ".js"]
+    },
     module: {
         rules: [
+            {
+                test: /\.ts$/i,
+                exclude: /node_modules/,
+                use: "babel-loader"
+            },
             {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]

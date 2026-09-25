@@ -1,0 +1,223 @@
+import type { ApiValue } from "../types.ts";
+// Local functions
+import { showLoadingIndicator } from "./renderers.ts";
+
+// Data
+import defaultTextResources from "../../../src/data/resources.json";
+
+// Webpack's Dotenv plugin substitutes this at build time, so `process` is not a runtime global here.
+const API_PORT = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env?.API_PORT || 9001;
+
+/**
+ * Fetches display layouts from the local API endpoint.
+ *
+ * @async
+ * @function fetchDisplayLayouts
+ * @returns {Promise<Object>} A promise that resolves to the JSON response containing display layouts.
+ * @throws {Error} If the fetch request fails or the response is not OK.
+ */
+export async function fetchDisplayLayouts() {
+    const url = `http://localhost:${API_PORT}/api/displayLayouts`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch DisplayLayout.json: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching DisplayLayout.json:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches the available package versions from the local API.
+ *
+ * Makes a GET request to `http://localhost:9001/api/packageVersions` and returns the parsed JSON response.
+ * Throws an error if the request fails or the response is not OK.
+ *
+ * @async
+ * @returns {Promise<Object>} A promise that resolves to the JSON object containing package versions.
+ * @throws {Error} If the fetch request fails or the response is not OK.
+ */
+export async function fetchPackageVersions() {
+    const url = `http://localhost:${API_PORT}/api/packageVersions`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch package.json files: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching package.json files:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches the latest package versions from the local API.
+ *
+ * Makes a GET request to `http://localhost:9001/api/latestPackageVersions` and returns the parsed JSON response.
+ * Throws an error if the request fails or the response is not OK.
+ *
+ * @async
+ * @function fetchLatestPackageVersions
+ * @returns {Promise<Object>} A promise that resolves to the JSON object containing the latest package versions.
+ * @throws {Error} If the fetch request fails or the response is not OK.
+ */
+export async function fetchLatestPackageVersions() {
+    const url = `http://localhost:${API_PORT}/api/latestPackageVersions`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch latest package versions: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching latest package versions:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches application resource values for a given language.
+ *
+ * @param {string} language - The language code to fetch resources for.
+ * @returns {Promise<Object>} A promise that resolves to the app resource values as a JSON object.
+ * @throws {Error} If the fetch request fails or the response is not OK.
+ */
+export async function fetchAppResources(language?: string) {
+    const url = `http://localhost:${API_PORT}/api/appResources?language=${language}`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch app resource values: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching app resource values:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches default text resources from the local API endpoint.
+ *
+ * @function fetchDefaultTextResources
+ * @returns {Object} The default text resources as a JSON object.
+ */
+export function fetchDefaultTextResources() {
+    return defaultTextResources;
+}
+
+/**
+ * Fetches example data from the local API endpoint.
+ *
+ * @async
+ * @function fetchExampleData
+ * @returns {Promise<Object>} A promise that resolves to the example data as a JSON object.
+ * @throws {Error} If the network request fails or the response is not OK.
+ */
+export async function fetchExampleData() {
+    const url = `http://localhost:${API_PORT}/api/exampleData`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch example data: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching example data:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches application metadata from the local API endpoint.
+ *
+ * @async
+ * @function fetchApplicationMetadata
+ * @returns {Promise<Object>} A promise that resolves to the application metadata as a JSON object.
+ * @throws {Error} If the network request fails or the response is not OK.
+ */
+export async function fetchApplicationMetadata() {
+    const url = `http://localhost:${API_PORT}/api/applicationMetadata`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch application metadata: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching application metadata:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches Altinn Studio forms from the local API.
+ *
+ * Makes a GET request to the `/api/altinnStudioForms` endpoint on localhost.
+ * Throws an error if the request fails or the response is not OK.
+ *
+ * @async
+ * @function fetchAltinnStudioForms
+ * @returns {Promise<Object[]>} A promise that resolves to an array of Altinn Studio form objects.
+ * @throws {Error} If the fetch operation fails or the response is not OK.
+ */
+export async function fetchAltinnStudioForms() {
+    const url = `http://localhost:${API_PORT}/api/altinnStudioForms`;
+    return fetch(url)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch Altinn Studio forms: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .catch((error: ApiValue) => {
+            console.error("Error fetching Altinn Studio forms:", error);
+            throw error;
+        });
+}
+
+/**
+ * Fetches updated API data required for the application.
+ * Initiates parallel requests for default text resources, display layouts, package versions,
+ * application resource values, and example data. Displays a loading indicator while fetching.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array>} A promise that resolves to an array containing:
+ *   [multilingualDefaultTextResources, layouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata]
+ */
+export async function getUpdatedApiData() {
+    const layoutsPromise = fetchDisplayLayouts();
+    const packageVersionsPromise = fetchPackageVersions();
+    const latestPackageVersionsPromise = fetchLatestPackageVersions();
+    const multilingualAppResourceValuesPromise = fetchAppResources();
+    const exampleDataPromise = fetchExampleData();
+    const applicationMetadataPromise = fetchApplicationMetadata();
+
+    showLoadingIndicator([
+        layoutsPromise,
+        packageVersionsPromise,
+        latestPackageVersionsPromise,
+        multilingualAppResourceValuesPromise,
+        exampleDataPromise,
+        applicationMetadataPromise
+    ]);
+    return Promise.all([
+        layoutsPromise,
+        packageVersionsPromise,
+        latestPackageVersionsPromise,
+        multilingualAppResourceValuesPromise,
+        exampleDataPromise,
+        applicationMetadataPromise
+    ]);
+}

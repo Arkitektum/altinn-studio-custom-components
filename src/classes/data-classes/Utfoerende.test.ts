@@ -1,0 +1,45 @@
+import MidlertidigBrukstillatelse from "./MidlertidigBrukstillatelse.ts";
+import Utfoerende from "./Utfoerende.ts";
+
+jest.mock("./MidlertidigBrukstillatelse");
+
+describe("Utfoerende", () => {
+    beforeEach(() => {
+        (MidlertidigBrukstillatelse as unknown as jest.Mock).mockClear();
+    });
+
+    it("should create an instance with midlertidigBrukstillatelse and erOkForFerdigattest", () => {
+        const mbData = { some: "data" };
+        const props = {
+            midlertidigBrukstillatelse: mbData,
+            erOkForFerdigattest: true
+        };
+
+        const instance = new Utfoerende(props as never);
+
+        expect(MidlertidigBrukstillatelse).toHaveBeenCalledWith(mbData);
+        expect(instance.midlertidigBrukstillatelse).toBeInstanceOf(MidlertidigBrukstillatelse);
+        expect(instance.erOkForFerdigattest).toBe(true);
+    });
+
+    it("should set midlertidigBrukstillatelse to undefined if not provided", () => {
+        const props = { erOkForFerdigattest: false };
+        const instance = new Utfoerende(props as never);
+
+        expect(MidlertidigBrukstillatelse).not.toHaveBeenCalled();
+        expect(instance.midlertidigBrukstillatelse).toBeUndefined();
+        expect(instance.erOkForFerdigattest).toBe(false);
+    });
+
+    it("should handle missing props gracefully", () => {
+        const instance = new Utfoerende({} as never);
+        expect(instance.midlertidigBrukstillatelse).toBeUndefined();
+        expect(instance.erOkForFerdigattest).toBeUndefined();
+    });
+
+    it("should handle undefined props gracefully", () => {
+        const instance = new Utfoerende();
+        expect(instance.midlertidigBrukstillatelse).toBeUndefined();
+        expect(instance.erOkForFerdigattest).toBeUndefined();
+    });
+});

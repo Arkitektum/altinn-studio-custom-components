@@ -1,0 +1,141 @@
+import type { ResourceBindingGroup } from "../../../types.ts";
+
+import { getTextResourceFromResourceBinding, getTextResources, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
+import CustomComponent from "../CustomComponent.ts";
+import CustomGroupUtfallSvar from "./CustomGroupUtfallSvar.ts";
+import UtfallSvar from "../../data-classes/UtfallSvar.ts";
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+
+// Mocks for helpers and validations
+jest.mock("../../../functions/helpers", () => ({
+    getComponentDataValue: jest.fn()
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn(),
+    getTextResourceFromResourceBinding: jest.fn(),
+    getTextResources: jest.fn()
+}));
+jest.mock("../../../functions/validations", () => ({
+    hasMissingTextResources: jest.fn(),
+    hasValidationMessages: jest.fn()
+}));
+
+describe("CustomGroupUtfallSvar", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it("should extend CustomComponent", () => {
+        const instance = new CustomGroupUtfallSvar({});
+        expect(instance instanceof CustomComponent).toBe(true);
+    });
+
+    it("should set isEmpty to true if hasContent returns false", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+        (getComponentDataValue as unknown as jest.Mock).mockReturnValue("someData");
+        (getTextResourceFromResourceBinding as unknown as jest.Mock).mockReturnValue("emptyText");
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue(false);
+        (hasValidationMessages as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = {};
+        const instance = new CustomGroupUtfallSvar(props);
+
+        expect(instance.isEmpty).toBe(true);
+        expect(instance.resourceValues.data).toBe("emptyText");
+    });
+
+    it("should set isEmpty to false if hasContent returns true", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        (getComponentDataValue as unknown as jest.Mock).mockReturnValue("someData");
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue(false);
+        (hasValidationMessages as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = {};
+        const instance = new CustomGroupUtfallSvar(props);
+
+        expect(instance.isEmpty).toBe(false);
+        expect(instance.resourceValues.data).toBeInstanceOf(UtfallSvar);
+    });
+
+    it("should set hasValidationMessages based on hasValidationMessages helper", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        (getComponentDataValue as unknown as jest.Mock).mockReturnValue("someData");
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue("validationMessages");
+        (hasValidationMessages as unknown as jest.Mock).mockReturnValue(true);
+
+        const props = {};
+        const instance = new CustomGroupUtfallSvar(props);
+
+        expect(instance.hasValidationMessages).toBe(true);
+        expect(instance.validationMessages).toBe("validationMessages");
+    });
+
+    it("should use custom emptyFieldText from props.resourceBindings", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+        (getComponentDataValue as unknown as jest.Mock).mockReturnValue("someData");
+        (getTextResourceFromResourceBinding as unknown as jest.Mock).mockReturnValue("customEmptyText");
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue(false);
+        (hasValidationMessages as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = {
+            resourceBindings: {
+                emptyFieldText: "custom.empty.text"
+            }
+        };
+        const instance = new CustomGroupUtfallSvar(props);
+
+        expect(instance.resourceBindings.utfallSvar!.emptyFieldText).toBe("custom.empty.text");
+        expect(instance.resourceValues.data).toBe("customEmptyText");
+    });
+
+    it("should not set emptyFieldText if hideIfEmpty is true", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        (getComponentDataValue as unknown as jest.Mock).mockReturnValue("someData");
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue(false);
+        (hasValidationMessages as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = {
+            hideIfEmpty: true
+        };
+        const instance = new CustomGroupUtfallSvar(props);
+
+        expect(instance.resourceBindings.emptyFieldText).toBeUndefined();
+    });
+
+    it("getResourceBindings should return default bindings and emptyFieldText if hideIfEmpty is not true", () => {
+        const instance = new CustomGroupUtfallSvar({});
+        const bindings = instance.getResourceBindings({});
+        expect(bindings.utfallSvarStatus?.title).toBeDefined();
+        expect(bindings.utfallSvar!.emptyFieldText).toBe("resource.emptyFieldText.default");
+    });
+
+    it("getResourceBindings should not include emptyFieldText if hideIfEmpty is true", () => {
+        const instance = new CustomGroupUtfallSvar({});
+        const bindings = instance.getResourceBindings({ hideIfEmpty: true });
+        expect(bindings.utfallSvar?.emptyFieldText).toBeUndefined();
+    });
+
+    it("hasContent should delegate to hasValue", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        const instance = new CustomGroupUtfallSvar({});
+        expect(instance.hasContent("data")).toBe(true);
+        expect(hasValue).toHaveBeenCalledWith("data");
+    });
+
+    it("getValidationMessages should call hasMissingTextResources with textResources and resourceBindings", () => {
+        (getTextResources as unknown as jest.Mock).mockReturnValue("resources");
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue("missing");
+        const instance = new CustomGroupUtfallSvar({});
+        const result = instance.getValidationMessages("bindings" as unknown as Record<string, ResourceBindingGroup>);
+        expect(hasMissingTextResources).toHaveBeenCalledWith("bindings" as unknown as Record<string, ResourceBindingGroup>);
+        expect(result).toBe("missing");
+    });
+
+    it("getValueFromFormData should return UtfallSvar instance", () => {
+        (getComponentDataValue as unknown as jest.Mock).mockReturnValue("data");
+        const instance = new CustomGroupUtfallSvar({});
+        const result = instance.getValueFromFormData({});
+        expect(result).toBeInstanceOf(UtfallSvar);
+    });
+});

@@ -1,0 +1,158 @@
+import type { ComponentProps } from "../../../types.ts";
+
+import CustomGroupVannforsyning from "./CustomGroupVannforsyning.ts";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+const { hasMissingTextResources } = require("../../../functions/validations.ts");
+const Vannforsyning = require("../../data-classes/Vannforsyning.ts");
+
+// Mocks
+jest.mock("../CustomComponent.ts", () => {
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
+    return class {
+        hasContent(data: unknown) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings: unknown) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
+});
+jest.mock("../../data-classes/Vannforsyning.ts", () => {
+    return jest.fn().mockImplementation((...args: unknown[]) => ({ ...(args[0] as object), __isVannforsyning: true }));
+});
+jest.mock("../../../functions/helpers.ts", () => ({
+    getComponentDataValue: jest.fn((props: ComponentProps) => props.formData || null)
+}));
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn((val: unknown) => val !== undefined && val !== null && val !== ""),
+    getTextResourceFromResourceBinding: jest.fn((key: string) => `RES_${key}`),
+    getTextResources: jest.fn(() => ({ a: "A", b: "B" }))
+}));
+jest.mock("../../../functions/validations.ts", () => ({
+    hasMissingTextResources: jest.fn(() => false),
+    hasValidationMessages: jest.fn((messages) => !!messages)
+}));
+
+const { getComponentDataValue } = require("../../../functions/helpers.ts");
+
+describe("CustomGroupVannforsyning", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it("should initialize with default resource bindings and values", () => {
+        getComponentDataValue.mockReturnValue({ foo: "bar" });
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+
+        const props = { formData: { foo: "bar" } } as unknown as ComponentProps;
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.isEmpty).toBe(false);
+        expect(instance.resourceBindings.vannforsyning!.title).toBe("resource.vannforsyning.title");
+        expect(instance.resourceValues.title).toBeUndefined();
+        expect(instance.resourceValues.data).toEqual({ foo: "bar", __isVannforsyning: true });
+        expect(instance.hasValidationMessages).toBe(false);
+        expect(Vannforsyning).toHaveBeenCalledWith({ foo: "bar" });
+    });
+
+    it("should use resourceValues.title if provided", () => {
+        getComponentDataValue.mockReturnValue({ foo: "bar" });
+        (hasValue as unknown as jest.Mock).mockImplementation((val) => !!val);
+
+        const props = {
+            formData: { foo: "bar" },
+            resourceValues: { title: "Custom Title" }
+        };
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.resourceValues.title).toBe("Custom Title");
+    });
+
+    it("should set isEmpty true if no content", () => {
+        getComponentDataValue.mockReturnValue(null);
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = { formData: null };
+        const instance = new CustomGroupVannforsyning(props as unknown as ComponentProps);
+
+        expect(instance.isEmpty).toBe(true);
+        expect(instance.resourceValues.data).toBe("RES_resource.emptyFieldText.default");
+    });
+
+    it("should omit vannforsyning.title if hideTitle is true", () => {
+        const props = { hideTitle: true };
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.resourceBindings.vannforsyning?.title).toBeUndefined();
+    });
+
+    it('should omit vannforsyning.title if hideTitle is "true"', () => {
+        const props = { hideTitle: "true" };
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.resourceBindings.vannforsyning?.title).toBeUndefined();
+    });
+
+    it("should omit vannforsyning.emptyFieldText if hideIfEmpty is true", () => {
+        const props = { hideIfEmpty: true };
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.resourceBindings.vannforsyning?.emptyFieldText).toBeUndefined();
+    });
+
+    it('should omit vannforsyning.emptyFieldText if hideIfEmpty is "true"', () => {
+        const props = { hideIfEmpty: "true" };
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.resourceBindings.vannforsyning?.emptyFieldText).toBeUndefined();
+    });
+
+    it("should use custom resourceBindings if provided", () => {
+        const props = {
+            resourceBindings: {
+                beskrivelse: { title: "custom.beskrivelse.title" },
+                title: "custom.vannforsyning.title",
+                emptyFieldText: "custom.emptyFieldText"
+            }
+        };
+        const instance = new CustomGroupVannforsyning(props);
+
+        expect(instance.resourceBindings.beskrivelse!.title).toBe("custom.beskrivelse.title");
+        expect(instance.resourceBindings.vannforsyning!.title).toBe("custom.vannforsyning.title");
+        expect(instance.resourceBindings.vannforsyning!.emptyFieldText).toBe("custom.emptyFieldText");
+    });
+
+    it("hasContent returns true for non-empty data", () => {
+        const instance = new CustomGroupVannforsyning({});
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        expect(instance.hasContent("abc")).toBe(true);
+    });
+
+    it("hasContent returns false for empty data", () => {
+        const instance = new CustomGroupVannforsyning({});
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+        expect(instance.hasContent("")).toBe(false);
+    });
+
+    it("getValidationMessages returns result from hasMissingTextResources", () => {
+        const instance = new CustomGroupVannforsyning({});
+        hasMissingTextResources.mockReturnValue(["missing"]);
+        expect(instance.getValidationMessages({})).toEqual(["missing"]);
+    });
+
+    it("getValueFromFormData returns Vannforsyning instance", () => {
+        getComponentDataValue.mockReturnValue({ foo: "bar" });
+        const instance = new CustomGroupVannforsyning({});
+        const result = instance.getValueFromFormData({ formData: { foo: "bar" } });
+        expect(result).toEqual({ foo: "bar", __isVannforsyning: true });
+    });
+
+    it("getResourceBindings returns defaults if not provided", () => {
+        const instance = new CustomGroupVannforsyning({});
+        const bindings = instance.getResourceBindings({});
+        expect(bindings.beskrivelse!.title).toBe("resource.beskrivelse.title");
+        expect(bindings.vannforsyning!.title).toBe("resource.vannforsyning.title");
+        expect(bindings.vannforsyning!.emptyFieldText).toBe("resource.emptyFieldText.default");
+    });
+});

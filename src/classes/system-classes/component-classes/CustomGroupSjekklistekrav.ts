@@ -1,0 +1,101 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { SjekklistekravProps } from "../../data-classes/Sjekklistekrav.ts";
+// Dependencies
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+import Sjekklistekrav from "../../data-classes/Sjekklistekrav.ts";
+
+// Global functions
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
+
+/**
+ * CustomGroupSjekklistekrav is a specialized component class for handling "Sjekklistekrav" group logic.
+ * It extends CustomComponent and manages resource bindings, validation messages, and content state.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties for initializing the component.
+ * @param {Object} [props.resourceBindings] - Resource binding values for text resources.
+ * @param {string} [props.resourceBindings.trueText] - Text to display for a true value.
+ * @param {string} [props.resourceBindings.falseText] - Text to display for a false value.
+ * @param {string} [props.resourceBindings.defaultText] - Default text to display.
+ * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when the field is empty.
+ * @param {boolean|string} [props.hideIfEmpty] - Determines if the empty field text should be hidden.
+ *
+ * @property {boolean} isEmpty - Indicates if the component data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for missing text resources.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceBindings - Resource bindings for sjekklistekrav.
+ * @property {Object} resourceValues - Contains either the empty field text or the component data.
+ */
+export default class CustomGroupSjekklistekrav extends CustomComponent {
+    declare resourceBindings: ResourceBindingGroup;
+    declare resourceValues: { data?: Sjekklistekrav | string };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
+
+        const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+
+        this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = resourceBindings?.sjekklistekrav || {};
+        this.resourceValues = {
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.sjekklistekrav?.emptyFieldText) : data
+        };
+    }
+
+    /**
+     * Retrieves the value from form data and returns a Sjekklistekrav instance.
+     *
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {Sjekklistekrav} An instance of Sjekklistekrav initialized with the component data.
+     */
+    getValueFromFormData(props: ComponentProps): Sjekklistekrav {
+        const data = getComponentDataValue(props);
+        const sjekklistekrav = new Sjekklistekrav(data as SjekklistekravProps | undefined);
+        return sjekklistekrav;
+    }
+
+    /**
+     * Generates resource bindings for a component based on provided props.
+     *
+     * @param {Object} props - The properties object containing resource bindings and options.
+     * @param {Object} [props.resourceBindings] - Resource binding values.
+     * @param {string} [props.resourceBindings.trueText] - Text to display for a true value.
+     * @param {string} [props.resourceBindings.falseText] - Text to display for a false value.
+     * @param {string} [props.resourceBindings.defaultText] - Default text to display.
+     * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when the field is empty.
+     * @param {boolean|string} [props.hideIfEmpty] - Determines if the empty field text should be hidden.
+     * @returns {Object} An object containing the resource bindings for 'sjekklistekrav'.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        const resourceBindings: ResourceBindingGroup = {
+            trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
+            falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
+            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
+        };
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";
+        }
+        return {
+            sjekklistekrav: resourceBindings
+        };
+    }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-feedbacklist-validation-messages", "custom-field", "custom-field-boolean-text", "custom-header-text", "custom-paragraph"];
+    }
+}

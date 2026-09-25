@@ -1,0 +1,21 @@
+// Global functions
+import { renderCustomComponent } from "../../../functions/componentRenderHelpers.ts";
+
+// Local functions
+import { renderListFieldElement } from "./renderers.ts";
+
+export default customElements.define(
+    "custom-field-list-data",
+    class extends HTMLElement {
+        connectedCallback() {
+            renderCustomComponent(this, {
+                type: "data",
+                render: (host, component) => {
+                    const fieldListDataElement = renderListFieldElement(component);
+                    host.innerHTML = "";
+                    host.appendChild(fieldListDataElement);
+                }
+            });
+        }
+    }
+);

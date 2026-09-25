@@ -1,0 +1,90 @@
+import Kode from "./Kode.ts";
+import Tiltakstyper from "./Tiltakstyper.ts";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+jest.mock("./Kode");
+jest.mock("@arkitektum/altinn-studio-custom-components-utils");
+
+describe("Tiltakstyper", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    describe("constructor", () => {
+        it("should initialize type when props are provided", () => {
+            const mockProps = { type: { kode: ["code1", "code2"] } };
+            jest.mocked(hasValue).mockReturnValue(true);
+            (Kode as unknown as jest.Mock).mockImplementation((item) => ({ value: item }));
+
+            const instance = new Tiltakstyper(mockProps as never);
+
+            expect(instance.type).toEqual({
+                kode: [{ value: "code1" }, { value: "code2" }]
+            });
+        });
+
+        it("should not initialize type when props are not provided", () => {
+            const instance = new Tiltakstyper();
+
+            expect(instance.type).toBeUndefined();
+        });
+    });
+
+    describe("getTypeFromProps", () => {
+        it("should return type object when props.type is valid", () => {
+            const mockProps = { type: { kode: ["code1", "code2"] } };
+            jest.mocked(hasValue).mockReturnValue(true);
+            (Kode as unknown as jest.Mock).mockImplementation((item) => ({ value: item }));
+
+            const instance = new Tiltakstyper();
+            const result = instance.getTypeFromProps(mockProps as never);
+
+            expect(result).toEqual({
+                kode: [{ value: "code1" }, { value: "code2" }]
+            });
+        });
+
+        it("should return null when props.type is invalid", () => {
+            const mockProps = { type: null };
+            jest.mocked(hasValue).mockReturnValue(false);
+
+            const instance = new Tiltakstyper();
+            const result = instance.getTypeFromProps(mockProps as never);
+
+            expect(result).toBeNull();
+        });
+    });
+
+    describe("getKodeFromType", () => {
+        it("should return an array of Kode instances when type.kode is valid", () => {
+            const mockType = { kode: ["code1", "code2"] };
+            (Kode as unknown as jest.Mock).mockImplementation((item) => ({ value: item }));
+
+            const instance = new Tiltakstyper();
+            const result = instance.getKodeFromType(mockType as never);
+
+            expect(result).toEqual([{ value: "code1" }, { value: "code2" }]);
+            expect(Kode).toHaveBeenCalledTimes(2);
+            expect(Kode).toHaveBeenCalledWith("code1");
+            expect(Kode).toHaveBeenCalledWith("code2");
+        });
+
+        it("should return null when type.kode is invalid", () => {
+            const mockType = { kode: null };
+
+            const instance = new Tiltakstyper();
+            const result = instance.getKodeFromType(mockType as never);
+
+            expect(result).toBeNull();
+        });
+
+        it("should return null when type.kode is an empty array", () => {
+            const mockType = { kode: [] };
+
+            const instance = new Tiltakstyper();
+            const result = instance.getKodeFromType(mockType as never);
+
+            expect(result).toBeNull();
+        });
+    });
+});

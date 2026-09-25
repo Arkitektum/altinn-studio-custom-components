@@ -1,0 +1,70 @@
+import CustomParagraph from "./CustomParagraph.ts";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Mock CustomComponent since it's a superclass
+jest.mock("../CustomComponent.ts", () => {
+    const { hasValue } = require("@arkitektum/altinn-studio-custom-components-utils");
+    const { hasMissingTextResources } = require("../../../functions/validations.ts");
+    return class {
+        hasContent(data: unknown) {
+            return hasValue(data);
+        }
+        getValidationMessages(resourceBindings: unknown) {
+            return hasMissingTextResources(resourceBindings);
+        }
+    };
+});
+
+// Mock hasValue helper
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
+}));
+
+describe("CustomParagraph", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it("should set isEmpty to false if resourceValues.title has value", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        const props = { resourceValues: { title: "Hello" } };
+        const paragraph = new CustomParagraph(props);
+        expect(paragraph.isEmpty).toBe(false);
+        expect(paragraph.resourceValues).toEqual(props.resourceValues);
+        expect(hasValue).toHaveBeenCalledWith("Hello");
+    });
+
+    it("should set isEmpty to true if resourceValues.title is empty", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+        const props = { resourceValues: { title: "" } };
+        const paragraph = new CustomParagraph(props);
+        expect(paragraph.isEmpty).toBe(true);
+        expect(paragraph.resourceValues).toEqual(props.resourceValues);
+        expect(hasValue).toHaveBeenCalledWith("");
+    });
+
+    it("should set isEmpty to true if resourceValues is undefined", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+        const props = {};
+        const paragraph = new CustomParagraph(props);
+        expect(paragraph.isEmpty).toBe(true);
+        expect(paragraph.resourceValues).toBeUndefined();
+        expect(hasValue).toHaveBeenCalledWith(undefined);
+    });
+
+    it("hasContent should return true if hasValue returns true", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+        const props = { resourceValues: { title: "Test" } };
+        const paragraph = new CustomParagraph({});
+        expect(paragraph.hasContent(props)).toBe(true);
+        expect(hasValue).toHaveBeenCalledWith("Test");
+    });
+
+    it("hasContent should return false if hasValue returns false", () => {
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+        const props = { resourceValues: { title: "" } };
+        const paragraph = new CustomParagraph({});
+        expect(paragraph.hasContent(props)).toBe(false);
+        expect(hasValue).toHaveBeenCalledWith("");
+    });
+});

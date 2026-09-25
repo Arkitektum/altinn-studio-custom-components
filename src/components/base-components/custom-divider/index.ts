@@ -1,0 +1,23 @@
+// Dependencies
+import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Global functions
+import { addDevToolsOverlay } from "../../../functions/devToolsHelpers.ts";
+import { instantiateComponent } from "../../../functions/componentHelpers.ts";
+
+// Stylesheet
+import "./styles.css" with { type: "css" };
+
+export default customElements.define(
+    "custom-divider",
+    class extends HTMLElement {
+        connectedCallback() {
+            const component = instantiateComponent(this);
+            const dividerElement = document.createElement("hr");
+            addStyle(dividerElement, component?.styleOverride);
+            this.innerHTML = "";
+            this.appendChild(dividerElement);
+            addDevToolsOverlay(this, component, "base");
+        }
+    }
+);

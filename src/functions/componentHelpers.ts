@@ -1,0 +1,209 @@
+// Classes
+import CustomComponent from "../classes/system-classes/CustomComponent.ts";
+import CustomDescriptionList from "../classes/system-classes/component-classes/CustomDescriptionList.ts";
+import CustomDescriptionListData from "../classes/system-classes/component-classes/CustomDescriptionListData.ts";
+import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.ts";
+import CustomDispensasjonsvarsel from "../classes/system-classes/component-classes/CustomDispensasjonsvarsel.ts";
+import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.ts";
+import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.ts";
+import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.ts";
+import CustomFeedbacklistData from "../classes/system-classes/component-classes/CustomFeedbacklistData.ts";
+import CustomFeedbacklistValidationMessages from "../classes/system-classes/component-classes/CustomFeedbacklistValidationMessages.ts";
+import CustomField from "../classes/system-classes/component-classes/CustomField.ts";
+import CustomFieldAdresse from "../classes/system-classes/component-classes/CustomFieldAdresse.ts";
+import CustomFieldBooleanData from "../classes/system-classes/component-classes/CustomFieldBooleanData.ts";
+import CustomFieldBooleanText from "../classes/system-classes/component-classes/CustomFieldBooleanText.ts";
+import CustomFieldCountData from "../classes/system-classes/component-classes/CustomFieldCountData.ts";
+import CustomFieldData from "../classes/system-classes/component-classes/CustomFieldData.ts";
+import CustomFieldGrid from "../classes/system-classes/component-classes/CustomFieldGrid.ts";
+import CustomFieldImage from "../classes/system-classes/component-classes/CustomFieldImage.ts";
+import CustomFieldKode from "../classes/system-classes/component-classes/CustomFieldKode.ts";
+import CustomFieldKommunensSaksnummer from "../classes/system-classes/component-classes/CustomFieldKommunensSaksnummer.ts";
+import CustomFieldListData from "../classes/system-classes/component-classes/CustomFieldListData.ts";
+import CustomFieldPartNavn from "../classes/system-classes/component-classes/CustomFieldPartNavn.ts";
+import CustomFieldProsjekt from "../classes/system-classes/component-classes/CustomFieldProsjekt.ts";
+import CustomFieldRow from "../classes/system-classes/component-classes/CustomFieldRow.ts";
+import CustomFieldTelefonnummer from "../classes/system-classes/component-classes/CustomFieldTelefonnummer.ts";
+import CustomFieldUtfallSvarStatus from "../classes/system-classes/component-classes/CustomFieldUtfallSvarStatus.ts";
+import CustomGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomGjennomfoeringsplan.ts";
+import CustomGjenpartNabovarsel from "../classes/system-classes/component-classes/CustomGjenpartNabovarsel.ts";
+import CustomGroupAdkomst from "../classes/system-classes/component-classes/CustomGroupAdkomst.ts";
+import CustomGroupAnsvarsrettErklaeringer from "../classes/system-classes/component-classes/CustomGroupAnsvarsrettErklaeringer.ts";
+import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.ts";
+import CustomGroupDispensasjonOversikt from "../classes/system-classes/component-classes/CustomGroupDispensasjonOversikt.ts";
+import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.ts";
+import CustomGroupKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupKontrollAnsvarsomraade.ts";
+import CustomGroupKontrollErklaeringer from "../classes/system-classes/component-classes/CustomGroupKontrollErklaeringer.ts";
+import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.ts";
+import CustomGroupNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGroupNaboGjenboerEiendom.ts";
+import CustomGroupOvervann from "../classes/system-classes/component-classes/CustomGroupOvervann.ts";
+import CustomGroupRammebetingelserKravTilByggegrunn from "../classes/system-classes/component-classes/CustomGroupRammebetingelserKravTilByggegrunn.ts";
+import CustomGroupRammebetingelserTilknytninger from "../classes/system-classes/component-classes/CustomGroupRammebetingelserTilknytninger.ts";
+import CustomGroupSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupSamsvarAnsvarsomraade.ts";
+import CustomGroupSamsvarErklaeringer from "../classes/system-classes/component-classes/CustomGroupSamsvarErklaeringer.ts";
+import CustomGroupSjekklistekrav from "../classes/system-classes/component-classes/CustomGroupSjekklistekrav.ts";
+import CustomGroupSjekklistekravHeaderText from "../classes/system-classes/component-classes/CustomGroupSjekklistekravHeaderText.ts";
+import CustomGroupUtfallSvar from "../classes/system-classes/component-classes/CustomGroupUtfallSvar.ts";
+import CustomGroupUtfallSvarType from "../classes/system-classes/component-classes/CustomGroupUtfallSvarType.ts";
+import CustomGroupVannforsyning from "../classes/system-classes/component-classes/CustomGroupVannforsyning.ts";
+import CustomGroupVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGroupVegtypeTillatelse.ts";
+import CustomGrouplistAnsvarsomraadeType from "../classes/system-classes/component-classes/CustomGrouplistAnsvarsomraadeType.ts";
+import CustomGrouplistEttersending from "../classes/system-classes/component-classes/CustomGrouplistEttersending.ts";
+import CustomGrouplistNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomGrouplistNaboGjenboerEiendom.ts";
+import CustomGrouplistSamsvarAnsvarsomraade from "../classes/system-classes/component-classes/CustomGrouplistSamsvarAnsvarsomraade.ts";
+import CustomGrouplistSjekklistekrav from "../classes/system-classes/component-classes/CustomGrouplistSjekklistekrav.ts";
+import CustomGrouplistUtfallSvar from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvar.ts";
+import CustomGrouplistUtfallSvarType from "../classes/system-classes/component-classes/CustomGrouplistUtfallSvarType.ts";
+import CustomGrouplistVegtypeTillatelse from "../classes/system-classes/component-classes/CustomGrouplistVegtypeTillatelse.ts";
+import CustomHeader from "../classes/system-classes/component-classes/CustomHeader.ts";
+import CustomHeaderText from "../classes/system-classes/component-classes/CustomHeaderText.ts";
+import CustomHeaderTextData from "../classes/system-classes/component-classes/CustomHeaderTextData.ts";
+import CustomList from "../classes/system-classes/component-classes/CustomList.ts";
+import CustomListData from "../classes/system-classes/component-classes/CustomListData.ts";
+import CustomListPlanlagteLoefteinnretninger from "../classes/system-classes/component-classes/CustomListPlanlagteLoefteinnretninger.ts";
+import CustomListVedlegg from "../classes/system-classes/component-classes/CustomListVedlegg.ts";
+import CustomMatrix from "../classes/system-classes/component-classes/CustomMatrix.ts";
+import CustomMatrixData from "../classes/system-classes/component-classes/CustomMatrixData.ts";
+import CustomParagraph from "../classes/system-classes/component-classes/CustomParagraph.ts";
+import CustomParagraphText from "../classes/system-classes/component-classes/CustomParagraphText.ts";
+import CustomSubheaderText from "../classes/system-classes/component-classes/CustomSubheaderText.ts";
+import CustomSummation from "../classes/system-classes/component-classes/CustomSummation.ts";
+import CustomSummationArealdisponering from "../classes/system-classes/component-classes/CustomSummationArealdisponering.ts";
+import CustomSummationData from "../classes/system-classes/component-classes/CustomSummationData.ts";
+import CustomTable from "../classes/system-classes/component-classes/CustomTable.ts";
+import CustomTableAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableAnsvarsomraade.ts";
+import CustomTableAnsvarsrettAnsvarsomraade from "../classes/system-classes/component-classes/CustomTableAnsvarsrettAnsvarsomraade.ts";
+import CustomTableArbeidsplasser from "../classes/system-classes/component-classes/CustomTableArbeidsplasser.ts";
+import CustomTableData from "../classes/system-classes/component-classes/CustomTableData.ts";
+import CustomTableEiendom from "../classes/system-classes/component-classes/CustomTableEiendom.ts";
+import CustomTableNaboGjenboerEiendom from "../classes/system-classes/component-classes/CustomTableNaboGjenboerEiendom.ts";
+import CustomTableOmraaderisiko from "../classes/system-classes/component-classes/CustomTableOmraaderisiko.ts";
+import CustomTablePart from "../classes/system-classes/component-classes/CustomTablePart.ts";
+import CustomTablePartGjennomfoeringsplan from "../classes/system-classes/component-classes/CustomTablePartGjennomfoeringsplan.ts";
+import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.ts";
+
+// Global functions
+import type { ComponentProps, InstantiatedComponent } from "../types.ts";
+import { getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
+
+/**
+ * Maps every registered custom element tag name to its component class.
+ *
+ * This is the single runtime registry used to instantiate components. Its keys (excluding the `custom-component`
+ * fallback) must stay in sync with the `customElementTagNames` allow-list in `@arkitektum/...-utils` — otherwise
+ * `createCustomElement` throws for a tag this map can build (or this map can't build a tag the DOM renders).
+ * `componentHelpers.test.js` guards that invariant.
+ */
+export const componentMap = {
+    "custom-component": CustomComponent,
+    "custom-description-list": CustomDescriptionList,
+    "custom-description-list-data": CustomDescriptionListData,
+    "custom-dispensasjon": CustomDispensasjon,
+    "custom-dispensasjonsvarsel": CustomDispensasjonsvarsel,
+    "custom-divider": CustomDivider,
+    "custom-feedback": CustomFeedback,
+    "custom-feedback-data": CustomFeedbackData,
+    "custom-feedbacklist-data": CustomFeedbacklistData,
+    "custom-feedbacklist-validation-messages": CustomFeedbacklistValidationMessages,
+    "custom-field": CustomField,
+    "custom-field-adresse": CustomFieldAdresse,
+    "custom-field-boolean-data": CustomFieldBooleanData,
+    "custom-field-boolean-text": CustomFieldBooleanText,
+    "custom-field-count-data": CustomFieldCountData,
+    "custom-field-data": CustomFieldData,
+    "custom-field-kode": CustomFieldKode,
+    "custom-field-kommunens-saksnummer": CustomFieldKommunensSaksnummer,
+    "custom-field-list-data": CustomFieldListData,
+    "custom-field-part-navn": CustomFieldPartNavn,
+    "custom-field-grid": CustomFieldGrid,
+    "custom-field-image": CustomFieldImage,
+    "custom-field-prosjekt": CustomFieldProsjekt,
+    "custom-field-row": CustomFieldRow,
+    "custom-field-telefonnummer": CustomFieldTelefonnummer,
+    "custom-field-utfall-svar-status": CustomFieldUtfallSvarStatus,
+    "custom-gjennomfoeringsplan": CustomGjennomfoeringsplan,
+    "custom-gjenpart-nabovarsel": CustomGjenpartNabovarsel,
+    "custom-group-adkomst": CustomGroupAdkomst,
+    "custom-group-ansvarsrett-erklaeringer": CustomGroupAnsvarsrettErklaeringer,
+    "custom-group-avloep": CustomGroupAvloep,
+    "custom-group-dispensasjon-oversikt": CustomGroupDispensasjonOversikt,
+    "custom-group-ettersending": CustomGroupEttersending,
+    "custom-group-kontroll-ansvarsomraade": CustomGroupKontrollAnsvarsomraade,
+    "custom-group-kontroll-erklaeringer": CustomGroupKontrollErklaeringer,
+    "custom-group-loefteinnretninger": CustomGroupLoefteinnretninger,
+    "custom-group-nabo-gjenboer-eiendom": CustomGroupNaboGjenboerEiendom,
+    "custom-group-overvann": CustomGroupOvervann,
+    "custom-group-rammebetingelser-krav-til-byggegrunn": CustomGroupRammebetingelserKravTilByggegrunn,
+    "custom-group-rammebetingelser-tilknytninger": CustomGroupRammebetingelserTilknytninger,
+    "custom-group-samsvar-ansvarsomraade": CustomGroupSamsvarAnsvarsomraade,
+    "custom-group-samsvar-erklaeringer": CustomGroupSamsvarErklaeringer,
+    "custom-group-sjekklistekrav": CustomGroupSjekklistekrav,
+    "custom-group-sjekklistekrav-header-text": CustomGroupSjekklistekravHeaderText,
+    "custom-group-utfall-svar": CustomGroupUtfallSvar,
+    "custom-group-utfall-svar-type": CustomGroupUtfallSvarType,
+    "custom-group-vannforsyning": CustomGroupVannforsyning,
+    "custom-group-vegtype-tillatelse": CustomGroupVegtypeTillatelse,
+    "custom-grouplist-ansvarsomraade-type": CustomGrouplistAnsvarsomraadeType,
+    "custom-grouplist-ettersending": CustomGrouplistEttersending,
+    "custom-grouplist-nabo-gjenboer-eiendom": CustomGrouplistNaboGjenboerEiendom,
+    "custom-grouplist-samsvar-ansvarsomraade": CustomGrouplistSamsvarAnsvarsomraade,
+    "custom-grouplist-sjekklistekrav": CustomGrouplistSjekklistekrav,
+    "custom-grouplist-utfall-svar": CustomGrouplistUtfallSvar,
+    "custom-grouplist-utfall-svar-type": CustomGrouplistUtfallSvarType,
+    "custom-grouplist-vegtype-tillatelse": CustomGrouplistVegtypeTillatelse,
+    "custom-header": CustomHeader,
+    "custom-header-text": CustomHeaderText,
+    "custom-header-text-data": CustomHeaderTextData,
+    "custom-list": CustomList,
+    "custom-list-data": CustomListData,
+    "custom-list-planlagte-loefteinnretninger": CustomListPlanlagteLoefteinnretninger,
+    "custom-list-vedlegg": CustomListVedlegg,
+    "custom-matrix": CustomMatrix,
+    "custom-matrix-data": CustomMatrixData,
+    "custom-paragraph": CustomParagraph,
+    "custom-paragraph-text": CustomParagraphText,
+    "custom-subheader-text": CustomSubheaderText,
+    "custom-summation": CustomSummation,
+    "custom-summation-arealdisponering": CustomSummationArealdisponering,
+    "custom-summation-data": CustomSummationData,
+    "custom-table": CustomTable,
+    "custom-table-ansvarsomraade": CustomTableAnsvarsomraade,
+    "custom-table-ansvarsrett-ansvarsomraade": CustomTableAnsvarsrettAnsvarsomraade,
+    "custom-table-arbeidsplasser": CustomTableArbeidsplasser,
+    "custom-table-data": CustomTableData,
+    "custom-table-eiendom": CustomTableEiendom,
+    "custom-table-nabo-gjenboer-eiendom": CustomTableNaboGjenboerEiendom,
+    "custom-table-omraaderisiko": CustomTableOmraaderisiko,
+    "custom-table-part": CustomTablePart,
+    "custom-table-part-gjennomfoeringsplan": CustomTablePartGjennomfoeringsplan,
+    "custom-table-plan": CustomTablePlan
+};
+
+export function getComponentForTagName(tagName: string) {
+    const tagNameLower = tagName.toLowerCase();
+    // The map is keyed by the tags this package defines; anything else is a caller asking for something that does
+    // not exist, which is what the null answer is for.
+    return componentMap[tagNameLower as keyof typeof componentMap] || null;
+}
+
+export function instantiateComponent(element: unknown): InstantiatedComponent | null {
+    // Either the attributes read off a real element, or props handed straight in. htmlElementHelpers is still
+    // JavaScript, so what it answers is inferred rather than declared; naming the shape here is what the rest of
+    // this function reads it as.
+    const componentProps = (
+        element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element
+    ) as ComponentProps;
+    // An element-like stand-in that is not an HTMLElement still answers getAttribute, which is how a component
+    // built in a test finds its tag name.
+    const tagName =
+        componentProps?.tagName ||
+        (componentProps as { getAttribute?: (name: string) => string | null })?.getAttribute?.("tagname") ||
+        "custom-component";
+    const ComponentClass = getComponentForTagName(tagName);
+    if (ComponentClass) {
+        return new ComponentClass(componentProps);
+    } else {
+        console.warn(`Unknown component type: ${tagName}`);
+        return null;
+    }
+}

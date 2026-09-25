@@ -1,0 +1,200 @@
+import type { InstantiatedComponent } from "../../../../types.ts";
+import type SamsvarAnsvarsomraade from "../../../../classes/data-classes/SamsvarAnsvarsomraade.ts";
+// Dependencies
+import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
+
+export function renderHeaderElement(title: string, size = "h2") {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        size,
+        resourceBindings: {
+            title
+        }
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
+
+export function renderFunksjonElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: { title: component?.resourceBindings?.funksjon?.title },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.funksjon?.kodeverdi
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderBeskrivelseElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: { title: component?.resourceBindings?.beskrivelseAvAnsvarsomraadet?.title },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.beskrivelseAvAnsvarsomraadet
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderAnsvarsrettErklaertElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        format: "date",
+        resourceBindings: { title: component?.resourceBindings?.datoAnsvarsrettErklaert?.title },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.datoAnsvarsrettErklaert
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderArbeidetAvsluttetElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title,
+            trueText: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText,
+            falseText: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText,
+            defaultText: component?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.erAnsvarsomraadetAvsluttet
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-boolean-text", htmlAttributes));
+}
+
+export function renderAvdekketGjenstaaendePROElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.avdekketArbeider?.title,
+            emptyFieldText: component?.resourceBindings?.avdekketArbeider?.emptyFieldText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.prosjekterendeList?.resourceValues?.data
+        },
+        styleOverride: {
+            listStyle: "none",
+            paddingInline: "0"
+        }
+    });
+    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
+}
+
+export function renderAvdekketGjenstaaendeUTFElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.avdekketArbeider?.title,
+            emptyFieldText: component?.resourceBindings?.avdekketArbeider?.emptyFieldText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.utfoerende?.utfoerendeList?.resourceValues?.data
+        },
+        styleOverride: {
+            listStyle: "none",
+            paddingInline: "0"
+        }
+    });
+    return addContainerElement(createCustomElement("custom-list-data", htmlAttributes));
+}
+
+export function renderGjenstaaendeArbeiderInnenforElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.arbeidGjenstaaendeInnenfor?.title,
+            emptyFieldText: component?.resourceBindings?.arbeidGjenstaaendeInnenfor?.emptyFieldText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.utfoerende?.midlertidigBrukstillatelse?.gjenstaaendeArbeider
+                ?.gjenstaaendeInnenfor
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderGjenstaaendeArbeiderUtenforElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.arbeidGjenstaaendeUtenfor?.title,
+            emptyFieldText: component?.resourceBindings?.arbeidGjenstaaendeUtenfor?.emptyFieldText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.utfoerende?.midlertidigBrukstillatelse?.gjenstaaendeArbeider
+                ?.gjenstaaendeUtenfor
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderTilstrekkeligSikkerhetElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.tilstrekkeligSikkerhet?.title,
+            trueText: component?.resourceBindings?.tilstrekkeligSikkerhet?.trueText,
+            falseText: component?.resourceBindings?.tilstrekkeligSikkerhet?.falseText,
+            defaultText: component?.resourceBindings?.tilstrekkeligSikkerhet?.defaultText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.utfoerende?.midlertidigBrukstillatelse?.sikkerhet
+                ?.harTilstrekkeligSikkerhet
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-boolean-text", htmlAttributes));
+}
+
+export function renderUtfoereInnenElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        format: "date",
+        resourceBindings: {
+            title: component?.resourceBindings?.utfoereInnen?.title,
+            emptyFieldText: component?.resourceBindings?.utfoereInnen?.emptyFieldText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.utfoerende?.midlertidigBrukstillatelse?.sikkerhet
+                ?.utfoertInnen
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderTypeArbeiderElement(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.typeArbeider?.title,
+            emptyFieldText: component?.resourceBindings?.typeArbeider?.emptyFieldText
+        },
+        resourceValues: {
+            data: (component?.resourceValues?.data as SamsvarAnsvarsomraade | undefined)?.utfoerende?.midlertidigBrukstillatelse?.sikkerhet
+                ?.typeArbeider
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderEmptyFieldText(component?: InstantiatedComponent | null) {
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        resourceValues: {
+            title: component?.resourceValues?.data
+        }
+    });
+    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
+}

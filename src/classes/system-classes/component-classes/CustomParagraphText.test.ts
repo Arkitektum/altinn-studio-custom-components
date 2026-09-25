@@ -1,0 +1,84 @@
+import CustomParagraphText from "./CustomParagraphText.ts";
+import { getComponentResourceValue } from "../../../functions/helpers.ts";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Mock dependencies
+jest.mock("../../../functions/helpers.ts", () => ({
+    getComponentResourceValue: jest.fn()
+}));
+
+jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
+    hasValue: jest.fn()
+}));
+
+describe("CustomParagraphText", () => {
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    it("should set resourceValues.title to the localized title if available", () => {
+        (getComponentResourceValue as unknown as jest.Mock).mockReturnValue("Localized Title");
+        (hasValue as unknown as jest.Mock).mockReturnValue(true);
+
+        const props = { text: "Fallback Text" };
+        const instance = new CustomParagraphText(props);
+
+        expect(getComponentResourceValue).toHaveBeenCalledWith(props, "title");
+        expect(hasValue).toHaveBeenCalledWith("Localized Title");
+        expect(instance.resourceValues.title).toBe("Localized Title");
+    });
+
+    it("should set resourceValues.title to the fallback text if localized title is not available", () => {
+        (getComponentResourceValue as unknown as jest.Mock).mockReturnValue(undefined);
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = { text: "Fallback Text" };
+        const instance = new CustomParagraphText(props);
+
+        expect(getComponentResourceValue).toHaveBeenCalledWith(props, "title");
+        expect(hasValue).toHaveBeenCalledWith(undefined);
+        expect(instance.resourceValues.title).toBe("Fallback Text");
+    });
+
+    it("should set resourceValues.title to undefined if neither title nor text is available", () => {
+        (getComponentResourceValue as unknown as jest.Mock).mockReturnValue(undefined);
+        (hasValue as unknown as jest.Mock).mockReturnValue(false);
+
+        const props = {};
+        const instance = new CustomParagraphText(props);
+
+        expect(instance.resourceValues.title).toBeUndefined();
+    });
+
+    describe("getTextData", () => {
+        it("returns the localized title if hasValue returns true", () => {
+            (getComponentResourceValue as unknown as jest.Mock).mockReturnValue("Localized");
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+
+            const instance = new CustomParagraphText({});
+            const result = instance.getTextData({ text: "Fallback" });
+
+            expect(result).toBe("Localized");
+        });
+
+        it("returns the fallback text if hasValue returns false", () => {
+            (getComponentResourceValue as unknown as jest.Mock).mockReturnValue(undefined);
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+
+            const instance = new CustomParagraphText({});
+            const result = instance.getTextData({ text: "Fallback" });
+
+            expect(result).toBe("Fallback");
+        });
+
+        it("returns undefined if neither title nor text is available", () => {
+            (getComponentResourceValue as unknown as jest.Mock).mockReturnValue(undefined);
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+
+            const instance = new CustomParagraphText({});
+            const result = instance.getTextData({});
+
+            expect(result).toBeUndefined();
+        });
+    });
+});

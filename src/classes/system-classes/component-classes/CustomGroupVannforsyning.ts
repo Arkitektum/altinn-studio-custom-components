@@ -1,0 +1,125 @@
+import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { VannforsyningProps } from "../../data-classes/Vannforsyning.ts";
+// Dependencies
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+import Vannforsyning from "../../data-classes/Vannforsyning.ts";
+
+// Global functions
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
+
+/**
+ * CustomGroupVannforsyning is a specialized component class for handling water supply group data.
+ * It extends CustomComponent and provides logic for extracting, validating, and binding resources
+ * related to vannforsyning (water supply) in a form context.
+ *
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} [props.resourceBindings] - Optional custom resource bindings for vannforsyning fields.
+ * @param {boolean|string} [props.hideTitle] - If true, omits the vannforsyning title from resource bindings.
+ * @param {boolean|string} [props.hideIfEmpty] - If true, omits the vannforsyning empty field text from resource bindings.
+ *
+ * @property {boolean} isEmpty - Indicates if the vannforsyning data is empty.
+ * @property {Array|string|boolean} validationMessages - Validation messages for missing text resources.
+ * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
+ * @property {Object} resourceBindings - Resource bindings for vannforsyning fields.
+ * @property {Object} resourceValues - Resource values for vannforsyning fields, including empty field text.
+ */
+export default class CustomGroupVannforsyning extends CustomComponent {
+    declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
+    declare resourceValues: { title?: unknown; data?: Vannforsyning | string };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const resourceBindings = this.getResourceBindings(props);
+        const isEmpty = !this.hasContent(data);
+        const validationMessages = this.getValidationMessages(resourceBindings);
+
+        this.isEmpty = isEmpty;
+        this.validationMessages = validationMessages;
+        this.hasValidationMessages = hasValidationMessages(validationMessages);
+        this.resourceBindings = resourceBindings || {};
+        this.resourceValues = {
+            title: hasValue(props?.resourceValues?.title)
+                ? props?.resourceValues?.title
+                : getTextResourceFromResourceBinding(resourceBindings?.vannforsyning?.title),
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.vannforsyning?.emptyFieldText) : data
+        };
+    }
+
+    /**
+     * Retrieves the value from form data and returns a Vannforsyning instance.
+     *
+     * @param {Object} props - The properties containing form data.
+     * @returns {Vannforsyning} An instance of Vannforsyning initialized with the form data.
+     */
+    getValueFromFormData(props: ComponentProps): Vannforsyning {
+        const data = getComponentDataValue(props);
+        const vannforsyning = new Vannforsyning(data as VannforsyningProps | undefined);
+        return vannforsyning;
+    }
+
+    /**
+     * Generates resource bindings for component properties, providing default resource keys if not specified.
+     *
+     * @param {Object} props - The properties object containing resource bindings and display options.
+     * @param {Object} [props.resourceBindings] - Optional resource binding overrides for each field.
+     * @param {boolean|string} [props.hideTitle] - If true, omits the vannforsyning title binding.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, omits the vannforsyning empty field text binding.
+     * @returns {Object} An object containing resource bindings for various fields, with defaults applied.
+     */
+    getResourceBindings(props?: ComponentProps) {
+        const resourceBindings: Record<string, ResourceBindingGroup> = {
+            beskrivelse: {
+                title: props?.resourceBindings?.beskrivelse?.title || `resource.beskrivelse.title`
+            },
+            harTinglystErklaering: {
+                title: props?.resourceBindings?.harTinglystErklaering?.title || `resource.rammebetingelser.vannforsyning.harTinglystErklaering.title`,
+                trueText: props?.resourceBindings?.harTinglystErklaering?.trueText || `resource.trueText.default`,
+                falseText: props?.resourceBindings?.harTinglystErklaering?.falseText || `resource.falseText.default`
+            },
+            krysserVannforsyningAnnensGrunn: {
+                title:
+                    props?.resourceBindings?.krysserVannforsyningAnnensGrunn?.title ||
+                    `resource.rammebetingelser.vannforsyning.krysserVannforsyningAnnensGrunn.title`,
+                trueText: props?.resourceBindings?.krysserVannforsyningAnnensGrunn?.trueText || `resource.trueText.default`,
+                falseText: props?.resourceBindings?.krysserVannforsyningAnnensGrunn?.falseText || `resource.falseText.default`
+            },
+            tilknytningstype: {
+                title: props?.resourceBindings?.tilknytningstype?.title || `resource.tilknytning.title`
+            }
+        };
+        if (props?.hideTitle !== true && props?.hideTitle !== "true") {
+            resourceBindings.vannforsyning = {
+                title: props?.resourceBindings?.title || "resource.vannforsyning.title"
+            };
+        }
+        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+            resourceBindings.vannforsyning = {
+                ...resourceBindings.vannforsyning,
+                emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
+            };
+        }
+        return resourceBindings;
+    }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return [
+            "custom-feedbacklist-validation-messages",
+            "custom-field-boolean-text",
+            "custom-field-data",
+            "custom-header-text",
+            "custom-paragraph"
+        ];
+    }
+}

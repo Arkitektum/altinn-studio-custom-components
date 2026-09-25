@@ -1,0 +1,59 @@
+import type { ComponentProps } from "../../../types.ts";
+import type { ValidationMessagesProps } from "../ValidationMessages.ts";
+// Dependencies
+
+// Classes
+import CustomComponent from "../CustomComponent.ts";
+import ValidationMessages from "../ValidationMessages.ts";
+
+// Global functions
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+
+/**
+ * CustomFeedbacklistValidationMessages is a custom component class responsible for handling
+ * validation messages for feedback lists. It extends the CustomComponent base class and
+ * initializes its state based on the provided props, extracting validation messages and
+ * determining if the data is empty.
+ *
+ * @class
+ * @extends CustomComponent
+ *
+ * @param {Object} props - The properties passed to the component, typically including form data.
+ *
+ * @property {boolean} isEmpty - Indicates whether the component's data is empty.
+ * @property {Object} resourceValues - Contains the validation messages data.
+ */
+export default class CustomFeedbacklistValidationMessages extends CustomComponent {
+    declare resourceValues: { data?: ValidationMessages };
+
+    constructor(props: ComponentProps) {
+        super(props);
+        const data = this.getValueFromFormData(props);
+        const isEmpty = !this.hasContent(data);
+
+        this.isEmpty = isEmpty;
+        this.resourceValues = {
+            data
+        };
+    }
+
+    /**
+     * Retrieves the component data value from the provided props and returns it as a ValidationMessages instance.
+     *
+     * @param {Object} props - The properties containing form data for the component.
+     * @returns {ValidationMessages} An instance of ValidationMessages initialized with the component data value.
+     */
+    getValueFromFormData(props: ComponentProps): ValidationMessages {
+        const data = getComponentDataValue(props) as ValidationMessagesProps | undefined;
+        return new ValidationMessages(data);
+    }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-feedbacklist-data"];
+    }
+}
