@@ -15,13 +15,11 @@ const booleanFields: [string, string, boolean][] = [
 const component = {
     resourceBindings: {
         tilknytningstype: { title: "Tilknytningstype" },
-        beskrivelse: { title: "Beskrivelse" },
         ...Object.fromEntries(booleanFields.map(([, key]) => [key, { title: key, trueText: "Ja", falseText: "Nei" }]))
     },
     resourceValues: {
         data: {
             tilknytningstype: { kodebeskrivelse: "Offentlig", kodeverdi: "OFF" },
-            beskrivelse: "Tilknyttes kommunal ledning",
             ...Object.fromEntries(booleanFields.map(([, key, value]) => [key, value]))
         }
     }
@@ -65,13 +63,6 @@ describe("the described fields", () => {
             hideIfEmpty: "true",
             resourceBindings: { title: "Tilknytningstype" },
             resourceValues: { data: "Offentlig" }
-        });
-    });
-
-    it("shows the description as it was written", () => {
-        expect(attributes(renderers.renderBeskrivelseElement(component))).toMatchObject({
-            tagName: "custom-field-data",
-            resourceValues: { data: "Tilknyttes kommunal ledning" }
         });
     });
 });

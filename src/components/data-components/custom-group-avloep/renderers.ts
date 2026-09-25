@@ -51,38 +51,6 @@ export function renderTilknytningstypeElement(component?: InstantiatedComponent 
 }
 
 /**
- * Renders a custom description element for a component.
- *
- * This function creates a custom HTML element ("custom-field-data") with specific attributes
- * based on the provided component's resource values and bindings. It wraps the element in a container.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component?.resourceValues] - The resource values associated with the component.
- * @param {Object} [component?.resourceValues.data] - The data object containing the description.
- * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component?.resourceBindings.beskrivelse] - The bindings for the description.
- * @param {string} [component?.resourceBindings.beskrivelse.title] - The title for the description.
- * @returns {HTMLElement} The rendered custom description element wrapped in a container.
- */
-export function renderBeskrivelseElement(component?: InstantiatedComponent | null) {
-    // Left unnarrowed on purpose: nothing imports this renderer, and the field it reads is one Avloep does not
-    // have. It is the vannforsyning renderer of the same name, where Vannforsyning does have a beskrivelse.
-    const data = component?.resourceValues?.data;
-
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: true,
-        resourceBindings: {
-            title: component?.resourceBindings?.beskrivelse?.title
-        },
-        resourceValues: {
-            data: data?.beskrivelse
-        }
-    });
-    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
-}
-
-/**
  * Renders a custom boolean text field for the "Krysser Avløp Annens Grunn" element.
  *
  * This function creates a custom field component that displays a boolean value with localized text,
