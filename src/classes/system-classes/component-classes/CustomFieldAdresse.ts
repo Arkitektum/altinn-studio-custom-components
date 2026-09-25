@@ -43,7 +43,7 @@ export interface AdresseFields {
 }
 
 export default class CustomFieldAdresse extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -145,7 +145,7 @@ export default class CustomFieldAdresse extends CustomComponent {
      * @param {object} resourceBindings - The resource bindings used for formatting.
      * @returns {string} The formatted address string.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: ResourceBindingGroup): unknown {
+    getValueFromFormData(props: ComponentProps, resourceBindings?: ResourceBindingGroup): string {
         const data = getComponentDataValue(props) as AdresseProps | undefined;
         const address = new Adresse(data);
         const adresseString = this.formatAdresse(address, resourceBindings);

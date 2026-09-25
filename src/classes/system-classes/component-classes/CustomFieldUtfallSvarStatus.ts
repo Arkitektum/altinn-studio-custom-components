@@ -29,7 +29,7 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  *
  */
 export default class CustomFieldUtfallSvarStatus extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -59,8 +59,10 @@ export default class CustomFieldUtfallSvarStatus extends CustomComponent {
      * @param {string} componentId - The ID of the component for validation context.
      * @returns {string} The status text corresponding to the current utfallSvarStatus.
      */
-    getStatusText(utfallSvarStatus?: UtfallSvarStatus, resourceBindings?: ResourceBindingGroup, componentId?: string): unknown {
-        const texts = getTextResourcesFromResourceBindings(resourceBindings);
+    getStatusText(utfallSvarStatus?: UtfallSvarStatus, resourceBindings?: ResourceBindingGroup, componentId?: string): string {
+        // The utils package hands these back as unknown values. They are text resources, and the three read
+        // here are compared against null before use, so the nullable string is what they actually are.
+        const texts = getTextResourcesFromResourceBindings(resourceBindings) as Record<string, string | null | undefined>;
         const textKeys = ["erUtfallBesvaresSenere", "erUtfallBesvart", "status"];
         const fallbackTexts = {
             erUtfallBesvaresSenere: "Besvares senere",
@@ -86,7 +88,7 @@ export default class CustomFieldUtfallSvarStatus extends CustomComponent {
      * @param {Object} resourceBindings - The resource bindings used for localization or status mapping.
      * @returns {string} The status text derived from the form data and resource bindings.
      */
-    getValueFromFormData(props: ComponentProps, resourceBindings?: ResourceBindingGroup): unknown {
+    getValueFromFormData(props: ComponentProps, resourceBindings?: ResourceBindingGroup): string {
         const data = getComponentDataValue(props) as UtfallSvarStatusProps | undefined;
         const utfallSvarStatus = new UtfallSvarStatus(data);
         return this.getStatusText(utfallSvarStatus, resourceBindings, props?.id);

@@ -30,7 +30,7 @@ import { getComponentDataValue, getComponentResourceValue } from "../../../funct
  * @property {string} resourceValues.data - The formatted 'kommunens saksnummer' or empty field text.
  */
 export default class CustomFieldKommunensSaksnummer extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -66,7 +66,7 @@ export default class CustomFieldKommunensSaksnummer extends CustomComponent {
      * @param {Object} props.formData.data - The data containing the 'kommunens saksnummer'.
      * @returns {string} The formatted 'kommunens saksnummer'.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): string {
         const data = getComponentDataValue(props);
         const kommunensSaksnummer = new KommunensSaksnummer(data as KommunensSaksnummerProps | undefined);
         return this.formatKommunensSaksnummer(kommunensSaksnummer);

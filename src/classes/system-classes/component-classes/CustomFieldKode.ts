@@ -25,7 +25,7 @@ import { getComponentDataValue, getComponentResourceValue } from "../../../funct
  * @property {string} resourceValues.data - The formatted code value or empty field text.
  */
 export default class CustomFieldKode extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -68,7 +68,7 @@ export default class CustomFieldKode extends CustomComponent {
      * @param {Object} props - The properties containing form data and component information.
      * @returns {string} The formatted code value extracted from the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): string {
         const data = getComponentDataValue(props);
         const kode = new Kode(data as KodeProps | undefined);
         return this.formatKode(kode);

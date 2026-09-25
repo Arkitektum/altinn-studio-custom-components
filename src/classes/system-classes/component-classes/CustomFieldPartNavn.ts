@@ -23,7 +23,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {string} resourceValues.data - The formatted name or empty field text.
  */
 export default class CustomFieldPartNavn extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -67,7 +67,7 @@ export default class CustomFieldPartNavn extends CustomComponent {
      * @param {Object} props - The properties containing form data and component context.
      * @returns {string} The formatted name value based on the form data and configuration.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): string {
         const data = getComponentDataValue(props);
         const part = new Part(data as PartProps | undefined);
         const name = this.formatName(part, this.hideOrgNr);

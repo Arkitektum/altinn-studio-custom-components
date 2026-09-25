@@ -29,7 +29,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {string} resourceValues.data - The formatted phone numbers or empty field text.
  */
 export default class CustomFieldTelefonnummer extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -65,7 +65,7 @@ export default class CustomFieldTelefonnummer extends CustomComponent {
      * @param {Object} props - The properties containing form data for the component.
      * @returns {Object} An object with a `simpleBinding` property containing the formatted phone numbers as a string.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): string {
         const data = getComponentDataValue(props);
         const telefonnumre = new Telefonnumre(data as TelefonnumreProps | undefined);
         const telefonnumreString = this.formatPhoneNumbers(telefonnumre);

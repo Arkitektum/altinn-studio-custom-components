@@ -25,7 +25,7 @@ import Prosjekt from "../../data-classes/Prosjekt.ts";
  * @property {Object} resourceValues - Contains the title and text to be displayed, based on the project data and resource bindings.
  */
 export default class CustomFieldProsjekt extends CustomComponent {
-    declare resourceValues: { title?: unknown; data?: unknown };
+    declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -72,7 +72,7 @@ export default class CustomFieldProsjekt extends CustomComponent {
      * @param {Object} props.formData.data - The data used to instantiate a Prosjekt.
      * @returns {*} The formatted prosjekt value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): string {
         const prosjekt = new Prosjekt(props?.formData?.data as ProsjektProps | undefined);
         return this.formatProsjekt(prosjekt);
     }
