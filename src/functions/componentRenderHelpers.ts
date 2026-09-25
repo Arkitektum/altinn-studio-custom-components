@@ -115,10 +115,14 @@ const LAYOUT_TYPE = "layout";
 /**
  * Resolves the effective `hideIfEmpty` flag for a component.
  *
- * An explicit `hideIfEmpty` attribute on the host always wins, so a layout opts out with `hideIfEmpty="false"`. With
- * the attribute absent, layout components default to true and every other type falls back to the flag its component
- * class resolved from its props. The attribute is read from the host rather than taken from the component because the
- * component classes deliberately drop falsy props, which would make an explicit `false` indistinguishable from absent.
+ * A layout always hides while empty and cannot opt out: an empty whole-form layout is never meaningful, and leaving
+ * one in the document puts a gap in the summary view and the generated PDF that nothing downstream can tell apart
+ * from a real section.
+ *
+ * For every other type an explicit `hideIfEmpty` attribute on the host wins, and with the attribute absent the flag
+ * its component class resolved from its props applies. The attribute is read from the host rather than taken from the
+ * component because the component classes deliberately drop falsy props, which would make an explicit `false`
+ * indistinguishable from absent.
  *
  * @param {HTMLElement} host - The custom element instance.
  * @param {Object} component - The instantiated component.
@@ -126,11 +130,14 @@ const LAYOUT_TYPE = "layout";
  * @returns {boolean} True when the component should hide itself while empty.
  */
 function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolean | string } | null, type: string): boolean {
+    if (type === LAYOUT_TYPE) {
+        return true;
+    }
     const attributeValue = host?.getAttribute?.("hideIfEmpty");
     if (attributeValue !== null && attributeValue !== undefined) {
         return attributeValue === "true" || attributeValue === "";
     }
-    return type === LAYOUT_TYPE || !!component?.hideIfEmpty;
+    return !!component?.hideIfEmpty;
 }
 
 /**

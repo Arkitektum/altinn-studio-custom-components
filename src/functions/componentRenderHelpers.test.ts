@@ -294,15 +294,17 @@ describe("renderCustomComponent — layout components", () => {
         expect(document.body.contains(host)).toBe(true);
     });
 
-    it('renders and keeps an empty layout when the host opts out with hideIfEmpty="false"', () => {
+    it('removes an empty layout even when the host asks for hideIfEmpty="false"', () => {
+        // A layout cannot opt out. One left in the document puts a gap in the summary view and the PDF that
+        // nothing downstream can tell apart from a real section.
         const host = createLayoutHost({ hideIfEmpty: "false" });
         jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
         const render = jest.fn();
 
         renderCustomComponent(host, { type: "layout", render });
 
-        expect(render).toHaveBeenCalled();
-        expect(document.body.contains(host)).toBe(true);
+        expect(render).not.toHaveBeenCalled();
+        expect(document.body.contains(host)).toBe(false);
     });
 
     it("renders a DevTools placeholder instead of removing an empty layout in dev mode", () => {
