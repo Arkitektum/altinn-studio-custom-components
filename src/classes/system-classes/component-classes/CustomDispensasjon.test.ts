@@ -90,11 +90,13 @@ describe("CustomDispensasjon", () => {
             expect(value).toEqual(expect.objectContaining({ foo: "bar", __isDispensasjon: true }));
         });
 
-        it("returns false if hasValue is false", () => {
+        it("returns undefined if hasValue is false", () => {
+            // Undefined rather than false on purpose: hasValue counts any boolean as content, so returning false
+            // here told the layout it was not empty and left it rendering a heading over a column of blanks.
             (hasValue as unknown as jest.Mock).mockReturnValue(false);
             const props = { formData: null } as unknown as ComponentProps;
             const instance = new CustomDispensasjon(props);
-            expect(instance.getValueFromFormData(props)).toBe(false);
+            expect(instance.getValueFromFormData(props)).toBeUndefined();
         });
     });
 
