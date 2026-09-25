@@ -25,7 +25,8 @@ describe("Gjennomfoeringsplan", () => {
             ansvarligSoeker: { name: "Test Soeker" },
             ansvarligSoekerTiltaksklasse: { kodeverdi: "1", kodebeskrivelse: "Tiltaksklasse 1" },
             eiendomByggested: { address: "Test Address" },
-            gjennomfoeringsplan: "Plan details",
+            // A stand-in, not a real gjennomfoeringsplan. The test only checks that it is passed through.
+            gjennomfoeringsplan: "Plan details" as unknown as { ansvarsomraade?: unknown },
             kommunensSaksnummer: { number: "123" },
             metadata: { created: "2024-01-01" },
             versjon: "1.0"

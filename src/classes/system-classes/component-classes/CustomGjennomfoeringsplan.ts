@@ -29,7 +29,7 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  */
 export default class CustomGjennomfoeringsplan extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: Gjennomfoeringsplan | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -55,7 +55,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
      * @param {*} props.formData - The form data used to instantiate Gjennomfoeringsplan.
      * @returns {Gjennomfoeringsplan} A new instance of Gjennomfoeringsplan initialized with the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Gjennomfoeringsplan {
         const data = props?.formData;
         const gjennomfoeringsplan = new Gjennomfoeringsplan(data);
         return gjennomfoeringsplan;
@@ -120,8 +120,7 @@ export default class CustomGjennomfoeringsplan extends CustomComponent {
             },
             ansvarligSoekerOrganisasjonsnummer: {
                 title: props?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.title || "resource.organisasjonsnummer.title",
-                emptyFieldText:
-                    props?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+                emptyFieldText: props?.resourceBindings?.ansvarligSoekerOrganisasjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             ansvarligSoekerTelefonnummer: {
                 title: props?.resourceBindings?.ansvarligSoekerTelefonnummer?.title || "resource.telefonnummer.title",

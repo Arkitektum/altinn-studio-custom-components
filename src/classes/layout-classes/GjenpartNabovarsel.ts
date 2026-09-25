@@ -12,6 +12,17 @@ import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.ts";
 import Part from "../data-classes/Part.ts";
 import Planer from "../data-classes/Planer.ts";
 
+/**
+ * The paths a renderer walks into soeknadGjelder. The leaves stay open: each is handed straight to another
+ * component, so what it holds is that component's business rather than this one's.
+ */
+export interface SoeknadGjelderProps {
+    type?: { kode?: unknown } | null;
+    bruk?: { tiltaksformaal?: { kode?: unknown } | null; beskrivPlanlagtFormaal?: unknown } | null;
+    foelgebrev?: unknown;
+    [key: string]: unknown;
+}
+
 /** What the form data holds for a GjenpartNabovarsel, before it is read into the class. */
 export interface GjenpartNabovarselProps {
     ansvarligSoeker?: PartProps | null;
@@ -20,8 +31,7 @@ export interface GjenpartNabovarselProps {
     metadata?: MetadataProps | null;
     naboGjenboerEiendommer?: NaboGjenboerEiendommerProps | null;
     planer?: PlanerProps | null;
-    /** Passed through untouched, so what it holds is whatever the model held. */
-    soeknadGjelder?: unknown;
+    soeknadGjelder?: SoeknadGjelderProps | null;
     tiltakshaver?: PartProps | null;
     dispensasjonOversikt?: DispensasjonOversiktProps | null;
     /** The form data carries whatever the model held, which is more than this class reads. */
@@ -39,7 +49,7 @@ export default class GjenpartNabovarsel {
     declare metadata: Metadata | undefined | null;
     declare naboGjenboerEiendommer: NaboGjenboerEiendommer | undefined | null;
     declare planer: Planer | undefined | null;
-    declare soeknadGjelder?: unknown;
+    declare soeknadGjelder?: SoeknadGjelderProps | null;
     declare tiltakshaver: Part | undefined | null;
     declare dispensasjonOversikt: DispensasjonOversikt | undefined | null;
 

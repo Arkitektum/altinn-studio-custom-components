@@ -36,7 +36,9 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
     declare isAndrePlanbestemmelser: boolean;
     declare isAnnetLovForskrift: boolean;
 
-    declare resourceValues: { data?: unknown };
+    // false is in the union because getValueFromFormData returns it for absent form data, and
+    // hasValue reports any boolean as content, so that false reaches here rather than the empty text.
+    declare resourceValues: { data?: Dispensasjonsvarsel | string | false };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -68,7 +70,7 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
      * @param {Object} props - The properties object that may contain form data.
      * @returns {Dispensasjonsvarsel|boolean} An instance of the Dispensasjonsvarsel class if form data is present, otherwise false.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): Dispensasjonsvarsel | false {
         return hasValue(props?.formData) && new Dispensasjonsvarsel(props.formData);
     }
 

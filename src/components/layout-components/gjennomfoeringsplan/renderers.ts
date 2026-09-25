@@ -1,3 +1,4 @@
+import type Gjennomfoeringsplan from "../../../classes/layout-classes/Gjennomfoeringsplan.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -73,7 +74,8 @@ export function renderPlanenGjelderHeader(component: InstantiatedComponent | nul
  * @returns {HTMLElement} A container element with the rendered version field.
  */
 export function renderVersjon(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -101,7 +103,8 @@ export function renderVersjon(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom field component wrapped in a container element.
  */
 export function renderKommunensSaksnummer(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -131,7 +134,8 @@ export function renderKommunensSaksnummer(component?: InstantiatedComponent | nu
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataProsjektnavn(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -159,7 +163,8 @@ export function renderMetadataProsjektnavn(component?: InstantiatedComponent | n
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataFtbId(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -187,7 +192,8 @@ export function renderMetadataFtbId(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The custom table element for displaying property and building location data.
  */
 export function renderEiendomByggested(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -220,7 +226,8 @@ export function renderEiendomByggested(component?: InstantiatedComponent | null)
  * @returns {HTMLElement} The custom element representing the "Ansvarlig Søker" part.
  */
 export function renderAnsvarligSoeker(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const ansvarligSoeker = data?.ansvarligSoeker;
     const tableData = {
         navn: ansvarligSoeker?.navn,
@@ -274,7 +281,8 @@ export function renderAnsvarligSoeker(component?: InstantiatedComponent | null) 
  * @returns {HTMLElement} The custom element representing the ansvarsomraade table.
  */
 export function renderAnsvarsomraade(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Gjennomfoeringsplan | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

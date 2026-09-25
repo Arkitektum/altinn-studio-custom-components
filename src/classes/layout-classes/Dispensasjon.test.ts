@@ -1,4 +1,5 @@
 import Dispensasjon from "./Dispensasjon.ts";
+import type { GenerelleVilkaarProps } from "../data-classes/GenerelleVilkaar.ts";
 import Kode from "../data-classes/Kode.ts";
 import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.ts";
 
@@ -10,7 +11,8 @@ describe("Dispensasjon", () => {
         dispensasjonsreferanse: "ref",
         dispensasjonstema: { kodeverdi: "B", kodebeskrivelse: "tema" },
         eiendomByggested: { eiendom: [] },
-        generelleVilkaar: ["vilkaar1", "vilkaar2"],
+        // A stand-in, not a real GenerelleVilkaar. The test only checks that it is passed through untouched.
+        generelleVilkaar: ["vilkaar1", "vilkaar2"] as unknown as GenerelleVilkaarProps,
         kommunensSaksnummer: { saksaar: 2024, sakssekvensnummer: 1 },
         metadata: { ftbId: "id", prosjektnavn: "navn", prosjektnr: "nr" },
         nasjonalArealplanId: { kodeverdi: "C", kodebeskrivelse: "plan" },

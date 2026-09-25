@@ -4,6 +4,7 @@ import NaboGjenboerEiendommer from "../data-classes/NaboGjenboerEiendommer.ts";
 import Part from "../data-classes/Part.ts";
 import type { PartProps } from "../data-classes/Part.ts";
 import Planer from "../data-classes/Planer.ts";
+import type { SoeknadGjelderProps } from "./GjenpartNabovarsel.ts";
 
 describe("GjenpartNabovarsel", () => {
     // A stand-in, not a real Part: the address is a string where the model holds an object. The test only checks
@@ -12,7 +13,8 @@ describe("GjenpartNabovarsel", () => {
     const mockEiendomByggested = { adresse: "Byggested 2" };
     const mockNaboGjenboerEiendommer = { eiendommer: ["Eiendom 1", "Eiendom 2"] };
     const mockPlaner = { planNavn: "Reguleringsplan" };
-    const mockSoeknadGjelder = "Garasje";
+    // A stand-in, not a real SoeknadGjelder. The test only checks that it is passed through untouched.
+    const mockSoeknadGjelder = "Garasje" as unknown as SoeknadGjelderProps;
 
     it("should create an instance with all properties set", () => {
         const props = {

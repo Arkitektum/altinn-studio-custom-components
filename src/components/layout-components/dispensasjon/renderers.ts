@@ -1,3 +1,4 @@
+import type Dispensasjon from "../../../classes/layout-classes/Dispensasjon.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -10,7 +11,8 @@ import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, 
  * @returns {Object|null} The custom header element or null if the title is not available.
  */
 export function renderDispensasjonHeader(component: InstantiatedComponent | null | undefined, size = "h1") {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const title = data?.dispensasjonstema?.kodebeskrivelse;
     if (!hasValue(title)) {
         return null;
@@ -34,7 +36,8 @@ export function renderDispensasjonHeader(component: InstantiatedComponent | null
  * @returns {HTMLElement} The rendered custom field data component wrapped in a container element.
  */
 export function renderDispensasjonsreferanse(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -64,7 +67,8 @@ export function renderDispensasjonsreferanse(component?: InstantiatedComponent |
  * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
 export function renderMetadataFtbId(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -92,7 +96,8 @@ export function renderMetadataFtbId(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom field component wrapped in a container element.
  */
 export function renderKommunensSaksnummer(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const grid = { xs: 6 };
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -138,7 +143,8 @@ export function renderSoeknadGjelderHeader(component: InstantiatedComponent | nu
  * @returns {HTMLElement} The custom table element for displaying property data.
  */
 export function renderEiendomByggestedElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -168,8 +174,9 @@ export function renderEiendomByggestedElement(component?: InstantiatedComponent 
  * @returns {HTMLElement|null} The custom header element if data is present, otherwise null.
  */
 export function renderTiltakstyperHeader(component: InstantiatedComponent | null | undefined, size = "h3") {
-    const data = component?.resourceValues?.data;
-    const hasTiltakstyperKode = data?.tiltakstyper?.kode?.length > 0;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
+    const hasTiltakstyperKode = (data?.tiltakstyper?.kode?.length as number) > 0;
     if (!hasTiltakstyperKode) {
         return null;
     }
@@ -195,7 +202,8 @@ export function renderTiltakstyperHeader(component: InstantiatedComponent | null
  * @returns {HTMLElement} The rendered custom list data element wrapped in a container element.
  */
 export function renderTiltakstyperKode(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -219,7 +227,8 @@ export function renderTiltakstyperKode(component?: InstantiatedComponent | null)
  * @returns {HTMLElement} The custom table part element for "tiltakshaver".
  */
 export function renderTiltakshaver(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -259,7 +268,8 @@ export function renderTiltakshaver(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom address field wrapped in a container element.
  */
 export function renderTiltakshaverAdresse(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -283,7 +293,8 @@ export function renderTiltakshaverAdresse(component?: InstantiatedComponent | nu
  * @returns {HTMLElement} The custom table part element for "tiltakshaver.kontaktperson".
  */
 export function renderTiltakshaverKontaktperson(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -323,7 +334,8 @@ export function renderTiltakshaverKontaktperson(component?: InstantiatedComponen
  * @returns {HTMLElement} The rendered custom field element for "tiltakshaver.kontaktperson.adresse".
  */
 export function renderTiltakshaverKontaktpersonAdresse(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -350,7 +362,8 @@ export function renderTiltakshaverKontaktpersonAdresse(component?: InstantiatedC
  * @returns {HTMLElement} The rendered custom field element.
  */
 export function renderDispensasjonsbeskrivelse(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -374,7 +387,8 @@ export function renderDispensasjonsbeskrivelse(component?: InstantiatedComponent
  * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
 export function renderPlannavn(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -421,7 +435,8 @@ export function renderDispensasjonFraHeader(component: InstantiatedComponent | n
  * @returns {HTMLElement} The rendered container element with the custom field data.
  */
 export function renderNasjonalArealplanIdPlanIdentifikasjon(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -448,7 +463,8 @@ export function renderNasjonalArealplanIdPlanIdentifikasjon(component?: Instanti
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderBestemmelsestype(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -475,7 +491,8 @@ export function renderBestemmelsestype(component?: InstantiatedComponent | null)
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderParagrafnummer(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -519,7 +536,8 @@ export function renderStedfestingHeader(component?: InstantiatedComponent | null
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderStedfestingPosisjonKoordinatsystem(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -542,6 +560,8 @@ export function renderStedfestingPosisjonKoordinatsystem(component?: Instantiate
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderStedfestingPosisjonKoordinater(component?: InstantiatedComponent | null) {
+    // Left unnarrowed: this reads koordinater.koordinat, while Posisjon declares koordinater as a string. The two
+    // test fixtures disagree about which is right, so narrowing here would pick a side on the model's behalf.
     const data = component?.resourceValues?.data;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
@@ -568,7 +588,8 @@ export function renderStedfestingPosisjonKoordinater(component?: InstantiatedCom
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderStedfestingVertikalnivaa(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -614,7 +635,8 @@ export function renderVarighetHeader(component: InstantiatedComponent | null | u
  * @returns {HTMLElement|null} The rendered custom element wrapped in a container, or null if no data is available.
  */
 export function renderOensketVarighet(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     if (data?.varighet?.oenskesVarigDispensasjon) {
         const htmlAttributes = new CustomElementHtmlAttributes({
             isChildComponent: true,
@@ -670,7 +692,8 @@ export function renderBegrunnelseHeader(component: InstantiatedComponent | null 
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderBegrunnelseHensynBakBestemmelsen(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -698,7 +721,8 @@ export function renderBegrunnelseHensynBakBestemmelsen(component?: InstantiatedC
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderBegrunnelseVurderingHensynBakBestemmelsen(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -724,7 +748,8 @@ export function renderBegrunnelseVurderingHensynBakBestemmelsen(component?: Inst
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderBegrunnelseVurderingHensynOverordnet(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -747,7 +772,8 @@ export function renderBegrunnelseVurderingHensynOverordnet(component?: Instantia
  * @returns {HTMLElement} The rendered custom list data element wrapped in a container.
  */
 export function renderBegrunnelseFordeler(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -771,7 +797,8 @@ export function renderBegrunnelseFordeler(component?: InstantiatedComponent | nu
  * @returns {HTMLElement} The rendered custom list data element wrapped in a container.
  */
 export function renderBegrunnelseUlemper(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -798,7 +825,8 @@ export function renderBegrunnelseUlemper(component?: InstantiatedComponent | nul
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderBegrunnelseSamletBegrunnelse(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -820,7 +848,8 @@ export function renderBegrunnelseSamletBegrunnelse(component?: InstantiatedCompo
  * @returns {HTMLElement|null} The custom header element if the condition exists, otherwise null.
  */
 export function renderGenerelleVilkaarNorskSvenskDanskHeader(component: InstantiatedComponent | null | undefined, size = "h2") {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const hasNorskSvenskDansk = data?.generelleVilkaar?.norskSvenskDansk;
     if (!hasNorskSvenskDansk) {
         return null;
@@ -847,7 +876,8 @@ export function renderGenerelleVilkaarNorskSvenskDanskHeader(component: Instanti
  * @returns {HTMLElement} The rendered custom boolean text field wrapped in a container element.
  */
 export function renderGenerelleVilkaarNorskSvenskDansk(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

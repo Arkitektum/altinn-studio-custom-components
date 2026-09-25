@@ -29,7 +29,7 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  */
 export default class CustomGjenpartNabovarsel extends CustomComponent {
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: GjenpartNabovarsel | string };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -55,7 +55,7 @@ export default class CustomGjenpartNabovarsel extends CustomComponent {
      * @param {Object} [props.formData] - The form data to be used for creating the GjenpartNabovarsel instance.
      * @returns {GjenpartNabovarsel} A new instance of GjenpartNabovarsel initialized with the form data.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): GjenpartNabovarsel {
         const data = props?.formData;
         const gjenpartNabovarsel = new GjenpartNabovarsel(data);
         return gjenpartNabovarsel;

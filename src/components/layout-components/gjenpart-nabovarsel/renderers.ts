@@ -1,3 +1,4 @@
+import type GjenpartNabovarsel from "../../../classes/layout-classes/GjenpartNabovarsel.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
@@ -53,7 +54,8 @@ export function renderGjenpartNabovarselSubHeader(component?: InstantiatedCompon
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderMetadataProsjektnavn(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -75,7 +77,7 @@ export function renderMetadataProsjektnavn(component?: InstantiatedComponent | n
  * @param {string} [part.organisasjonsnummer] - The organization number of the part.
  * @returns {string} The formatted string combining name and organization number.
  */
-function formatAnsvarligSoekerTiltakshaverData(part?: { navn?: string; organisasjonsnummer?: string | number }) {
+function formatAnsvarligSoekerTiltakshaverData(part?: { navn?: string | null; organisasjonsnummer?: string | number | null } | null) {
     if (!part?.navn) {
         return "";
     }
@@ -101,7 +103,8 @@ function formatAnsvarligSoekerTiltakshaverData(part?: { navn?: string; organisas
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 function renderAnsvarligSoekerElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -130,7 +133,8 @@ function renderAnsvarligSoekerElement(component?: InstantiatedComponent | null) 
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 function renderTiltakshaverElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -158,7 +162,8 @@ function renderTiltakshaverElement(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderSoekerElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     if (hasValue(data?.ansvarligSoeker)) {
         return renderAnsvarligSoekerElement(component);
     } else if (hasValue(data?.tiltakshaver)) {
@@ -184,7 +189,8 @@ export function renderSoekerElement(component?: InstantiatedComponent | null) {
  * @returns {HTMLElement} The custom element representing the property/building site.
  */
 export function renderEiendomByggestedElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -233,7 +239,8 @@ export function renderDetErVarsletOmHeader(component: InstantiatedComponent | nu
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderSoeknadGjelderTypeElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -261,7 +268,8 @@ export function renderSoeknadGjelderTypeElement(component?: InstantiatedComponen
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderSoeknadGjelderBrukTiltaksformaalElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -288,7 +296,8 @@ export function renderSoeknadGjelderBrukTiltaksformaalElement(component?: Instan
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -304,7 +313,8 @@ export function renderSoeknadGjelderBrukBeskrivPlanlagtFormaalElement(component?
 }
 
 export function renderSoeknadGjelderFoelgebrevElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -351,7 +361,8 @@ export function renderPlanerGjeldendePlanHeaderElement(component?: InstantiatedC
  * @returns {HTMLElement} The rendered custom element wrapped in a container.
  */
 export function renderPlanerGjeldendePlanNavnElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -367,7 +378,8 @@ export function renderPlanerGjeldendePlanNavnElement(component?: InstantiatedCom
 }
 
 export function renderPlanerAndrePlanerElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -398,7 +410,8 @@ export function renderPlanerAndrePlanerElement(component?: InstantiatedComponent
  * @returns {HTMLElement} The rendered container element with the custom field data.
  */
 export function renderPlanerGjeldendePlanPlantypeElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -423,7 +436,8 @@ export function renderPlanerGjeldendePlanPlantypeElement(component?: Instantiate
  * @returns {HTMLElement} The rendered custom element for the dispensasjon oversikt.
  */
 export function renderDispensasjonOversiktElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -446,7 +460,8 @@ export function renderDispensasjonOversiktElement(component?: InstantiatedCompon
  * @returns {HTMLElement} The custom element representing the contact person for the notification.
  */
 export function renderKontaktpersonForNabovarseletElement(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
@@ -471,7 +486,8 @@ export function renderKontaktpersonForNabovarseletElement(component?: Instantiat
  * @returns {HTMLElement} The custom element representing the neighboring property group list.
  */
 export function renderNaboGjenboerEiendom(component?: InstantiatedComponent | null) {
-    const data = component?.resourceValues?.data;
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as GjenpartNabovarsel | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,

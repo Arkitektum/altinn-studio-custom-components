@@ -1,5 +1,6 @@
 import type { BegrunnelseProps } from "../data-classes/Begrunnelse.ts";
 import type { EiendomByggestedProps } from "../data-classes/EiendomByggested.ts";
+import type { GenerelleVilkaarProps } from "../data-classes/GenerelleVilkaar.ts";
 import type { KodeProps } from "../data-classes/Kode.ts";
 import type { KommunensSaksnummerProps } from "../data-classes/KommunensSaksnummer.ts";
 import type { MetadataProps } from "../data-classes/Metadata.ts";
@@ -42,7 +43,7 @@ export interface DispensasjonProps {
     dispensasjonstema?: KodeProps | null;
     eiendomByggested?: EiendomByggestedProps | null;
     /** Passed through untouched, so what it holds is whatever the model held. */
-    generelleVilkaar?: unknown;
+    generelleVilkaar?: GenerelleVilkaarProps | null;
     kommunensSaksnummer?: KommunensSaksnummerProps | null;
     metadata?: MetadataProps | null;
     nasjonalArealplanId?: NasjonalArealplanIdProps | null;
@@ -67,7 +68,7 @@ export default class Dispensasjon {
     declare dispensasjonsreferanse?: string | null;
     declare dispensasjonstema: Kode | undefined | null;
     declare eiendomByggested: EiendomByggested | undefined | null;
-    declare generelleVilkaar?: unknown;
+    declare generelleVilkaar?: GenerelleVilkaarProps | null;
     declare kommunensSaksnummer: KommunensSaksnummer | undefined | null;
     declare metadata: Metadata | undefined | null;
     declare nasjonalArealplanId: NasjonalArealplanId | undefined | null;

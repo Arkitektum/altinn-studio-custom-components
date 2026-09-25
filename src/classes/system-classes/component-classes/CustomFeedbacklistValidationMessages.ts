@@ -24,7 +24,7 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Contains the validation messages data.
  */
 export default class CustomFeedbacklistValidationMessages extends CustomComponent {
-    declare resourceValues: { data?: unknown };
+    declare resourceValues: { data?: ValidationMessages };
 
     constructor(props: ComponentProps) {
         super(props);
@@ -43,7 +43,7 @@ export default class CustomFeedbacklistValidationMessages extends CustomComponen
      * @param {Object} props - The properties containing form data for the component.
      * @returns {ValidationMessages} An instance of ValidationMessages initialized with the component data value.
      */
-    getValueFromFormData(props: ComponentProps): unknown {
+    getValueFromFormData(props: ComponentProps): ValidationMessages {
         const data = getComponentDataValue(props) as ValidationMessagesProps | undefined;
         return new ValidationMessages(data);
     }

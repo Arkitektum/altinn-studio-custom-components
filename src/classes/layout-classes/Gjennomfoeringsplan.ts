@@ -16,7 +16,8 @@ export interface GjennomfoeringsplanProps {
     ansvarligSoekerTiltaksklasse?: KodeProps | null;
     eiendomByggested?: EiendomByggestedProps | null;
     /** The plan itself, passed through untouched: the components that read it decide what it holds. */
-    gjennomfoeringsplan?: unknown;
+    /** Only the one path below is ever read; the list it holds is handed on untouched. */
+    gjennomfoeringsplan?: { ansvarsomraade?: unknown } | null;
     kommunensSaksnummer?: KommunensSaksnummerProps | null;
     metadata?: MetadataProps | null;
     versjon?: unknown;
@@ -32,7 +33,7 @@ export default class Gjennomfoeringsplan {
     declare ansvarligSoeker: Part | undefined | null;
     declare ansvarligSoekerTiltaksklasse: Kode | undefined | null;
     declare eiendomByggested: EiendomByggested | undefined | null;
-    declare gjennomfoeringsplan?: unknown;
+    declare gjennomfoeringsplan?: { ansvarsomraade?: unknown } | null;
     declare kommunensSaksnummer: KommunensSaksnummer | undefined | null;
     declare metadata: Metadata | undefined | null;
     declare versjon?: unknown;
