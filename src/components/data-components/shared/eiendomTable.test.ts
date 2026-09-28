@@ -1,4 +1,4 @@
-import { renderEiendomTable } from "./renderers.ts";
+import { renderEiendomTable } from "./eiendomTable.ts";
 
 import type { TableColumn } from "../../../types.ts";
 
@@ -13,7 +13,12 @@ const columnKeys = [
     "bygningsnummer"
 ];
 
-/** The properties being built on, with a binding for the table and one for each column. */
+/**
+ * The properties being built on, with a binding for the table and one for each column.
+ *
+ * One fixture for both components that use this renderer: they differ in the text resources their class
+ * supplies, not in what is drawn, so testing the drawing twice tested the same thing twice.
+ */
 const component = {
     size: "h3",
     resourceBindings: {
