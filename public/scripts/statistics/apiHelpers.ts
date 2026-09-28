@@ -83,14 +83,19 @@ export async function fetchLatestPackageVersions() {
 }
 
 /**
- * Fetches application resource values for a given language.
+ * Fetches application resource values, for one language or for all of them.
  *
- * @param {string} language - The language code to fetch resources for.
+ * Called with no language on purpose by the multilingual caller: the API answers with every supported language when
+ * it is not told which one. The parameter is left off rather than sent as the string "undefined", which the API
+ * narrows to the same thing but which reads like a mistake in a request log.
+ *
+ * @param {string} [language] - The language code to fetch resources for. Omitted means every supported language.
  * @returns {Promise<Object>} A promise that resolves to the app resource values as a JSON object.
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchAppResources(language?: string) {
-    const url = `http://localhost:${API_PORT}/api/appResources?language=${language}`;
+    const base = `http://localhost:${API_PORT}/api/appResources`;
+    const url = language ? `${base}?language=${encodeURIComponent(language)}` : base;
     return fetch(url)
         .then((response) => {
             if (!response.ok) {

@@ -46,6 +46,18 @@ describe("fetchAppResources", () => {
         (fetch as unknown as jest.Mock).mockResolvedValue({ ok: false, statusText: "fail" });
         await expect(fetchAppResources("nb")).rejects.toThrow("Failed to fetch app resource values: fail");
     });
+    it("asks for one language by name", async () => {
+        (fetch as unknown as jest.Mock).mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+        await fetchAppResources("nb");
+        expect((fetch as unknown as jest.Mock).mock.calls[0]![0]).toMatch(/\/api\/appResources\?language=nb$/);
+    });
+    it("leaves the parameter off when it is asking for every language", async () => {
+        // The multilingual caller passes nothing on purpose. Sending "undefined" as the value reads like a mistake
+        // in a request log, though the API narrows it to the same answer.
+        (fetch as unknown as jest.Mock).mockResolvedValue({ ok: true, json: () => Promise.resolve({}) });
+        await fetchAppResources();
+        expect((fetch as unknown as jest.Mock).mock.calls[0]![0]).toMatch(/\/api\/appResources$/);
+    });
 });
 
 describe("fetchDefaultTextResources", () => {
