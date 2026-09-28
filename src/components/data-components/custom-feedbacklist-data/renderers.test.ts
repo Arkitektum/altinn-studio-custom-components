@@ -1,4 +1,4 @@
-import { renderFeedbackListElement } from "./renderers";
+import { renderFeedbackListElement } from "./renderers.ts";
 
 describe("renderFeedbackListElement", () => {
     it("renders the title and one feedback element per message", () => {

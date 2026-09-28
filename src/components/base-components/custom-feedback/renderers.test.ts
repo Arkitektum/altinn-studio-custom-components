@@ -1,4 +1,4 @@
-import { renderFeedbackElement } from "./renderers";
+import { renderFeedbackElement } from "./renderers.ts";
 
 describe("renderFeedbackElement", () => {
     it("renders the feedback text with the feedback type as a class", () => {

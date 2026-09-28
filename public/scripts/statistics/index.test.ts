@@ -1,6 +1,6 @@
 import type { DisplayLayoutEntry } from "../types.ts";
 
-import { getAllTextResourceUsage, getDataFromLocalStorage, getMissingResourceBindingsWithUsage } from "./index";
+import { getAllTextResourceUsage, getDataFromLocalStorage, getMissingResourceBindingsWithUsage } from "./index.ts";
 
 jest.mock("../localStorage.ts", () => ({
     getValueFromLocalStorage: (key: string) => {

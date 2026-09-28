@@ -4,7 +4,7 @@ import {
     renderSelectApplicationFilterForTextResourcesList,
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
-} from "./textResourceUsageRenderers";
+} from "./textResourceUsageRenderers.ts";
 
 describe("renderDefaultTextResourceListItem", () => {
     it("renders a resource with usage and values", () => {

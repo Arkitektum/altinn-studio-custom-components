@@ -1,4 +1,4 @@
-import { getLanguageNameFromCode, languages } from "./languages";
+import { getLanguageNameFromCode, languages } from "./languages.ts";
 
 describe("languages", () => {
     it("contains nb, nn, en", () => {

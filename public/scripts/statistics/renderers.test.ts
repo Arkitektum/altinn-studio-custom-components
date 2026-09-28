@@ -67,7 +67,7 @@ import {
     renderSynchronizeButton,
     setDefaultSelectedFileNameForDisplayLayouts,
     showLoadingIndicator
-} from "./renderers";
+} from "./renderers.ts";
 
 // Import the mocked modules to set up their implementations
 import {

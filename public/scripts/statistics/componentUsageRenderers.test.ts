@@ -4,7 +4,7 @@ import {
     renderSelectComponentTypeFilterForComponentUsageList,
     renderTextInputFilterForComponentUsageList,
     renderUsageFilterForComponentUsageList
-} from "./componentUsageRenderers";
+} from "./componentUsageRenderers.ts";
 
 import type { ApiValue } from "../types.ts";
 

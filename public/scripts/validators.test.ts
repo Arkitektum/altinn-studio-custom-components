@@ -1,4 +1,4 @@
-import * as validators from "./validators";
+import * as validators from "./validators.ts";
 
 import type { Layout } from "./types.ts";
 

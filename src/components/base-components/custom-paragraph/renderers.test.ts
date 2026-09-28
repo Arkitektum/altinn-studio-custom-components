@@ -1,4 +1,4 @@
-import { renderParagraphElement } from "./renderers";
+import { renderParagraphElement } from "./renderers.ts";
 
 describe("renderParagraphElement", () => {
     it("renders the title as paragraph text", () => {

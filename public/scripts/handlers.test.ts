@@ -1,4 +1,4 @@
-import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers";
+import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.ts";
 
 describe("handleDataModelTypeOnChange", () => {
     beforeEach(() => {

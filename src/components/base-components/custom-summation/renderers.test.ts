@@ -1,4 +1,4 @@
-import { renderSummationElement, renderSummationItemElement } from "./renderers";
+import { renderSummationElement, renderSummationItemElement } from "./renderers.ts";
 
 const item = (resourceValues: unknown) => ({ resourceValues });
 
