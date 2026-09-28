@@ -55,6 +55,23 @@ describe("fetchTextResources", () => {
         expect(jest.mocked(fetchWithTimeoutAndClientLogger).mock.calls[1]![0]).toContain("/api/v1/texts/nb");
     });
 
+    it("falls back when the request timed out, without blaming a parsing error for it", async () => {
+        // The fetch helper answers with nothing on a timeout rather than throwing, and logs the timeout itself.
+        // This used to read .ok off that nothing, so the failure was reported as "Cannot read properties of
+        // undefined (reading 'ok')" under a "Network or parsing error" heading.
+        const fallbackData = { key: "fallback" };
+        jest.mocked(fetchWithTimeoutAndClientLogger)
+            .mockResolvedValueOnce(undefined)
+            .mockResolvedValueOnce({ ok: true, json: async () => fallbackData } as unknown as Response);
+
+        const result = await fetchTextResources(origin, org, app, "en", "nb");
+
+        expect(result).toBe(fallbackData);
+        const reported = errorSpy.mock.calls.flat().map(String).join(" ");
+        expect(reported).not.toContain("Cannot read properties");
+        expect(reported).toContain("the request timed out or the network failed");
+    });
+
     it("falls back when the primary fetch throws", async () => {
         const fallbackData = { key: "fallback" };
         jest.mocked(fetchWithTimeoutAndClientLogger)

@@ -47,8 +47,11 @@ export const fetchTextResources = async (
     const textResourcesApiUrl = `${origin}/${org}/${app}/api/v1/texts/${language}`;
     try {
         const primaryResponse = await fetchWithTimeoutAndClientLogger(textResourcesApiUrl, {}, 5000, clientLogger, customFields);
-        if (primaryResponse!.ok) {
-            const textResourcesData = await primaryResponse!.json();
+        // The helper answers with nothing when the request timed out or the network failed, having logged why on the
+        // way past. Reading `.ok` off that threw a TypeError, which the catch below then reported as a parsing error.
+        const outcome = primaryResponse ? `Response status: ${primaryResponse.status}.` : "No response: the request timed out or the network failed.";
+        if (primaryResponse?.ok) {
+            const textResourcesData = await primaryResponse.json();
             if (hasValue(textResourcesData)) {
                 return textResourcesData;
             }
@@ -57,13 +60,11 @@ export const fetchTextResources = async (
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse!.status}.`,
+                    message: `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. ${outcome}`,
                     custom_fields: customFields
                 }
             ]);
-            console.error(
-                `Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. Response status: ${primaryResponse!.status}.`
-            );
+            console.error(`Could not retrieve text resources for language '${language}' from URL '${textResourcesApiUrl}'. ${outcome}`);
             return tryFallback();
         }
     } catch (error) {
@@ -106,16 +107,18 @@ export const fetchDefaultTextResources = async (
 
     try {
         const response = await fetchWithTimeoutAndClientLogger(defaultTextResourcesApiUrl, {}, 5000, clientLogger, customFields);
-        if (response!.ok) {
+        // As above: nothing comes back when the request timed out or the network failed.
+        const outcome = response ? `Response status: ${response.status}.` : "No response: the request timed out or the network failed.";
+        if (response?.ok) {
             // Successful response: return parsed JSON for the requested language
-            return await response!.json();
+            return await response.json();
         } else if (hasValue(fallbackLanguage) && fallbackLanguage !== language) {
             // Failed to retrieve resources for the primary language, try the fallback language
             console.error(`Could not retrieve default text resources for language: ${language}, fetching fallback language: ${fallbackLanguage}`);
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. Response status: ${response!.status}. Fetching fallback language: ${fallbackLanguage}`,
+                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. ${outcome} Fetching fallback language: ${fallbackLanguage}`,
                     custom_fields: customFields
                 }
             ]);
@@ -126,7 +129,7 @@ export const fetchDefaultTextResources = async (
             clientLogger?.postLogData([
                 {
                     level: "Error",
-                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. Response status: ${response!.status}.`,
+                    message: `Could not retrieve default text resources for language: ${language} from URL '${defaultTextResourcesApiUrl}'. ${outcome}`,
                     custom_fields: customFields
                 }
             ]);
