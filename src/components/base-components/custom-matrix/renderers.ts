@@ -32,8 +32,12 @@ function renderMatrixColumnHeaderElement(matrixHeader: TableHeader) {
 function renderMatrixRowHeaderElement(matrixCell: CellComponentProps) {
     const th = document.createElement("th");
     th.setAttribute("scope", "row");
-    matrixCell.styleOverride = { ...matrixCell?.styleOverride, fontWeight: "var(--font-weight-bold)" };
-    const htmlAttributes = new CustomElementHtmlAttributes(matrixCell);
+    // Copied rather than assigned back: this cell is the component's own resourceValues.data, and a renderer has no
+    // business writing the bold it draws with into the model it was handed.
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        ...matrixCell,
+        styleOverride: { ...matrixCell?.styleOverride, fontWeight: "var(--font-weight-bold)" }
+    });
     th.appendChild(createCustomElement(matrixCell?.tagName || "custom-field-data", htmlAttributes));
     return th;
 }
