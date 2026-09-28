@@ -1,4 +1,3 @@
-
 import type { ApiValue } from "./types.ts";
 
 import {
@@ -104,7 +103,13 @@ describe("filterResourcesByApplication", () => {
     const resources = [
         { usage: [{ appOwner: "Owner1", appName: "App1" }], resource: { id: "id1" } },
         { usage: [{ appOwner: "Owner2", appName: "App2" }], resource: { id: "id2" } },
-        { usage: [{ appOwner: "Owner1", appName: "App1" }, { appOwner: "Owner2", appName: "App2" }], resource: { id: "id3" } },
+        {
+            usage: [
+                { appOwner: "Owner1", appName: "App1" },
+                { appOwner: "Owner2", appName: "App2" }
+            ],
+            resource: { id: "id3" }
+        },
         { usage: [{ appOwner: "Owner2", appName: "App1" }], resource: { id: "id5" } },
         { usage: [], resource: { id: "id4" } }
     ];
@@ -217,7 +222,13 @@ describe("filterComponentsByApplication", () => {
     const components = [
         { tagName: "custom-field", usages: [{ appOwner: "Owner1", appName: "App1" }] },
         { tagName: "custom-header", usages: [{ appOwner: "Owner2", appName: "App1" }] },
-        { tagName: "custom-table", usages: [{ appOwner: "Owner1", appName: "App1" }, { appOwner: "Owner2", appName: "App2" }] },
+        {
+            tagName: "custom-table",
+            usages: [
+                { appOwner: "Owner1", appName: "App1" },
+                { appOwner: "Owner2", appName: "App2" }
+            ]
+        },
         { tagName: "custom-list", usages: [] }
     ];
 

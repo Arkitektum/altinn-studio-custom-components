@@ -99,11 +99,7 @@ describe("the table", () => {
         // property the way most bindings are.
         const columns = attributes(renderers.renderDispensasjonTable(component)).columns as TableColumn[];
 
-        expect(columns.map((entry) => entry.resourceBindings!.title)).toEqual([
-            "Kategori",
-            "Tittel",
-            "Bestemmelsestype"
-        ]);
+        expect(columns.map((entry) => entry.resourceBindings!.title)).toEqual(["Kategori", "Tittel", "Bestemmelsestype"]);
     });
 
     it("gives every column the same text for an empty cell", () => {

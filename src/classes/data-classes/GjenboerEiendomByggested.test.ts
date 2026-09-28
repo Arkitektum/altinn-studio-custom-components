@@ -1,34 +1,32 @@
-import GjenboerEiendom from './GjenboerEiendom.ts';
-import GjenboerEiendomByggested from './GjenboerEiendomByggested.ts';
+import GjenboerEiendom from "./GjenboerEiendom.ts";
+import GjenboerEiendomByggested from "./GjenboerEiendomByggested.ts";
 
-jest.mock('./GjenboerEiendom.ts');
+jest.mock("./GjenboerEiendom.ts");
 
-describe('GjenboerEiendomByggested', () => {
+describe("GjenboerEiendomByggested", () => {
     beforeEach(() => {
         (GjenboerEiendom as unknown as jest.Mock).mockClear();
     });
 
-    it('should initialize eiendom as undefined if props is undefined', () => {
+    it("should initialize eiendom as undefined if props is undefined", () => {
         const instance = new GjenboerEiendomByggested();
         expect(instance.eiendom).toBeUndefined();
     });
 
-    it('should initialize eiendom as undefined if props.eiendom is undefined', () => {
+    it("should initialize eiendom as undefined if props.eiendom is undefined", () => {
         const instance = new GjenboerEiendomByggested({});
         expect(instance.eiendom).toBeUndefined();
     });
 
-    it('should initialize eiendom as an empty array if props.eiendom is an empty array', () => {
+    it("should initialize eiendom as an empty array if props.eiendom is an empty array", () => {
         const instance = new GjenboerEiendomByggested({ eiendom: [] });
         expect(instance.eiendom).toEqual([]);
     });
 
-    it('should map each item in props.eiendom to a GjenboerEiendom instance', () => {
+    it("should map each item in props.eiendom to a GjenboerEiendom instance", () => {
         const eiendomItems = [{ id: 1 }, { id: 2 }];
         const mockInstances = [{ mock: 1 }, { mock: 2 }];
-        (GjenboerEiendom as unknown as jest.Mock)
-            .mockImplementationOnce(() => mockInstances[0])
-            .mockImplementationOnce(() => mockInstances[1]);
+        (GjenboerEiendom as unknown as jest.Mock).mockImplementationOnce(() => mockInstances[0]).mockImplementationOnce(() => mockInstances[1]);
 
         const instance = new GjenboerEiendomByggested({ eiendom: eiendomItems });
 
@@ -38,7 +36,7 @@ describe('GjenboerEiendomByggested', () => {
         expect(instance.eiendom).toEqual(mockInstances);
     });
 
-    it('should not throw if props.eiendom is not an array', () => {
+    it("should not throw if props.eiendom is not an array", () => {
         expect(() => new GjenboerEiendomByggested({ eiendom: null })).not.toThrow();
         expect(() => new GjenboerEiendomByggested({ eiendom: 123 } as never)).toThrow();
     });

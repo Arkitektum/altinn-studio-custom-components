@@ -77,7 +77,10 @@ describe("the rows", () => {
 
     it("leaves out a row that has nothing in it", () => {
         // A row that reported itself empty would otherwise show as a term with a blank beside it.
-        const data = [{ term: "Bebygd areal", valueComponent: {} }, { term: "Tomt", isEmpty: true }];
+        const data = [
+            { term: "Bebygd areal", valueComponent: {} },
+            { term: "Tomt", isEmpty: true }
+        ];
         const terms = renderFieldGridElement({ resourceValues: { data } }).querySelectorAll(".custom-field-grid-term");
 
         expect([...terms].map((node) => node.textContent)).toEqual(["Bebygd areal"]);
@@ -98,9 +101,7 @@ describe("a grid with nothing to show", () => {
     });
 
     it("ignores data that is not a list of rows", () => {
-        expect(renderFieldGridElement({ resourceValues: { data: "ikke en liste" } }).querySelectorAll(".custom-field-grid-term")).toHaveLength(
-            0
-        );
+        expect(renderFieldGridElement({ resourceValues: { data: "ikke en liste" } }).querySelectorAll(".custom-field-grid-term")).toHaveLength(0);
     });
 
     it("renders without a component at all rather than throwing", () => {

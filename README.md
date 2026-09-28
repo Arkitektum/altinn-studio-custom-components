@@ -179,8 +179,8 @@ Each custom component gets a small badge button in its top-right corner. Clickin
 
 Components are color-coded by category:
 
-| Badge | Category |        Description         |
-|-------|----------|----------------------------|
+| Badge | Category | Description                |
+| ----- | -------- | -------------------------- |
 | **B** | Base     | Base components (blue)     |
 | **D** | Data     | Data components (green)    |
 | **L** | Layout   | Layout components (purple) |

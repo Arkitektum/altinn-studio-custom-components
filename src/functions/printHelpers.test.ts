@@ -10,8 +10,7 @@ describe("setPageOrientation", () => {
         setPageOrientation("portrait");
         const styleElements = Array.from(document.head.querySelectorAll("style"));
         const found = styleElements.some(
-            (style) =>
-                style.textContent.includes("@page") && style.textContent.includes("size: A4 portrait !important;")
+            (style) => style.textContent.includes("@page") && style.textContent.includes("size: A4 portrait !important;")
         );
         expect(found).toBe(true);
     });
@@ -20,8 +19,7 @@ describe("setPageOrientation", () => {
         setPageOrientation("landscape");
         const styleElements = Array.from(document.head.querySelectorAll("style"));
         const found = styleElements.some(
-            (style) =>
-                style.textContent.includes("@page") && style.textContent.includes("size: A4 landscape !important;")
+            (style) => style.textContent.includes("@page") && style.textContent.includes("size: A4 landscape !important;")
         );
         expect(found).toBe(true);
     });

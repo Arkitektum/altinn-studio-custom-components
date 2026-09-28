@@ -27,22 +27,22 @@ Two families of repositories share this directory. The **components family** bui
 
 **Published libraries**
 
-| Package | Role |
-| ------- | ---- |
-| **`@arkitektum/altinn-studio-custom-components`** (this repo) | The custom components themselves. |
-| **`@arkitektum/altinn-studio-custom-components-utils`** | Shared functions and classes — most importantly `createCustomElement`, `CustomElementHtmlAttributes`, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
-| **`@arkitektum/client-logger`** | Helper functions and classes for logging to Elastic from the browser. A runtime dependency of this package. |
-| **`@arkitektum/ftpb-testmotor-client`** | Reads example form data from the FtPB testmotor. Used by the statistics API and by the API tools. Nothing in this repository uses it. |
-| **`@arkitektum/ftpb-app-catalogue`** | The Altinn Studio apps the tooling knows about, and the data type each one's form data lives under. Used by the statistics API and by the API tools. Nothing in this repository uses it. |
+| Package                                                       | Role                                                                                                                                                                                                  |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`@arkitektum/altinn-studio-custom-components`** (this repo) | The custom components themselves.                                                                                                                                                                     |
+| **`@arkitektum/altinn-studio-custom-components-utils`**       | Shared functions and classes — most importantly `createCustomElement`, `CustomElementHtmlAttributes`, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
+| **`@arkitektum/client-logger`**                               | Helper functions and classes for logging to Elastic from the browser. A runtime dependency of this package.                                                                                           |
+| **`@arkitektum/ftpb-testmotor-client`**                       | Reads example form data from the FtPB testmotor. Used by the statistics API and by the API tools. Nothing in this repository uses it.                                                                 |
+| **`@arkitektum/ftpb-app-catalogue`**                          | The Altinn Studio apps the tooling knows about, and the data type each one's form data lives under. Used by the statistics API and by the API tools. Nothing in this repository uses it.              |
 
 **Applications** (none published)
 
-| Repository | Role |
-| ---------- | ---- |
-| **`altinn-studio-custom-components-docs`** | A GitHub Pages app showing every component with example data. The public gallery. Consumes this package and `-utils` from npm. |
-| **`altinn-studio-custom-components-api`** | A small Node API backing the local **Statistics** dev tool in this repository. Runs on a developer's machine, not deployed. It reports which version of this package each app uses, but does not import it. |
-| **`altinn-studio-api-tools`** | A separate tool for posting payloads to a local Altinn and reading them back. Nothing to do with the components; it appears here only because it shares the two FtPB packages with the statistics API. |
-| **Altinn apps** (e.g. the example app) | The .NET/Altinn applications that consume this package, reference it in `App/package.json`, and copy it into `App/wwwroot` at build time. |
+| Repository                                 | Role                                                                                                                                                                                                        |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`altinn-studio-custom-components-docs`** | A GitHub Pages app showing every component with example data. The public gallery. Consumes this package and `-utils` from npm.                                                                              |
+| **`altinn-studio-custom-components-api`**  | A small Node API backing the local **Statistics** dev tool in this repository. Runs on a developer's machine, not deployed. It reports which version of this package each app uses, but does not import it. |
+| **`altinn-studio-api-tools`**              | A separate tool for posting payloads to a local Altinn and reading them back. Nothing to do with the components; it appears here only because it shares the two FtPB packages with the statistics API.      |
+| **Altinn apps** (e.g. the example app)     | The .NET/Altinn applications that consume this package, reference it in `App/package.json`, and copy it into `App/wwwroot` at build time.                                                                   |
 
 ```text
    client-logger      utils
@@ -81,11 +81,11 @@ devTools and statistics are development surfaces (see §7).
 
 1. The app loads `main.css` and `main.js` from `wwwroot/altinn-studio-custom-components` (see the README installation steps).
 2. `src/functions/init.js` (`initCustomComponents`) runs on startup. It:
-   - derives `org`, `app`, and `instanceId` from the URL,
-   - fetches the user's profile to determine the preferred language (falling back to `nb`),
-   - loads the app's **text resources** and **default text resources** and stores them on `globalThis` (`globalThis.textResources`, `globalThis.defaultTextResources`, `globalThis.selectedLanguage`),
-   - dynamically loads the matching `altinn-app-frontend.js` bundle from the Altinn CDN (the version is read from a `meta[data-altinn-app-frontend-version]` tag, with a hard-coded fallback), and
-   - dispatches a `DOMContentLoaded` event so the components and the Altinn frontend initialize.
+    - derives `org`, `app`, and `instanceId` from the URL,
+    - fetches the user's profile to determine the preferred language (falling back to `nb`),
+    - loads the app's **text resources** and **default text resources** and stores them on `globalThis` (`globalThis.textResources`, `globalThis.defaultTextResources`, `globalThis.selectedLanguage`),
+    - dynamically loads the matching `altinn-app-frontend.js` bundle from the Altinn CDN (the version is read from a `meta[data-altinn-app-frontend-version]` tag, with a hard-coded fallback), and
+    - dispatches a `DOMContentLoaded` event so the components and the Altinn frontend initialize.
 3. Each custom element is registered via `customElements.define(...)` and renders itself in its `connectedCallback`.
 
 ### How a component renders
@@ -152,13 +152,13 @@ There are three component categories, mirrored by the `base-components` / `data-
 Every data and layout component has a class in `src/classes/system-classes/component-classes/[ComponentTagName].js` (PascalCase) that extends `CustomComponent`.
 By convention these classes implement:
 
-| Method | Responsibility |
-| ------ | -------------- |
-| `getValueFromFormData` | Resolve the value — from `resourceValues` or by reading the binding from the data model. Often wraps the value in a domain data class. |
-| `getResourceBindings` | Return all resource bindings the component needs. Every binding has a default and can be overridden. |
-| `getComponentUsage` | List the tag names of the component's direct children. Used by the Statistics tool to know which components are used indirectly. |
-| `getValidationMessages` | Apply the component's validation rules and return a `ValidationMessages` object (often via `hasMissingTextResources`). |
-| `hasContent` | Decide whether the component actually renders anything; drives `isEmpty` and therefore `hideIfEmpty`. Returns `true` only if something will actually be rendered. For layout components this is the data-level check; the rendered output is verified separately by `hasRenderedContent` (see §3). |
+| Method                  | Responsibility                                                                                                                                                                                                                                                                                     |
+| ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `getValueFromFormData`  | Resolve the value — from `resourceValues` or by reading the binding from the data model. Often wraps the value in a domain data class.                                                                                                                                                             |
+| `getResourceBindings`   | Return all resource bindings the component needs. Every binding has a default and can be overridden.                                                                                                                                                                                               |
+| `getComponentUsage`     | List the tag names of the component's direct children. Used by the Statistics tool to know which components are used indirectly.                                                                                                                                                                   |
+| `getValidationMessages` | Apply the component's validation rules and return a `ValidationMessages` object (often via `hasMissingTextResources`).                                                                                                                                                                             |
+| `hasContent`            | Decide whether the component actually renders anything; drives `isEmpty` and therefore `hideIfEmpty`. Returns `true` only if something will actually be rendered. For layout components this is the data-level check; the rendered output is verified separately by `hasRenderedContent` (see §3). |
 
 ---
 
@@ -169,8 +169,8 @@ Each entry has an `id` and a `values` map keyed by language code:
 
 ```json
 {
-  "id": "resource_id",
-  "values": { "nb": "Bokmål", "nn": "Nynorsk", "en": "English" }
+    "id": "resource_id",
+    "values": { "nb": "Bokmål", "nn": "Nynorsk", "en": "English" }
 }
 ```
 

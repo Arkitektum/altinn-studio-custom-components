@@ -83,7 +83,7 @@ export default class CustomListVedlegg extends CustomComponent {
         }
 
         return attachments?.length
-            ? attachments
+            ? (attachments
                   .map((attachment) => {
                       const vedlegg = new Vedlegg(attachment);
                       const attachmentDescription = this.getAttachmentDescription(vedlegg);
@@ -97,7 +97,7 @@ export default class CustomListVedlegg extends CustomComponent {
                       }
                       return null;
                   })
-                  .filter((attachmentListItem) => attachmentListItem) as string[]
+                  .filter((attachmentListItem) => attachmentListItem) as string[])
             : [];
     }
 

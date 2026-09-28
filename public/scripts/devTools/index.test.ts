@@ -26,8 +26,8 @@ describe("globalThis.onload", () => {
 
     it("should initialize globalThis variables and call renderers", async () => {
         await globalThis.onload!.call(globalThis as unknown as Window, new Event("load"));
-        expect((globalThis.textResources as ApiValue)).toBe("textResourcesMock");
-        expect((globalThis.defaultTextResources as ApiValue)).toBe("defaultTextResourcesMock");
+        expect(globalThis.textResources as ApiValue).toBe("textResourcesMock");
+        expect(globalThis.defaultTextResources as ApiValue).toBe("defaultTextResourcesMock");
         const { renderSidebar, renderResults, renderTextResourceStatusIndicators } = require("./renderers.ts");
         const { validateResources } = require("../validators.ts");
         expect(renderSidebar).toHaveBeenCalled();

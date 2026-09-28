@@ -173,9 +173,7 @@ export default class CustomGroupRammebetingelserTilknytninger extends CustomComp
                 falseText: props?.resourceBindings?.vannforsyning?.krysserVannforsyningAnnensGrunn?.falseText || "resource.falseText.default"
             },
             vannforsyningTilknytningstype: {
-                title:
-                    props?.resourceBindings?.vannforsyning?.tilknytningstype?.title ||
-                    "resource.tilknytning.title"
+                title: props?.resourceBindings?.vannforsyning?.tilknytningstype?.title || "resource.tilknytning.title"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {

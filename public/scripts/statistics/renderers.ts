@@ -679,7 +679,7 @@ function renderSelectSubFormDisplayLayoutFilenameFilter(
  * @returns {HTMLHeadingElement} The <h1> element with the appropriate heading text.
  */
 export function getDisplayLayoutMainHeading() {
-    const localAppResources = (globalThis.textResources as ApiValue);
+    const localAppResources = globalThis.textResources as ApiValue;
     const headingElement = document.createElement("h1");
     const headingResourceId = "appName";
     const headingText = localAppResources?.resources?.length
@@ -806,12 +806,7 @@ export function renderLogoImage(containerElement: HTMLElement, applicationMetada
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
  * @returns {Promise<void>} A promise that resolves when the display layouts page has been rendered.
  */
-async function renderDisplayLayoutsPage(
-    containerElement: HTMLElement,
-    appData: ApiValue,
-    applicationMetadata: ApiValue,
-    selectedOptions?: ApiValue
-) {
+async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: ApiValue, applicationMetadata: ApiValue, selectedOptions?: ApiValue) {
     selectedOptions = {
         fileNames: selectedOptions?.fileNames || {},
         formType: selectedOptions?.formType || "main",

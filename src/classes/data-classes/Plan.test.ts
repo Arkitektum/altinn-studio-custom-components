@@ -29,7 +29,9 @@ describe("Plan", () => {
 
     it("should set plantype if plantype.kodebeskrivelse has value", () => {
         // First call: hasNavn (false), second call: hasPlantype (true)
-        jest.mocked(hasValue).mockImplementationOnce(() => false).mockImplementationOnce(() => true);
+        jest.mocked(hasValue)
+            .mockImplementationOnce(() => false)
+            .mockImplementationOnce(() => true);
 
         const plantype = { kodebeskrivelse: "desc", kode: "123" };
         const plan = new Plan({ plantype });
@@ -40,7 +42,9 @@ describe("Plan", () => {
 
     it("should set both navn and plantype if both have value", () => {
         // First call: hasNavn (true), second call: hasPlantype (true)
-        jest.mocked(hasValue).mockImplementationOnce(() => true).mockImplementationOnce(() => true);
+        jest.mocked(hasValue)
+            .mockImplementationOnce(() => true)
+            .mockImplementationOnce(() => true);
 
         const plantype = { kodebeskrivelse: "desc", kode: "123" };
         const plan = new Plan({ navn: "Testnavn", plantype });

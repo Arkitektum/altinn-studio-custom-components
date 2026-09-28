@@ -36,9 +36,7 @@ describe("Ansvarsomraade", () => {
         expect(instance.foretak).toBeInstanceOf(Part);
 
         expect(PlanlagteSamsvarKontrollErklaeringerList).toHaveBeenCalledWith(props, resourceBindings);
-        expect(instance.planlagteSamsvarKontrollErklaeringerList).toBeInstanceOf(
-            PlanlagteSamsvarKontrollErklaeringerList
-        );
+        expect(instance.planlagteSamsvarKontrollErklaeringerList).toBeInstanceOf(PlanlagteSamsvarKontrollErklaeringerList);
     });
 
     it("should handle missing optional properties", () => {

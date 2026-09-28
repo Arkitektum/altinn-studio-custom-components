@@ -56,9 +56,7 @@ describe("a row with nothing to show", () => {
     });
 
     it("ignores data that is not a list of cells", () => {
-        expect(renderFieldRowElement({ resourceValues: { data: "ikke en liste" } }).querySelectorAll(".custom-field-row-cell")).toHaveLength(
-            0
-        );
+        expect(renderFieldRowElement({ resourceValues: { data: "ikke en liste" } }).querySelectorAll(".custom-field-row-cell")).toHaveLength(0);
     });
 
     it("renders without a component at all rather than throwing", () => {

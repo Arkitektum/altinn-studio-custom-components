@@ -2,7 +2,6 @@ import type { KodeProps } from "./Kode.ts";
 // Classes
 import Kode from "./Kode.ts";
 
-
 /** What the form data holds for a Avloep, before it is read into the class. */
 export interface AvloepProps {
     harTinglystErklaering?: boolean | null;

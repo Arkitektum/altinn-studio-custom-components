@@ -223,11 +223,7 @@ describe("CustomTablePartGjennomfoeringsplan", () => {
     describe("getComponentUsage", () => {
         it("should return the list of used custom components", () => {
             const instance = new CustomTablePartGjennomfoeringsplan({});
-            expect(instance.getComponentUsage()).toEqual([
-                "custom-feedbacklist-validation-messages",
-                "custom-field-data",
-                "custom-table-data"
-            ]);
+            expect(instance.getComponentUsage()).toEqual(["custom-feedbacklist-validation-messages", "custom-field-data", "custom-table-data"]);
         });
     });
 });

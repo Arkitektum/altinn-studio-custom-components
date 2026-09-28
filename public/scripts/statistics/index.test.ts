@@ -1,4 +1,3 @@
-
 import type { DisplayLayoutEntry } from "../types.ts";
 
 import { getAllTextResourceUsage, getDataFromLocalStorage, getMissingResourceBindingsWithUsage } from "./index";

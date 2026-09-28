@@ -23,7 +23,7 @@ export function renderUtfallSvarType(component: InstantiatedComponent | null | u
             vedleggsliste: component?.resourceBindings?.vedleggsliste
         },
         resourceValues: {
-            data,
+            data
         }
     });
     return createCustomElement("custom-group-utfall-svar-type", htmlAttributes);

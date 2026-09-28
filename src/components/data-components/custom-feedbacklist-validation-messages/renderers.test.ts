@@ -57,9 +57,9 @@ describe("the lists", () => {
 
     it("gives a kind it does not know a title of its own rather than none", () => {
         // A new kind of message should still appear, even before anyone has written wording for it.
-        expect(
-            JSON.parse(lists(renderValidationMessagesElement({ hint: ["Husk vedlegg"] }))[0]!.getAttribute("resourcevalues")!).title
-        ).toBe("Messages (1)");
+        expect(JSON.parse(lists(renderValidationMessagesElement({ hint: ["Husk vedlegg"] }))[0]!.getAttribute("resourcevalues")!).title).toBe(
+            "Messages (1)"
+        );
     });
 
     it("hands the messages themselves to each list", () => {

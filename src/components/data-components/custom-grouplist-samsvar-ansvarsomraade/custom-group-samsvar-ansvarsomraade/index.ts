@@ -54,7 +54,9 @@ export default customElements.define(
                             component?.resourceValues?.data?.utfoerende?.midlertidigBrukstillatelse?.erOkForMidlertidigBrukstillatelse === true &&
                             hasValue(component?.resourceValues?.data?.utfoerende?.midlertidigBrukstillatelse?.gjenstaaendeArbeider)
                         ) {
-                            containerElement.appendChild(renderHeaderElement(component?.resourceBindings?.gjenstaaendeArbeider?.title, component?.size));
+                            containerElement.appendChild(
+                                renderHeaderElement(component?.resourceBindings?.gjenstaaendeArbeider?.title, component?.size)
+                            );
 
                             containerElement.appendChild(renderGjenstaaendeArbeiderInnenforElement(component));
                             containerElement.appendChild(renderGjenstaaendeArbeiderUtenforElement(component));
@@ -63,7 +65,10 @@ export default customElements.define(
 
                             containerElement.appendChild(renderTilstrekkeligSikkerhetElement(component));
 
-                            if (component?.resourceValues?.data?.utfoerende?.midlertidigBrukstillatelse?.sikkerhet?.harTilstrekkeligSikkerhet === false) {
+                            if (
+                                component?.resourceValues?.data?.utfoerende?.midlertidigBrukstillatelse?.sikkerhet?.harTilstrekkeligSikkerhet ===
+                                false
+                            ) {
                                 containerElement.appendChild(renderUtfoereInnenElement(component));
                                 containerElement.appendChild(renderTypeArbeiderElement(component));
                             }

@@ -57,10 +57,7 @@ export interface PlanlagtSamsvarKontrollErklaering {
 export default class PlanlagteSamsvarKontrollErklaeringerList {
     declare resourceValues: { data: PlanlagtSamsvarKontrollErklaering[] };
 
-    constructor(
-        props?: PlanlagteSamsvarKontrollErklaeringerProps | null,
-        resourceBindings?: PlanlagteSamsvarKontrollErklaeringerResourceBindings
-    ) {
+    constructor(props?: PlanlagteSamsvarKontrollErklaeringerProps | null, resourceBindings?: PlanlagteSamsvarKontrollErklaeringerResourceBindings) {
         this.resourceValues = {
             data: this.getPlanlagteSamsvarKontrollErklaeringerList(props, resourceBindings)
         };

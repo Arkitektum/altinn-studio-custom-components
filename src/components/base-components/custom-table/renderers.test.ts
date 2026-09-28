@@ -7,12 +7,7 @@ const component = {
         title: "Eiendommer",
         data: {
             tableHeaders: [{ text: "Adresse" }, { text: "Gårdsnummer", styleOverride: { textAlign: "right" } }],
-            tableRows: [
-                [
-                    { tagName: "custom-field-adresse", resourceValues: { data: "Storgata 1" } },
-                    { resourceValues: { data: "42" } }
-                ]
-            ]
+            tableRows: [[{ tagName: "custom-field-adresse", resourceValues: { data: "Storgata 1" } }, { resourceValues: { data: "42" } }]]
         }
     }
 };

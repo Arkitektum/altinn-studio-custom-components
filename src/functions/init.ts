@@ -138,7 +138,8 @@ export default async function initCustomComponents() {
     const app = appId?.[2];
     const altinnAppFrontendVersionFallback = "4.29.0";
     const altinnAppFrontendVersion =
-        (document.querySelector("meta[data-altinn-app-frontend-version]") as HTMLMetaElement | null)?.dataset?.altinnAppFrontendVersion || altinnAppFrontendVersionFallback;
+        (document.querySelector("meta[data-altinn-app-frontend-version]") as HTMLMetaElement | null)?.dataset?.altinnAppFrontendVersion ||
+        altinnAppFrontendVersionFallback;
 
     let clientLogger = null;
     try {

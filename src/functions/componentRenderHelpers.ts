@@ -13,7 +13,7 @@ import { allowedFormDataKeysForTypes, allowedResourceValuesKeysForTypes } from "
  * Reminder appended to validation errors, pointing developers at the standardized way to pass and read primary data.
  */
 const DATA_CONTRACT_HINT =
-    'Primary data must be passed as formData.simpleBinding, formData.data or resourceValues.data, and read via getComponentDataValue(). ' +
+    "Primary data must be passed as formData.simpleBinding, formData.data or resourceValues.data, and read via getComponentDataValue(). " +
     "If a key is legitimately needed, add it to allowedPropertyKeys.js.";
 
 /**
@@ -56,9 +56,7 @@ function validateFormData(formData: unknown, type: string, componentName: string
     }
     const extraKeys = Object.keys(formData).filter((key) => !allowedKeys.includes(key));
     if (extraKeys.length > 0) {
-        console.error(
-            `Component ${componentName} of type "${type}" has unrecognized formData keys: ${extraKeys.join(", ")}. ${DATA_CONTRACT_HINT}`
-        );
+        console.error(`Component ${componentName} of type "${type}" has unrecognized formData keys: ${extraKeys.join(", ")}. ${DATA_CONTRACT_HINT}`);
     }
 }
 

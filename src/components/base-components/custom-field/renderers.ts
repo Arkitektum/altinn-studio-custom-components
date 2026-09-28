@@ -76,11 +76,7 @@ export interface FieldElementOptions {
     enableLinks?: boolean;
 }
 
-export function renderFieldElement(
-    fieldTitle: string,
-    fieldValue: unknown,
-    options: FieldElementOptions & { returnHtml: false }
-): HTMLDivElement;
+export function renderFieldElement(fieldTitle: string, fieldValue: unknown, options: FieldElementOptions & { returnHtml: false }): HTMLDivElement;
 export function renderFieldElement(fieldTitle: string, fieldValue: unknown, options?: FieldElementOptions): string;
 export function renderFieldElement(fieldTitle: string, fieldValue: unknown, options?: FieldElementOptions) {
     options = {

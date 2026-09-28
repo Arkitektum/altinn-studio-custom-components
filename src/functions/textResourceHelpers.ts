@@ -75,7 +75,10 @@ export const fetchTextResources = async (
                 custom_fields: customFields
             }
         ]);
-        console.error(`Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`, error);
+        console.error(
+            `Network or parsing error while retrieving text resources for language '${language}' from URL '${textResourcesApiUrl}':`,
+            error
+        );
         return tryFallback();
     }
 };

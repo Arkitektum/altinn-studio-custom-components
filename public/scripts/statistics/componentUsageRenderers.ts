@@ -389,7 +389,11 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
  * @param {Function} onChange - Called with the select's value whenever the selection changes.
  * @returns {HTMLFormElement} The container element holding the label and select.
  */
-function renderLabelledSelectFilter(labelText: string, selectId: string, options: { value: string; text: string }[], onChange: (value: string) => void
+function renderLabelledSelectFilter(
+    labelText: string,
+    selectId: string,
+    options: { value: string; text: string }[],
+    onChange: (value: string) => void
 ) {
     const filterContainerElement = document.createElement("form");
     filterContainerElement.classList.add("filter-container");

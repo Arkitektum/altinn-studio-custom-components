@@ -5,9 +5,9 @@
 Security fixes are released against the **latest published version** of `@arkitektum/altinn-studio-custom-components` on npm.
 Please make sure you can reproduce an issue on the latest release before reporting it, and upgrade to the latest version to receive fixes.
 
-| Version | Supported |
-|---------|-----------|
-| Latest release | ✅ |
+| Version        | Supported           |
+| -------------- | ------------------- |
+| Latest release | ✅                  |
 | Older releases | ❌ (please upgrade) |
 
 ## Reporting a vulnerability

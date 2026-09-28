@@ -23,6 +23,8 @@
         "build": "yarn symlinks && NODE_ENV=production webpack && yarn copy-dist-resources",
         "start": "yarn symlinks && webpack serve --config webpack.config.dev.js",
         "lint": "eslint .",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
         "typecheck": "tsc --noEmit"
     },
     "repository": {

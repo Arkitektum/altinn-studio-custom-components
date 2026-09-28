@@ -80,13 +80,7 @@ function getComponentProperties(component: InstantiatedComponent | null): { key:
  * @param {*} type - The type of the component (default is "base").
  * @returns {HTMLElement} The DevTools panel element.
  */
-function buildPanel(
-    tagName: string,
-    elementId: string | null,
-    props: { key: string; value: string }[],
-    hidden: boolean,
-    type: string
-): HTMLElement {
+function buildPanel(tagName: string, elementId: string | null, props: { key: string; value: string }[], hidden: boolean, type: string): HTMLElement {
     const cfg = TYPE_CONFIG[type as keyof typeof TYPE_CONFIG] ?? TYPE_CONFIG.base;
     const panel = document.createElement("div");
     panel.style.cssText = [

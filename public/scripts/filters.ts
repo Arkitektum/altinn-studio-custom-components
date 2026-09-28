@@ -135,7 +135,12 @@ export const BASE_COMPONENT_TAG_NAMES = [
  * Tag names of the layout components. Source of truth: the directories under src/components/layout-components
  * (their tag names are the directory name prefixed with "custom-").
  */
-export const LAYOUT_COMPONENT_TAG_NAMES = ["custom-dispensasjon", "custom-dispensasjonsvarsel", "custom-gjennomfoeringsplan", "custom-gjenpart-nabovarsel"];
+export const LAYOUT_COMPONENT_TAG_NAMES = [
+    "custom-dispensasjon",
+    "custom-dispensasjonsvarsel",
+    "custom-gjennomfoeringsplan",
+    "custom-gjenpart-nabovarsel"
+];
 
 /**
  * Resolves the category of a component from its tag name.

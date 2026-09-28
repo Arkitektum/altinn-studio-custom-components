@@ -88,7 +88,7 @@ export function renderDispensasjonTable(component?: InstantiatedComponent | null
         hideIfEmpty: true,
         showRowNumbers: true,
         resourceBindings: {
-            rowNumberTitle: component?.resourceBindings?.dispensasjon?.rowNumberTitle,
+            rowNumberTitle: component?.resourceBindings?.dispensasjon?.rowNumberTitle
         },
         resourceValues: { data: data?.dispensasjon },
         tableColumns
