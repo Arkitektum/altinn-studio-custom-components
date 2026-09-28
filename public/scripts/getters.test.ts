@@ -1,4 +1,4 @@
-import { getAppResourceValuesForLanguage, getDataModelSummaryText, getDefaultValueForResource, getResourcesForLanguage } from "./getters";
+import { getAppResourceValuesForLanguage, getDataModelSummaryText, getDefaultValueForResource, getResourcesForLanguage } from "./getters.ts";
 
 describe("getDataModelSummaryText", () => {
     it("returns [main] for first index", () => {

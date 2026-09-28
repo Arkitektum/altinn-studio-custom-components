@@ -1,4 +1,4 @@
-import * as localStorageUtils from "./localStorage";
+import * as localStorageUtils from "./localStorage.ts";
 
 describe("addValueToLocalStorage and getValueFromLocalStorage", () => {
     beforeEach(() => {

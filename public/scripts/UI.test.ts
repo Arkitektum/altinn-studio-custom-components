@@ -1,4 +1,4 @@
-import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI";
+import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
 
 describe("setActiveSidebarElement", () => {
     let item1: HTMLElement | null, item2: HTMLElement | null;

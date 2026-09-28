@@ -1,4 +1,4 @@
-import { renderHeaderElement } from "./renderers";
+import { renderHeaderElement } from "./renderers.ts";
 
 describe("renderHeaderElement", () => {
     it("renders the title in the requested header size", () => {

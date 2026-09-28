@@ -1,4 +1,4 @@
-import { DEFAULT_LAYOUT_NAME, flattenAppLayouts } from "./displayLayoutHelpers";
+import { DEFAULT_LAYOUT_NAME, flattenAppLayouts } from "./displayLayoutHelpers.ts";
 
 import type { ApiValue } from "../types.ts";
 

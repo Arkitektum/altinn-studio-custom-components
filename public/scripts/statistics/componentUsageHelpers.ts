@@ -3,7 +3,7 @@ import type { ApiValue, DisplayLayoutEntry, LayoutComponent } from "../types.ts"
 import { customElementTagNames } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { instantiateComponent } from "../../../src/functions/componentHelpers";
+import { instantiateComponent } from "../../../src/functions/componentHelpers.ts";
 
 /**
  * Adds usage information to the grouped usage object under the appropriate tagName group.

@@ -10,7 +10,7 @@ import {
     filterTextResourcesByTextInput,
     getComponentType,
     getResourcesWithSameValue
-} from "./filters";
+} from "./filters.ts";
 
 describe("filterResources", () => {
     const resources = [
