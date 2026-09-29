@@ -35,6 +35,7 @@ import customGroupAnsvarsrettErklaeringer from "./data-components/custom-group-a
 import customGroupAvloep from "./data-components/custom-group-avloep/index.ts";
 import customGroupDispensasjonOversikt from "./data-components/custom-group-dispensasjon-oversikt/index.ts";
 import customGroupEttersending from "./data-components/custom-grouplist-ettersending/custom-group-ettersending/index.ts";
+import customGroupFakturamottaker from "./data-components/custom-group-fakturamottaker/index.ts";
 import customGroupKontrollAnsvarsomraade from "./data-components/custom-group-kontroll-ansvarsomraade/index.ts";
 import customGroupKontrollErklaeringer from "./data-components/custom-group-kontroll-erklaeringer/index.ts";
 import customGroupLoefteinnretninger from "./data-components/custom-group-loefteinnretninger/index.ts";
@@ -137,6 +138,7 @@ export {
     customGroupAvloep,
     customGroupDispensasjonOversikt,
     customGroupEttersending,
+    customGroupFakturamottaker,
     customGroupLoefteinnretninger,
     customGroupKontrollAnsvarsomraade,
     customGroupKontrollErklaeringer,

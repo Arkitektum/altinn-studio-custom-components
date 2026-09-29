@@ -32,6 +32,7 @@ import CustomGroupAnsvarsrettErklaeringer from "../classes/system-classes/compon
 import CustomGroupAvloep from "../classes/system-classes/component-classes/CustomGroupAvloep.ts";
 import CustomGroupDispensasjonOversikt from "../classes/system-classes/component-classes/CustomGroupDispensasjonOversikt.ts";
 import CustomGroupEttersending from "../classes/system-classes/component-classes/CustomGroupEttersending.ts";
+import CustomGroupFakturamottaker from "../classes/system-classes/component-classes/CustomGroupFakturamottaker.ts";
 import CustomGroupKontrollAnsvarsomraade from "../classes/system-classes/component-classes/CustomGroupKontrollAnsvarsomraade.ts";
 import CustomGroupKontrollErklaeringer from "../classes/system-classes/component-classes/CustomGroupKontrollErklaeringer.ts";
 import CustomGroupLoefteinnretninger from "../classes/system-classes/component-classes/CustomGroupLoefteinnretninger.ts";
@@ -128,6 +129,7 @@ export const componentMap = {
     "custom-group-avloep": CustomGroupAvloep,
     "custom-group-dispensasjon-oversikt": CustomGroupDispensasjonOversikt,
     "custom-group-ettersending": CustomGroupEttersending,
+    "custom-group-fakturamottaker": CustomGroupFakturamottaker,
     "custom-group-kontroll-ansvarsomraade": CustomGroupKontrollAnsvarsomraade,
     "custom-group-kontroll-erklaeringer": CustomGroupKontrollErklaeringer,
     "custom-group-loefteinnretninger": CustomGroupLoefteinnretninger,
