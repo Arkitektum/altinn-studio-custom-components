@@ -45,7 +45,7 @@ export interface DispensasjonProps {
     eiendomByggested?: EiendomByggestedProps | null;
     /** Passed through untouched, so what it holds is whatever the model held. */
     generelleVilkaar?: GenerelleVilkaarProps | null;
-    gradAvUtnytting?: string | null;
+    gradAvUtnytting?: number | null;
     kommunensSaksnummer?: KommunensSaksnummerProps | null;
     metadata?: MetadataProps | null;
     nasjonalArealplanId?: NasjonalArealplanIdProps | null;
@@ -72,7 +72,7 @@ export default class Dispensasjon {
     declare dispensasjonstema: Kode | undefined | null;
     declare eiendomByggested: EiendomByggested | undefined | null;
     declare generelleVilkaar?: GenerelleVilkaarProps | null;
-    declare gradAvUtnytting: string | undefined | null;
+    declare gradAvUtnytting: number | undefined | null;
     declare kommunensSaksnummer: KommunensSaksnummer | undefined | null;
     declare metadata: Metadata | undefined | null;
     declare nasjonalArealplanId: NasjonalArealplanId | undefined | null;
@@ -96,7 +96,7 @@ export default class Dispensasjon {
      * @param {Object} [props.dispensasjonstema] - The dispensasjonstema object containing theme information.
      * @param {Object} [props.eiendomByggested] - The eiendomByggested object containing property and construction site information.
      * @param {Array|string|boolean} [props.generelleVilkaar] - The generelleVilkaar array or string containing general conditions for the exemption.
-     * @param {string} [props.gradAvUtnytting] - The gradAvUtnytting string containing the degree of utilization related to the exemption.
+     * @param {number} [props.gradAvUtnytting] - The gradAvUtnytting number containing the degree of utilization related to the exemption.
      * @param {Object} [props.kommunensSaksnummer] - The kommunensSaksnummer object containing the municipality's case number information.
      * @param {Object} [props.metadata] - The metadata object containing metadata information.
      * @param {Object} [props.nasjonalArealplanId] - The nasjonalArealplanId object containing national area plan identification information.
