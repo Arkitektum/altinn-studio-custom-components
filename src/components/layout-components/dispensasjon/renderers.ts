@@ -377,6 +377,17 @@ export function renderDispensasjonsbeskrivelse(component?: InstantiatedComponent
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
+/**
+ * Renders the "beregningsregelGradAvUtnytting" custom field component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "beregningsregelGradAvUtnytting".
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.beregningsregelGradAvUtnytting] - The resource binding for the title.
+ * @param {string} [component?.resourceBindings.beregningsregelGradAvUtnytting.title] - The title for the custom field.
+ * @returns {HTMLElement} The rendered custom field element, showing the "kodebeskrivelse" of the calculation rule.
+ */
 export function renderBeregningsregelGradAvUtnytting(component?: InstantiatedComponent | null) {
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
     const data = component?.resourceValues?.data as Dispensasjon | undefined;
@@ -393,6 +404,17 @@ export function renderBeregningsregelGradAvUtnytting(component?: InstantiatedCom
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
+/**
+ * Renders the "gradAvUtnytting" custom field component.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component?.resourceValues] - The resource values for the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "gradAvUtnytting".
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @param {Object} [component?.resourceBindings.gradAvUtnytting] - The resource binding for the title.
+ * @param {string} [component?.resourceBindings.gradAvUtnytting.title] - The title for the custom field.
+ * @returns {HTMLElement} The rendered custom field element.
+ */
 export function renderGradAvUtnytting(component?: InstantiatedComponent | null) {
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
     const data = component?.resourceValues?.data as Dispensasjon | undefined;
