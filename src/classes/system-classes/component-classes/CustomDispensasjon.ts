@@ -147,7 +147,6 @@ export default class CustomDispensasjon extends CustomComponent {
             tiltakshaverAdresse: {
                 title: props?.resourceBindings?.tiltakshaverAdresse?.title || "resource.adresse.title"
             },
-
             tiltakshaverKontaktperson: {
                 title: props?.resourceBindings?.tiltakshaverKontaktperson?.title || "resource.kontaktpersonForTiltakshaver.title"
             },
@@ -168,6 +167,12 @@ export default class CustomDispensasjon extends CustomComponent {
             },
             dispensasjonsbeskrivelse: {
                 title: props?.resourceBindings?.dispensasjonsbeskrivelse?.title || "resource.dispensasjonsbeskrivelse.title"
+            },
+            beregningsregelGradAvUtnytting: {
+                title: props?.resourceBindings?.beregningsregelGradAvUtnytting?.title || "resource.beregningsregelGradAvUtnytting.title"
+            },
+            gradAvUtnytting: {
+                title: props?.resourceBindings?.gradAvUtnytting?.title || "resource.gradAvUtnytting.title"
             },
             dispensasjonFraHeader: {
                 title: props?.resourceBindings?.dispensasjonFraHeader?.title || "resource.bestemmelse.title"

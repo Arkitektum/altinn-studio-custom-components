@@ -124,5 +124,24 @@ describe("CustomDispensasjon", () => {
             expect(bindings.generelleVilkaarNorskSvenskDansk).toHaveProperty("title");
             expect(bindings.generelleVilkaarNorskSvenskDansk).toHaveProperty("trueText");
         });
+
+        it("falls back to the default titles for the grad av utnytting fields", () => {
+            const instance = new CustomDispensasjon({});
+            const bindings = instance.getResourceBindings();
+            expect(bindings.beregningsregelGradAvUtnytting.title).toBe("resource.beregningsregelGradAvUtnytting.title");
+            expect(bindings.gradAvUtnytting.title).toBe("resource.gradAvUtnytting.title");
+        });
+
+        it("uses the titles it is given for the grad av utnytting fields", () => {
+            const instance = new CustomDispensasjon({});
+            const bindings = instance.getResourceBindings({
+                resourceBindings: {
+                    beregningsregelGradAvUtnytting: { title: "custom.beregningsregel" },
+                    gradAvUtnytting: { title: "custom.grad" }
+                }
+            } as unknown as ComponentProps);
+            expect(bindings.beregningsregelGradAvUtnytting.title).toBe("custom.beregningsregel");
+            expect(bindings.gradAvUtnytting.title).toBe("custom.grad");
+        });
     });
 });

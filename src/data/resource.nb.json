@@ -86,6 +86,10 @@
             "value": "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?"
         },
         {
+            "id": "resource.beregningsregelGradAvUtnytting.title",
+            "value": "Beregningsregel for grad av utnytting"
+        },
+        {
             "id": "resource.beroertePlaner.title",
             "value": "Reguleringsplaner som berøres av planforslaget"
         },
@@ -372,6 +376,10 @@
         {
             "id": "resource.gjenstaaendeArbeider.title",
             "value": "Gjenstående arbeider"
+        },
+        {
+            "id": "resource.gradAvUtnytting.title",
+            "value": "Ny grad av utnytting"
         },
         {
             "id": "resource.harAapneAvvik.title",

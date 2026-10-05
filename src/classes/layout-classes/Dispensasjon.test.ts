@@ -6,6 +6,7 @@ import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.ts";
 describe("Dispensasjon", () => {
     const baseProps = {
         begrunnelse: { hensynBakBestemmelsen: "test" },
+        beregningsregelGradAvUtnytting: { kodeverdi: "%BYA", kodebeskrivelse: "Prosent bebygd areal" },
         bestemmelsestype: { kodeverdi: "A", kodebeskrivelse: "desc" },
         dispensasjonsbeskrivelse: "desc",
         dispensasjonsreferanse: "ref",
@@ -13,6 +14,7 @@ describe("Dispensasjon", () => {
         eiendomByggested: { eiendom: [] },
         // A stand-in, not a real GenerelleVilkaar. The test only checks that it is passed through untouched.
         generelleVilkaar: ["vilkaar1", "vilkaar2"] as unknown as GenerelleVilkaarProps,
+        gradAvUtnytting: 17,
         kommunensSaksnummer: { saksaar: 2024, sakssekvensnummer: 1 },
         metadata: { ftbId: "id", prosjektnavn: "navn", prosjektnr: "nr" },
         nasjonalArealplanId: { kodeverdi: "C", kodebeskrivelse: "plan" },
@@ -27,12 +29,15 @@ describe("Dispensasjon", () => {
     it("should construct with all properties", () => {
         const disp = new Dispensasjon(baseProps);
         expect(disp.begrunnelse).toBeDefined();
+        expect(disp.beregningsregelGradAvUtnytting).toBeInstanceOf(Kode);
+        expect(disp.beregningsregelGradAvUtnytting!.kodebeskrivelse).toBe("Prosent bebygd areal");
         expect(disp.bestemmelsestype).toBeInstanceOf(Kode);
         expect(disp.dispensasjonsbeskrivelse).toBe("desc");
         expect(disp.dispensasjonsreferanse).toBe("ref");
         expect(disp.dispensasjonstema).toBeInstanceOf(Kode);
         expect(disp.eiendomByggested).toBeDefined();
         expect(disp.generelleVilkaar).toEqual(["vilkaar1", "vilkaar2"]);
+        expect(disp.gradAvUtnytting).toBe(17);
         expect(disp.kommunensSaksnummer).toBeDefined();
         expect(disp.metadata).toBeDefined();
         expect(disp.nasjonalArealplanId).toBeInstanceOf(NasjonalArealplanId);
@@ -49,6 +54,8 @@ describe("Dispensasjon", () => {
     it("should handle missing props gracefully", () => {
         const disp = new Dispensasjon();
         expect(disp.begrunnelse).toBeUndefined();
+        expect(disp.beregningsregelGradAvUtnytting).toBeUndefined();
+        expect(disp.gradAvUtnytting).toBeUndefined();
         expect(disp.tiltakstyper).toBeUndefined();
     });
 

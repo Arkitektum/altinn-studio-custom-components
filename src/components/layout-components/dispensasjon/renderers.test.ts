@@ -23,6 +23,8 @@ const component = {
         tiltakshaverKontaktpersonAdresse: { title: "Kontaktpersonens adresse" },
         eiendomByggested: { title: "Eiendom" },
         dispensasjonsbeskrivelse: { title: "Beskrivelse" },
+        beregningsregelGradAvUtnytting: { title: "Beregningsregel" },
+        gradAvUtnytting: { title: "Grad av utnytting" },
         plannavn: { title: "Plannavn" },
         dispensasjonFra: { title: "Dispensasjon fra" },
         nasjonalArealplanIdPlanIdentifikasjon: { title: "Planident" },
@@ -41,7 +43,7 @@ const component = {
         begrunnelseFordeler: { title: "Fordeler" },
         begrunnelseUlemper: { title: "Ulemper" },
         begrunnelseSamletBegrunnelse: { title: "Samlet begrunnelse" },
-        generelleVilkaarNorskSvenskDansk: { title: "Norsk, svensk eller dansk" }
+        generelleVilkaarNorskSvenskDansk: { title: "Norsk, svensk eller dansk", trueText: "Ja, norsk, svensk eller dansk" }
     },
     resourceValues: {
         data: {
@@ -57,6 +59,8 @@ const component = {
                 kontaktperson: { navn: "Ola Nordmann", adresse: { adresselinje1: "Lillegata 2" } }
             },
             dispensasjonsbeskrivelse: "Ønsker å bygge nærmere grensen",
+            beregningsregelGradAvUtnytting: { kodeverdi: "%BYA", kodebeskrivelse: "Prosent bebygd areal" },
+            gradAvUtnytting: 17,
             plannavn: "Reguleringsplan sør",
             nasjonalArealplanId: { planidentifikasjon: "1234" },
             bestemmelsestype: { kodebeskrivelse: "Byggegrense" },
@@ -101,41 +105,101 @@ function attributes(rendered: HTMLElement) {
 }
 
 const data = component.resourceValues.data;
+const bindings = component.resourceBindings;
 
 /**
- * The fields, each with the element it renders as and the value it should have found.
+ * The fields, each with the element it renders as, the value it should have found and the resource bindings it should have
+ * passed on.
  *
  * Written as a table because the interesting part is which path each one reads: several of them sit three or four
  * levels down, and a field reading its neighbour's value would otherwise look perfectly correct.
  */
-const fields: [string, string, unknown][] = [
-    ["renderDispensasjonsreferanse", "custom-field-data", data.dispensasjonsreferanse],
-    ["renderMetadataFtbId", "custom-field-data", data.metadata.ftbId],
-    ["renderKommunensSaksnummer", "custom-field-kommunens-saksnummer", data.kommunensSaksnummer],
-    ["renderTiltakstyperKode", "custom-list-data", data.tiltakstyper.kode],
-    ["renderTiltakshaverAdresse", "custom-field-adresse", data.tiltakshaver.adresse],
-    ["renderTiltakshaverKontaktpersonAdresse", "custom-field-adresse", data.tiltakshaver.kontaktperson.adresse],
-    ["renderDispensasjonsbeskrivelse", "custom-field-data", data.dispensasjonsbeskrivelse],
-    ["renderPlannavn", "custom-field-data", data.plannavn],
-    ["renderNasjonalArealplanIdPlanIdentifikasjon", "custom-field-data", data.nasjonalArealplanId.planidentifikasjon],
-    ["renderBestemmelsestype", "custom-field-data", data.bestemmelsestype.kodebeskrivelse],
-    ["renderParagrafnummer", "custom-field-data", data.paragrafnummer],
-    ["renderStedfestingPosisjonKoordinatsystem", "custom-field-data", data.stedfesting.posisjon.koordinatsystem.kodebeskrivelse],
-    ["renderStedfestingPosisjonKoordinater", "custom-field-data", data.stedfesting.posisjon.koordinater.koordinat],
-    ["renderStedfestingVertikalnivaa", "custom-field-data", data.stedfesting.vertikalnivaa.kodebeskrivelse],
-    ["renderBegrunnelseHensynBakBestemmelsen", "custom-field-data", data.begrunnelse.hensynBakBestemmelsen],
-    ["renderBegrunnelseVurderingHensynBakBestemmelsen", "custom-field-data", data.begrunnelse.vurderingHensynBakBestemmelsen],
-    ["renderBegrunnelseVurderingHensynOverordnet", "custom-field-data", data.begrunnelse.vurderingHensynOverordnet],
-    ["renderBegrunnelseFordeler", "custom-list-data", data.begrunnelse.fordeler.effekt],
-    ["renderBegrunnelseUlemper", "custom-list-data", data.begrunnelse.ulemper.effekt],
-    ["renderBegrunnelseSamletBegrunnelse", "custom-field-data", data.begrunnelse.samletBegrunnelse],
-    ["renderGenerelleVilkaarNorskSvenskDansk", "custom-field-boolean-text", data.generelleVilkaar.norskSvenskDansk]
+const fields: [string, string, unknown, Record<string, unknown>][] = [
+    ["renderDispensasjonsreferanse", "custom-field-data", data.dispensasjonsreferanse, { title: bindings.dispensasjonsreferanse.title }],
+    ["renderMetadataFtbId", "custom-field-data", data.metadata.ftbId, { title: bindings.metadataFtbId.title }],
+    ["renderKommunensSaksnummer", "custom-field-kommunens-saksnummer", data.kommunensSaksnummer, { title: bindings.kommunensSaksnummer.title }],
+    ["renderTiltakstyperKode", "custom-list-data", data.tiltakstyper.kode, { title: bindings.tiltakstyperKode.title }],
+    ["renderTiltakshaverAdresse", "custom-field-adresse", data.tiltakshaver.adresse, { title: bindings.tiltakshaverAdresse.title }],
+    [
+        "renderTiltakshaverKontaktpersonAdresse",
+        "custom-field-adresse",
+        data.tiltakshaver.kontaktperson.adresse,
+        { title: bindings.tiltakshaverKontaktpersonAdresse.title }
+    ],
+    ["renderDispensasjonsbeskrivelse", "custom-field-data", data.dispensasjonsbeskrivelse, { title: bindings.dispensasjonsbeskrivelse.title }],
+    [
+        "renderBeregningsregelGradAvUtnytting",
+        "custom-field-data",
+        data.beregningsregelGradAvUtnytting.kodebeskrivelse,
+        { title: bindings.beregningsregelGradAvUtnytting.title }
+    ],
+    ["renderGradAvUtnytting", "custom-field-data", data.gradAvUtnytting, { title: bindings.gradAvUtnytting.title }],
+    ["renderPlannavn", "custom-field-data", data.plannavn, { title: bindings.plannavn.title }],
+    [
+        "renderNasjonalArealplanIdPlanIdentifikasjon",
+        "custom-field-data",
+        data.nasjonalArealplanId.planidentifikasjon,
+        { title: bindings.nasjonalArealplanIdPlanIdentifikasjon.title }
+    ],
+    ["renderBestemmelsestype", "custom-field-data", data.bestemmelsestype.kodebeskrivelse, { title: bindings.bestemmelsestype.title }],
+    ["renderParagrafnummer", "custom-field-data", data.paragrafnummer, { title: bindings.paragrafnummer.title }],
+    [
+        "renderStedfestingPosisjonKoordinatsystem",
+        "custom-field-data",
+        data.stedfesting.posisjon.koordinatsystem.kodebeskrivelse,
+        { title: bindings.stedfestingPosisjonKoordinatsystem.title }
+    ],
+    [
+        "renderStedfestingPosisjonKoordinater",
+        "custom-field-data",
+        data.stedfesting.posisjon.koordinater.koordinat,
+        { title: bindings.stedfestingPosisjonKoordinater.title }
+    ],
+    [
+        "renderStedfestingVertikalnivaa",
+        "custom-field-data",
+        data.stedfesting.vertikalnivaa.kodebeskrivelse,
+        { title: bindings.stedfestingVertikalnivaa.title }
+    ],
+    [
+        "renderBegrunnelseHensynBakBestemmelsen",
+        "custom-field-data",
+        data.begrunnelse.hensynBakBestemmelsen,
+        { title: bindings.begrunnelseHensynBakBestemmelsen.title }
+    ],
+    [
+        "renderBegrunnelseVurderingHensynBakBestemmelsen",
+        "custom-field-data",
+        data.begrunnelse.vurderingHensynBakBestemmelsen,
+        { title: bindings.begrunnelseVurderingHensynBakBestemmelsen.title }
+    ],
+    [
+        "renderBegrunnelseVurderingHensynOverordnet",
+        "custom-field-data",
+        data.begrunnelse.vurderingHensynOverordnet,
+        { title: bindings.begrunnelseVurderingHensynOverordnet.title }
+    ],
+    ["renderBegrunnelseFordeler", "custom-list-data", data.begrunnelse.fordeler.effekt, { title: bindings.begrunnelseFordeler.title }],
+    ["renderBegrunnelseUlemper", "custom-list-data", data.begrunnelse.ulemper.effekt, { title: bindings.begrunnelseUlemper.title }],
+    [
+        "renderBegrunnelseSamletBegrunnelse",
+        "custom-field-data",
+        data.begrunnelse.samletBegrunnelse,
+        { title: bindings.begrunnelseSamletBegrunnelse.title }
+    ],
+    [
+        "renderGenerelleVilkaarNorskSvenskDansk",
+        "custom-field-boolean-text",
+        data.generelleVilkaar.norskSvenskDansk,
+        { trueText: bindings.generelleVilkaarNorskSvenskDansk.trueText }
+    ]
 ];
 
 describe("the fields", () => {
-    it.each(fields)("%s renders %s with the value it read", (name, tagName, expected) => {
+    it.each(fields)("%s renders %s with the value and bindings it read", (name, tagName, expected, expectedBindings) => {
         expect(attributes(byName[name]!(component))).toMatchObject({
             tagName,
+            resourceBindings: expectedBindings,
             resourceValues: { data: expected },
             wrapped: true
         });
