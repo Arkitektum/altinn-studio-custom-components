@@ -126,6 +126,12 @@
         }
     },
     {
+        "id": "resource.beregningsregelGradAvUtnytting.title",
+        "values": {
+            "nb": "Beregningsregel for grad av utnytting"
+        }
+    },
+    {
         "id": "resource.beroertePlaner.title",
         "values": {
             "nb": "Reguleringsplaner som berøres av planforslaget"
@@ -555,6 +561,12 @@
         "id": "resource.gjenstaaendeArbeider.title",
         "values": {
             "nb": "Gjenstående arbeider"
+        }
+    },
+    {
+        "id": "resource.gradAvUtnytting.title",
+        "values": {
+            "nb": "Ny grad av utnytting"
         }
     },
     {
