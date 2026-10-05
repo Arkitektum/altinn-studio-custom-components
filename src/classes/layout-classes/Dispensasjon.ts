@@ -37,6 +37,7 @@ export interface DispensasjonTiltakstyper {
 /** What the form data holds for a Dispensasjon, before it is read into the class. */
 export interface DispensasjonProps {
     begrunnelse?: BegrunnelseProps | null;
+    beregningsregelGradAvUtnytting?: KodeProps | null;
     bestemmelsestype?: KodeProps | null;
     dispensasjonsbeskrivelse?: string | null;
     dispensasjonsreferanse?: string | null;
@@ -44,6 +45,7 @@ export interface DispensasjonProps {
     eiendomByggested?: EiendomByggestedProps | null;
     /** Passed through untouched, so what it holds is whatever the model held. */
     generelleVilkaar?: GenerelleVilkaarProps | null;
+    gradAvUtnytting?: string | null;
     kommunensSaksnummer?: KommunensSaksnummerProps | null;
     metadata?: MetadataProps | null;
     nasjonalArealplanId?: NasjonalArealplanIdProps | null;
@@ -63,12 +65,14 @@ export interface DispensasjonProps {
  */
 export default class Dispensasjon {
     declare begrunnelse: Begrunnelse | undefined | null;
+    declare beregningsregelGradAvUtnytting: Kode | undefined | null;
     declare bestemmelsestype: Kode | undefined | null;
     declare dispensasjonsbeskrivelse?: string | null;
     declare dispensasjonsreferanse?: string | null;
     declare dispensasjonstema: Kode | undefined | null;
     declare eiendomByggested: EiendomByggested | undefined | null;
     declare generelleVilkaar?: GenerelleVilkaarProps | null;
+    declare gradAvUtnytting: string | undefined | null;
     declare kommunensSaksnummer: KommunensSaksnummer | undefined | null;
     declare metadata: Metadata | undefined | null;
     declare nasjonalArealplanId: NasjonalArealplanId | undefined | null;
@@ -85,12 +89,14 @@ export default class Dispensasjon {
      * @param {Object} props - The properties object.
      * @param {Object} [props.tiltakstyper] - The tiltakstyper object containing type information.
      * @param {Object} [props.begrunnelse] - The begrunnelse object containing justification information.
+     * @param {Object} [props.beregningsregelGradAvUtnytting] - The beregningsregelGradAvUtnytting object containing calculation rules for the degree of utilization.
      * @param {Object} [props.bestemmelsestype] - The bestemmelsestype object containing type information.
      * @param {string} [props.dispensasjonsbeskrivelse] - The dispensasjonsbeskrivelse string containing the description of the exemption.
      * @param {string} [props.dispensasjonsreferanse] - The dispensasjonsreferanse string containing the reference for the exemption.
      * @param {Object} [props.dispensasjonstema] - The dispensasjonstema object containing theme information.
      * @param {Object} [props.eiendomByggested] - The eiendomByggested object containing property and construction site information.
      * @param {Array|string|boolean} [props.generelleVilkaar] - The generelleVilkaar array or string containing general conditions for the exemption.
+     * @param {string} [props.gradAvUtnytting] - The gradAvUtnytting string containing the degree of utilization related to the exemption.
      * @param {Object} [props.kommunensSaksnummer] - The kommunensSaksnummer object containing the municipality's case number information.
      * @param {Object} [props.metadata] - The metadata object containing metadata information.
      * @param {Object} [props.nasjonalArealplanId] - The nasjonalArealplanId object containing national area plan identification information.
@@ -103,12 +109,14 @@ export default class Dispensasjon {
     constructor(props?: DispensasjonProps) {
         const tiltakstyper = props ? this.getTiltakstyperFromProps(props) : null;
         this.begrunnelse = props?.begrunnelse && new Begrunnelse(props.begrunnelse);
+        this.beregningsregelGradAvUtnytting = props?.beregningsregelGradAvUtnytting && new Kode(props.beregningsregelGradAvUtnytting);
         this.bestemmelsestype = props?.bestemmelsestype && new Kode(props.bestemmelsestype);
         this.dispensasjonsbeskrivelse = props?.dispensasjonsbeskrivelse;
         this.dispensasjonsreferanse = props?.dispensasjonsreferanse;
         this.dispensasjonstema = props?.dispensasjonstema && new Kode(props.dispensasjonstema);
         this.eiendomByggested = props?.eiendomByggested && new EiendomByggested(props.eiendomByggested);
         this.generelleVilkaar = props?.generelleVilkaar;
+        this.gradAvUtnytting = props?.gradAvUtnytting;
         this.kommunensSaksnummer = props?.kommunensSaksnummer && new KommunensSaksnummer(props.kommunensSaksnummer);
         this.metadata = props?.metadata && new Metadata(props.metadata);
         this.nasjonalArealplanId = props?.nasjonalArealplanId && new NasjonalArealplanId(props.nasjonalArealplanId);

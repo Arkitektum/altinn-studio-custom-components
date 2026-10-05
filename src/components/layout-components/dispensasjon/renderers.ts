@@ -377,6 +377,38 @@ export function renderDispensasjonsbeskrivelse(component?: InstantiatedComponent
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
+export function renderBeregningsregelGradAvUtnytting(component?: InstantiatedComponent | null) {
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.beregningsregelGradAvUtnytting?.title
+        },
+        resourceValues: {
+            data: data?.beregningsregelGradAvUtnytting?.kodebeskrivelse
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+export function renderGradAvUtnytting(component?: InstantiatedComponent | null) {
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.gradAvUtnytting?.title
+        },
+        resourceValues: {
+            data: data?.gradAvUtnytting
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
 /**
  * Renders a custom field displaying the name of the "plannavn".
  *

@@ -15,6 +15,7 @@ import {
     renderBegrunnelseUlemper,
     renderBegrunnelseVurderingHensynBakBestemmelsen,
     renderBegrunnelseVurderingHensynOverordnet,
+    renderBeregningsregelGradAvUtnytting,
     renderBestemmelsestype,
     renderDispensasjonFraHeader,
     renderDispensasjonHeader,
@@ -23,6 +24,7 @@ import {
     renderEiendomByggestedElement,
     renderGenerelleVilkaarNorskSvenskDansk,
     renderGenerelleVilkaarNorskSvenskDanskHeader,
+    renderGradAvUtnytting,
     renderKommunensSaksnummer,
     renderMetadataFtbId,
     renderNasjonalArealplanIdPlanIdentifikasjon,
@@ -65,6 +67,8 @@ export default customElements.define(
                     const tiltakshaverKontaktpersonAdresseElement = renderTiltakshaverKontaktpersonAdresse(component);
                     const dispensasjonHeader2Element = renderDispensasjonHeader(component, "h2");
                     const dispensasjonsbeskrivelseElement = renderDispensasjonsbeskrivelse(component);
+                    const beregningsregelGradAvUtnyttingElement = renderBeregningsregelGradAvUtnytting(component);
+                    const gradAvUtnyttingElement = renderGradAvUtnytting(component);
                     const dispensasjonFraHeaderElement = renderDispensasjonFraHeader(component);
                     const plannavnElement = renderPlannavn(component);
                     const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(component);
@@ -112,8 +116,13 @@ export default customElements.define(
                         tiltakshaverKontaktpersonAdresseElement
                     ]);
 
-                    // Dispensasjonsbeskrivelse
-                    appendChildren(layoutContainerElement, [dispensasjonHeader2Element, dispensasjonsbeskrivelseElement]);
+                    // Dispensasjonsbeskrivelse / Grad av utnytting
+                    appendChildren(layoutContainerElement, [
+                        dispensasjonHeader2Element,
+                        dispensasjonsbeskrivelseElement,
+                        beregningsregelGradAvUtnyttingElement,
+                        gradAvUtnyttingElement
+                    ]);
 
                     // Dispensasjon fra
                     appendChildren(layoutContainerElement, [
