@@ -4,8 +4,8 @@ import * as renderers from "./renderers.ts";
 const component = {
     resourceBindings: {
         erNyEllerEndretAdkomst: { title: "Ny eller endret adkomst", trueText: "Ja", falseText: "Nei" },
-        adkomstVegtype: { title: "Vegtype" },
-        adkomstErTillatelseGitt: { title: "Er tillatelse gitt", trueText: "Ja", falseText: "Nei", defaultText: "Ikke oppgitt" }
+        vegtype: { title: "Vegtype" },
+        erTillatelseGitt: { title: "Er tillatelse gitt", trueText: "Ja", falseText: "Nei", defaultText: "Ikke oppgitt" }
     },
     resourceValues: {
         data: {
@@ -75,9 +75,9 @@ describe("the road types and their permissions", () => {
         });
     });
 
-    it("drops the adkomst prefix from the two bindings the list expects to find", () => {
-        // Its own bindings are prefixed because they sit beside those of the other connections, and the list
-        // below knows them only by their short names.
+    it("passes on its own vegtype and erTillatelseGitt bindings, which are what an app overrides", () => {
+        // The prefixed names belong to custom-group-rammebetingelser-tilknytninger, which strips the prefix before
+        // handing them to this component. Reading them here found nothing, so an app's overrides never reached the list.
         expect(attributes(renderers.renderVegtypeTillatelseElement(component)).resourceBindings).toEqual({
             vegtype: { title: "Vegtype" },
             erTillatelseGitt: { title: "Er tillatelse gitt", trueText: "Ja", falseText: "Nei", defaultText: "Ikke oppgitt" }

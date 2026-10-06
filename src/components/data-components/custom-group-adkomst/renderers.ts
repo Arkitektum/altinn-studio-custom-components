@@ -55,8 +55,8 @@ export function renderErNyEllerEndretAdkomstElement(component?: InstantiatedComp
  * @param {Object} component - The component object containing resource bindings and values.
  * @param {Object} [component?.resourceValues] - The resource values associated with the component.
  * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
- * @param {string} [component?.resourceBindings.adkomstVegtype] - The resource binding for vegtype.
- * @param {string} [component?.resourceBindings.adkomstErTillatelseGitt] - The resource binding for tillatelse.
+ * @param {Object} [component?.resourceBindings.vegtype] - The resource bindings for vegtype.
+ * @param {Object} [component?.resourceBindings.erTillatelseGitt] - The resource bindings for tillatelse.
  * @returns {HTMLElement} The rendered custom element.
  */
 export function renderVegtypeTillatelseElement(component?: InstantiatedComponent | null) {
@@ -66,8 +66,8 @@ export function renderVegtypeTillatelseElement(component?: InstantiatedComponent
         isChildComponent: true,
         hideIfEmpty: true,
         resourceBindings: {
-            vegtype: component?.resourceBindings?.adkomstVegtype,
-            erTillatelseGitt: component?.resourceBindings?.adkomstErTillatelseGitt
+            vegtype: component?.resourceBindings?.vegtype,
+            erTillatelseGitt: component?.resourceBindings?.erTillatelseGitt
         },
         resourceValues: {
             data: data
