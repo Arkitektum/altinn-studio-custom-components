@@ -136,6 +136,12 @@ describe("validateTableHeadersTextResourceBindings", () => {
         expect(result.info).toHaveLength(1);
     });
 
+    it("checks nothing, rather than throwing, when the columns are missing", () => {
+        // A missing tableColumns attribute reaches here as false, not undefined.
+        expect(validateTableHeadersTextResourceBindings(false as unknown as undefined).error).toHaveLength(0);
+        expect(validateTableHeadersTextResourceBindings(undefined).error).toHaveLength(0);
+    });
+
     it("skips a binding a column leaves out", () => {
         const columns = [{ resourceBindings: { title: "header", emptyFieldText: undefined } }];
         const result = validateTableHeadersTextResourceBindings(columns);

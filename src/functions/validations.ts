@@ -63,7 +63,11 @@ export function hasMissingTextResources(
 export function validateTableHeadersTextResourceBindings(tableColumns?: TableColumn[], validationMessages = new ValidationMessages()) {
     const textResources = getTextResources() as TextResourceCollection | undefined;
     const defaultTextResources = getDefaultTextResources() as TextResourceCollection | undefined;
-    (tableColumns ?? []).forEach((column, columnIndex) => {
+    // Read from an element attribute, which answers false rather than undefined when it is missing, whatever the type says.
+    if (!Array.isArray(tableColumns)) {
+        return validationMessages;
+    }
+    tableColumns.forEach((column, columnIndex) => {
         for (const [textResourceKey, id] of Object.entries(column?.resourceBindings ?? {})) {
             if (id === undefined) {
                 continue;
