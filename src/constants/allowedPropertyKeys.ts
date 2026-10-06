@@ -1,6 +1,6 @@
 /**
  * Allowed `formData` / `resourceValues` keys per component type, used by the data-attribute validation
- * in componentRenderHelpers.js.
+ * in componentRenderHelpers.ts.
  *
  * Values:
  *  - an array of strings → only those keys are allowed; anything else is reported as unrecognized.

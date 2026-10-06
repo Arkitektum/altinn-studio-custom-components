@@ -14,7 +14,7 @@ import { allowedFormDataKeysForTypes, allowedResourceValuesKeysForTypes } from "
  */
 const DATA_CONTRACT_HINT =
     "Primary data must be passed as formData.simpleBinding, formData.data or resourceValues.data, and read via getComponentDataValue(). " +
-    "If a key is legitimately needed, add it to allowedPropertyKeys.js.";
+    "If a key is legitimately needed, add it to allowedPropertyKeys.ts.";
 
 /**
  * Safely reads and parses a JSON attribute from the host element.

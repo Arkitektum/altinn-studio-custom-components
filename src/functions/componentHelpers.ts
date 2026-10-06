@@ -93,7 +93,7 @@ import { getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
  * This is the single runtime registry used to instantiate components. Its keys (excluding the `custom-component`
  * fallback) must stay in sync with the `customElementTagNames` allow-list in `@arkitektum/...-utils` — otherwise
  * `createCustomElement` throws for a tag this map can build (or this map can't build a tag the DOM renders).
- * `componentHelpers.test.js` guards that invariant.
+ * `componentHelpers.test.ts` guards that invariant.
  */
 export const componentMap = {
     "custom-component": CustomComponent,

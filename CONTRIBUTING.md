@@ -78,7 +78,7 @@ Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn bui
 
 ## Adding a new component
 
-1. **Create the element directory** under `src/components/<component-type>/<component-tag-name>/` and add the files it needs (`index.js`, plus `README.md`, `styles.css`, etc. as appropriate).
+1. **Create the element directory** under `src/components/<component-type>/<component-tag-name>/` and add the files it needs (`index.ts`, plus `README.md`, `styles.css`, etc. as appropriate).
    `<component-type>` is one of:
     - `base-components` — primitive building blocks; accept literal values; not bound to a data model or resources.
     - `data-components` — bound to the data model and resources.
@@ -86,9 +86,9 @@ Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn bui
       Children may be base components or other data components.
     - `layout-components` — a complete form layout composed of multiple data and base components.
 
-2. **Register the element** by importing it in `src/components/index.js`.
+2. **Register the element** by importing it in `src/components/index.ts`.
 
-3. **Add the component class** in `src/classes/system-classes/component-classes/<ComponentTagName>.js` (PascalCase), extending `CustomComponent`.
+3. **Add the component class** in `src/classes/system-classes/component-classes/<ComponentTagName>.ts` (PascalCase), extending `CustomComponent`.
    Data and layout components should implement:
 
     - `getValueFromFormData` — resolve the value from `resourceValues` or the data-model binding; often instantiate a domain data class from `src/classes/data-classes` or `src/classes/system-classes/data-classes`.
@@ -103,7 +103,7 @@ Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn bui
    This is required for security reasons — `createCustomElement` throws for any tag name not on the list, so the component will not render until it is added (and the updated utils version is released and bumped here).
 
 5. **Add tests.**
-   Place `*.test.js` next to the class/functions you add and cover the logic with Jest.
+   Place `*.test.ts` next to the class/functions you add and cover the logic with Jest.
 
 6. **Document it.**
    Add an example with dummy data to the [`altinn-studio-custom-components-docs`](https://github.com/Arkitektum/altinn-studio-custom-components-docs) gallery.
@@ -134,11 +134,11 @@ Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn bui
 ## Coding conventions
 
 - **Web standards first** — components are native custom elements; there is no UI framework runtime.
-- **Thin elements, fat classes** — keep element `index.js` files limited to registration and delegation; put logic in the component class.
+- **Thin elements, fat classes** — keep element `index.ts` files limited to registration and delegation; put logic in the component class.
 - **JSDoc** on classes and exported functions.
 - **Formatting & linting** via Prettier (`.prettierrc`) and ESLint (`eslint.config.mjs`).
   Run `yarn lint` before pushing.
-- **Tests** colocated as `*.test.js` and run with Jest.
+- **Tests** colocated as `*.test.ts` and run with Jest.
 
 ---
 

@@ -74,13 +74,13 @@ Two families of repositories share this directory. The **components family** bui
 
 ## 3. Runtime model
 
-The package ships three webpack entry points (`src/components/index.js`, `public/scripts/devTools/index.js`, `public/scripts/statistics/index.js`), but only `main.js` (built from the components entry) is shipped to Altinn apps.
+The package ships three webpack entry points (`src/components/index.ts`, `public/scripts/devTools/index.ts`, `public/scripts/statistics/index.ts`), but only `main.js` (built from the components entry) is shipped to Altinn apps.
 devTools and statistics are development surfaces (see §7).
 
 ### Bootstrapping in an Altinn app
 
 1. The app loads `main.css` and `main.js` from `wwwroot/altinn-studio-custom-components` (see the README installation steps).
-2. `src/functions/init.js` (`initCustomComponents`) runs on startup. It:
+2. `src/functions/init.ts` (`initCustomComponents`) runs on startup. It:
     - derives `org`, `app`, and `instanceId` from the URL,
     - fetches the user's profile to determine the preferred language (falling back to `nb`),
     - loads the app's **text resources** and **default text resources** and stores them on `globalThis` (`globalThis.textResources`, `globalThis.defaultTextResources`, `globalThis.selectedLanguage`),
@@ -90,8 +90,8 @@ devTools and statistics are development surfaces (see §7).
 
 ### How a component renders
 
-Each component's `index.js` is thin — it defines the custom element and delegates logic to a **component class**.
-The typical flow (see `src/components/data-components/custom-field-data/index.js`):
+Each component's `index.ts` is thin — it defines the custom element and delegates logic to a **component class**.
+The typical flow (see `src/components/data-components/custom-field-data/index.ts`):
 
 1. `instantiateComponent(this)` builds the component-class instance from the element's attributes.
 2. If the component is configured with `hideIfEmpty` and resolves to empty, it is hidden (or shown as a placeholder in DevTools mode).
@@ -113,12 +113,12 @@ src/
 │   │                          #   (custom-field-data, custom-table-part, custom-group-*, ...)
 │   ├── layout-components/     # Whole-form layouts composed of many data/base components
 │   │                          #   (dispensasjon, gjennomfoeringsplan, ...)
-│   └── index.js               # Registers every component (webpack entry "main")
+│   └── index.ts               # Registers every component (webpack entry "main")
 │
 ├── classes/
 │   ├── system-classes/
-│   │   ├── CustomComponent.js         # Base class for all component classes
-│   │   ├── ValidationMessages.js      # Validation message container
+│   │   ├── CustomComponent.ts         # Base class for all component classes
+│   │   ├── ValidationMessages.ts      # Validation message container
 │   │   ├── component-classes/         # One class per component (PascalCase), holds the logic
 │   │   └── data-classes/              # System-level data wrappers
 │   ├── data-classes/          # Domain data classes (Adresse, Ansvarsomraade, ...)
@@ -128,7 +128,7 @@ src/
 ├── data/                  # resources.json (source) + generated resource.<lang>.json (see §5)
 ├── fonts/                 # Bundled fonts (Roboto Flex, etc.)
 ├── functions/             # Shared helpers (componentHelpers, helpers, init, clientLoggerHelpers,
-│                          #   devToolsHelpers, tableHelpers, validations, ...) + *.test.js
+│                          #   devToolsHelpers, tableHelpers, validations, ...) + *.test.ts
 └── styles/                # CSS
 
 public/                    # Dev-only HTML + scripts for the local playground, DevTools, Statistics
@@ -149,7 +149,7 @@ There are three component categories, mirrored by the `base-components` / `data-
 
 ### Component classes
 
-Every data and layout component has a class in `src/classes/system-classes/component-classes/[ComponentTagName].js` (PascalCase) that extends `CustomComponent`.
+Every data and layout component has a class in `src/classes/system-classes/component-classes/[ComponentTagName].ts` (PascalCase) that extends `CustomComponent`.
 By convention these classes implement:
 
 | Method                  | Responsibility                                                                                                                                                                                                                                                                                     |
@@ -213,9 +213,9 @@ These surfaces are development-only and are not part of the published `dist/`.
 
 ## 8. Logging
 
-Browser-side logging goes through `@arkitektum/client-logger` (wrapped in `src/functions/clientLoggerHelpers.js`).
+Browser-side logging goes through `@arkitektum/client-logger` (wrapped in `src/functions/clientLoggerHelpers.ts`).
 API/fetch calls log result, errors, warnings, and response time to **Elastic**.
-The target endpoint is environment-aware — `src/constants/urls.js` maps the current Altinn app origin (local / test / production) to the matching `frontendlogger.*.dibk.no` URL.
+The target endpoint is environment-aware — `src/constants/urls.ts` maps the current Altinn app origin (local / test / production) to the matching `frontendlogger.*.dibk.no` URL.
 
 ---
 
@@ -246,7 +246,7 @@ Only `dist/` and `README.md` are published (`package.json#files`).
 ## 10. Conventions
 
 - **Web standards first.** Components are native custom elements; there is no UI framework runtime.
-- **Thin elements, fat classes.** Element `index.js` files only register and delegate; logic lives in the component class.
+- **Thin elements, fat classes.** Element `index.ts` files only register and delegate; logic lives in the component class.
 - **JSDoc** on classes and exported functions.
-- **Tests** are colocated as `*.test.js` next to the unit under test and run with Jest.
+- **Tests** are colocated as `*.test.ts` next to the unit under test and run with Jest.
 - **Formatting/linting** via Prettier (`.prettierrc`) and ESLint (`eslint.config.mjs`).
