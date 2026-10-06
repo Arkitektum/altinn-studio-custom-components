@@ -158,5 +158,13 @@ describe("CustomGroupKontrollAnsvarsomraade", () => {
             expect(result.funksjon.emptyFieldText).toBe("custom.empty");
             expect(result.ansvarsomraade.title).toBe("custom.ansvarsomraade.title");
         });
+
+        it("takes trueText and falseText as the plain ids every other binding is", () => {
+            const props = { resourceBindings: { erAnsvarsomraadetAvsluttet: { trueText: "custom.yes", falseText: "custom.no" } } };
+            const instance = new CustomGroupKontrollAnsvarsomraade(props);
+            const result = instance.getResourceBindings(props);
+            expect(result.erAnsvarsomraadetAvsluttet.trueText).toBe("custom.yes");
+            expect(result.erAnsvarsomraadetAvsluttet.falseText).toBe("custom.no");
+        });
     });
 });

@@ -137,8 +137,8 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
             },
             dekkesOmraadeAvSentralGodkjenning: {
                 title: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.title || "resource.dekkesOmraadeAvSentralGodkjenning.title",
-                trueText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText?.title || "resource.trueText.default",
-                falseText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText?.title || "resource.falseText.default",
+                trueText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.falseText || "resource.falseText.default",
                 defaultText: props?.resourceBindings?.dekkesOmraadeAvSentralGodkjenning?.defaultText || "resource.emptyFieldText.default"
             },
             rammetillatelse: {

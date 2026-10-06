@@ -49,6 +49,14 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
             expect(bindings.ansvarsomraader!.emptyFieldText).toBe("custom.emptyFieldText");
         });
 
+        it("takes trueText and falseText as the plain ids every other binding is", () => {
+            const props = { resourceBindings: { dekkesOmraadeAvSentralGodkjenning: { trueText: "custom.yes", falseText: "custom.no" } } };
+            const instance = new CustomTableAnsvarsrettAnsvarsomraade(props);
+            const bindings = instance.getResourceBindings(props);
+            expect(bindings.dekkesOmraadeAvSentralGodkjenning!.trueText).toBe("custom.yes");
+            expect(bindings.dekkesOmraadeAvSentralGodkjenning!.falseText).toBe("custom.no");
+        });
+
         it("should omit ansvarsomraader title if hideTitle is true", () => {
             const props = { hideTitle: true };
             const instance = new CustomTableAnsvarsrettAnsvarsomraade(props);

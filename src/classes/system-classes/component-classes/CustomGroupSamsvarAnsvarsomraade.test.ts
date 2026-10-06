@@ -146,8 +146,8 @@ describe("CustomGroupSamsvarAnsvarsomraade", () => {
                     ansvarsomraade: { title: "ansvar.title", emptyFieldText: "ansvar.empty" },
                     erAnsvarsomraadetAvsluttet: {
                         title: "avsluttet.title",
-                        trueText: { title: "yes" },
-                        falseText: { title: "no" },
+                        trueText: "yes",
+                        falseText: "no",
                         defaultText: "default"
                     }
                 }

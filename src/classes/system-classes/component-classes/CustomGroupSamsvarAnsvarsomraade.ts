@@ -83,8 +83,8 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
             },
             erAnsvarsomraadetAvsluttet: {
                 title: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title || "resource.erAnsvarsomraadetAvsluttet.title",
-                trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText?.title || "resource.trueText.default",
-                falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText?.title || "resource.falseText.default",
+                trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText || "resource.falseText.default",
                 defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText || "resource.emptyFieldText.default"
             },
             avdekketArbeider: {
@@ -129,8 +129,8 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
             },
             tilstrekkeligSikkerhet: {
                 title: props?.resourceBindings?.tilstrekkeligSikkerhet?.title || "resource.tilstrekkeligSikkerhet.title",
-                trueText: props?.resourceBindings?.tilstrekkeligSikkerhet?.trueText?.title || "resource.trueText.default",
-                falseText: props?.resourceBindings?.tilstrekkeligSikkerhet?.falseText?.title || "resource.falseText.default",
+                trueText: props?.resourceBindings?.tilstrekkeligSikkerhet?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.tilstrekkeligSikkerhet?.falseText || "resource.falseText.default",
                 defaultText: props?.resourceBindings?.tilstrekkeligSikkerhet?.defaultText || "resource.emptyFieldText.default"
             },
             arbeidGjenstaaendeInnenfor: {

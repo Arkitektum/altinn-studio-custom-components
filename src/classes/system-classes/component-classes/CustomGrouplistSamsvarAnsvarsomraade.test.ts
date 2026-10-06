@@ -150,4 +150,18 @@ describe("CustomGrouplistSamsvarAnsvarsomraade", () => {
         expect(result.ansvarsomraade.title).toBe("resource.ansvarsomraade.title");
         expect(result.ferdigattest.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
+
+    it("getResourceBindings takes trueText and falseText as the plain ids every other binding is", () => {
+        const instance = Object.create(CustomGrouplistSamsvarAnsvarsomraade.prototype);
+        const result = instance.getResourceBindings({
+            resourceBindings: {
+                erAnsvarsomraadetAvsluttet: { trueText: "avsluttet.yes", falseText: "avsluttet.no" },
+                tilstrekkeligSikkerhet: { trueText: "sikkerhet.yes", falseText: "sikkerhet.no" }
+            }
+        });
+        expect(result.erAnsvarsomraadetAvsluttet.trueText).toBe("avsluttet.yes");
+        expect(result.erAnsvarsomraadetAvsluttet.falseText).toBe("avsluttet.no");
+        expect(result.tilstrekkeligSikkerhet.trueText).toBe("sikkerhet.yes");
+        expect(result.tilstrekkeligSikkerhet.falseText).toBe("sikkerhet.no");
+    });
 });

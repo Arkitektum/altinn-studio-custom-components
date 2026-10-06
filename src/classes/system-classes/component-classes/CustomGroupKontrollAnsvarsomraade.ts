@@ -84,8 +84,8 @@ export default class CustomGroupKontrollAnsvarsomraade extends CustomComponent {
             },
             erAnsvarsomraadetAvsluttet: {
                 title: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title || "resource.erAnsvarsomraadetAvsluttet.title",
-                trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText?.title || "resource.trueText.default",
-                falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText?.title || "resource.falseText.default",
+                trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText || "resource.trueText.default",
+                falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText || "resource.falseText.default",
                 defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText || "resource.emptyFieldText.default"
             },
             ansvarsomraade: {
