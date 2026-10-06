@@ -18,14 +18,18 @@ export function isNumberLargerThanZero(value: unknown): boolean {
 /**
  * Retrieves the text for an empty field from the given component.
  *
- * @param {Object} component - The component object containing text properties.
- * @param {Object} [component.texts] - An optional object containing text definitions.
- * @param {string} [component.texts.emptyFieldText] - The text to display for an empty field.
+ * An empty component holds its empty-field text as its data, which is where the table and matrix data classes put it, so a string there is the text to show. An `emptyFieldText` resource value comes first where one is set.
+ *
+ * @param {Object} component - The component object containing resource values.
+ * @param {string} [component.resourceValues.emptyFieldText] - The text to display for an empty field.
+ * @param {unknown} [component.resourceValues.data] - The component's data, which is the empty-field text when it is a string.
  * @returns {string} The empty field text if defined, otherwise an empty string.
  */
 export function getEmptyFieldText(component?: InstantiatedComponent | null): string | undefined {
-    const emptyFieldText = (component?.resourceValues as Record<string, unknown> | undefined)?.emptyFieldText as string | undefined;
-    return emptyFieldText || "";
+    const resourceValues = component?.resourceValues as Record<string, unknown> | undefined;
+    const emptyFieldText = resourceValues?.emptyFieldText as string | undefined;
+    const data = resourceValues?.data;
+    return emptyFieldText || (typeof data === "string" ? data : "");
 }
 
 /**

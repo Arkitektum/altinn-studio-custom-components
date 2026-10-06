@@ -88,6 +88,13 @@ describe("a table with nothing to show", () => {
         expect(emptyTable({ tableHeaders: [], tableRows: [[{}]] }).querySelector("thead")).toBeNull();
     });
 
+    it("shows the empty field text the data class leaves in its data", () => {
+        // CustomTableData stores the resolved empty-field text as its data when there are no rows, and sets nothing else.
+        const table = renderTableElement({ resourceValues: { title: "Eiendommer", data: "Ikke oppgitt" }, isEmpty: true });
+
+        expect(table.querySelector("td")!.textContent).toBe("Ikke oppgitt");
+    });
+
     it("draws an empty table rather than a stray row when there is no text to show either", () => {
         const table = renderTableElement({ resourceValues: { data: {} } });
 

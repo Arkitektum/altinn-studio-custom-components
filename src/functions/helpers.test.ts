@@ -52,6 +52,15 @@ describe("getEmptyFieldText", () => {
     it("returns empty string if not present", () => {
         expect(getEmptyFieldText({})).toBe("");
     });
+    it("returns the data when it is a string, which is where an empty component keeps its empty-field text", () => {
+        expect(getEmptyFieldText({ resourceValues: { data: "Ikke oppgitt" } })).toBe("Ikke oppgitt");
+    });
+    it("does not take data that is not a string for the text", () => {
+        expect(getEmptyFieldText({ resourceValues: { data: { tableHeaders: [], tableRows: [] } } })).toBe("");
+    });
+    it("prefers emptyFieldText over the data", () => {
+        expect(getEmptyFieldText({ resourceValues: { emptyFieldText: "Empty!", data: "Ikke oppgitt" } })).toBe("Empty!");
+    });
 });
 
 describe("getRowNumberTitle", () => {

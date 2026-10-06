@@ -124,3 +124,13 @@ describe("the header element on its own", () => {
         expect(renderHeaderElement(undefined as unknown as string, "h2")).toBeUndefined();
     });
 });
+
+describe("a matrix with nothing to show", () => {
+    it("shows the empty field text the data class leaves in its data", () => {
+        // CustomMatrixData stores the resolved empty-field text as its data when there are no rows, and sets nothing else.
+        const matrix = renderMatrixElement({ resourceValues: { title: "Arealer", data: "Ikke oppgitt" }, isEmpty: true });
+
+        expect(matrix.querySelector("td")!.textContent).toBe("Ikke oppgitt");
+        expect(matrix.querySelector("thead")).toBeNull();
+    });
+});
