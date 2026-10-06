@@ -139,3 +139,14 @@ describe("CustomGroupUtfallSvar", () => {
         expect(result).toBeInstanceOf(UtfallSvar);
     });
 });
+
+describe("CustomGroupUtfallSvar tema and vedleggsliste overrides", () => {
+    it("reads them as documented, as tema.title and vedleggsliste.title", () => {
+        const instance = Object.create(CustomGroupUtfallSvar.prototype);
+        const result = instance.getResourceBindings({
+            resourceBindings: { tema: { title: "custom.tema" }, vedleggsliste: { title: "custom.vedlegg" } }
+        });
+        expect(result.tema.title).toBe("custom.tema");
+        expect(result.vedleggsliste.title).toBe("custom.vedlegg");
+    });
+});

@@ -241,3 +241,14 @@ describe("CustomGrouplistUtfallSvar", () => {
         });
     });
 });
+
+describe("CustomGrouplistUtfallSvar tema and vedleggsliste overrides", () => {
+    it("reads them as documented, as tema.title and vedleggsliste.title", () => {
+        const instance = Object.create(CustomGrouplistUtfallSvar.prototype);
+        const result = instance.getResourceBindings({
+            resourceBindings: { tema: { title: "custom.tema" }, vedleggsliste: { title: "custom.vedlegg" } }
+        });
+        expect(result.tema.title).toBe("custom.tema");
+        expect(result.vedleggsliste.title).toBe("custom.vedlegg");
+    });
+});

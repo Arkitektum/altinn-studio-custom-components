@@ -72,13 +72,11 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
      * @param {string} [props.resourceBindings.erUtfallBesvaresSenere] - Custom resource key for erUtfallBesvaresSenere.
      * @param {string} [props.resourceBindings.erUtfallBesvart] - Custom resource key for erUtfallBesvart.
      * @param {Object} [props.resourceBindings.tema] - Optional overrides for tema.
-     * @param {Object} [props.resourceBindings.tema.kodebeskrivelse] - Optional overrides for tema kodebeskrivelse.
-     * @param {string} [props.resourceBindings.tema.kodebeskrivelse.title] - Custom resource key for tema title.
+     * @param {string} [props.resourceBindings.tema.title] - Title for 'tema'.
      * @param {Object} [props.resourceBindings.kommentar] - Optional overrides for kommentar.
      * @param {string} [props.resourceBindings.kommentar.title] - Custom resource key for kommentar title.
      * @param {Object} [props.resourceBindings.vedleggsliste] - Optional overrides for vedleggsliste.
-     * @param {Object} [props.resourceBindings.vedleggsliste.vedlegg] - Optional overrides for vedlegg.
-     * @param {string} [props.resourceBindings.vedleggsliste.vedlegg.title] - Custom resource key for vedlegg title.
+     * @param {string} [props.resourceBindings.vedleggsliste.title] - Title for 'vedleggsliste'.
      * @param {string} [props.resourceBindings.emptyFieldText] - Custom resource key for empty field text.
      * @param {boolean|string} [props.hideIfEmpty] - If true, omits the emptyFieldText binding from utfallSvar.
      * @returns {Object} The resource bindings object with resolved resource keys for each field.
@@ -93,13 +91,13 @@ export default class CustomGroupUtfallSvar extends CustomComponent {
                 erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
             },
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
+                title: props?.resourceBindings?.tema?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.vedlegg.title"
+                title: props?.resourceBindings?.vedleggsliste?.title || "resource.vedlegg.title"
             },
             utfallSvar: {}
         };

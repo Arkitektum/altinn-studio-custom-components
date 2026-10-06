@@ -87,13 +87,13 @@ export default class CustomGrouplistUtfallSvar extends CustomComponent {
                 erUtfallBesvart: props?.resourceBindings?.erUtfallBesvart || "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart"
             },
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
+                title: props?.resourceBindings?.tema?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.vedlegg.title"
+                title: props?.resourceBindings?.vedleggsliste?.title || "resource.vedlegg.title"
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {

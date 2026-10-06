@@ -70,13 +70,11 @@ export default class CustomGrouplistEttersending extends CustomComponent {
      * @param {Object} props - The properties object containing resource bindings and configuration flags.
      * @param {Object} [props.resourceBindings] - Resource binding values for different components.
      * @param {Object} [props.resourceBindings.tema] - Resource bindings for 'tema'.
-     * @param {Object} [props.resourceBindings.tema.kodebeskrivelse] - Resource bindings for 'tema.kodebeskrivelse'.
-     * @param {string} [props.resourceBindings.tema.kodebeskrivelse.title] - Title for 'tema.kodebeskrivelse'.
+     * @param {string} [props.resourceBindings.tema.title] - Title for 'tema'.
      * @param {Object} [props.resourceBindings.kommentar] - Resource bindings for 'kommentar'.
      * @param {string} [props.resourceBindings.kommentar.title] - Title for 'kommentar'.
      * @param {Object} [props.resourceBindings.vedleggsliste] - Resource bindings for 'vedleggsliste'.
-     * @param {Object} [props.resourceBindings.vedleggsliste.vedlegg] - Resource bindings for 'vedleggsliste.vedlegg'.
-     * @param {string} [props.resourceBindings.vedleggsliste.vedlegg.title] - Title for 'vedleggsliste.vedlegg'.
+     * @param {string} [props.resourceBindings.vedleggsliste.title] - Title for 'vedleggsliste'.
      * @param {string} [props.resourceBindings.title] - Title for 'ettersendinger'.
      * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when a field is empty.
      * @param {boolean|string} [props.hideTitle] - If true, hides the title for 'ettersendinger'.
@@ -86,13 +84,13 @@ export default class CustomGrouplistEttersending extends CustomComponent {
     getResourceBindings(props?: ComponentProps) {
         const resourceBindings: Record<string, ResourceBindingGroup> = {
             tema: {
-                title: props?.resourceBindings?.tema?.kodebeskrivelse?.title || "resource.tema.title"
+                title: props?.resourceBindings?.tema?.title || "resource.tema.title"
             },
             kommentar: {
                 title: props?.resourceBindings?.kommentar?.title || "resource.kommentar.title"
             },
             vedleggsliste: {
-                title: props?.resourceBindings?.vedleggsliste?.vedlegg?.title || "resource.vedlegg.title"
+                title: props?.resourceBindings?.vedleggsliste?.title || "resource.vedlegg.title"
             },
             ettersendinger: {}
         };
