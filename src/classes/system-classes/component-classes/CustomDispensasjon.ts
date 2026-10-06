@@ -100,20 +100,20 @@ export default class CustomDispensasjon extends CustomComponent {
                 emptyFieldText: props?.resourceBindings?.adresse?.emptyFieldText || "resource.emptyFieldText.address"
             },
             eiendomsidentifikasjonGaardsnummer: {
-                title: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.title || "resource.eiendom.gaardsnummer.title",
-                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.gaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+                title: props?.resourceBindings?.eiendomsidentifikasjonGaardsnummer?.title || "resource.eiendom.gaardsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjonGaardsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonBruksnummer: {
-                title: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.title || "resource.eiendom.bruksnummer.title",
-                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.bruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
+                title: props?.resourceBindings?.eiendomsidentifikasjonBruksnummer?.title || "resource.eiendom.bruksnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjonBruksnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonSeksjonsnummer: {
-                title: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.title || "resource.eiendom.seksjonsnummer.title",
-                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.seksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
+                title: props?.resourceBindings?.eiendomsidentifikasjonSeksjonsnummer?.title || "resource.eiendom.seksjonsnummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjonSeksjonsnummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             eiendomsidentifikasjonFestenummer: {
-                title: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.title || "resource.eiendom.festenummer.title",
-                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjon?.festenummer?.emptyFieldText || "resource.emptyFieldText.default"
+                title: props?.resourceBindings?.eiendomsidentifikasjonFestenummer?.title || "resource.eiendom.festenummer.title",
+                emptyFieldText: props?.resourceBindings?.eiendomsidentifikasjonFestenummer?.emptyFieldText || "resource.emptyFieldText.default"
             },
             bolignummer: {
                 title: props?.resourceBindings?.bolignummer?.title || "resource.eiendom.bolignummer.title",

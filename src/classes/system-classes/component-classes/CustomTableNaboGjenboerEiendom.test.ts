@@ -293,3 +293,22 @@ describe("CustomTableNaboGjenboerEiendom", () => {
         });
     });
 });
+
+describe("CustomTableNaboGjenboerEiendom eiendomsidentifikasjon overrides", () => {
+    it("reads them under the keys it builds and documents, such as eiendomsidentifikasjonGaardsnummer", () => {
+        const instance = Object.create(CustomTableNaboGjenboerEiendom.prototype);
+        const result = instance.getResourceBindings({
+            resourceBindings: {
+                eiendomsidentifikasjonGaardsnummer: { title: "custom.gnr", emptyFieldText: "custom.gnr.empty" },
+                eiendomsidentifikasjonBruksnummer: { title: "custom.bnr" },
+                eiendomsidentifikasjonSeksjonsnummer: { title: "custom.snr" },
+                eiendomsidentifikasjonFestenummer: { title: "custom.fnr" }
+            }
+        });
+        expect(result.eiendomsidentifikasjonGaardsnummer.title).toBe("custom.gnr");
+        expect(result.eiendomsidentifikasjonGaardsnummer.emptyFieldText).toBe("custom.gnr.empty");
+        expect(result.eiendomsidentifikasjonBruksnummer.title).toBe("custom.bnr");
+        expect(result.eiendomsidentifikasjonSeksjonsnummer.title).toBe("custom.snr");
+        expect(result.eiendomsidentifikasjonFestenummer.title).toBe("custom.fnr");
+    });
+});
