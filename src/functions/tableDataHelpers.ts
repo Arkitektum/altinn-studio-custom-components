@@ -2,10 +2,15 @@
 import { instantiateComponent } from "./componentHelpers.ts";
 
 /**
+ * Text compared the Norwegian way: Æ, Ø and Å after Z, capitals beside their small letters rather than before all of them, and a number inside the text by its value, so "Bygg 2" comes before "Bygg 10".
+ */
+const norwegianCollator = new Intl.Collator("nb", { numeric: true });
+
+/**
  * Sorts a shallow copy of the provided rows by a key, so the caller's array (often a reference into the
  * form data) is never mutated.
  *
- * Values that fully parse as numbers are compared numerically; everything else is compared as strings.
+ * Values that fully parse as numbers are compared numerically; everything else is compared as Norwegian text.
  * `Number` is used (not `parseFloat`) so partial matches like "12abc" are treated as strings rather than 12,
  * and null/undefined are treated as empty strings. Shared by the table and matrix data components.
  *
@@ -36,12 +41,10 @@ export function sortRowsByKey(sortKey: string, direction: string | undefined, ro
             return 0;
         }
 
-        // Fall back to string comparison, treating null/undefined as an empty string.
+        // Fall back to text comparison, treating null/undefined as an empty string.
         const aString = aValue === null || aValue === undefined ? "" : String(aValue);
         const bString = bValue === null || bValue === undefined ? "" : String(bValue);
-        if (aString < bString) return -1 * directionFactor;
-        if (aString > bString) return 1 * directionFactor;
-        return 0;
+        return Math.sign(norwegianCollator.compare(aString, bString)) * directionFactor;
     });
 }
 

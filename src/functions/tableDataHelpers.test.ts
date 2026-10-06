@@ -29,10 +29,27 @@ describe("sortRowsByKey", () => {
         expect(rows).toEqual(snapshot);
     });
 
-    it("treats partially-numeric strings as strings, not numbers", () => {
-        // "12abc" is not a full number, so it is compared as a string ("1" < "3"), unlike parseFloat which would yield 12.
-        const rows = [{ v: "3" }, { v: "12abc" }];
-        expect(sortRowsByKey("v", "asc", rows)).toEqual([{ v: "12abc" }, { v: "3" }]);
+    it("treats partially-numeric strings as text, not numbers", () => {
+        // "12abc" is not a full number, so it is compared as text rather than as 12. The text comparison still reads the
+        // digits it starts with by value, which is why "3" comes first.
+        const rows = [{ v: "12abc" }, { v: "3" }];
+        expect(sortRowsByKey("v", "asc", rows)).toEqual([{ v: "3" }, { v: "12abc" }]);
+    });
+
+    it("sorts text the Norwegian way, with Æ, Ø and Å after Z", () => {
+        const rows = ["Ål", "Østre", "Zinken", "Æra", "Aker"].map((v) => ({ v }));
+        expect(sortRowsByKey("v", "asc", rows).map((row) => row.v)).toEqual(["Aker", "Zinken", "Æra", "Østre", "Ål"]);
+    });
+
+    it("sorts a capital beside its small letter rather than before every small letter", () => {
+        const rows = ["berg", "Bygg", "bakke", "Aker"].map((v) => ({ v }));
+        expect(sortRowsByKey("v", "asc", rows).map((row) => row.v)).toEqual(["Aker", "bakke", "berg", "Bygg"]);
+    });
+
+    it("sorts a number inside text by its value", () => {
+        const rows = ["Bygg 10", "Bygg 2", "Bygg 1"].map((v) => ({ v }));
+        expect(sortRowsByKey("v", "asc", rows).map((row) => row.v)).toEqual(["Bygg 1", "Bygg 2", "Bygg 10"]);
+        expect(sortRowsByKey("v", "desc", rows).map((row) => row.v)).toEqual(["Bygg 10", "Bygg 2", "Bygg 1"]);
     });
 
     it("treats null/undefined values as empty strings", () => {
