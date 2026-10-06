@@ -109,35 +109,47 @@ describe("hasMissingTextResources", () => {
 
 describe("validateTableHeadersTextResourceBindings", () => {
     it("returns no errors or info if all bindings exist and are not empty", () => {
-        const columns = [{ textResourceBindings: { header: "header" } }, { textResourceBindings: { exists: "exists" } }];
+        const columns = [{ resourceBindings: { header: "header" } }, { resourceBindings: { exists: "exists" } }];
         const result = validateTableHeadersTextResourceBindings(columns);
         expect(result.error).toHaveLength(0);
         expect(result.info).toHaveLength(0);
     });
 
     it("returns error for missing binding", () => {
-        const columns = [{ textResourceBindings: { missing: "notfound" } }];
+        const columns = [{ resourceBindings: { missing: "notfound" } }];
         const result = validateTableHeadersTextResourceBindings(columns);
         expect(result.error[0]).toMatch(/Missing text resource binding/);
         expect(result.info).toHaveLength(0);
     });
 
     it("returns info for empty binding value", () => {
-        const columns = [{ textResourceBindings: { desc: "desc" } }];
+        const columns = [{ resourceBindings: { desc: "desc" } }];
         const result = validateTableHeadersTextResourceBindings(columns);
         expect(result.error).toHaveLength(0);
         expect(result.info[0]).toMatch(/Empty text resource binding/);
     });
 
     it("handles multiple columns and bindings", () => {
-        const columns = [{ textResourceBindings: { header: "header", missing: "notfound" } }, { textResourceBindings: { desc: "desc" } }];
+        const columns = [{ resourceBindings: { header: "header", missing: "notfound" } }, { resourceBindings: { desc: "desc" } }];
         const result = validateTableHeadersTextResourceBindings(columns);
         expect(result.error).toHaveLength(1);
         expect(result.info).toHaveLength(1);
     });
 
+    it("skips a binding a column leaves out", () => {
+        const columns = [{ resourceBindings: { title: "header", emptyFieldText: undefined } }];
+        const result = validateTableHeadersTextResourceBindings(columns);
+        expect(result.error).toHaveLength(0);
+    });
+
+    it("names the id, the binding and the column in a missing binding's message", () => {
+        const columns = [{ resourceBindings: { title: "header" } }, { resourceBindings: { title: "notfound" } }];
+        const result = validateTableHeadersTextResourceBindings(columns);
+        expect(result.error).toEqual(['Missing text resource binding with id: "notfound" for "title" at table column [1]']);
+    });
+
     it("uses provided ValidationMessages instance", () => {
-        const columns = [{ textResourceBindings: { missing: "notfound" } }];
+        const columns = [{ resourceBindings: { missing: "notfound" } }];
         const customMessages = new ValidationMessages();
         customMessages.error.push("Existing error");
         const result = validateTableHeadersTextResourceBindings(columns, customMessages);

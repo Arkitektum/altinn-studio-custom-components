@@ -53,35 +53,34 @@ export function hasMissingTextResources(
 /**
  * Validates that all table column header text resource bindings exist and are not empty.
  *
- * Checks each column's `textResourceBindings` against available text resources and default text resources.
- * Adds error messages for missing bindings and info messages for empty bindings to the provided `ValidationMessages` object.
+ * Checks each column's `resourceBindings`, the same bindings the headers and the empty-field text are drawn from, against available text resources and default text resources.
+ * Adds error messages for missing bindings and info messages for empty bindings to the provided `ValidationMessages` object. A binding left out is not checked, since a column need not carry every one.
  *
- * @param tableColumns - Array of table column objects, each possibly containing `textResourceBindings`.
+ * @param tableColumns - Array of table column objects, each possibly containing `resourceBindings`.
  * @param validationMessages - An optional ValidationMessages instance to collect errors and infos.
  * @returns The updated ValidationMessages object containing any errors or info messages found.
  */
 export function validateTableHeadersTextResourceBindings(tableColumns?: TableColumn[], validationMessages = new ValidationMessages()) {
     const textResources = getTextResources() as TextResourceCollection | undefined;
     const defaultTextResources = getDefaultTextResources() as TextResourceCollection | undefined;
-    // `columnIndex < undefined` is false, so the loop already did nothing without any columns. Saying so is what
-    // lets the comparison be between two numbers.
-    for (let columnIndex = 0; columnIndex < (tableColumns?.length ?? 0); columnIndex++) {
-        const column = tableColumns?.[columnIndex];
-        for (const textResourceKey of Object.keys(column?.textResourceBindings || {})) {
-            let textResource = textResources?.resources?.find((resource) => resource.id === column?.textResourceBindings?.[textResourceKey]);
-            if (!textResource) {
-                textResource = defaultTextResources?.resources?.find((resource) => resource.id === column?.textResourceBindings?.[textResourceKey]);
+    (tableColumns ?? []).forEach((column, columnIndex) => {
+        for (const [textResourceKey, id] of Object.entries(column?.resourceBindings ?? {})) {
+            if (id === undefined) {
+                continue;
             }
+            const textResource =
+                textResources?.resources?.find((resource) => resource.id === id) ??
+                defaultTextResources?.resources?.find((resource) => resource.id === id);
             if (!textResource) {
                 validationMessages.error.push(
-                    `Missing text resource binding with id: "${column?.textResourceBindings?.[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
+                    `Missing text resource binding with id: "${id}" for "${textResourceKey}" at table column [${columnIndex}]`
                 );
             } else if (textResource.value === "") {
                 validationMessages.info.push(
-                    `Empty text resource binding with id: "${column?.textResourceBindings?.[textResourceKey]}" for "${textResourceKey}" at table column [${columnIndex}]`
+                    `Empty text resource binding with id: "${id}" for "${textResourceKey}" at table column [${columnIndex}]`
                 );
             }
         }
-    }
+    });
     return validationMessages;
 }

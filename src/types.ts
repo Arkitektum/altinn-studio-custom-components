@@ -36,8 +36,6 @@ export interface TableColumn {
      * bindings, which need not carry the one a column asks for.
      */
     resourceBindings?: Record<string, string | undefined>;
-    /** Checked by the header validation, which reports a binding that names a text resource nothing provides. */
-    textResourceBindings?: Record<string, string | undefined>;
     styleOverride?: Record<string, string>;
 }
 
