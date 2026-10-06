@@ -7,6 +7,9 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 import CustomComponent from "../CustomComponent.ts";
 import Prosjekt from "../../data-classes/Prosjekt.ts";
 
+// Global functions
+import { getComponentDataValue } from "../../../functions/helpers.ts";
+
 /**
  * CustomFieldProsjekt is a custom component class for handling and displaying project-related form data.
  * It extends the CustomComponent base class and provides methods for formatting and extracting project information.
@@ -67,13 +70,13 @@ export default class CustomFieldProsjekt extends CustomComponent {
     /**
      * Extracts and formats the 'prosjekt' value from the provided form data props.
      *
-     * @param {Object} props - The properties object containing form data.
-     * @param {Object} props.formData - The form data object.
-     * @param {Object} props.formData.data - The data used to instantiate a Prosjekt.
+     * Read through getComponentDataValue like every other field, so a `simpleBinding` works and so does use as a child component.
+     *
+     * @param {Object} props - The properties object containing form data, or resource values for a child component.
      * @returns {*} The formatted prosjekt value.
      */
     getValueFromFormData(props: ComponentProps): string {
-        const prosjekt = new Prosjekt(props?.formData?.data as ProsjektProps | undefined);
+        const prosjekt = new Prosjekt(getComponentDataValue(props) as ProsjektProps | undefined);
         return this.formatProsjekt(prosjekt);
     }
 

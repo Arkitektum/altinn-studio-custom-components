@@ -122,5 +122,19 @@ describe("CustomFieldProsjekt", () => {
             expect(instance.formatProsjekt).toHaveBeenCalledWith({ prosjektnavn: "Navn", prosjektnr: 123 });
             expect(result).toBe("formatted");
         });
+
+        it("reads a simpleBinding, as every other field does", () => {
+            const instance = new CustomFieldProsjekt({});
+            instance.formatProsjekt = jest.fn().mockReturnValue("formatted") as CustomFieldProsjekt["formatProsjekt"];
+            instance.getValueFromFormData({ formData: { simpleBinding: { prosjektnavn: "Navn", prosjektnr: 123 } } });
+            expect(instance.formatProsjekt).toHaveBeenCalledWith({ prosjektnavn: "Navn", prosjektnr: 123 });
+        });
+
+        it("reads its data from resourceValues as a child component", () => {
+            const instance = new CustomFieldProsjekt({});
+            instance.formatProsjekt = jest.fn().mockReturnValue("formatted") as CustomFieldProsjekt["formatProsjekt"];
+            instance.getValueFromFormData({ isChildComponent: true, resourceValues: { data: { prosjektnavn: "Navn", prosjektnr: 123 } } });
+            expect(instance.formatProsjekt).toHaveBeenCalledWith({ prosjektnavn: "Navn", prosjektnr: 123 });
+        });
     });
 });
