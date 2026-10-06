@@ -138,6 +138,40 @@ describe("CustomTableArbeidsplasser", () => {
                 { title: "fasteTitle", value: "fasteFalse" }
             ]);
         });
+
+        it("gives an unanswered question the default text rather than the false text", () => {
+            (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementation((key) => key);
+
+            const instance = new CustomTableArbeidsplasser({});
+            const arbeidsplasser = { eksisterende: null, faste: undefined };
+            const keys = ["eksisterende", "faste"];
+            const resourceBindings = {
+                eksisterende: { title: "eksTitle", trueText: "eksTrue", falseText: "eksFalse", defaultText: "eksDefault" },
+                faste: { title: "fasteTitle", trueText: "fasteTrue", falseText: "fasteFalse", defaultText: "fasteDefault" }
+            };
+
+            expect(instance.getArbeidsplasserBeroertArray(arbeidsplasser, keys, resourceBindings)).toEqual([
+                { title: "eksTitle", value: "eksDefault" },
+                { title: "fasteTitle", value: "fasteDefault" }
+            ]);
+        });
+
+        it("reads the answers as strings too, so a string false is not shown as yes", () => {
+            (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementation((key) => key);
+
+            const instance = new CustomTableArbeidsplasser({});
+            const arbeidsplasser = { eksisterende: "true", faste: "false" } as unknown as Record<string, boolean>;
+            const keys = ["eksisterende", "faste"];
+            const resourceBindings = {
+                eksisterende: { title: "eksTitle", trueText: "eksTrue", falseText: "eksFalse" },
+                faste: { title: "fasteTitle", trueText: "fasteTrue", falseText: "fasteFalse" }
+            };
+
+            expect(instance.getArbeidsplasserBeroertArray(arbeidsplasser, keys, resourceBindings)).toEqual([
+                { title: "eksTitle", value: "eksTrue" },
+                { title: "fasteTitle", value: "fasteFalse" }
+            ]);
+        });
     });
 
     describe("getValidationMessages", () => {
@@ -192,6 +226,13 @@ describe("CustomTableArbeidsplasser", () => {
             expect(instance.hasArbeidsplasserBeroertProps(arbeidsplasser, keys)).toBe(true);
         });
 
+        it("does not count a question answered with null", () => {
+            const instance = new CustomTableArbeidsplasser({});
+            const arbeidsplasser = { eksisterende: null, faste: null };
+            const keys = ["eksisterende", "faste"];
+            expect(instance.hasArbeidsplasserBeroertProps(arbeidsplasser, keys)).toBe(false);
+        });
+
         it("should return false if no key exists", () => {
             const instance = new CustomTableArbeidsplasser({});
             const arbeidsplasser = { eksisterende: undefined, faste: undefined };
@@ -211,6 +252,7 @@ describe("CustomTableArbeidsplasser", () => {
             expect(result.eksisterende!.title).toBe("resource.arbeidsplasser.eksisterende.title");
             expect(result.eksisterende!.trueText).toBe("resource.trueText.default");
             expect(result.eksisterende!.falseText).toBe("resource.falseText.default");
+            expect(result.eksisterende!.defaultText).toBe("resource.emptyFieldText.default");
             expect(result.arbeidsplasser!.title).toBe("resource.arbeidsplasser.title");
             expect(result.arbeidsplasser!.emptyFieldText).toBe("resource.emptyFieldText.default");
         });

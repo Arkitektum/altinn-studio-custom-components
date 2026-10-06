@@ -97,11 +97,17 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
         resourceBindings?: Record<string, ResourceBindingGroup | undefined>
     ) {
         return arbeidsplasserBeroertKeys.map((key) => {
+            // Only a yes or a no is an answer. A question left unanswered gets the default text rather than "Nei".
+            const answer = (arbeidsplasser as unknown as Record<string, unknown>)[key];
+            const textBinding =
+                answer === true || answer === "true"
+                    ? resourceBindings![key]?.trueText
+                    : answer === false || answer === "false"
+                      ? resourceBindings![key]?.falseText
+                      : resourceBindings![key]?.defaultText;
             return {
                 title: getTextResourceFromResourceBinding(resourceBindings![key]?.title),
-                value: (arbeidsplasser as unknown as Record<string, unknown>)[key]
-                    ? getTextResourceFromResourceBinding(resourceBindings![key]?.trueText)
-                    : getTextResourceFromResourceBinding(resourceBindings![key]?.falseText)
+                value: getTextResourceFromResourceBinding(textBinding)
             };
         });
     }
@@ -127,14 +133,17 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
     }
 
     /**
-     * Checks if any of the specified keys in `arbeidsplasserBeroertKeys` exist (are not undefined) in the `arbeidsplasser` object.
+     * Checks if any of the specified keys in `arbeidsplasserBeroertKeys` holds an answer (is neither undefined nor null) in the `arbeidsplasser` object.
      *
      * @param {Object} arbeidsplasser - The object containing arbeidsplasser properties.
      * @param {string[]} arbeidsplasserBeroertKeys - Array of keys to check for existence in `arbeidsplasser`.
-     * @returns {boolean} Returns `true` if at least one key exists and is not undefined in `arbeidsplasser`, otherwise `false`.
+     * @returns {boolean} Returns `true` if at least one key holds an answer in `arbeidsplasser`, otherwise `false`.
      */
     hasArbeidsplasserBeroertProps(arbeidsplasser: Arbeidsplasser | undefined, arbeidsplasserBeroertKeys: string[]): boolean {
-        return arbeidsplasserBeroertKeys.some((key) => (arbeidsplasser as unknown as Record<string, unknown>)?.[key] !== undefined);
+        return arbeidsplasserBeroertKeys.some((key) => {
+            const answer = (arbeidsplasser as unknown as Record<string, unknown>)?.[key];
+            return answer !== undefined && answer !== null;
+        });
     }
 
     /**
@@ -163,7 +172,8 @@ export default class CustomTableArbeidsplasser extends CustomComponent {
             resourceBindings[key] = {
                 title: props?.resourceBindings?.[key]?.title || `resource.arbeidsplasser.${key}.title`,
                 trueText: props?.resourceBindings?.[key]?.trueText || `resource.trueText.default`,
-                falseText: props?.resourceBindings?.[key]?.falseText || `resource.falseText.default`
+                falseText: props?.resourceBindings?.[key]?.falseText || `resource.falseText.default`,
+                defaultText: props?.resourceBindings?.[key]?.defaultText || "resource.emptyFieldText.default"
             };
         }
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
