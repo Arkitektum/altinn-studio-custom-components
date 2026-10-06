@@ -15,8 +15,8 @@ import {
  * @param {Object} [component?.resourceValues] - The resource values associated with the component.
  * @param {Object} [component?.resourceValues.data] - The data object containing property information.
  * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component?.resourceBindings.eiendom] - The resource binding for "eiendom".
- * @param {string} [component?.resourceBindings.eiendom.title] - The title for the "eiendom" resource.
+ * @param {Object} [component?.resourceBindings.eiendomMatrikkelinformasjon] - The bindings for the table's title.
+ * @param {Object} [component?.resourceBindings.eiendomMatrikkelinformasjonAdresse] - The bindings for the address column, and likewise for the other eiendomMatrikkelinformasjon* columns.
  * @returns {HTMLElement} The rendered custom table element wrapped in a container.
  */
 export function renderNaboGjenboerEiendomElement(component?: InstantiatedComponent | null) {
@@ -27,8 +27,16 @@ export function renderNaboGjenboerEiendomElement(component?: InstantiatedCompone
         hideIfEmpty: true,
         hideTitle: false,
         size: component?.size || "h4",
+        // Renamed from this group's eiendomMatrikkelinformasjon* bindings into the names custom-table-nabo-gjenboer-eiendom reads.
         resourceBindings: {
-            title: component?.resourceBindings?.eiendom?.title
+            title: component?.resourceBindings?.eiendomMatrikkelinformasjon?.title,
+            adresse: component?.resourceBindings?.eiendomMatrikkelinformasjonAdresse,
+            eiendomsidentifikasjonGaardsnummer: component?.resourceBindings?.eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer,
+            eiendomsidentifikasjonBruksnummer: component?.resourceBindings?.eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer,
+            eiendomsidentifikasjonSeksjonsnummer: component?.resourceBindings?.eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer,
+            eiendomsidentifikasjonFestenummer: component?.resourceBindings?.eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer,
+            bolignummer: component?.resourceBindings?.eiendomMatrikkelinformasjonBolignummer,
+            bygningsnummer: component?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer
         },
         resourceValues: {
             data: data?.eiendommer?.eiendom

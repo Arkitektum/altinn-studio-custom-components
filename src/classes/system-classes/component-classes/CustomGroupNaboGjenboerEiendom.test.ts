@@ -91,7 +91,7 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
     it("getResourceBindings uses custom resourceBindings from props", () => {
         const props = {
             resourceBindings: {
-                eiendom: { title: "custom.eiendom.title" },
+                eiendomMatrikkelinformasjon: { title: "custom.eiendom.title" },
                 emptyFieldText: "custom.empty.text"
             }
         };
@@ -136,5 +136,30 @@ describe("CustomGroupNaboGjenboerEiendom", () => {
         const result = instance.getValueFromFormData({});
         expect(NaboGjenboerEiendom).toHaveBeenCalledWith({ foo: "bar" });
         expect(result).toEqual({ foo: "bar", _isNabo: true });
+    });
+});
+
+describe("CustomGroupNaboGjenboerEiendom overrides handed on by its list", () => {
+    it("reads them under the names custom-grouplist-nabo-gjenboer-eiendom passes and the docs show", () => {
+        const instance = Object.create(CustomGroupNaboGjenboerEiendom.prototype);
+        const result = instance.getResourceBindings({
+            resourceBindings: {
+                eiendomMatrikkelinformasjonAdresse: { title: "custom.adresse", emptyFieldText: "custom.adresse.empty" },
+                eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: { title: "custom.gnr" },
+                eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer: { title: "custom.bnr" },
+                eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer: { title: "custom.snr" },
+                eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer: { title: "custom.fnr" },
+                eiendomMatrikkelinformasjonBolignummer: { title: "custom.bolig" },
+                eiendomMatrikkelinformasjonBygningsnummer: { title: "custom.bygning" }
+            }
+        });
+        expect(result.eiendomMatrikkelinformasjonAdresse.title).toBe("custom.adresse");
+        expect(result.eiendomMatrikkelinformasjonAdresse.emptyFieldText).toBe("custom.adresse.empty");
+        expect(result.eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer.title).toBe("custom.gnr");
+        expect(result.eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer.title).toBe("custom.bnr");
+        expect(result.eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer.title).toBe("custom.snr");
+        expect(result.eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer.title).toBe("custom.fnr");
+        expect(result.eiendomMatrikkelinformasjonBolignummer.title).toBe("custom.bolig");
+        expect(result.eiendomMatrikkelinformasjonBygningsnummer.title).toBe("custom.bygning");
     });
 });

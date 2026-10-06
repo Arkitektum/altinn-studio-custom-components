@@ -2,7 +2,14 @@ import * as renderers from "./renderers.ts";
 
 /** The resource bindings one neighbour's entry reads, including the texts the response line chooses between. */
 const resourceBindings = {
-    eiendom: { title: "Eiendom" },
+    eiendomMatrikkelinformasjon: { title: "Eiendom" },
+    eiendomMatrikkelinformasjonAdresse: { title: "Adresse", emptyFieldText: "Ingen adresse" },
+    eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer: { title: "Gnr." },
+    eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer: { title: "Bnr." },
+    eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer: { title: "Snr." },
+    eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer: { title: "Fnr." },
+    eiendomMatrikkelinformasjonBolignummer: { title: "Bolignr." },
+    eiendomMatrikkelinformasjonBygningsnummer: { title: "Bygningsnr." },
     eier: { title: "Eier" },
     eierAdresse: { title: "Adresse" },
     responsNabovarselSendtVia: { title: "Sendt via" },
@@ -52,6 +59,19 @@ describe("the neighbour and the owner", () => {
         expect(attributes(renderers.renderNaboGjenboerEiendomElement(neighbour()))).toMatchObject({
             tagName: "custom-table-nabo-gjenboer-eiendom",
             resourceValues: { data: [{ adresse: "Storgata 3" }] }
+        });
+    });
+
+    it("hands the property table its title and column bindings under the names the table reads", () => {
+        expect(attributes(renderers.renderNaboGjenboerEiendomElement(neighbour())).resourceBindings).toEqual({
+            title: "Eiendom",
+            adresse: { title: "Adresse", emptyFieldText: "Ingen adresse" },
+            eiendomsidentifikasjonGaardsnummer: { title: "Gnr." },
+            eiendomsidentifikasjonBruksnummer: { title: "Bnr." },
+            eiendomsidentifikasjonSeksjonsnummer: { title: "Snr." },
+            eiendomsidentifikasjonFestenummer: { title: "Fnr." },
+            bolignummer: { title: "Bolignr." },
+            bygningsnummer: { title: "Bygningsnr." }
         });
     });
 
