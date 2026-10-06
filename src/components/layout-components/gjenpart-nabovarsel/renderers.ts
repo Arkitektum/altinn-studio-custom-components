@@ -441,6 +441,17 @@ export function renderDispensasjonOversiktElement(component?: InstantiatedCompon
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
+        // Renamed into the shape custom-group-dispensasjon-oversikt reads, where the row headings sit together under one group.
+        resourceBindings: {
+            title: component?.resourceBindings?.dispensasjonOversikt?.title,
+            count: component?.resourceBindings?.dispensasjonOversiktCount,
+            dispensasjon: {
+                rowNumberTitle: component?.resourceBindings?.rowNumber?.title,
+                dispensasjonKategori: component?.resourceBindings?.dispensasjonKategori?.title,
+                dispensasjonTittel: component?.resourceBindings?.dispensasjonTittel?.title,
+                bestemmelserType: component?.resourceBindings?.bestemmelserType?.title
+            }
+        },
         resourceValues: {
             data: data?.dispensasjonOversikt
         }
@@ -457,6 +468,9 @@ export function renderDispensasjonOversiktElement(component?: InstantiatedCompon
  * @param {Object} component?.resourceBindings - The resource bindings for the component.
  * @param {Object} component?.resourceBindings.kontaktpersonForNabovarselet - The resource binding for the contact person.
  * @param {string} component?.resourceBindings.kontaktpersonForNabovarselet.title - The title for the contact person section.
+ * @param {Object} component?.resourceBindings.kontaktpersonForNabovarseletNavn - The bindings for the name column, passed on as `navn`.
+ * @param {Object} component?.resourceBindings.kontaktpersonForNabovarseletTelefonnummer - The bindings for the phone column, passed on as `telefonnummer`.
+ * @param {Object} component?.resourceBindings.kontaktpersonForNabovarseletEpost - The bindings for the email column, passed on as `epost`.
  * @returns {HTMLElement} The custom element representing the contact person for the notification.
  */
 export function renderKontaktpersonForNabovarseletElement(component?: InstantiatedComponent | null) {
@@ -467,7 +481,10 @@ export function renderKontaktpersonForNabovarseletElement(component?: Instantiat
         hideIfEmpty: true,
         size: "h2",
         resourceBindings: {
-            title: component?.resourceBindings?.kontaktpersonForNabovarselet?.title
+            title: component?.resourceBindings?.kontaktpersonForNabovarselet?.title,
+            navn: component?.resourceBindings?.kontaktpersonForNabovarseletNavn,
+            telefonnummer: component?.resourceBindings?.kontaktpersonForNabovarseletTelefonnummer,
+            epost: component?.resourceBindings?.kontaktpersonForNabovarseletEpost
         },
         resourceValues: {
             data: data?.kontaktpersonForNabovarselet

@@ -197,6 +197,45 @@ describe("the plans and the neighbours", () => {
         });
     });
 
+    it("passes the dispensation bindings on in the shape the dispensation group reads", () => {
+        const withBindings = {
+            ...component,
+            resourceBindings: {
+                ...component.resourceBindings,
+                dispensasjonOversikt: { title: "Dispensasjoner" },
+                dispensasjonOversiktCount: { title: "Antall", emptyFieldText: "Ingen" },
+                rowNumber: { title: "Nr." },
+                dispensasjonKategori: { title: "Kategori" },
+                dispensasjonTittel: { title: "Emne" },
+                bestemmelserType: { title: "Bestemmelse" }
+            }
+        };
+        expect(attributes(renderDispensasjonOversiktElement(withBindings)).resourceBindings).toEqual({
+            title: "Dispensasjoner",
+            count: { title: "Antall", emptyFieldText: "Ingen" },
+            dispensasjon: { rowNumberTitle: "Nr.", dispensasjonKategori: "Kategori", dispensasjonTittel: "Emne", bestemmelserType: "Bestemmelse" }
+        });
+    });
+
+    it("passes the contact person's column bindings on under the names the part table reads", () => {
+        const withBindings = {
+            ...component,
+            resourceBindings: {
+                ...component.resourceBindings,
+                kontaktpersonForNabovarselet: { title: "Kontaktperson" },
+                kontaktpersonForNabovarseletNavn: { title: "Navn", emptyFieldText: "-" },
+                kontaktpersonForNabovarseletTelefonnummer: { title: "Telefon", emptyFieldText: "-" },
+                kontaktpersonForNabovarseletEpost: { title: "E-post", emptyFieldText: "-" }
+            }
+        };
+        expect(attributes(renderKontaktpersonForNabovarseletElement(withBindings)).resourceBindings).toEqual({
+            title: "Kontaktperson",
+            navn: { title: "Navn", emptyFieldText: "-" },
+            telefonnummer: { title: "Telefon", emptyFieldText: "-" },
+            epost: { title: "E-post", emptyFieldText: "-" }
+        });
+    });
+
     it("renders the neighbours from the list nested inside their container", () => {
         expect(attributes(renderNaboGjenboerEiendom(component))).toMatchObject({
             tagName: "custom-grouplist-nabo-gjenboer-eiendom",
