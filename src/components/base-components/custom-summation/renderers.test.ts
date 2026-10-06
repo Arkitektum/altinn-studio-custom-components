@@ -13,12 +13,12 @@ describe("renderSummationItemElement", () => {
         expect(element.classList.contains("summation-item")).toBe(true);
         expect(element.querySelector(".summation-item-operator")!.textContent).toBe("-");
         expect(element.querySelector(".summation-item-title")!.textContent).toBe("Trekkes fra");
-        expect(element.querySelector(".summation-item-data")!.textContent).toBe("20.15");
+        expect(element.querySelector(".summation-item-data")!.textContent).toBe("20,15");
     });
 
     it("appends the unit to the data value", () => {
         const element = renderSummationItemElement(item({ data: 60.1, unit: "m²" }), false);
-        expect(element.querySelector(".summation-item-data")!.textContent).toBe("60.1 m²");
+        expect(element.querySelector(".summation-item-data")!.textContent).toBe("60,1 m²");
     });
 
     it("falls back to 0 when there is no data", () => {
@@ -27,7 +27,7 @@ describe("renderSummationItemElement", () => {
     });
 
     it("serializes the rendered text into the HTML string", () => {
-        expect(renderSummationItemElement(item({ title: "Sum", data: 60.1, unit: "m²" }))).toContain("60.1 m²");
+        expect(renderSummationItemElement(item({ title: "Sum", data: 60.1, unit: "m²" }))).toContain("60,1 m²");
     });
 
     it("marks the total item", () => {

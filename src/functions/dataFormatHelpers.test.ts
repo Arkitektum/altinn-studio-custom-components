@@ -2,6 +2,7 @@ import {
     formatAR,
     formatDate,
     formatDateTime,
+    formatNumber,
     formatString,
     formatTime,
     getAvailableDateTimeLanguageOrDefault,
@@ -195,6 +196,48 @@ describe("formatTime", () => {
     });
 });
 
+describe("formatNumber", () => {
+    // Intl writes the thousands with a no-break space, so a figure never splits across a line.
+    const nbsp = "\u00a0";
+
+    it("writes a number the Norwegian way, with a space between thousands and a decimal comma", () => {
+        expect(formatNumber(1234.5)).toBe(`1${nbsp}234,5`);
+        expect(formatNumber(1000000)).toBe(`1${nbsp}000${nbsp}000`);
+        expect(formatNumber(123)).toBe("123");
+        expect(formatNumber(0)).toBe("0");
+        expect(formatNumber(0.25)).toBe("0,25");
+    });
+
+    it("formats a string that is plainly a number", () => {
+        expect(formatNumber("1234.5")).toBe(`1${nbsp}234,5`);
+        expect(formatNumber(" 42 ")).toBe("42");
+    });
+
+    it("keeps every decimal it was given", () => {
+        expect(formatNumber(12345.678)).toBe(`12${nbsp}345,678`);
+    });
+
+    it("drops the floating point noise a computed sum picks up", () => {
+        expect(formatNumber(0.1 + 0.2)).toBe("0,3");
+    });
+
+    it("keeps the trailing zeros a string was written with", () => {
+        expect(formatNumber("60.10")).toBe("60,10");
+        expect(formatNumber("5.0")).toBe("5,0");
+        expect(formatNumber("1234.500")).toBe(`1${nbsp}234,500`);
+    });
+
+    it("leaves an identifier with a leading zero as it is, such as a kommunenummer", () => {
+        expect(formatNumber("0301")).toBe("0301");
+    });
+
+    it("leaves anything that is not a number as it is", () => {
+        expect(formatNumber("1234,5")).toBe("1234,5");
+        expect(formatNumber("Ikke oppgitt")).toBe("Ikke oppgitt");
+        expect(formatNumber("")).toBe("");
+    });
+});
+
 describe("formatAR", () => {
     it("returns substring after last dash", () => {
         expect(formatAR("abc-def-ghi")).toBe("ghi");
@@ -226,6 +269,7 @@ describe("formatString", () => {
     it("formats meterSquared correctly", () => {
         expect(formatString(123, "meterSquared")).toBe("123 m²");
         expect(formatString("456", "meterSquared")).toBe("456 m²");
+        expect(formatString(1234.5, "meterSquared")).toBe("1\u00a0234,5 m²");
     });
     it("formats meterSquared for zero but returns empty for a missing value", () => {
         expect(formatString(0, "meterSquared")).toBe("0 m²");

@@ -199,8 +199,32 @@ export function formatAR(data?: string): string | undefined {
     return splicedData?.trim();
 }
 
+/** A number written as a string: digits, an optional minus and an optional decimal point, and no leading zero that would make it an identifier. */
+const plainNumberPattern = /^-?(0|[1-9]\d*)(\.\d+)?$/;
+
 /**
- * Formats a numeric value as square meters (m²).
+ * Formats a number the way a Norwegian document writes one, as "1 234,5": a no-break space between thousands, so a figure never splits across a line, and a decimal comma.
+ *
+ * Only a number, or a string that is plainly one, is formatted. Anything else is returned as it came, which keeps a kommunenummer or a postcode with its leading zero, and a figure that is already written the Norwegian way, from being read as something it is not. A string keeps every decimal it was written with, trailing zeros included, so "60.10" is "60,10" and not "60,1".
+ *
+ * @param {unknown} value - The value to format.
+ * @returns {string} The formatted number, or the value as text when it is not a number.
+ */
+export function formatNumber(value: unknown): string {
+    if (typeof value === "number") {
+        // Ten decimals keeps every one a measurement carries and drops the floating point noise a computed sum can pick up, as 0.1 + 0.2 does.
+        return Number.isFinite(value) ? new Intl.NumberFormat("nb-NO", { maximumFractionDigits: 10 }).format(value) : String(value);
+    }
+    const text = typeof value === "string" ? value.trim() : "";
+    if (!plainNumberPattern.test(text)) {
+        return String(value);
+    }
+    const decimals = text.split(".")[1]?.length ?? 0;
+    return new Intl.NumberFormat("nb-NO", { minimumFractionDigits: decimals, maximumFractionDigits: decimals }).format(Number(text));
+}
+
+/**
+ * Formats a numeric value as square meters (m²), the number written the Norwegian way.
  *
  * @param {number|string} value - The value to format.
  * @returns {string} The formatted string with square meters unit.
@@ -209,7 +233,7 @@ export function formatMeterSquared(value: unknown): string {
     if (value === null || value === undefined || value === "") {
         return "";
     }
-    return `${value} m²`;
+    return `${formatNumber(value)} m²`;
 }
 
 /**

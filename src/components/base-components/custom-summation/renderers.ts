@@ -3,6 +3,7 @@ import type { InstantiatedComponent } from "../../../types.ts";
 import { CustomElementHtmlAttributes, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { formatNumber } from "../../../functions/dataFormatHelpers.ts";
 import { generateUniqueId } from "../../../functions/helpers.ts";
 
 /**
@@ -55,7 +56,7 @@ function renderSummationItemTitleElement(summationItemTitle: string, summationIt
 }
 
 /**
- * Creates a <span> element displaying the summation item data with an optional unit.
+ * Creates a <span> element displaying the summation item data with an optional unit, a number written the Norwegian way.
  *
  * @param {*} summationItemData - The data to display inside the span. If falsy, an empty span is returned.
  * @param {string} [summationItemUnit] - Optional unit to append to the data, separated by a space.
@@ -67,7 +68,7 @@ function renderSummationItemDataElement(summationItemData: unknown, summationIte
         return fieldDataElement;
     }
     fieldDataElement.classList.add("summation-item-data");
-    fieldDataElement.textContent = summationItemData + (summationItemUnit?.length ? ` ${summationItemUnit}` : "");
+    fieldDataElement.textContent = formatNumber(summationItemData) + (summationItemUnit?.length ? ` ${summationItemUnit}` : "");
     return fieldDataElement;
 }
 
