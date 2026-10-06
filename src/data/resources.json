@@ -72,6 +72,54 @@
         }
     },
     {
+        "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
+        "values": {
+            "nb": "Arbeidsplasser"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.beroertAvTiltaket.title",
+        "values": {
+            "nb": "Berørt av tiltaket"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.eksisterende.title",
+        "values": {
+            "nb": "Eksisterende arbeidsplasser"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.faste.title",
+        "values": {
+            "nb": "Faste arbeidsplasser"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.framtidige.title",
+        "values": {
+            "nb": "Framtidige arbeidsplasser"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.midlertidige.title",
+        "values": {
+            "nb": "Midlertidige arbeidsplasser"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.title",
+        "values": {
+            "nb": "Hvilke arbeidsplasser er berørt av tiltaket"
+        }
+    },
+    {
+        "id": "resource.arbeidsplasser.utleieBygg.title",
+        "values": {
+            "nb": "Utleiebygg"
+        }
+    },
+    {
         "id": "resource.avdekketArbeider.title",
         "values": {
             "nb": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"

@@ -221,7 +221,7 @@ export default class CustomSummationArealdisponering extends CustomComponent {
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.arealdisponering = {
                 ...resourceBindings.arealdisponering,
-                title: props?.resourceBindings?.title || "resource.arealdisponering.title"
+                title: props?.resourceBindings?.title || "resource.rammebetingelser.arealdisponering.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

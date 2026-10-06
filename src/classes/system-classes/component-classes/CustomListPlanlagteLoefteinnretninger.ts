@@ -127,7 +127,7 @@ export default class CustomListPlanlagteLoefteinnretninger extends CustomCompone
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.loefteinnretninger = {
-                title: props?.resourceBindings?.title || "resource.loefteinnretninger.title"
+                title: props?.resourceBindings?.title || "resource.rammebetingelser.loefteinnretninger.planlagteLoefteinnretninger.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

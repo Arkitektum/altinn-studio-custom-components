@@ -98,7 +98,7 @@ export default class CustomGrouplistEttersending extends CustomComponent {
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
             resourceBindings.ettersendinger = {
-                title: props?.resourceBindings?.title || "resource.ettersendinger.title"
+                title: props?.resourceBindings?.title || "resource.ettersending.title"
             };
         }
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {

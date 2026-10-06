@@ -50,6 +50,38 @@
             "value": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4."
         },
         {
+            "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
+            "value": "Arbeidsplasser"
+        },
+        {
+            "id": "resource.arbeidsplasser.beroertAvTiltaket.title",
+            "value": "Berørt av tiltaket"
+        },
+        {
+            "id": "resource.arbeidsplasser.eksisterende.title",
+            "value": "Eksisterende arbeidsplasser"
+        },
+        {
+            "id": "resource.arbeidsplasser.faste.title",
+            "value": "Faste arbeidsplasser"
+        },
+        {
+            "id": "resource.arbeidsplasser.framtidige.title",
+            "value": "Framtidige arbeidsplasser"
+        },
+        {
+            "id": "resource.arbeidsplasser.midlertidige.title",
+            "value": "Midlertidige arbeidsplasser"
+        },
+        {
+            "id": "resource.arbeidsplasser.title",
+            "value": "Hvilke arbeidsplasser er berørt av tiltaket"
+        },
+        {
+            "id": "resource.arbeidsplasser.utleieBygg.title",
+            "value": "Utleiebygg"
+        },
+        {
             "id": "resource.avdekketArbeider.title",
             "value": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
         },

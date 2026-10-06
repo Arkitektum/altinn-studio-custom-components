@@ -65,7 +65,7 @@ describe("CustomGrouplistEttersending", () => {
     it("getResourceBindings should use default values when not overridden", () => {
         const instance = new CustomGrouplistEttersending({});
         const bindings = instance.getResourceBindings({});
-        expect(bindings.ettersendinger!.title).toBe("resource.ettersendinger.title");
+        expect(bindings.ettersendinger!.title).toBe("resource.ettersending.title");
         expect(bindings.ettersendinger!.emptyFieldText).toBe("resource.emptyFieldText.default");
     });
 
