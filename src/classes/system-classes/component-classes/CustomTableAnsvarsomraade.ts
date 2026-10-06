@@ -43,7 +43,7 @@ export default class CustomTableAnsvarsomraade extends CustomComponent {
         this.resourceBindings = resourceBindings;
         this.resourceValues = {
             title: props?.resourceValues?.title,
-            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.eiendomByggested?.emptyFieldText) : data
+            data: isEmpty ? getTextResourceFromResourceBinding(resourceBindings?.ansvarsfordeling?.emptyFieldText) : data
         };
     }
 

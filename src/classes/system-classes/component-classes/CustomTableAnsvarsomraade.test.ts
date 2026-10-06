@@ -56,6 +56,17 @@ describe("CustomTableAnsvarsomraade", () => {
             expect(instance.resourceValues.data).toBe("Empty");
         });
 
+        it("takes the empty text from the table's own emptyFieldText binding", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(false);
+            (getComponentDataValue as unknown as jest.Mock).mockReturnValue(undefined);
+            (hasValidationMessages as unknown as jest.Mock).mockReturnValue(false);
+            (getTextResourceFromResourceBinding as unknown as jest.Mock).mockImplementation((id: unknown) => `text for ${id}`);
+
+            const instance = new CustomTableAnsvarsomraade({ resourceBindings: { emptyFieldText: "custom.empty" } });
+
+            expect(instance.resourceValues.data).toBe("text for custom.empty");
+        });
+
         it("should set isEmpty to false if there is content", () => {
             (hasValue as unknown as jest.Mock).mockReturnValue(true);
             (getComponentDataValue as unknown as jest.Mock).mockReturnValue([{ foo: "bar" }]);
