@@ -8,7 +8,8 @@ import {
     injectAnchorElements,
     isValidDateString,
     parseDateString,
-    parseTimeString
+    parseTimeString,
+    toDate
 } from "./dataFormatHelpers.ts";
 
 // Mocks for constants and helpers
@@ -90,20 +91,60 @@ describe("isValidDateString", () => {
         expect(isValidDateString("not-a-date")).toBe(false);
         expect(isValidDateString("")).toBe(false);
         expect(isValidDateString(null)).toBe(false);
+        expect(isValidDateString("31.02.2024")).toBe(false);
+    });
+});
+
+describe("toDate", () => {
+    it("reads a dotted date day first", () => {
+        expect(toDate("05.01.2024")).toEqual(new Date(2024, 0, 5));
+        expect(toDate("5.1.2024")).toEqual(new Date(2024, 0, 5));
+    });
+    it("ignores surrounding whitespace", () => {
+        expect(toDate(" 05.01.2024 ")).toEqual(new Date(2024, 0, 5));
+    });
+    it("reads a date with no time as local midnight", () => {
+        expect(toDate("2024-01-05")).toEqual(new Date(2024, 0, 5));
+    });
+    it("reads a date and time", () => {
+        expect(toDate("2024-01-15T10:00:00")).toEqual(new Date(2024, 0, 15, 10, 0, 0));
+        expect(toDate("2024-01-15 10:00")).toEqual(new Date(2024, 0, 15, 10, 0, 0));
+    });
+    it("answers a valid Date as it is", () => {
+        const date = new Date(2024, 0, 5);
+        expect(toDate(date)).toBe(date);
+    });
+    it("answers null for dates that do not exist rather than rolling them over", () => {
+        expect(toDate("31.02.2024")).toBeNull();
+        expect(toDate("2024-02-30")).toBeNull();
+        expect(toDate("01.13.2024")).toBeNull();
+    });
+    it("answers null for anything that is not a date", () => {
+        expect(toDate("foo")).toBeNull();
+        expect(toDate("")).toBeNull();
+        expect(toDate("   ")).toBeNull();
+        expect(toDate(null)).toBeNull();
+        expect(toDate(undefined)).toBeNull();
+        expect(toDate(new Date("foo"))).toBeNull();
     });
 });
 
 describe("formatDateTime", () => {
-    it("formats valid dateTime string", () => {
-        const result = formatDateTime("2023-02-01T13:45:00.000Z", "en");
-        expect(typeof result).toBe("string");
+    it("formats a date and time", () => {
+        expect(formatDateTime("2024-01-15T10:00:00", "no")).toBe("15.01.2024, 10:00");
     });
-    it("appends time if missing", () => {
-        const result = formatDateTime("2023-02-01", "en");
-        expect(typeof result).toBe("string");
+    it("formats a date and time written with a space", () => {
+        expect(formatDateTime("2024-01-15 10:00", "no")).toBe("15.01.2024, 10:00");
+    });
+    it("formats a date with no time as midnight", () => {
+        expect(formatDateTime("2024-01-15", "no")).toBe("15.01.2024, 00:00");
+    });
+    it("reads a dotted date day first", () => {
+        expect(formatDateTime("05.01.2024", "no")).toBe("05.01.2024, 00:00");
     });
     it("returns error message for invalid date", () => {
         expect(formatDateTime("not-a-date")).toBe("Ugyldig datoformat");
+        expect(formatDateTime("31.02.2024")).toBe("Ugyldig datoformat");
     });
     it("returns empty string for empty/undefined input", () => {
         expect(formatDateTime("")).toBe("");
@@ -112,32 +153,40 @@ describe("formatDateTime", () => {
 });
 
 describe("formatDate", () => {
-    it("formats valid date string", () => {
-        const result = formatDate("2023-02-01", "en");
-        expect(typeof result).toBe("string");
+    it("formats an ISO date", () => {
+        expect(formatDate("2024-01-05", "no")).toBe("05.01.2024");
     });
-    it("parses and formats dd.mm.yyyy", () => {
-        const result = formatDate("01.02.2023", "en");
-        expect(typeof result).toBe("string");
+    it("reads a dotted date day first", () => {
+        expect(formatDate("05.01.2024", "no")).toBe("05.01.2024");
+        expect(formatDate("01.02.2023", "no")).toBe("01.02.2023");
     });
-    it("returns formatted date for Date object", () => {
-        const result = formatDate(new Date("2023-02-01T00:00:00.000Z"), "en");
-        expect(typeof result).toBe("string");
+    it("formats a Date object", () => {
+        expect(formatDate(new Date(2023, 1, 1), "no")).toBe("01.02.2023");
+    });
+    it("returns error message for a date that does not exist instead of 1970", () => {
+        expect(formatDate("31.02.2024", "no")).toBe("Ugyldig datoformat");
+        expect(formatDate("foo", "no")).toBe("Ugyldig datoformat");
+    });
+    it("returns empty string for empty input", () => {
+        expect(formatDate("")).toBe("");
+        expect(formatDate(null)).toBe("");
     });
 });
 
 describe("formatTime", () => {
-    it("formats valid time string with date", () => {
-        const result = formatTime("1970-01-01T13:45:00", "en");
-        expect(typeof result).toBe("string");
+    it("formats a time with a date", () => {
+        expect(formatTime("1970-01-01T13:45:00", "no")).toBe("13:45:00");
     });
-    it("formats valid time string without date", () => {
-        const result = formatTime("13:45:00", "en");
-        expect(typeof result).toBe("string");
+    it("formats a bare time with seconds", () => {
+        expect(formatTime("13:45:30", "no")).toBe("13:45:30");
     });
-    it("parses and formats invalid time string", () => {
-        const result = formatTime("13:45", "en");
-        expect(typeof result).toBe("string");
+    it("formats a bare time without seconds", () => {
+        expect(formatTime("13:45", "no")).toBe("13:45:00");
+    });
+    it("returns error message for a time that does not exist instead of rolling it over", () => {
+        expect(formatTime("25:00", "no")).toBe("Ugyldig datoformat");
+        expect(formatTime("12:60", "no")).toBe("Ugyldig datoformat");
+        expect(formatTime("foo", "no")).toBe("Ugyldig datoformat");
     });
     it("returns empty string for empty/undefined input without throwing", () => {
         expect(formatTime("")).toBe("");
@@ -163,13 +212,13 @@ describe("formatAR", () => {
 
 describe("formatString", () => {
     it("formats dateTime", () => {
-        expect(typeof formatString("2023-02-01T13:45:00.000Z", "dateTime", "en")).toBe("string");
+        expect(formatString("2023-02-01T13:45:00", "dateTime", "no")).toBe("01.02.2023, 13:45");
     });
     it("formats date", () => {
-        expect(typeof formatString("2023-02-01", "date", "en")).toBe("string");
+        expect(formatString("2023-02-01", "date", "no")).toBe("01.02.2023");
     });
     it("formats time", () => {
-        expect(typeof formatString("13:45:00", "time", "en")).toBe("string");
+        expect(formatString("13:45:00", "time", "no")).toBe("13:45:00");
     });
     it("formats AR", () => {
         expect(formatString("abc-def", "AR")).toBe("def");

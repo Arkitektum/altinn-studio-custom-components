@@ -67,9 +67,59 @@ export function parseTimeString(timeString: string) {
     return date.toISOString(); // Return in ISO format
 }
 
+/** The message shown in place of a date or time that cannot be read. */
+const invalidDateText = "Ugyldig datoformat";
+
+const dottedDatePattern = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
+const isoDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+const timePattern = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
+
+/**
+ * A local date for the given parts, or null when the parts do not name a real moment (31.02, 25:00).
+ * The Date constructor rolls such parts over into the next month or day, so the parts are compared back.
+ */
+function localDate(year: number, month: number, day: number, hours = 0, minutes = 0, seconds = 0): Date | null {
+    const date = new Date(year, month - 1, day, hours, minutes, seconds);
+    const matches =
+        date.getFullYear() === year &&
+        date.getMonth() === month - 1 &&
+        date.getDate() === day &&
+        date.getHours() === hours &&
+        date.getMinutes() === minutes &&
+        date.getSeconds() === seconds;
+    return matches ? date : null;
+}
+
+/**
+ * Reads a date, a date and time, or a Date, and answers null for anything that cannot be read.
+ *
+ * A dotted date is always read day first, as Norwegian dates are written. It has to be matched before the Date constructor sees it, because V8 reads "05.01.2024" month first, as 1 May. A date with no time is read as local midnight rather than UTC midnight, so it is the same day in every time zone.
+ *
+ * @param {string|Date|null|undefined} value - The value to read.
+ * @returns {Date|null} The date, or null if the value is not one.
+ */
+export function toDate(value?: string | Date | null): Date | null {
+    if (value instanceof Date) {
+        return Number.isNaN(value.getTime()) ? null : value;
+    }
+    const text = typeof value === "string" ? value.trim() : "";
+    if (!text) {
+        return null;
+    }
+    const dotted = dottedDatePattern.exec(text);
+    if (dotted) {
+        return localDate(Number(dotted[3]), Number(dotted[2]), Number(dotted[1]));
+    }
+    const isoDate = isoDatePattern.exec(text);
+    if (isoDate) {
+        return localDate(Number(isoDate[1]), Number(isoDate[2]), Number(isoDate[3]));
+    }
+    const date = new Date(text);
+    return Number.isNaN(date.getTime()) ? null : date;
+}
+
 export function isValidDateString(dateString?: string | Date | null): boolean {
-    const date = new Date(dateString ?? "");
-    return !!dateString && !Number.isNaN(date.getTime());
+    return toDate(dateString) !== null;
 }
 
 /**
@@ -83,20 +133,14 @@ export function formatDateTime(dateTime?: string | null, language = "default"): 
     if (!dateTime) {
         return "";
     }
-    if (!isValidDateString(dateTime)) {
-        return "Ugyldig datoformat"; // Return an error message for invalid date format
+    const date = toDate(dateTime);
+    if (!date) {
+        return invalidDateText;
     }
     language = getAvailableDateTimeLanguageOrDefault(language);
-
-    const dateTimeHasTime = dateTime.includes("T");
-    if (!dateTimeHasTime) {
-        dateTime = dateTime + "T00:00:00"; // Append time if not present
-    }
-
     const locale = dateTimeLocale.dateTime[language]!;
-
     const options = dateTimeFormat.dateTime[locale] || dateTimeFormat.dateTime.default;
-    return new Intl.DateTimeFormat(locale, options).format(new Date(dateTime));
+    return new Intl.DateTimeFormat(locale, options).format(date);
 }
 
 /**
@@ -110,21 +154,20 @@ export function formatDate(date?: string | Date | null, language = "default"): s
     if (!date) {
         return "";
     }
-    if (!isValidDateString(date)) {
-        date = parseDateString(date as string) as string;
+    const parsed = toDate(date);
+    if (!parsed) {
+        return invalidDateText;
     }
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.date[language]!;
     const options = dateTimeFormat.date[locale] || dateTimeFormat.date.default;
-    return new Intl.DateTimeFormat(locale, options).format(new Date(date));
+    return new Intl.DateTimeFormat(locale, options).format(parsed);
 }
 
 /**
  * Formats a time string according to the specified language/locale.
  *
- * If the input time string does not contain a date, a default date is prepended.
- * If the time string is not valid, it attempts to parse it.
- * The formatted time is returned using the appropriate locale and formatting options.
+ * A bare time ("13:45" or "13:45:30") is read as a local time. Anything else is read as a date and time. A value that cannot be read answers the invalid-date message.
  *
  * @param {string} time - The time string to format (e.g., "12:34:56" or "1970-01-01T12:34:56").
  * @param {string} [language="default"] - The language/locale to use for formatting.
@@ -134,19 +177,15 @@ export function formatTime(time?: string | null, language = "default"): string {
     if (!time) {
         return "";
     }
-    const timeHasDate = time.includes("T");
-    if (!timeHasDate) {
-        time = "1970-01-01T" + time; // Append date if not present
+    const bareTime = timePattern.exec(time.trim());
+    const date = bareTime ? localDate(1970, 1, 1, Number(bareTime[1]), Number(bareTime[2]), Number(bareTime[3] ?? 0)) : toDate(time);
+    if (!date) {
+        return invalidDateText;
     }
-    if (!isValidDateString(time)) {
-        time = parseTimeString(time) as string;
-    }
-
-    // Format the time string
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.time[language]!;
     const options = dateTimeFormat.time[locale] || dateTimeFormat.time.default;
-    return new Intl.DateTimeFormat(locale, options).format(new Date(time));
+    return new Intl.DateTimeFormat(locale, options).format(date);
 }
 
 /**
