@@ -32,11 +32,12 @@ export function renderArbeidsplasserTable(component?: InstantiatedComponent | nu
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: "h3",
-        hideIfEmpty: true,
+        hideIfEmpty: component?.hideIfEmpty,
         isChildComponent: true,
         resourceValues: component?.resourceValues,
         resourceBindings: {
-            title: component?.resourceBindings?.arbeidsplasser?.title
+            title: component?.resourceBindings?.arbeidsplasser?.title,
+            emptyFieldText: component?.resourceBindings?.arbeidsplasser?.emptyFieldText
         },
         tableColumns
     });

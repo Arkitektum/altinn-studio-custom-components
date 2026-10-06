@@ -35,12 +35,30 @@ function attributes(element: HTMLElement) {
 /** The column with the given data key. */
 const column = (dataKey: string) => attributes(renderAnsvarsomraadeTable(component)).columns.find((entry) => entry.dataKey === dataKey);
 
+describe("hiding when empty", () => {
+    // The inner table used to be told to hide whenever it was empty, so an empty table showed nothing even with hideIfEmpty="false".
+    it("leaves the decision to the component, passing its own hideIfEmpty on", () => {
+        expect(attributes(renderAnsvarsomraadeTable({ ...component, hideIfEmpty: true })).hideIfEmpty).toBe("true");
+        expect(attributes(renderAnsvarsomraadeTable(component)).hideIfEmpty).toBeNull();
+    });
+
+    it("hands on its own empty-field text, so the table has something to show", () => {
+        const withEmptyText = {
+            ...component,
+            resourceBindings: {
+                ...component.resourceBindings,
+                ansvarsfordeling: { ...component.resourceBindings.ansvarsfordeling, emptyFieldText: "Ingen oppført" }
+            }
+        };
+        expect(attributes(renderAnsvarsomraadeTable(withEmptyText)).resourceBindings.emptyFieldText).toBe("Ingen oppført");
+    });
+});
+
 describe("the table itself", () => {
     it("is a data table titled by the responsibility split, keeping its title on show", () => {
         expect(attributes(renderAnsvarsomraadeTable(component))).toMatchObject({
             tagName: "custom-table-data",
             size: "h4",
-            hideIfEmpty: "true",
             hideTitle: null,
             resourceBindings: { title: "Ansvarsfordeling", emptyFieldText: "Ingen ansvarsområder" }
         });

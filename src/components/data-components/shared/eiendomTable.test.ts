@@ -52,12 +52,30 @@ function attributes(element: HTMLElement) {
 /** The column with the given data key. */
 const column = (rendered: HTMLElement, dataKey: string) => attributes(rendered).columns.find((entry) => entry.dataKey === dataKey);
 
+describe("hiding when empty", () => {
+    // The inner table used to be told to hide whenever it was empty, so an empty table showed nothing even with hideIfEmpty="false".
+    it("leaves the decision to the component, passing its own hideIfEmpty on", () => {
+        expect(attributes(renderEiendomTable({ ...component, hideIfEmpty: true })).hideIfEmpty).toBe("true");
+        expect(attributes(renderEiendomTable(component)).hideIfEmpty).toBeNull();
+    });
+
+    it("hands on its own empty-field text, so the table has something to show", () => {
+        const withEmptyText = {
+            ...component,
+            resourceBindings: {
+                ...component.resourceBindings,
+                eiendomByggested: { ...component.resourceBindings.eiendomByggested, emptyFieldText: "Ingen oppført" }
+            }
+        };
+        expect(attributes(renderEiendomTable(withEmptyText)).resourceBindings.emptyFieldText).toBe("Ingen oppført");
+    });
+});
+
 describe("the table itself", () => {
     it("is a data table that takes its heading level from the component", () => {
         expect(attributes(renderEiendomTable(component))).toMatchObject({
             tagName: "custom-table-data",
             size: "h3",
-            hideIfEmpty: "true",
             isChildComponent: "true",
             resourceBindings: { title: "Eiendom/byggested" }
         });

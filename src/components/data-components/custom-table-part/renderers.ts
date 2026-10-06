@@ -49,11 +49,12 @@ export function renderPartTable(component?: InstantiatedComponent | null) {
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: component?.size,
-        hideIfEmpty: true,
+        hideIfEmpty: component?.hideIfEmpty,
         isChildComponent: true,
         resourceValues: component?.resourceValues,
         resourceBindings: {
-            title: component?.resourceBindings?.part?.title
+            title: component?.resourceBindings?.part?.title,
+            emptyFieldText: component?.resourceBindings?.part?.emptyFieldText
         },
         tableColumns
     });

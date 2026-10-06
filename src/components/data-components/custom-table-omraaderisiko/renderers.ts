@@ -40,13 +40,14 @@ export function renderOmraaderisikoTable(component?: InstantiatedComponent | nul
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: component?.size || "h2",
-        hideIfEmpty: true,
+        hideIfEmpty: component?.hideIfEmpty,
         isChildComponent: true,
         resourceValues: {
             data: component?.resourceValues?.data
         },
         resourceBindings: {
-            title: component?.resourceBindings?.omraaderisiko?.title
+            title: component?.resourceBindings?.omraaderisiko?.title,
+            emptyFieldText: component?.resourceBindings?.omraaderisiko?.emptyFieldText
         },
         tableColumns
     });

@@ -28,12 +28,27 @@ function attributes(element: HTMLElement) {
     };
 }
 
+describe("hiding when empty", () => {
+    // The inner table used to be told to hide whenever it was empty, so an empty table showed nothing even with hideIfEmpty="false".
+    it("leaves the decision to the component, passing its own hideIfEmpty on", () => {
+        expect(attributes(renderPlanTable({ ...component, hideIfEmpty: true })).hideIfEmpty).toBe("true");
+        expect(attributes(renderPlanTable(component)).hideIfEmpty).toBeNull();
+    });
+
+    it("hands on its own empty-field text, so the table has something to show", () => {
+        const withEmptyText = {
+            ...component,
+            resourceBindings: { ...component.resourceBindings, plan: { ...component.resourceBindings.plan, emptyFieldText: "Ingen oppført" } }
+        };
+        expect(attributes(renderPlanTable(withEmptyText)).resourceBindings.emptyFieldText).toBe("Ingen oppført");
+    });
+});
+
 describe("the table itself", () => {
     it("is a data table that takes its heading level from the component", () => {
         expect(attributes(renderPlanTable(component))).toMatchObject({
             tagName: "custom-table-data",
             size: "h3",
-            hideIfEmpty: "true",
             isChildComponent: "true",
             resourceBindings: { title: "Plan" }
         });

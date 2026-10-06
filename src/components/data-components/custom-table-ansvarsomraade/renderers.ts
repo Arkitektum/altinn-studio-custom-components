@@ -64,7 +64,7 @@ export function renderAnsvarsomraadeTable(component?: InstantiatedComponent | nu
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: component?.size,
-        hideIfEmpty: true,
+        hideIfEmpty: component?.hideIfEmpty,
         hideTitle: false,
         isChildComponent: true,
         resourceValues: component?.resourceValues,

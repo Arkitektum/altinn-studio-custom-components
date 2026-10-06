@@ -45,6 +45,20 @@ const columnKeys = (areas: unknown, extra?: Record<string, unknown>) => attribut
 const declarationsTitle = (areas: unknown) =>
     attributes(table(areas)).columns.find((entry) => entry.dataKey === "faseSamsvarKontrollList.resourceValues.data")?.resourceBindings?.title;
 
+describe("hiding when empty", () => {
+    // The inner table used to be told to hide whenever it was empty, so an empty table showed nothing even with hideIfEmpty="false".
+    it("leaves the decision to the component, passing its own hideIfEmpty on", () => {
+        expect(
+            attributes(renderAnsvarsrettAnsvarsomraadeTable({ resourceBindings, resourceValues: { data: [] }, hideIfEmpty: true })).hideIfEmpty
+        ).toBe("true");
+        expect(attributes(table([])).hideIfEmpty).toBeNull();
+    });
+
+    it("hands on its own empty-field text, so the table has something to show", () => {
+        expect(attributes(table([])).resourceBindings.emptyFieldText).toBe("Ingen");
+    });
+});
+
 describe("the table's own title", () => {
     it("names one area in the singular and several in the plural", () => {
         expect(attributes(table([area("PRO")])).resourceBindings.title).toBe("Ansvarsområde");

@@ -101,11 +101,12 @@ export function renderEiendomTable(component?: InstantiatedComponent | null) {
     ];
     const htmlAttributes = new CustomElementHtmlAttributes({
         size: component?.size,
-        hideIfEmpty: true,
+        hideIfEmpty: component?.hideIfEmpty,
         isChildComponent: true,
         resourceValues: component?.resourceValues,
         resourceBindings: {
-            title: component?.resourceBindings?.eiendomByggested?.title
+            title: component?.resourceBindings?.eiendomByggested?.title,
+            emptyFieldText: component?.resourceBindings?.eiendomByggested?.emptyFieldText
         },
         tableColumns
     });
