@@ -62,6 +62,55 @@ describe("renderCustomComponent", () => {
         expect(render).toHaveBeenCalled();
     });
 
+    describe("hideWhenEmptyByDefault, which the tables and the matrix use", () => {
+        /** An empty component in a container, drawn with the option set, and what came of it. */
+        function renderEmpty(attributes: Record<string, string> = {}) {
+            const host = document.createElement("div");
+            for (const [name, value] of Object.entries(attributes)) host.setAttribute(name, value);
+            const container = document.createElement("div");
+            jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: true });
+            jest.mocked(getComponentContainerElement).mockReturnValue(container);
+            jest.mocked(isDevMode).mockReturnValue(false);
+            const render = jest.fn();
+            renderCustomComponent(host, { type: "data", render, hideWhenEmptyByDefault: true });
+            return { hidden: container.style.display === "none", render };
+        }
+
+        it("hides an empty component whose host does not say", () => {
+            const { hidden, render } = renderEmpty();
+            expect(hidden).toBe(true);
+            expect(render).not.toHaveBeenCalled();
+        });
+
+        it('shows it when the host says hideIfEmpty="false"', () => {
+            const { hidden, render } = renderEmpty({ hideIfEmpty: "false" });
+            expect(hidden).toBe(false);
+            expect(render).toHaveBeenCalled();
+        });
+
+        it('leaves a child component to its parent, which can only ever write hideIfEmpty="true"', () => {
+            expect(renderEmpty({ isChildComponent: "true" }).hidden).toBe(false);
+            expect(renderEmpty({ isChildComponent: "true", hideIfEmpty: "true" }).hidden).toBe(true);
+        });
+
+        it("hands the renderer the decision rather than the prop, so a table can pass it to the table inside it", () => {
+            const host = document.createElement("div");
+            host.setAttribute("hideIfEmpty", "false");
+            const component = { isEmpty: false, hideIfEmpty: undefined as boolean | undefined };
+            jest.mocked(instantiateComponent).mockReturnValue(component);
+            jest.mocked(getComponentContainerElement).mockReturnValue(document.createElement("div"));
+            let seen: unknown = "not rendered";
+            renderCustomComponent(host, {
+                type: "data",
+                hideWhenEmptyByDefault: true,
+                render: (_host, rendered) => {
+                    seen = rendered?.hideIfEmpty;
+                }
+            });
+            expect(seen).toBe(false);
+        });
+    });
+
     it("hides an empty component when alwaysHideWhenEmpty is set, even without hideIfEmpty", () => {
         const host = document.createElement("div");
         const container = document.createElement("div");

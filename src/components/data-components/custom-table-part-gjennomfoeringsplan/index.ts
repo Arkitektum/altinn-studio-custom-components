@@ -13,6 +13,7 @@ export default customElements.define(
         connectedCallback() {
             renderCustomComponent(this, {
                 type: "data",
+                hideWhenEmptyByDefault: true,
                 withFeedback: true,
                 render: (host, component) => {
                     const partTable = renderPartTable(component);

@@ -118,16 +118,18 @@ const LAYOUT_TYPE = "layout";
  * from a real section.
  *
  * For every other type an explicit `hideIfEmpty` attribute on the host wins, and with the attribute absent the flag
- * its component class resolved from its props applies. The attribute is read from the host rather than taken from the
- * component because the component classes deliberately drop falsy props, which would make an explicit `false`
- * indistinguishable from absent.
+ * its component class resolved from its props applies, or `hideByDefault` for the components that hide when empty
+ * unless told otherwise, which are the tables and the matrix. The attribute is read from the host rather than taken
+ * from the component because the component classes deliberately drop falsy props, which would make an explicit
+ * `false` indistinguishable from absent.
  *
  * @param {HTMLElement} host - The custom element instance.
  * @param {Object} component - The instantiated component.
  * @param {string} type - The component type ("base", "data" or "layout").
+ * @param {boolean} [hideByDefault=false] - Whether to hide while empty when the host does not say.
  * @returns {boolean} True when the component should hide itself while empty.
  */
-function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolean | string } | null, type: string): boolean {
+function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolean | string } | null, type: string, hideByDefault = false): boolean {
     if (type === LAYOUT_TYPE) {
         return true;
     }
@@ -135,7 +137,7 @@ function resolveHideIfEmpty(host: HTMLElement, component: { hideIfEmpty?: boolea
     if (attributeValue !== null && attributeValue !== undefined) {
         return attributeValue === "true" || attributeValue === "";
     }
-    return !!component?.hideIfEmpty;
+    return hideByDefault || !!component?.hideIfEmpty;
 }
 
 /**
@@ -195,6 +197,9 @@ function removeEmptyComponentElement(host: HTMLElement, elementToHideWhenEmpty: 
  * @param {(host: HTMLElement, component: Object) => void} options.render - Renders the component's content into `host`.
  * @param {boolean} [options.withFeedback=false] - When true, append a feedback list if the component has validation messages.
  * @param {boolean} [options.alwaysHideWhenEmpty=false] - When true, hide an empty component regardless of its `hideIfEmpty` flag.
+ * @param {boolean} [options.hideWhenEmptyByDefault=false] - When true, hide an empty component unless its host says
+ *   `hideIfEmpty="false"`. The tables and the matrix use this; other data components show when empty unless told to hide.
+ *   It does not apply to a child component, which takes its parent's decision.
  * @param {boolean} [options.validateData=true] - When false, skip data-attribute key validation. Use for components
  *   whose `formData` keys are dynamic (e.g. one binding per row) and therefore can't be described by a fixed allow-list.
  * @returns {Object} The instantiated component.
@@ -206,6 +211,7 @@ export function renderCustomComponent(
         render,
         withFeedback = false,
         alwaysHideWhenEmpty = false,
+        hideWhenEmptyByDefault = false,
         validateData = true
     }: {
         /** Which family the component belongs to: "base", "data" or "layout". */
@@ -214,6 +220,7 @@ export function renderCustomComponent(
         render: (host: HTMLElement, component: InstantiatedComponent | null) => void;
         withFeedback?: boolean;
         alwaysHideWhenEmpty?: boolean;
+        hideWhenEmptyByDefault?: boolean;
         validateData?: boolean;
     }
 ) {
@@ -224,7 +231,16 @@ export function renderCustomComponent(
     const isLayout = type === LAYOUT_TYPE;
     // The padded wrapper wins over the container, so hiding an empty component collapses its padding too.
     const elementToHideWhenEmpty = getPaddedWrapperElement(host) || getComponentContainerElement(host);
-    const shouldHideWhenEmpty = alwaysHideWhenEmpty || resolveHideIfEmpty(host, component, type);
+    // The default is for a table an app places. One drawn inside another component is told by its parent, which can
+    // only ever write hideIfEmpty="true": CustomElementHtmlAttributes drops false, so a child defaulting to hide could
+    // not be told to show.
+    const isChild = host?.getAttribute?.("isChildComponent") === "true";
+    const shouldHideWhenEmpty = alwaysHideWhenEmpty || resolveHideIfEmpty(host, component, type, hideWhenEmptyByDefault && !isChild);
+    // The decision, not the prop, is what a renderer hands on to a child it draws, as the wrapper tables do to the table
+    // inside them. The prop drops an explicit false, which a child that hides by default would read as "hide".
+    if (component) {
+        component.hideIfEmpty = shouldHideWhenEmpty;
+    }
     // A layout is removed rather than hidden, so unlike the other types it does not need a container to hide.
     const canHideWhenEmpty = isLayout || !!elementToHideWhenEmpty;
     if (shouldHideWhenEmpty && component?.isEmpty && canHideWhenEmpty) {
