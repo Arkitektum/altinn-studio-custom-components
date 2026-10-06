@@ -33,7 +33,7 @@ export default class AnsvarsrettAnsvarsomraade {
         this.beskrivelseAvAnsvarsomraadet = props?.beskrivelseAvAnsvarsomraadet;
         this.tiltaksklasse = props?.tiltaksklasse && new Kode(props.tiltaksklasse);
         this.dekkesOmraadeAvSentralGodkjenning = props?.dekkesOmraadeAvSentralGodkjenning;
-        this.faseSamsvarKontrollList = new FaseSamsvarKontrollList(props.faseSamsvarKontroll, resourceBindings);
+        this.faseSamsvarKontrollList = new FaseSamsvarKontrollList(props?.faseSamsvarKontroll, resourceBindings);
         this.soeknadssystemetsReferanse = props?.soeknadssystemetsReferanse;
     }
 }

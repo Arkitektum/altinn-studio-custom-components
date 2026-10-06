@@ -55,6 +55,12 @@ describe("AnsvarsrettAnsvarsomraade", () => {
         expect(instance.soeknadssystemetsReferanse).toBeUndefined();
     });
 
+    it("does not throw for a null item, which a list in the form data can hold", () => {
+        // hasValue answers true for [null, {...}], so the component classes map a list like that straight into this constructor.
+        expect(() => new AnsvarsrettAnsvarsomraade(null as never, resourceBindings)).not.toThrow();
+        expect(new AnsvarsrettAnsvarsomraade(null as never, resourceBindings).funksjon).toBeUndefined();
+    });
+
     it("should not instantiate Kode if funksjon or tiltaksklasse is missing", () => {
         const props = {
             beskrivelseAvAnsvarsomraadet: "Beskrivelse",
