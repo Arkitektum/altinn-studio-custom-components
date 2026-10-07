@@ -206,3 +206,9 @@ Clicking anywhere outside a panel closes it.
 ## Changelog
 
 The [changelog](https://github.com/Arkitektum/altinn-studio-custom-components/releases) is regularly updated to reflect what's changed in each new release.
+
+---
+
+## Licence
+
+[MIT](./LICENSE)
