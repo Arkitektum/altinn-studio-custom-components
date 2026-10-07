@@ -135,7 +135,7 @@ src/
 └── styles/                # CSS
 
 public/                    # Dev-only HTML + scripts for the local playground, DevTools, Statistics
-scripts/                   # create-symlinks.js, generate-resource-files.js, ResourceGeneratorPlugin.js
+scripts/                   # create-symlinks.js, ResourceGeneratorPlugin.js
 ```
 
 ### Component model
@@ -177,7 +177,7 @@ Each entry has an `id` and a `values` map keyed by language code:
 }
 ```
 
-- The **`ResourceGeneratorPlugin`** (webpack) and `scripts/generate-resource-files.js` read `resources.json` and emit one file per language, `src/data/resource.<lang>.json`, containing only that language's values.
+- The **`ResourceGeneratorPlugin`** (webpack) reads `resources.json` and emits one file per language, `src/data/resource.<lang>.json`, containing only that language's values.
   **These generated files must not be edited by hand** — change `resources.json` and they are regenerated (the dev server regenerates and re-sorts by `id` on save).
 - `create-symlinks.js` links the generated files into `public/data/` for the dev playground.
 - `copy-dist-resources` (in the `build` script) copies the resource files into `dist/` for publishing.

@@ -189,9 +189,9 @@ export function getComponentForTagName(tagName: string) {
 }
 
 export function instantiateComponent(element: unknown): InstantiatedComponent | null {
-    // Either the attributes read off a real element, or props handed straight in. htmlElementHelpers is still
-    // JavaScript, so what it answers is inferred rather than declared; naming the shape here is what the rest of
-    // this function reads it as.
+    // Either the attributes read off a real element, or props handed straight in. getPropsFromElementAttributes
+    // answers its own inferred shape and a caller's props are unknown, so naming the shape here is what the rest of
+    // this function reads both as.
     const componentProps = (element instanceof HTMLElement ? getPropsFromElementAttributes(element) : element) as ComponentProps;
     // An element-like stand-in that is not an HTMLElement still answers getAttribute, which is how a component
     // built in a test finds its tag name.

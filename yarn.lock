@@ -28,8 +28,6 @@ __metadata:
     copyfiles: "npm:^2.4.1"
     css-loader: "npm:^7.1.5"
     css-minimizer-webpack-plugin: "npm:^8.0.0"
-    date-fns: "npm:^4.4.0"
-    date-fns-tz: "npm:^3.2.0"
     dotenv: "npm:^18.0.5"
     dotenv-webpack: "npm:^9.0.0"
     eslint: "npm:^10.12.0"
@@ -39,7 +37,6 @@ __metadata:
     jest-environment-jsdom: "npm:^30.5.2"
     mini-css-extract-plugin: "npm:^2.10.2"
     prettier: "npm:^3.9.9"
-    style-loader: "npm:^4.0.0"
     typescript: "npm:^6.0.3"
     typescript-eslint: "npm:^8.71.1"
     webpack: "npm:^5.111.1"
@@ -4674,22 +4671,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns-tz@npm:^3.2.0":
-  version: 3.2.0
-  resolution: "date-fns-tz@npm:3.2.0"
-  peerDependencies:
-    date-fns: ^3.0.0 || ^4.0.0
-  checksum: 10c0/3f43300a4335d59f3515dc5196c66b4b56ef2af129eb82e4445ce0983e8ef31a5d038bc0406d669946bbbcf52ed953527527aa28b4a810995d6631a54655abcc
-  languageName: node
-  linkType: hard
-
-"date-fns@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "date-fns@npm:4.4.0"
-  checksum: 10c0/988f0a13db183f5dfc85c36bbb6847a9c135a9225888bbea4005876ec15539a8613c21a07370a4e7ea543918d5a1cafb423c528b42cdbbde5fdfddb178126b21
-  languageName: node
-  linkType: hard
-
 "debug@npm:2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -8919,15 +8900,6 @@ __metadata:
   version: 3.1.1
   resolution: "strip-json-comments@npm:3.1.1"
   checksum: 10c0/9681a6257b925a7fa0f285851c0e613cc934a50661fa7bb41ca9cbbff89686bb4a0ee366e6ecedc4daafd01e83eee0720111ab294366fe7c185e935475ebcecd
-  languageName: node
-  linkType: hard
-
-"style-loader@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "style-loader@npm:4.0.0"
-  peerDependencies:
-    webpack: ^5.27.0
-  checksum: 10c0/214bc0f3b018f8c374f79b9fa16da43df78c7fef2261e9a99e36c2f8387601fad10ac75a171aa8edba75903db214bc46952ae08b94a1f8544bd146c2c8d07d27
   languageName: node
   linkType: hard
 
