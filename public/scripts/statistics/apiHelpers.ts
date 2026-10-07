@@ -5,8 +5,10 @@ import { showLoadingIndicator } from "./renderers.ts";
 // Data
 import defaultTextResources from "../../../src/data/resources.json";
 
-// Webpack's Dotenv plugin substitutes this at build time, so `process` is not a runtime global here.
-const API_PORT = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env?.API_PORT || 9001;
+// Written as the literal `process.env.API_PORT` because that is the only form webpack's Dotenv plugin substitutes at
+// build time. `process` is not a runtime global in the browser: an unset variable comes out as undefined.
+declare const process: { env: Record<string, string | undefined> };
+const API_PORT = process.env.API_PORT || 9001;
 
 /**
  * Fetches display layouts from the local API endpoint.

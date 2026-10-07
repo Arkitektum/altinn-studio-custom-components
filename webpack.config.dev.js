@@ -1,3 +1,6 @@
+// Load .env into this process too. dotenv-webpack below only substitutes variables into the bundled code, so without
+// this PORT in .env would never reach devServer.port.
+require("dotenv").config({ quiet: true });
 const path = require("node:path");
 const Dotenv = require("dotenv-webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
