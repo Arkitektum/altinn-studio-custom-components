@@ -2,6 +2,9 @@ import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
+// Global functions
+import { getAdjustedHeaderSize } from "../../../functions/helpers.ts";
+
 /**
  * Renders a custom header element if the text is provided.
  *
@@ -45,7 +48,7 @@ function getAnsvarsomraadeTitle(ansvarsomraade?: { funksjon?: { kodebeskrivelse?
 }
 
 /**
- * Renders a custom table element for a specific "ansvarsomraade type".
+ * Renders a custom table element for a specific "ansvarsomraade type", its heading one level below the group's title.
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {string} ansvarsomraadeTypeKey - The key used to access the specific "ansvarsomraade type" data.
@@ -57,7 +60,8 @@ export function renderAnsvarsomraadeType(component: InstantiatedComponent | null
         isChildComponent: true,
         hideIfEmpty: true,
         hideTitle: false,
-        size: "h4",
+        // One level below the group's own title, which defaults to h2, so no heading level is skipped.
+        size: getAdjustedHeaderSize(component?.size || "h2", 1),
         resourceBindings: {
             tiltaksklasse: component?.resourceBindings?.tiltaksklasse,
             ansvarsomraade: component?.resourceBindings?.ansvarsomraade,

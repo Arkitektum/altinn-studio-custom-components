@@ -48,15 +48,20 @@ describe("the header", () => {
 });
 
 describe("one kind of responsibility", () => {
-    it("renders the entries of that kind as a table, at h4", () => {
+    it("renders the entries of that kind as a table, one heading level below the group's h2 title", () => {
         expect(attributes(renderAnsvarsomraadeType(component, "PROSJEKTERING"))).toMatchObject({
             tagName: "custom-table-ansvarsomraade",
-            size: "h4",
+            size: "h3",
             hideIfEmpty: "true",
             hideTitle: null,
             wrapped: false,
             resourceValues: { data: component.resourceValues.data.PROSJEKTERING }
         });
+    });
+
+    it("follows the level the group's title is given, so no level is skipped", () => {
+        expect(attributes(renderAnsvarsomraadeType({ ...component, size: "h3" }, "PROSJEKTERING")).size).toBe("h4");
+        expect(attributes(renderAnsvarsomraadeType({ ...component, size: "h6" }, "PROSJEKTERING")).size).toBe("h6");
     });
 
     it("passes down the bindings for every column the table may show", () => {
