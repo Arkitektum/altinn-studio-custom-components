@@ -21,6 +21,13 @@ custom-summation {
                 border-top: 1px solid var(--color-default-dark);
                 background-color: var(--color-default-default);
             }
+            /* The term holds the operator and the title, laid out as they were when both sat directly in the row. */
+            .summation-item-term {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                margin: 0;
+            }
             .summation-item-operator {
                 width: 1rem;
                 text-align: center;
@@ -30,6 +37,10 @@ custom-summation {
             .summation-item-title {
                 flex: 1;
                 font-weight: var(--font-weight-default);
+            }
+            /* Every dd, so an empty one does not keep the browser's 40px indent either. */
+            dd {
+                margin: 0;
             }
             .summation-item-data {
                 margin-left: 8px;

@@ -37,11 +37,17 @@ describe("renderSummationItemElement", () => {
         expect(renderSummationItemElement(item({ data: 1 }), false).classList.contains("total")).toBe(false);
     });
 
-    it("puts the title before the data, without aria-labelledby, which a span with no role cannot take", () => {
-        const element = renderSummationItemElement(item({ title: "Sum", data: 1 }), false);
-        const classes = Array.from(element.children).map((child) => child.className);
-        expect(classes.indexOf("summation-item-title")).toBeLessThan(classes.findIndex((name) => name.startsWith("summation-item-data")));
-        expect(element.querySelector(".summation-item-data")!.classList.contains("has-title")).toBe(true);
+    it("is one row of a description list: the operator and title as the term, the data as its description", () => {
+        const element = renderSummationItemElement(item({ operator: "-", title: "Trekkes fra", data: 1 }), false);
+        const [term, description] = Array.from(element.children);
+
+        expect(element.tagName).toBe("DIV");
+        expect(element.children).toHaveLength(2);
+        expect(term!.tagName).toBe("DT");
+        expect(Array.from(term!.children).map((child) => child.className)).toEqual(["summation-item-operator", "summation-item-title"]);
+        expect(description!.tagName).toBe("DD");
+        expect(description!.classList.contains("summation-item-data")).toBe(true);
+        expect(description!.classList.contains("has-title")).toBe(true);
         expect(element.querySelector("[aria-labelledby]")).toBeNull();
         expect(element.querySelector("[id]")).toBeNull();
     });
@@ -68,6 +74,13 @@ describe("renderSummationElement", () => {
         expect(element.classList.contains("custom-summation")).toBe(true);
         expect(element.querySelectorAll(".summation-item")).toHaveLength(2);
         expect(titles).toEqual(["Første", "Andre"]);
+    });
+
+    it("is a description list holding nothing but its rows", () => {
+        const element = renderSummationElement([item({ title: "Første", data: 1 }), item({ title: "Andre", data: 2 })]);
+
+        expect(element.tagName).toBe("DL");
+        expect(Array.from(element.children).map((child) => child.tagName)).toEqual(["DIV", "DIV"]);
     });
 
     it("renders an empty container when there is no data", () => {
