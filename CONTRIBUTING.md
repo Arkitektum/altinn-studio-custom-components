@@ -65,14 +65,16 @@ For a high-level picture of how the package and its sibling repositories fit tog
 
 ## Everyday commands
 
-| Command      | What it does                               |
-| ------------ | ------------------------------------------ |
-| `yarn start` | Start the webpack dev server / playground. |
-| `yarn test`  | Run the Jest unit tests.                   |
-| `yarn lint`  | Run ESLint over `src`.                     |
-| `yarn build` | Produce the publishable bundle in `dist/`. |
+| Command             | What it does                               |
+| ------------------- | ------------------------------------------ |
+| `yarn start`        | Start the webpack dev server / playground. |
+| `yarn test`         | Run the Jest unit tests.                   |
+| `yarn lint`         | Run ESLint over the repository.            |
+| `yarn format:check` | Check formatting with Prettier.            |
+| `yarn typecheck`    | Type-check with `tsc --noEmit`.            |
+| `yarn build`        | Produce the publishable bundle in `dist/`. |
 
-Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn build` all pass — CI runs the same checks.
+Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test` and `yarn build` all pass. CI runs the same checks.
 
 ---
 
@@ -154,7 +156,7 @@ Before opening a pull request, make sure `yarn test`, `yarn lint`, and `yarn bui
 ## Versioning & releases
 
 - Releases are **triggered by creating a GitHub Release**.
-  The publish workflows then install, test, build, and publish to **npm** (with provenance) and to **GitHub Packages**.
+  The publish workflows then install, typecheck, test, build, and publish to **npm** (with provenance) and to **GitHub Packages**.
 - The npm **dist-tag** is derived from the release tag: a tag containing a hyphen (e.g. `1.2.3-beta.1`) is published under that prerelease tag; otherwise it goes to `latest`.
 - Bump the version in `package.json` as part of the change that warrants a release, following semantic versioning.
 

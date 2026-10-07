@@ -237,9 +237,9 @@ Only `dist/` and `README.md` are published (`package.json#files`).
 
 **CI** (`.github/workflows/`):
 
-- `ci.yml` — install, `yarn test`, `yarn build` on push/PR to `main`.
+- `ci.yml` — install, `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test`, `yarn build` on push/PR to `main`.
 - `eslint.yml` — ESLint scan, uploads SARIF to the GitHub Security tab (also on a weekly schedule).
-- `build-and-publish-to-npm.yml` / `build-and-publish-to-github.yml` — on GitHub **release created**: install, test, build, then publish to npm (with `--provenance`) and to GitHub Packages.
+- `build-and-publish-to-npm.yml` / `build-and-publish-to-github.yml` — on GitHub **release created**: install, typecheck, test, build, then publish to npm (with a provenance attestation, which trusted publishing generates) and to GitHub Packages.
   The dist-tag is derived from the release tag — a tag containing `-` (e.g. `1.2.3-beta.1`) publishes under that prerelease tag, otherwise `latest`.
 
 ---

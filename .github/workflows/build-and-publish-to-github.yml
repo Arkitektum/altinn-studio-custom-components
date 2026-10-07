@@ -29,6 +29,7 @@ jobs:
                   yarn --version
 
             - run: yarn install --immutable
+            - run: yarn typecheck
             - run: yarn test
             - run: yarn build
 
