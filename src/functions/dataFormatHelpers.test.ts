@@ -37,7 +37,8 @@ jest.mock("../constants/dateTimeFormats.ts", () => ({
         dateTime: { en: "en", no: "no", default: "en" },
         date: { en: "en", no: "no", default: "en" },
         time: { en: "en", no: "no", default: "en" }
-    }
+    },
+    dateTimeZone: "Europe/Oslo"
 }));
 jest.mock("./helpers.ts", () => ({
     hasValue: (v: unknown) => v !== undefined && v !== null && v !== ""
@@ -143,6 +144,12 @@ describe("formatDateTime", () => {
     it("reads a dotted date day first", () => {
         expect(formatDateTime("05.01.2024", "no")).toBe("05.01.2024, 00:00");
     });
+    it("shows a timestamp with an offset as it reads in Norway, whatever zone the machine is in", () => {
+        expect(formatDateTime("2024-05-01T00:30:00+02:00", "no")).toBe("01.05.2024, 00:30");
+        expect(formatDateTime("2024-04-30T22:30:00Z", "no")).toBe("01.05.2024, 00:30");
+        expect(formatDateTime("2024-01-15T09:00:00.123Z", "no")).toBe("15.01.2024, 10:00");
+        expect(formatDateTime("2024-01-15T10:00:00+0100", "no")).toBe("15.01.2024, 10:00");
+    });
     it("returns error message for invalid date", () => {
         expect(formatDateTime("not-a-date")).toBe("Ugyldig datoformat");
         expect(formatDateTime("31.02.2024")).toBe("Ugyldig datoformat");
@@ -161,6 +168,10 @@ describe("formatDate", () => {
         expect(formatDate("05.01.2024", "no")).toBe("05.01.2024");
         expect(formatDate("01.02.2023", "no")).toBe("01.02.2023");
     });
+    it("shows the day a timestamp with an offset falls on in Norway", () => {
+        expect(formatDate("2024-04-30T22:30:00Z", "no")).toBe("01.05.2024");
+        expect(formatDate("2024-12-31T23:30:00+01:00", "no")).toBe("31.12.2024");
+    });
     it("formats a Date object", () => {
         expect(formatDate(new Date(2023, 1, 1), "no")).toBe("01.02.2023");
     });
@@ -177,6 +188,10 @@ describe("formatDate", () => {
 describe("formatTime", () => {
     it("formats a time with a date", () => {
         expect(formatTime("1970-01-01T13:45:00", "no")).toBe("13:45:00");
+    });
+    it("shows a time with an offset as it reads in Norway", () => {
+        expect(formatTime("2024-07-01T10:00:00Z", "no")).toBe("12:00:00");
+        expect(formatTime("2024-01-01T10:00:00Z", "no")).toBe("11:00:00");
     });
     it("formats a bare time with seconds", () => {
         expect(formatTime("13:45:30", "no")).toBe("13:45:30");

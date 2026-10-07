@@ -1,5 +1,5 @@
 // Constants
-import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale } from "../constants/dateTimeFormats.ts";
+import { availableDateTimeLanguages, dateTimeFormat, dateTimeLocale, dateTimeZone } from "../constants/dateTimeFormats.ts";
 
 // Global functions
 import { escapeHtml, escapeHtmlAttribute } from "./stringHelpers.ts";
@@ -73,6 +73,22 @@ const invalidDateText = "Ugyldig datoformat";
 const dottedDatePattern = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/;
 const isoDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
 const timePattern = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
+/** A time of day followed by `Z` or a UTC offset, which makes the value a moment in time rather than a wall-clock value. */
+const zonedTimePattern = /\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?\s*(?:Z|[+-]\d{2}(?::?\d{2})?)$/i;
+
+/**
+ * The time zone to format a value in.
+ *
+ * A value with an offset is a moment in time, shown as it reads in Norway. Anything else (a date, a bare time, a date
+ * and time with no offset, a Date object) is a wall-clock value: it was read in the machine's own zone, so formatting
+ * it in that same zone gives back what was written, wherever the machine is.
+ *
+ * @param {string|Date} value - The value as it was handed in.
+ * @returns {string|undefined} The time zone, or undefined for the machine's own.
+ */
+function timeZoneOf(value: string | Date): string | undefined {
+    return typeof value === "string" && zonedTimePattern.test(value.trim()) ? dateTimeZone : undefined;
+}
 
 /**
  * A local date for the given parts, or null when the parts do not name a real moment (31.02, 25:00).
@@ -140,7 +156,7 @@ export function formatDateTime(dateTime?: string | null, language = "default"): 
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.dateTime[language]!;
     const options = dateTimeFormat.dateTime[locale] || dateTimeFormat.dateTime.default;
-    return new Intl.DateTimeFormat(locale, options).format(date);
+    return new Intl.DateTimeFormat(locale, { ...options, timeZone: timeZoneOf(dateTime) }).format(date);
 }
 
 /**
@@ -161,7 +177,7 @@ export function formatDate(date?: string | Date | null, language = "default"): s
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.date[language]!;
     const options = dateTimeFormat.date[locale] || dateTimeFormat.date.default;
-    return new Intl.DateTimeFormat(locale, options).format(parsed);
+    return new Intl.DateTimeFormat(locale, { ...options, timeZone: timeZoneOf(date) }).format(parsed);
 }
 
 /**
@@ -185,7 +201,7 @@ export function formatTime(time?: string | null, language = "default"): string {
     language = getAvailableDateTimeLanguageOrDefault(language);
     const locale = dateTimeLocale.time[language]!;
     const options = dateTimeFormat.time[locale] || dateTimeFormat.time.default;
-    return new Intl.DateTimeFormat(locale, options).format(date);
+    return new Intl.DateTimeFormat(locale, { ...options, timeZone: timeZoneOf(time) }).format(date);
 }
 
 /**
