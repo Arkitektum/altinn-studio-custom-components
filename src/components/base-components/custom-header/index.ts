@@ -1,6 +1,3 @@
-// Dependencies
-import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
-
 // Global functions
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "../../../functions/devToolsHelpers.ts";
 import { instantiateComponent } from "../../../functions/componentHelpers.ts";
@@ -17,8 +14,9 @@ export default customElements.define(
         connectedCallback() {
             const component = instantiateComponent(this);
             if (!component?.isEmpty) {
+                // The style override goes on the heading inside, in renderHeaderElement, and only there: margins and font size
+                // have to reach the heading to beat the stylesheet's, and on both elements a padding or border showed twice.
                 this.innerHTML = renderHeaderElement(component);
-                addStyle(this, component?.styleOverride);
                 addDevToolsOverlay(this, component, "base");
             } else if (isDevMode()) {
                 const hiddenEl = renderHiddenDevToolsElement(this, component, "base");

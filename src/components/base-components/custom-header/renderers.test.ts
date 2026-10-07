@@ -7,6 +7,11 @@ describe("renderHeaderElement", () => {
         expect(html).toContain("En tittel");
     });
 
+    it("puts the style override on the heading", () => {
+        const html = renderHeaderElement({ resourceValues: { title: "En tittel" }, size: "h3", styleOverride: { marginTop: "0px", color: "red" } });
+        expect(html).toBe('<h3 style="margin-top: 0px; color: red;">En tittel</h3>');
+    });
+
     it("falls back to h2 for an invalid size", () => {
         const html = renderHeaderElement({ resourceValues: { title: "En tittel" }, size: "h9" });
         expect(html).toContain("<h2>");
