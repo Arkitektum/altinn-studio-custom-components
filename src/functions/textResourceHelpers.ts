@@ -1,6 +1,7 @@
 // Dependencies
 import type { ClientLogger } from "@arkitektum/client-logger";
 import type { LogCustomField } from "../types.ts";
+import { defaultTextResourceLanguages } from "../constants/defaultTextResourceLanguages.ts";
 import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -106,6 +107,10 @@ export const fetchDefaultTextResources = async (
     clientLogger?: ClientLogger | null,
     customFields?: LogCustomField[]
 ): Promise<unknown> => {
+    // A language the package ships no file for is not a failure worth a request and an error log, only a fallback.
+    if (!defaultTextResourceLanguages.includes(language) && hasValue(fallbackLanguage) && fallbackLanguage !== language) {
+        return fetchDefaultTextResources(origin, org, app, fallbackLanguage as string, null, clientLogger, customFields);
+    }
     const defaultTextResourcesApiUrl = `${origin}/${org}/${app}/altinn-studio-custom-components/resource.${language}.json`;
 
     try {

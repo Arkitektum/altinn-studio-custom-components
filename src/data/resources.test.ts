@@ -1,3 +1,4 @@
+import { defaultTextResourceLanguages } from "../constants/defaultTextResourceLanguages.ts";
 import nbResources from "./resource.nb.json";
 import resources from "./resources.json";
 
@@ -32,6 +33,11 @@ describe("resources.json", () => {
                 .map((id) => `${id} (${file.slice(sourceRoot.length + 1)})`)
         );
         expect(missing).toEqual([]);
+    });
+
+    it("holds values in exactly the languages the loader asks apps for", () => {
+        const languages = new Set(resources.flatMap((resource) => Object.keys(resource.values)));
+        expect([...languages].sort()).toEqual([...defaultTextResourceLanguages].sort());
     });
 
     it("matches resource.nb.json, so the generated file has been regenerated", () => {

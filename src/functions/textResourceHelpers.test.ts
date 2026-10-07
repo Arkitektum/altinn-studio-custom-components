@@ -1,4 +1,4 @@
-import { fetchTextResources } from "./textResourceHelpers.ts";
+import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
 import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -110,5 +110,58 @@ describe("fetchTextResources", () => {
 
         expect(result).toBeNull();
         expect(fetchWithTimeoutAndClientLogger).not.toHaveBeenCalled();
+    });
+});
+
+describe("fetchDefaultTextResources", () => {
+    const origin = "https://org.example";
+    const org = "org";
+    const app = "app";
+
+    let errorSpy: ReturnType<typeof jest.spyOn>;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+        jest.mocked(hasValue).mockImplementation((value) => value !== undefined && value !== null && value !== "");
+    });
+
+    afterEach(() => {
+        errorSpy.mockRestore();
+    });
+
+    it("asks for the fallback straight away for a language the package ships no file for, logging nothing", async () => {
+        const data = { language: "nb", resources: [] };
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({ ok: true, json: async () => data } as unknown as Response);
+        const clientLogger = { postLogData: jest.fn() };
+
+        const result = await fetchDefaultTextResources(origin, org, app, "nn", "nb", clientLogger as never);
+
+        expect(result).toBe(data);
+        expect(fetchWithTimeoutAndClientLogger).toHaveBeenCalledTimes(1);
+        expect(jest.mocked(fetchWithTimeoutAndClientLogger).mock.calls[0]![0]).toBe(
+            `${origin}/${org}/${app}/altinn-studio-custom-components/resource.nb.json`
+        );
+        expect(clientLogger.postLogData).not.toHaveBeenCalled();
+        expect(errorSpy).not.toHaveBeenCalled();
+    });
+
+    it("asks for a language the package does ship", async () => {
+        const data = { language: "nb", resources: [] };
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({ ok: true, json: async () => data } as unknown as Response);
+
+        const result = await fetchDefaultTextResources(origin, org, app, "nb", "nb");
+
+        expect(result).toBe(data);
+        expect(jest.mocked(fetchWithTimeoutAndClientLogger).mock.calls[0]![0]).toContain("/resource.nb.json");
+    });
+
+    it("still asks for an unshipped language when there is no fallback to go to instead", async () => {
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({ ok: false, status: 404 } as unknown as Response);
+
+        const result = await fetchDefaultTextResources(origin, org, app, "en", null);
+
+        expect(result).toBeNull();
+        expect(jest.mocked(fetchWithTimeoutAndClientLogger).mock.calls[0]![0]).toContain("/resource.en.json");
     });
 });
