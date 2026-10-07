@@ -78,6 +78,31 @@ describe("fetchWithTimeoutAndClientLogger", () => {
         expect(errorSpy).toHaveBeenCalledWith("Request to https://example.test/slow timed out after 20ms");
     });
 
+    it("gives up on a body that stalls after the headers, within the same timeout", async () => {
+        // Headers arrive at once, then the body never finishes, as with a server that stops mid-response.
+        globalThis.fetch = (async (_url: string, init?: RequestInit) => ({
+            ok: true,
+            status: 200,
+            json: () =>
+                new Promise((_resolve, reject) => {
+                    init?.signal?.addEventListener("abort", () =>
+                        reject(Object.assign(new Error("The operation was aborted."), { name: "AbortError" }))
+                    );
+                })
+        })) as unknown as typeof fetch;
+
+        const answer = await fetchWithTimeoutAndClientLogger("https://example.test/stalls", {}, 20);
+        const outcome = await Promise.race([
+            answer!.json().then(
+                () => "read",
+                (error: Error) => error.name
+            ),
+            new Promise((resolve) => setTimeout(() => resolve("still waiting"), 500))
+        ]);
+
+        expect(outcome).toBe("AbortError");
+    });
+
     it("answers nothing for a request that failed outright, logging why", async () => {
         globalThis.fetch = (async () => {
             throw new TypeError("Failed to fetch");

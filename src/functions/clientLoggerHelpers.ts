@@ -10,7 +10,8 @@ import { altinnAppOrigins, clientLoggerApiUrls } from "../constants/urls.ts";
  *
  * @param url - The URL to fetch.
  * @param options - The fetch options.
- * @param timeout - The timeout in milliseconds.
+ * @param timeout - The timeout in milliseconds, for the whole request: reading the body counts, not only the wait for
+ *   the headers, since a response whose body stalls would otherwise hold the caller's `response.json()` indefinitely.
  * @param clientLogger - The client logger instance, when there is one to log through.
  * @param customFields - Extra fields carried on every log entry this call makes.
  * @returns The fetch response, or nothing when the request failed: the failure is logged rather than thrown, so
@@ -24,6 +25,8 @@ export async function fetchWithTimeoutAndClientLogger(
     customFields: LogCustomField[] = []
 ): Promise<Response | undefined> {
     const controller = new AbortController();
+    // Not cleared once the headers arrive: the caller reads the body after this returns, and the same abort is what
+    // stops that read. Aborting a body that has already been read does nothing, so the timer is left to run out.
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     try {
@@ -41,7 +44,6 @@ export async function fetchWithTimeoutAndClientLogger(
                 custom_fields: [...customFields, { key: "duration", value: duration.toString() }]
             }
         ]);
-        clearTimeout(timeoutId);
         return response;
     } catch (error) {
         clearTimeout(timeoutId);
