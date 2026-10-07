@@ -64,20 +64,5 @@ export function renderErTillatelseGittElement(component?: InstantiatedComponent 
     return addContainerElement(createCustomElement("custom-field-boolean-text", htmlAttributes));
 }
 
-/**
- * Renders a custom paragraph element displaying the empty field text for a given component.
- *
- * @param {Object} component - The component object containing resource values.
- * @param {Object} [component?.resourceValues] - Resource values for the component.
- * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
- * @returns {HTMLElement} The custom paragraph element with the specified attributes.
- */
-export function renderEmptyFieldText(component?: InstantiatedComponent | null) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        resourceValues: {
-            title: component?.resourceValues?.data
-        }
-    });
-    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
-}
+// Shared with the other group components, see shared/childElements.ts.
+export { renderEmptyFieldText } from "../../shared/childElements.ts";

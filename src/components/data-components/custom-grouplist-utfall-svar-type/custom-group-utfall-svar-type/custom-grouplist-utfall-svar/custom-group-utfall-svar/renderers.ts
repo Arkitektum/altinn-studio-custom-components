@@ -3,22 +3,18 @@ import type UtfallSvar from "../../../../../../classes/data-classes/UtfallSvar.t
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
+// Shared renderers
+import { renderChildHeaderElement } from "../../../../shared/childElements.ts";
+
 /**
- * Renders a custom header element if the text is provided.
+ * Renders this component's heading, at h3 unless another level is asked for. See shared/childElements.ts.
  *
- * @param {string} title - The text content for the header element.
- * @param {string} [size="h3"] - The header size (e.g., "h1", "h2", "h3").
+ * @param {string} title - The heading's text.
+ * @param {string} [size="h3"] - The heading level.
  * @returns {HTMLElement} The created custom header element.
  */
 export function renderHeaderElement(title: string, size = "h3") {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        size,
-        resourceValues: {
-            title
-        }
-    });
-    return createCustomElement("custom-header-text", htmlAttributes);
+    return renderChildHeaderElement(title, size);
 }
 
 /**

@@ -2,22 +2,18 @@ import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
+// Shared renderers
+import { renderChildHeaderElementFromResource } from "../shared/childElements.ts";
+
 /**
- * Renders a custom header element with the specified title and size.
+ * Renders this component's heading, at h3 unless another level is asked for. See shared/childElements.ts.
  *
- * @param {string} title - The title text to display in the header.
- * @param {string} [size="h3"] - The size of the header element (e.g., "h1", "h2", "h3").
+ * @param {string} titleResourceKey - The text resource key of the heading's text.
+ * @param {string} [size="h3"] - The heading level.
  * @returns {HTMLElement} The created custom header element.
  */
-export function renderHeaderElement(title: string, size = "h3") {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        size,
-        resourceBindings: {
-            title
-        }
-    });
-    return createCustomElement("custom-header-text", htmlAttributes);
+export function renderHeaderElement(titleResourceKey: string, size = "h3") {
+    return renderChildHeaderElementFromResource(titleResourceKey, size);
 }
 
 /**
@@ -71,20 +67,5 @@ export function renderUTFTekstElement(component?: InstantiatedComponent | null) 
     return addContainerElement(createCustomElement("custom-paragraph-text", htmlAttributes));
 }
 
-/**
- * Renders a custom paragraph element displaying the empty field text for a given component.
- *
- * @param {Object} component - The component object containing resource values.
- * @param {Object} [component?.resourceValues] - Resource values for the component.
- * @param {string} [component?.resourceValues.data] - The text to display as the empty field.
- * @returns {HTMLElement} The custom paragraph element with the specified attributes.
- */
-export function renderEmptyFieldText(component?: InstantiatedComponent | null) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        resourceValues: {
-            title: component?.resourceValues?.data
-        }
-    });
-    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
-}
+// Shared with the other group components, see shared/childElements.ts.
+export { renderEmptyFieldText } from "../shared/childElements.ts";

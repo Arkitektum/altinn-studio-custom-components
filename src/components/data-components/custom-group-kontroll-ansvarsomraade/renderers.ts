@@ -3,15 +3,18 @@ import type KontrollAnsvarsomraade from "../../../classes/data-classes/KontrollA
 // Dependencies
 import { CustomElementHtmlAttributes, addContainerElement, createCustomElement } from "@arkitektum/altinn-studio-custom-components-utils";
 
-export function renderHeaderElement(title: string, size = "h2") {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        size,
-        resourceBindings: {
-            title
-        }
-    });
-    return createCustomElement("custom-header-text", htmlAttributes);
+// Shared renderers
+import { renderChildHeaderElementFromResource } from "../shared/childElements.ts";
+
+/**
+ * Renders this component's heading, at h2 unless another level is asked for. See shared/childElements.ts.
+ *
+ * @param {string} titleResourceKey - The text resource key of the heading's text.
+ * @param {string} [size="h2"] - The heading level.
+ * @returns {HTMLElement} The created custom header element.
+ */
+export function renderHeaderElement(titleResourceKey: string, size = "h2") {
+    return renderChildHeaderElementFromResource(titleResourceKey, size);
 }
 
 export function renderFunksjonElement(component?: InstantiatedComponent | null) {
@@ -80,12 +83,5 @@ export function renderFunnetAvvikElement(component?: InstantiatedComponent | nul
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
-export function renderEmptyFieldText(component?: InstantiatedComponent | null) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        resourceValues: {
-            title: component?.resourceValues?.data
-        }
-    });
-    return addContainerElement(createCustomElement("custom-paragraph", htmlAttributes));
-}
+// Shared with the other group components, see shared/childElements.ts.
+export { renderEmptyFieldText } from "../shared/childElements.ts";

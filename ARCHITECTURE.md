@@ -112,6 +112,8 @@ src/
 │   │                          #   a data model or resources (custom-field, custom-table, ...)
 │   ├── data-components/       # Bound to the data model + resource files. The bulk of the package
 │   │                          #   (custom-field-data, custom-table-part, custom-group-*, ...)
+│   │   └── shared/            # Renderers several data components draw: the group heading and empty
+│   │                          #   text (childElements.ts), the eiendom table. Re-exported, not copied
 │   ├── layout-components/     # Whole-form layouts composed of many data/base components
 │   │                          #   (dispensasjon, gjennomfoeringsplan, ...)
 │   └── index.ts               # Registers every component (webpack entry "main")
