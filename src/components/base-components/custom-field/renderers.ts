@@ -2,22 +2,17 @@
 import { addStyle, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { generateUniqueId } from "../../../functions/helpers.ts";
 import { injectAnchorElements } from "../../../functions/dataFormatHelpers.ts";
 
 /**
  * Creates and returns a span element representing a field title.
  *
  * @param {string} fieldTitle - The text to display as the field title.
- * @param {string} [fieldTitleId] - Optional ID to assign to the span element.
  * @param {boolean} inline - If true, appends a colon to the field title.
  * @returns {HTMLSpanElement} The span element containing the field title.
  */
-function renderFieldTitleElement(fieldTitle: string, fieldTitleId: string | null, inline: boolean | undefined) {
+function renderFieldTitleElement(fieldTitle: string, inline: boolean | undefined) {
     const fieldTitleLabelElement = document.createElement("span");
-    if (fieldTitleId) {
-        fieldTitleLabelElement.id = fieldTitleId;
-    }
     fieldTitleLabelElement.classList.add("field-title");
     fieldTitleLabelElement.textContent = `${fieldTitle}${inline ? ":" : ""}`;
     return fieldTitleLabelElement;
@@ -87,9 +82,10 @@ export function renderFieldElement(fieldTitle: string, fieldValue: unknown, opti
     };
     const fieldElement = document.createElement("div");
     fieldElement.classList.add("field");
-    const fieldTitleId = fieldTitle?.length ? generateUniqueId("custom-field-") : null;
+    // The title comes right before the value, which is how a screen reader reads the pair. No aria-labelledby: a plain
+    // span with no role cannot be named, so it was ignored.
     if (fieldTitle?.length) {
-        fieldElement.appendChild(renderFieldTitleElement(fieldTitle, fieldTitleId, options.inline));
+        fieldElement.appendChild(renderFieldTitleElement(fieldTitle, options.inline));
     }
     if (options?.inline) {
         fieldElement.classList.add("inline");
@@ -97,7 +93,6 @@ export function renderFieldElement(fieldTitle: string, fieldValue: unknown, opti
     const fieldValueElement = renderFieldValueElement(fieldValue, options.enableLinks);
     if (fieldTitle?.length) {
         fieldValueElement.classList.add("has-title");
-        fieldValueElement.setAttribute("aria-labelledby", fieldTitleId!);
     }
     fieldElement.appendChild(fieldValueElement);
     addStyle(fieldElement, {

@@ -42,11 +42,13 @@ describe("renderFieldElement", () => {
         expect(renderFieldElement("Tittel", "verdi", { returnHtml: false, inline: true }).querySelector(".field-title")!.textContent).toBe("Tittel:");
     });
 
-    it("links the value to its title for screen readers", () => {
+    it("puts the title right before the value, without aria-labelledby, which a span with no role cannot take", () => {
         const element = renderFieldElement("Tittel", "verdi", { returnHtml: false });
-        const titleId = element.querySelector(".field-title")!.id;
-        expect(titleId).toBeTruthy();
-        expect(element.querySelector(".field-value")!.getAttribute("aria-labelledby")).toBe(titleId);
+        const [title, value] = Array.from(element.children);
+        expect(title!.classList.contains("field-title")).toBe(true);
+        expect(value!.classList.contains("field-value")).toBe(true);
+        expect(element.querySelector("[aria-labelledby]")).toBeNull();
+        expect(element.querySelector("[id]")).toBeNull();
     });
 
     it("does not render HTML in the title (XSS-safe)", () => {

@@ -4,7 +4,6 @@ import { CustomElementHtmlAttributes, createCustomElement, hasValue } from "@ark
 
 // Global functions
 import { formatNumber } from "../../../functions/dataFormatHelpers.ts";
-import { generateUniqueId } from "../../../functions/helpers.ts";
 
 /**
  * Renders a custom header element with the specified title and size.
@@ -42,14 +41,10 @@ function renderSummationItemOperatorElement(summationItemOperator: string) {
  * Creates a <span> element representing the title of a summation item.
  *
  * @param {string} summationItemTitle - The text content for the summation item title.
- * @param {string} [summationItemTitleId] - Optional ID to assign to the span element.
- * @returns {HTMLSpanElement} The created span element with the specified title and optional ID.
+ * @returns {HTMLSpanElement} The created span element with the specified title.
  */
-function renderSummationItemTitleElement(summationItemTitle: string, summationItemTitleId: string | null) {
+function renderSummationItemTitleElement(summationItemTitle: string) {
     const fieldTitleLabelElement = document.createElement("span");
-    if (summationItemTitleId) {
-        fieldTitleLabelElement.id = summationItemTitleId;
-    }
     fieldTitleLabelElement.classList.add("summation-item-title");
     fieldTitleLabelElement.textContent = summationItemTitle;
     return fieldTitleLabelElement;
@@ -92,7 +87,6 @@ export function renderSummationItemElement(summationItem: InstantiatedComponent,
 
     const summationItemOperator = summationItem?.resourceValues?.operator || "";
     const summationItemTitle = summationItem?.resourceValues?.title || "";
-    const summationItemTitleId = summationItemTitle?.length ? generateUniqueId("custom-field-") : null;
     const summationItemData = hasValue(summationItem?.resourceValues?.data) ? summationItem?.resourceValues?.data : "0";
     const summationItemUnit = summationItem?.resourceValues?.unit || "";
     const summationItemIsTotal = summationItem?.resourceValues?.isTotal === true || summationItem?.resourceValues?.isTotal === "true";
@@ -102,12 +96,13 @@ export function renderSummationItemElement(summationItem: InstantiatedComponent,
     }
 
     summationItemElement.appendChild(renderSummationItemOperatorElement(summationItemOperator));
-    summationItemElement.appendChild(renderSummationItemTitleElement(summationItemTitle, summationItemTitleId));
+    // The title comes right before the data, which is how a screen reader reads the pair. No aria-labelledby: a plain
+    // span with no role cannot be named, so it was ignored.
+    summationItemElement.appendChild(renderSummationItemTitleElement(summationItemTitle));
 
     const summationItemDataElement = renderSummationItemDataElement(summationItemData, summationItemUnit);
     if (summationItemTitle?.length) {
         summationItemDataElement.classList.add("has-title");
-        summationItemDataElement.setAttribute("aria-labelledby", summationItemTitleId!);
     }
     summationItemElement.appendChild(summationItemDataElement);
     return returnHtml ? summationItemElement.outerHTML : summationItemElement;

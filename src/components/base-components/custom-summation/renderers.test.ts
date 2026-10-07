@@ -37,20 +37,18 @@ describe("renderSummationItemElement", () => {
         expect(renderSummationItemElement(item({ data: 1 }), false).classList.contains("total")).toBe(false);
     });
 
-    it("links the data to its title for screen readers", () => {
+    it("puts the title before the data, without aria-labelledby, which a span with no role cannot take", () => {
         const element = renderSummationItemElement(item({ title: "Sum", data: 1 }), false);
-        const dataElement = element.querySelector(".summation-item-data");
-        const titleId = element.querySelector(".summation-item-title")!.id;
-        expect(titleId).toBeTruthy();
-        expect(dataElement!.getAttribute("aria-labelledby")).toBe(titleId);
-        expect(dataElement!.classList.contains("has-title")).toBe(true);
+        const classes = Array.from(element.children).map((child) => child.className);
+        expect(classes.indexOf("summation-item-title")).toBeLessThan(classes.findIndex((name) => name.startsWith("summation-item-data")));
+        expect(element.querySelector(".summation-item-data")!.classList.contains("has-title")).toBe(true);
+        expect(element.querySelector("[aria-labelledby]")).toBeNull();
+        expect(element.querySelector("[id]")).toBeNull();
     });
 
-    it("omits the title wiring when there is no title", () => {
+    it("does not mark the data as titled when there is no title", () => {
         const element = renderSummationItemElement(item({ data: 1 }), false);
         const dataElement = element.querySelector(".summation-item-data");
-        expect(element.querySelector(".summation-item-title")!.id).toBe("");
-        expect(dataElement!.getAttribute("aria-labelledby")).toBeNull();
         expect(dataElement!.classList.contains("has-title")).toBe(false);
     });
 
@@ -70,16 +68,6 @@ describe("renderSummationElement", () => {
         expect(element.classList.contains("custom-summation")).toBe(true);
         expect(element.querySelectorAll(".summation-item")).toHaveLength(2);
         expect(titles).toEqual(["Første", "Andre"]);
-    });
-
-    it("gives each item its own title id and keeps aria-labelledby pointing at it", () => {
-        const element = renderSummationElement([item({ title: "Første", data: 1 }), item({ title: "Andre", data: 2 })]);
-        const pairs = Array.from(element.querySelectorAll(".summation-item")).map((row) => [
-            row.querySelector(".summation-item-title")!.id,
-            row.querySelector(".summation-item-data")!.getAttribute("aria-labelledby")
-        ]);
-        expect(pairs.every(([titleId, labelledBy]) => titleId && titleId === labelledBy)).toBe(true);
-        expect(pairs[0]![0]).not.toBe(pairs[1]![0]);
     });
 
     it("renders an empty container when there is no data", () => {
