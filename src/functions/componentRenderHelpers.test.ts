@@ -141,6 +141,22 @@ describe("renderCustomComponent", () => {
         expect(host.querySelector("p")).not.toBeNull();
     });
 
+    it("draws the content once when rendered again, as it is when the element is moved or re-inserted", () => {
+        const host = document.createElement("div");
+        jest.mocked(instantiateComponent).mockReturnValue({ isEmpty: false, hasValidationMessages: true, validationMessages: {} });
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
+        jest.mocked(renderFeedbackListElement).mockImplementation(() => document.createElement("ul"));
+        const render = (h: HTMLElement) => {
+            h.appendChild(document.createElement("p"));
+        };
+
+        renderCustomComponent(host, { type: "data", render, withFeedback: true });
+        renderCustomComponent(host, { type: "data", render, withFeedback: true });
+
+        expect(host.querySelectorAll("p")).toHaveLength(1);
+        expect(host.querySelectorAll("ul")).toHaveLength(1);
+    });
+
     it("appends a feedback list when withFeedback and there are validation messages", () => {
         const host = document.createElement("div");
         const feedback = document.createElement("ul");

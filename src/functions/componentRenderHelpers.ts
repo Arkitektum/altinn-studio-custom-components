@@ -243,6 +243,9 @@ export function renderCustomComponent(
     }
     // A layout is removed rather than hidden, so unlike the other types it does not need a container to hide.
     const canHideWhenEmpty = isLayout || !!elementToHideWhenEmpty;
+    // connectedCallback runs again whenever the element is moved or re-inserted, and the renderers only append, so
+    // start from an empty host or the content is drawn twice.
+    host.replaceChildren();
     if (shouldHideWhenEmpty && component?.isEmpty && canHideWhenEmpty) {
         if (isDevMode()) {
             const hiddenEl = renderHiddenDevToolsElement(host, component, type);
