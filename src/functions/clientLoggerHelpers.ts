@@ -68,12 +68,12 @@ export async function fetchWithTimeoutAndClientLogger(
 }
 
 /**
- * Get the client logger API URL based on the current origin.
+ * Get the client logger API URL based on the origin the app is served from.
  *
+ * @param {string} [origin] - The origin to look up. The page's own unless a test hands it one.
  * @returns {string} The client logger API URL.
  */
-function getClientLoggerApiUrl() {
-    const origin = globalThis.location.origin;
+export function getClientLoggerApiUrl(origin = globalThis.location.origin) {
     switch (origin) {
         case altinnAppOrigins.local:
             return clientLoggerApiUrls.local;
