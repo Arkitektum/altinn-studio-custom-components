@@ -1,4 +1,4 @@
-import { DEFAULT_LAYOUT_NAME, flattenAppLayouts, getFormFilterOptions, setSelectOptions } from "./displayLayoutHelpers.ts";
+import { DEFAULT_LAYOUT_NAME, flattenAppLayouts, getAppEntries, getFormFilterOptions, setSelectOptions } from "./displayLayoutHelpers.ts";
 import { MAIN_FORM_FILTER_VALUE } from "../filters.ts";
 
 import type { ApiValue } from "../types.ts";
@@ -23,12 +23,26 @@ describe("flattenAppLayouts", () => {
         expect(result[1].layout).toEqual({ data: { layout: [] } });
     });
 
-    it("passes standalone subform entries through with a default layout name", () => {
-        const displayLayouts = [{ appOwner: "o", appName: "sub", dataType: "SubDT", isSubform: true, layout: { data: { layout: [] } } }];
+    it("passes an entry with a single layout through with a default layout name", () => {
+        const displayLayouts = [{ appOwner: "o", appName: "a", dataType: "DT", layout: { data: { layout: [] } } }];
         const result = flattenAppLayouts(displayLayouts);
         expect(result.length).toBe(1);
         expect(result[0].layoutName).toBe(DEFAULT_LAYOUT_NAME);
-        expect(result[0].isSubform).toBe(true);
+        expect(result[0].appName).toBe("a");
+    });
+
+    it("leaves out standalone subform entries", () => {
+        const displayLayouts = [
+            {
+                appOwner: "o",
+                appName: "a",
+                dataType: "DT",
+                displayLayouts: [{ name: "DisplayLayout", path: "p1", layout: { data: { layout: [] } } }]
+            },
+            { appOwner: "o", appName: "sub", dataType: "SubDT", isSubform: true, layout: { data: { layout: [] } } }
+        ];
+        const result = flattenAppLayouts(displayLayouts);
+        expect(result.map((entry: ApiValue) => entry.appName)).toEqual(["a"]);
     });
 
     it("credits each subform an app carries to that app, named after the subform app", () => {
@@ -130,5 +144,20 @@ describe("setSelectOptions", () => {
         ];
         expect(setSelectOptions(select, named, "gone")).toBe("first");
         expect(select.value).toBe("first");
+    });
+});
+
+describe("getAppEntries", () => {
+    it("keeps the apps and leaves out the standalone subform entries", () => {
+        const displayLayouts = [
+            { appOwner: "o", appName: "a", displayLayouts: [] },
+            { appOwner: "o", appName: "sub", isSubform: true, layout: {} },
+            { appOwner: "o", appName: "b", displayLayouts: [] }
+        ];
+        expect(getAppEntries(displayLayouts).map((entry: ApiValue) => entry.appName)).toEqual(["a", "b"]);
+    });
+
+    it("answers with no apps for input that is not a list", () => {
+        expect(getAppEntries(undefined)).toEqual([]);
     });
 });

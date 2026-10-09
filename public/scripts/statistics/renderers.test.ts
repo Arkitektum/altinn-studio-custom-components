@@ -217,6 +217,18 @@ describe("internal renderers functions", () => {
         expect(() => renderComponentUsagePage(el)).not.toThrow();
         expect(el.textContent).toContain("Component usage");
     });
+    it("offers only apps, not standalone subform entries, to the usage pages' application and form filters", () => {
+        globalThis.displayLayouts = [...globalThis.displayLayouts, { appOwner: "owner1", appName: "sub-v1", isSubform: true, layout: {} }];
+        const lastApplications = (mock: unknown) => (mock as jest.Mock).mock.calls.at(-1)![2].map((entry: ApiValue) => entry.appName);
+
+        renderResourceUsagePage(document.createElement("div"));
+        expect(lastApplications(renderSelectApplicationFilterForTextResourcesList)).toEqual(["app1"]);
+        expect(lastApplications(renderSelectFormFilterForTextResourcesList)).toEqual(["app1"]);
+
+        renderComponentUsagePage(document.createElement("div"));
+        expect(lastApplications(renderSelectApplicationFilterForComponentUsageList)).toEqual(["app1"]);
+        expect(lastApplications(renderSelectFormFilterForComponentUsageList)).toEqual(["app1"]);
+    });
     it("renderResourceUsagePage runs without error", () => {
         const el = document.createElement("div");
         expect(() => renderResourceUsagePage(el)).not.toThrow();

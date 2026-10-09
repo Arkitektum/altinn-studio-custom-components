@@ -2,17 +2,32 @@ import type { ApiValue, DisplayLayoutEntry, FlattenedLayout } from "../types.ts"
 import { MAIN_FORM_FILTER_VALUE } from "../filters.ts";
 
 /**
- * The layout name used for entries that do not declare a named display layout (e.g. standalone subforms).
+ * The layout name used for entries that do not declare a named display layout.
  */
 export const DEFAULT_LAYOUT_NAME = "DisplayLayout";
+
+/**
+ * The app entries among the display layout entries, leaving out the standalone subform entries.
+ *
+ * The API also answers with one standalone entry per subform, holding a copy of its layout kept in the API's own
+ * repository. That copy is from before each app's own subform layouts were fetched, which every app now carries in its
+ * `subForms`. A standalone entry is not an app, so it is neither offered as one nor counted as one.
+ *
+ * @param {Array<Object>} displayLayouts - The app/subform display layout entries the API answered with.
+ * @returns {Array<Object>} The entries that are apps.
+ */
+export function getAppEntries(displayLayouts: DisplayLayoutEntry[] | undefined) {
+    return (Array.isArray(displayLayouts) ? displayLayouts : []).filter((entry: DisplayLayoutEntry) => !entry?.isSubform);
+}
 
 /**
  * Flattens app display layout entries into one entry per display layout.
  *
  * Each app entry may hold several named display layouts in its `displayLayouts` array. This helper expands those into
  * individual per-layout entries, tagging each with its `layoutName`, so that the per-layout aggregators
- * (component usage, resource usage) can process them uniformly. Standalone subform entries (which carry a single
- * `layout` instead of a `displayLayouts` array) pass through as a single entry with a default layout name.
+ * (component usage, resource usage) can process them uniformly. An entry with a single `layout` instead of a
+ * `displayLayouts` array passes through as a single entry with a default layout name. Standalone subform entries are
+ * left out, as `getAppEntries` explains.
  *
  * The subforms an app carries in its `subForms` array are expanded too, one entry each, credited to that app and named
  * after the subform app. These are the layouts fetched from the app's own repository, so they are what the app actually
@@ -23,11 +38,8 @@ export const DEFAULT_LAYOUT_NAME = "DisplayLayout";
  *   `layout`, and (where applicable) `isSubform` and `subformAppName`.
  */
 export function flattenAppLayouts(displayLayouts: DisplayLayoutEntry[] | undefined) {
-    if (!Array.isArray(displayLayouts)) {
-        return [];
-    }
-    return displayLayouts.flatMap((entry: ApiValue) => {
-        // Standalone subform entries keep their single `layout` and are treated as a single display layout.
+    return getAppEntries(displayLayouts).flatMap((entry: ApiValue) => {
+        // An entry without named layouts keeps its single `layout` and is treated as a single display layout.
         if (!Array.isArray(entry?.displayLayouts)) {
             return [{ ...entry, layoutName: entry?.layoutName ?? DEFAULT_LAYOUT_NAME }];
         }

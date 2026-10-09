@@ -27,6 +27,7 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
+import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { languages } from "../languages.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
@@ -38,7 +39,7 @@ import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlE
  */
 export function renderResourceUsagePage(containerElement: HTMLElement) {
     const allTextResourceUsage = globalThis.allTextResourceUsage;
-    const displayLayouts = globalThis.displayLayouts;
+    const applications = getAppEntries(globalThis.displayLayouts);
 
     // Reset any filter state left over from a previous visit to this page. The filter controls below are recreated at
     // their defaults, so the persisted globals would otherwise be silently re-applied the first time any one control
@@ -55,8 +56,8 @@ export function renderResourceUsagePage(containerElement: HTMLElement) {
 
     containerElement.appendChild(titleElement);
     containerElement.appendChild(renderUsageFilterForTextResourcesList(containerElement!, allTextResourceUsage));
-    containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement!, allTextResourceUsage, displayLayouts));
-    containerElement.appendChild(renderSelectFormFilterForTextResourcesList(containerElement!, allTextResourceUsage, displayLayouts));
+    containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement!, allTextResourceUsage, applications));
+    containerElement.appendChild(renderSelectFormFilterForTextResourcesList(containerElement!, allTextResourceUsage, applications));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement!, allTextResourceUsage));
     containerElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
 }
@@ -68,7 +69,7 @@ export function renderResourceUsagePage(containerElement: HTMLElement) {
  */
 export function renderComponentUsagePage(containerElement: HTMLElement) {
     const componentUsage = globalThis.componentUsage;
-    const displayLayouts = globalThis.displayLayouts;
+    const applications = getAppEntries(globalThis.displayLayouts);
 
     // Reset any filter state left over from a previous visit to this page. The filter controls below are recreated at
     // their defaults, so the persisted globals would otherwise be silently re-applied the first time any one control
@@ -85,8 +86,8 @@ export function renderComponentUsagePage(containerElement: HTMLElement) {
     titleElement.textContent = "Component usage";
     containerElement.appendChild(titleElement);
     containerElement.appendChild(renderUsageFilterForComponentUsageList(containerElement!, componentUsage));
-    containerElement.appendChild(renderSelectApplicationFilterForComponentUsageList(containerElement!, componentUsage, displayLayouts));
-    containerElement.appendChild(renderSelectFormFilterForComponentUsageList(containerElement!, componentUsage, displayLayouts));
+    containerElement.appendChild(renderSelectApplicationFilterForComponentUsageList(containerElement!, componentUsage, applications));
+    containerElement.appendChild(renderSelectFormFilterForComponentUsageList(containerElement!, componentUsage, applications));
     containerElement.appendChild(renderSelectComponentTypeFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderTextInputFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderComponentUsageList(componentUsage));
@@ -295,7 +296,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement: HTMLElemen
     defaultOptionElement.textContent = "Select an application";
     selectElement.appendChild(defaultOptionElement);
 
-    const mainFormDisplayLayouts = globalThis.displayLayouts.filter((layout: Layout | undefined) => !layout!.isSubform);
+    const mainFormDisplayLayouts = getAppEntries(globalThis.displayLayouts);
 
     mainFormDisplayLayouts.forEach((layout: Layout | undefined) => {
         const optionElement = document.createElement("option");
