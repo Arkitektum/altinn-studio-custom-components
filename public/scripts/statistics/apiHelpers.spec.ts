@@ -113,8 +113,8 @@ describe("getUpdatedApiData", () => {
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }) // appResources
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(6) }) // exampleData
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(7) }); // applicationMetadata
-        // Mock showLoadingIndicator to avoid DOM side effects
-        jest.spyOn(require("./renderers.ts"), "showLoadingIndicator").mockImplementation(() => {});
+        // Mock showSyncProgress to avoid DOM side effects
+        jest.spyOn(require("./syncProgress.ts"), "showSyncProgress").mockImplementation(() => document.createElement("div"));
         await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5, 6, 7]);
     });
 });

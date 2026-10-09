@@ -1,6 +1,6 @@
 import type { ApiValue } from "../types.ts";
 // Local functions
-import { showLoadingIndicator } from "./renderers.ts";
+import { showSyncProgress } from "./syncProgress.ts";
 
 // Data
 import defaultTextResources from "../../../src/data/resources.json";
@@ -195,8 +195,8 @@ export async function fetchAltinnStudioForms() {
 
 /**
  * Fetches updated API data required for the application.
- * Initiates parallel requests for default text resources, display layouts, package versions,
- * application resource values, and example data. Displays a loading indicator while fetching.
+ * Initiates parallel requests for display layouts, package versions, latest package versions, application resource
+ * values, example data and application metadata, and shows each one's progress while they run.
  *
  * @async
  * @function
@@ -211,13 +211,13 @@ export async function getUpdatedApiData() {
     const exampleDataPromise = fetchExampleData();
     const applicationMetadataPromise = fetchApplicationMetadata();
 
-    showLoadingIndicator([
-        layoutsPromise,
-        packageVersionsPromise,
-        latestPackageVersionsPromise,
-        multilingualAppResourceValuesPromise,
-        exampleDataPromise,
-        applicationMetadataPromise
+    showSyncProgress([
+        { label: "Display layouts", promise: layoutsPromise, unit: ["app", "apps"] },
+        { label: "Package versions", promise: packageVersionsPromise, unit: ["app", "apps"] },
+        { label: "Latest package versions", promise: latestPackageVersionsPromise, unit: ["package", "packages"] },
+        { label: "App text resources", promise: multilingualAppResourceValuesPromise, unit: ["app", "apps"] },
+        { label: "Example data", promise: exampleDataPromise, unit: ["entry", "entries"] },
+        { label: "Application metadata", promise: applicationMetadataPromise, unit: ["app", "apps"] }
     ]);
     return Promise.all([
         layoutsPromise,

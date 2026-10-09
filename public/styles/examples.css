@@ -391,27 +391,162 @@
                 }
             }
         }
-        .progress-indicator {
+        .sync-progress-backdrop {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            font-size: 16px;
+            inset: 0;
             z-index: 100;
             display: flex;
             align-items: center;
-            gap: 12px;
-            & .spinner {
-                border: 4px solid rgba(255, 255, 255, 0.3);
-                border-top: 4px solid #fff;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+        }
+        .sync-progress {
+            width: min(460px, calc(100vw - 32px));
+            padding: 20px 24px;
+            background-color: var(--color-background-dark-highlight);
+            border: 1px solid var(--color-border-dark-highlight);
+            border-radius: 12px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+            color: var(--color-text-white);
+            font-family: var(--font-family-default);
+            font-size: 14px;
+            & .sync-progress-header {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 12px;
+            }
+            & .sync-progress-title {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 600;
+            }
+            & .sync-progress-elapsed,
+            & .sync-progress-count,
+            & .sync-progress-time {
+                color: var(--color-text-white-muted);
+                font-variant-numeric: tabular-nums;
+            }
+            & .sync-progress-bar-row {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin: 14px 0 16px;
+            }
+            & .sync-progress-bar {
+                flex: 1;
+                height: 8px;
+                appearance: none;
+                border: none;
+                border-radius: 4px;
+                overflow: hidden;
+                background-color: var(--color-border-dark-highlight);
+                &::-webkit-progress-bar {
+                    background-color: var(--color-border-dark-highlight);
+                }
+                &::-webkit-progress-value {
+                    background-color: var(--color-background-primary);
+                    transition: width 200ms ease-out;
+                }
+                &::-moz-progress-bar {
+                    background-color: var(--color-background-primary);
+                }
+            }
+            &.is-done .sync-progress-bar {
+                &::-webkit-progress-value {
+                    background-color: var(--color-success-light);
+                }
+                &::-moz-progress-bar {
+                    background-color: var(--color-success-light);
+                }
+            }
+            &.is-failed .sync-progress-bar {
+                &::-webkit-progress-value {
+                    background-color: var(--color-error-light);
+                }
+                &::-moz-progress-bar {
+                    background-color: var(--color-error-light);
+                }
+            }
+            & .sync-progress-list {
+                display: grid;
+                grid-template-columns: 18px auto 1fr auto;
+                gap: 8px 10px;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            & .sync-progress-item {
+                display: contents;
+                &.is-pending .sync-progress-detail {
+                    color: var(--color-text-white-muted);
+                    font-style: italic;
+                }
+                &.is-done .sync-progress-detail {
+                    color: var(--color-text-white-muted);
+                }
+                &.is-failed .sync-progress-detail {
+                    color: var(--color-error-light);
+                }
+            }
+            & .sync-progress-status {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 18px;
+                height: 18px;
+                font-size: 12px;
+                font-weight: 600;
+                line-height: 1;
+            }
+            & .is-pending .sync-progress-status {
+                border: 2px solid var(--color-border-dark-highlight);
+                border-top-color: var(--color-background-primary-hover);
                 border-radius: 50%;
-                width: 24px;
-                height: 24px;
-                animation: spin 1s linear infinite;
+                animation: spin 800ms linear infinite;
+            }
+            & .is-done .sync-progress-status {
+                border-radius: 50%;
+                background-color: var(--color-success-light);
+                color: var(--color-background-dark);
+                &::before {
+                    content: "✓";
+                }
+            }
+            & .is-failed .sync-progress-status {
+                border-radius: 50%;
+                background-color: var(--color-error-light);
+                color: var(--color-background-dark);
+                &::before {
+                    content: "✕";
+                }
+            }
+            & .sync-progress-detail {
+                min-width: 0;
+                overflow-wrap: anywhere;
+            }
+            & .sync-progress-time {
+                text-align: right;
+            }
+            & .sync-progress-note {
+                margin: 16px 0 0;
+                color: var(--color-text-white-muted);
+            }
+            & .sync-progress-close {
+                display: block;
+                margin: 16px 0 0 auto;
+                padding: 6px 16px;
+                border: none;
+                border-radius: 6px;
+                background-color: var(--color-background-primary);
+                color: var(--color-text-white);
+                font: inherit;
+                cursor: pointer;
+                transition: var(--background-transition-default);
+                &:hover {
+                    background-color: var(--color-background-primary-hover);
+                }
             }
         }
         &.admin {

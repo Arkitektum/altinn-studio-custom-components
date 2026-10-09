@@ -67,8 +67,7 @@ import {
     renderPackageVersionsPage,
     renderResourceUsagePage,
     renderSynchronizeButton,
-    setDefaultSelectedFileNameForDisplayLayouts,
-    showLoadingIndicator
+    setDefaultSelectedFileNameForDisplayLayouts
 } from "./renderers.ts";
 
 // Import the mocked modules to set up their implementations
@@ -107,30 +106,6 @@ describe("renderAdminSidebar", () => {
         expect(sidebar!.textContent).toContain("Resource usage");
         expect(sidebar!.textContent).toContain("Package versions");
         expect(sidebar!.textContent).toContain("Display layouts");
-    });
-});
-
-describe("showLoadingIndicator", () => {
-    beforeEach(() => {
-        document.body.innerHTML = "";
-
-        // Setup mock return values
-        (renderDefaultTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
-        (renderSelectApplicationFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
-        (renderSelectFormFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
-        (renderTextInputFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
-        (renderUsageFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
-        (renderComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
-    });
-    it("shows and removes loading indicator after promises resolve", async () => {
-        const p1 = Promise.resolve();
-        const p2 = Promise.resolve();
-        showLoadingIndicator([p1, p2]);
-        expect(document.querySelector(".progress-indicator")).not.toBeNull();
-        await Promise.all([p1, p2]);
-        // The indicator should be removed after all promises resolve (simulate microtask queue)
-        await new Promise((r) => setTimeout(r, 0));
-        expect(document.querySelector(".progress-indicator")).toBeNull();
     });
 });
 
