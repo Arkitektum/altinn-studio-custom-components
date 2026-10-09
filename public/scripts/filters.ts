@@ -46,23 +46,48 @@ export function filterResources(resources: ApiValue, filterValue: string) {
 }
 
 /**
- * Filters a list of resources to include only those used by a specific application.
+ * The form filter value selecting an app's main form, as opposed to one of its subforms. The colon keeps it from ever
+ * matching a subform app's name, which is what every other form filter value is.
+ */
+export const MAIN_FORM_FILTER_VALUE = ":main";
+
+/**
+ * Whether a layout is the form a form filter value selects.
+ *
+ * @param {Object} layout - A layout usage entry, carrying `subformAppName` when it is a subform an app carries.
+ * @param {string} form - `MAIN_FORM_FILTER_VALUE` for the main form, otherwise the subform app's name.
+ * @returns {boolean} True if the layout is the selected form.
+ */
+function isSelectedForm(layout: ApiValue, form: string) {
+    return form === MAIN_FORM_FILTER_VALUE ? !layout?.subformAppName : layout?.subformAppName === form;
+}
+
+/**
+ * Filters a list of resources to include only those used by a specific application, and optionally in a specific form.
  *
  * An application is identified by the combination of its owner and name, since the same app name can exist under
- * different owners. When both are falsy the list is returned unchanged; when only one is provided, only that field
- * is matched.
+ * different owners. When both are falsy any application matches; when only one is provided, only that field is matched.
+ *
+ * The form is matched within the same application usage, so an app and a subform together select the resources that
+ * app uses in that subform, not the ones it uses anywhere while some app uses them in the subform.
  *
  * @param {Array<Object>} resources - The array of resource objects to filter.
  * @param {string} appOwner - The owner of the application to filter resources by.
  * @param {string} appName - The name of the application to filter resources by.
- * @returns {Array<Object>} The filtered array of resources used by the specified application.
+ * @param {string} [form] - `MAIN_FORM_FILTER_VALUE`, a subform app's name, or falsy for every form.
+ * @returns {Array<Object>} The filtered array of resources used by the specified application and form.
  */
-export function filterResourcesByApplication(resources: ApiValue, appOwner: string | undefined, appName: string | undefined) {
-    if (!appOwner && !appName) {
+export function filterResourcesByApplication(resources: ApiValue, appOwner: string | undefined, appName: string | undefined, form?: string) {
+    if (!appOwner && !appName && !form) {
         return resources;
     }
     return resources.filter((res: ApiValue) => {
-        return res?.usage?.some((usage: ApiValue) => (!appOwner || usage.appOwner === appOwner) && (!appName || usage.appName === appName));
+        return res?.usage?.some(
+            (usage: ApiValue) =>
+                (!appOwner || usage.appOwner === appOwner) &&
+                (!appName || usage.appName === appName) &&
+                (!form || usage.layouts?.some((layout: ApiValue) => isSelectedForm(layout, form)))
+        );
     });
 }
 
@@ -180,22 +205,31 @@ export function filterComponentsByUsage(components: LayoutComponent[] | undefine
 }
 
 /**
- * Filters a list of components to include only those used by a specific application.
+ * Filters a list of components to include only those used by a specific application, and optionally in a specific form.
  *
- * An application is identified by the combination of its owner and name. When both are falsy the list is returned
- * unchanged; when only one is provided, only that field is matched.
+ * An application is identified by the combination of its owner and name. When both are falsy any application matches;
+ * when only one is provided, only that field is matched. The form is matched on the same usage as the application.
  *
  * @param {Array<Object>} components - The array of component usage objects to filter.
  * @param {string} appOwner - The owner of the application to filter components by.
  * @param {string} appName - The name of the application to filter components by.
- * @returns {Array<Object>} The filtered array of components used by the specified application.
+ * @param {string} [form] - `MAIN_FORM_FILTER_VALUE`, a subform app's name, or falsy for every form.
+ * @returns {Array<Object>} The filtered array of components used by the specified application and form.
  */
-export function filterComponentsByApplication(components: LayoutComponent[] | undefined, appOwner: string | undefined, appName: string | undefined) {
-    if (!appOwner && !appName) {
+export function filterComponentsByApplication(
+    components: LayoutComponent[] | undefined,
+    appOwner: string | undefined,
+    appName: string | undefined,
+    form?: string
+) {
+    if (!appOwner && !appName && !form) {
         return components;
     }
     return components!.filter((component: LayoutComponent | undefined) => {
-        return component?.usages?.some((usage: ApiValue) => (!appOwner || usage.appOwner === appOwner) && (!appName || usage.appName === appName));
+        return component?.usages?.some(
+            (usage: ApiValue) =>
+                (!appOwner || usage.appOwner === appOwner) && (!appName || usage.appName === appName) && (!form || isSelectedForm(usage, form))
+        );
     });
 }
 

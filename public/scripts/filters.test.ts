@@ -1,6 +1,7 @@
 import type { ApiValue } from "./types.ts";
 
 import {
+    MAIN_FORM_FILTER_VALUE,
     filterComponentsByApplication,
     filterComponentsByTextInput,
     filterComponentsByType,
@@ -128,6 +129,41 @@ describe("filterResourcesByApplication", () => {
         const result = filterResourcesByApplication(resources, "", "");
         expect(result).toHaveLength(resources.length);
     });
+
+    describe("by form", () => {
+        const main = { layoutName: "DisplayLayout" };
+        const subform = (subformAppName: string) => ({ layoutName: subformAppName, subformAppName });
+        const formResources = [
+            { usage: [{ appOwner: "o", appName: "a", layouts: [main] }], resource: { id: "main-only" } },
+            { usage: [{ appOwner: "o", appName: "a", layouts: [subform("sub-v1")] }], resource: { id: "sub-only" } },
+            { usage: [{ appOwner: "o", appName: "a", layouts: [main, subform("other-v1")] }], resource: { id: "main-and-other" } },
+            {
+                usage: [
+                    { appOwner: "o", appName: "a", layouts: [main] },
+                    { appOwner: "o", appName: "b", layouts: [subform("sub-v1")] }
+                ],
+                resource: { id: "a-main-b-sub" }
+            }
+        ];
+        const ids = (result: ApiValue) => result.map((r: ApiValue) => r.resource.id);
+
+        it("selects the resources used in a subform, in any app", () => {
+            expect(ids(filterResourcesByApplication(formResources, "", "", "sub-v1"))).toEqual(["sub-only", "a-main-b-sub"]);
+        });
+
+        it("selects the resources used in a main form", () => {
+            expect(ids(filterResourcesByApplication(formResources, "", "", MAIN_FORM_FILTER_VALUE))).toEqual([
+                "main-only",
+                "main-and-other",
+                "a-main-b-sub"
+            ]);
+        });
+
+        it("matches the app and the form on the same usage", () => {
+            // a-main-b-sub is used by app a, and in sub-v1, but not by app a in sub-v1.
+            expect(ids(filterResourcesByApplication(formResources, "o", "a", "sub-v1"))).toEqual(["sub-only"]);
+        });
+    });
 });
 
 describe("filterTextResourcesByTextInput", () => {
@@ -239,6 +275,34 @@ describe("filterComponentsByApplication", () => {
 
     it("returns all when owner and name are falsy", () => {
         expect(filterComponentsByApplication(components, "", "")).toHaveLength(components.length);
+    });
+
+    describe("by form", () => {
+        const formComponents = [
+            { tagName: "main-only", usages: [{ appOwner: "o", appName: "a" }] },
+            { tagName: "sub-only", usages: [{ appOwner: "o", appName: "a", subformAppName: "sub-v1" }] },
+            {
+                tagName: "a-main-b-sub",
+                usages: [
+                    { appOwner: "o", appName: "a" },
+                    { appOwner: "o", appName: "b", subformAppName: "sub-v1" }
+                ]
+            },
+            { tagName: "other-sub", usages: [{ appOwner: "o", appName: "a", subformAppName: "other-v1" }] }
+        ];
+        const tagNames = (result: ApiValue) => result.map((c: ApiValue) => c.tagName);
+
+        it("selects the components used in a subform, in any app", () => {
+            expect(tagNames(filterComponentsByApplication(formComponents, "", "", "sub-v1"))).toEqual(["sub-only", "a-main-b-sub"]);
+        });
+
+        it("selects the components used in a main form", () => {
+            expect(tagNames(filterComponentsByApplication(formComponents, "", "", MAIN_FORM_FILTER_VALUE))).toEqual(["main-only", "a-main-b-sub"]);
+        });
+
+        it("matches the app and the form on the same usage", () => {
+            expect(tagNames(filterComponentsByApplication(formComponents, "o", "a", "sub-v1"))).toEqual(["sub-only"]);
+        });
     });
 });
 

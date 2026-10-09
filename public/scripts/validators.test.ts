@@ -1,6 +1,6 @@
 import * as validators from "./validators.ts";
 
-import type { Layout } from "./types.ts";
+import type { ApiValue, Layout } from "./types.ts";
 
 describe("getMissingResourceBindings", () => {
     it("finds missing and literal resource bindings", () => {
@@ -145,6 +145,28 @@ describe("getResourceUsage", () => {
         expect(result.length).toBe(1);
         expect(result[0].layouts.map((layout: Layout | undefined) => layout!.layoutName)).toEqual(["DisplayLayout", "SvarSkjema"]);
     });
+
+    it("names the subform on a subform layout's usage, and nothing on a main layout's", () => {
+        const layouts = [
+            {
+                appOwner: "o",
+                appName: "a",
+                layoutName: "DisplayLayout",
+                layout: { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id1" } }] } }
+            },
+            {
+                appOwner: "o",
+                appName: "a",
+                layoutName: "sub-v1",
+                isSubform: true,
+                subformAppName: "sub-v1",
+                layout: { data: { layout: [{ tagName: "Y", type: "Custom", resourceBindings: { a: "id1" } }] } }
+            }
+        ];
+        const result = validators.getResourceUsage(layouts, { id: "id1" });
+        expect(Object.keys(result[0].layouts[0])).not.toContain("subformAppName");
+        expect(result[0].layouts[1].subformAppName).toBe("sub-v1");
+    });
 });
 
 describe("getUsageForResources", () => {
@@ -170,5 +192,17 @@ describe("getUsageForMissingResources", () => {
         const result = validators.getUsageForMissingResources(layouts, missingResourceBindings, appResourceValues);
         expect(Array.isArray(result.missingResourcesUsage)).toBe(true);
         expect(Array.isArray(result.missingResourcesWithLocalValueUsage)).toBe(true);
+    });
+
+    it("names the subform on a subform layout's usage, and nothing on a main layout's", () => {
+        const binding = { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id1" } }] } };
+        const layouts = [
+            { appOwner: "o", appName: "a", layoutName: "DisplayLayout", layout: binding },
+            { appOwner: "o", appName: "a", layoutName: "sub-v1", isSubform: true, subformAppName: "sub-v1", layout: binding }
+        ];
+        const result = validators.getUsageForMissingResources(layouts, ["id1"], []);
+        const usageLayouts = result.missingResourcesUsage.map((entry: ApiValue) => entry.usage[0].layouts[0]);
+        expect(Object.keys(usageLayouts[0])).not.toContain("subformAppName");
+        expect(usageLayouts[1].subformAppName).toBe("sub-v1");
     });
 });

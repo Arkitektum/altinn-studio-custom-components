@@ -403,6 +403,7 @@ export function getResourceUsage(layouts: ApiValue, resource: ApiValue) {
         }
         appUsageMap[appKey].layouts.push({
             layoutName: layout!.layoutName,
+            ...(layout!.subformAppName ? { subformAppName: layout!.subformAppName } : {}),
             componentsUsingResource
         });
     });
@@ -461,7 +462,13 @@ function getMissingResourceUsage(layouts: ApiValue, resource: ApiValue, appResou
             const usageEntry = {
                 appOwner,
                 appName,
-                layouts: [{ layoutName: layout!.layoutName, componentsUsingResource }]
+                layouts: [
+                    {
+                        layoutName: layout!.layoutName,
+                        ...(layout!.subformAppName ? { subformAppName: layout!.subformAppName } : {}),
+                        componentsUsingResource
+                    }
+                ]
             };
             if (localAppResource) {
                 const values = localAppResource.values || {};

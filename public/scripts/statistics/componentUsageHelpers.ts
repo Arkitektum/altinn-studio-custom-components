@@ -74,6 +74,7 @@ function collectComponentUsageTreeGrouped(
         appOwner: layoutInfo.appOwner,
         appName: layoutInfo.appName,
         layoutName: layoutInfo.layoutName,
+        ...(layoutInfo.subformAppName ? { subformAppName: layoutInfo.subformAppName } : {}),
         parent: parentInfo
     };
     addUsageToGroup(tagName, usageInfo, groupedUsage);
@@ -89,7 +90,12 @@ function collectComponentUsageTreeGrouped(
 export function getComponentUsageTreeForAllLayouts(displayLayouts: DisplayLayoutEntry[] | undefined) {
     const groupedUsage: Record<string, ApiValue> = {};
     for (const layout of displayLayouts!) {
-        const layoutInfo = { appOwner: layout.appOwner, appName: layout.appName, layoutName: layout.layoutName };
+        const layoutInfo = {
+            appOwner: layout.appOwner,
+            appName: layout.appName,
+            layoutName: layout.layoutName,
+            subformAppName: layout.subformAppName
+        };
         const componentsInLayout = Array.isArray(layout?.layout?.data?.layout) ? layout.layout.data.layout : null;
         if (!componentsInLayout) continue;
         for (const component of componentsInLayout) {
