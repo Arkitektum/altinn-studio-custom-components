@@ -1,5 +1,6 @@
 import type { ApiValue, Layout, LayoutComponent } from "../types.ts";
 import { filterComponentsByApplication, filterComponentsByTextInput, filterComponentsByType, filterComponentsByUsage } from "../filters.ts";
+import { getFormFilterOptions, setSelectOptions } from "./displayLayoutHelpers.ts";
 
 /**
  * Get the number of unique apps using a component.
@@ -363,12 +364,13 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
     const usageFilter = globalThis.componentUsageFilter || "all";
     const selectedAppOwner = globalThis.componentSelectedAppOwner || "";
     const selectedAppName = globalThis.componentSelectedAppName || "";
+    const selectedForm = globalThis.componentSelectedForm || "";
     const typeFilter = globalThis.componentTypeFilter || "";
     const textFilter = globalThis.componentTextFilter || "";
     const matchBy = globalThis.componentMatchBy || "tag";
 
     let filteredComponents = filterComponentsByUsage(components, usageFilter);
-    filteredComponents = filterComponentsByApplication(filteredComponents, selectedAppOwner, selectedAppName);
+    filteredComponents = filterComponentsByApplication(filteredComponents, selectedAppOwner, selectedAppName, selectedForm);
     filteredComponents = filterComponentsByType(filteredComponents, typeFilter);
     filteredComponents = filterComponentsByTextInput(filteredComponents, textFilter, matchBy);
 
@@ -505,11 +507,41 @@ export function renderSelectApplicationFilterForComponentUsageList(
         const [appOwner, appName] = applicationSelectElement.value.split("/");
         globalThis.componentSelectedAppOwner = appOwner || "";
         globalThis.componentSelectedAppName = appName || "";
+        // The forms on offer follow the app, as they do on the Display layouts page.
+        const formSelectElement = containerElement.querySelector("#component-form-filter-select") as HTMLSelectElement | null;
+        if (formSelectElement) {
+            const formOptions = getFormFilterOptions(applications, globalThis.componentSelectedAppOwner, globalThis.componentSelectedAppName);
+            globalThis.componentSelectedForm = setSelectOptions(formSelectElement, formOptions, globalThis.componentSelectedForm || "");
+        }
         handleComponentFilterChange(containerElement, components);
     };
 
     selectContainerElement.appendChild(applicationSelectElement);
     return selectContainerElement;
+}
+
+/**
+ * Renders a select dropdown for filtering the component usage list by form: the main form or one of the subforms.
+ * Its options follow the application filter, which rebuilds them when the selected app changes.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
+ * @param {Array<Object>} components - The full list of component usage objects to filter when the selection changes.
+ * @param {Array<Object>} applications - The display layout entries, whose subforms populate the dropdown.
+ * @returns {HTMLFormElement} The DOM element containing the form filter select dropdown.
+ */
+export function renderSelectFormFilterForComponentUsageList(
+    containerElement: HTMLElement,
+    components: LayoutComponent[] | undefined,
+    applications: ApiValue
+) {
+    const formOptions = getFormFilterOptions(applications, globalThis.componentSelectedAppOwner, globalThis.componentSelectedAppName);
+    const filterElement = renderLabelledSelectFilter("Form", "component-form-filter-select", formOptions, (value: string) => {
+        globalThis.componentSelectedForm = value;
+        handleComponentFilterChange(containerElement, components);
+    });
+    // renderLabelledSelectFilter always starts on the first option; keep a form that is still on offer.
+    setSelectOptions(filterElement.querySelector("select") as HTMLSelectElement, formOptions, globalThis.componentSelectedForm || "");
+    return filterElement;
 }
 
 /**

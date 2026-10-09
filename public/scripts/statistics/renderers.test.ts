@@ -32,6 +32,7 @@ jest.mock("../getters.ts", () => ({
 jest.mock("../textResourceUsageRenderers.ts", () => ({
     renderDefaultTextResourcesList: jest.fn(),
     renderSelectApplicationFilterForTextResourcesList: jest.fn(),
+    renderSelectFormFilterForTextResourcesList: jest.fn(),
     renderTextInputFilterForTextResourcesList: jest.fn(),
     renderUsageFilterForTextResourcesList: jest.fn()
 }));
@@ -44,6 +45,7 @@ jest.mock("./componentUsageRenderers.ts", () => ({
     renderComponentUsageList: jest.fn(),
     renderSelectApplicationFilterForComponentUsageList: jest.fn(),
     renderSelectComponentTypeFilterForComponentUsageList: jest.fn(),
+    renderSelectFormFilterForComponentUsageList: jest.fn(),
     renderTextInputFilterForComponentUsageList: jest.fn(),
     renderUsageFilterForComponentUsageList: jest.fn()
 }));
@@ -74,12 +76,14 @@ import {
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
+    renderSelectFormFilterForComponentUsageList,
     renderTextInputFilterForComponentUsageList,
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.ts";
 import {
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
+    renderSelectFormFilterForTextResourcesList,
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
@@ -91,6 +95,7 @@ describe("renderAdminSidebar", () => {
         // Setup mock return values
         (renderDefaultTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderSelectApplicationFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
+        (renderSelectFormFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderTextInputFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderUsageFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
@@ -112,6 +117,7 @@ describe("showLoadingIndicator", () => {
         // Setup mock return values
         (renderDefaultTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderSelectApplicationFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
+        (renderSelectFormFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderTextInputFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderUsageFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
@@ -136,6 +142,7 @@ describe("renderSynchronizeButton", () => {
         // Setup mock return values
         (renderDefaultTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderSelectApplicationFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
+        (renderSelectFormFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderTextInputFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderUsageFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
@@ -195,11 +202,13 @@ describe("internal renderers functions", () => {
         // Setup mock return values
         (renderDefaultTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderSelectApplicationFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
+        (renderSelectFormFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderTextInputFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderUsageFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderSelectApplicationFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderSelectComponentTypeFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
+        (renderSelectFormFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderTextInputFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderUsageFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
     });

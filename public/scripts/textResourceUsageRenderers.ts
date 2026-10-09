@@ -1,5 +1,6 @@
 import type { ApiValue, Layout, LayoutComponent } from "./types.ts";
 import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters.ts";
+import { getFormFilterOptions, setSelectOptions } from "./statistics/displayLayoutHelpers.ts";
 import { getLanguageNameFromCode } from "./languages.ts";
 
 /**
@@ -347,9 +348,10 @@ function handleFilterChange(containerElement: HTMLElement, textResources: ApiVal
     const selectedFilter = globalThis.selectedFilter || "all";
     const selectedAppOwner = globalThis.selectedAppOwner || "";
     const selectedAppName = globalThis.selectedAppName || "";
+    const selectedForm = globalThis.selectedForm || "";
     let filteredResources = filterTextResourcesByTextInput(textResources, textFilter, matchBy);
     filteredResources = filterResources(filteredResources, selectedFilter);
-    filteredResources = filterResourcesByApplication(filteredResources, selectedAppOwner, selectedAppName);
+    filteredResources = filterResourcesByApplication(filteredResources, selectedAppOwner, selectedAppName, selectedForm);
 
     const existingListElement = containerElement.querySelector("#default-text-resources-list");
     if (existingListElement) {
@@ -485,12 +487,54 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
         const [appOwner, appName] = selectElementValue.split("/");
         globalThis.selectedAppOwner = appOwner || "";
         globalThis.selectedAppName = appName || "";
+        // The forms on offer follow the app, as they do on the Display layouts page.
+        const formSelectElement = containerElement.querySelector("#form-filter-select") as HTMLSelectElement | null;
+        if (formSelectElement) {
+            const formOptions = getFormFilterOptions(applications, globalThis.selectedAppOwner, globalThis.selectedAppName);
+            globalThis.selectedForm = setSelectOptions(formSelectElement, formOptions, globalThis.selectedForm || "");
+        }
         handleFilterChange(containerElement, textResources);
     };
 
     applicationSelectElement.onchange = updateResourceListBasedOnApplicationFilter;
 
     selectContainerElement.appendChild(applicationSelectElement);
+
+    return selectContainerElement;
+}
+
+/**
+ * Renders a select dropdown for filtering a list of text resources by form: the main form or one of the subforms.
+ * Its options follow the application filter, which rebuilds them when the selected app changes.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
+ * @param {Array} textResources - The full list of text resources to filter when the selection changes.
+ * @param {Array<Object>} applications - The display layout entries, whose subforms populate the dropdown.
+ * @returns {HTMLElement} The DOM element containing the form filter select dropdown.
+ */
+export function renderSelectFormFilterForTextResourcesList(containerElement: HTMLElement, textResources: ApiValue, applications: ApiValue) {
+    const selectContainerElement = document.createElement("div");
+    selectContainerElement.classList.add("filter-container");
+
+    const formSelectLabelElement = document.createElement("label");
+    formSelectLabelElement.htmlFor = "form-filter-select";
+    formSelectLabelElement.innerHTML = "Form";
+    selectContainerElement.appendChild(formSelectLabelElement);
+
+    const formSelectElement = document.createElement("select");
+    formSelectElement.id = "form-filter-select";
+    setSelectOptions(
+        formSelectElement,
+        getFormFilterOptions(applications, globalThis.selectedAppOwner, globalThis.selectedAppName),
+        globalThis.selectedForm || ""
+    );
+
+    formSelectElement.onchange = () => {
+        globalThis.selectedForm = formSelectElement.value;
+        handleFilterChange(containerElement, textResources);
+    };
+
+    selectContainerElement.appendChild(formSelectElement);
 
     return selectContainerElement;
 }

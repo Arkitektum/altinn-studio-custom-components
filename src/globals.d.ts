@@ -55,12 +55,14 @@ declare global {
     var selectedFilter: string | undefined;
     var selectedAppOwner: string | undefined;
     var selectedAppName: string | undefined;
+    var selectedForm: string | undefined;
     var componentTextFilter: string | undefined;
     var componentMatchBy: string | undefined;
     var componentTypeFilter: string | undefined;
     var componentUsageFilter: string | undefined;
     var componentSelectedAppOwner: string | undefined;
     var componentSelectedAppName: string | undefined;
+    var componentSelectedForm: string | undefined;
 }
 
 export {};

@@ -1,4 +1,5 @@
-import { DEFAULT_LAYOUT_NAME, flattenAppLayouts } from "./displayLayoutHelpers.ts";
+import { DEFAULT_LAYOUT_NAME, flattenAppLayouts, getFormFilterOptions, setSelectOptions } from "./displayLayoutHelpers.ts";
+import { MAIN_FORM_FILTER_VALUE } from "../filters.ts";
 
 import type { ApiValue } from "../types.ts";
 
@@ -74,5 +75,60 @@ describe("flattenAppLayouts", () => {
     it("returns an empty array for non-array input", () => {
         expect(flattenAppLayouts(undefined)).toEqual([]);
         expect(flattenAppLayouts(null as unknown as undefined)).toEqual([]);
+    });
+});
+
+describe("getFormFilterOptions", () => {
+    const applications = [
+        { appOwner: "o", appName: "a", subForms: [{ appName: "sub-v1" }, { appName: "other-v1" }] },
+        { appOwner: "o", appName: "b", subForms: [{ appName: "sub-v1" }] },
+        { appOwner: "o", appName: "c" }
+    ];
+
+    it("offers every subform any app carries, once each and in alphabetical order, when no app is selected", () => {
+        expect(getFormFilterOptions(applications)).toEqual([
+            { value: "", text: "All forms" },
+            { value: MAIN_FORM_FILTER_VALUE, text: "Main form" },
+            { value: "other-v1", text: "other-v1 (subform)" },
+            { value: "sub-v1", text: "sub-v1 (subform)" }
+        ]);
+    });
+
+    it("offers only the selected app's subforms", () => {
+        expect(getFormFilterOptions(applications, "o", "b").map((option: ApiValue) => option.value)).toEqual(["", MAIN_FORM_FILTER_VALUE, "sub-v1"]);
+    });
+
+    it("offers only every form and the main form for an app without subforms", () => {
+        expect(getFormFilterOptions(applications, "o", "c").map((option: ApiValue) => option.value)).toEqual(["", MAIN_FORM_FILTER_VALUE]);
+    });
+
+    it("does not match a same-named app under a different owner", () => {
+        expect(getFormFilterOptions(applications, "x", "a").map((option: ApiValue) => option.value)).toEqual(["", MAIN_FORM_FILTER_VALUE]);
+    });
+});
+
+describe("setSelectOptions", () => {
+    const options = [
+        { value: "", text: "All" },
+        { value: "x", text: "X" }
+    ];
+
+    it("replaces the options and keeps a choice that is still offered", () => {
+        const select = document.createElement("select");
+        select.appendChild(document.createElement("option"));
+        expect(setSelectOptions(select, options, "x")).toBe("x");
+        expect(Array.from(select.options).map((option) => option.textContent)).toEqual(["All", "X"]);
+        expect(select.value).toBe("x");
+    });
+
+    it("falls back to the first option when the choice is no longer offered", () => {
+        // A first option with a real value, since a select with no match also reads as "" and would hide the fallback.
+        const select = document.createElement("select");
+        const named = [
+            { value: "first", text: "First" },
+            { value: "second", text: "Second" }
+        ];
+        expect(setSelectOptions(select, named, "gone")).toBe("first");
+        expect(select.value).toBe("first");
     });
 });

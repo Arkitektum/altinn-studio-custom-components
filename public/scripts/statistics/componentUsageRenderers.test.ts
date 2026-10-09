@@ -2,6 +2,7 @@ import {
     renderComponentUsageListItem,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
+    renderSelectFormFilterForComponentUsageList,
     renderTextInputFilterForComponentUsageList,
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.ts";
@@ -68,6 +69,7 @@ describe("component usage filters", () => {
         globalThis.componentUsageFilter = "all";
         globalThis.componentSelectedAppOwner = "";
         globalThis.componentSelectedAppName = "";
+        globalThis.componentSelectedForm = "";
         globalThis.componentTypeFilter = "";
         globalThis.componentTextFilter = "";
         globalThis.componentMatchBy = "tag";
@@ -129,6 +131,58 @@ describe("component usage filters", () => {
         select!.dispatchEvent(new Event("change"));
 
         expect(renderedTagNames(container)).toEqual(["custom-header", "custom-dispensasjon"]);
+    });
+
+    describe("form filter", () => {
+        const applications = [
+            { appOwner: "o", appName: "a", subForms: [{ appName: "sub-v1" }, { appName: "other-v1" }] },
+            { appOwner: "o", appName: "b", subForms: [{ appName: "sub-v1" }] },
+            { appOwner: "o", appName: "c" }
+        ];
+        const formComponents = [
+            { tagName: "custom-field", usages: [{ appOwner: "o", appName: "a" }] },
+            { tagName: "custom-header", usages: [{ appOwner: "o", appName: "a", subformAppName: "sub-v1" }] },
+            { tagName: "custom-field-data", usages: [{ appOwner: "o", appName: "b", subformAppName: "sub-v1" }] }
+        ];
+
+        function renderFilters() {
+            const container = setupContainer();
+            const applicationFilter = renderSelectApplicationFilterForComponentUsageList(container, formComponents, applications);
+            const formFilter = renderSelectFormFilterForComponentUsageList(container, formComponents, applications);
+            container.appendChild(applicationFilter);
+            container.appendChild(formFilter);
+            return { container, applicationSelect: applicationFilter.querySelector("select")!, formSelect: formFilter.querySelector("select")! };
+        }
+
+        function choose(select: HTMLSelectElement, value: string) {
+            select.value = value;
+            select.dispatchEvent(new Event("change"));
+        }
+
+        it("filters to the components used in a subform, in any app", () => {
+            const { container, formSelect } = renderFilters();
+            expect(Array.from(formSelect.options).map((option) => option.value)).toEqual(["", ":main", "other-v1", "sub-v1"]);
+            choose(formSelect, "sub-v1");
+            expect(renderedTagNames(container)).toEqual(["custom-header", "custom-field-data"]);
+        });
+
+        it("narrows the forms on offer to the selected app's, and keeps a form it still carries", () => {
+            const { container, applicationSelect, formSelect } = renderFilters();
+            choose(formSelect, "sub-v1");
+            choose(applicationSelect, "o/b");
+            expect(Array.from(formSelect.options).map((option) => option.value)).toEqual(["", ":main", "sub-v1"]);
+            expect(formSelect.value).toBe("sub-v1");
+            expect(renderedTagNames(container)).toEqual(["custom-field-data"]);
+        });
+
+        it("falls back to every form when the selected app does not carry the chosen subform", () => {
+            const { container, applicationSelect, formSelect } = renderFilters();
+            choose(formSelect, "other-v1");
+            choose(applicationSelect, "o/b");
+            expect(formSelect.value).toBe("");
+            expect(globalThis.componentSelectedForm).toBe("");
+            expect(renderedTagNames(container)).toEqual(["custom-field-data"]);
+        });
     });
 
     it("text filter matches by tag by default and by id when selected", () => {

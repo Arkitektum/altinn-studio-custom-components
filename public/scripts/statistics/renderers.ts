@@ -16,12 +16,14 @@ import {
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
+    renderSelectFormFilterForComponentUsageList,
     renderTextInputFilterForComponentUsageList,
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.ts";
 import {
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
+    renderSelectFormFilterForTextResourcesList,
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
@@ -46,6 +48,7 @@ export function renderResourceUsagePage(containerElement: HTMLElement) {
     globalThis.selectedFilter = "all";
     globalThis.selectedAppOwner = "";
     globalThis.selectedAppName = "";
+    globalThis.selectedForm = "";
 
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Resource usage";
@@ -53,6 +56,7 @@ export function renderResourceUsagePage(containerElement: HTMLElement) {
     containerElement.appendChild(titleElement);
     containerElement.appendChild(renderUsageFilterForTextResourcesList(containerElement!, allTextResourceUsage));
     containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement!, allTextResourceUsage, displayLayouts));
+    containerElement.appendChild(renderSelectFormFilterForTextResourcesList(containerElement!, allTextResourceUsage, displayLayouts));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement!, allTextResourceUsage));
     containerElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
 }
@@ -72,6 +76,7 @@ export function renderComponentUsagePage(containerElement: HTMLElement) {
     globalThis.componentUsageFilter = "all";
     globalThis.componentSelectedAppOwner = "";
     globalThis.componentSelectedAppName = "";
+    globalThis.componentSelectedForm = "";
     globalThis.componentTypeFilter = "";
     globalThis.componentTextFilter = "";
     globalThis.componentMatchBy = "tag";
@@ -81,6 +86,7 @@ export function renderComponentUsagePage(containerElement: HTMLElement) {
     containerElement.appendChild(titleElement);
     containerElement.appendChild(renderUsageFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderSelectApplicationFilterForComponentUsageList(containerElement!, componentUsage, displayLayouts));
+    containerElement.appendChild(renderSelectFormFilterForComponentUsageList(containerElement!, componentUsage, displayLayouts));
     containerElement.appendChild(renderSelectComponentTypeFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderTextInputFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderComponentUsageList(componentUsage));

@@ -1,4 +1,6 @@
 import type { ApiValue, DisplayLayoutEntry, FlattenedLayout } from "../types.ts";
+import { MAIN_FORM_FILTER_VALUE } from "../filters.ts";
+
 /**
  * The layout name used for entries that do not declare a named display layout (e.g. standalone subforms).
  */
@@ -51,4 +53,56 @@ export function flattenAppLayouts(displayLayouts: DisplayLayoutEntry[] | undefin
             }));
         return [...mainLayouts, ...subformLayouts];
     });
+}
+
+/**
+ * The options for a form filter: every form, the main form, and each subform the selected app carries.
+ *
+ * With no app selected, the subforms are those carried by any app, so a subform can be followed across every app that
+ * uses it. Each subform is offered once, in alphabetical order, labelled as the Display layouts page labels it.
+ *
+ * @param {Array<Object>} displayLayouts - The app/subform display layout entries the API answered with.
+ * @param {string} [appOwner] - The owner of the selected app, if any.
+ * @param {string} [appName] - The name of the selected app, if any.
+ * @returns {Array<{ value: string, text: string }>} The options, "All forms" first.
+ */
+export function getFormFilterOptions(displayLayouts: DisplayLayoutEntry[] | undefined, appOwner?: string, appName?: string) {
+    const apps = (Array.isArray(displayLayouts) ? displayLayouts : []).filter(
+        (entry: DisplayLayoutEntry) => (!appOwner || entry?.appOwner === appOwner) && (!appName || entry?.appName === appName)
+    );
+    const subformAppNames: Set<string> = new Set(
+        apps
+            .flatMap((entry: DisplayLayoutEntry) => (Array.isArray(entry?.subForms) ? entry.subForms : []))
+            .map((subForm: ApiValue) => subForm?.appName)
+            .filter(Boolean)
+    );
+    return [
+        { value: "", text: "All forms" },
+        { value: MAIN_FORM_FILTER_VALUE, text: "Main form" },
+        ...[...subformAppNames]
+            .sort((a, b) => a.localeCompare(b))
+            .map((subformAppName) => ({ value: subformAppName, text: `${subformAppName} (subform)` }))
+    ];
+}
+
+/**
+ * Replaces a select's options, keeping the current choice when it is still offered and falling back to the first
+ * option when it is not.
+ *
+ * @param {HTMLSelectElement} selectElement - The select to fill.
+ * @param {Array<{ value: string, text: string }>} options - The options to offer.
+ * @param {string} selectedValue - The value to keep selected if it is among the options.
+ * @returns {string} The value that ended up selected.
+ */
+export function setSelectOptions(selectElement: HTMLSelectElement, options: { value: string; text: string }[], selectedValue: string) {
+    selectElement.replaceChildren(
+        ...options.map((option) => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option.value;
+            optionElement.textContent = option.text;
+            return optionElement;
+        })
+    );
+    selectElement.value = options.some((option) => option.value === selectedValue) ? selectedValue : (options[0]?.value ?? "");
+    return selectElement.value;
 }
