@@ -15,7 +15,7 @@ import {
     getUsageForMissingResources,
     getUsageForResources
 } from "../validators.ts";
-import { renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
+import { redrawOpenPage, renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
 import { flattenAppLayouts } from "./displayLayoutHelpers.ts";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.ts";
 
@@ -138,7 +138,11 @@ export async function loadDevTools() {
     );
 
     renderAdminSidebar();
-    renderSynchronizeButton(applyApiData);
+    // After a synchronization the open page is drawn again from the new data, keeping what was chosen on it.
+    renderSynchronizeButton((apiData: ApiData, synchronizedAt: string) => {
+        applyApiData(apiData, synchronizedAt);
+        void redrawOpenPage();
+    });
 }
 
 globalThis.onload = loadDevTools;

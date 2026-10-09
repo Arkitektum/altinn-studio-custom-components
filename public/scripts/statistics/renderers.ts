@@ -34,6 +34,24 @@ import { languages } from "../languages.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
 /**
+ * How to draw the open page again, set by each page as it renders, and null until one has been opened.
+ */
+let drawOpenPageAgain: (() => void | Promise<void>) | null = null;
+
+/**
+ * Draws the open page again from the data on globalThis, keeping the choices made on it.
+ *
+ * Called after a synchronization, which replaces that data. Without it the open page went on showing the old data
+ * until it was opened again from the sidebar.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+export async function redrawOpenPage() {
+    await drawOpenPageAgain?.();
+}
+
+/**
  * Renders the resource usage page by appending various filter controls and the default text resources list
  * to the specified container element. Utilizes global variables for resource usage data and layout information.
  *
@@ -46,6 +64,10 @@ import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlE
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
 export function renderResourceUsagePage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    drawOpenPageAgain = () => {
+        containerElement.innerHTML = "";
+        renderResourceUsagePage(containerElement, { keepFilters: true });
+    };
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const applications = getAppEntries(globalThis.displayLayouts);
 
@@ -84,6 +106,10 @@ export function renderResourceUsagePage(containerElement: HTMLElement, { keepFil
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
 export function renderComponentUsagePage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    drawOpenPageAgain = () => {
+        containerElement.innerHTML = "";
+        renderComponentUsagePage(containerElement, { keepFilters: true });
+    };
     const componentUsage = globalThis.componentUsage;
     const applications = getAppEntries(globalThis.displayLayouts);
 
@@ -151,6 +177,10 @@ function getVersionColorClass(version: string | undefined, latestVersion: string
  * @param {HTMLElement} containerElement - The DOM element to render the package versions page into.
  */
 export function renderPackageVersionsPage(containerElement: HTMLElement) {
+    drawOpenPageAgain = () => {
+        containerElement.innerHTML = "";
+        renderPackageVersionsPage(containerElement);
+    };
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Package versions";
     containerElement.appendChild(titleElement);
@@ -819,6 +849,20 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         language: selectedOptions?.language || "nb",
         displayLayoutAppName: selectedOptions?.displayLayoutAppName || null,
         displayLayoutAppOwner: selectedOptions?.displayLayoutAppOwner || null
+    };
+    // The text resources for the chosen language are on globalThis, and a synchronization puts the default language
+    // back there, so they are set up again before the page is.
+    const optionsToDrawAgainWith = selectedOptions;
+    drawOpenPageAgain = async () => {
+        applyTextResourcesForLanguage(
+            globalThis.multilingualDefaultTextResources,
+            globalThis.multilingualAppResourceValues,
+            optionsToDrawAgainWith.language,
+            optionsToDrawAgainWith.displayLayoutAppOwner,
+            optionsToDrawAgainWith.displayLayoutAppName
+        );
+        containerElement.innerHTML = "";
+        await renderDisplayLayoutsPage(containerElement, globalThis.exampleData, globalThis.applicationMetadata, optionsToDrawAgainWith);
     };
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Display layouts";

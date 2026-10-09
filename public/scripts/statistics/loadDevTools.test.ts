@@ -82,6 +82,31 @@ describe("loadDevTools", () => {
         expect(localStorage.getItem("displayLayouts")).toBeNull();
     });
 
+    it("draws the open page again from what a synchronization brings", async () => {
+        stubApi();
+        await loadDevTools();
+        (
+            Array.from(document.querySelectorAll("#sidebar button")).find((button) =>
+                button.textContent!.includes("Package versions")
+            ) as HTMLButtonElement
+        ).click();
+        expect(document.getElementById("admin-main")!.textContent).not.toContain("dibk/new-v1");
+
+        bodies.packageVersions = [{ appOwner: "dibk", appName: "new-v1", packageVersions: { altinnStudioCustomComponents: "1.0.0" } }];
+        try {
+            (
+                Array.from(document.querySelectorAll("#sidebar button")).find(
+                    (button) => button.textContent === "Synchronize data"
+                ) as HTMLButtonElement
+            ).click();
+            await settle();
+        } finally {
+            bodies.packageVersions = [];
+        }
+
+        expect(document.getElementById("admin-main")!.textContent).toContain("dibk/new-v1");
+    });
+
     it("loads the tools when Try again succeeds", async () => {
         stubApi(["exampleData"]);
         await loadDevTools();
