@@ -270,14 +270,16 @@ describe("internal renderers functions", () => {
 describe("findExampleDataForApp", () => {
     const faV3 = { appOwner: "dibk", appName: "fa-v3", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 3 } }] };
     const faV5 = { appOwner: "dibk", appName: "fa-v5", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 5 } }] };
-    const subForm = {
-        appOwner: null,
-        appName: null,
+    const subForm = (appName: string | null) => ({
+        appOwner: appName ? "dibk" : null,
+        appName,
         dataType: "GjennomfoeringsplanDataV7",
         error: null,
-        files: [{ name: "GjennomfoeringsplanDataV7", data: {} }]
-    };
-    const exampleData = [faV3, faV5, subForm];
+        files: [{ name: `${appName}.xml`, data: {} }]
+    });
+    const sharedCopy = subForm(null);
+    const esV2SubForm = subForm("es-v2");
+    const exampleData = [faV3, faV5, sharedCopy, esV2SubForm];
 
     it("gives each app its own examples when two apps share a data type", () => {
         // fa-v3 and fa-v5 are both filed under FA and hold different data. Matched on the data type alone, whichever
@@ -286,8 +288,12 @@ describe("findExampleDataForApp", () => {
         expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "fa-v3" }, "FA")).toBe(faV3);
     });
 
-    it("falls back to an entry naming no app, which is how one subform matches every parent that declares it", () => {
-        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "es-v2" }, "GjennomfoeringsplanDataV7")).toBe(subForm);
+    it("gives an app its own entry for a subform, even when an entry naming no app comes first", () => {
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "es-v2" }, "GjennomfoeringsplanDataV7")).toBe(esV2SubForm);
+    });
+
+    it("does not fall back to an entry naming no app for a subform the app has no entry for", () => {
+        expect(findExampleDataForApp(exampleData, { appOwner: "dibk", appName: "ta-v4" }, "GjennomfoeringsplanDataV7")).toBeUndefined();
     });
 
     it("gives an app nothing rather than another app's examples", () => {
@@ -308,8 +314,8 @@ describe("getDataModelsForApp", () => {
     const faV3 = { appOwner: "dibk", appName: "fa-v3", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 3 } }] };
     const faV5 = { appOwner: "dibk", appName: "fa-v5", dataType: "FA", error: null, files: [{ name: "Standard", data: { version: 5 } }] };
     const subForm = {
-        appOwner: null,
-        appName: null,
+        appOwner: "dibk",
+        appName: "fa-v5",
         dataType: "GjennomfoeringsplanDataV7",
         error: null,
         files: [{ name: "GjennomfoeringsplanDataV7", data: { plan: true } }]
@@ -332,6 +338,18 @@ describe("getDataModelsForApp", () => {
             dataType: "GjennomfoeringsplanDataV7",
             data: { GjennomfoeringsplanDataV7: { plan: true } }
         });
+    });
+
+    it("keeps only this app's own copy of a subform, so getDataForComponent cannot take another app's", () => {
+        // The API placed an app-less copy of the first declaring app's subform right after that app's entry, so for a
+        // later app the copy came first, and getDataForComponent takes the first model with a matching data type.
+        const sharedCopy = { ...subForm, appOwner: null, appName: null, files: [{ name: "FromFaV3.xml", data: { from: "fa-v3" } }] };
+        const own = { ...subForm, files: [{ name: "FromFaV5.xml", data: { from: "fa-v5" } }] };
+        const dataModels = getDataModelsForApp([faV3, sharedCopy, faV5, own], { appOwner: "dibk", appName: "fa-v5" });
+
+        expect(dataModels.filter((dataModel: ApiValue) => dataModel.dataType === "GjennomfoeringsplanDataV7")).toEqual([
+            { dataType: "GjennomfoeringsplanDataV7", data: { "FromFaV5.xml": { from: "fa-v5" } } }
+        ]);
     });
 
     it("keys the files by name, which is what selectedOptions.fileNames holds", () => {

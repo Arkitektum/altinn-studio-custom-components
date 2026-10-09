@@ -342,8 +342,8 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement: HTMLElemen
  * the FtPB testmotor, which is keyed by app id: dibk/fa-v3 and dibk/fa-v5 are both filed under the data type FA and
  * hold different files. Matching on the data type alone showed one of them the other's examples.
  *
- * An entry naming no app is a subform's, whose examples are one shared set declared by several parents. Those match
- * any app, which is why the app-specific entry is looked for first and the app-less one is the fallback.
+ * A subform's examples are matched the same way. The testmotor files them per app, so each app declaring a subform has
+ * an entry of its own for it, and two apps can hold different files for the same subform.
  *
  * @param {Array<Object>} exampleData - The /api/exampleData payload.
  * @param {Object} displayLayout - The selected display layout, naming the app with `appOwner` and `appName`.
@@ -354,10 +354,8 @@ export function findExampleDataForApp(exampleData: ApiValue, displayLayout: Flat
     if (!Array.isArray(exampleData) || !dataType) {
         return undefined;
     }
-    return (
-        exampleData.find(
-            (entry) => entry.dataType === dataType && entry.appName === displayLayout?.appName && entry.appOwner === displayLayout?.appOwner
-        ) ?? exampleData.find((entry: ApiValue) => entry.dataType === dataType && !entry.appName)
+    return exampleData.find(
+        (entry) => entry.dataType === dataType && entry.appName === displayLayout?.appName && entry.appOwner === displayLayout?.appOwner
     );
 }
 
@@ -398,8 +396,9 @@ export function renderExampleDataError(containerElement: HTMLElement, exampleDat
 /**
  * The example data in the shape getDataForComponent expects: one entry per data type, files keyed by name.
  *
- * The app has already been resolved by the time this is built, so each data type appears once and the data-type
- * matching inside getDataForComponent — including a component binding to a subform's data type — still resolves.
+ * Only the app's own entries are kept, its subforms among them, so each data type appears once and the data-type
+ * matching inside getDataForComponent, which takes the first model with a matching data type, finds this app's data.
+ * An entry naming no app is left out: it would be another app's copy of a subform, and coming first it would win.
  *
  * @param {Array<Object>} exampleData - The /api/exampleData payload.
  * @param {Object} displayLayout - The selected display layout, naming the app.
@@ -410,7 +409,7 @@ export function getDataModelsForApp(exampleData: ApiValue, displayLayout: Flatte
         return [];
     }
     return exampleData
-        .filter((entry: ApiValue) => !entry.appName || (entry.appName === displayLayout?.appName && entry.appOwner === displayLayout?.appOwner))
+        .filter((entry: ApiValue) => entry.appName === displayLayout?.appName && entry.appOwner === displayLayout?.appOwner)
         .map((entry: ApiValue) => ({
             dataType: entry.dataType,
             data: Object.fromEntries((entry.files ?? []).map((file: ApiValue) => [file.name, file.data]))
@@ -423,7 +422,7 @@ export function getDataModelsForApp(exampleData: ApiValue, displayLayout: Flatte
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `dataType` property.
  * @param {Object} selectedFileNames - An object mapping data types to the filenames that should be selected by default in the dropdown.
- * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app and one per subform each app declares, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  * @returns {void}
  */
@@ -550,7 +549,7 @@ function getSelectedFormType(displayLayout: FlattenedLayout | undefined, formTyp
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current app display layout object, with `displayLayouts` and optional `subForms` arrays.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
- * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app and one per subform each app declares, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  *
  * @return {void}
@@ -619,7 +618,7 @@ function renderSelectFormTypeFilter(
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Object} displayLayout - The current display layout object, expected to have a `subForms` property which is an array of subform objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
- * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app and one per subform each app declares, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  * @param {Object} applicationMetadata - The metadata for the application, including information about the application's structure and configuration.
  *
  * @return {void}
@@ -703,7 +702,7 @@ export function getDisplayLayoutMainHeading() {
  *
  * @param {Object} displayLayout - The display layout object, expected to have a `dataType` property and optionally a `subForms` property which is an array of subform objects.
  * @param {Object} selectedOptions - An object containing the selected options for the display layouts page, including file names, form type, language, display layout app name, and display layout app owner.
- * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app, plus one per subform, each with a `dataType`, the app it belongs to, and an ordered `files` array.
+ * @param {Array<Object>} appData - The /api/exampleData payload: one entry per app and one per subform each app declares, each with a `dataType`, the app it belongs to, and an ordered `files` array.
  *
  * @returns {Object} An updated object mapping data types to the filenames that should be selected by default.
  */
