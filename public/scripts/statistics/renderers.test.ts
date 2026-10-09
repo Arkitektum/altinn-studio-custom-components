@@ -86,6 +86,7 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
+import { getUpdatedApiData } from "./apiHelpers.ts";
 
 describe("renderAdminSidebar", () => {
     beforeEach(() => {
@@ -128,6 +129,27 @@ describe("renderSynchronizeButton", () => {
         expect(sidebar!.querySelector("button")).not.toBeNull();
         expect(sidebar!.textContent).toContain("Synchronize data");
         expect(sidebar!.textContent).toContain("Last updated:");
+    });
+    it("hands what it fetched to onSynchronized, with when it was fetched", async () => {
+        (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6]);
+        const onSynchronized = jest.fn();
+        renderSynchronizeButton(onSynchronized);
+
+        (document.querySelector("#sidebar button") as HTMLButtonElement).click();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        expect(onSynchronized).toHaveBeenCalledTimes(1);
+        const [apiData, lastUpdated] = onSynchronized.mock.calls[0] as [unknown, string];
+        expect(apiData).toEqual({
+            displayLayouts: 1,
+            packageVersions: 2,
+            latestPackageVersions: 3,
+            multilingualAppResourceValues: 4,
+            exampleData: 5,
+            applicationMetadata: 6
+        });
+        expect(new Date(lastUpdated).toISOString()).toBe(lastUpdated);
+        expect(document.querySelector(".last-updated")!.textContent).toBe(`Last updated: ${new Date(lastUpdated).toLocaleString()}`);
     });
 });
 

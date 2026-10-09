@@ -1,4 +1,4 @@
-import type { ApiValue, DisplayLayoutEntry } from "../types.ts";
+import type { ApiData, ApiValue, DisplayLayoutEntry } from "../types.ts";
 // Local functions
 import {
     addDataToGlobalThis,
@@ -63,15 +63,18 @@ export function getAllTextResourceUsage(
     return [...textResourceUsage, ...missingResourcesUsage, ...missingResourcesWithLocalValueUsage];
 }
 
-globalThis.onload = async function () {
-    let { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } =
-        getDataFromLocalStorage();
-    if (!displayLayouts || !packageVersions || !latestPackageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
-        [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
-            await getUpdatedApiData();
-        lastUpdated = new Date().toISOString();
-        addValueToLocalStorage("lastUpdated", lastUpdated);
-    }
+/**
+ * Stores what a synchronization fetched, works out everything the pages read from it, and puts both on globalThis.
+ *
+ * The usage pages read the text resource and component usage worked out here rather than the raw layouts, so this
+ * has to run after every synchronization and not only on page load. When it only ran on page load, a synchronization
+ * stored the new layouts and left the usage pages counting the old ones until the page was reloaded.
+ *
+ * @param {ApiData} apiData - The fetched data.
+ * @param {string|number|undefined} lastUpdated - When it was fetched.
+ */
+export function applyApiData(apiData: ApiData, lastUpdated: string | number | undefined) {
+    const { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata } = apiData;
     const multilingualDefaultTextResources = fetchDefaultTextResources();
     const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, "nb");
     const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, "nb");
@@ -103,7 +106,22 @@ globalThis.onload = async function () {
         componentUsage,
         lastUpdated
     });
+}
+
+globalThis.onload = async function () {
+    let { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } =
+        getDataFromLocalStorage();
+    if (!displayLayouts || !packageVersions || !latestPackageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
+        [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
+            await getUpdatedApiData();
+        lastUpdated = new Date().toISOString();
+        addValueToLocalStorage("lastUpdated", lastUpdated);
+    }
+    applyApiData(
+        { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata },
+        lastUpdated
+    );
 
     renderAdminSidebar();
-    renderSynchronizeButton();
+    renderSynchronizeButton(applyApiData);
 };

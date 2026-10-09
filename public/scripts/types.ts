@@ -71,3 +71,13 @@ export interface FlattenedLayout {
     layout?: Layout;
     [key: string]: ApiValue;
 }
+
+/** What one synchronization fetches from the API, as the dev tools store it. */
+export interface ApiData {
+    displayLayouts: ApiValue;
+    packageVersions: ApiValue;
+    latestPackageVersions: ApiValue;
+    multilingualAppResourceValues: ApiValue;
+    exampleData: ApiValue;
+    applicationMetadata: ApiValue;
+}

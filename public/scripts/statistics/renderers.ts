@@ -1,4 +1,4 @@
-import type { ApiValue, FlattenedLayout, Layout, LayoutComponent } from "../types.ts";
+import type { ApiData, ApiValue, FlattenedLayout, Layout, LayoutComponent } from "../types.ts";
 // Dependencies
 import {
     CustomElementHtmlAttributes,
@@ -9,7 +9,7 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
-import { addDataToGlobalThis, addValueToLocalStorage, addValuesToLocalStorage } from "../localStorage.ts";
+import { addDataToGlobalThis, addValueToLocalStorage } from "../localStorage.ts";
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
 import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.ts";
 import {
@@ -976,15 +976,15 @@ export function renderAdminSidebar() {
 /**
  * Renders a "Synchronize data" button and last updated timestamp in the sidebar.
  *
- * When the button is clicked, it fetches updated API data, stores it in localStorage,
- * updates the global context, and refreshes the last updated timestamp.
+ * When the button is clicked, it fetches updated API data, records when, hands the data to `onSynchronized`, and
+ * refreshes the last updated timestamp. Storing the data and working out what the pages read from it is
+ * `onSynchronized`'s job, which is `applyApiData` in the dev tools, so a sync and a page load do exactly the same.
  *
- * Dependencies:
- * - Assumes existence of `getUpdatedApiData`, `addValueToLocalStorage`, `addValuesToLocalStorage`, and `addDataToGlobalThis` functions.
- * - Uses `globalThis.lastUpdated` for initial timestamp display.
- * - Expects an element with id "sidebar" to exist in the DOM.
+ * Uses `globalThis.lastUpdated` for the initial timestamp, and expects an element with id "sidebar" in the DOM.
+ *
+ * @param {Function} [onSynchronized] - Called with the fetched data and when it was fetched.
  */
-export function renderSynchronizeButton() {
+export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastUpdated: string) => void = () => {}) {
     const sidebarElement = document.getElementById("sidebar");
 
     const synchronizeElementsContainer = document.createElement("div");
@@ -1007,23 +1007,10 @@ export function renderSynchronizeButton() {
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
-        addValuesToLocalStorage({
-            displayLayouts,
-            packageVersions,
-            latestPackageVersions,
-            multilingualAppResourceValues,
-            exampleData,
-            applicationMetadata
-        });
-        addDataToGlobalThis({
-            displayLayouts,
-            packageVersions,
-            latestPackageVersions,
-            multilingualAppResourceValues,
-            exampleData,
-            applicationMetadata,
+        onSynchronized(
+            { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata },
             lastUpdated
-        });
+        );
 
         lastUpdatedElement.textContent = `Last updated: ${new Date(lastUpdated).toLocaleString()}`;
     };
