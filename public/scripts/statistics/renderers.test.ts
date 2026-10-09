@@ -59,7 +59,6 @@ import {
     getApplicationMetadataForSelectedApp,
     getDataModelsForApp,
     getDisplayLayoutMainHeading,
-    getLocalTextResourcesForApp,
     renderAdminSidebar,
     renderComponentUsagePage,
     renderExampleDataError,
@@ -293,10 +292,6 @@ describe("internal renderers functions", () => {
         const el = document.createElement("div");
         expect(() => renderPackageVersionsPage(el)).not.toThrow();
         expect(el.textContent).toContain("Package versions");
-    });
-    it("getLocalTextResourcesForApp returns resources or empty array", () => {
-        expect(getLocalTextResourcesForApp("app1", "owner1", globalThis.appResourceValues)).toEqual([{ id: "appLogo.url", value: "logo.svg" }]);
-        expect(getLocalTextResourcesForApp("nope", "nope", globalThis.appResourceValues)).toEqual([]);
     });
     it("getDisplayLayoutMainHeading returns h1 element", () => {
         const h1 = getDisplayLayoutMainHeading();

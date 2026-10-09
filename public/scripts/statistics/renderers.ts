@@ -10,8 +10,8 @@ import {
 
 // Local functions
 import { addDataToGlobalThis, addValueToLocalStorage } from "../localStorage.ts";
+import { applyTextResourcesForLanguage, getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
-import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.ts";
 import {
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
@@ -203,19 +203,6 @@ export function renderPackageVersionsPage(containerElement: HTMLElement) {
 }
 
 /**
- * Retrieves the local text resources for a specific application based on its name and owner.
- *
- * @param {string} appName - The name of the application.
- * @param {string} appOwner - The owner of the application.
- * @param {Array<{ appName: string, appOwner: string, resources: Array }>} appResourceValues -
- *   An array of objects containing application names, owners, and their associated resource values.
- * @returns {Array} The resource values for the specified application, or an empty array if not found.
- */
-export function getLocalTextResourcesForApp(appName: string | undefined, appOwner: string | undefined, appResourceValues: ApiValue) {
-    return appResourceValues.find((app: ApiValue) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
-}
-
-/**
  * Renders a select dropdown to filter text resources by language. When the selected language changes, the display layouts page is re-rendered with the text resources for the selected language.
  * @param {HTMLElement} containerElement - The DOM element to which the filter form will be appended.
  * @param {Array} multilingualDefaultTextResources - An array of default text resources for multiple languages.
@@ -252,18 +239,13 @@ function renderSelectLanguageForResources(
 
     selectElement.onchange = async (event: Event) => {
         const selectedLanguage = (event.target as HTMLInputElement).value;
-        const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, selectedLanguage);
-        const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, selectedLanguage);
-        const textResources = getLocalTextResourcesForApp(
-            selectedOptions.displayLayoutAppName,
+        applyTextResourcesForLanguage(
+            multilingualDefaultTextResources,
+            multilingualAppResourceValues,
+            selectedLanguage,
             selectedOptions.displayLayoutAppOwner,
-            appResourceValues
+            selectedOptions.displayLayoutAppName
         );
-        addDataToGlobalThis({
-            defaultTextResources,
-            appResourceValues,
-            textResources
-        });
         selectedOptions.language = selectedLanguage;
         const mainElement = document.getElementById("admin-main");
         mainElement!.innerHTML = "";
