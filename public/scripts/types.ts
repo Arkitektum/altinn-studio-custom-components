@@ -64,6 +64,8 @@ export interface FlattenedLayout {
     appName?: string;
     dataType?: string;
     isSubform?: boolean;
+    /** For a subform carried by an app, the subform app's name. The app it is credited to is `appName`. */
+    subformAppName?: string;
     layoutName?: string;
     path?: string;
     layout?: Layout;
