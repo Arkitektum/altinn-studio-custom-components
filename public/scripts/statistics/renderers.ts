@@ -1039,6 +1039,10 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
+        // One synchronization at a time. A second click while one runs would start another set of requests and open
+        // a second progress panel over the first.
+        synchronizeButton.disabled = true;
+        synchronizeButton.textContent = "Synchronizing…";
         let apiData;
         try {
             apiData = await getUpdatedApiData();
@@ -1046,6 +1050,9 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
             // The progress panel already says which request failed and why. Nothing is stored, so the tools keep
             // the data they had.
             return;
+        } finally {
+            synchronizeButton.disabled = false;
+            synchronizeButton.textContent = "Synchronize data";
         }
         const [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = apiData;
 

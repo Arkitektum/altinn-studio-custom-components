@@ -131,6 +131,25 @@ describe("renderSynchronizeButton", () => {
         expect(sidebar!.textContent).toContain("Synchronize data");
         expect(sidebar!.textContent).toContain("Last updated:");
     });
+    it("can only be pressed once while a synchronization runs, and can be pressed again after it fails", async () => {
+        let fail: (reason: unknown) => void = () => {};
+        (getUpdatedApiData as unknown as jest.Mock).mockReturnValueOnce(
+            new Promise((resolve, reject) => {
+                fail = reject;
+            })
+        );
+        renderSynchronizeButton(jest.fn());
+        const button = document.querySelector("#sidebar button") as HTMLButtonElement;
+
+        button.click();
+        expect(button.disabled).toBe(true);
+        expect(button.textContent).toBe("Synchronizing…");
+
+        fail(new Error("Failed to fetch example data: Bad Gateway"));
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        expect(button.disabled).toBe(false);
+        expect(button.textContent).toBe("Synchronize data");
+    });
     it("hands nothing on and keeps the old timestamp when the synchronization fails", async () => {
         (getUpdatedApiData as unknown as jest.Mock).mockRejectedValueOnce(new Error("Failed to fetch example data: Bad Gateway"));
         const onSynchronized = jest.fn();
@@ -152,6 +171,7 @@ describe("renderSynchronizeButton", () => {
         await new Promise((resolve) => setTimeout(resolve, 0));
 
         expect(onSynchronized).toHaveBeenCalledTimes(1);
+        expect((document.querySelector("#sidebar button") as HTMLButtonElement).disabled).toBe(false);
         const [apiData, lastUpdated] = onSynchronized.mock.calls[0] as [unknown, string];
         expect(apiData).toEqual({
             displayLayouts: 1,

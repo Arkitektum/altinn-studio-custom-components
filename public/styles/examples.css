@@ -242,6 +242,11 @@
                     &:hover {
                         background-color: var(--color-background-primary-hover);
                     }
+                    &:disabled {
+                        background-color: var(--color-background-primary);
+                        opacity: 0.6;
+                        cursor: progress;
+                    }
                 }
                 & span.last-updated {
                     font-size: 0.8rem;
