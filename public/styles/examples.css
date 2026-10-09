@@ -549,6 +549,24 @@
                 }
             }
         }
+        .no-data-message {
+            & h2 {
+                margin-top: 0;
+            }
+            & button {
+                padding: 6px 16px;
+                border: none;
+                border-radius: 6px;
+                background-color: var(--color-background-primary);
+                color: var(--color-text-white);
+                font: inherit;
+                cursor: pointer;
+                transition: var(--background-transition-default);
+                &:hover {
+                    background-color: var(--color-background-primary-hover);
+                }
+            }
+        }
         &.admin {
             & main {
                 max-width: 1115px;

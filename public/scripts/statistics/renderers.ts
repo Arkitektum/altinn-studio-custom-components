@@ -974,6 +974,43 @@ export function renderAdminSidebar() {
 }
 
 /**
+ * Says there is no data to show yet, with a button to try fetching it again.
+ *
+ * Shown when the first synchronization fails, when there is nothing stored to fall back on. Every page reads that
+ * data, so the sidebar's page buttons are left out until there is some.
+ *
+ * @param {Function} onRetry - Called when the Try again button is pressed, after the message has been removed.
+ */
+export function renderNoDataMessage(onRetry: () => void) {
+    const mainElement = document.getElementById("admin-main");
+    if (!mainElement) {
+        return;
+    }
+    const messageElement = document.createElement("div");
+    messageElement.classList.add("paper", "no-data-message");
+
+    const headingElement = document.createElement("h2");
+    headingElement.textContent = "No data yet";
+    messageElement.appendChild(headingElement);
+
+    const textElement = document.createElement("p");
+    textElement.textContent =
+        "The first synchronization could not fetch everything the tools need, so there is nothing to show yet. Check that the API is running, then try again.";
+    messageElement.appendChild(textElement);
+
+    const retryButton = document.createElement("button");
+    retryButton.type = "button";
+    retryButton.textContent = "Try again";
+    retryButton.onclick = () => {
+        messageElement.remove();
+        onRetry();
+    };
+    messageElement.appendChild(retryButton);
+
+    mainElement.appendChild(messageElement);
+}
+
+/**
  * Renders a "Synchronize data" button and last updated timestamp in the sidebar.
  *
  * When the button is clicked, it fetches updated API data, records when, hands the data to `onSynchronized`, and
@@ -1002,8 +1039,15 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
-        const [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
-            await getUpdatedApiData();
+        let apiData;
+        try {
+            apiData = await getUpdatedApiData();
+        } catch {
+            // The progress panel already says which request failed and why. Nothing is stored, so the tools keep
+            // the data they had.
+            return;
+        }
+        const [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = apiData;
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);

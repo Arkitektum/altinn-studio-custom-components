@@ -15,7 +15,7 @@ import {
     getUsageForMissingResources,
     getUsageForResources
 } from "../validators.ts";
-import { renderAdminSidebar, renderSynchronizeButton } from "./renderers.ts";
+import { renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
 import { flattenAppLayouts } from "./displayLayoutHelpers.ts";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.ts";
 
@@ -108,12 +108,27 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
     });
 }
 
-globalThis.onload = async function () {
+/**
+ * Loads the dev tools: the stored data, or a fresh synchronization when nothing is stored, then the sidebar.
+ *
+ * When that first synchronization fails there is nothing to show, so it says so, offers to try again, and renders no
+ * sidebar until there is data for its pages to read.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+export async function loadDevTools() {
     let { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } =
         getDataFromLocalStorage();
     if (!displayLayouts || !packageVersions || !latestPackageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
-        [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
-            await getUpdatedApiData();
+        try {
+            [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
+                await getUpdatedApiData();
+        } catch {
+            // The progress panel says which request failed and why.
+            renderNoDataMessage(loadDevTools);
+            return;
+        }
         lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
     }
@@ -124,4 +139,6 @@ globalThis.onload = async function () {
 
     renderAdminSidebar();
     renderSynchronizeButton(applyApiData);
-};
+}
+
+globalThis.onload = loadDevTools;

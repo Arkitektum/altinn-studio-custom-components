@@ -64,6 +64,7 @@ import {
     renderComponentUsagePage,
     renderExampleDataError,
     renderLogoImage,
+    renderNoDataMessage,
     renderPackageVersionsPage,
     renderResourceUsagePage,
     renderSynchronizeButton,
@@ -130,6 +131,18 @@ describe("renderSynchronizeButton", () => {
         expect(sidebar!.textContent).toContain("Synchronize data");
         expect(sidebar!.textContent).toContain("Last updated:");
     });
+    it("hands nothing on and keeps the old timestamp when the synchronization fails", async () => {
+        (getUpdatedApiData as unknown as jest.Mock).mockRejectedValueOnce(new Error("Failed to fetch example data: Bad Gateway"));
+        const onSynchronized = jest.fn();
+        renderSynchronizeButton(onSynchronized);
+        const before = document.querySelector(".last-updated")!.textContent;
+
+        (document.querySelector("#sidebar button") as HTMLButtonElement).click();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        expect(onSynchronized).not.toHaveBeenCalled();
+        expect(document.querySelector(".last-updated")!.textContent).toBe(before);
+    });
     it("hands what it fetched to onSynchronized, with when it was fetched", async () => {
         (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6]);
         const onSynchronized = jest.fn();
@@ -150,6 +163,31 @@ describe("renderSynchronizeButton", () => {
         });
         expect(new Date(lastUpdated).toISOString()).toBe(lastUpdated);
         expect(document.querySelector(".last-updated")!.textContent).toBe(`Last updated: ${new Date(lastUpdated).toLocaleString()}`);
+    });
+});
+
+describe("renderNoDataMessage", () => {
+    beforeEach(() => {
+        document.body.innerHTML = '<main id="admin-main"></main>';
+    });
+
+    it("says there is no data yet, in the main area", () => {
+        renderNoDataMessage(() => {});
+        const message = document.querySelector("#admin-main .no-data-message");
+        expect(message!.textContent).toContain("No data yet");
+        expect(message!.querySelector("button")!.textContent).toBe("Try again");
+    });
+
+    it("removes itself and calls onRetry when Try again is pressed", () => {
+        let retried = 0;
+        renderNoDataMessage(() => {
+            retried++;
+        });
+
+        (document.querySelector(".no-data-message button") as HTMLButtonElement).click();
+
+        expect(retried).toBe(1);
+        expect(document.querySelector(".no-data-message")).toBeNull();
     });
 });
 

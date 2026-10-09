@@ -125,13 +125,7 @@ export function showSyncProgress(sources: SyncSource[], { now = () => Date.now()
             return;
         }
         titleElement.textContent = "Synchronization failed";
-        panelElement.appendChild(
-            createElement(
-                "p",
-                "sync-progress-note",
-                `${failed} of ${total} could not be fetched, so nothing was saved. The tools keep using the data from the last synchronization.`
-            )
-        );
+        panelElement.appendChild(createElement("p", "sync-progress-note", `${failed} of ${total} could not be fetched, so nothing was saved.`));
         const closeButton = createElement("button", "sync-progress-close", "Close") as HTMLButtonElement;
         closeButton.type = "button";
         closeButton.onclick = () => backdropElement.remove();
