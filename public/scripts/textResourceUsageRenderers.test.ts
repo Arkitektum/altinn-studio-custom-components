@@ -1,4 +1,5 @@
 import {
+    filterTextResourcesBySelectedFilters,
     renderDefaultTextResourceListItem,
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
@@ -6,6 +7,8 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "./textResourceUsageRenderers.ts";
+
+import type { ApiValue } from "./types.ts";
 
 describe("renderDefaultTextResourceListItem", () => {
     it("renders a resource with usage and values", () => {
@@ -179,5 +182,79 @@ describe("renderTextInputFilterForTextResourcesList", () => {
         expect(el).toBeInstanceOf(HTMLElement);
         expect(el.querySelector('input[type="text"]')).not.toBeNull();
         expect(el.querySelector("select")).not.toBeNull();
+    });
+});
+
+describe("starting from the filter choices made before", () => {
+    const applications = [
+        { appOwner: "o", appName: "a", subForms: [{ appName: "sub-v1" }] },
+        { appOwner: "o", appName: "b" }
+    ];
+    const usage = (appName: string, subformAppName?: string) => ({
+        appOwner: "o",
+        appName,
+        layouts: [{ layoutName: subformAppName || "DisplayLayout", ...(subformAppName ? { subformAppName } : {}), componentsUsingResource: [] }]
+    });
+    const textResources = [
+        { resource: { id: "greeting.main", values: { nb: "Hei" } }, usage: [usage("a")] },
+        { resource: { id: "greeting.sub", values: { nb: "Hallo" } }, usage: [usage("a", "sub-v1")] },
+        { resource: { id: "other.b", values: { nb: "Annet" } }, usage: [usage("b")] },
+        { resource: { id: "unused.one", values: { nb: "Ubrukt" } }, usage: [] }
+    ];
+
+    function store(choices: Record<string, string>) {
+        Object.assign(
+            globalThis,
+            { textFilter: "", matchBy: "id", selectedFilter: "all", selectedAppOwner: "", selectedAppName: "", selectedForm: "" },
+            choices
+        );
+    }
+
+    it("starts every control on the stored choice", () => {
+        store({
+            selectedFilter: "unused",
+            selectedAppOwner: "o",
+            selectedAppName: "a",
+            selectedForm: "sub-v1",
+            textFilter: "greet",
+            matchBy: "value"
+        });
+        const container = document.createElement("div");
+
+        const usageSelect = renderUsageFilterForTextResourcesList(container, textResources).querySelector("select")!;
+        const appSelect = renderSelectApplicationFilterForTextResourcesList(container, textResources, applications).querySelector("select")!;
+        const formSelect = renderSelectFormFilterForTextResourcesList(container, textResources, applications).querySelector("select")!;
+        const textControls = renderTextInputFilterForTextResourcesList(container, textResources);
+
+        expect(usageSelect.value).toBe("unused");
+        expect(appSelect.value).toBe("o/a");
+        expect(formSelect.value).toBe("sub-v1");
+        expect(textControls.querySelector("input")!.value).toBe("greet");
+        expect(textControls.querySelector("select")!.value).toBe("value");
+    });
+
+    it("falls back, and stores the fallback, when an app or form chosen before is no longer offered", () => {
+        store({ selectedAppOwner: "o", selectedAppName: "gone", selectedForm: "sub-v1" });
+        const container = document.createElement("div");
+
+        const appSelect = renderSelectApplicationFilterForTextResourcesList(container, textResources, applications).querySelector("select")!;
+        expect(appSelect.value).toBe("");
+        expect(globalThis.selectedAppName).toBe("");
+
+        store({ selectedAppOwner: "o", selectedAppName: "b", selectedForm: "sub-v1" });
+        const formSelect = renderSelectFormFilterForTextResourcesList(container, textResources, applications).querySelector("select")!;
+        expect(formSelect.value).toBe("");
+        expect(globalThis.selectedForm).toBe("");
+    });
+
+    it("filters by every stored choice", () => {
+        store({ selectedAppOwner: "o", selectedAppName: "a", selectedForm: "sub-v1" });
+        expect(filterTextResourcesBySelectedFilters(textResources).map((entry: ApiValue) => entry.resource.id)).toEqual(["greeting.sub"]);
+
+        store({ textFilter: "Hei", matchBy: "value" });
+        expect(filterTextResourcesBySelectedFilters(textResources).map((entry: ApiValue) => entry.resource.id)).toEqual(["greeting.main"]);
+
+        store({ selectedFilter: "unused" });
+        expect(filterTextResourcesBySelectedFilters(textResources).map((entry: ApiValue) => entry.resource.id)).toEqual(["unused.one"]);
     });
 });

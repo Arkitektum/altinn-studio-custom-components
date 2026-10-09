@@ -1,6 +1,6 @@
 import type { ApiValue, Layout, LayoutComponent } from "../types.ts";
 import { filterComponentsByApplication, filterComponentsByTextInput, filterComponentsByType, filterComponentsByUsage } from "../filters.ts";
-import { getFormFilterOptions, setSelectOptions } from "./displayLayoutHelpers.ts";
+import { getFormFilterOptions, selectStoredOption, setSelectOptions } from "./displayLayoutHelpers.ts";
 
 /**
  * Get the number of unique apps using a component.
@@ -355,12 +355,12 @@ export function renderComponentUsageList(componentUsage: ApiValue) {
 }
 
 /**
- * Applies the currently selected filters (stored on globalThis) to the component list and re-renders it.
+ * The components that pass the filters currently chosen on the page, which are stored on globalThis.
  *
- * @param {HTMLElement} containerElement - The container element holding the component usage list.
- * @param {Array<Object>} components - The full list of component usage objects to filter and render.
+ * @param {Array<Object>} components - The component usage objects to filter.
+ * @returns {Array<Object>} The ones that pass every filter.
  */
-function handleComponentFilterChange(containerElement: HTMLElement, components: LayoutComponent[] | undefined) {
+export function filterComponentsBySelectedFilters(components: LayoutComponent[] | undefined) {
     const usageFilter = globalThis.componentUsageFilter || "all";
     const selectedAppOwner = globalThis.componentSelectedAppOwner || "";
     const selectedAppName = globalThis.componentSelectedAppName || "";
@@ -372,7 +372,17 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
     let filteredComponents = filterComponentsByUsage(components, usageFilter);
     filteredComponents = filterComponentsByApplication(filteredComponents, selectedAppOwner, selectedAppName, selectedForm);
     filteredComponents = filterComponentsByType(filteredComponents, typeFilter);
-    filteredComponents = filterComponentsByTextInput(filteredComponents, textFilter, matchBy);
+    return filterComponentsByTextInput(filteredComponents, textFilter, matchBy);
+}
+
+/**
+ * Applies the currently selected filters (stored on globalThis) to the component list and re-renders it.
+ *
+ * @param {HTMLElement} containerElement - The container element holding the component usage list.
+ * @param {Array<Object>} components - The full list of component usage objects to filter and render.
+ */
+function handleComponentFilterChange(containerElement: HTMLElement, components: LayoutComponent[] | undefined) {
+    const filteredComponents = filterComponentsBySelectedFilters(components);
 
     const existingListElement = containerElement.querySelector("#component-usage-list");
     if (existingListElement) {
@@ -389,13 +399,15 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
  * @param {string} selectId - The id assigned to the select element.
  * @param {Array<{ value: string, text: string }>} options - The options to render, first one selected by default.
  * @param {Function} onChange - Called with the select's value whenever the selection changes.
+ * @param {string} [storedValue] - A value chosen before, selected instead of the first option when it is offered.
  * @returns {HTMLFormElement} The container element holding the label and select.
  */
 function renderLabelledSelectFilter(
     labelText: string,
     selectId: string,
     options: { value: string; text: string }[],
-    onChange: (value: string) => void
+    onChange: (value: string) => void,
+    storedValue?: string
 ) {
     const filterContainerElement = document.createElement("form");
     filterContainerElement.classList.add("filter-container");
@@ -415,6 +427,7 @@ function renderLabelledSelectFilter(
     });
 
     selectElement.onchange = () => onChange(selectElement.value);
+    selectStoredOption(selectElement, storedValue, options[0]?.value ?? "");
 
     filterContainerElement.appendChild(selectElement);
     return filterContainerElement;
@@ -428,7 +441,7 @@ function renderLabelledSelectFilter(
  * @returns {HTMLFormElement} The DOM element containing the usage filter.
  */
 export function renderUsageFilterForComponentUsageList(containerElement: HTMLElement, components: LayoutComponent[] | undefined) {
-    return renderLabelledSelectFilter(
+    const filterElement = renderLabelledSelectFilter(
         "Filter by usage:",
         "component-usage-filter-select",
         [
@@ -439,8 +452,11 @@ export function renderUsageFilterForComponentUsageList(containerElement: HTMLEle
         (value: string) => {
             globalThis.componentUsageFilter = value;
             handleComponentFilterChange(containerElement, components);
-        }
+        },
+        globalThis.componentUsageFilter
     );
+    globalThis.componentUsageFilter = (filterElement.querySelector("select") as HTMLSelectElement).value;
+    return filterElement;
 }
 
 /**
@@ -451,7 +467,7 @@ export function renderUsageFilterForComponentUsageList(containerElement: HTMLEle
  * @returns {HTMLFormElement} The DOM element containing the component type filter.
  */
 export function renderSelectComponentTypeFilterForComponentUsageList(containerElement: HTMLElement, components: LayoutComponent[] | undefined) {
-    return renderLabelledSelectFilter(
+    const filterElement = renderLabelledSelectFilter(
         "Component type",
         "component-type-filter-select",
         [
@@ -463,8 +479,11 @@ export function renderSelectComponentTypeFilterForComponentUsageList(containerEl
         (value: string) => {
             globalThis.componentTypeFilter = value;
             handleComponentFilterChange(containerElement, components);
-        }
+        },
+        globalThis.componentTypeFilter
     );
+    globalThis.componentTypeFilter = (filterElement.querySelector("select") as HTMLSelectElement).value;
+    return filterElement;
 }
 
 /**
@@ -503,6 +522,16 @@ export function renderSelectApplicationFilterForComponentUsageList(
         applicationSelectElement.appendChild(appOptionElement);
     });
 
+    // Starts on the app chosen before, when there is one and it is still offered.
+    const storedApp =
+        globalThis.componentSelectedAppOwner && globalThis.componentSelectedAppName
+            ? `${globalThis.componentSelectedAppOwner}/${globalThis.componentSelectedAppName}`
+            : "";
+    if (!selectStoredOption(applicationSelectElement, storedApp, "")) {
+        globalThis.componentSelectedAppOwner = "";
+        globalThis.componentSelectedAppName = "";
+    }
+
     applicationSelectElement.onchange = () => {
         const [appOwner, appName] = applicationSelectElement.value.split("/");
         globalThis.componentSelectedAppOwner = appOwner || "";
@@ -539,8 +568,12 @@ export function renderSelectFormFilterForComponentUsageList(
         globalThis.componentSelectedForm = value;
         handleComponentFilterChange(containerElement, components);
     });
-    // renderLabelledSelectFilter always starts on the first option; keep a form that is still on offer.
-    setSelectOptions(filterElement.querySelector("select") as HTMLSelectElement, formOptions, globalThis.componentSelectedForm || "");
+    // Keep a form chosen before when it is still on offer, and fall back to every form when it is not.
+    globalThis.componentSelectedForm = setSelectOptions(
+        filterElement.querySelector("select") as HTMLSelectElement,
+        formOptions,
+        globalThis.componentSelectedForm || ""
+    );
     return filterElement;
 }
 
@@ -580,6 +613,9 @@ export function renderTextInputFilterForComponentUsageList(containerElement: HTM
     matchBySelectElement.appendChild(matchByIdOptionElement);
 
     textInputContainerElement.appendChild(matchBySelectElement);
+
+    textFilterInputElement.value = globalThis.componentTextFilter || "";
+    globalThis.componentMatchBy = selectStoredOption(matchBySelectElement, globalThis.componentMatchBy, "tag");
 
     const updateComponentListBasedOnTextInputFilter = () => {
         globalThis.componentTextFilter = textFilterInputElement.value;

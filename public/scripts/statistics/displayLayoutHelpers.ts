@@ -118,3 +118,20 @@ export function setSelectOptions(selectElement: HTMLSelectElement, options: { va
     selectElement.value = options.some((option) => option.value === selectedValue) ? selectedValue : (options[0]?.value ?? "");
     return selectElement.value;
 }
+
+/**
+ * Selects a stored value in a select whose options are already in place, or the fallback when it is not one of them.
+ *
+ * Used where a page is drawn again with the choices made before: a choice that is no longer offered, such as an app
+ * that has gone, falls back rather than leaving the select showing one thing while the list is filtered by another.
+ *
+ * @param {HTMLSelectElement} selectElement - The select, with its options.
+ * @param {string|undefined} storedValue - The value chosen before.
+ * @param {string} fallbackValue - The value to select when the stored one is not offered.
+ * @returns {string} The value that ended up selected.
+ */
+export function selectStoredOption(selectElement: HTMLSelectElement, storedValue: string | undefined, fallbackValue: string) {
+    const offered = Array.from(selectElement.options).some((option) => option.value === storedValue);
+    selectElement.value = offered ? (storedValue as string) : fallbackValue;
+    return selectElement.value;
+}

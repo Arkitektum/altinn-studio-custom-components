@@ -30,6 +30,7 @@ jest.mock("../getters.ts", () => ({
 }));
 
 jest.mock("../textResourceUsageRenderers.ts", () => ({
+    filterTextResourcesBySelectedFilters: jest.fn(),
     renderDefaultTextResourcesList: jest.fn(),
     renderSelectApplicationFilterForTextResourcesList: jest.fn(),
     renderSelectFormFilterForTextResourcesList: jest.fn(),
@@ -42,6 +43,7 @@ jest.mock("../languages.ts", () => ({
 }));
 
 jest.mock("./componentUsageRenderers.ts", () => ({
+    filterComponentsBySelectedFilters: jest.fn(),
     renderComponentUsageList: jest.fn(),
     renderSelectApplicationFilterForComponentUsageList: jest.fn(),
     renderSelectComponentTypeFilterForComponentUsageList: jest.fn(),
@@ -72,6 +74,7 @@ import {
 
 // Import the mocked modules to set up their implementations
 import {
+    filterComponentsBySelectedFilters,
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
@@ -80,6 +83,7 @@ import {
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.ts";
 import {
+    filterTextResourcesBySelectedFilters,
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
     renderSelectFormFilterForTextResourcesList,
@@ -282,6 +286,28 @@ describe("internal renderers functions", () => {
         renderComponentUsagePage(document.createElement("div"));
         expect(lastApplications(renderSelectApplicationFilterForComponentUsageList)).toEqual(["app1"]);
         expect(lastApplications(renderSelectFormFilterForComponentUsageList)).toEqual(["app1"]);
+    });
+    it("resets the usage pages' filters when opened, and keeps them and filters the list when asked to", () => {
+        globalThis.selectedAppName = "app1";
+        globalThis.componentSelectedAppName = "app1";
+        const filteredResources = [{ resource: { id: "kept" } }];
+        const filteredComponents = [{ tagName: "custom-kept", usages: [] }];
+        (filterTextResourcesBySelectedFilters as unknown as jest.Mock).mockReturnValue(filteredResources);
+        (filterComponentsBySelectedFilters as unknown as jest.Mock).mockReturnValue(filteredComponents);
+
+        renderResourceUsagePage(document.createElement("div"), { keepFilters: true });
+        renderComponentUsagePage(document.createElement("div"), { keepFilters: true });
+        expect(globalThis.selectedAppName).toBe("app1");
+        expect(globalThis.componentSelectedAppName).toBe("app1");
+        expect((renderDefaultTextResourcesList as unknown as jest.Mock).mock.calls.at(-1)![0]).toBe(filteredResources);
+        expect((renderComponentUsageList as unknown as jest.Mock).mock.calls.at(-1)![0]).toBe(filteredComponents);
+
+        renderResourceUsagePage(document.createElement("div"));
+        renderComponentUsagePage(document.createElement("div"));
+        expect(globalThis.selectedAppName).toBe("");
+        expect(globalThis.componentSelectedAppName).toBe("");
+        expect((renderDefaultTextResourcesList as unknown as jest.Mock).mock.calls.at(-1)![0]).toBe(globalThis.allTextResourceUsage);
+        expect((renderComponentUsageList as unknown as jest.Mock).mock.calls.at(-1)![0]).toBe(globalThis.componentUsage);
     });
     it("renderResourceUsagePage runs without error", () => {
         const el = document.createElement("div");

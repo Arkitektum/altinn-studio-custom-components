@@ -13,6 +13,7 @@ import { addDataToGlobalThis, addValueToLocalStorage } from "../localStorage.ts"
 import { applyTextResourcesForLanguage, getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
 import {
+    filterComponentsBySelectedFilters,
     renderComponentUsageList,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
@@ -21,6 +22,7 @@ import {
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.ts";
 import {
+    filterTextResourcesBySelectedFilters,
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
     renderSelectFormFilterForTextResourcesList,
@@ -35,21 +37,28 @@ import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlE
  * Renders the resource usage page by appending various filter controls and the default text resources list
  * to the specified container element. Utilizes global variables for resource usage data and layout information.
  *
+ * Opened from the sidebar, every filter starts at its default. With `keepFilters` the filters keep the choices made
+ * before, and the list is filtered by them, which is how the page is drawn again after a synchronization. A choice
+ * that is no longer offered falls back to its default.
+ *
  * @param {HTMLElement} containerElement - The DOM element to which the resource usage page components will be appended.
+ * @param {Object} [options]
+ * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
-export function renderResourceUsagePage(containerElement: HTMLElement) {
+export function renderResourceUsagePage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const applications = getAppEntries(globalThis.displayLayouts);
 
-    // Reset any filter state left over from a previous visit to this page. The filter controls below are recreated at
-    // their defaults, so the persisted globals would otherwise be silently re-applied the first time any one control
-    // changes, leaving the list and the controls out of sync.
-    globalThis.textFilter = "";
-    globalThis.matchBy = "id";
-    globalThis.selectedFilter = "all";
-    globalThis.selectedAppOwner = "";
-    globalThis.selectedAppName = "";
-    globalThis.selectedForm = "";
+    // The filter controls start from these, so a fresh visit resets them. Left as they were, the controls would show
+    // the last visit's choices while the list below showed everything.
+    if (!keepFilters) {
+        globalThis.textFilter = "";
+        globalThis.matchBy = "id";
+        globalThis.selectedFilter = "all";
+        globalThis.selectedAppOwner = "";
+        globalThis.selectedAppName = "";
+        globalThis.selectedForm = "";
+    }
 
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Resource usage";
@@ -59,28 +68,36 @@ export function renderResourceUsagePage(containerElement: HTMLElement) {
     containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement!, allTextResourceUsage, applications));
     containerElement.appendChild(renderSelectFormFilterForTextResourcesList(containerElement!, allTextResourceUsage, applications));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement!, allTextResourceUsage));
-    containerElement.appendChild(renderDefaultTextResourcesList(allTextResourceUsage, allTextResourceUsage));
+    // Filtered only when the choices were kept. A fresh visit shows the whole list, as it always has.
+    const listedTextResources = keepFilters ? filterTextResourcesBySelectedFilters(allTextResourceUsage) : allTextResourceUsage;
+    containerElement.appendChild(renderDefaultTextResourcesList(listedTextResources, allTextResourceUsage));
 }
 
 /**
  * Renders the component usage page by appending a title and a list of component usages to the specified container element. Utilizes global variables for component usage data.
- * @param {HTMLElement} containerElement - The DOM element to which the component usage page components will be appended.
  *
+ * Opened from the sidebar, every filter starts at its default. With `keepFilters` the filters keep the choices made
+ * before, and the list is filtered by them. A choice that is no longer offered falls back to its default.
+ *
+ * @param {HTMLElement} containerElement - The DOM element to which the component usage page components will be appended.
+ * @param {Object} [options]
+ * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
-export function renderComponentUsagePage(containerElement: HTMLElement) {
+export function renderComponentUsagePage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
     const componentUsage = globalThis.componentUsage;
     const applications = getAppEntries(globalThis.displayLayouts);
 
-    // Reset any filter state left over from a previous visit to this page. The filter controls below are recreated at
-    // their defaults, so the persisted globals would otherwise be silently re-applied the first time any one control
-    // changes, leaving the list and the controls out of sync.
-    globalThis.componentUsageFilter = "all";
-    globalThis.componentSelectedAppOwner = "";
-    globalThis.componentSelectedAppName = "";
-    globalThis.componentSelectedForm = "";
-    globalThis.componentTypeFilter = "";
-    globalThis.componentTextFilter = "";
-    globalThis.componentMatchBy = "tag";
+    // The filter controls start from these, so a fresh visit resets them. Left as they were, the controls would show
+    // the last visit's choices while the list below showed everything.
+    if (!keepFilters) {
+        globalThis.componentUsageFilter = "all";
+        globalThis.componentSelectedAppOwner = "";
+        globalThis.componentSelectedAppName = "";
+        globalThis.componentSelectedForm = "";
+        globalThis.componentTypeFilter = "";
+        globalThis.componentTextFilter = "";
+        globalThis.componentMatchBy = "tag";
+    }
 
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Component usage";
@@ -90,7 +107,8 @@ export function renderComponentUsagePage(containerElement: HTMLElement) {
     containerElement.appendChild(renderSelectFormFilterForComponentUsageList(containerElement!, componentUsage, applications));
     containerElement.appendChild(renderSelectComponentTypeFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderTextInputFilterForComponentUsageList(containerElement!, componentUsage));
-    containerElement.appendChild(renderComponentUsageList(componentUsage));
+    // Filtered only when the choices were kept. A fresh visit shows the whole list, as it always has.
+    containerElement.appendChild(renderComponentUsageList(keepFilters ? filterComponentsBySelectedFilters(componentUsage) : componentUsage));
 }
 
 /**

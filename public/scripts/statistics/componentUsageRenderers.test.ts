@@ -1,4 +1,5 @@
 import {
+    filterComponentsBySelectedFilters,
     renderComponentUsageListItem,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
@@ -201,5 +202,77 @@ describe("component usage filters", () => {
         input!.value = "greeting";
         input!.dispatchEvent(new Event("input"));
         expect(renderedTagNames(container)).toEqual(["custom-header"]);
+    });
+});
+
+describe("component usage filters, starting from the choices made before", () => {
+    const applications = [
+        { appOwner: "o", appName: "a", subForms: [{ appName: "sub-v1" }] },
+        { appOwner: "o", appName: "b" }
+    ];
+    const components = [
+        { tagName: "custom-field", usages: [] },
+        { tagName: "custom-header", usages: [{ id: "h1", appOwner: "o", appName: "a" }] },
+        { tagName: "custom-field-data", usages: [{ id: "d1", appOwner: "o", appName: "a", subformAppName: "sub-v1" }] },
+        { tagName: "custom-dispensasjon", usages: [{ id: "x1", appOwner: "o", appName: "b" }] }
+    ];
+
+    function store(choices: Record<string, string>) {
+        Object.assign(
+            globalThis,
+            {
+                componentUsageFilter: "all",
+                componentSelectedAppOwner: "",
+                componentSelectedAppName: "",
+                componentSelectedForm: "",
+                componentTypeFilter: "",
+                componentTextFilter: "",
+                componentMatchBy: "tag"
+            },
+            choices
+        );
+    }
+
+    it("starts every control on the stored choice", () => {
+        store({
+            componentUsageFilter: "used-once",
+            componentSelectedAppOwner: "o",
+            componentSelectedAppName: "a",
+            componentSelectedForm: "sub-v1",
+            componentTypeFilter: "data",
+            componentTextFilter: "d1",
+            componentMatchBy: "id"
+        });
+        const container = document.createElement("div");
+
+        expect(renderUsageFilterForComponentUsageList(container, components).querySelector("select")!.value).toBe("used-once");
+        expect(renderSelectApplicationFilterForComponentUsageList(container, components, applications).querySelector("select")!.value).toBe("o/a");
+        expect(renderSelectFormFilterForComponentUsageList(container, components, applications).querySelector("select")!.value).toBe("sub-v1");
+        expect(renderSelectComponentTypeFilterForComponentUsageList(container, components).querySelector("select")!.value).toBe("data");
+        const textControls = renderTextInputFilterForComponentUsageList(container, components);
+        expect(textControls.querySelector("input")!.value).toBe("d1");
+        expect(textControls.querySelector("select")!.value).toBe("id");
+    });
+
+    it("falls back, and stores the fallback, when a choice made before is no longer offered", () => {
+        store({ componentSelectedAppOwner: "o", componentSelectedAppName: "gone", componentTypeFilter: "nonsense" });
+        const container = document.createElement("div");
+
+        expect(renderSelectApplicationFilterForComponentUsageList(container, components, applications).querySelector("select")!.value).toBe("");
+        expect(globalThis.componentSelectedAppName).toBe("");
+        expect(renderSelectComponentTypeFilterForComponentUsageList(container, components).querySelector("select")!.value).toBe("");
+        expect(globalThis.componentTypeFilter).toBe("");
+
+        store({ componentSelectedAppOwner: "o", componentSelectedAppName: "b", componentSelectedForm: "sub-v1" });
+        expect(renderSelectFormFilterForComponentUsageList(container, components, applications).querySelector("select")!.value).toBe("");
+        expect(globalThis.componentSelectedForm).toBe("");
+    });
+
+    it("filters by every stored choice", () => {
+        store({ componentSelectedAppOwner: "o", componentSelectedAppName: "a", componentSelectedForm: "sub-v1" });
+        expect(filterComponentsBySelectedFilters(components)!.map((component: ApiValue) => component.tagName)).toEqual(["custom-field-data"]);
+
+        store({ componentUsageFilter: "unused" });
+        expect(filterComponentsBySelectedFilters(components)!.map((component: ApiValue) => component.tagName)).toEqual(["custom-field"]);
     });
 });

@@ -1,4 +1,11 @@
-import { DEFAULT_LAYOUT_NAME, flattenAppLayouts, getAppEntries, getFormFilterOptions, setSelectOptions } from "./displayLayoutHelpers.ts";
+import {
+    DEFAULT_LAYOUT_NAME,
+    flattenAppLayouts,
+    getAppEntries,
+    getFormFilterOptions,
+    selectStoredOption,
+    setSelectOptions
+} from "./displayLayoutHelpers.ts";
 import { MAIN_FORM_FILTER_VALUE } from "../filters.ts";
 
 import type { ApiValue } from "../types.ts";
@@ -159,5 +166,29 @@ describe("getAppEntries", () => {
 
     it("answers with no apps for input that is not a list", () => {
         expect(getAppEntries(undefined)).toEqual([]);
+    });
+});
+
+describe("selectStoredOption", () => {
+    function selectWith(...values: string[]) {
+        const select = document.createElement("select");
+        setSelectOptions(
+            select,
+            values.map((value) => ({ value, text: value })),
+            values[0]!
+        );
+        return select;
+    }
+
+    it("selects the stored value when it is offered", () => {
+        const select = selectWith("all", "unused", "used-once");
+        expect(selectStoredOption(select, "unused", "all")).toBe("unused");
+        expect(select.value).toBe("unused");
+    });
+
+    it("selects the fallback when the stored value is not offered, or there is none", () => {
+        const select = selectWith("all", "unused");
+        expect(selectStoredOption(select, "gone", "unused")).toBe("unused");
+        expect(selectStoredOption(select, undefined, "all")).toBe("all");
     });
 });

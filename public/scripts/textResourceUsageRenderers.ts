@@ -1,6 +1,6 @@
 import type { ApiValue, Layout, LayoutComponent } from "./types.ts";
 import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters.ts";
-import { getFormFilterOptions, setSelectOptions } from "./statistics/displayLayoutHelpers.ts";
+import { getFormFilterOptions, selectStoredOption, setSelectOptions } from "./statistics/displayLayoutHelpers.ts";
 import { getLanguageNameFromCode } from "./languages.ts";
 
 /**
@@ -334,15 +334,12 @@ export function renderDefaultTextResourcesList(filteredTextResources: ApiValue, 
 }
 
 /**
- * Handles changes to the text resource filter and updates the rendered list accordingly.
+ * The text resources that pass the filters currently chosen on the page, which are stored on globalThis.
  *
- * This function retrieves filter criteria from global variables, applies a series of filters
- * to the provided text resources, and updates the DOM to display the filtered results.
- *
- * @param {HTMLElement} containerElement - The DOM element that contains the text resources list.
- * @param {Array<Object>} textResources - The array of text resource objects to be filtered and rendered.
+ * @param {Array<Object>} textResources - The text resources to filter.
+ * @returns {Array<Object>} The ones that pass every filter.
  */
-function handleFilterChange(containerElement: HTMLElement, textResources: ApiValue) {
+export function filterTextResourcesBySelectedFilters(textResources: ApiValue) {
     const textFilter = globalThis.textFilter || "";
     const matchBy = globalThis.matchBy || "id";
     const selectedFilter = globalThis.selectedFilter || "all";
@@ -351,7 +348,17 @@ function handleFilterChange(containerElement: HTMLElement, textResources: ApiVal
     const selectedForm = globalThis.selectedForm || "";
     let filteredResources = filterTextResourcesByTextInput(textResources, textFilter, matchBy);
     filteredResources = filterResources(filteredResources, selectedFilter);
-    filteredResources = filterResourcesByApplication(filteredResources, selectedAppOwner, selectedAppName, selectedForm);
+    return filterResourcesByApplication(filteredResources, selectedAppOwner, selectedAppName, selectedForm);
+}
+
+/**
+ * Handles changes to the text resource filter and updates the rendered list accordingly.
+ *
+ * @param {HTMLElement} containerElement - The DOM element that contains the text resources list.
+ * @param {Array<Object>} textResources - The array of text resource objects to be filtered and rendered.
+ */
+function handleFilterChange(containerElement: HTMLElement, textResources: ApiValue) {
+    const filteredResources = filterTextResourcesBySelectedFilters(textResources);
 
     const existingListElement = containerElement.querySelector("#default-text-resources-list");
     if (existingListElement) {
@@ -445,6 +452,8 @@ export function renderUsageFilterForTextResourcesList(containerElement: HTMLElem
     filterSelectElement.appendChild(missingNnTranslationsOptionElement);
     filterSelectElement.appendChild(missingEnTranslationsOptionElement);
 
+    globalThis.selectedFilter = selectStoredOption(filterSelectElement, globalThis.selectedFilter, "all");
+
     filterContainerElement.appendChild(filterSelectElement);
 
     return filterContainerElement;
@@ -498,6 +507,13 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
 
     applicationSelectElement.onchange = updateResourceListBasedOnApplicationFilter;
 
+    // Starts on the app chosen before, when there is one and it is still offered.
+    const storedApp = globalThis.selectedAppOwner && globalThis.selectedAppName ? `${globalThis.selectedAppOwner}/${globalThis.selectedAppName}` : "";
+    if (!selectStoredOption(applicationSelectElement, storedApp, "")) {
+        globalThis.selectedAppOwner = "";
+        globalThis.selectedAppName = "";
+    }
+
     selectContainerElement.appendChild(applicationSelectElement);
 
     return selectContainerElement;
@@ -523,7 +539,7 @@ export function renderSelectFormFilterForTextResourcesList(containerElement: HTM
 
     const formSelectElement = document.createElement("select");
     formSelectElement.id = "form-filter-select";
-    setSelectOptions(
+    globalThis.selectedForm = setSelectOptions(
         formSelectElement,
         getFormFilterOptions(applications, globalThis.selectedAppOwner, globalThis.selectedAppName),
         globalThis.selectedForm || ""
@@ -577,6 +593,9 @@ export function renderTextInputFilterForTextResourcesList(containerElement: HTML
     matchBySelectElement.appendChild(matchByValueOptionElement);
 
     textInputContainerElement.appendChild(matchBySelectElement);
+
+    textFilterInputElement.value = globalThis.textFilter || "";
+    globalThis.matchBy = selectStoredOption(matchBySelectElement, globalThis.matchBy, "id");
 
     const updateResourceListBasedOnTextInputFilter = () => {
         globalThis.textFilter = textFilterInputElement.value;
