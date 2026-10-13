@@ -216,6 +216,12 @@
         }
     },
     {
+        "id": "resource.bestemmelsestekst.title",
+        "values": {
+            "nb": "Bestemmelsestekst"
+        }
+    },
+    {
         "id": "resource.bestemmelsestype.title",
         "values": {
             "nb": "Bestemmelsestype"
@@ -933,6 +939,12 @@
         "id": "resource.organisasjonsnummer.title",
         "values": {
             "nb": "Organisasjonsnummer"
+        }
+    },
+    {
+        "id": "resource.overskrift.title",
+        "values": {
+            "nb": "Overskrift"
         }
     },
     {

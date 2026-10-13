@@ -146,6 +146,10 @@
             "value": "Disse bestemmelsene regulerer eiendommen"
         },
         {
+            "id": "resource.bestemmelsestekst.title",
+            "value": "Bestemmelsestekst"
+        },
+        {
             "id": "resource.bestemmelsestype.title",
             "value": "Bestemmelsestype"
         },
@@ -624,6 +628,10 @@
         {
             "id": "resource.organisasjonsnummer.title",
             "value": "Organisasjonsnummer"
+        },
+        {
+            "id": "resource.overskrift.title",
+            "value": "Overskrift"
         },
         {
             "id": "resource.overvann.title",
