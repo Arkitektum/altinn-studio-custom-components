@@ -30,6 +30,8 @@ const component = {
         nasjonalArealplanIdPlanIdentifikasjon: { title: "Planident" },
         bestemmelsestype: { title: "Bestemmelsestype" },
         paragrafnummer: { title: "Paragraf" },
+        bestemmelsesoverskrift: { title: "Overskrift" },
+        bestemmelsestekst: { title: "Bestemmelsestekst" },
         stedfesting: { title: "Stedfesting" },
         stedfestingPosisjonKoordinatsystem: { title: "Koordinatsystem" },
         stedfestingPosisjonKoordinater: { title: "Koordinater" },
@@ -65,6 +67,8 @@ const component = {
             nasjonalArealplanId: { planidentifikasjon: "1234" },
             bestemmelsestype: { kodebeskrivelse: "Byggegrense" },
             paragrafnummer: "12-4",
+            bestemmelsesoverskrift: "Byggegrense mot vei",
+            bestemmelsestekst: "Bygninger skal plasseres innenfor byggegrensen.",
             stedfesting: {
                 posisjon: { koordinatsystem: { kodebeskrivelse: "EUREF89" }, koordinater: { koordinat: [{ nord: 1, oest: 2 }] } },
                 vertikalnivaa: { kodebeskrivelse: "På bakken" }
@@ -143,6 +147,8 @@ const fields: [string, string, unknown, Record<string, unknown>][] = [
     ],
     ["renderBestemmelsestype", "custom-field-data", data.bestemmelsestype.kodebeskrivelse, { title: bindings.bestemmelsestype.title }],
     ["renderParagrafnummer", "custom-field-data", data.paragrafnummer, { title: bindings.paragrafnummer.title }],
+    ["renderBestemmelsesoverskrift", "custom-field-data", data.bestemmelsesoverskrift, { title: bindings.bestemmelsesoverskrift.title }],
+    ["renderBestemmelsestekst", "custom-field-data", data.bestemmelsestekst, { title: bindings.bestemmelsestekst.title }],
     [
         "renderStedfestingPosisjonKoordinatsystem",
         "custom-field-data",

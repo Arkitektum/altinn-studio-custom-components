@@ -7,6 +7,8 @@ describe("Dispensasjon", () => {
     const baseProps = {
         begrunnelse: { hensynBakBestemmelsen: "test" },
         beregningsregelGradAvUtnytting: { kodeverdi: "%BYA", kodebeskrivelse: "Prosent bebygd areal" },
+        bestemmelsesoverskrift: "Byggegrense mot vei",
+        bestemmelsestekst: "Bygninger skal plasseres innenfor byggegrensen.",
         bestemmelsestype: { kodeverdi: "A", kodebeskrivelse: "desc" },
         dispensasjonsbeskrivelse: "desc",
         dispensasjonsreferanse: "ref",
@@ -31,6 +33,8 @@ describe("Dispensasjon", () => {
         expect(disp.begrunnelse).toBeDefined();
         expect(disp.beregningsregelGradAvUtnytting).toBeInstanceOf(Kode);
         expect(disp.beregningsregelGradAvUtnytting!.kodebeskrivelse).toBe("Prosent bebygd areal");
+        expect(disp.bestemmelsesoverskrift).toBe("Byggegrense mot vei");
+        expect(disp.bestemmelsestekst).toBe("Bygninger skal plasseres innenfor byggegrensen.");
         expect(disp.bestemmelsestype).toBeInstanceOf(Kode);
         expect(disp.dispensasjonsbeskrivelse).toBe("desc");
         expect(disp.dispensasjonsreferanse).toBe("ref");
