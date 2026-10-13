@@ -38,6 +38,8 @@ export interface DispensasjonTiltakstyper {
 export interface DispensasjonProps {
     begrunnelse?: BegrunnelseProps | null;
     beregningsregelGradAvUtnytting?: KodeProps | null;
+    bestemmelsesoverskrift?: string | null;
+    bestemmelsestekst?: string | null;
     bestemmelsestype?: KodeProps | null;
     dispensasjonsbeskrivelse?: string | null;
     dispensasjonsreferanse?: string | null;
@@ -66,6 +68,8 @@ export interface DispensasjonProps {
 export default class Dispensasjon {
     declare begrunnelse: Begrunnelse | undefined | null;
     declare beregningsregelGradAvUtnytting: Kode | undefined | null;
+    declare bestemmelsesoverskrift?: string | null;
+    declare bestemmelsestekst?: string | null;
     declare bestemmelsestype: Kode | undefined | null;
     declare dispensasjonsbeskrivelse?: string | null;
     declare dispensasjonsreferanse?: string | null;
@@ -90,6 +94,8 @@ export default class Dispensasjon {
      * @param {Object} [props.tiltakstyper] - The tiltakstyper object containing type information.
      * @param {Object} [props.begrunnelse] - The begrunnelse object containing justification information.
      * @param {Object} [props.beregningsregelGradAvUtnytting] - The beregningsregelGradAvUtnytting object containing calculation rules for the degree of utilization.
+     * @param {string} [props.bestemmelsesoverskrift] - An optional property representing the heading of the bestemmelse.
+     * @param {string} [props.bestemmelsestekst] - An optional property representing the text of the bestemmelse.
      * @param {Object} [props.bestemmelsestype] - The bestemmelsestype object containing type information.
      * @param {string} [props.dispensasjonsbeskrivelse] - The dispensasjonsbeskrivelse string containing the description of the exemption.
      * @param {string} [props.dispensasjonsreferanse] - The dispensasjonsreferanse string containing the reference for the exemption.
@@ -110,6 +116,8 @@ export default class Dispensasjon {
         const tiltakstyper = props ? this.getTiltakstyperFromProps(props) : null;
         this.begrunnelse = props?.begrunnelse && new Begrunnelse(props.begrunnelse);
         this.beregningsregelGradAvUtnytting = props?.beregningsregelGradAvUtnytting && new Kode(props.beregningsregelGradAvUtnytting);
+        this.bestemmelsesoverskrift = props?.bestemmelsesoverskrift;
+        this.bestemmelsestekst = props?.bestemmelsestekst;
         this.bestemmelsestype = props?.bestemmelsestype && new Kode(props.bestemmelsestype);
         this.dispensasjonsbeskrivelse = props?.dispensasjonsbeskrivelse;
         this.dispensasjonsreferanse = props?.dispensasjonsreferanse;

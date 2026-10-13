@@ -16,6 +16,8 @@ import {
     renderBegrunnelseVurderingHensynBakBestemmelsen,
     renderBegrunnelseVurderingHensynOverordnet,
     renderBeregningsregelGradAvUtnytting,
+    renderBestemmelsesoverskrift,
+    renderBestemmelsestekst,
     renderBestemmelsestype,
     renderDispensasjonFraHeader,
     renderDispensasjonHeader,
@@ -74,6 +76,8 @@ export default customElements.define(
                     const nasjonalArealplanIdPlanIdentifikasjonElement = renderNasjonalArealplanIdPlanIdentifikasjon(component);
                     const bestemmelsestypeElement = renderBestemmelsestype(component);
                     const paragrafnummerElement = renderParagrafnummer(component);
+                    const bestemmelsesoverskriftElement = renderBestemmelsesoverskrift(component);
+                    const bestemmelsestekstElement = renderBestemmelsestekst(component);
                     const stedfestingHeaderElement = renderStedfestingHeader(component);
                     const stedfestingPosisjonKoordinatsystemElement = renderStedfestingPosisjonKoordinatsystem(component);
                     const stedfestingPosisjonKoordinaterElement = renderStedfestingPosisjonKoordinater(component);
@@ -130,7 +134,9 @@ export default customElements.define(
                         plannavnElement,
                         nasjonalArealplanIdPlanIdentifikasjonElement,
                         bestemmelsestypeElement,
-                        paragrafnummerElement
+                        paragrafnummerElement,
+                        bestemmelsesoverskriftElement,
+                        bestemmelsestekstElement
                     ]);
 
                     // Stedfesting

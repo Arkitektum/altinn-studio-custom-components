@@ -191,6 +191,12 @@ export default class CustomDispensasjon extends CustomComponent {
             paragrafnummer: {
                 title: props?.resourceBindings?.paragrafnummer?.title || "resource.planbestemmelse.title"
             },
+            bestemmelsesoverskrift: {
+                title: props?.resourceBindings?.bestemmelsesoverskrift?.title || "resource.overskrift.title"
+            },
+            bestemmelsestekst: {
+                title: props?.resourceBindings?.bestemmelsestekst?.title || "resource.bestemmelsestekst.title"
+            },
             stedfesting: {
                 title: props?.resourceBindings?.stedfesting?.title || "resource.stedfesting.title"
             },

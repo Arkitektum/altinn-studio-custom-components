@@ -561,6 +561,62 @@ export function renderParagrafnummer(component?: InstantiatedComponent | null) {
 }
 
 /**
+ * Renders the "Bestemmelsesoverskrift" custom field component.
+ *
+ * This function creates a custom element for displaying the heading of a plan determination,
+ * using resource bindings and values from the provided component object.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing plan determination information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
+ */
+export function renderBestemmelsesoverskrift(component?: InstantiatedComponent | null) {
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.bestemmelsesoverskrift?.title
+        },
+        resourceValues: {
+            data: data?.bestemmelsesoverskrift
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
+ * Renders the "Bestemmelsestekst" custom field component.
+ *
+ * This function creates a custom element for displaying the text of a plan determination,
+ * using resource bindings and values from the provided component object.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {Object} [component?.resourceValues] - The resource values associated with the component.
+ * @param {Object} [component?.resourceValues.data] - The data object containing plan determination information.
+ * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
+ */
+export function renderBestemmelsestekst(component?: InstantiatedComponent | null) {
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        hideIfEmpty: true,
+        resourceBindings: {
+            title: component?.resourceBindings?.bestemmelsestekst?.title
+        },
+        resourceValues: {
+            data: data?.bestemmelsestekst
+        }
+    });
+    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
+}
+
+/**
  * Renders a custom header element for "stedfesting" (localization) sections.
  *
  * @param {Object} component - The component configuration object.
