@@ -41,6 +41,8 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var componentUsage: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var dataModelBindingDrift: any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var packageVersions: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var latestPackageVersions: any;

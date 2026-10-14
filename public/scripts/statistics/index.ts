@@ -18,6 +18,7 @@ import {
 import { redrawOpenPage, renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
 import { flattenAppLayouts } from "./displayLayoutHelpers.ts";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.ts";
+import { getDataModelBindingDriftForAllLayouts } from "./dataModelBindingHelpers.ts";
 
 export function getDataFromLocalStorage(): Record<string, ApiValue> {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
@@ -92,6 +93,7 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
     const flattenedLayouts = flattenAppLayouts(displayLayouts);
     const allTextResourceUsage = getAllTextResourceUsage(flattenedLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
     const componentUsage = getComponentUsageTreeForAllLayouts(flattenedLayouts);
+    const dataModelBindingDrift = getDataModelBindingDriftForAllLayouts(flattenedLayouts);
     addDataToGlobalThis({
         defaultTextResources,
         multilingualDefaultTextResources,
@@ -104,6 +106,7 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
         applicationMetadata,
         allTextResourceUsage,
         componentUsage,
+        dataModelBindingDrift,
         lastUpdated
     });
 }

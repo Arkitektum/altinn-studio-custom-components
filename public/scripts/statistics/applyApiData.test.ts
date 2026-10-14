@@ -44,6 +44,18 @@ describe("applyApiData", () => {
         expect(appsUsing("custom-field-data")).toEqual(["second-v1"]);
     });
 
+    it("works the data model binding drift out from the data it is given, every time it is called", () => {
+        const driftedApps = () =>
+            globalThis.dataModelBindingDrift
+                .find((component: ApiValue) => component.tagName === "custom-gjennomfoeringsplan")
+                .usages.map((usage: ApiValue) => usage.appName);
+        applyApiData(apiDataWithComponent("first-v1", "custom-gjennomfoeringsplan"), "2026-10-09T10:00:00.000Z");
+        expect(driftedApps()).toEqual(["first-v1"]);
+
+        applyApiData(apiDataWithComponent("second-v1", "custom-gjennomfoeringsplan"), "2026-10-09T11:00:00.000Z");
+        expect(driftedApps()).toEqual(["second-v1"]);
+    });
+
     it("works out the text resource usage and the app text resources in the default language", () => {
         applyApiData(apiDataWithComponent("first-v1", "custom-field-data"), "2026-10-09T10:00:00.000Z");
 

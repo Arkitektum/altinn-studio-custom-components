@@ -1,0 +1,101 @@
+import { getDataModelBindingDrift, getDataModelBindingDriftForAllLayouts } from "./dataModelBindingHelpers.ts";
+import CustomGjennomfoeringsplan from "../../../src/classes/system-classes/component-classes/CustomGjennomfoeringsplan.ts";
+
+import type { ApiValue, LayoutComponent } from "../types.ts";
+
+/** Binds each key to a path of the same name, which is all the check looks at. */
+function bindingsFor(keys: string[]) {
+    return Object.fromEntries(keys.map((key) => [key, `model.${key}`]));
+}
+
+const gjennomfoeringsplanKeys = CustomGjennomfoeringsplan.dataModelBindingKeys.expected;
+
+function gjennomfoeringsplan(id: string, keys: string[]): LayoutComponent {
+    return { id, type: "Custom", tagName: "custom-gjennomfoeringsplan", dataModelBindings: bindingsFor(keys) };
+}
+
+function layoutWith(components: LayoutComponent[], extra: Record<string, unknown> = {}) {
+    return { appOwner: "dibk", appName: "app-v1", layoutName: "DisplayLayout", ...extra, layout: { data: { layout: components } } };
+}
+
+function usagesFor(result: ApiValue[], tagName: string) {
+    return result.find((entry) => entry.tagName === tagName)?.usages;
+}
+
+describe("getDataModelBindingDrift", () => {
+    const bindingKeys = { expected: ["a", "b", "c"], deprecated: { old: "Renamed to a" } };
+
+    it("sorts the keys a layout binds into missing, deprecated and unknown", () => {
+        const drift = getDataModelBindingDrift({ dataModelBindings: bindingsFor(["a", "old", "typo"]) }, bindingKeys);
+        expect(drift).toEqual({ missing: ["b", "c"], deprecated: [{ key: "old", hint: "Renamed to a" }], unknown: ["typo"] });
+    });
+
+    it("reports every expected key as missing when the layout binds nothing", () => {
+        expect(getDataModelBindingDrift({}, bindingKeys)).toEqual({ missing: ["a", "b", "c"], deprecated: [], unknown: [] });
+    });
+
+    it("finds nothing when the layout binds exactly the expected keys", () => {
+        expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["c", "a", "b"]) }, bindingKeys)).toEqual({
+            missing: [],
+            deprecated: [],
+            unknown: []
+        });
+    });
+
+    it("does not take a key inherited from Object.prototype for a deprecated one", () => {
+        expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["a", "b", "c", "toString"]) }, bindingKeys).unknown).toEqual(["toString"]);
+    });
+});
+
+describe("getDataModelBindingDriftForAllLayouts", () => {
+    it("reports a use whose layout binds other keys than the component reads, with where it is", () => {
+        const keysWithoutFirst = gjennomfoeringsplanKeys.slice(1);
+        const result = getDataModelBindingDriftForAllLayouts([layoutWith([gjennomfoeringsplan("plan", [...keysWithoutFirst, "typo"])])]);
+        expect(usagesFor(result, "custom-gjennomfoeringsplan")).toEqual([
+            {
+                id: "plan",
+                appOwner: "dibk",
+                appName: "app-v1",
+                layoutName: "DisplayLayout",
+                missing: [gjennomfoeringsplanKeys[0]],
+                deprecated: [],
+                unknown: ["typo"]
+            }
+        ]);
+    });
+
+    it("leaves out a use whose layout binds exactly what the component reads, and keeps the component", () => {
+        const result = getDataModelBindingDriftForAllLayouts([layoutWith([gjennomfoeringsplan("plan", gjennomfoeringsplanKeys)])]);
+        expect(usagesFor(result, "custom-gjennomfoeringsplan")).toEqual([]);
+    });
+
+    it("lists every component that declares its keys, even one no layout uses, and no component that does not", () => {
+        const tagNames = getDataModelBindingDriftForAllLayouts([]).map((entry: ApiValue) => entry.tagName);
+        expect(tagNames).toEqual(["custom-dispensasjon", "custom-dispensasjonsvarsel", "custom-gjennomfoeringsplan", "custom-gjenpart-nabovarsel"]);
+    });
+
+    it("names the subform on a use in a subform layout, and nothing on a use in a main layout", () => {
+        const result = getDataModelBindingDriftForAllLayouts([
+            layoutWith([gjennomfoeringsplan("main", [])]),
+            layoutWith([gjennomfoeringsplan("sub", [])], { layoutName: "sub-v1", isSubform: true, subformAppName: "sub-v1" })
+        ]);
+        const usages = usagesFor(result, "custom-gjennomfoeringsplan");
+        expect(Object.keys(usages.find((usage: ApiValue) => usage.id === "main"))).not.toContain("subformAppName");
+        expect(usages.find((usage: ApiValue) => usage.id === "sub").subformAppName).toBe("sub-v1");
+    });
+
+    it("checks a tag name written in capitals, and skips components that are not custom", () => {
+        const result = getDataModelBindingDriftForAllLayouts([
+            layoutWith([
+                { ...gjennomfoeringsplan("capitals", []), tagName: "CUSTOM-GJENNOMFOERINGSPLAN" },
+                { ...gjennomfoeringsplan("not-custom", []), type: "Summary2" }
+            ])
+        ]);
+        expect(usagesFor(result, "custom-gjennomfoeringsplan").map((usage: ApiValue) => usage.id)).toEqual(["capitals"]);
+    });
+
+    it("skips a layout without components", () => {
+        const result = getDataModelBindingDriftForAllLayouts([{ appOwner: "dibk", appName: "app-v1", layout: {} }]);
+        expect(usagesFor(result, "custom-gjennomfoeringsplan")).toEqual([]);
+    });
+});
