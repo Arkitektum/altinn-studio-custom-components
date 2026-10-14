@@ -24,7 +24,7 @@ __metadata:
     "@eslint/js": "npm:^10.0.1"
     "@jest/globals": "npm:^30.5.2"
     "@microsoft/eslint-formatter-sarif": "npm:^3.1.0"
-    ajv: "npm:^8"
+    ajv: "npm:^8.20.0"
     babel-loader: "npm:^10.1.1"
     copyfiles: "npm:^2.4.1"
     css-loader: "npm:^7.1.5"
@@ -3709,7 +3709,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8, ajv@npm:^8.0.0, ajv@npm:^8.20.0":
+"ajv@npm:^8.0.0, ajv@npm:^8.20.0":
   version: 8.20.0
   resolution: "ajv@npm:8.20.0"
   dependencies:
