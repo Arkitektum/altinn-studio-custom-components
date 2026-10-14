@@ -1,4 +1,4 @@
-import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
 // Dependencies
 
 // Classes
@@ -28,6 +28,21 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - The resource values for the component, including data or empty field text.
  */
 export default class CustomGjenpartNabovarsel extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: [
+            "ansvarligSoeker",
+            "dispensasjonOversikt",
+            "eiendomByggested",
+            "kontaktpersonForNabovarselet",
+            "metadata",
+            "naboGjenboerEiendommer",
+            "planer",
+            "soeknadGjelder",
+            "tiltakshaver"
+        ],
+        deprecated: {}
+    };
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: GjenpartNabovarsel | string };
 

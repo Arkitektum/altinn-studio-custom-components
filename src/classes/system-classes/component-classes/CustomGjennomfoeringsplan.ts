@@ -1,4 +1,4 @@
-import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
 // Dependencies
 
 // Classes
@@ -28,6 +28,19 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - The resource values, including data or empty field text.
  */
 export default class CustomGjennomfoeringsplan extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: [
+            "ansvarligSoeker",
+            "ansvarligSoekerTiltaksklasse",
+            "eiendomByggested",
+            "gjennomfoeringsplan",
+            "kommunensSaksnummer",
+            "metadata",
+            "versjon"
+        ],
+        deprecated: {}
+    };
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: Gjennomfoeringsplan | string };
 

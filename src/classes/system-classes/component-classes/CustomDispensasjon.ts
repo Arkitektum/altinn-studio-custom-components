@@ -1,4 +1,4 @@
-import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -32,6 +32,41 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Values for resource bindings, including fallback for empty data.
  */
 export default class CustomDispensasjon extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: [
+            "begrunnelse",
+            "beregningsregelGradAvUtnytting",
+            "bestemmelsesoverskrift",
+            "bestemmelsestekst",
+            "bestemmelsestype",
+            "dispensasjonsbeskrivelse",
+            "dispensasjonsreferanse",
+            "dispensasjonstema",
+            "eiendomByggested",
+            "generelleVilkaar",
+            "gradAvUtnytting",
+            "kommunensSaksnummer",
+            "metadata",
+            "nasjonalArealplanId",
+            "paragrafnummer",
+            "plannavn",
+            "stedfesting",
+            "tiltakshaver",
+            "tiltakstyper",
+            "varighet"
+        ],
+        // Removed when the sub-form schema changed on 2026-03-31, except soeknadGjelder, which was renamed in May 2025.
+        deprecated: {
+            ansvarligSoeker: "No longer shown in a dispensasjon",
+            dispensasjonBeskrivelse: "Replaced by dispensasjonsbeskrivelse",
+            dispensasjonFra:
+                "Replaced by bestemmelsestype, nasjonalArealplanId, plannavn, paragrafnummer, bestemmelsesoverskrift and bestemmelsestekst",
+            dispensasjonReferanse: "Renamed to dispensasjonsreferanse",
+            soeknadGjelder: "Renamed to tiltakstyper",
+            soeknadstype: "No longer shown in a dispensasjon"
+        }
+    };
+
     declare resourceValues: { data?: Dispensasjon | string };
 
     constructor(props: ComponentProps) {

@@ -63,6 +63,16 @@ export interface ResourceBindingGroup {
 }
 
 /**
+ * The `dataModelBindings` keys a component reads, which is what each app's layout files are checked against.
+ *
+ * `deprecated` holds keys the component no longer reads, each mapped to a hint saying what replaced it, so a layout that still binds one can be told what to change.
+ */
+export interface DataModelBindingKeys {
+    expected: string[];
+    deprecated: Record<string, string>;
+}
+
+/**
  * Everything a component can be configured with, which is what an element's attributes are read into and what a
  * component class is constructed from.
  *

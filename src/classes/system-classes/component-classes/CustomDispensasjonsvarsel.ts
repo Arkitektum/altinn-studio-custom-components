@@ -1,4 +1,4 @@
-import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -31,6 +31,20 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @returns {CustomDispensasjonsvarsel} An instance of the CustomDispensasjonsvarsel class with properties and methods for managing dispensation notice data and behavior.
  */
 export default class CustomDispensasjonsvarsel extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: [
+            "annetTema",
+            "bestemmelsesoverskrift",
+            "bestemmelsestekst",
+            "bestemmelsestype",
+            "dispVarselBeskrivelse",
+            "dispensasjonstema",
+            "paragrafnummer",
+            "plannavn"
+        ],
+        deprecated: {}
+    };
+
     // Which of the three kinds of dispensasjon this one is, worked out once so the renderer need not ask again.
     declare isPlanBestemmelsesType: boolean;
     declare isAndrePlanbestemmelser: boolean;
