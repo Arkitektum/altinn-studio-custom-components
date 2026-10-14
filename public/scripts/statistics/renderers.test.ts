@@ -118,7 +118,13 @@ describe("renderAdminSidebar", () => {
         const buttons = Array.from(document.querySelectorAll("#sidebar button"));
         expect(buttons.length > 0).toBe(true);
         expect(buttons.every((button) => (button.firstChild as Element | null)?.classList?.contains("icon"))).toBe(true);
-        expect(buttons.map((button) => button.textContent)).toEqual(["Resource usage", "Component usage", "Package versions", "Display layouts"]);
+        expect(buttons.map((button) => button.textContent)).toEqual([
+            "Resource usage",
+            "Component usage",
+            "Data model bindings",
+            "Package versions",
+            "Display layouts"
+        ]);
     });
 });
 

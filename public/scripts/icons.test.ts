@@ -2,7 +2,7 @@ import type { IconName } from "./icons.ts";
 
 import { createIcon, setIconLabel } from "./icons.ts";
 
-const iconNames: IconName[] = ["book", "components", "database", "layout", "package", "sort", "trash"];
+const iconNames: IconName[] = ["book", "components", "database", "layout", "link", "package", "sort", "trash"];
 
 describe("createIcon", () => {
     it.each(iconNames)("draws %s as an SVG outline in the text colour, hidden from assistive technology", (name) => {

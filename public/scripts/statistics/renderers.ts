@@ -22,6 +22,11 @@ import {
     renderUsageFilterForComponentUsageList
 } from "./componentUsageRenderers.ts";
 import {
+    filterDataModelBindingDriftBySelectedFilters,
+    renderDataModelBindingDriftFilters,
+    renderDataModelBindingDriftList
+} from "./dataModelBindingRenderers.ts";
+import {
     filterTextResourcesBySelectedFilters,
     renderDefaultTextResourcesList,
     renderSelectApplicationFilterForTextResourcesList,
@@ -94,6 +99,37 @@ export function renderResourceUsagePage(containerElement: HTMLElement, { keepFil
     // Filtered only when the choices were kept. A fresh visit shows the whole list, as it always has.
     const listedTextResources = keepFilters ? filterTextResourcesBySelectedFilters(allTextResourceUsage) : allTextResourceUsage;
     containerElement.appendChild(renderDefaultTextResourcesList(listedTextResources, allTextResourceUsage));
+}
+
+/**
+ * Renders the data model bindings page: for each component that declares the bindings it reads, the uses whose layouts bind other keys, by app and layout.
+ *
+ * Opened from the sidebar, every filter starts at its default. With `keepFilters` the filters keep the choices made before, which is how the page is drawn again after a synchronization. A choice that is no longer offered falls back to its default.
+ *
+ * @param {HTMLElement} containerElement - The element the page is drawn in.
+ * @param {Object} [options]
+ * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
+ */
+export function renderDataModelBindingsPage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    drawOpenPageAgain = () => {
+        containerElement.innerHTML = "";
+        renderDataModelBindingsPage(containerElement, { keepFilters: true });
+    };
+    const dataModelBindingDrift = globalThis.dataModelBindingDrift;
+    const applications = getAppEntries(globalThis.displayLayouts);
+
+    if (!keepFilters) {
+        globalThis.bindingDriftSelectedAppOwner = "";
+        globalThis.bindingDriftSelectedAppName = "";
+        globalThis.bindingDriftSelectedForm = "";
+        globalThis.bindingDriftFindingFilter = "";
+    }
+
+    const titleElement = document.createElement("h2");
+    titleElement.textContent = "Data model bindings";
+    containerElement.appendChild(titleElement);
+    containerElement.append(...renderDataModelBindingDriftFilters(containerElement, dataModelBindingDrift, applications));
+    containerElement.appendChild(renderDataModelBindingDriftList(filterDataModelBindingDriftBySelectedFilters(dataModelBindingDrift)));
 }
 
 /**
@@ -990,6 +1026,16 @@ export function renderAdminSidebar() {
     };
     componentUsageListItem.appendChild(componentUsageButton);
     sidebarList.appendChild(componentUsageListItem);
+
+    const dataModelBindingsListItem = document.createElement("li");
+    const dataModelBindingsButton = document.createElement("button");
+    setIconLabel(dataModelBindingsButton, "link", "Data model bindings");
+    dataModelBindingsButton.onclick = () => {
+        mainElement!.innerHTML = "";
+        renderDataModelBindingsPage(mainElement!);
+    };
+    dataModelBindingsListItem.appendChild(dataModelBindingsButton);
+    sidebarList.appendChild(dataModelBindingsListItem);
 
     const packageVersionsListItem = document.createElement("li");
     const packageVersionsButton = document.createElement("button");

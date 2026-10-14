@@ -58,7 +58,7 @@ export const MAIN_FORM_FILTER_VALUE = ":main";
  * @param {string} form - `MAIN_FORM_FILTER_VALUE` for the main form, otherwise the subform app's name.
  * @returns {boolean} True if the layout is the selected form.
  */
-function isSelectedForm(layout: ApiValue, form: string) {
+export function isSelectedForm(layout: ApiValue, form: string) {
     return form === MAIN_FORM_FILTER_VALUE ? !layout?.subformAppName : layout?.subformAppName === form;
 }
 

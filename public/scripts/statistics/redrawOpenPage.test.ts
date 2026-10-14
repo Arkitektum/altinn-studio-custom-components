@@ -1,4 +1,11 @@
-import { redrawOpenPage, renderAdminSidebar, renderComponentUsagePage, renderPackageVersionsPage, renderResourceUsagePage } from "./renderers.ts";
+import {
+    redrawOpenPage,
+    renderAdminSidebar,
+    renderComponentUsagePage,
+    renderDataModelBindingsPage,
+    renderPackageVersionsPage,
+    renderResourceUsagePage
+} from "./renderers.ts";
 
 /**
  * The pages are drawn for real here, with nothing mocked, since what is under test is that each one comes back from
@@ -84,6 +91,55 @@ describe("redrawOpenPage", () => {
         expect((main.querySelector("#component-form-filter-select") as HTMLSelectElement).value).toBe("sub-v1");
         expect(Array.from(main.querySelectorAll("#component-usage-list .component-tag-name")).map((node) => node.textContent)).toEqual([
             "custom-field-data"
+        ]);
+    });
+
+    it("draws Data model bindings again from the new data, keeping the app and finding chosen on it", () => {
+        const bindingUsage = (id: string, appName: string, missing: string[]) => ({
+            id,
+            appOwner: "o",
+            appName,
+            layoutName: "DisplayLayout",
+            missing,
+            deprecated: [],
+            unknown: []
+        });
+        globalThis.dataModelBindingDrift = [{ tagName: "custom-dispensasjon", usages: [bindingUsage("before", "a", ["plannavn"])] }];
+        renderDataModelBindingsPage(main);
+        choose(main.querySelector("#binding-drift-application-filter-select") as HTMLSelectElement, "o/a");
+        choose(main.querySelector("#binding-drift-finding-filter-select") as HTMLSelectElement, "missing");
+
+        globalThis.dataModelBindingDrift = [
+            { tagName: "custom-dispensasjon", usages: [bindingUsage("after-a", "a", ["plannavn"]), bindingUsage("after-b", "b", ["metadata"])] }
+        ];
+        redrawOpenPage();
+
+        expect((main.querySelector("#binding-drift-application-filter-select") as HTMLSelectElement).value).toBe("o/a");
+        expect((main.querySelector("#binding-drift-finding-filter-select") as HTMLSelectElement).value).toBe("missing");
+        expect(Array.from(main.querySelectorAll(".binding-drift-usage-id")).map((node) => node.textContent)).toEqual(["after-a"]);
+        expect(main.querySelectorAll("h2").length).toBe(1);
+    });
+
+    it("opens Data model bindings from the sidebar with every filter reset", () => {
+        globalThis.dataModelBindingDrift = [];
+        Object.assign(globalThis, {
+            bindingDriftSelectedAppOwner: "o",
+            bindingDriftSelectedAppName: "a",
+            bindingDriftSelectedForm: ":main",
+            bindingDriftFindingFilter: "unknown"
+        });
+        renderAdminSidebar();
+        (
+            Array.from(document.querySelectorAll("#sidebar button")).find(
+                (button) => button.textContent === "Data model bindings"
+            ) as HTMLButtonElement
+        ).click();
+
+        expect(main.querySelector("h2")!.textContent).toBe("Data model bindings");
+        expect([globalThis.bindingDriftSelectedAppName, globalThis.bindingDriftSelectedForm, globalThis.bindingDriftFindingFilter]).toEqual([
+            "",
+            "",
+            ""
         ]);
     });
 

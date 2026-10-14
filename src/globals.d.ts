@@ -65,6 +65,10 @@ declare global {
     var componentSelectedAppOwner: string | undefined;
     var componentSelectedAppName: string | undefined;
     var componentSelectedForm: string | undefined;
+    var bindingDriftSelectedAppOwner: string | undefined;
+    var bindingDriftSelectedAppName: string | undefined;
+    var bindingDriftSelectedForm: string | undefined;
+    var bindingDriftFindingFilter: string | undefined;
 }
 
 export {};

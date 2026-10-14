@@ -821,6 +821,31 @@ svg.icon {
                                         border-bottom: 1px solid var(--color-border-dark-highlight);
                                     }
                                 }
+                                /* One use on the Data model bindings page: its id, then one row per kind of finding. */
+                                & .binding-drift-usage {
+                                    padding-top: 6px;
+                                    padding-bottom: 6px;
+                                    & dl.binding-drift-findings {
+                                        display: grid;
+                                        grid-template-columns: max-content 1fr;
+                                        gap: 2px 12px;
+                                        margin: 4px 0 0;
+                                        & dt {
+                                            font-weight: 600;
+                                            color: var(--color-text-white-muted);
+                                        }
+                                        & dt.binding-drift-missing {
+                                            color: var(--color-error-default);
+                                        }
+                                        & dd {
+                                            margin: 0;
+                                            font-weight: 400;
+                                            /* Wrap between keys, and inside one only when it is longer than the line. */
+                                            line-break: auto;
+                                            overflow-wrap: anywhere;
+                                        }
+                                    }
+                                }
                                 & details {
                                     border: 1px solid transparent;
                                     margin-bottom: -1px;
