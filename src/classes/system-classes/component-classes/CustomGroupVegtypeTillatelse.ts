@@ -10,6 +10,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupVegtypeTillatelse is a custom component class for handling group data related to "vegtype tillatelse" (road type permission).
  *
@@ -40,6 +43,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Values for resources, including data or empty field text.
  */
 export default class CustomGroupVegtypeTillatelse extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: VegtypeTillatelse | string };
 

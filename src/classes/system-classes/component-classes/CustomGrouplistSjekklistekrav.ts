@@ -11,6 +11,9 @@ import Sjekklistekrav from "../../data-classes/Sjekklistekrav.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistSjekklistekrav is a custom component class for handling grouped checklist requirements.
  * It extends the CustomComponent base class and provides logic for resource bindings, validation messages,
@@ -33,6 +36,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 
 export default class CustomGrouplistSjekklistekrav extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; description?: unknown; data?: Sjekklistekrav[] | string };
     declare resourceBindings: ResourceBindingGroup;
 

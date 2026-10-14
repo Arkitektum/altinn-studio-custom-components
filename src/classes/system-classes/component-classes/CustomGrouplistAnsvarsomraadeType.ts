@@ -8,6 +8,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistAnsvarsomraadeType is a custom component class for handling grouped list data
  * related to "Ansvarsområde" (area of responsibility) in Altinn Studio custom components.
@@ -25,6 +28,8 @@ export interface AnsvarsomraadeGroupItem {
 }
 
 export default class CustomGrouplistAnsvarsomraadeType extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: unknown };
 

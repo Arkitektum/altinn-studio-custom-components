@@ -10,6 +10,9 @@ import Omraaderisiko from "../../data-classes/Omraaderisiko.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTableOmraaderisiko is a custom component class for handling "omraaderisiko" table data and resource bindings.
  *
@@ -31,6 +34,8 @@ export interface OmraaderisikoFields {
 }
 
 export default class CustomTableOmraaderisiko extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

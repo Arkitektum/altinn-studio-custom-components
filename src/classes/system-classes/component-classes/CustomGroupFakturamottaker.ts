@@ -11,6 +11,9 @@ import Fakturamottaker from "../../data-classes/Fakturamottaker.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupFakturamottaker gathers the fields of an invoice recipient into one component, so a form author binds
  * the whole object once instead of writing a field component per property.
@@ -28,6 +31,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Values for text resources, including title and data.
  */
 export default class CustomGroupFakturamottaker extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: Fakturamottaker | string };
 

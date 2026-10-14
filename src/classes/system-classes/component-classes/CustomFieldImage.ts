@@ -8,6 +8,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldImage renders an image (PNG/JPEG/SVG/…) from a source string.
  *
@@ -29,6 +32,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {string} alt - The alt text for the image.
  */
 export default class CustomFieldImage extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     /** The alt text, kept apart from the resource values because the element takes it as its own attribute. */
     declare alt: string | undefined;
 

@@ -9,6 +9,9 @@ import ValidationMessages from "../ValidationMessages.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFeedbacklistValidationMessages is a custom component class responsible for handling
  * validation messages for feedback lists. It extends the CustomComponent base class and
@@ -24,6 +27,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Contains the validation messages data.
  */
 export default class CustomFeedbacklistValidationMessages extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: ValidationMessages };
 
     constructor(props: ComponentProps) {

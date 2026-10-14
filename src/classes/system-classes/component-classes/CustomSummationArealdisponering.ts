@@ -12,6 +12,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomSummationArealdisponering is a custom component class for handling area disposition summation logic.
  * It processes form data, manages resource bindings, and provides validation for arealdisponering (area disposition) fields.
@@ -36,6 +39,8 @@ export interface ArealdisponeringSummationFields {
 }
 
 export default class CustomSummationArealdisponering extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: ArealdisponeringSummation | string };
     declare resourceBindings: ResourceBindingGroup;
 

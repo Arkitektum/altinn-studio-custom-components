@@ -9,6 +9,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * Initializes a new instance of the CustomGrouplistSamsvarAnsvarsomraade class.
  *
@@ -23,6 +26,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - The resolved text resources for the component.
  */
 export default class CustomGrouplistSamsvarAnsvarsomraade extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

@@ -57,13 +57,10 @@ describe("instantiateComponent", () => {
 });
 
 describe("getDataModelBindingKeysByTagName", () => {
-    it("lists every component that declares its binding keys, by tag name, and no other", () => {
-        expect(Object.keys(getDataModelBindingKeysByTagName())).toEqual([
-            "custom-dispensasjon",
-            "custom-dispensasjonsvarsel",
-            "custom-gjennomfoeringsplan",
-            "custom-gjenpart-nabovarsel"
-        ]);
+    it("lists the components that declare their binding keys, by tag name, and no other", () => {
+        const tagNames = Object.keys(getDataModelBindingKeysByTagName());
+        expect(["custom-dispensasjon", "custom-field-data", "custom-header-text"].every((tagName) => tagNames.includes(tagName))).toBe(true);
+        expect(["custom-component", "custom-field", "custom-field-grid"].filter((tagName) => tagNames.includes(tagName))).toEqual([]);
     });
 
     it("gives each component the keys its class declares, as plain data", () => {

@@ -9,6 +9,9 @@ import KommunensSaksnummer from "../../data-classes/KommunensSaksnummer.ts";
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldKommunensSaksnummer is a custom component class for handling and displaying
  * 'kommunens saksnummer' (the municipality's case number) in a formatted way.
@@ -30,6 +33,8 @@ import { getComponentDataValue, getComponentResourceValue } from "../../../funct
  * @property {string} resourceValues.data - The formatted 'kommunens saksnummer' or empty field text.
  */
 export default class CustomFieldKommunensSaksnummer extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {

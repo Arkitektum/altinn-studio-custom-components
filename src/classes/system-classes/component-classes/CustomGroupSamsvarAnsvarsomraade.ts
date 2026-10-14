@@ -11,6 +11,9 @@ import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * Initializes a new instance of the CustomGroupSamsvarAnsvarsomraade class.
  *
@@ -25,6 +28,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - The resource values, including data or empty field text.
  */
 export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: SamsvarAnsvarsomraade | string };
 

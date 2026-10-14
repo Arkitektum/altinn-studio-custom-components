@@ -11,6 +11,9 @@ import Loefteinnretninger from "../../data-classes/Loefteinnretninger.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupLoefteinnretninger is a custom component class for handling lift-related groupings in forms.
  * It manages resource bindings, validation messages, and data extraction for Loefteinnretninger components.
@@ -30,6 +33,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Resource values including title and data for the component.
  */
 export default class CustomGroupLoefteinnretninger extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: Loefteinnretninger | string };
 

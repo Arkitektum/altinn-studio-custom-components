@@ -74,8 +74,8 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
     });
 
     describe("getValueFromFormData", () => {
-        it("should call getComponentDataValue and getAnsvarsomraadeListFromData", () => {
-            const props = { formData: { a: 1 } };
+        it("hands only data on to getComponentDataValue, since simpleBinding means something else here", () => {
+            const props = { formData: { simpleBinding: "true", data: [{ foo: "bar" }] } };
             const resourceBindings = {};
             const fakeData = [{ foo: "bar" }];
             const fakeList = ["ansvarsomraade1"];
@@ -88,7 +88,7 @@ describe("CustomTableAnsvarsrettAnsvarsomraade", () => {
 
             expect(helpers.getComponentDataValue).toHaveBeenCalledWith({
                 ...props,
-                formData: { a: 1 }
+                formData: { data: [{ foo: "bar" }] }
             });
             expect(instance.getAnsvarsomraadeListFromData).toHaveBeenCalledWith(fakeData, resourceBindings);
             expect(result).toBe(fakeList);

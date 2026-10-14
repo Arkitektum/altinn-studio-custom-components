@@ -11,6 +11,9 @@ import Sjekklistekrav from "../../data-classes/Sjekklistekrav.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupSjekklistekrav is a specialized component class for handling "Sjekklistekrav" group logic.
  * It extends CustomComponent and manages resource bindings, validation messages, and content state.
@@ -32,6 +35,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Contains either the empty field text or the component data.
  */
 export default class CustomGroupSjekklistekrav extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: ResourceBindingGroup;
     declare resourceValues: { data?: Sjekklistekrav | string };
 

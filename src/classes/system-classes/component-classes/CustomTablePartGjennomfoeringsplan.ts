@@ -9,6 +9,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTablePartGjennomfoeringsplan is a specialized component class for rendering a part table
  * within the "Gjennomføringsplan" context. It displays the responsible applicant's name and
@@ -36,6 +39,8 @@ export interface GjennomfoeringsplanPart {
 }
 
 export default class CustomTablePartGjennomfoeringsplan extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

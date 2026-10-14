@@ -11,6 +11,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldAdresse is a custom component class for handling and formatting address data.
  * It provides methods to format address lines, zip code and city, municipality name, and to retrieve
@@ -43,6 +46,8 @@ export interface AdresseFields {
 }
 
 export default class CustomFieldAdresse extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {

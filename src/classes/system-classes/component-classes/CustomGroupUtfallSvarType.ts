@@ -8,6 +8,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupUtfallSvarType is a custom component class that handles the logic for displaying
  * and validating a group outcome answer type within a form. It extends the CustomComponent base class
@@ -24,6 +27,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Contains resource values for rendering, such as title and data.
  */
 export default class CustomGroupUtfallSvarType extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: unknown };
 

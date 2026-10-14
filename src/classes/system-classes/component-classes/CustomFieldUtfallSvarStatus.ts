@@ -11,6 +11,9 @@ import UtfallSvarStatus from "../../data-classes/UtfallSvarStatus.ts";
 import { getComponentDataValue, getComponentResourceValue, validateTexts } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldUtfallSvarStatus is a custom component class for handling the display and validation
  * of "utfall svar status" (outcome answer status) in a form. It manages resource bindings,
@@ -29,6 +32,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  *
  */
 export default class CustomFieldUtfallSvarStatus extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {

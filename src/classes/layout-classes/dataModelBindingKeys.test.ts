@@ -38,19 +38,9 @@ const layoutComponents: [name: string, bindingKeys: DataModelBindingKeys, Layout
 ];
 
 describe("dataModelBindingKeys on layout components", () => {
-    it.each(layoutComponents)("%s expects exactly the keys its layout class reads", (_name, bindingKeys, LayoutClass) => {
-        expect([...bindingKeys.expected].sort()).toEqual(getKeysReadByConstructor(LayoutClass));
-    });
-
-    it.each(layoutComponents)("%s lists no key as both expected and deprecated", (_name, bindingKeys) => {
-        const deprecatedAndExpected = Object.keys(bindingKeys.deprecated).filter((key) => bindingKeys.expected.includes(key));
-        expect(deprecatedAndExpected).toEqual([]);
-    });
-
-    it.each(layoutComponents)("%s gives every deprecated key a hint", (_name, bindingKeys) => {
-        const keysWithoutHint = Object.entries(bindingKeys.deprecated)
-            .filter(([, hint]) => !hint.trim())
-            .map(([key]) => key);
-        expect(keysWithoutHint).toEqual([]);
+    // The shape of every list, these included, is checked in src/classes/system-classes/component-classes/dataModelBindingKeys.test.ts.
+    it.each(layoutComponents)("%s declares exactly the keys its layout class reads", (_name, bindingKeys, LayoutClass) => {
+        const { expected, oneOf = [], optional = [] } = bindingKeys;
+        expect([...expected, ...oneOf.flat(), ...optional].sort()).toEqual(getKeysReadByConstructor(LayoutClass));
     });
 });

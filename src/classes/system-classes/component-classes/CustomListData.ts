@@ -7,6 +7,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomListData is a custom component class that handles list data extraction and resource value management.
  * It extends the CustomComponent class and provides utility methods for working with form data and list items.
@@ -25,6 +28,8 @@ import { getComponentDataValue, getComponentResourceValue } from "../../../funct
  * @method getValueFromFormData Retrieves a value from the form data based on the provided props.
  */
 export default class CustomListData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

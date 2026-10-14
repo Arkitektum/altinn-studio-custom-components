@@ -9,6 +9,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistUtfallSvar is a custom component class for handling group list responses with resource bindings and validation.
  *
@@ -30,6 +33,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 
 export default class CustomGrouplistUtfallSvar extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

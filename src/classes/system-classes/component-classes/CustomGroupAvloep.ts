@@ -11,6 +11,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupAvloep is a specialized component class for handling Avloep-related form data and resource bindings.
  * It extends CustomComponent and provides logic for extracting, validating, and presenting Avloep data.
@@ -33,6 +36,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @method getResourceBindings Generates resource binding objects for various component fields based on provided props.
  */
 export default class CustomGroupAvloep extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: Avloep | string };
 

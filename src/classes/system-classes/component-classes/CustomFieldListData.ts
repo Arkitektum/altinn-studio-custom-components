@@ -8,6 +8,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /** One entry of the list this component builds: a title and the value it labels, each taken from its own key. */
 export interface FieldListItem {
     title: unknown;
@@ -42,6 +45,8 @@ export interface FieldListItem {
  * @returns {Array|undefined} Array of objects with title and item properties, or undefined if keys are missing.
  */
 export default class CustomFieldListData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     /** Only set when the component resolved a list, which is what leaves an unset one absent. */
     declare resourceValues?: { data?: FieldListItem[] };
 

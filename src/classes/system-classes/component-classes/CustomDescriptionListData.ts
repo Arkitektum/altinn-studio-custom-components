@@ -9,6 +9,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 import { formatString } from "../../../functions/dataFormatHelpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomDescriptionListData is a custom component class for handling description list data.
  * It extends the CustomComponent class and provides methods to extract and transform data
@@ -29,6 +32,8 @@ export interface DescriptionListItem {
 }
 
 export default class CustomDescriptionListData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

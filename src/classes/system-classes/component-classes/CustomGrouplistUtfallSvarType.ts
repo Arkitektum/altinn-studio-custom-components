@@ -10,6 +10,9 @@ import UtfallSvar from "../../data-classes/UtfallSvar.ts";
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistUtfallSvarType is a custom component class that extends CustomComponent.
  * It processes form data, groups array items by their "UtfallType", and manages resource values for display.
@@ -23,6 +26,8 @@ import { getComponentDataValue, getComponentResourceValue } from "../../../funct
  *
  */
 export default class CustomGrouplistUtfallSvarType extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

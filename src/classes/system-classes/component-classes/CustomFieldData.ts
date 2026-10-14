@@ -1,4 +1,4 @@
-import type { ComponentProps } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -28,6 +28,14 @@ import { formatString } from "../../../functions/dataFormatHelpers.ts";
  * @property {*} resourceValues.data - The data to display, or empty field text if no data.
  */
 export default class CustomFieldData extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: [],
+        oneOf: [["simpleBinding", "data"]],
+        // Used as the field's title, in place of the title text resource, when a layout binds it.
+        optional: ["dataTitle"],
+        deprecated: {}
+    };
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

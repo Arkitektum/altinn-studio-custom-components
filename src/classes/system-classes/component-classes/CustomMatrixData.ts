@@ -11,6 +11,9 @@ import { hasValidationMessages, validateTableHeadersTextResourceBindings } from 
 import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomMatrixData is a custom component class for rendering and managing table data.
  * It handles extraction of matrix headers and rows from form data, manages validation messages,
@@ -33,6 +36,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @method hasContent Checks if the provided formData object contains matrix row data.
  */
 export default class CustomMatrixData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     /** Always set: the constructor works it out from the props, falling back to ascending. */
     declare order: ComponentOrder;
 

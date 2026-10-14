@@ -10,6 +10,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * Initializes a new instance of the CustomGroupAnsvarsrettErklaeringer class.
  *
@@ -23,6 +26,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Contains title and data for the component.
  */
 export default class CustomGroupAnsvarsrettErklaeringer extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: AnsvarsrettAnsvarsomraade[] | string };
 

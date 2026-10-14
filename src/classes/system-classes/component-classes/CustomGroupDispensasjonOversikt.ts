@@ -11,6 +11,9 @@ import DispensasjonOversikt from "../../data-classes/DispensasjonOversikt.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupDispensasjonOversikt is a custom component class that extends the base CustomComponent class.
  *
@@ -29,6 +32,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @returns {CustomGroupDispensasjonOversikt} An instance of CustomGroupDispensasjonOversikt initialized with the provided properties.
  */
 export default class CustomGroupDispensasjonOversikt extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: DispensasjonOversikt | string };
 

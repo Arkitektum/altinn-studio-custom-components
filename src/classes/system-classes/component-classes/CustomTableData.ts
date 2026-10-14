@@ -11,6 +11,9 @@ import { getTableHeaders, getTableRows } from "../../../functions/tableHelpers.t
 import { hasValidationMessages, validateTableHeadersTextResourceBindings } from "../../../functions/validations.ts";
 import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/tableDataHelpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTableData is a custom component class for rendering and managing table data.
  * It handles extraction of table headers and rows from form data, manages validation messages,
@@ -33,6 +36,8 @@ import { removeEmptyRows, sortRowsByKey as sortRows } from "../../../functions/t
  * @method hasContent Checks if the provided formData object contains table row data.
  */
 export default class CustomTableData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     /** Always set: the constructor works it out from the props, falling back to ascending. */
     declare order: ComponentOrder;
 

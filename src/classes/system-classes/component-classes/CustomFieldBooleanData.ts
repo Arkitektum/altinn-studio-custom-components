@@ -1,4 +1,4 @@
-import type { ComponentProps } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys } from "../../../types.ts";
 // Dependencies
 
 // Classes
@@ -33,6 +33,12 @@ import {
  * const customField = new CustomFieldBooleanData(props);
  */
 export default class CustomFieldBooleanData extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: ["trueData", "falseData", "defaultData"],
+        oneOf: [["simpleBinding", "data"]],
+        deprecated: {}
+    };
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

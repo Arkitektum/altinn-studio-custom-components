@@ -1,4 +1,4 @@
-import type { ComponentProps } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys } from "../../../types.ts";
 // Classes
 import CustomComponent from "../CustomComponent.ts";
 
@@ -19,6 +19,11 @@ import { getComponentDataTitle, getComponentResourceValue } from "../../../funct
  * @property {string} resourceValues.title - The title resource value.
  */
 export default class CustomHeaderTextData extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: ["dataTitle"],
+        deprecated: {}
+    };
+
     declare resourceValues: { title?: unknown };
 
     constructor(props: ComponentProps) {

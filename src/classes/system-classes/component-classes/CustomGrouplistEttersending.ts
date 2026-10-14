@@ -9,6 +9,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistEttersending is a custom component class for handling group list ettersending logic.
  * It manages resource bindings, validation messages, and content state for the component.
@@ -29,6 +32,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  */
 
 export default class CustomGrouplistEttersending extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: unknown };
 

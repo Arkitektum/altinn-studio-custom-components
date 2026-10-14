@@ -1,4 +1,4 @@
-import type { ComponentProps, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
 // Dependencies
 import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -32,6 +32,13 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  *
  */
 export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponent {
+    static dataModelBindingKeys: DataModelBindingKeys = {
+        expected: ["data"],
+        // Not in place of data here: a true value adds the column saying whether the area is covered by central approval.
+        optional: ["simpleBinding"],
+        deprecated: {}
+    };
+
     declare resourceValues: { title?: unknown; data?: AnsvarsrettAnsvarsomraade[] | string; simpleBinding?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 
@@ -65,9 +72,9 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
         props: ComponentProps,
         resourceBindings?: Record<string, ResourceBindingGroup | undefined>
     ): AnsvarsrettAnsvarsomraade[] | undefined {
-        const formDataWithoutSimpleBinding = { ...props.formData };
-        delete formDataWithoutSimpleBinding.simpleBinding;
-        const data = getComponentDataValue({ ...props, formData: formDataWithoutSimpleBinding });
+        // simpleBinding means something else here, so only data is handed on. Reading it by name, rather than copying the form data
+        // without simpleBinding, also lets the binding keys test see that data is read.
+        const data = getComponentDataValue({ ...props, formData: { data: props.formData?.data } });
         const ansvarsomraadeList = this.getAnsvarsomraadeListFromData(data, resourceBindings);
         return ansvarsomraadeList;
     }

@@ -68,10 +68,10 @@ export interface ResourceBindingGroup {
  * `expected` keys must all be bound. Each `oneOf` group needs exactly one of its keys bound, and when more are, the first bound key in the group is the one read, so the order is the component's own. `optional` keys may be bound or left out. `deprecated` holds keys the component no longer reads, each mapped to a hint saying what replaced it, so a layout that still binds one can be told what to change.
  */
 export interface DataModelBindingKeys {
-    expected: string[];
-    oneOf?: string[][];
-    optional?: string[];
-    deprecated: Record<string, string>;
+    readonly expected: readonly string[];
+    readonly oneOf?: readonly (readonly string[])[];
+    readonly optional?: readonly string[];
+    readonly deprecated: Readonly<Record<string, string>>;
 }
 
 /**

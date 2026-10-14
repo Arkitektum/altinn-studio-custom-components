@@ -8,6 +8,9 @@ import Vedlegg from "../../data-classes/Vedlegg.ts";
 // Global functions
 import { getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomListVedlegg is a custom component class for handling and displaying a list of attachments (vedlegg).
  *
@@ -28,6 +31,8 @@ export interface VedleggFields {
 }
 
 export default class CustomListVedlegg extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

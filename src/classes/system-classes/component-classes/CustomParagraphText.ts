@@ -8,6 +8,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { NO_DATA_MODEL_BINDINGS } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomParagraphText is a custom component class that handles paragraph text with localization support.
  * It extends the CustomComponent base class and manages resource values for the component's title.
@@ -21,6 +24,8 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Contains the localized or fallback title for the component.
  */
 export default class CustomParagraphText extends CustomComponent {
+    static dataModelBindingKeys = NO_DATA_MODEL_BINDINGS;
+
     declare resourceValues: { title?: unknown };
 
     constructor(props: ComponentProps) {

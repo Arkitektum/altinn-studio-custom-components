@@ -5,7 +5,12 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 // Classes
 import CustomComponent from "../CustomComponent.ts";
 
+// Constants
+import { NO_DATA_MODEL_BINDINGS } from "../../../constants/dataModelBindingKeys.ts";
+
 export default class CustomGroupSjekklistekravHeaderText extends CustomComponent {
+    static dataModelBindingKeys = NO_DATA_MODEL_BINDINGS;
+
     declare resourceBindings: ResourceBindingGroup;
     declare resourceValues: { data?: { sjekklistepunkt?: string; sjekklistepunktsvar?: string } | string };
 

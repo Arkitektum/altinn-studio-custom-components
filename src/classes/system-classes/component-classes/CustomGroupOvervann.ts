@@ -11,6 +11,9 @@ import Overvann from "../../data-classes/Overvann.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupOvervann is a custom component class for handling "overvann" (stormwater) group data.
  * It extends CustomComponent and provides logic for extracting, validating, and binding resources
@@ -34,6 +37,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @method getResourceBindings Generates resource bindings for component properties, providing default values if not specified.
  */
 export default class CustomGroupOvervann extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: Overvann | string };
 

@@ -5,6 +5,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZero } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldCountData is a custom component class that manages and displays the count of items in a field.
  * It determines if the field is empty and sets resource values for display based on the data.
@@ -16,6 +19,8 @@ import { getComponentDataValue, getComponentResourceValue, isNumberLargerThanZer
  * @param {*} props.formData - The form data containing the component's data array.
  */
 export default class CustomFieldCountData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

@@ -11,6 +11,9 @@ import Ettersending from "../../data-classes/Ettersending.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupEttersending is a custom component class for handling Ettersending group logic.
  * It initializes resource bindings, validation messages, and manages empty state and resource values.
@@ -18,6 +21,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @extends CustomComponent
  */
 export default class CustomGroupEttersending extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: Ettersending | string };
 

@@ -1,16 +1,17 @@
 import { getDataModelBindingDrift, getDataModelBindingDriftForAllLayouts } from "./dataModelBindingHelpers.ts";
 import CustomGjennomfoeringsplan from "../../../src/classes/system-classes/component-classes/CustomGjennomfoeringsplan.ts";
+import { getDataModelBindingKeysByTagName } from "../../../src/functions/componentHelpers.ts";
 
 import type { ApiValue, LayoutComponent } from "../types.ts";
 
 /** Binds each key to a path of the same name, which is all the check looks at. */
-function bindingsFor(keys: string[]) {
+function bindingsFor(keys: readonly string[]) {
     return Object.fromEntries(keys.map((key) => [key, `model.${key}`]));
 }
 
 const gjennomfoeringsplanKeys = CustomGjennomfoeringsplan.dataModelBindingKeys.expected;
 
-function gjennomfoeringsplan(id: string, keys: string[]): LayoutComponent {
+function gjennomfoeringsplan(id: string, keys: readonly string[]): LayoutComponent {
     return { id, type: "Custom", tagName: "custom-gjennomfoeringsplan", dataModelBindings: bindingsFor(keys) };
 }
 
@@ -102,7 +103,17 @@ describe("getDataModelBindingDriftForAllLayouts", () => {
 
     it("lists every component that declares its keys, even one no layout uses, and no component that does not", () => {
         const tagNames = getDataModelBindingDriftForAllLayouts([]).map((entry: ApiValue) => entry.tagName);
-        expect(tagNames).toEqual(["custom-dispensasjon", "custom-dispensasjonsvarsel", "custom-gjennomfoeringsplan", "custom-gjenpart-nabovarsel"]);
+        expect(tagNames).toEqual(Object.keys(getDataModelBindingKeysByTagName()).sort((a, b) => a.localeCompare(b)));
+        expect(tagNames).toContain("custom-field-data");
+        expect(tagNames).not.toContain("custom-field");
+    });
+
+    it("reports a use whose only finding is a key read in place of another, as ignored", () => {
+        const fieldData = { id: "both", type: "Custom", tagName: "custom-field-data", dataModelBindings: bindingsFor(["simpleBinding", "data"]) };
+        const usages = usagesFor(getDataModelBindingDriftForAllLayouts([layoutWith([fieldData])]), "custom-field-data");
+        expect(usages.map((usage: ApiValue) => [usage.id, usage.ignored, usage.missing, usage.unknown])).toEqual([
+            ["both", [{ key: "data", usedInstead: "simpleBinding" }], [], []]
+        ]);
     });
 
     it("names the subform on a use in a subform layout, and nothing on a use in a main layout", () => {

@@ -7,6 +7,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFeedbacklistData is a custom component class for handling feedback list data.
  * It extends the CustomComponent class and manages resource values and content state.
@@ -21,6 +24,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {*} resourceValues.data - The feedback list data extracted from form data.
  */
 export default class CustomFeedbacklistData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

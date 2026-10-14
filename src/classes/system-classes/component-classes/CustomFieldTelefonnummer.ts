@@ -10,6 +10,9 @@ import Telefonnumre from "../../data-classes/Telefonnumre.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldTelefonnummer is a custom component class for handling and displaying phone numbers.
  * It extends the CustomComponent class and provides methods for formatting and extracting phone numbers
@@ -29,6 +32,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {string} resourceValues.data - The formatted phone numbers or empty field text.
  */
 export default class CustomFieldTelefonnummer extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {

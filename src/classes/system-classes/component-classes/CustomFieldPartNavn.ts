@@ -10,6 +10,9 @@ import Part from "../../data-classes/Part.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldPartNavn is a custom component class for handling and formatting part names,
  * optionally including organization numbers, and managing resource values for display.
@@ -23,6 +26,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {string} resourceValues.data - The formatted name or empty field text.
  */
 export default class CustomFieldPartNavn extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {

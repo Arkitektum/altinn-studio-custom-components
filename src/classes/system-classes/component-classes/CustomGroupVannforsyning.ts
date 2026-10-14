@@ -11,6 +11,9 @@ import Vannforsyning from "../../data-classes/Vannforsyning.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupVannforsyning is a specialized component class for handling water supply group data.
  * It extends CustomComponent and provides logic for extracting, validating, and binding resources
@@ -30,6 +33,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Resource values for vannforsyning fields, including empty field text.
  */
 export default class CustomGroupVannforsyning extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: Vannforsyning | string };
 

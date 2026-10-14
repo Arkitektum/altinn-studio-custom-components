@@ -11,6 +11,9 @@ import KravTilByggegrunn from "../../data-classes/KravTilByggegrunn.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupRammebetingelserKravTilByggegrunn is a custom component class for handling "krav til byggegrunn" group data and resource bindings.
  *
@@ -26,6 +29,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Resource values for rendering, including title and data or empty field text.
  */
 export default class CustomGroupRammebetingelserKravTilByggegrunn extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: KravTilByggegrunn | string };
 

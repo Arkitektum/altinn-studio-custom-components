@@ -10,6 +10,9 @@ import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistNaboGjenboerEiendom is a custom component class for handling and displaying
  * a list of neighboring or adjacent property information (Nabo/Gjenboer Eiendom) in a form.
@@ -30,6 +33,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Contains the localized title and data or empty field text.
  */
 export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: NaboGjenboerEiendom[] | string };
 

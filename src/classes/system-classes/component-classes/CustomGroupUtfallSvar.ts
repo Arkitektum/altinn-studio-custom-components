@@ -11,6 +11,9 @@ import UtfallSvar from "../../data-classes/UtfallSvar.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupUtfallSvar is a custom component class for handling grouped "utfallSvar" (outcome answers).
  * It extends the CustomComponent base class and manages resource bindings, validation messages, and data extraction
@@ -27,6 +30,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - The resource values for the component, including empty field text or data.
  */
 export default class CustomGroupUtfallSvar extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: UtfallSvar | string };
 

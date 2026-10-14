@@ -10,6 +10,9 @@ import Prosjekt from "../../data-classes/Prosjekt.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldProsjekt is a custom component class for handling and displaying project-related form data.
  * It extends the CustomComponent base class and provides methods for formatting and extracting project information.
@@ -28,6 +31,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Contains the title and text to be displayed, based on the project data and resource bindings.
  */
 export default class CustomFieldProsjekt extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: string };
 
     constructor(props: ComponentProps) {

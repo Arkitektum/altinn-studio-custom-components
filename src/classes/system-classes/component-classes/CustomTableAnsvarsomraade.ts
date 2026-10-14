@@ -10,6 +10,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTableAnsvarsomraade is a specialized table component for displaying "Ansvarsomraade" data.
  * It extends CustomComponent and provides logic for extracting, validating, and binding resources
@@ -26,6 +29,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Resource values for rendering, including empty field text.
  */
 export default class CustomTableAnsvarsomraade extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

@@ -12,6 +12,9 @@ import PlanlagteLoefteinnretningerList from "../data-classes/PlanlagteLoefteinnr
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomListPlanlagteLoefteinnretninger is a custom component class for handling planned lift installations.
  * It extracts relevant data from form data, manages text resource bindings, and handles validation messages.
@@ -27,6 +30,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - The resolved text resource values for the component.
  */
 export default class CustomListPlanlagteLoefteinnretninger extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: (string | undefined)[] | string };
     declare resourceBindings: ResourceBindingGroup;
 

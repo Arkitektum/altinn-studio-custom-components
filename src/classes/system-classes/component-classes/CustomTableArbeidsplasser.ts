@@ -11,6 +11,9 @@ import CustomComponent from "../CustomComponent.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /** One row of the arbeidsplasser table: a title and the text for the answer behind it. */
 export interface ArbeidsplasserBeroertRow {
     title: string | undefined;
@@ -32,6 +35,8 @@ export interface ArbeidsplasserBeroertRow {
  */
 
 export default class CustomTableArbeidsplasser extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: ArbeidsplasserBeroertRow[] | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

@@ -11,6 +11,9 @@ import RammebetingelserTilknytninger from "../../data-classes/RammebetingelserTi
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupRammebetingelserTilknytninger is a custom component class for handling
  * resource bindings and validation messages related to "rammebetingelser tilknytninger".
@@ -33,6 +36,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Resource values such as title and data for the component.
  */
 export default class CustomGroupRammebetingelserTilknytninger extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { title?: unknown; data?: RammebetingelserTilknytninger | string };
 

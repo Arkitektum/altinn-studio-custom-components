@@ -5,6 +5,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { NO_DATA_MODEL_BINDINGS } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomSubheaderText is a custom component class that extends CustomComponent.
  * It initializes resource values for the component, specifically the "title" property,
@@ -15,6 +18,8 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @param {Object} props - The properties passed to the component.
  */
 export default class CustomSubheaderText extends CustomComponent {
+    static dataModelBindingKeys = NO_DATA_MODEL_BINDINGS;
+
     declare resourceValues: { title?: unknown };
 
     constructor(props: ComponentProps) {

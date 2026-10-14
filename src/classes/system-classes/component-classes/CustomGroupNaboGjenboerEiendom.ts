@@ -11,6 +11,9 @@ import NaboGjenboerEiendom from "../../data-classes/NaboGjenboerEiendom.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGroupNaboGjenboerEiendom is a custom component class for handling
  * neighbor/adjacent property information within a form. It extends CustomComponent
@@ -31,6 +34,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Resource values for the component, including empty field text or data.
  */
 export default class CustomGroupNaboGjenboerEiendom extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
     declare resourceValues: { data?: NaboGjenboerEiendom | string };
 

@@ -12,6 +12,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomSummationData is a custom component class that processes form data,
  * enriches it with resource values, and provides utility methods for handling
@@ -20,6 +23,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @extends CustomComponent
  */
 export default class CustomSummationData extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {

@@ -5,6 +5,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { NO_DATA_MODEL_BINDINGS } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomHeaderText is a custom component class for rendering header text with configurable size and resource values.
  *
@@ -19,6 +22,8 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  * @property {string} resourceValues.title - The title resource value.
  */
 export default class CustomHeaderText extends CustomComponent {
+    static dataModelBindingKeys = NO_DATA_MODEL_BINDINGS;
+
     declare resourceValues: { title?: unknown };
 
     constructor(props: ComponentProps) {

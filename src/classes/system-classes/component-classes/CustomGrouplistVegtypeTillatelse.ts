@@ -11,6 +11,9 @@ import VegtypeTillatelseList from "../data-classes/VegtypeTillatelseList.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 import { hasValidationMessages } from "../../../functions/validations.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomGrouplistVegtypeTillatelse is a specialized component class for handling grouped lists of "vegtype tillatelse" (road type permissions).
  * It extends CustomComponent and manages resource bindings, validation messages, and content state based on form data.
@@ -26,6 +29,8 @@ import { hasValidationMessages } from "../../../functions/validations.ts";
  * @property {Object} resourceValues - Values derived from resource bindings and form data.
  */
 export default class CustomGrouplistVegtypeTillatelse extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: VegtypeTillatelse[] | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

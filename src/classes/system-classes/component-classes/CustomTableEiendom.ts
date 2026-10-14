@@ -11,6 +11,9 @@ import Eiendom from "../../data-classes/Eiendom.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTableEiendom is a specialized component class for handling and displaying
  * property ("eiendom") data in a custom table format. It provides methods for extracting,
@@ -40,6 +43,8 @@ export interface EiendomFields {
 }
 
 export default class CustomTableEiendom extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: unknown };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

@@ -12,6 +12,9 @@ import type Plan from "../../data-classes/Plan.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTablePlan is a custom component class for handling table plan data and resource bindings.
  * It manages validation messages, resource values, and content checks for a custom table plan.
@@ -38,6 +41,8 @@ import { getComponentDataValue } from "../../../functions/helpers.ts";
  * @property {Object} resourceValues - Resource values for rendering.
  */
 export default class CustomTablePlan extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: Plan[] | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

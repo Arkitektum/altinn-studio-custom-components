@@ -11,6 +11,9 @@ import Part from "../../data-classes/Part.ts";
 import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomTablePart is a specialized component class for handling custom table parts in a form.
  * It provides methods for extracting and validating part data, generating text resource bindings,
@@ -34,6 +37,8 @@ export interface PartFields {
 }
 
 export default class CustomTablePart extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { data?: Part | string };
     declare resourceBindings: Record<string, ResourceBindingGroup | undefined>;
 

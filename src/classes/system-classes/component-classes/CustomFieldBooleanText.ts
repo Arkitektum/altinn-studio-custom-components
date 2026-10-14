@@ -8,6 +8,9 @@ import CustomComponent from "../CustomComponent.ts";
 // Global functions
 import { getComponentBooleanTextValues, getComponentDataValue, getComponentResourceValue } from "../../../functions/helpers.ts";
 
+// Constants
+import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
+
 /**
  * CustomFieldBooleanText is a custom component class for rendering boolean values as text.
  * It determines the display text based on the boolean value from the component's form data,
@@ -26,6 +29,8 @@ import { getComponentBooleanTextValues, getComponentDataValue, getComponentResou
  *
  */
 export default class CustomFieldBooleanText extends CustomComponent {
+    static dataModelBindingKeys = SIMPLE_BINDING_OR_DATA;
+
     declare resourceValues: { title?: unknown; data?: unknown };
 
     constructor(props: ComponentProps) {
