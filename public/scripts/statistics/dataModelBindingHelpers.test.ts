@@ -27,16 +27,17 @@ describe("getDataModelBindingDrift", () => {
 
     it("sorts the keys a layout binds into missing, deprecated and unknown", () => {
         const drift = getDataModelBindingDrift({ dataModelBindings: bindingsFor(["a", "old", "typo"]) }, bindingKeys);
-        expect(drift).toEqual({ missing: ["b", "c"], deprecated: [{ key: "old", hint: "Renamed to a" }], unknown: ["typo"] });
+        expect(drift).toEqual({ missing: ["b", "c"], ignored: [], deprecated: [{ key: "old", hint: "Renamed to a" }], unknown: ["typo"] });
     });
 
     it("reports every expected key as missing when the layout binds nothing", () => {
-        expect(getDataModelBindingDrift({}, bindingKeys)).toEqual({ missing: ["a", "b", "c"], deprecated: [], unknown: [] });
+        expect(getDataModelBindingDrift({}, bindingKeys)).toEqual({ missing: ["a", "b", "c"], ignored: [], deprecated: [], unknown: [] });
     });
 
     it("finds nothing when the layout binds exactly the expected keys", () => {
         expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["c", "a", "b"]) }, bindingKeys)).toEqual({
             missing: [],
+            ignored: [],
             deprecated: [],
             unknown: []
         });
@@ -44,6 +45,35 @@ describe("getDataModelBindingDrift", () => {
 
     it("does not take a key inherited from Object.prototype for a deprecated one", () => {
         expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["a", "b", "c", "toString"]) }, bindingKeys).unknown).toEqual(["toString"]);
+    });
+});
+
+describe("getDataModelBindingDrift with oneOf and optional keys", () => {
+    const bindingKeys = { expected: ["trueData"], oneOf: [["simpleBinding", "data"]], optional: ["dataTitle"], deprecated: {} };
+
+    it("finds nothing when one key of each group is bound, whichever it is, with or without the optional key", () => {
+        const noDrift = { missing: [], ignored: [], deprecated: [], unknown: [] };
+        expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["trueData", "data"]) }, bindingKeys)).toEqual(noDrift);
+        expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["trueData", "simpleBinding", "dataTitle"]) }, bindingKeys)).toEqual(
+            noDrift
+        );
+    });
+
+    it("reports a group with none of its keys bound as one missing entry, and never an optional key", () => {
+        expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["trueData"]) }, bindingKeys).missing).toEqual(["simpleBinding or data"]);
+    });
+
+    it("reports the later keys of a group as ignored when an earlier one is bound, naming the key read instead", () => {
+        const drift = getDataModelBindingDrift({ dataModelBindings: bindingsFor(["data", "trueData", "simpleBinding"]) }, bindingKeys);
+        expect(drift.ignored).toEqual([{ key: "data", usedInstead: "simpleBinding" }]);
+        expect(drift.unknown).toEqual([]);
+        expect(drift.missing).toEqual([]);
+    });
+
+    it("still reports a key outside every list as unknown", () => {
+        expect(getDataModelBindingDrift({ dataModelBindings: bindingsFor(["trueData", "data", "dataTittle"]) }, bindingKeys).unknown).toEqual([
+            "dataTittle"
+        ]);
     });
 });
 
@@ -58,6 +88,7 @@ describe("getDataModelBindingDriftForAllLayouts", () => {
                 appName: "app-v1",
                 layoutName: "DisplayLayout",
                 missing: [gjennomfoeringsplanKeys[0]],
+                ignored: [],
                 deprecated: [],
                 unknown: ["typo"]
             }

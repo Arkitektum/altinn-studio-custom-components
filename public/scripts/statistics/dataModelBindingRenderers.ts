@@ -9,10 +9,10 @@ export interface DataModelBindingDriftEntry {
     usages: DataModelBindingDriftUsage[];
 }
 
-const findingTypes = ["missing", "deprecated", "unknown"] as const;
+const findingTypes = ["missing", "ignored", "deprecated", "unknown"] as const;
 type FindingType = (typeof findingTypes)[number];
 
-const findingLabels: Record<FindingType, string> = { missing: "Missing", deprecated: "Deprecated", unknown: "Unknown" };
+const findingLabels: Record<FindingType, string> = { missing: "Missing", ignored: "Ignored", deprecated: "Deprecated", unknown: "Unknown" };
 
 /**
  * Narrows the drift to the filters chosen on the page, which are stored on globalThis.
@@ -39,12 +39,13 @@ export function filterDataModelBindingDriftBySelectedFilters(drift: DataModelBin
                     ? {
                           ...usage,
                           missing: findingFilter === "missing" ? usage.missing : [],
+                          ignored: findingFilter === "ignored" ? usage.ignored : [],
                           deprecated: findingFilter === "deprecated" ? usage.deprecated : [],
                           unknown: findingFilter === "unknown" ? usage.unknown : []
                       }
                     : usage
             )
-            .filter((usage) => usage.missing.length || usage.deprecated.length || usage.unknown.length)
+            .filter((usage) => usage.missing.length || usage.ignored.length || usage.deprecated.length || usage.unknown.length)
     }));
 }
 
@@ -79,7 +80,7 @@ function createSummary(titleElement: HTMLElement, countElements: HTMLElement[]) 
 /**
  * Describes what a layout binds wrong for one use: one line per kind of finding it has.
  *
- * @param {Object} usage - The use, with its missing, deprecated and unknown keys.
+ * @param {Object} usage - The use, with its missing, ignored, deprecated and unknown keys.
  * @returns {HTMLLIElement} The list item.
  */
 export function renderDataModelBindingDriftUsage(usage: DataModelBindingDriftUsage) {
@@ -90,6 +91,7 @@ export function renderDataModelBindingDriftUsage(usage: DataModelBindingDriftUsa
     findingsElement.classList.add("binding-drift-findings");
     const findingTexts: Record<FindingType, string[]> = {
         missing: usage.missing,
+        ignored: usage.ignored.map(({ key, usedInstead }) => `${key} (${usedInstead} is read instead)`),
         deprecated: usage.deprecated.map(({ key, hint }) => `${key} (${hint})`),
         unknown: usage.unknown
     };
@@ -139,7 +141,7 @@ export function renderDataModelBindingDriftListItem(component: DataModelBindingD
         if (!useCount) continue;
         const indicatorElement = createTextElement("span", `${findingLabels[findingType]}: ${useCount}`, "indicator");
         indicatorElement.title = `Uses with ${findingLabels[findingType].toLowerCase()} keys: ${useCount}`;
-        // A missing key leaves out part of what the component shows, so it gets the error colour. The other two are left-overs and get the warning colour.
+        // A missing key leaves out part of what the component shows, so it gets the error colour. The others are left-overs and get the warning colour.
         indicatorElement.classList.add(findingType === "missing" ? "indicator-missing" : "indicator-deprecated");
         tagNameElement.appendChild(indicatorElement);
     }

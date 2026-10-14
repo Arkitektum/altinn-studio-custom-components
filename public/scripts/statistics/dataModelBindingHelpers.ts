@@ -13,8 +13,10 @@ export interface DataModelBindingDriftUsage {
     appName?: string;
     layoutName?: string;
     subformAppName?: string;
-    /** Keys the component reads that the layout does not bind. */
+    /** Keys the component reads that the layout does not bind. A `oneOf` group bound by none of its keys is one entry, its keys joined by "or". */
     missing: string[];
+    /** Keys the layout binds that the component does not read, because an earlier key in the same `oneOf` group is bound and read instead. */
+    ignored: { key: string; usedInstead: string }[];
     /** Keys the layout binds that the component no longer reads, each with what replaced it. */
     deprecated: { key: string; hint: string }[];
     /** Keys the layout binds that the component neither reads nor used to read. */
@@ -37,16 +39,25 @@ function getDataModelBindingKeys(tagName: string): DataModelBindingKeys | null {
  *
  * @param {Object} component - The component as the layout declares it.
  * @param {DataModelBindingKeys} bindingKeys - The keys the component declares.
- * @returns {Object} The missing, deprecated and unknown keys.
+ * @returns {Object} The missing, ignored, deprecated and unknown keys.
  */
 export function getDataModelBindingDrift(component: LayoutComponent, bindingKeys: DataModelBindingKeys) {
     const boundKeys = Object.keys(component?.dataModelBindings || {});
+    const oneOfGroups = bindingKeys.oneOf || [];
+    const knownKeys = [...bindingKeys.expected, ...oneOfGroups.flat(), ...(bindingKeys.optional || [])];
     return {
-        missing: bindingKeys.expected.filter((key) => !boundKeys.includes(key)),
+        missing: [
+            ...bindingKeys.expected.filter((key) => !boundKeys.includes(key)),
+            ...oneOfGroups.filter((group) => !group.some((key) => boundKeys.includes(key))).map((group) => group.join(" or "))
+        ],
+        ignored: oneOfGroups.flatMap((group) => {
+            const [usedKey, ...ignoredKeys] = group.filter((key) => boundKeys.includes(key));
+            return ignoredKeys.map((key) => ({ key, usedInstead: usedKey! }));
+        }),
         deprecated: Object.entries(bindingKeys.deprecated)
             .filter(([key]) => boundKeys.includes(key))
             .map(([key, hint]) => ({ key, hint })),
-        unknown: boundKeys.filter((key) => !bindingKeys.expected.includes(key) && !Object.hasOwn(bindingKeys.deprecated, key))
+        unknown: boundKeys.filter((key) => !knownKeys.includes(key) && !Object.hasOwn(bindingKeys.deprecated, key))
     };
 }
 
@@ -71,7 +82,7 @@ export function getDataModelBindingDriftForAllLayouts(layouts: FlattenedLayout[]
             const bindingKeys = getDataModelBindingKeys(tagName);
             if (!bindingKeys) continue;
             const drift = getDataModelBindingDrift(component, bindingKeys);
-            if (!drift.missing.length && !drift.deprecated.length && !drift.unknown.length) continue;
+            if (!drift.missing.length && !drift.ignored.length && !drift.deprecated.length && !drift.unknown.length) continue;
             const usages = driftByTagName.get(tagName) || [];
             usages.push({
                 id: component.id || null,

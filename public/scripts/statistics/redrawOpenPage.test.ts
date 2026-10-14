@@ -101,6 +101,7 @@ describe("redrawOpenPage", () => {
             appName,
             layoutName: "DisplayLayout",
             missing,
+            ignored: [],
             deprecated: [],
             unknown: []
         });

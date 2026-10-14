@@ -17,6 +17,7 @@ function usage(id: string, appName: string, findings: Partial<DataModelBindingDr
         layoutName: subformAppName || "DisplayLayout",
         ...(subformAppName ? { subformAppName } : {}),
         missing: [],
+        ignored: [],
         deprecated: [],
         unknown: [],
         ...findings
@@ -29,7 +30,7 @@ const drift: DataModelBindingDriftEntry[] = [
         usages: [
             usage("main-a", "a", { missing: ["plannavn"], unknown: ["typo"] }),
             usage("sub-a", "a", { deprecated: [{ key: "dispensasjonFra", hint: "Replaced by bestemmelsestype" }] }, "sub-v1"),
-            usage("main-b", "b", { missing: ["metadata", "versjon"] })
+            usage("main-b", "b", { missing: ["metadata", "versjon"], ignored: [{ key: "data", usedInstead: "simpleBinding" }] })
         ]
     },
     { tagName: "custom-gjennomfoeringsplan", usages: [] }
@@ -99,6 +100,12 @@ describe("renderDataModelBindingDriftUsage", () => {
         expect(Array.from(element.querySelectorAll("dd")).map((node) => node.textContent)).toEqual(["a, b", "old (Renamed to a)"]);
     });
 
+    it("names the key read instead of an ignored one", () => {
+        const element = renderDataModelBindingDriftUsage(usage("plan", "a", { ignored: [{ key: "data", usedInstead: "simpleBinding" }] }));
+        expect(element.querySelector("dt")!.textContent).toBe("Ignored");
+        expect(element.querySelector("dd")!.textContent).toBe("data (simpleBinding is read instead)");
+    });
+
     it("shows a key as text, never as markup", () => {
         const element = renderDataModelBindingDriftUsage(usage("<b>id</b>", "a", { unknown: ["<i>key</i>"] }));
         expect(element.querySelector("b")).toBeNull();
@@ -112,11 +119,13 @@ describe("renderDataModelBindingDriftListItem", () => {
         const element = renderDataModelBindingDriftListItem(drift[0]!);
         expect(Array.from(element.querySelectorAll(".indicator")).map((node) => node.textContent)).toEqual([
             "Missing: 2",
+            "Ignored: 1",
             "Deprecated: 1",
             "Unknown: 1"
         ]);
         expect(Array.from(element.querySelectorAll(".indicator-missing")).map((node) => node.textContent)).toEqual(["Missing: 2"]);
         expect(Array.from(element.querySelectorAll(".indicator-deprecated")).map((node) => node.textContent)).toEqual([
+            "Ignored: 1",
             "Deprecated: 1",
             "Unknown: 1"
         ]);
@@ -170,6 +179,8 @@ describe("renderDataModelBindingDriftFilters", () => {
         expect(listedUsageIds()).toEqual(["main-a", "main-b"]);
         choose(select("finding"), "unknown");
         expect(listedUsageIds()).toEqual(["main-a"]);
+        choose(select("finding"), "ignored");
+        expect(listedUsageIds()).toEqual(["main-b"]);
     });
 
     it("starts on the choices made before, and falls back from an app that has gone", () => {
