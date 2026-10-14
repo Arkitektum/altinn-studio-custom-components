@@ -147,6 +147,8 @@ Besides the bundle and the text resources, the build writes `dist/dataModelBindi
 
 The build also writes `dist/layout.schema.json`, exported as `@arkitektum/altinn-studio-custom-components/layout.schema.json` and published at `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json`. It is Altinn's layout schema with the definition of a `Custom` component replaced: Altinn's own closes a custom component to the properties Altinn knows, so an editor reports every attribute these components read, such as `resourceBindings` or `hideIfEmpty`, as not allowed. The replacement accepts those attributes, offers the tag names, and checks each component's `dataModelBindings` against the same lists. It is built from a copy of Altinn's schema in `src/data/altinn/`, which `yarn update-altinn-layout-schema` refreshes.
 
+To use it in an app, set `"$schema"` at the top of each layout file to `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json`. A `json.schemas` setting in VS Code is not enough, since VS Code uses a file's own `$schema` when it has one. jsDelivr caches an address without a version for up to a week, so after a release the schema can be refreshed at once by opening `https://purge.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json`.
+
 ### Testing
 
 Run unit tests:
