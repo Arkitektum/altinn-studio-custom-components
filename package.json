@@ -1,6 +1,6 @@
 {
     "name": "@arkitektum/altinn-studio-custom-components",
-    "version": "17.5.0",
+    "version": "17.6.0",
     "description": "Custom components for Altinn Studio",
     "license": "MIT",
     "main": "dist/main.js",
