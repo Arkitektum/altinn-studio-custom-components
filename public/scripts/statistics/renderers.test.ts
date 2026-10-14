@@ -112,6 +112,14 @@ describe("renderAdminSidebar", () => {
         expect(sidebar!.textContent).toContain("Package versions");
         expect(sidebar!.textContent).toContain("Display layouts");
     });
+
+    it("puts an icon before each label, and no emoji", () => {
+        renderAdminSidebar();
+        const buttons = Array.from(document.querySelectorAll("#sidebar button"));
+        expect(buttons.length > 0).toBe(true);
+        expect(buttons.every((button) => (button.firstChild as Element | null)?.classList?.contains("icon"))).toBe(true);
+        expect(buttons.map((button) => button.textContent)).toEqual(["Resource usage", "Component usage", "Package versions", "Display layouts"]);
+    });
 });
 
 describe("renderSynchronizeButton", () => {

@@ -41,6 +41,15 @@
     }
 }
 
+/* The icons from public/scripts/icons.ts, sized to the label they come before. */
+svg.icon {
+    width: 1.15em;
+    height: 1.15em;
+    margin-right: 8px;
+    vertical-align: -0.2em;
+    flex-shrink: 0;
+}
+
 @page {
     size: A4 portrait;
     margin-top: 1cm;
@@ -361,18 +370,11 @@
                     border-radius: 4px;
                     font-family: var(--font-family-default);
                     transition: var(--background-transition-default);
-                    &::before {
-                        margin-right: 8px;
-                        font-family: var(--font-family-default);
-                    }
                     &.remove-unused-resources-button,
                     &.remove-duplicate-resources-button {
                         background-color: var(--color-warning-default);
                         &:hover {
                             background-color: var(--color-warning-light);
-                        }
-                        &::before {
-                            content: "🧹";
                         }
                     }
                     &.order-resources-alphabetically-button {
@@ -380,17 +382,11 @@
                         &:hover {
                             background-color: var(--color-info-light);
                         }
-                        &::before {
-                            content: "🔤";
-                        }
                     }
                     &.add-default-values-for-missing-resources-button {
                         background-color: var(--color-success-default);
                         &:hover {
                             background-color: var(--color-success-light);
-                        }
-                        &::before {
-                            content: "➕";
                         }
                     }
                 }

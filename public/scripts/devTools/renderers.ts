@@ -16,6 +16,7 @@ import { renderValidationMessages, validateResources } from "../validators.ts";
 
 // Global functions
 import { renderFeedbackListElement } from "../../../src/functions/feedbackHelpers.ts";
+import { setIconLabel } from "../icons.ts";
 
 /**
  * Renders the results by generating and displaying custom components based on the current layout code.
@@ -141,7 +142,7 @@ export function renderSidebar() {
     const layoutCodeListElement = document.createElement("li");
     layoutCodeListElement.id = layoutCodeItemId;
     const layoutCodeButtonElement = document.createElement("button");
-    layoutCodeButtonElement.innerHTML = "🎨 Layout code";
+    setIconLabel(layoutCodeButtonElement, "layout", "Layout code");
     layoutCodeButtonElement.onclick = function () {
         const codeInputElement = getCodeInputElementForLayoutCode();
         updateDataInputElement(codeInputElement);
@@ -159,7 +160,7 @@ export function renderSidebar() {
     buttonsContainerElement.classList.add("buttons-container");
 
     const textResourcesCodeButtonElement = document.createElement("button");
-    textResourcesCodeButtonElement.innerHTML = "📚 Text resources";
+    setIconLabel(textResourcesCodeButtonElement, "book", "Text resources");
     textResourcesCodeButtonElement.onclick = function () {
         const codeInputElement = getCodeInputElementForTextResources();
         updateDataInputElement(codeInputElement);
@@ -188,7 +189,7 @@ export function renderSidebar() {
         // Add button to order resources alphabetically by ID
         const orderResourcesAlphabeticallyByIdButtonElement = document.createElement("button");
         orderResourcesAlphabeticallyByIdButtonElement.classList.add("order-resources-alphabetically-button");
-        orderResourcesAlphabeticallyByIdButtonElement.innerHTML = "Order by ID";
+        setIconLabel(orderResourcesAlphabeticallyByIdButtonElement, "sort", "Order by ID");
         orderResourcesAlphabeticallyByIdButtonElement.onclick = function () {
             const currentTextResourcesValue = getTextResources();
             const orderedResources = [...currentTextResourcesValue.resources].sort((a, b) => a.id.localeCompare(b.id));
@@ -210,7 +211,7 @@ export function renderSidebar() {
         if (validationResults?.duplicateTextResources?.length) {
             const removeDuplicateResourcesButtonElement = document.createElement("button");
             removeDuplicateResourcesButtonElement.classList.add("remove-duplicate-resources-button");
-            removeDuplicateResourcesButtonElement.innerHTML = "Remove duplicates";
+            setIconLabel(removeDuplicateResourcesButtonElement, "trash", "Remove duplicates");
             removeDuplicateResourcesButtonElement.onclick = function () {
                 const currentTextResourcesValue = getTextResources();
                 const duplicateResourceIds = validationResults.duplicateTextResources;
@@ -248,7 +249,7 @@ export function renderSidebar() {
             // Add button to remove unused resources from text resources and update the code input element accordingly
             const removeUnusedResourcesButtonElement = document.createElement("button");
             removeUnusedResourcesButtonElement.classList.add("remove-unused-resources-button");
-            removeUnusedResourcesButtonElement.innerHTML = "Remove unused";
+            setIconLabel(removeUnusedResourcesButtonElement, "trash", "Remove unused");
             removeUnusedResourcesButtonElement.onclick = function () {
                 const currentTextResourcesValue = getTextResources();
                 const unusedResourceIds = validationResults.unusedResourceBindings;

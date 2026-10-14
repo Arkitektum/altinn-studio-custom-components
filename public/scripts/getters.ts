@@ -10,6 +10,7 @@ import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.ts";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./devTools/renderers.ts";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
+import { setIconLabel } from "./icons.ts";
 import { validateResources } from "./validators.ts";
 
 /**
@@ -60,7 +61,7 @@ export function getDataModelListElements() {
         };
 
         const dataModelListItemButtonElement = document.createElement("button");
-        dataModelListItemButtonElement.innerHTML = `💾 ${getDataModelSummaryText(dataModel, index)}`;
+        setIconLabel(dataModelListItemButtonElement, "database", getDataModelSummaryText(dataModel, index));
         dataModelListItemButtonElement.onclick = function () {
             const codeInputElement = getCodeInputElementForDataModel(index);
             updateDataInputElement(codeInputElement);

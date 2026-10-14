@@ -31,6 +31,7 @@ import {
 } from "../textResourceUsageRenderers.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { languages } from "../languages.ts";
+import { setIconLabel } from "../icons.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
 /**
@@ -972,7 +973,7 @@ export function renderAdminSidebar() {
 
     const resourceUsageListItem = document.createElement("li");
     const resourceUsageButton = document.createElement("button");
-    resourceUsageButton.textContent = "📚 Resource usage";
+    setIconLabel(resourceUsageButton, "book", "Resource usage");
     resourceUsageButton.onclick = () => {
         mainElement!.innerHTML = "";
         renderResourceUsagePage(mainElement!);
@@ -982,7 +983,7 @@ export function renderAdminSidebar() {
 
     const componentUsageListItem = document.createElement("li");
     const componentUsageButton = document.createElement("button");
-    componentUsageButton.textContent = "🧩 Component usage";
+    setIconLabel(componentUsageButton, "components", "Component usage");
     componentUsageButton.onclick = () => {
         mainElement!.innerHTML = "";
         renderComponentUsagePage(mainElement!);
@@ -992,7 +993,7 @@ export function renderAdminSidebar() {
 
     const packageVersionsListItem = document.createElement("li");
     const packageVersionsButton = document.createElement("button");
-    packageVersionsButton.textContent = "📦 Package versions";
+    setIconLabel(packageVersionsButton, "package", "Package versions");
     packageVersionsButton.onclick = () => {
         mainElement!.innerHTML = "";
         renderPackageVersionsPage(mainElement!);
@@ -1002,7 +1003,7 @@ export function renderAdminSidebar() {
 
     const displayLayoutsListItem = document.createElement("li");
     const displayLayoutsButton = document.createElement("button");
-    displayLayoutsButton.textContent = "🎨 Display layouts";
+    setIconLabel(displayLayoutsButton, "layout", "Display layouts");
     displayLayoutsButton.onclick = async () => {
         mainElement!.innerHTML = "";
         const exampleData = globalThis.exampleData || (await fetchExampleData());
