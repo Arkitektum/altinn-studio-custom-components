@@ -4,6 +4,9 @@ src/data/resources.json
 src/data/resource.*.json
 public/data/
 
+# Altinn's layout schema, kept exactly as downloaded so a refresh shows only Altinn's own changes.
+src/data/altinn/
+
 # Build output.
 dist/
 docs/

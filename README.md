@@ -145,6 +145,8 @@ yarn build
 
 Besides the bundle and the text resources, the build writes `dist/dataModelBindingKeys.json`, exported as `@arkitektum/altinn-studio-custom-components/dataModelBindingKeys.json`. It lists, for each component that declares them, the `dataModelBindings` keys the component reads: `expected` keys must all be bound, each `oneOf` group needs one of its keys (the first bound key in a group is the one read), and `optional` keys may be left out. `deprecated` lists the keys it no longer reads, with a hint saying what replaced them. The docs gallery checks its examples against it, and the Statistics page checks every app's layouts against the same lists on its Data model bindings page.
 
+The build also writes `dist/layout.schema.json`, exported as `@arkitektum/altinn-studio-custom-components/layout.schema.json` and published at `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json`. It is Altinn's layout schema with the definition of a `Custom` component replaced: Altinn's own closes a custom component to the properties Altinn knows, so an editor reports every attribute these components read, such as `resourceBindings` or `hideIfEmpty`, as not allowed. The replacement accepts those attributes, offers the tag names, and checks each component's `dataModelBindings` against the same lists. It is built from a copy of Altinn's schema in `src/data/altinn/`, which `yarn update-altinn-layout-schema` refreshes.
+
 ### Testing
 
 Run unit tests:
