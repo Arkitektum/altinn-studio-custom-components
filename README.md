@@ -143,6 +143,8 @@ Produce a production build in `dist/`:
 yarn build
 ```
 
+Besides the bundle and the text resources, the build writes `dist/dataModelBindingKeys.json`, exported as `@arkitektum/altinn-studio-custom-components/dataModelBindingKeys.json`. It lists, for each component that declares them, the `dataModelBindings` keys the component reads (`expected`) and the ones it no longer reads with a hint saying what replaced them (`deprecated`). The docs gallery checks its examples against it, and the Statistics page checks every app's layouts against the same lists on its Data model bindings page.
+
 ### Testing
 
 Run unit tests:

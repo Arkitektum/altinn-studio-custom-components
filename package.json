@@ -10,6 +10,7 @@
         "./styles.css": "./dist/main.css",
         "./resources.json": "./dist/resources.json",
         "./resources/nb.json": "./dist/resource.nb.json",
+        "./dataModelBindingKeys.json": "./dist/dataModelBindingKeys.json",
         "./package.json": "./package.json",
         "./dist/*": "./dist/*"
     },
@@ -20,8 +21,9 @@
     "scripts": {
         "symlinks": "node scripts/create-symlinks.js",
         "copy-dist-resources": "copyfiles --flat src/data/resource.*.json src/data/resources.json dist",
+        "generate-data-model-binding-keys": "node scripts/generate-data-model-binding-keys.mjs",
         "test": "jest",
-        "build": "yarn symlinks && NODE_ENV=production webpack && yarn copy-dist-resources",
+        "build": "yarn symlinks && NODE_ENV=production webpack && yarn copy-dist-resources && yarn generate-data-model-binding-keys",
         "start": "yarn symlinks && webpack serve --config webpack.config.dev.js",
         "lint": "eslint .",
         "format": "prettier --write .",

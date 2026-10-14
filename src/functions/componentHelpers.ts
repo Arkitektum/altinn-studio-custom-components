@@ -84,7 +84,7 @@ import CustomTablePartGjennomfoeringsplan from "../classes/system-classes/compon
 import CustomTablePlan from "../classes/system-classes/component-classes/CustomTablePlan.ts";
 
 // Global functions
-import type { ComponentProps, InstantiatedComponent } from "../types.ts";
+import type { ComponentProps, DataModelBindingKeys, InstantiatedComponent } from "../types.ts";
 import { getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
 
 /**
@@ -206,4 +206,17 @@ export function instantiateComponent(element: unknown): InstantiatedComponent | 
         console.warn(`Unknown component type: ${tagName}`);
         return null;
     }
+}
+
+/**
+ * The `dataModelBindings` keys every component that declares them reads, by tag name.
+ *
+ * Written to `dist/dataModelBindingKeys.json` at build, so a package that only installs the bundle, such as the docs gallery, can check its examples against them.
+ *
+ * @returns {Record<string, DataModelBindingKeys>} The declared keys, in the order `componentMap` lists the components.
+ */
+export function getDataModelBindingKeysByTagName(): Record<string, DataModelBindingKeys> {
+    const componentClasses = Object.entries(componentMap) as [string, { dataModelBindingKeys?: DataModelBindingKeys }][];
+    const declaringClasses = componentClasses.filter(([, ComponentClass]) => ComponentClass.dataModelBindingKeys);
+    return Object.fromEntries(declaringClasses.map(([tagName, ComponentClass]) => [tagName, ComponentClass.dataModelBindingKeys!]));
 }

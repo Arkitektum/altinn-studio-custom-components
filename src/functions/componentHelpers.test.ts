@@ -1,6 +1,7 @@
 import { customElementTagNames } from "@arkitektum/altinn-studio-custom-components-utils";
 
-import { componentMap, getComponentForTagName, instantiateComponent } from "./componentHelpers.ts";
+import { componentMap, getComponentForTagName, getDataModelBindingKeysByTagName, instantiateComponent } from "./componentHelpers.ts";
+import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.ts";
 
 /**
  * The `custom-component` key is the internal base/fallback and is intentionally not part of the public tag allow-list.
@@ -52,5 +53,23 @@ describe("instantiateComponent", () => {
         expect(instantiateComponent({ tagName: "custom-does-not-exist" })).toBeNull();
         expect(warnSpy).toHaveBeenCalled();
         jest.mocked(warnSpy).mockRestore();
+    });
+});
+
+describe("getDataModelBindingKeysByTagName", () => {
+    it("lists every component that declares its binding keys, by tag name, and no other", () => {
+        expect(Object.keys(getDataModelBindingKeysByTagName())).toEqual([
+            "custom-dispensasjon",
+            "custom-dispensasjonsvarsel",
+            "custom-gjennomfoeringsplan",
+            "custom-gjenpart-nabovarsel"
+        ]);
+    });
+
+    it("gives each component the keys its class declares, as plain data", () => {
+        // Dispensasjon on purpose: it has deprecated keys, so leaving them out cannot pass unnoticed.
+        const bindingKeys = getDataModelBindingKeysByTagName()["custom-dispensasjon"];
+        expect(bindingKeys).toEqual(CustomDispensasjon.dataModelBindingKeys);
+        expect(JSON.parse(JSON.stringify(bindingKeys))).toEqual(bindingKeys);
     });
 });
