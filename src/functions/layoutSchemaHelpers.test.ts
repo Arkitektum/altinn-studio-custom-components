@@ -166,7 +166,7 @@ describe("buildLayoutSchema", () => {
     });
 
     it("fails rather than publish a wrong schema when Altinn's Custom definition changes shape", () => {
-        const changed = structuredClone(altinnSchema) as { definitions: Record<string, unknown> };
+        const changed = JSON.parse(JSON.stringify(altinnSchema)) as { definitions: Record<string, unknown> };
         changed.definitions.CompCustomExternal = { type: "object" };
         expect(() => buildLayoutSchema(changed)).toThrow("CompCustomExternal");
     });

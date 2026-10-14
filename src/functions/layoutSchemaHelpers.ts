@@ -58,6 +58,8 @@ export function getDataModelBindingsSchema(tagName: string, bindingKeys: DataMod
 /**
  * Points every reference to another of Altinn's schema files at Altinn's own copy, since a relative reference would otherwise be resolved against this schema's address.
  *
+ * Every object and array is rebuilt on the way, so the result shares nothing with the schema it was given.
+ *
  * @param {*} value - Part of the schema.
  * @returns {*} A copy with the references made absolute.
  */
@@ -88,7 +90,7 @@ function withAbsoluteAltinnReferences(value: unknown): unknown {
  * @throws {Error} When Altinn's definition of a `Custom` component no longer has the parts this builds on, so a refreshed copy cannot quietly produce a wrong schema.
  */
 export function buildLayoutSchema(altinnSchema: JsonSchema): JsonSchema {
-    const schema = withAbsoluteAltinnReferences(structuredClone(altinnSchema)) as JsonSchema & { definitions: Record<string, JsonSchema> };
+    const schema = withAbsoluteAltinnReferences(altinnSchema) as JsonSchema & { definitions: Record<string, JsonSchema> };
     const altinnCustomParts = (schema.definitions?.CompCustomExternal?.allOf || []) as JsonSchema[];
     const customProperties = altinnCustomParts.find((part) => (part.properties as JsonSchema)?.tagName && part.title === "CompCustomExternal");
     const closingPart = altinnCustomParts.find((part) => part.additionalProperties === false);

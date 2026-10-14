@@ -7,7 +7,7 @@ export const layoutAttributeSchemas: Record<string, object> = {
     resourceBindings: {
         type: "object",
         description:
-            'Overrides for the text resources the component shows, grouped the way the component groups them, for example { "title": "resource.my.title" }.'
+            'Overrides for the text resources the component shows, grouped the way the component groups them, for example { "title": "my-app.heading" }, naming text resource ids.'
     },
     hideIfEmpty: { type: "boolean", description: "Hides the component when it has no data to show." },
     hideTitle: { type: "boolean", description: "Leaves out the component's title." },
