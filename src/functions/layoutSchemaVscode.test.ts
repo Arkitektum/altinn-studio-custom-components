@@ -88,6 +88,19 @@ describe("the layout schema in VS Code's JSON engine", () => {
         expect(await completionsAfter([tablePart({ navn: {} })], '"navn": {')).toEqual(["emptyFieldText", "title"]);
     });
 
+    it("offers an attribute only some components read on those alone, and says who reads it", async () => {
+        const listData = { id: "list", type: "Custom", tagName: "custom-list-data", hideIfEmpty: true, dataModelBindings: { data: "a.b" } };
+        const fieldData = { ...listData, tagName: "custom-field-data" };
+        expect(await completionsAfter([listData], '"hideIfEmpty": true,')).toContain("itemKey");
+        expect(await completionsAfter([fieldData], '"hideIfEmpty": true,')).not.toContain("itemKey");
+        expect(await completionsAfter([fieldData], '"hideIfEmpty": true,')).toContain("hideTitle");
+
+        const { text, document, jsonDocument } = openLayout([{ ...listData, itemKey: "navn" }]);
+        const hover = await service.doHover(document, document.positionAt(text.indexOf('"itemKey"') + 2), jsonDocument);
+        // VS Code escapes hover text as Markdown, so the backslashes are left out before comparing.
+        expect(JSON.stringify(hover?.contents).replace(/\\/g, "")).toContain("Read by custom-list-data.");
+    });
+
     it("offers the tag names", async () => {
         const labels = await completionsAfter([{ id: "field", type: "Custom", tagName: "" }], '"tagName": ');
         expect(labels).toContain("custom-field-data");

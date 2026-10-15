@@ -2,6 +2,7 @@ import type { DataModelBindingKeys } from "../types.ts";
 
 import { LAYOUT_SCHEMA_ID, buildLayoutSchema, getDataModelBindingsSchema, getResourceBindingsSchema } from "./layoutSchemaHelpers.ts";
 import { deprecatedLayoutAttributes, layoutAttributeSchemas } from "../constants/layoutAttributeSchemas.ts";
+import { getAttributeOwners, getComponentSpecificAttributes } from "./componentAttributes.ts";
 import Ajv from "ajv";
 import altinnSchema from "../data/altinn/layout.schema.v1.json";
 import expressionSchema from "../data/altinn/expression.schema.v1.json";
@@ -92,9 +93,33 @@ describe("buildLayoutSchema", () => {
             dataTitleItemKey: "e"
         };
         expect(Object.keys(attributes).sort()).toEqual(Object.keys(layoutAttributeSchemas).sort());
-        const layout = layoutWith(fieldData({ data: "model.value" }, attributes));
+        const specific = new Set(getComponentSpecificAttributes());
+        const general = Object.fromEntries(Object.entries(attributes).filter(([name]) => !specific.has(name)));
+        const layout = layoutWith(fieldData({ data: "model.value" }, general));
         expect(errorsWithOurs(layout)).toEqual([]);
         expect(validateWithAltinns(layout)).toBe(false);
+        // Each attribute only some components read, on every component that reads it.
+        const owners = Object.entries(getAttributeOwners()).flatMap(([name, tagNames]) =>
+            tagNames.map((tagName, index) => ({
+                id: `${name}${index}`,
+                type: "Custom",
+                tagName,
+                [name]: attributes[name as keyof typeof attributes]
+            }))
+        );
+        expect(owners.length).toBe(10);
+        expect(errorsWithOurs(layoutWith(...owners)).filter((error) => !error.startsWith("required"))).toEqual([]);
+    });
+
+    it("reports an attribute only some components read, on any other component", () => {
+        expect(errorsWithOurs(layoutWith(fieldData({ data: "model.value" }, { itemKey: "navn" })))).toEqual(["additionalProperties itemKey"]);
+        expect(errorsWithOurs(layoutWith(fieldData({ data: "model.value" }, { tableColumns: [] })))).toEqual(["additionalProperties tableColumns"]);
+        const listData = { id: "list", type: "Custom", tagName: "custom-list-data", dataModelBindings: { data: "a.b" }, itemKey: "navn" };
+        expect(errorsWithOurs(layoutWith(listData))).toEqual([]);
+    });
+
+    it("leaves a tag this package does not have open to any attribute", () => {
+        expect(errorsWithOurs(layoutWith({ id: "other", type: "Custom", tagName: "my-element", itemKey: "x", anything: true }))).toEqual([]);
     });
 
     it("accepts a deprecated attribute, marked with what to do instead", () => {

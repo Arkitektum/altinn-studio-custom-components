@@ -4,6 +4,7 @@ import type { ResourceBindingKeys } from "./resourceBindingKeys.ts";
 import { customElementTagNames } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { getAttributeOwners, getComponentSpecificAttributes } from "./componentAttributes.ts";
 import { getResourceBindingKeysByTagName, resourceBindingGroupsFromData } from "./resourceBindingKeys.ts";
 import { getDataModelBindingKeysByTagName } from "./componentHelpers.ts";
 
@@ -189,11 +190,15 @@ export function buildLayoutSchema(altinnSchema: JsonSchema, expressionSchema: Js
         );
     }
 
-    const attributeNames = [...Object.keys(layoutAttributeSchemas), ...Object.keys(deprecatedLayoutAttributes)];
+    // Attributes only some components read are allowed on those components alone, in their own rule below. The rest are allowed on every component.
+    const attributeOwners = getAttributeOwners();
+    const specificAttributes = new Set(getComponentSpecificAttributes());
+    const generalAttributeSchemas = Object.fromEntries(Object.entries(layoutAttributeSchemas).filter(([name]) => !specificAttributes.has(name)));
+    const generalAttributeNames = [...Object.keys(generalAttributeSchemas), ...Object.keys(deprecatedLayoutAttributes)];
     const attributes: JsonSchema = {
         type: "object",
         properties: {
-            ...layoutAttributeSchemas,
+            ...generalAttributeSchemas,
             ...Object.fromEntries(
                 Object.entries(deprecatedLayoutAttributes).map(([name, hint]) => [name, { description: `${hint}.`, deprecationMessage: `${hint}.` }])
             )
@@ -206,12 +211,28 @@ export function buildLayoutSchema(altinnSchema: JsonSchema, expressionSchema: Js
         anyOf: [{ enum: [...customElementTagNames] }, { not: { pattern: "^custom-" } }]
     };
     const dataModelBindingKeysByTagName = getDataModelBindingKeysByTagName();
+    // Every property Altinn allows on a Custom component, and every attribute any of these components reads.
+    const allowedEverywhere = Object.fromEntries(
+        [...Object.keys(closingPart.properties as JsonSchema), ...generalAttributeNames].map((name) => [name, true])
+    );
     const bindingRules = Object.entries(getResourceBindingKeysByTagName()).map(([componentTagName, resourceBindingKeys]) => {
         const bindingKeys = dataModelBindingKeysByTagName[componentTagName];
+        const ownAttributes = Object.fromEntries(
+            Object.entries(attributeOwners)
+                .filter(([, owners]) => owners.includes(componentTagName))
+                .map(([name, owners]) => {
+                    const attributeSchema = layoutAttributeSchemas[name] as { description?: string };
+                    return [name, { ...attributeSchema, description: `${attributeSchema.description} Read by ${owners.join(", ")}.` }];
+                })
+        );
         return {
             if: { properties: { tagName: { const: componentTagName } }, required: ["tagName"] },
             then: {
+                // Closed here rather than once for every component, so an attribute only some components read is offered and allowed on those alone.
+                additionalProperties: false,
                 properties: {
+                    ...allowedEverywhere,
+                    ...ownAttributes,
                     resourceBindings: getResourceBindingsSchema(
                         componentTagName,
                         resourceBindingKeys,
@@ -232,8 +253,8 @@ export function buildLayoutSchema(altinnSchema: JsonSchema, expressionSchema: Js
                     return { ...part, properties: { ...(part.properties as JsonSchema), tagName } };
                 }
                 if (part === closingPart) {
-                    const allowed = Object.fromEntries(attributeNames.map((name) => [name, true]));
-                    return { ...part, properties: { ...(part.properties as JsonSchema), ...allowed } };
+                    // Each component's rule below closes it instead, with the attributes that component reads.
+                    return Object.fromEntries(Object.entries(part).filter(([key]) => key !== "additionalProperties"));
                 }
                 return part;
             }),
