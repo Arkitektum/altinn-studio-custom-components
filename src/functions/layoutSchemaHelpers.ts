@@ -13,7 +13,7 @@ type JsonSchema = Record<string, unknown>;
 /** Where the published layout schema can be fetched, which is also its `$id`. */
 export const LAYOUT_SCHEMA_ID = "https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json";
 
-/** Where Altinn publishes its layout schema and the schemas it refers to by relative path. */
+/** Where Altinn publishes its layout and expression schemas. */
 export const ALTINN_LAYOUT_SCHEMA_BASE_URL = "https://altinncdn.no/toolkits/altinn-app-frontend/4/schemas/json/layout/";
 
 /**
@@ -26,7 +26,8 @@ export const ALTINN_LAYOUT_SCHEMA_BASE_URL = "https://altinncdn.no/toolkits/alti
  * @returns {Object} The schema for the component's `dataModelBindings`.
  */
 export function getDataModelBindingsSchema(tagName: string, bindingKeys: DataModelBindingKeys): JsonSchema {
-    const binding = { $ref: "#/definitions/IRawDataModelBinding" };
+    // In allOf rather than next to the descriptions: VS Code's JSON engine ignores everything beside a $ref, which hid every description and deprecation warning below.
+    const binding = { allOf: [{ $ref: "#/definitions/IRawDataModelBinding" }] };
     const oneOfGroups = bindingKeys.oneOf || [];
     const properties: Record<string, JsonSchema> = {};
     for (const key of bindingKeys.expected) {
@@ -55,24 +56,64 @@ export function getDataModelBindingsSchema(tagName: string, bindingKeys: DataMod
     };
 }
 
+/** The kinds of expression Altinn's layout schema asks for, each a definition this schema adds in place of Altinn's. */
+const EXPRESSION_DEFINITIONS: Record<string, string> = { boolean: "ExpressionBoolean", string: "ExpressionString", number: "ExpressionNumber" };
+
 /**
- * Points every reference to another of Altinn's schema files at Altinn's own copy, since a relative reference would otherwise be resolved against this schema's address.
+ * Builds the expression definitions that replace Altinn's: an expression is a value, or an array naming one of Altinn's functions followed by its arguments, which are checked the same way.
+ *
+ * Altinn's expression schema checks every argument against every function at every level of nesting. VS Code's JSON engine took two seconds over one three-level expression and never finished a whole layout, freezing completion and validation for every JSON file. This check costs one step per level, keeps completion for the function names, and leaves argument counts and types to Altinn.
+ *
+ * @param {Object} expressionSchema - Altinn's expression schema, which the function names and their descriptions are read from.
+ * @returns {Object} The definitions to add.
+ */
+function getExpressionDefinitions(expressionSchema: JsonSchema): Record<string, JsonSchema> {
+    const functions: Map<string, string> = new Map();
+    for (const definition of Object.values((expressionSchema.definitions || {}) as Record<string, JsonSchema>)) {
+        const name = ((definition.items as JsonSchema[] | undefined)?.[0] as JsonSchema | undefined)?.const;
+        if (typeof name === "string" && !functions.has(name)) functions.set(name, String(definition.title || name));
+    }
+    if (!functions.size) {
+        throw new Error(
+            "Altinn's expression schema no longer names its functions the way buildLayoutSchema reads them. Check its definitions before publishing."
+        );
+    }
+    const call = { $ref: "#/definitions/ExpressionCall" };
+    const valueOrCall = { anyOf: [{ type: ["string", "number", "boolean", "null"] }, call] };
+    return {
+        ExpressionCall: {
+            title: "Expression",
+            description: "A function call: the function's name first, then its arguments, which may be expressions themselves.",
+            type: "array",
+            minItems: 1,
+            items: [{ enum: [...functions.keys()], enumDescriptions: [...functions.values()], description: "The function to call." }],
+            additionalItems: valueOrCall
+        },
+        ...Object.fromEntries(Object.values(EXPRESSION_DEFINITIONS).map((name) => [name, valueOrCall]))
+    };
+}
+
+/**
+ * Points every reference to Altinn's expression schema at the definitions this schema adds instead, so the result refers to no other file.
  *
  * Every object and array is rebuilt on the way, so the result shares nothing with the schema it was given.
  *
  * @param {*} value - Part of the schema.
- * @returns {*} A copy with the references made absolute.
+ * @returns {*} A copy with the references replaced.
+ * @throws {Error} When the schema refers to another file, or to a kind of expression this does not replace.
  */
-function withAbsoluteAltinnReferences(value: unknown): unknown {
-    if (Array.isArray(value)) return value.map(withAbsoluteAltinnReferences);
+function withLightExpressionReferences(value: unknown): unknown {
+    if (Array.isArray(value)) return value.map(withLightExpressionReferences);
     if (!value || typeof value !== "object") return value;
     return Object.fromEntries(
-        Object.entries(value).map(([key, child]) => [
-            key,
-            key === "$ref" && typeof child === "string" && !child.startsWith("#") && !/^https?:/.test(child)
-                ? `${ALTINN_LAYOUT_SCHEMA_BASE_URL}${child}`
-                : withAbsoluteAltinnReferences(child)
-        ])
+        Object.entries(value).map(([key, child]) => {
+            if (key !== "$ref" || typeof child !== "string" || child.startsWith("#")) return [key, withLightExpressionReferences(child)];
+            const kind = /^expression\.schema\.v1\.json#\/definitions\/(\w+)$/.exec(child)?.[1];
+            if (!kind || !EXPRESSION_DEFINITIONS[kind]) {
+                throw new Error(`Altinn's layout schema refers to ${child}, which buildLayoutSchema does not replace. Check it before publishing.`);
+            }
+            return [key, `#/definitions/${EXPRESSION_DEFINITIONS[kind]}`];
+        })
     );
 }
 
@@ -85,12 +126,15 @@ function withAbsoluteAltinnReferences(value: unknown): unknown {
  *   - completion for `tagName`, and an error for a `custom-` tag this package does not have
  *   - for each component that declares its binding keys, a schema for its `dataModelBindings`
  *
+ * Altinn's expression checking is replaced by a lighter one, see getExpressionDefinitions, so the result refers to no other file.
+ *
  * @param {Object} altinnSchema - Altinn's layout schema, which is not changed.
+ * @param {Object} expressionSchema - Altinn's expression schema, which the expression function names are read from.
  * @returns {Object} The layout schema to publish.
  * @throws {Error} When Altinn's definition of a `Custom` component no longer has the parts this builds on, so a refreshed copy cannot quietly produce a wrong schema.
  */
-export function buildLayoutSchema(altinnSchema: JsonSchema): JsonSchema {
-    const schema = withAbsoluteAltinnReferences(altinnSchema) as JsonSchema & { definitions: Record<string, JsonSchema> };
+export function buildLayoutSchema(altinnSchema: JsonSchema, expressionSchema: JsonSchema): JsonSchema {
+    const schema = withLightExpressionReferences(altinnSchema) as JsonSchema & { definitions: Record<string, JsonSchema> };
     const altinnCustomParts = (schema.definitions?.CompCustomExternal?.allOf || []) as JsonSchema[];
     const customProperties = altinnCustomParts.find((part) => (part.properties as JsonSchema)?.tagName && part.title === "CompCustomExternal");
     const closingPart = altinnCustomParts.find((part) => part.additionalProperties === false);
@@ -141,9 +185,10 @@ export function buildLayoutSchema(altinnSchema: JsonSchema): JsonSchema {
             ...bindingRules
         ]
     };
+    Object.assign(schema.definitions, getExpressionDefinitions(expressionSchema));
     return {
         ...schema,
         $id: LAYOUT_SCHEMA_ID,
-        $comment: `Altinn's layout schema (${ALTINN_LAYOUT_SCHEMA_BASE_URL}layout.schema.v1.json) with the definition of a Custom component replaced by @arkitektum/altinn-studio-custom-components, so its attributes are allowed and each component's dataModelBindings are checked.`
+        $comment: `Altinn's layout schema (${ALTINN_LAYOUT_SCHEMA_BASE_URL}layout.schema.v1.json) with the definition of a Custom component replaced by @arkitektum/altinn-studio-custom-components, so its attributes are allowed and each component's dataModelBindings are checked, and with a lighter expression check that VS Code can keep up with.`
     };
 }

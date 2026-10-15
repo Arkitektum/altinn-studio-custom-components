@@ -4,8 +4,9 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { buildLayoutSchema } from "../src/functions/layoutSchemaHelpers.ts";
 import path from "node:path";
 
-const altinnSchemaPath = path.resolve(import.meta.dirname, "../src/data/altinn/layout.schema.v1.json");
+const readAltinnSchema = (name) => JSON.parse(readFileSync(path.resolve(import.meta.dirname, "../src/data/altinn", name), "utf8"));
 const outputPath = path.resolve(import.meta.dirname, "../dist/layout.schema.json");
 mkdirSync(path.dirname(outputPath), { recursive: true });
-writeFileSync(outputPath, `${JSON.stringify(buildLayoutSchema(JSON.parse(readFileSync(altinnSchemaPath, "utf8"))), null, 2)}\n`);
+const schema = buildLayoutSchema(readAltinnSchema("layout.schema.v1.json"), readAltinnSchema("expression.schema.v1.json"));
+writeFileSync(outputPath, `${JSON.stringify(schema, null, 2)}\n`);
 console.log(`Wrote ${path.relative(process.cwd(), outputPath)}`);

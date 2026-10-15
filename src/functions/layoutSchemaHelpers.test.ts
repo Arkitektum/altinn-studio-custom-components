@@ -1,33 +1,35 @@
 import type { DataModelBindingKeys } from "../types.ts";
 
-import { ALTINN_LAYOUT_SCHEMA_BASE_URL, LAYOUT_SCHEMA_ID, buildLayoutSchema, getDataModelBindingsSchema } from "./layoutSchemaHelpers.ts";
+import { LAYOUT_SCHEMA_ID, buildLayoutSchema, getDataModelBindingsSchema } from "./layoutSchemaHelpers.ts";
 import { deprecatedLayoutAttributes, layoutAttributeSchemas } from "../constants/layoutAttributeSchemas.ts";
 import Ajv from "ajv";
 import altinnSchema from "../data/altinn/layout.schema.v1.json";
+import expressionSchema from "../data/altinn/expression.schema.v1.json";
 import { getDataModelBindingKeysByTagName } from "./componentHelpers.ts";
 import { getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
 
 type Component = Record<string, unknown>;
 
-/** Every definition Altinn's layout schema uses from its expression schema, accepted as anything: these tests are about custom components, not expressions. */
-function expressionSchemaStub(id: string) {
-    const used: Set<string> = new Set();
-    JSON.stringify(altinnSchema, (key, value) => {
-        if (key === "$ref" && typeof value === "string" && value.startsWith("expression.schema.v1.json")) used.add(value.split("/").pop()!);
-        return value;
-    });
-    return { $id: id, definitions: Object.fromEntries([...used].map((name) => [name, {}])) };
-}
-
-function compile(schema: object, expressionSchemaId: string) {
-    // strict is off for the keywords editors read and validators do not, such as deprecationMessage.
+function compile(schema: object, ...otherSchemas: object[]) {
+    // strict is off for the keywords editors read and validators do not, such as deprecationMessage and enumDescriptions.
     const ajv = new Ajv({ allErrors: true, strict: false, validateFormats: false });
-    ajv.addSchema(expressionSchemaStub(expressionSchemaId));
+    otherSchemas.forEach((otherSchema) => ajv.addSchema(otherSchema));
     return ajv.compile(schema);
 }
 
-const validateWithOurs = compile(buildLayoutSchema(altinnSchema), `${ALTINN_LAYOUT_SCHEMA_BASE_URL}expression.schema.v1.json`);
-const validateWithAltinns = compile(altinnSchema, "https://altinncdn.no/schemas/json/layout/expression.schema.v1.json");
+const ourSchema = buildLayoutSchema(altinnSchema, expressionSchema) as { definitions: Record<string, unknown> };
+// Ours refers to no other file. Altinn's refers to its expression schema, which carries its own address in $id.
+const validateWithOurs = compile(ourSchema);
+const validateWithAltinns = compile(altinnSchema, expressionSchema);
+
+/** The names of the functions Altinn's expression schema defines, read here the way a reader of that file would. */
+const altinnFunctionNames = [
+    ...new Set(
+        Object.values(expressionSchema.definitions as Record<string, { items?: { const?: string }[] }>)
+            .map((definition) => definition.items?.[0]?.const)
+            .filter(Boolean)
+    )
+];
 
 const layoutWith = (...components: Component[]) => ({ data: { layout: components } });
 
@@ -96,7 +98,7 @@ describe("buildLayoutSchema", () => {
 
     it("accepts a deprecated attribute, marked with what to do instead", () => {
         expect(errorsWithOurs(layoutWith(fieldData({ data: "model.value" }, { partType: "eier" })))).toEqual([]);
-        const customDefinition = JSON.stringify(buildLayoutSchema(altinnSchema).definitions);
+        const customDefinition = JSON.stringify(ourSchema.definitions);
         expect(customDefinition).toContain(`"deprecationMessage":"${deprecatedLayoutAttributes.partType}."`);
     });
 
@@ -129,9 +131,10 @@ describe("buildLayoutSchema", () => {
 
     it("marks a deprecated binding key with its hint, and still accepts it", () => {
         const bindingsSchema = getDataModelBindingsSchema("custom-x", { expected: [], deprecated: { old: "Renamed to new" } });
+        // The $ref sits in allOf because VS Code ignores whatever is written beside a $ref, which would hide the description and the deprecation.
         expect(bindingsSchema.properties).toEqual({
             old: {
-                $ref: "#/definitions/IRawDataModelBinding",
+                allOf: [{ $ref: "#/definitions/IRawDataModelBinding" }],
                 description: "No longer read by custom-x. Renamed to new.",
                 deprecationMessage: "Renamed to new."
             }
@@ -156,19 +159,51 @@ describe("buildLayoutSchema", () => {
         );
     });
 
-    it("names itself, points Altinn's other schema files at Altinn, and leaves the copy it was given alone", () => {
-        const before = JSON.stringify(altinnSchema);
-        const schema = buildLayoutSchema(altinnSchema);
+    it("names itself, refers to no other file, and leaves the copies it was given alone", () => {
+        const before = JSON.stringify([altinnSchema, expressionSchema]);
+        const schema = buildLayoutSchema(altinnSchema, expressionSchema);
         expect(schema.$id).toBe(LAYOUT_SCHEMA_ID);
-        expect(JSON.stringify(schema)).not.toContain('"$ref":"expression.schema.v1.json');
-        expect(JSON.stringify(schema)).toContain(`"$ref":"${ALTINN_LAYOUT_SCHEMA_BASE_URL}expression.schema.v1.json#/definitions/`);
-        expect(JSON.stringify(altinnSchema)).toBe(before);
+        expect(JSON.stringify(schema).match(/"\$ref":"[^#][^"]*"/g)).toBeNull();
+        expect(JSON.stringify([altinnSchema, expressionSchema])).toBe(before);
     });
 
     it("fails rather than publish a wrong schema when Altinn's Custom definition changes shape", () => {
         const changed = JSON.parse(JSON.stringify(altinnSchema)) as { definitions: Record<string, unknown> };
         changed.definitions.CompCustomExternal = { type: "object" };
-        expect(() => buildLayoutSchema(changed)).toThrow("CompCustomExternal");
+        expect(() => buildLayoutSchema(changed, expressionSchema)).toThrow("CompCustomExternal");
+    });
+});
+
+describe("buildLayoutSchema's expressions", () => {
+    const headerHiddenWhen = (hidden: unknown) =>
+        layoutWith({ id: "heading", type: "Header", size: "L", hidden, textResourceBindings: { title: "heading" } });
+
+    it("accepts a plain value, and a nested expression of Altinn's functions", () => {
+        expect(validateWithOurs(headerHiddenWhen(true))).toBe(true);
+        expect(validateWithOurs(headerHiddenWhen(["lessThanEq", ["stringLength", ["dataModel", "soeknadGjelder.foelgebrev"]], 0]))).toBe(true);
+        expect(validateWithOurs(headerHiddenWhen(["if", ["equals", ["instanceContext", "instanceOwnerPartyId"], "1"], true, "else", false]))).toBe(
+            true
+        );
+    });
+
+    it("rejects a function Altinn does not have, at any depth", () => {
+        expect(validateWithOurs(headerHiddenWhen(["lessThenEq", 1, 0]))).toBe(false);
+        expect(validateWithOurs(headerHiddenWhen(["not", ["equals", ["dataModell", "a.b"], "x"]]))).toBe(false);
+    });
+
+    it("offers every function Altinn's expression schema defines, each with its title", () => {
+        const call = ourSchema.definitions.ExpressionCall as { items: { enum: string[]; enumDescriptions: string[] }[] };
+        expect([...call.items[0]!.enum].sort()).toEqual([...altinnFunctionNames].sort());
+        expect(call.items[0]!.enumDescriptions).toHaveLength(call.items[0]!.enum.length);
+        expect(altinnFunctionNames.length > 40).toBe(true);
+    });
+
+    it("fails rather than publish a wrong schema when Altinn refers to something it does not replace", () => {
+        const changed = JSON.parse(
+            JSON.stringify(altinnSchema).replace('"expression.schema.v1.json#/definitions/number"', '"expression.schema.v1.json#/definitions/any"')
+        );
+        expect(() => buildLayoutSchema(changed, expressionSchema)).toThrow("expression.schema.v1.json#/definitions/any");
+        expect(() => buildLayoutSchema(altinnSchema, { definitions: {} })).toThrow("names its functions");
     });
 });
 
