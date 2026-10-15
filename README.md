@@ -263,6 +263,7 @@ Clicking anywhere outside a panel closes it.
 - [Architecture overview](./ARCHITECTURE.md)
 - [Contributing guide](./CONTRIBUTING.md)
 - [Security policy](./SECURITY.md)
+- [Accessibility](./ACCESSIBILITY.md)
 - [Altinn Studio Documentation](https://docs.altinn.studio/)
 - [Altinn Studio GitHub Repository](https://github.com/Altinn/altinn-studio)
 - [Altinn Studio Custom Component Documentation](https://docs.altinn.studio/altinn-studio/reference/ux/components/custom/)
