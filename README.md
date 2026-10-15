@@ -72,6 +72,26 @@ RUN apk add --no-cache npm
 
 After these steps, npm packages will be installed automatically during the build, and all assets will be copied into `wwwroot/altinn-studio-custom-components`.
 
+### 6. Optional: editor help for layout files
+
+At the top of each layout file in `App/ui/<form>/layouts/`, point `$schema` at the schema this package ships:
+
+```json
+"$schema": "../../../wwwroot/altinn-studio-custom-components/layout.schema.json"
+```
+
+VS Code then:
+
+- suggests the tag names, and for each component its `dataModelBindings` keys, `resourceBindings` keys and attributes
+- describes each of them on hover
+- warns about a missing, deprecated or unknown key
+
+Good to know:
+
+- The file comes with `dotnet build` (step 3), so it always matches the package version the app installs. In a fresh clone, VS Code cannot load it until the app has been built once.
+- A `json.schemas` setting in VS Code does not work for this, because VS Code uses the file's own `$schema`.
+- To use the schema without a build, point `$schema` at `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json` instead. That is the latest published version, which can take a while to catch up after a release.
+
 ---
 
 ## Available Components
@@ -133,27 +153,62 @@ For a full list of available components and examples, see the documentation site
     yarn start
     ```
 
-    Then open [http://localhost:9000](http://localhost:9000). The local playground links to a component tester, the [Developer tools](#️-devtools-mode) page, and a Statistics page.
+    Then open [http://localhost:9000](http://localhost:9000). The local playground links to a component tester, the [DevTools mode](#devtools-mode) page, and a Statistics page.
 
 ### Building
-
-Produce a production build in `dist/`:
 
 ```bash
 yarn build
 ```
 
-Besides the bundle and the text resources, the build writes `dist/dataModelBindingKeys.json`, exported as `@arkitektum/altinn-studio-custom-components/dataModelBindingKeys.json`. It lists, for each component that declares them, the `dataModelBindings` keys the component reads: `expected` keys must all be bound, each `oneOf` group needs one of its keys (the first bound key in a group is the one read), and `optional` keys may be left out. `deprecated` lists the keys it no longer reads, with a hint saying what replaced them. The docs gallery checks its examples against it, and the Statistics page checks every app's layouts against the same lists on its Data model bindings page.
+The build writes these files to `dist/`:
 
-The build also writes `dist/layout.schema.json`, exported as `@arkitektum/altinn-studio-custom-components/layout.schema.json` and published at `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json`. It is Altinn's layout schema with the definition of a `Custom` component replaced: Altinn's own closes a custom component to the properties Altinn knows, so an editor reports every attribute these components read, such as `resourceBindings` or `hideIfEmpty`, as not allowed. The replacement accepts those attributes, offers the tag names, and checks each component's `dataModelBindings` against the same lists. It also offers the `resourceBindings` keys each component reads, worked out at build by constructing every component and recording which keys it reads, and reports a key the component does not read. Attributes only some components read, such as `itemKey` or `tableColumns`, are offered and allowed on those components alone, found the same way. Attributes the base class gives every component, such as `hideIfEmpty` or `size`, are allowed on all of them. Expressions are checked more lightly than in Altinn's schema: an expression must name one of Altinn's functions, at every level, but argument counts and types are not checked. Altinn's own expression checking takes VS Code's JSON engine seconds for every nested expression and freezes the editor on real layouts. It is built from copies of Altinn's layout and expression schemas in `src/data/altinn/`, which `yarn update-altinn-layout-schema` refreshes.
+| File                                 | Exported as                                  | What it is for                                                                          |
+| ------------------------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `main.js`, `main.css` and fonts      | `.` and `./styles.css`                       | The components, loaded by the app                                                       |
+| `resource.nb.json`, `resources.json` | `./resources/nb.json` and `./resources.json` | The default text resources                                                              |
+| `dataModelBindingKeys.json`          | `./dataModelBindingKeys.json`                | The `dataModelBindings` keys each component reads, see below                            |
+| `layout.schema.json`                 | `./layout.schema.json`                       | The schema for app layout files, see [step 6](#6-optional-editor-help-for-layout-files) |
 
-To use it in an app, point `"$schema"` at the top of each layout file at the copy the build puts in `wwwroot` (see [step 3](#3-configure-asset-handling-in-appappcsproj)). From a layout file in `App/ui/<form>/layouts/`, that is:
+#### `dataModelBindingKeys.json`
+
+One entry for each component that declares the keys it reads:
+
+- `expected`: keys that must all be bound
+- `oneOf`: groups where one key should be bound. When more are, the first one in the group is read.
+- `optional`: keys that may be left out
+- `deprecated`: keys no longer read, each with a hint saying what replaced it
 
 ```json
-"$schema": "../../../wwwroot/altinn-studio-custom-components/layout.schema.json"
+{
+    "custom-field-data": {
+        "expected": [],
+        "oneOf": [["simpleBinding", "data"]],
+        "optional": ["dataTitle"],
+        "deprecated": {}
+    }
+}
 ```
 
-The schema then matches the version of this package the app installs, and needs no network. `wwwroot/altinn-studio-custom-components` is created by `dotnet build`, so in a fresh clone the editor cannot load the schema until the app has been built once. Where that does not suit, the latest published schema is at `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json`, which jsDelivr caches for a while after a release. A `json.schemas` setting in VS Code is not enough in either case, since VS Code uses a file's own `$schema` when it has one.
+The docs gallery checks its examples against it, and the Data model bindings page of the Statistics dashboard checks every app's layouts.
+
+#### `layout.schema.json`
+
+Altinn's layout schema, with the definition of a custom component replaced. Altinn's own allows only Altinn's properties on a custom component, so an editor flags every attribute these components use.
+
+On a custom component, it checks:
+
+- **the tag name**
+- **`dataModelBindings`** against the same lists as `dataModelBindingKeys.json`
+- **`resourceBindings`** against the keys the component reads, found at build by constructing every component
+- **attributes**: the ones every component gets from the base class, such as `hideIfEmpty` and `size`, are allowed everywhere. The ones only some components read, such as `itemKey` and `tableColumns`, are allowed on those alone.
+- **expressions**, more lightly than Altinn's schema: an expression must name one of Altinn's functions at every level, but argument counts and types are not checked. Altinn's own expression checking freezes VS Code on real layouts.
+
+It is built from copies of Altinn's layout and expression schemas in `src/data/altinn/`. To refresh them:
+
+```bash
+yarn update-altinn-layout-schema
+```
 
 ### Testing
 
