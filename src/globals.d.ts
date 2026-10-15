@@ -69,6 +69,7 @@ declare global {
     var bindingDriftSelectedAppName: string | undefined;
     var bindingDriftSelectedForm: string | undefined;
     var bindingDriftFindingFilter: string | undefined;
+    var bindingDriftShowWithoutFindings: boolean | undefined;
 }
 
 export {};

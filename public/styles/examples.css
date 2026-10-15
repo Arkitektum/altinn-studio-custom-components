@@ -582,6 +582,11 @@ svg.icon {
                 border: 1px solid var(--color-border-dark-highlight);
                 border-radius: 8px;
                 color: var(--color-text-white);
+                & .binding-drift-summary {
+                    margin: 0 0 8px;
+                    font-size: 14px;
+                    color: var(--color-text-white-muted);
+                }
             }
 
             & table.table-dark {
@@ -918,6 +923,12 @@ svg.icon {
                     color: var(--color-text-white);
                     cursor: pointer;
                     display: block;
+                    &.checkbox-filter {
+                        display: inline-flex;
+                        align-items: center;
+                        gap: 6px;
+                        font-weight: 400;
+                    }
                 }
                 & select {
                     font-size: 14px;

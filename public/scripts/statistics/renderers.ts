@@ -123,6 +123,7 @@ export function renderDataModelBindingsPage(containerElement: HTMLElement, { kee
         globalThis.bindingDriftSelectedAppName = "";
         globalThis.bindingDriftSelectedForm = "";
         globalThis.bindingDriftFindingFilter = "";
+        globalThis.bindingDriftShowWithoutFindings = false;
     }
 
     const titleElement = document.createElement("h2");

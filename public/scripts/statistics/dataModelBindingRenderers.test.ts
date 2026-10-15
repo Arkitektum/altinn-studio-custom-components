@@ -41,12 +41,16 @@ const applications = [
     { appOwner: "o", appName: "b", displayLayouts: [] }
 ];
 
-function setFilters(appOwner = "", appName = "", form = "", finding = "") {
+function setFilters(appOwner = "", appName = "", form = "", finding = "", showWithoutFindings = false) {
     globalThis.bindingDriftSelectedAppOwner = appOwner;
     globalThis.bindingDriftSelectedAppName = appName;
     globalThis.bindingDriftSelectedForm = form;
     globalThis.bindingDriftFindingFilter = finding;
+    globalThis.bindingDriftShowWithoutFindings = showWithoutFindings;
 }
+
+const listedTagNames = (list: HTMLElement) =>
+    Array.from(list.querySelectorAll(":scope > details .component-tag-name")).map((node) => node.firstChild!.textContent);
 
 function usageIds(entries: DataModelBindingDriftEntry[], tagName = "custom-dispensasjon") {
     return entries.find((entry) => entry.tagName === tagName)!.usages.map((entry) => entry.id);
@@ -151,6 +155,41 @@ describe("renderDataModelBindingDriftListItem", () => {
     });
 });
 
+describe("renderDataModelBindingDriftList", () => {
+    const threeComponents: DataModelBindingDriftEntry[] = [
+        { tagName: "custom-field-data", usages: [] },
+        drift[0]!,
+        { tagName: "custom-header-text", usages: [] }
+    ];
+
+    it("lists only the components with findings, under a line saying how many of all the checked ones that is", () => {
+        const list = renderDataModelBindingDriftList(threeComponents, false);
+        expect(listedTagNames(list)).toEqual(["custom-dispensasjon"]);
+        expect(list.querySelector(".binding-drift-summary")!.textContent).toBe("1 of 3 checked components have findings for the chosen filters.");
+    });
+
+    it("lists the components without findings after the others when asked for", () => {
+        expect(listedTagNames(renderDataModelBindingDriftList(threeComponents, true))).toEqual([
+            "custom-dispensasjon",
+            "custom-field-data",
+            "custom-header-text"
+        ]);
+    });
+
+    it("says that none have findings rather than showing an empty list", () => {
+        const list = renderDataModelBindingDriftList([{ tagName: "custom-field-data", usages: [] }], false);
+        expect(listedTagNames(list)).toEqual([]);
+        expect(list.querySelector(".binding-drift-summary")!.textContent).toBe("0 of 1 checked components have findings for the chosen filters.");
+    });
+
+    it("follows the choice stored on globalThis when not told", () => {
+        setFilters("", "", "", "", true);
+        expect(listedTagNames(renderDataModelBindingDriftList(threeComponents))).toHaveLength(3);
+        setFilters();
+        expect(listedTagNames(renderDataModelBindingDriftList(threeComponents))).toHaveLength(1);
+    });
+});
+
 describe("renderDataModelBindingDriftFilters", () => {
     let page: HTMLElement;
 
@@ -181,6 +220,22 @@ describe("renderDataModelBindingDriftFilters", () => {
         expect(listedUsageIds()).toEqual(["main-a"]);
         choose(select("finding"), "ignored");
         expect(listedUsageIds()).toEqual(["main-b"]);
+    });
+
+    it("lists the components without findings when the checkbox is ticked, and remembers it", () => {
+        renderPage();
+        const checkbox = page.querySelector("#binding-drift-show-without-findings") as HTMLInputElement;
+        expect(checkbox.checked).toBe(false);
+        expect(listedTagNames(page.querySelector("#binding-drift-list")!)).toEqual(["custom-dispensasjon"]);
+
+        checkbox.checked = true;
+        checkbox.dispatchEvent(new Event("change"));
+        expect(globalThis.bindingDriftShowWithoutFindings).toBe(true);
+        expect(listedTagNames(page.querySelector("#binding-drift-list")!)).toEqual(["custom-dispensasjon", "custom-gjennomfoeringsplan"]);
+        expect(page.querySelectorAll("#binding-drift-list").length).toBe(1);
+
+        renderPage();
+        expect((page.querySelector("#binding-drift-show-without-findings") as HTMLInputElement).checked).toBe(true);
     });
 
     it("starts on the choices made before, and falls back from an app that has gone", () => {

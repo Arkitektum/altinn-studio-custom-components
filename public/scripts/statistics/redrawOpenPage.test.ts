@@ -109,6 +109,9 @@ describe("redrawOpenPage", () => {
         renderDataModelBindingsPage(main);
         choose(main.querySelector("#binding-drift-application-filter-select") as HTMLSelectElement, "o/a");
         choose(main.querySelector("#binding-drift-finding-filter-select") as HTMLSelectElement, "missing");
+        const checkbox = main.querySelector("#binding-drift-show-without-findings") as HTMLInputElement;
+        checkbox.checked = true;
+        checkbox.dispatchEvent(new Event("change"));
 
         globalThis.dataModelBindingDrift = [
             { tagName: "custom-dispensasjon", usages: [bindingUsage("after-a", "a", ["plannavn"]), bindingUsage("after-b", "b", ["metadata"])] }
@@ -117,6 +120,7 @@ describe("redrawOpenPage", () => {
 
         expect((main.querySelector("#binding-drift-application-filter-select") as HTMLSelectElement).value).toBe("o/a");
         expect((main.querySelector("#binding-drift-finding-filter-select") as HTMLSelectElement).value).toBe("missing");
+        expect((main.querySelector("#binding-drift-show-without-findings") as HTMLInputElement).checked).toBe(true);
         expect(Array.from(main.querySelectorAll(".binding-drift-usage-id")).map((node) => node.textContent)).toEqual(["after-a"]);
         expect(main.querySelectorAll("h2").length).toBe(1);
     });
@@ -127,7 +131,8 @@ describe("redrawOpenPage", () => {
             bindingDriftSelectedAppOwner: "o",
             bindingDriftSelectedAppName: "a",
             bindingDriftSelectedForm: ":main",
-            bindingDriftFindingFilter: "unknown"
+            bindingDriftFindingFilter: "unknown",
+            bindingDriftShowWithoutFindings: true
         });
         renderAdminSidebar();
         (
@@ -142,6 +147,8 @@ describe("redrawOpenPage", () => {
             "",
             ""
         ]);
+        expect(globalThis.bindingDriftShowWithoutFindings).toBe(false);
+        expect((main.querySelector("#binding-drift-show-without-findings") as HTMLInputElement).checked).toBe(false);
     });
 
     it("draws Package versions again from the new data", () => {

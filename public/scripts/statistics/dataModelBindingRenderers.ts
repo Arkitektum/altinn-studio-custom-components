@@ -199,16 +199,32 @@ export function renderDataModelBindingDriftListItem(component: DataModelBindingD
 }
 
 /**
- * Renders the list of checked components.
+ * Renders the checked components that have findings, under a line saying how many of all the checked components that is, and the ones without findings after them when asked for.
  *
- * @param {Array} drift - The components to list.
+ * @param {Array} drift - The checked components, each with the uses that passed the filters.
+ * @param {boolean} [showWithoutFindings] - List the components without findings too. Defaults to the choice stored on globalThis.
  * @returns {HTMLDivElement} The list.
  */
-export function renderDataModelBindingDriftList(drift: DataModelBindingDriftEntry[]) {
+export function renderDataModelBindingDriftList(
+    drift: DataModelBindingDriftEntry[],
+    showWithoutFindings = globalThis.bindingDriftShowWithoutFindings === true
+) {
     const listElement = document.createElement("div");
     listElement.id = "binding-drift-list";
     listElement.classList.add("paper");
-    drift.forEach((component) => listElement.appendChild(renderDataModelBindingDriftListItem(component)));
+    const withFindings = drift.filter((component) => component.usages.length);
+    const withoutFindings = drift.filter((component) => !component.usages.length);
+    listElement.appendChild(
+        createTextElement(
+            "p",
+            `${withFindings.length} of ${drift.length} checked components have findings for the chosen filters.`,
+            "binding-drift-summary"
+        )
+    );
+    // The ones without findings come last, and only when asked for: listed among the rest, they hid the few that need attention.
+    [...withFindings, ...(showWithoutFindings ? withoutFindings : [])].forEach((component) =>
+        listElement.appendChild(renderDataModelBindingDriftListItem(component))
+    );
     return listElement;
 }
 
@@ -244,7 +260,7 @@ function createLabelledSelect(labelText: string, selectId: string, options: { va
 }
 
 /**
- * Renders the filters for the page: application, form, and kind of finding. Each starts on the choice stored on globalThis when it is still offered.
+ * Renders the filters for the page: application, form, kind of finding, and whether to list the components without findings. Each starts on the choice stored on globalThis when it is still offered.
  *
  * @param {HTMLElement} containerElement - The page, whose list is drawn again on every change.
  * @param {Array} drift - The drift for every checked component.
@@ -280,6 +296,17 @@ export function renderDataModelBindingDriftFilters(
     ]);
     globalThis.bindingDriftFindingFilter = selectStoredOption(finding.selectElement, globalThis.bindingDriftFindingFilter, "");
 
+    const withoutFindingsContainer = document.createElement("div");
+    withoutFindingsContainer.classList.add("filter-container");
+    const withoutFindingsLabel = document.createElement("label");
+    withoutFindingsLabel.classList.add("checkbox-filter");
+    const withoutFindingsCheckbox = document.createElement("input");
+    withoutFindingsCheckbox.type = "checkbox";
+    withoutFindingsCheckbox.id = "binding-drift-show-without-findings";
+    withoutFindingsCheckbox.checked = globalThis.bindingDriftShowWithoutFindings === true;
+    withoutFindingsLabel.append(withoutFindingsCheckbox, document.createTextNode("Show components without findings"));
+    withoutFindingsContainer.appendChild(withoutFindingsLabel);
+
     application.selectElement.onchange = () => {
         const [appOwner, appName] = application.selectElement.value.split("/");
         globalThis.bindingDriftSelectedAppOwner = appOwner || "";
@@ -296,5 +323,9 @@ export function renderDataModelBindingDriftFilters(
         globalThis.bindingDriftFindingFilter = finding.selectElement.value;
         handleFilterChange(containerElement, drift);
     };
-    return [application.containerElement, form.containerElement, finding.containerElement];
+    withoutFindingsCheckbox.onchange = () => {
+        globalThis.bindingDriftShowWithoutFindings = withoutFindingsCheckbox.checked;
+        handleFilterChange(containerElement, drift);
+    };
+    return [application.containerElement, form.containerElement, finding.containerElement, withoutFindingsContainer];
 }
