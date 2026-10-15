@@ -29,7 +29,7 @@ __metadata:
     copyfiles: "npm:^2.4.1"
     css-loader: "npm:^7.1.5"
     css-minimizer-webpack-plugin: "npm:^8.0.0"
-    dotenv: "npm:^18.0.7"
+    dotenv: "npm:^18.0.8"
     dotenv-webpack: "npm:^9.0.0"
     eslint: "npm:^10.12.0"
     globals: "npm:^17.13.0"
@@ -2017,9 +2017,9 @@ __metadata:
   linkType: hard
 
 "@jest/react-is-19@npm:react-is@^19.2.5":
-  version: 19.3.0
-  resolution: "react-is@npm:19.3.0"
-  checksum: 10c0/99b16fc1009222ec0bbe05286566c865908430778ea6ba90dd418c7a11594c6cbb8db58432735b9203e3c6463e3eef5a399df1317ee2d75fd96b3a88cfaa662e
+  version: 19.3.1
+  resolution: "react-is@npm:19.3.1"
+  checksum: 10c0/428e02d986d56f1859c57756084489f6d2900fd686905003c405b32f1168738b78772bfa4bb6c706f5ac821199171522c28bf6434281f524f901459390a19606
   languageName: node
   linkType: hard
 
@@ -4911,12 +4911,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^18.0.7":
-  version: 18.0.7
-  resolution: "dotenv@npm:18.0.7"
+"dotenv@npm:^18.0.8":
+  version: 18.0.8
+  resolution: "dotenv@npm:18.0.8"
   bin:
     dotenv: dist/index.cjs
-  checksum: 10c0/bda2efbfa3194eec5ae592308db16285a3e163b505282a052ec9e10538be1c6a526f0437b431e78183e9bd367db0ad7c446d0180ab62310bc0a384787bec8894
+  checksum: 10c0/88a6a81afe58aaad7f9ae5d97422731c6e7b9efa4db752ea5add7fb6035f5866ce6e10a76fb7ad2d7f606bdf0afc9507ffd7e04d86d9b347b38d4614a3a0c2ac
   languageName: node
   linkType: hard
 
@@ -7399,9 +7399,9 @@ __metadata:
   linkType: hard
 
 "node-releases@npm:^2.0.57":
-  version: 2.0.58
-  resolution: "node-releases@npm:2.0.58"
-  checksum: 10c0/aeb21a36f273d2294a97bb09d536c8b2c42b56ad309524ff940735d29fc658dd58c29700602ae502ebd16a8fd6ecda31fcec0243bc7480b5bbd991bf9ff113d5
+  version: 2.0.59
+  resolution: "node-releases@npm:2.0.59"
+  checksum: 10c0/c7fdc6c55b7e5c5fccd6274edf8afc7ab1320d7c01353cde8e60653cfd9488d4d0a5224bb4efd6d77877338f26976ae9dbcf6fb0fad75a37f37b9c22f71c9796
   languageName: node
   linkType: hard
 
@@ -8246,12 +8246,12 @@ __metadata:
   linkType: hard
 
 "qs@npm:^6.15.2, qs@npm:^6.16.0":
-  version: 6.16.0
-  resolution: "qs@npm:6.16.0"
+  version: 6.16.1
+  resolution: "qs@npm:6.16.1"
   dependencies:
     es-define-property: "npm:^1.0.1"
     side-channel: "npm:^1.1.1"
-  checksum: 10c0/eb3e31992fbd70e31a1791e571ed817d70975de7d3bfcbbbec93d77d1dd305877e9e8fdbcc62303c228ee5c3606685622cd6231c042dbc4790bb4e7c65fcbe18
+  checksum: 10c0/84ee9124b251ab2953132fbea1d70c966aa6e6496cccabedbbb83afa412bf4177bddebc779ca3ddafe23da83b2f593d530b41be6a726e971404fabb20ff22c94
   languageName: node
   linkType: hard
 
