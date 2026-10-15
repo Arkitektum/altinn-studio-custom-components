@@ -1,8 +1,10 @@
 import type { DataModelBindingKeys } from "../types.ts";
+import type { ResourceBindingKeys } from "./resourceBindingKeys.ts";
 // Dependencies
 import { customElementTagNames } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import { getResourceBindingKeysByTagName, resourceBindingGroupsFromData } from "./resourceBindingKeys.ts";
 import { getDataModelBindingKeysByTagName } from "./componentHelpers.ts";
 
 // Constants
@@ -53,6 +55,49 @@ export function getDataModelBindingsSchema(tagName: string, bindingKeys: DataMod
         ...(bindingKeys.expected.length ? { required: [...bindingKeys.expected] } : {}),
         ...(oneOfGroups.length ? { allOf: oneOfGroups.map((group) => ({ oneOf: group.map((key) => ({ required: [key] })) })) } : {}),
         additionalProperties: false
+    };
+}
+
+/** What the text resource keys components commonly read are for, shown on hover. Any other key is described as a text resource id. */
+const resourceKeyDescriptions: Record<string, string> = {
+    title: "Text resource id for the title.",
+    emptyFieldText: "Text resource id shown when there is no value.",
+    trueText: "Text resource id shown when the value is true.",
+    falseText: "Text resource id shown when the value is false.",
+    defaultText: "Text resource id shown when the value is neither true nor false.",
+    description: "Text resource id for the description."
+};
+
+const textResource = (key: string) => ({ type: "string", description: resourceKeyDescriptions[key] || "Text resource id." });
+
+/**
+ * Builds the schema for one component's `resourceBindings` from the keys it reads: a text resource id for each plain key, an object with its keys for each group, and nothing else, so a key the component does not read is reported.
+ *
+ * @param {string} tagName - The component's tag name, named in the descriptions.
+ * @param {ResourceBindingKeys} keys - The keys the component reads.
+ * @param {string} [groupsFromData] - For a component that reads groups named after its data, what they are named after. Any such group is then allowed.
+ * @returns {Object} The schema for the component's `resourceBindings`.
+ */
+export function getResourceBindingsSchema(tagName: string, keys: ResourceBindingKeys, groupsFromData?: string): JsonSchema {
+    const properties = Object.fromEntries(
+        Object.entries(keys).map(([key, keysInGroup]) => [
+            key,
+            keysInGroup
+                ? {
+                      type: "object",
+                      description: `Text resource ids for the ${key} part of ${tagName}.`,
+                      properties: Object.fromEntries(keysInGroup.map((keyInGroup) => [keyInGroup, textResource(keyInGroup)])),
+                      additionalProperties: false
+                  }
+                : textResource(key)
+        ])
+    );
+    return {
+        type: "object",
+        properties,
+        additionalProperties: groupsFromData
+            ? { type: "object", description: groupsFromData, properties: { title: textResource("title") }, additionalProperties: false }
+            : false
     };
 }
 
@@ -124,7 +169,7 @@ function withLightExpressionReferences(value: unknown): unknown {
  *
  *   - the attributes in layoutAttributeSchemas.ts, and the deprecated ones with their hint
  *   - completion for `tagName`, and an error for a `custom-` tag this package does not have
- *   - for each component that declares its binding keys, a schema for its `dataModelBindings`
+ *   - for each component, a schema for its `resourceBindings` from the keys it reads, and for each component that declares its binding keys, a schema for its `dataModelBindings`
  *
  * Altinn's expression checking is replaced by a lighter one, see getExpressionDefinitions, so the result refers to no other file.
  *
@@ -160,14 +205,25 @@ export function buildLayoutSchema(altinnSchema: JsonSchema, expressionSchema: Js
         description: "The custom component to render.",
         anyOf: [{ enum: [...customElementTagNames] }, { not: { pattern: "^custom-" } }]
     };
-    const bindingRules = Object.entries(getDataModelBindingKeysByTagName()).map(([componentTagName, bindingKeys]) => ({
-        if: { properties: { tagName: { const: componentTagName } }, required: ["tagName"] },
-        then: {
-            properties: { dataModelBindings: getDataModelBindingsSchema(componentTagName, bindingKeys) },
-            // A component that has to have something bound cannot leave dataModelBindings out altogether.
-            ...(bindingKeys.expected.length || bindingKeys.oneOf?.length ? { required: ["dataModelBindings"] } : {})
-        }
-    }));
+    const dataModelBindingKeysByTagName = getDataModelBindingKeysByTagName();
+    const bindingRules = Object.entries(getResourceBindingKeysByTagName()).map(([componentTagName, resourceBindingKeys]) => {
+        const bindingKeys = dataModelBindingKeysByTagName[componentTagName];
+        return {
+            if: { properties: { tagName: { const: componentTagName } }, required: ["tagName"] },
+            then: {
+                properties: {
+                    resourceBindings: getResourceBindingsSchema(
+                        componentTagName,
+                        resourceBindingKeys,
+                        resourceBindingGroupsFromData[componentTagName]
+                    ),
+                    ...(bindingKeys ? { dataModelBindings: getDataModelBindingsSchema(componentTagName, bindingKeys) } : {})
+                },
+                // A component that has to have something bound cannot leave dataModelBindings out altogether.
+                ...(bindingKeys?.expected.length || bindingKeys?.oneOf?.length ? { required: ["dataModelBindings"] } : {})
+            }
+        };
+    });
 
     schema.definitions.CompCustomExternal = {
         allOf: [

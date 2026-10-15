@@ -69,6 +69,25 @@ describe("the layout schema in VS Code's JSON engine", () => {
         ]);
     });
 
+    it("offers only the resourceBindings keys of the component's own tag, and the keys of a group", async () => {
+        const tablePart = (resourceBindings: object) => ({
+            id: "part",
+            type: "Custom",
+            tagName: "custom-table-part",
+            dataModelBindings: { data: "a.b" },
+            resourceBindings
+        });
+        // VS Code leaves out a key the object already has, so each list is asked for where nothing is written yet.
+        expect(await completionsAfter([tablePart({})], '"resourceBindings": {')).toEqual([
+            "emptyFieldText",
+            "epost",
+            "navn",
+            "telefonnummer",
+            "title"
+        ]);
+        expect(await completionsAfter([tablePart({ navn: {} })], '"navn": {')).toEqual(["emptyFieldText", "title"]);
+    });
+
     it("offers the tag names", async () => {
         const labels = await completionsAfter([{ id: "field", type: "Custom", tagName: "" }], '"tagName": ');
         expect(labels).toContain("custom-field-data");

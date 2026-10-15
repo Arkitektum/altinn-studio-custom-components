@@ -1,12 +1,13 @@
 import type { DataModelBindingKeys } from "../types.ts";
 
-import { LAYOUT_SCHEMA_ID, buildLayoutSchema, getDataModelBindingsSchema } from "./layoutSchemaHelpers.ts";
+import { LAYOUT_SCHEMA_ID, buildLayoutSchema, getDataModelBindingsSchema, getResourceBindingsSchema } from "./layoutSchemaHelpers.ts";
 import { deprecatedLayoutAttributes, layoutAttributeSchemas } from "../constants/layoutAttributeSchemas.ts";
 import Ajv from "ajv";
 import altinnSchema from "../data/altinn/layout.schema.v1.json";
 import expressionSchema from "../data/altinn/expression.schema.v1.json";
 import { getDataModelBindingKeysByTagName } from "./componentHelpers.ts";
 import { getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
+import { getResourceBindingKeysByTagName } from "./resourceBindingKeys.ts";
 
 type Component = Record<string, unknown>;
 
@@ -171,6 +172,71 @@ describe("buildLayoutSchema", () => {
         const changed = JSON.parse(JSON.stringify(altinnSchema)) as { definitions: Record<string, unknown> };
         changed.definitions.CompCustomExternal = { type: "object" };
         expect(() => buildLayoutSchema(changed, expressionSchema)).toThrow("CompCustomExternal");
+    });
+});
+
+describe("buildLayoutSchema's resourceBindings", () => {
+    const tablePart = (resourceBindings: object) => ({
+        id: "part",
+        type: "Custom",
+        tagName: "custom-table-part",
+        dataModelBindings: { data: "a.b" },
+        resourceBindings
+    });
+
+    it("accepts every key each component reads, in the shape it reads it", () => {
+        const components = Object.entries(getResourceBindingKeysByTagName()).map(([tagName, keys], index) => ({
+            id: `component${index}`,
+            type: "Custom",
+            tagName,
+            resourceBindings: Object.fromEntries(
+                Object.entries(keys).map(([key, keysInGroup]) => [
+                    key,
+                    keysInGroup ? Object.fromEntries(keysInGroup.map((keyInGroup) => [keyInGroup, "x.y"])) : "x.y"
+                ])
+            )
+        }));
+        const keysChecked = components.reduce((total, component) => total + Object.keys(component.resourceBindings).length, 0);
+        expect(keysChecked > 400).toBe(true);
+        expect(errorsWithOurs(layoutWith(...components)).filter((error) => !error.startsWith("required"))).toEqual([]);
+    });
+
+    it("reports a key the component does not read, at the top and inside a group", () => {
+        expect(errorsWithOurs(layoutWith(tablePart({ title: "a.b", trueText: "a.c" })))).toEqual(["additionalProperties trueText"]);
+        expect(errorsWithOurs(layoutWith(tablePart({ navn: { title: "a.b", trueText: "a.c" } })))).toEqual(["additionalProperties trueText"]);
+    });
+
+    it("reports a group given as text, and text given as a group", () => {
+        expect(errorsWithOurs(layoutWith(tablePart({ navn: "a.b" })))).toEqual(["type"]);
+        expect(errorsWithOurs(layoutWith(tablePart({ title: { nb: "a.b" } })))).toEqual(["type"]);
+    });
+
+    it("allows the groups a component names after its data, and only as groups", () => {
+        const utfallSvarType = (resourceBindings: object) => ({
+            id: "utfall",
+            type: "Custom",
+            tagName: "custom-grouplist-utfall-svar-type",
+            dataModelBindings: { data: "a.b" },
+            resourceBindings
+        });
+        expect(errorsWithOurs(layoutWith(utfallSvarType({ mangel: { title: "a.b" }, tema: { title: "a.c" } })))).toEqual([]);
+        expect(errorsWithOurs(layoutWith(utfallSvarType({ title: "a.b" })))).toEqual(["type"]);
+    });
+
+    it("describes each key for an editor", () => {
+        expect(getResourceBindingsSchema("custom-x", { title: null, navn: ["emptyFieldText"] })).toEqual({
+            type: "object",
+            properties: {
+                title: { type: "string", description: "Text resource id for the title." },
+                navn: {
+                    type: "object",
+                    description: "Text resource ids for the navn part of custom-x.",
+                    properties: { emptyFieldText: { type: "string", description: "Text resource id shown when there is no value." } },
+                    additionalProperties: false
+                }
+            },
+            additionalProperties: false
+        });
     });
 });
 
