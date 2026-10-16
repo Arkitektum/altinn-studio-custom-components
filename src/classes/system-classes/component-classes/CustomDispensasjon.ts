@@ -59,8 +59,6 @@ export default class CustomDispensasjon extends CustomComponent {
         deprecated: {
             ansvarligSoeker: "No longer shown in a dispensasjon",
             dispensasjonBeskrivelse: "Replaced by dispensasjonsbeskrivelse",
-            dispensasjonFra:
-                "Replaced by bestemmelsestype, nasjonalArealplanId, plannavn, paragrafnummer, bestemmelsesoverskrift and bestemmelsestekst",
             dispensasjonReferanse: "Renamed to dispensasjonsreferanse",
             soeknadGjelder: "Renamed to tiltakstyper",
             soeknadstype: "No longer shown in a dispensasjon"
