@@ -2,9 +2,9 @@
  * @jest-environment node
  */
 // In Node rather than jsdom: VS Code's JSON engine needs no DOM, and under jsdom jest picks its packages' browser builds, which are ES modules it cannot load.
+import { buildLayoutSchema, getDataModelBindingsSchema } from "./layoutSchemaHelpers.ts";
 import { TextDocument } from "vscode-languageserver-textdocument";
 import altinnSchema from "../data/altinn/layout.schema.v1.json";
-import { buildLayoutSchema } from "./layoutSchemaHelpers.ts";
 import expressionSchema from "../data/altinn/expression.schema.v1.json";
 import { getLanguageService } from "vscode-json-languageservice";
 
@@ -113,10 +113,25 @@ describe("the layout schema in VS Code's JSON engine", () => {
         const hover = await service.doHover(document, document.positionAt(text.indexOf('"dataTitle"') + 2), jsonDocument);
         expect(JSON.stringify(hover?.contents)).toContain("Optional for custom");
 
-        const dispensasjon = { id: "disp", type: "Custom", tagName: "custom-dispensasjon", dataModelBindings: { dispensasjonReferanse: "a.b" } };
-        const opened = openLayout([dispensasjon]);
-        const messages = (await service.doValidation(opened.document, opened.jsonDocument)).map(messageText);
-        expect(messages).toContain("Renamed to dispensasjonsreferanse.");
+        // No component has deprecated keys at the moment, so the rule for one is built here, the way buildLayoutSchema builds them.
+        const deprecatedSchemaUri = "file:///deprecated.schema.json";
+        const deprecatedSchema = {
+            definitions: { IRawDataModelBinding: { type: "string" } },
+            type: "object",
+            properties: { dataModelBindings: getDataModelBindingsSchema("custom-x", { expected: [], deprecated: { old: "Renamed to new" } }) }
+        };
+        const deprecatedService = getLanguageService({ schemaRequestService: () => Promise.resolve(JSON.stringify(deprecatedSchema)) });
+        deprecatedService.configure({ validate: true });
+        const deprecatedDocument = TextDocument.create(
+            "file:///x.json",
+            "json",
+            1,
+            JSON.stringify({ $schema: deprecatedSchemaUri, dataModelBindings: { old: "a.b" } })
+        );
+        const messages = (await deprecatedService.doValidation(deprecatedDocument, deprecatedService.parseJSONDocument(deprecatedDocument))).map(
+            messageText
+        );
+        expect(messages).toEqual(["Renamed to new."]);
     });
 
     it("warns about a function Altinn does not have", async () => {

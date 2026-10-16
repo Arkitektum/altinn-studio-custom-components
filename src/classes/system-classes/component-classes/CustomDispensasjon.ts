@@ -55,14 +55,7 @@ export default class CustomDispensasjon extends CustomComponent {
             "tiltakstyper",
             "varighet"
         ],
-        // Removed when the sub-form schema changed on 2026-03-31, except soeknadGjelder, which was renamed in May 2025.
-        deprecated: {
-            ansvarligSoeker: "No longer shown in a dispensasjon",
-            dispensasjonBeskrivelse: "Replaced by dispensasjonsbeskrivelse",
-            dispensasjonReferanse: "Renamed to dispensasjonsreferanse",
-            soeknadGjelder: "Renamed to tiltakstyper",
-            soeknadstype: "No longer shown in a dispensasjon"
-        }
+        deprecated: {}
     };
 
     declare resourceValues: { data?: Dispensasjon | string };

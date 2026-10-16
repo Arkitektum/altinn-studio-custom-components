@@ -64,7 +64,7 @@ describe("getDataModelBindingKeysByTagName", () => {
     });
 
     it("gives each component the keys its class declares, as plain data", () => {
-        // Dispensasjon on purpose: it has deprecated keys, so leaving them out cannot pass unnoticed.
+        // Dispensasjon on purpose: it has the longest list, so leaving keys out cannot pass unnoticed.
         const bindingKeys = getDataModelBindingKeysByTagName()["custom-dispensasjon"];
         expect(bindingKeys).toEqual(CustomDispensasjon.dataModelBindingKeys);
         expect(JSON.parse(JSON.stringify(bindingKeys))).toEqual(bindingKeys);
