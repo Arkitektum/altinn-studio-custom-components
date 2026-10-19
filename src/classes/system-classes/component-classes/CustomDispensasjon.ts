@@ -26,6 +26,8 @@ import { getComponentResourceValue } from "../../../functions/helpers.ts";
  *
  * @property {boolean} isEmpty - Indicates if the data is empty.
  * @property {boolean} isPlanBestemmelseType - Indicates if the data matches a plan bestemmelse type.
+ * @property {boolean} isAndrePlanbestemmelser - Indicates if the data corresponds to "Andre Planbestemmelser" type.
+ * @property {boolean} isAnnetLovForskrift - Indicates if the data corresponds to "Annet Lov Forskrift" type.
  * @property {Array|string|boolean} validationMessages - Validation messages for missing text resources.
  * @property {boolean} hasValidationMessages - Indicates if there are validation messages.
  * @property {Object} resourceBindings - Mapped resource binding keys for localization.
@@ -55,8 +57,12 @@ export default class CustomDispensasjon extends CustomComponent {
             "tiltakstyper",
             "varighet"
         ],
+        optional: ["annetTema"],
         deprecated: {}
     };
+
+    declare isAndrePlanbestemmelser: boolean;
+    declare isAnnetLovForskrift: boolean;
 
     declare resourceValues: { data?: Dispensasjon | string };
 
@@ -66,9 +72,13 @@ export default class CustomDispensasjon extends CustomComponent {
         const resourceBindings = this.getResourceBindings(props);
 
         const isEmpty = !this.hasContent(data);
+        const isAndrePlanbestemmelser = this.dataIsAndrePlanbestemmelser(data);
+        const isAnnetLovForskrift = this.dataIsAnnetLovForskrift(data);
         const validationMessages = this.getValidationMessages(resourceBindings);
 
         this.isEmpty = isEmpty;
+        this.isAndrePlanbestemmelser = isAndrePlanbestemmelser;
+        this.isAnnetLovForskrift = isAnnetLovForskrift;
         this.validationMessages = validationMessages;
         this.hasValidationMessages = hasValidationMessages(validationMessages);
         this.resourceBindings = resourceBindings;
@@ -89,6 +99,32 @@ export default class CustomDispensasjon extends CustomComponent {
     }
 
     /**
+     * Checks if the given dispensasjon object has a dispensasjonstema code value
+     * that matches "andrePlanbestemmelser".
+     *
+     * @param {Object} data - The dispensasjon object to check.
+     * @param {Object} [data.dispensasjonstema] - The object containing the title of the dispensasjon.
+     * @param {string} [data.dispensasjonstema.kodeverdi] - The code value of the dispensasjon title.
+     * @returns {boolean} - Returns true if the code value matches "andrePlanbestemmelser", otherwise false.
+     */
+    dataIsAndrePlanbestemmelser(data: unknown): boolean {
+        return (data as Dispensasjon)?.dispensasjonstema?.kodeverdi?.toUpperCase() === "ANDREPLANBESTEMMELSER";
+    }
+
+    /**
+     * Checks if the given dispensasjon object has a dispensasjonstema code value
+     * that matches "annetLovForskrift".
+     *
+     * @param {Object} data - The dispensasjon object to check.
+     * @param {Object} [data.dispensasjonstema] - The object containing the title of the dispensasjon.
+     * @param {string} [data.dispensasjonstema.kodeverdi] - The code value of the dispensasjon title.
+     * @returns {boolean} - Returns true if the code value matches "annetLovForskrift", otherwise false.
+     */
+    dataIsAnnetLovForskrift(data: unknown): boolean {
+        return (data as Dispensasjon)?.dispensasjonstema?.kodeverdi?.toUpperCase() === "ANNETLOVFORSKRIFT";
+    }
+
+    /**
      * Retrieves validation messages based on provided text resource bindings.
      *
      * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
@@ -106,6 +142,11 @@ export default class CustomDispensasjon extends CustomComponent {
      */
     getResourceBindings(props?: ComponentProps) {
         return {
+            dispensasjonssoeknadHeader: {
+                title: props?.resourceBindings?.dispensasjonssoeknadHeader?.title || "resource.dispensasjonssoeknad.title",
+                annetTema: props?.resourceBindings?.dispensasjonssoeknadHeader?.annetTema || "resource.dispensasjonssoeknad.annetTema.title",
+                tekniskeKrav: props?.resourceBindings?.dispensasjonssoeknadHeader?.tekniskeKrav || "resource.dispensasjonssoeknad.tekniskeKrav.title"
+            },
             dispensasjonsreferanse: {
                 title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjonsreferanse.title"
             },

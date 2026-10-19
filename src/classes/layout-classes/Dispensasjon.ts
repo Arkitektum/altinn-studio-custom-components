@@ -36,6 +36,7 @@ export interface DispensasjonTiltakstyper {
 
 /** What the form data holds for a Dispensasjon, before it is read into the class. */
 export interface DispensasjonProps {
+    annetTema?: string | null;
     begrunnelse?: BegrunnelseProps | null;
     beregningsregelGradAvUtnytting?: KodeProps | null;
     bestemmelsesoverskrift?: string | null;
@@ -66,6 +67,7 @@ export interface DispensasjonProps {
  * @class
  */
 export default class Dispensasjon {
+    declare annetTema?: string | null;
     declare begrunnelse: Begrunnelse | undefined | null;
     declare beregningsregelGradAvUtnytting: Kode | undefined | null;
     declare bestemmelsesoverskrift?: string | null;
@@ -92,6 +94,7 @@ export default class Dispensasjon {
      * Creates an instance of Dispensasjon.
      * @param {Object} props - The properties object.
      * @param {Object} [props.tiltakstyper] - The tiltakstyper object containing type information.
+     * @param {string} [props.annetTema] - The free-text theme given when the dispensasjonstema is one of the "other" codes, or missing.
      * @param {Object} [props.begrunnelse] - The begrunnelse object containing justification information.
      * @param {Object} [props.beregningsregelGradAvUtnytting] - The beregningsregelGradAvUtnytting object containing calculation rules for the degree of utilization.
      * @param {string} [props.bestemmelsesoverskrift] - An optional property representing the heading of the bestemmelse.
@@ -114,6 +117,7 @@ export default class Dispensasjon {
      */
     constructor(props?: DispensasjonProps) {
         const tiltakstyper = props ? this.getTiltakstyperFromProps(props) : null;
+        this.annetTema = props?.annetTema;
         this.begrunnelse = props?.begrunnelse && new Begrunnelse(props.begrunnelse);
         this.beregningsregelGradAvUtnytting = props?.beregningsregelGradAvUtnytting && new Kode(props.beregningsregelGradAvUtnytting);
         this.bestemmelsesoverskrift = props?.bestemmelsesoverskrift;

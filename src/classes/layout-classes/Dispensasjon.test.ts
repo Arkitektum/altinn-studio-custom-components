@@ -5,6 +5,7 @@ import NasjonalArealplanId from "../data-classes/NasjonalArealplanId.ts";
 
 describe("Dispensasjon", () => {
     const baseProps = {
+        annetTema: "Fjerning av tre",
         begrunnelse: { hensynBakBestemmelsen: "test" },
         beregningsregelGradAvUtnytting: { kodeverdi: "%BYA", kodebeskrivelse: "Prosent bebygd areal" },
         bestemmelsesoverskrift: "Byggegrense mot vei",
@@ -30,6 +31,7 @@ describe("Dispensasjon", () => {
 
     it("should construct with all properties", () => {
         const disp = new Dispensasjon(baseProps);
+        expect(disp.annetTema).toBe("Fjerning av tre");
         expect(disp.begrunnelse).toBeDefined();
         expect(disp.beregningsregelGradAvUtnytting).toBeInstanceOf(Kode);
         expect(disp.beregningsregelGradAvUtnytting!.kodebeskrivelse).toBe("Prosent bebygd areal");
@@ -57,6 +59,7 @@ describe("Dispensasjon", () => {
 
     it("should handle missing props gracefully", () => {
         const disp = new Dispensasjon();
+        expect(disp.annetTema).toBeUndefined();
         expect(disp.begrunnelse).toBeUndefined();
         expect(disp.beregningsregelGradAvUtnytting).toBeUndefined();
         expect(disp.gradAvUtnytting).toBeUndefined();

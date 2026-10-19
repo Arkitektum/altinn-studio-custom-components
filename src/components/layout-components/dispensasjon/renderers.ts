@@ -1,7 +1,47 @@
 import type Dispensasjon from "../../../classes/layout-classes/Dispensasjon.ts";
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
-import { CustomElementHtmlAttributes, addContainerElement, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import {
+    CustomElementHtmlAttributes,
+    addContainerElement,
+    createCustomElement,
+    getTextResourceFromResourceBinding,
+    hasValue
+} from "@arkitektum/altinn-studio-custom-components-utils";
+
+/**
+ * Renders the main header of a dispensasjonssøknad, naming the kind of document followed by its theme.
+ *
+ * When the dispensasjonstema is one of the "other" codes, the theme is the "Annet" text followed by the free-text
+ * annetTema; otherwise it is the "Tekniske krav" text followed by the description of the dispensasjonstema. Without a
+ * description, the header is the name of the document alone.
+ *
+ * @param {Object} component - The component object containing resource values and bindings.
+ * @param {string} [size="h1"] - The header size (e.g., "h1", "h2").
+ * @returns {HTMLElement} The custom header text element.
+ */
+export function renderDispensasjonssoeknadHeader(component: InstantiatedComponent | null | undefined, size = "h1") {
+    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
+    const data = component?.resourceValues?.data as Dispensasjon | undefined;
+    const headerBindings = component?.resourceBindings?.dispensasjonssoeknadHeader;
+    const kodebeskrivelse = data?.dispensasjonstema?.kodebeskrivelse;
+    let tema: string | undefined;
+    if (component?.isAndrePlanbestemmelser || component?.isAnnetLovForskrift) {
+        tema = [getTextResourceFromResourceBinding(headerBindings?.annetTema), data?.annetTema].filter((part) => hasValue(part)).join(": ");
+    } else if (hasValue(kodebeskrivelse)) {
+        tema = [getTextResourceFromResourceBinding(headerBindings?.tekniskeKrav), kodebeskrivelse].filter((part) => hasValue(part)).join(": ");
+    }
+    const documentName = getTextResourceFromResourceBinding(headerBindings?.title);
+    const htmlAttributes = new CustomElementHtmlAttributes({
+        isChildComponent: true,
+        size: size,
+        resourceValues: {
+            // Joined by an en dash with a space on each side.
+            title: [documentName, tema].filter((part) => hasValue(part)).join(" – ")
+        }
+    });
+    return createCustomElement("custom-header-text", htmlAttributes);
+}
 
 /**
  * Renders a custom header text component for a dispensasjon (dispensation) header.

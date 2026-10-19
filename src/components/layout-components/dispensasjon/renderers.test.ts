@@ -11,6 +11,7 @@ const byName = renderers as unknown as Record<string, (component: unknown) => HT
  */
 const component = {
     resourceBindings: {
+        dispensasjonssoeknadHeader: { title: "Dispensasjonssøknad", annetTema: "Annet", tekniskeKrav: "Tekniske krav" },
         dispensasjonsreferanse: { title: "Referanse" },
         metadataFtbId: { title: "FtB-id" },
         kommunensSaksnummer: { title: "Saksnummer" },
@@ -209,6 +210,55 @@ describe("the fields", () => {
             resourceValues: { data: expected },
             wrapped: true
         });
+    });
+});
+
+describe("the dispensasjonssøknad header", () => {
+    /** The component above with its theme fields swapped for the ones given, and the theme flags the class would have set. */
+    function withTheme(theme: Record<string, unknown>, flags: Record<string, boolean> = {}) {
+        return { ...component, ...flags, resourceValues: { data: { ...data, dispensasjonstema: undefined, ...theme } } };
+    }
+
+    function title(rendered: HTMLElement) {
+        return attributes(rendered).resourceValues.title;
+    }
+
+    it("names the document and then the theme, as an h1", () => {
+        expect(attributes(renderers.renderDispensasjonssoeknadHeader(component))).toMatchObject({
+            tagName: "custom-header-text",
+            size: "h1",
+            resourceValues: { title: "Dispensasjonssøknad – Tekniske krav: Avstand til nabogrense" }
+        });
+    });
+
+    it.each([["isAndrePlanbestemmelser"], ["isAnnetLovForskrift"]])("puts Annet and annetTema in place of the theme when %s", (flag) => {
+        const rendered = renderers.renderDispensasjonssoeknadHeader(
+            withTheme({ dispensasjonstema: { kodebeskrivelse: "Andre bestemmelser" }, annetTema: "Fjerning av tre" }, { [flag]: true })
+        );
+        expect(title(rendered)).toBe("Dispensasjonssøknad – Annet: Fjerning av tre");
+    });
+
+    it("names the document and Annet alone for an other-code without annetTema", () => {
+        const rendered = renderers.renderDispensasjonssoeknadHeader(
+            withTheme({ dispensasjonstema: { kodebeskrivelse: "Andre bestemmelser" } }, { isAndrePlanbestemmelser: true })
+        );
+        expect(title(rendered)).toBe("Dispensasjonssøknad – Annet");
+    });
+
+    it("keeps the theme when annetTema is given for an ordinary code", () => {
+        const rendered = renderers.renderDispensasjonssoeknadHeader(
+            withTheme({ dispensasjonstema: { kodebeskrivelse: "Byggegrenser" }, annetTema: "Fjerning av tre" })
+        );
+        expect(title(rendered)).toBe("Dispensasjonssøknad – Tekniske krav: Byggegrenser");
+    });
+
+    it("leaves annetTema out when there is no theme", () => {
+        expect(title(renderers.renderDispensasjonssoeknadHeader(withTheme({ annetTema: "Fjerning av tre" })))).toBe("Dispensasjonssøknad");
+    });
+
+    it("names the document alone when there is neither theme nor annetTema", () => {
+        expect(title(renderers.renderDispensasjonssoeknadHeader(withTheme({})))).toBe("Dispensasjonssøknad");
+        expect(title(renderers.renderDispensasjonssoeknadHeader(withTheme({ dispensasjonstema: {} })))).toBe("Dispensasjonssøknad");
     });
 });
 

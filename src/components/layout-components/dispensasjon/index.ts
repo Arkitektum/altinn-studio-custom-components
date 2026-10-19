@@ -23,6 +23,7 @@ import {
     renderDispensasjonHeader,
     renderDispensasjonsbeskrivelse,
     renderDispensasjonsreferanse,
+    renderDispensasjonssoeknadHeader,
     renderEiendomByggestedElement,
     renderGenerelleVilkaarNorskSvenskDansk,
     renderGenerelleVilkaarNorskSvenskDanskHeader,
@@ -55,7 +56,7 @@ export default customElements.define(
                 type: "layout",
                 render: (host, component) => {
                     const layoutContainerElement = renderLayoutContainerElement();
-                    const dispensasjonHeaderElement = renderDispensasjonHeader(component);
+                    const dispensasjonssoeknadHeaderElement = renderDispensasjonssoeknadHeader(component);
                     const dispensasjonsreferanseElement = renderDispensasjonsreferanse(component);
                     const metadataFtbIdElement = renderMetadataFtbId(component);
                     const kommunensSaksnummerElement = renderKommunensSaksnummer(component);
@@ -98,7 +99,7 @@ export default customElements.define(
 
                     // Intro
                     appendChildren(layoutContainerElement, [
-                        dispensasjonHeaderElement,
+                        dispensasjonssoeknadHeaderElement,
                         dispensasjonsreferanseElement,
                         metadataFtbIdElement,
                         kommunensSaksnummerElement

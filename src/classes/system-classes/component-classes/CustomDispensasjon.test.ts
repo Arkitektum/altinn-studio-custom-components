@@ -67,6 +67,39 @@ describe("CustomDispensasjon", () => {
         });
     });
 
+    describe("the other-theme codes", () => {
+        it("recognises andrePlanbestemmelser in any case", () => {
+            const instance = new CustomDispensasjon({});
+            expect(instance.dataIsAndrePlanbestemmelser({ dispensasjonstema: { kodeverdi: "andrePlanbestemmelser" } })).toBe(true);
+            expect(instance.dataIsAndrePlanbestemmelser({ dispensasjonstema: { kodeverdi: "ANDREPLANBESTEMMELSER" } })).toBe(true);
+            expect(instance.dataIsAndrePlanbestemmelser({ dispensasjonstema: { kodeverdi: "annetLovForskrift" } })).toBe(false);
+            expect(instance.dataIsAndrePlanbestemmelser(undefined)).toBe(false);
+        });
+
+        it("recognises annetLovForskrift in any case", () => {
+            const instance = new CustomDispensasjon({});
+            expect(instance.dataIsAnnetLovForskrift({ dispensasjonstema: { kodeverdi: "annetLovForskrift" } })).toBe(true);
+            expect(instance.dataIsAnnetLovForskrift({ dispensasjonstema: { kodeverdi: "ANNETLOVFORSKRIFT" } })).toBe(true);
+            expect(instance.dataIsAnnetLovForskrift({ dispensasjonstema: { kodeverdi: "andrePlanbestemmelser" } })).toBe(false);
+            expect(instance.dataIsAnnetLovForskrift(undefined)).toBe(false);
+        });
+
+        it("sets the flags from the form data", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            const plan = new CustomDispensasjon({ formData: { dispensasjonstema: { kodeverdi: "andrePlanbestemmelser" } } });
+            expect(plan.isAndrePlanbestemmelser).toBe(true);
+            expect(plan.isAnnetLovForskrift).toBe(false);
+            const lov = new CustomDispensasjon({ formData: { dispensasjonstema: { kodeverdi: "annetLovForskrift" } } });
+            expect(lov.isAndrePlanbestemmelser).toBe(false);
+            expect(lov.isAnnetLovForskrift).toBe(true);
+        });
+
+        it("reads annetTema as an optional binding", () => {
+            expect(CustomDispensasjon.dataModelBindingKeys.optional).toEqual(["annetTema"]);
+            expect(CustomDispensasjon.dataModelBindingKeys.expected).not.toContain("annetTema");
+        });
+    });
+
     describe("hasContent", () => {
         it("returns true if hasValue returns true", () => {
             (hasValue as unknown as jest.Mock).mockReturnValue(true);
@@ -123,6 +156,30 @@ describe("CustomDispensasjon", () => {
             expect(bindings.varighetOenskesVarigDispensasjon).toHaveProperty("trueText");
             expect(bindings.generelleVilkaarNorskSvenskDansk).toHaveProperty("title");
             expect(bindings.generelleVilkaarNorskSvenskDansk).toHaveProperty("trueText");
+        });
+
+        it("falls back to the default texts for the dispensasjonssøknad header", () => {
+            const instance = new CustomDispensasjon({});
+            const bindings = instance.getResourceBindings();
+            expect(bindings.dispensasjonssoeknadHeader.title).toBe("resource.dispensasjonssoeknad.title");
+            expect(bindings.dispensasjonssoeknadHeader.annetTema).toBe("resource.dispensasjonssoeknad.annetTema.title");
+            expect(bindings.dispensasjonssoeknadHeader.tekniskeKrav).toBe("resource.dispensasjonssoeknad.tekniskeKrav.title");
+        });
+
+        it("uses the texts it is given for the dispensasjonssøknad header", () => {
+            const instance = new CustomDispensasjon({});
+            const bindings = instance.getResourceBindings({
+                resourceBindings: {
+                    dispensasjonssoeknadHeader: {
+                        title: "custom.dispensasjonssoeknad",
+                        annetTema: "custom.annet",
+                        tekniskeKrav: "custom.tekniskeKrav"
+                    }
+                }
+            } as unknown as ComponentProps);
+            expect(bindings.dispensasjonssoeknadHeader.title).toBe("custom.dispensasjonssoeknad");
+            expect(bindings.dispensasjonssoeknadHeader.annetTema).toBe("custom.annet");
+            expect(bindings.dispensasjonssoeknadHeader.tekniskeKrav).toBe("custom.tekniskeKrav");
         });
 
         it("falls back to the default titles for the grad av utnytting fields", () => {
