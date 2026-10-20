@@ -13,8 +13,8 @@ import {
  * Renders the main header of a dispensasjonssøknad, naming the kind of document followed by its theme.
  *
  * When the dispensasjonstema is one of the "other" codes, the theme is the "Annet" text followed by the free-text
- * annetTema; otherwise it is the "Tekniske krav" text followed by the description of the dispensasjonstema. Without a
- * description, the header is the name of the document alone.
+ * annetTema; otherwise it is the description of the dispensasjonstema. Without a theme, the header is the name of the
+ * document alone.
  *
  * @param {Object} component - The component object containing resource values and bindings.
  * @param {string} [size="h1"] - The header size (e.g., "h1", "h2").
@@ -24,13 +24,10 @@ export function renderDispensasjonssoeknadHeader(component: InstantiatedComponen
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
     const data = component?.resourceValues?.data as Dispensasjon | undefined;
     const headerBindings = component?.resourceBindings?.dispensasjonssoeknadHeader;
-    const kodebeskrivelse = data?.dispensasjonstema?.kodebeskrivelse;
-    let tema: string | undefined;
-    if (component?.isAndrePlanbestemmelser || component?.isAnnetLovForskrift) {
-        tema = [getTextResourceFromResourceBinding(headerBindings?.annetTema), data?.annetTema].filter((part) => hasValue(part)).join(": ");
-    } else if (hasValue(kodebeskrivelse)) {
-        tema = [getTextResourceFromResourceBinding(headerBindings?.tekniskeKrav), kodebeskrivelse].filter((part) => hasValue(part)).join(": ");
-    }
+    const tema =
+        component?.isAndrePlanbestemmelser || component?.isAnnetLovForskrift
+            ? [getTextResourceFromResourceBinding(headerBindings?.annetTema), data?.annetTema].filter((part) => hasValue(part)).join(": ")
+            : data?.dispensasjonstema?.kodebeskrivelse;
     const documentName = getTextResourceFromResourceBinding(headerBindings?.title);
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,

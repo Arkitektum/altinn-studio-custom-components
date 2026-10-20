@@ -163,23 +163,15 @@ describe("CustomDispensasjon", () => {
             const bindings = instance.getResourceBindings();
             expect(bindings.dispensasjonssoeknadHeader.title).toBe("resource.dispensasjonssoeknad.title");
             expect(bindings.dispensasjonssoeknadHeader.annetTema).toBe("resource.dispensasjonssoeknad.annetTema.title");
-            expect(bindings.dispensasjonssoeknadHeader.tekniskeKrav).toBe("resource.dispensasjonssoeknad.tekniskeKrav.title");
         });
 
         it("uses the texts it is given for the dispensasjonssøknad header", () => {
             const instance = new CustomDispensasjon({});
             const bindings = instance.getResourceBindings({
-                resourceBindings: {
-                    dispensasjonssoeknadHeader: {
-                        title: "custom.dispensasjonssoeknad",
-                        annetTema: "custom.annet",
-                        tekniskeKrav: "custom.tekniskeKrav"
-                    }
-                }
+                resourceBindings: { dispensasjonssoeknadHeader: { title: "custom.dispensasjonssoeknad", annetTema: "custom.annet" } }
             } as unknown as ComponentProps);
             expect(bindings.dispensasjonssoeknadHeader.title).toBe("custom.dispensasjonssoeknad");
             expect(bindings.dispensasjonssoeknadHeader.annetTema).toBe("custom.annet");
-            expect(bindings.dispensasjonssoeknadHeader.tekniskeKrav).toBe("custom.tekniskeKrav");
         });
 
         it("falls back to the default titles for the grad av utnytting fields", () => {

@@ -214,10 +214,6 @@
             "value": "Annet"
         },
         {
-            "id": "resource.dispensasjonssoeknad.tekniskeKrav.title",
-            "value": "Tekniske krav"
-        },
-        {
             "id": "resource.dispensasjonssoeknad.title",
             "value": "Dispensasjonssøknad"
         },
@@ -430,10 +426,6 @@
             "value": "Ny grad av utnytting"
         },
         {
-            "id": "resource.harAapneAvvik.title",
-            "value": "Åpne avvik er rapportert til kommunen"
-        },
-        {
             "id": "resource.harIngenAvvik.title",
             "value": "Ingen avvik er funnet"
         },
@@ -444,6 +436,10 @@
         {
             "id": "resource.harSentralGodkjenning.booleanText.title",
             "value": "Har foretaket sentral godkjenning?"
+        },
+        {
+            "id": "resource.harAapneAvvik.title",
+            "value": "Åpne avvik er rapportert til kommunen"
         },
         {
             "id": "resource.hjemmesidePlanforslag.title",
@@ -1142,10 +1138,6 @@
             "value": "Vi vil utføre arbeidene innen"
         },
         {
-            "id": "resource.vaarRef.title",
-            "value": "Vår ref."
-        },
-        {
             "id": "resource.vannforsyning.title",
             "value": "Vannforsyning"
         },
@@ -1212,6 +1204,10 @@
         {
             "id": "resource.vertikalnivaa.title",
             "value": "Vertikalnivå"
+        },
+        {
+            "id": "resource.vaarRef.title",
+            "value": "Vår ref."
         }
     ]
 }

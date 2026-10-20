@@ -144,8 +144,7 @@ export default class CustomDispensasjon extends CustomComponent {
         return {
             dispensasjonssoeknadHeader: {
                 title: props?.resourceBindings?.dispensasjonssoeknadHeader?.title || "resource.dispensasjonssoeknad.title",
-                annetTema: props?.resourceBindings?.dispensasjonssoeknadHeader?.annetTema || "resource.dispensasjonssoeknad.annetTema.title",
-                tekniskeKrav: props?.resourceBindings?.dispensasjonssoeknadHeader?.tekniskeKrav || "resource.dispensasjonssoeknad.tekniskeKrav.title"
+                annetTema: props?.resourceBindings?.dispensasjonssoeknadHeader?.annetTema || "resource.dispensasjonssoeknad.annetTema.title"
             },
             dispensasjonsreferanse: {
                 title: props?.resourceBindings?.dispensasjonsreferanse?.title || "resource.dispensasjonsreferanse.title"

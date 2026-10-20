@@ -11,7 +11,7 @@ const byName = renderers as unknown as Record<string, (component: unknown) => HT
  */
 const component = {
     resourceBindings: {
-        dispensasjonssoeknadHeader: { title: "Dispensasjonssøknad", annetTema: "Annet", tekniskeKrav: "Tekniske krav" },
+        dispensasjonssoeknadHeader: { title: "Dispensasjonssøknad", annetTema: "Annet" },
         dispensasjonsreferanse: { title: "Referanse" },
         metadataFtbId: { title: "FtB-id" },
         kommunensSaksnummer: { title: "Saksnummer" },
@@ -227,7 +227,7 @@ describe("the dispensasjonssøknad header", () => {
         expect(attributes(renderers.renderDispensasjonssoeknadHeader(component))).toMatchObject({
             tagName: "custom-header-text",
             size: "h1",
-            resourceValues: { title: "Dispensasjonssøknad – Tekniske krav: Avstand til nabogrense" }
+            resourceValues: { title: "Dispensasjonssøknad – Avstand til nabogrense" }
         });
     });
 
@@ -249,7 +249,7 @@ describe("the dispensasjonssøknad header", () => {
         const rendered = renderers.renderDispensasjonssoeknadHeader(
             withTheme({ dispensasjonstema: { kodebeskrivelse: "Byggegrenser" }, annetTema: "Fjerning av tre" })
         );
-        expect(title(rendered)).toBe("Dispensasjonssøknad – Tekniske krav: Byggegrenser");
+        expect(title(rendered)).toBe("Dispensasjonssøknad – Byggegrenser");
     });
 
     it("leaves annetTema out when there is no theme", () => {
