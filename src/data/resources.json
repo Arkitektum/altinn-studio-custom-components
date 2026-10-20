@@ -636,6 +636,12 @@
         }
     },
     {
+        "id": "resource.harAapneAvvik.title",
+        "values": {
+            "nb": "Åpne avvik er rapportert til kommunen"
+        }
+    },
+    {
         "id": "resource.harIngenAvvik.title",
         "values": {
             "nb": "Ingen avvik er funnet"
@@ -651,12 +657,6 @@
         "id": "resource.harSentralGodkjenning.booleanText.title",
         "values": {
             "nb": "Har foretaket sentral godkjenning?"
-        }
-    },
-    {
-        "id": "resource.harAapneAvvik.title",
-        "values": {
-            "nb": "Åpne avvik er rapportert til kommunen"
         }
     },
     {
@@ -1704,6 +1704,12 @@
         }
     },
     {
+        "id": "resource.vaarRef.title",
+        "values": {
+            "nb": "Vår ref."
+        }
+    },
+    {
         "id": "resource.vannforsyning.title",
         "values": {
             "nb": "Vannforsyning"
@@ -1803,12 +1809,6 @@
         "id": "resource.vertikalnivaa.title",
         "values": {
             "nb": "Vertikalnivå"
-        }
-    },
-    {
-        "id": "resource.vaarRef.title",
-        "values": {
-            "nb": "Vår ref."
         }
     }
 ]
