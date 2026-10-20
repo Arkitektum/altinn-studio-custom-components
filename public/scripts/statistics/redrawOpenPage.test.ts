@@ -211,32 +211,21 @@ describe("redrawOpenPage", () => {
 
 describe("the Subform data models page", () => {
     let main: HTMLElement;
-    const originalFetch = globalThis.fetch;
 
-    /** The API's answer: two apps whose copies of one subform differ in one field. */
-    function subformDataModels(extraField: string) {
-        const field = (path: string) => ({ path, node: "element", type: "string", minOccurs: 1, maxOccurs: 1 });
+    /** What applyApiData leaves on globalThis: one subform whose copies in apps a and b differ in one field. */
+    function driftWithField(path: string) {
+        const field = { path, node: "element" as const, type: "string", minOccurs: 1, maxOccurs: 1 };
         return [
             {
                 dataType: "DispensasjonssoeknadDataV1",
-                copies: [
-                    { appOwner: "o", appName: "a", error: null, rootElement: "Dispensasjon", fields: [field("felles"), field(extraField)] },
-                    { appOwner: "o", appName: "b", error: null, rootElement: "Dispensasjon", fields: [field("felles")] }
-                ]
+                variants: [
+                    { apps: [{ appOwner: "o", appName: "a" }], rootElement: "Dispensasjon", fieldCount: 2 },
+                    { apps: [{ appOwner: "o", appName: "b" }], rootElement: "Dispensasjon", fieldCount: 1 }
+                ],
+                differences: [{ path, fields: [field, null], hiddenBelow: 0 }],
+                unreadable: []
             }
         ];
-    }
-
-    /** Answers the next requests with the given bodies in turn, and counts them. */
-    function stubFetch(...bodies: unknown[]) {
-        const requested: string[] = [];
-        globalThis.fetch = (async (url: string) => {
-            requested.push(String(url));
-            const body = bodies.shift();
-            if (body instanceof Error) return { ok: false, statusText: body.message, json: async () => ({}) };
-            return { ok: true, json: async () => body };
-        }) as unknown as typeof fetch;
-        return requested;
     }
 
     function openFromSidebar() {
@@ -255,70 +244,35 @@ describe("the Subform data models page", () => {
     beforeEach(() => {
         document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
         main = document.getElementById("admin-main")!;
+        globalThis.subformDataModelDrift = driftWithField("ny");
     });
 
-    afterEach(() => {
-        globalThis.fetch = originalFetch;
-    });
-
-    it("fetches the models when opened from the sidebar, saying so until they arrive, with every filter reset", async () => {
-        const requested = stubFetch(subformDataModels("ny"));
+    it("opens from the sidebar with every filter reset, drawn from the data on globalThis", () => {
         globalThis.subformModelSelectedApp = "o/a";
         globalThis.subformModelPathFilter = "nothing like it";
         globalThis.subformModelShowAgreeing = true;
 
         openFromSidebar();
-        expect(main.querySelector(".subform-model-status")!.textContent).toContain("Reading every app's copy");
-        await settle();
 
-        expect(requested).toHaveLength(1);
-        expect(requested[0]!.endsWith("/api/subformDataModels")).toBe(true);
-        expect(main.querySelector(".subform-model-status")).toBeNull();
         expect((main.querySelector("#subform-model-application-filter-select") as HTMLSelectElement).value).toBe("");
         expect((main.querySelector("#subform-model-path-filter-input") as HTMLInputElement).value).toBe("");
         expect((main.querySelector("#subform-model-show-agreeing") as HTMLInputElement).checked).toBe(false);
         expect(differingPaths()).toEqual(["ny"]);
     });
 
-    it("fetches the models again when drawn again after a synchronization, keeping the app and path chosen on it", async () => {
-        const requested = stubFetch(subformDataModels("ny"), subformDataModels("nyere"));
+    it("draws the page again from the new data, keeping the app and path chosen on it", () => {
         openFromSidebar();
-        await settle();
         choose(main.querySelector("#subform-model-application-filter-select") as HTMLSelectElement, "o/b");
         const input = main.querySelector("#subform-model-path-filter-input") as HTMLInputElement;
         input.value = "ny";
         input.dispatchEvent(new Event("input"));
 
-        await redrawOpenPage();
+        globalThis.subformDataModelDrift = driftWithField("nyere");
+        redrawOpenPage();
 
-        expect(requested).toHaveLength(2);
         expect((main.querySelector("#subform-model-application-filter-select") as HTMLSelectElement).value).toBe("o/b");
         expect((main.querySelector("#subform-model-path-filter-input") as HTMLInputElement).value).toBe("ny");
         expect(differingPaths()).toEqual(["nyere"]);
         expect(main.querySelectorAll("h2").length).toBe(1);
-    });
-
-    it("says the models could not be fetched, rather than drawing an empty page", async () => {
-        stubFetch(new Error("Bad Gateway"));
-        openFromSidebar();
-        await settle();
-
-        expect(main.querySelector(".subform-model-status")!.textContent).toBe(
-            "The subform data models could not be fetched: Failed to fetch subform data models: Bad Gateway"
-        );
-        expect(main.querySelector("#subform-model-list")).toBeNull();
-    });
-
-    it("does not draw the models into a page opened while they were being fetched", async () => {
-        stubFetch(subformDataModels("ny"));
-        openFromSidebar();
-        (
-            Array.from(document.querySelectorAll("#sidebar button")).find((button) => button.textContent === "Package versions") as HTMLButtonElement
-        ).click();
-        await settle();
-
-        expect(main.querySelector("#subform-model-list")).toBeNull();
-        expect(main.querySelector(".subform-model-status")).toBeNull();
-        expect(Array.from(main.querySelectorAll("h2")).map((node) => node.textContent)).toEqual(["Package versions"]);
     });
 });

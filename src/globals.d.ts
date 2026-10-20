@@ -43,6 +43,9 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var dataModelBindingDrift: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    var subformDataModels: any;
+    var subformDataModelDrift: import("../public/scripts/statistics/subformDataModelHelpers.ts").SubformDataModelDrift[] | undefined;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var packageVersions: any;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     var latestPackageVersions: any;

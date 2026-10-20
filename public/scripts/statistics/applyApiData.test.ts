@@ -21,7 +21,13 @@ function apiDataWithComponent(appName: string, tagName: string) {
         latestPackageVersions: {},
         multilingualAppResourceValues: [{ appOwner: "dibk", appName, resourceValues: [{ id: "appName", values: { nb: "Appen" } }] }],
         exampleData: [],
-        applicationMetadata: []
+        applicationMetadata: [],
+        subformDataModels: [
+            {
+                dataType: "SubformDataV1",
+                copies: [{ appOwner: "dibk", appName, error: null, rootElement: "Subform", fields: [] }]
+            }
+        ]
     };
 }
 
@@ -54,6 +60,17 @@ describe("applyApiData", () => {
 
         applyApiData(apiDataWithComponent("second-v1", "custom-gjennomfoeringsplan"), "2026-10-09T11:00:00.000Z");
         expect(driftedApps()).toEqual(["second-v1"]);
+    });
+
+    it("works the subform data model variants out from the data it is given, every time it is called", () => {
+        const variantApps = () =>
+            globalThis.subformDataModelDrift!.map((entry) => entry.variants.map((variant) => variant.apps.map((app) => app.appName)));
+        applyApiData(apiDataWithComponent("first-v1", "custom-field-data"), "2026-10-09T10:00:00.000Z");
+        expect(variantApps()).toEqual([[["first-v1"]]]);
+
+        applyApiData(apiDataWithComponent("second-v1", "custom-field-data"), "2026-10-09T11:00:00.000Z");
+        expect(variantApps()).toEqual([[["second-v1"]]]);
+        expect(JSON.parse(getValueFromLocalStorage("subformDataModels") as string)[0].copies[0].appName).toBe("second-v1");
     });
 
     it("works out the text resource usage and the app text resources in the default language", () => {

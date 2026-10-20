@@ -181,7 +181,7 @@ describe("renderSynchronizeButton", () => {
         expect(document.querySelector(".last-updated")!.textContent).toBe(before);
     });
     it("hands what it fetched to onSynchronized, with when it was fetched", async () => {
-        (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6]);
+        (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6, 7]);
         const onSynchronized = jest.fn();
         renderSynchronizeButton(onSynchronized);
 
@@ -197,7 +197,8 @@ describe("renderSynchronizeButton", () => {
             latestPackageVersions: 3,
             multilingualAppResourceValues: 4,
             exampleData: 5,
-            applicationMetadata: 6
+            applicationMetadata: 6,
+            subformDataModels: 7
         });
         expect(new Date(lastUpdated).toISOString()).toBe(lastUpdated);
         expect(document.querySelector(".last-updated")!.textContent).toBe(`Last updated: ${new Date(lastUpdated).toLocaleString()}`);

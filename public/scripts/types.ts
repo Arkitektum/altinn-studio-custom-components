@@ -80,4 +80,5 @@ export interface ApiData {
     multilingualAppResourceValues: ApiValue;
     exampleData: ApiValue;
     applicationMetadata: ApiValue;
+    subformDataModels: ApiValue;
 }

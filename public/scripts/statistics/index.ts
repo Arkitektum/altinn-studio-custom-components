@@ -19,6 +19,7 @@ import { redrawOpenPage, renderAdminSidebar, renderNoDataMessage, renderSynchron
 import { flattenAppLayouts } from "./displayLayoutHelpers.ts";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.ts";
 import { getDataModelBindingDriftForAllLayouts } from "./dataModelBindingHelpers.ts";
+import { getSubformDataModelDrift } from "./subformDataModelHelpers.ts";
 
 export function getDataFromLocalStorage(): Record<string, ApiValue> {
     const lastUpdated = getValueFromLocalStorage("lastUpdated");
@@ -30,7 +31,8 @@ export function getDataFromLocalStorage(): Record<string, ApiValue> {
             "latestPackageVersions",
             "multilingualAppResourceValues",
             "exampleData",
-            "applicationMetadata"
+            "applicationMetadata",
+            "subformDataModels"
         ])
     };
 }
@@ -75,7 +77,15 @@ export function getAllTextResourceUsage(
  * @param {string|number|undefined} lastUpdated - When it was fetched.
  */
 export function applyApiData(apiData: ApiData, lastUpdated: string | number | undefined) {
-    const { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata } = apiData;
+    const {
+        displayLayouts,
+        packageVersions,
+        latestPackageVersions,
+        multilingualAppResourceValues,
+        exampleData,
+        applicationMetadata,
+        subformDataModels
+    } = apiData;
     const multilingualDefaultTextResources = fetchDefaultTextResources();
     const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, "nb");
     const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, "nb");
@@ -88,12 +98,14 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
         appResourceValues,
         multilingualAppResourceValues,
         exampleData,
-        applicationMetadata
+        applicationMetadata,
+        subformDataModels
     });
     const flattenedLayouts = flattenAppLayouts(displayLayouts);
     const allTextResourceUsage = getAllTextResourceUsage(flattenedLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
     const componentUsage = getComponentUsageTreeForAllLayouts(flattenedLayouts);
     const dataModelBindingDrift = getDataModelBindingDriftForAllLayouts(flattenedLayouts);
+    const subformDataModelDrift = getSubformDataModelDrift(subformDataModels);
     addDataToGlobalThis({
         defaultTextResources,
         multilingualDefaultTextResources,
@@ -107,6 +119,8 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
         allTextResourceUsage,
         componentUsage,
         dataModelBindingDrift,
+        subformDataModels,
+        subformDataModelDrift,
         lastUpdated
     });
 }
@@ -121,12 +135,35 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
  * @returns {Promise<void>}
  */
 export async function loadDevTools() {
-    let { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, lastUpdated, applicationMetadata } =
-        getDataFromLocalStorage();
-    if (!displayLayouts || !packageVersions || !latestPackageVersions || !multilingualAppResourceValues || !exampleData || !applicationMetadata) {
+    let {
+        displayLayouts,
+        packageVersions,
+        latestPackageVersions,
+        multilingualAppResourceValues,
+        exampleData,
+        lastUpdated,
+        applicationMetadata,
+        subformDataModels
+    } = getDataFromLocalStorage();
+    if (
+        !displayLayouts ||
+        !packageVersions ||
+        !latestPackageVersions ||
+        !multilingualAppResourceValues ||
+        !exampleData ||
+        !applicationMetadata ||
+        !subformDataModels
+    ) {
         try {
-            [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] =
-                await getUpdatedApiData();
+            [
+                displayLayouts,
+                packageVersions,
+                latestPackageVersions,
+                multilingualAppResourceValues,
+                exampleData,
+                applicationMetadata,
+                subformDataModels
+            ] = await getUpdatedApiData();
         } catch {
             // The progress panel says which request failed and why.
             renderNoDataMessage(loadDevTools);
@@ -136,7 +173,15 @@ export async function loadDevTools() {
         addValueToLocalStorage("lastUpdated", lastUpdated);
     }
     applyApiData(
-        { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata },
+        {
+            displayLayouts,
+            packageVersions,
+            latestPackageVersions,
+            multilingualAppResourceValues,
+            exampleData,
+            applicationMetadata,
+            subformDataModels
+        },
         lastUpdated
     );
 

@@ -6,6 +6,7 @@ import {
     fetchDisplayLayouts,
     fetchExampleData,
     fetchPackageVersions,
+    fetchSubformDataModels,
     getUpdatedApiData
 } from "./apiHelpers.ts";
 
@@ -103,6 +104,18 @@ describe("fetchApplicationMetadata", () => {
     });
 });
 
+describe("fetchSubformDataModels", () => {
+    it("asks the subform data models route and returns JSON on ok", async () => {
+        (fetch as unknown as jest.Mock).mockResolvedValue({ ok: true, json: () => Promise.resolve([{ dataType: "D", copies: [] }]) });
+        await expect(fetchSubformDataModels()).resolves.toEqual([{ dataType: "D", copies: [] }]);
+        expect(String((fetch as unknown as jest.Mock).mock.calls[0]![0]).endsWith("/api/subformDataModels")).toBe(true);
+    });
+    it("throws on not ok", async () => {
+        (fetch as unknown as jest.Mock).mockResolvedValue({ ok: false, statusText: "fail" });
+        await expect(fetchSubformDataModels()).rejects.toThrow("Failed to fetch subform data models: fail");
+    });
+});
+
 describe("getUpdatedApiData", () => {
     it("returns all data in order, with local defaultTextResources", async () => {
         // Arrange: mock fetch for the 5 fetch-based calls (skip for fetchDefaultTextResources)
@@ -112,9 +125,10 @@ describe("getUpdatedApiData", () => {
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(4) }) // latestPackageVersions
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(5) }) // appResources
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(6) }) // exampleData
-            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(7) }); // applicationMetadata
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(7) }) // applicationMetadata
+            .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(8) }); // subformDataModels
         // Mock showSyncProgress to avoid DOM side effects
         jest.spyOn(require("./syncProgress.ts"), "showSyncProgress").mockImplementation(() => document.createElement("div"));
-        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5, 6, 7]);
+        await expect(getUpdatedApiData()).resolves.toEqual([2, 3, 4, 5, 6, 7, 8]);
     });
 });

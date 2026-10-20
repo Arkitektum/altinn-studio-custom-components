@@ -10,7 +10,8 @@ const bodies: Record<string, unknown> = {
     latestPackageVersions: {},
     appResources: [],
     exampleData: [],
-    applicationMetadata: []
+    applicationMetadata: [],
+    subformDataModels: [{ dataType: "SubformDataV1", copies: [] }]
 };
 
 /** Answers every API request from `bodies`, failing the ones named in `failing`. */
@@ -52,7 +53,8 @@ describe("loadDevTools", () => {
 
         await loadDevTools();
 
-        expect(requested.length).toBe(6);
+        expect(requested.length).toBe(7);
+        expect(requested).toContain("subformDataModels");
         expect(document.querySelector("#sidebar ul")).not.toBeNull();
         expect(document.querySelector(".no-data-message")).toBeNull();
         expect(localStorage.getItem("lastUpdated")).not.toBeNull();
@@ -68,6 +70,19 @@ describe("loadDevTools", () => {
 
         expect(requested).toEqual([]);
         expect(document.querySelector("#sidebar ul")).not.toBeNull();
+    });
+
+    it("synchronizes when what is stored is from before the subform data models were synchronized", async () => {
+        stubApi();
+        await loadDevTools();
+        localStorage.removeItem("subformDataModels");
+        document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
+        const requested = stubApi();
+
+        await loadDevTools();
+
+        expect(requested.length).toBe(7);
+        expect(JSON.parse(localStorage.getItem("subformDataModels")!)).toEqual([{ dataType: "SubformDataV1", copies: [] }]);
     });
 
     it("says there is no data yet when the first synchronization fails, stores nothing, and renders no sidebar", async () => {

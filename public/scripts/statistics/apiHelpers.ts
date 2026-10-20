@@ -147,8 +147,6 @@ export async function fetchExampleData() {
 /**
  * Fetches every app's copy of each subform's data model from the local API endpoint.
  *
- * Not part of a synchronization: the Subform data models page fetches it when it opens.
- *
  * @async
  * @returns {Promise<Array<Object>>} One entry per subform data type, `{ dataType, copies }`.
  * @throws {Error} If the network request fails or the response is not OK.
@@ -214,12 +212,12 @@ export async function fetchAltinnStudioForms() {
 /**
  * Fetches updated API data required for the application.
  * Initiates parallel requests for display layouts, package versions, latest package versions, application resource
- * values, example data and application metadata, and shows each one's progress while they run.
+ * values, example data, application metadata and subform data models, and shows each one's progress while they run.
  *
  * @async
  * @function
  * @returns {Promise<Array>} A promise that resolves to an array containing:
- *   [multilingualDefaultTextResources, layouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata]
+ *   [layouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata, subformDataModels]
  */
 export async function getUpdatedApiData() {
     const layoutsPromise = fetchDisplayLayouts();
@@ -228,6 +226,7 @@ export async function getUpdatedApiData() {
     const multilingualAppResourceValuesPromise = fetchAppResources();
     const exampleDataPromise = fetchExampleData();
     const applicationMetadataPromise = fetchApplicationMetadata();
+    const subformDataModelsPromise = fetchSubformDataModels();
 
     showSyncProgress([
         { label: "Display layouts", promise: layoutsPromise, unit: ["app", "apps"] },
@@ -235,7 +234,8 @@ export async function getUpdatedApiData() {
         { label: "Latest package versions", promise: latestPackageVersionsPromise, unit: ["package", "packages"] },
         { label: "App text resources", promise: multilingualAppResourceValuesPromise, unit: ["app", "apps"] },
         { label: "Example data", promise: exampleDataPromise, unit: ["entry", "entries"] },
-        { label: "Application metadata", promise: applicationMetadataPromise, unit: ["app", "apps"] }
+        { label: "Application metadata", promise: applicationMetadataPromise, unit: ["app", "apps"] },
+        { label: "Subform data models", promise: subformDataModelsPromise, unit: ["subform", "subforms"] }
     ]);
     return Promise.all([
         layoutsPromise,
@@ -243,6 +243,7 @@ export async function getUpdatedApiData() {
         latestPackageVersionsPromise,
         multilingualAppResourceValuesPromise,
         exampleDataPromise,
-        applicationMetadataPromise
+        applicationMetadataPromise,
+        subformDataModelsPromise
     ]);
 }

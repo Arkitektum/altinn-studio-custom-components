@@ -11,7 +11,7 @@ import {
 // Local functions
 import { addDataToGlobalThis, addValueToLocalStorage } from "../localStorage.ts";
 import { applyTextResourcesForLanguage, getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
-import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, fetchSubformDataModels, getUpdatedApiData } from "./apiHelpers.ts";
+import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
 import {
     filterComponentsBySelectedFilters,
     renderComponentUsageList,
@@ -40,7 +40,6 @@ import {
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
-import { getSubformDataModelDrift } from "./subformDataModelHelpers.ts";
 import { languages } from "../languages.ts";
 import { setIconLabel } from "../icons.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
@@ -142,22 +141,18 @@ export function renderDataModelBindingsPage(containerElement: HTMLElement, { kee
 /**
  * Renders the subform data models page: for each subform, the variants its copies form across the apps carrying it, and the fields they disagree on.
  *
- * The models are not part of a synchronization, so they are fetched every time the page is drawn, after a synchronization too. A page left before the answer arrives is not drawn into the page opened since.
+ * Opened from the sidebar, every filter starts at its default. With `keepFilters` the filters keep the choices made before, which is how the page is drawn again after a synchronization. A choice that is no longer offered falls back to its default.
  *
- * Opened from the sidebar, every filter starts at its default. With `keepFilters` the filters keep the choices made before. A choice that is no longer offered falls back to its default.
- *
- * @async
  * @param {HTMLElement} containerElement - The element the page is drawn in.
  * @param {Object} [options]
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
- * @returns {Promise<void>}
  */
-export async function renderSubformDataModelsPage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
-    const drawThisPageAgain = () => {
+export function renderSubformDataModelsPage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    drawOpenPageAgain = () => {
         containerElement.innerHTML = "";
-        return renderSubformDataModelsPage(containerElement, { keepFilters: true });
+        renderSubformDataModelsPage(containerElement, { keepFilters: true });
     };
-    drawOpenPageAgain = drawThisPageAgain;
+    const drift = globalThis.subformDataModelDrift;
 
     if (!keepFilters) {
         globalThis.subformModelSelectedApp = "";
@@ -168,23 +163,6 @@ export async function renderSubformDataModelsPage(containerElement: HTMLElement,
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Subform data models";
     containerElement.appendChild(titleElement);
-    const statusElement = document.createElement("p");
-    statusElement.classList.add("subform-model-status");
-    statusElement.textContent = "Reading every app's copy of the subform data models from Altinn Studio…";
-    containerElement.appendChild(statusElement);
-
-    let subformDataModels;
-    try {
-        subformDataModels = await fetchSubformDataModels();
-    } catch (error) {
-        if (drawOpenPageAgain !== drawThisPageAgain) return;
-        statusElement.textContent = `The subform data models could not be fetched: ${(error as Error).message}`;
-        return;
-    }
-    if (drawOpenPageAgain !== drawThisPageAgain) return;
-    statusElement.remove();
-
-    const drift = getSubformDataModelDrift(subformDataModels);
     containerElement.append(...renderSubformDataModelFilters(containerElement, drift));
     containerElement.appendChild(renderSubformDataModelList(filterSubformDataModelDriftBySelectedFilters(drift)));
 }
@@ -1099,7 +1077,7 @@ export function renderAdminSidebar() {
     setIconLabel(subformDataModelsButton, "database", "Subform data models");
     subformDataModelsButton.onclick = () => {
         mainElement!.innerHTML = "";
-        void renderSubformDataModelsPage(mainElement!);
+        renderSubformDataModelsPage(mainElement!);
     };
     subformDataModelsListItem.appendChild(subformDataModelsButton);
     sidebarList.appendChild(subformDataModelsListItem);
@@ -1212,12 +1190,28 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
             synchronizeButton.disabled = false;
             synchronizeButton.textContent = "Synchronize data";
         }
-        const [displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata] = apiData;
+        const [
+            displayLayouts,
+            packageVersions,
+            latestPackageVersions,
+            multilingualAppResourceValues,
+            exampleData,
+            applicationMetadata,
+            subformDataModels
+        ] = apiData;
 
         const lastUpdated = new Date().toISOString();
         addValueToLocalStorage("lastUpdated", lastUpdated);
         onSynchronized(
-            { displayLayouts, packageVersions, latestPackageVersions, multilingualAppResourceValues, exampleData, applicationMetadata },
+            {
+                displayLayouts,
+                packageVersions,
+                latestPackageVersions,
+                multilingualAppResourceValues,
+                exampleData,
+                applicationMetadata,
+                subformDataModels
+            },
             lastUpdated
         );
 

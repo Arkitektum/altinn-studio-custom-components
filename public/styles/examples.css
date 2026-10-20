@@ -635,10 +635,6 @@ svg.icon {
                     color: var(--color-warning-default);
                 }
             }
-            & .subform-model-status {
-                font-size: 14px;
-                color: var(--color-text-white-muted);
-            }
 
             & table.table-dark {
                 font-family: var(--font-family-default);
