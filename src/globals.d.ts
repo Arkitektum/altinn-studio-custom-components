@@ -70,6 +70,9 @@ declare global {
     var bindingDriftSelectedForm: string | undefined;
     var bindingDriftFindingFilter: string | undefined;
     var bindingDriftShowWithoutFindings: boolean | undefined;
+    var subformModelSelectedApp: string | undefined;
+    var subformModelPathFilter: string | undefined;
+    var subformModelShowAgreeing: boolean | undefined;
 }
 
 export {};

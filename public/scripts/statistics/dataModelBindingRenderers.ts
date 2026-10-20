@@ -57,7 +57,7 @@ export function filterDataModelBindingDriftBySelectedFilters(drift: DataModelBin
  * @param {string} [className] - A class to give it.
  * @returns {HTMLElement} The element.
  */
-function createTextElement(tagName: string, text: string, className?: string) {
+export function createTextElement(tagName: string, text: string, className?: string) {
     const element = document.createElement(tagName);
     element.textContent = text;
     if (className) element.classList.add(className);
@@ -71,7 +71,7 @@ function createTextElement(tagName: string, text: string, className?: string) {
  * @param {Array<HTMLElement>} countElements - The counts shown on the right.
  * @returns {HTMLElement} The summary element.
  */
-function createSummary(titleElement: HTMLElement, countElements: HTMLElement[]) {
+export function createSummary(titleElement: HTMLElement, countElements: HTMLElement[]) {
     const summaryElement = document.createElement("summary");
     summaryElement.append(createTextElement("span", "▶", "expand-collapse-icon"), titleElement, ...countElements);
     return summaryElement;
@@ -247,7 +247,7 @@ function handleFilterChange(containerElement: HTMLElement, drift: DataModelBindi
  * @param {Array<{ value: string, text: string }>} options - The options.
  * @returns {Object} The container and the select.
  */
-function createLabelledSelect(labelText: string, selectId: string, options: { value: string; text: string }[]) {
+export function createLabelledSelect(labelText: string, selectId: string, options: { value: string; text: string }[]) {
     const containerElement = document.createElement("div");
     containerElement.classList.add("filter-container");
     const labelElement = createTextElement("label", labelText) as HTMLLabelElement;

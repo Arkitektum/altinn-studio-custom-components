@@ -145,6 +145,24 @@ export async function fetchExampleData() {
 }
 
 /**
+ * Fetches every app's copy of each subform's data model from the local API endpoint.
+ *
+ * Not part of a synchronization: the Subform data models page fetches it when it opens.
+ *
+ * @async
+ * @returns {Promise<Array<Object>>} One entry per subform data type, `{ dataType, copies }`.
+ * @throws {Error} If the network request fails or the response is not OK.
+ */
+export async function fetchSubformDataModels() {
+    const url = `http://localhost:${API_PORT}/api/subformDataModels`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Failed to fetch subform data models: ${response.statusText}`);
+    }
+    return response.json();
+}
+
+/**
  * Fetches application metadata from the local API endpoint.
  *
  * @async

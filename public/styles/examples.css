@@ -587,6 +587,57 @@ svg.icon {
                     font-size: 14px;
                     color: var(--color-text-white-muted);
                 }
+                /* Subform data models: the variants a subform's copies form, and the fields they disagree on. */
+                & dl.subform-model-variants,
+                & dl.subform-model-unreadable {
+                    display: grid;
+                    grid-template-columns: max-content 1fr;
+                    gap: 2px 12px;
+                    margin: 0 0 8px;
+                    font-size: 13px;
+                    & dt {
+                        font-weight: 600;
+                        color: var(--color-text-white-muted);
+                    }
+                    & dd {
+                        margin: 0;
+                        overflow-wrap: anywhere;
+                    }
+                    & .selected-variant {
+                        color: var(--color-info-default);
+                    }
+                }
+                & table.subform-model-differences {
+                    font-size: 13px;
+                    & td {
+                        vertical-align: top;
+                    }
+                    & .subform-model-path {
+                        display: block;
+                        overflow-wrap: anywhere;
+                    }
+                    & .subform-model-hidden-below {
+                        display: block;
+                        font-size: 12px;
+                        color: var(--color-text-white-muted);
+                    }
+                    & .subform-model-missing {
+                        color: var(--color-error-default);
+                    }
+                    & .selected-variant {
+                        background-color: rgba(50, 150, 255, 0.12);
+                    }
+                }
+                & .subform-model-unreadable-title {
+                    margin: 12px 0 4px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    color: var(--color-warning-default);
+                }
+            }
+            & .subform-model-status {
+                font-size: 14px;
+                color: var(--color-text-white-muted);
             }
 
             & table.table-dark {

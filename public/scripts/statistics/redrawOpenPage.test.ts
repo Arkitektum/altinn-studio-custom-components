@@ -208,3 +208,117 @@ describe("redrawOpenPage", () => {
         expect(main.querySelectorAll("h2").length).toBe(1);
     });
 });
+
+describe("the Subform data models page", () => {
+    let main: HTMLElement;
+    const originalFetch = globalThis.fetch;
+
+    /** The API's answer: two apps whose copies of one subform differ in one field. */
+    function subformDataModels(extraField: string) {
+        const field = (path: string) => ({ path, node: "element", type: "string", minOccurs: 1, maxOccurs: 1 });
+        return [
+            {
+                dataType: "DispensasjonssoeknadDataV1",
+                copies: [
+                    { appOwner: "o", appName: "a", error: null, rootElement: "Dispensasjon", fields: [field("felles"), field(extraField)] },
+                    { appOwner: "o", appName: "b", error: null, rootElement: "Dispensasjon", fields: [field("felles")] }
+                ]
+            }
+        ];
+    }
+
+    /** Answers the next requests with the given bodies in turn, and counts them. */
+    function stubFetch(...bodies: unknown[]) {
+        const requested: string[] = [];
+        globalThis.fetch = (async (url: string) => {
+            requested.push(String(url));
+            const body = bodies.shift();
+            if (body instanceof Error) return { ok: false, statusText: body.message, json: async () => ({}) };
+            return { ok: true, json: async () => body };
+        }) as unknown as typeof fetch;
+        return requested;
+    }
+
+    function openFromSidebar() {
+        renderAdminSidebar();
+        (
+            Array.from(document.querySelectorAll("#sidebar button")).find(
+                (button) => button.textContent === "Subform data models"
+            ) as HTMLButtonElement
+        ).click();
+    }
+
+    function differingPaths() {
+        return Array.from(main.querySelectorAll(".subform-model-path")).map((node) => node.textContent);
+    }
+
+    beforeEach(() => {
+        document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
+        main = document.getElementById("admin-main")!;
+    });
+
+    afterEach(() => {
+        globalThis.fetch = originalFetch;
+    });
+
+    it("fetches the models when opened from the sidebar, saying so until they arrive, with every filter reset", async () => {
+        const requested = stubFetch(subformDataModels("ny"));
+        globalThis.subformModelSelectedApp = "o/a";
+        globalThis.subformModelPathFilter = "nothing like it";
+        globalThis.subformModelShowAgreeing = true;
+
+        openFromSidebar();
+        expect(main.querySelector(".subform-model-status")!.textContent).toContain("Reading every app's copy");
+        await settle();
+
+        expect(requested).toHaveLength(1);
+        expect(requested[0]!.endsWith("/api/subformDataModels")).toBe(true);
+        expect(main.querySelector(".subform-model-status")).toBeNull();
+        expect((main.querySelector("#subform-model-application-filter-select") as HTMLSelectElement).value).toBe("");
+        expect((main.querySelector("#subform-model-path-filter-input") as HTMLInputElement).value).toBe("");
+        expect((main.querySelector("#subform-model-show-agreeing") as HTMLInputElement).checked).toBe(false);
+        expect(differingPaths()).toEqual(["ny"]);
+    });
+
+    it("fetches the models again when drawn again after a synchronization, keeping the app and path chosen on it", async () => {
+        const requested = stubFetch(subformDataModels("ny"), subformDataModels("nyere"));
+        openFromSidebar();
+        await settle();
+        choose(main.querySelector("#subform-model-application-filter-select") as HTMLSelectElement, "o/b");
+        const input = main.querySelector("#subform-model-path-filter-input") as HTMLInputElement;
+        input.value = "ny";
+        input.dispatchEvent(new Event("input"));
+
+        await redrawOpenPage();
+
+        expect(requested).toHaveLength(2);
+        expect((main.querySelector("#subform-model-application-filter-select") as HTMLSelectElement).value).toBe("o/b");
+        expect((main.querySelector("#subform-model-path-filter-input") as HTMLInputElement).value).toBe("ny");
+        expect(differingPaths()).toEqual(["nyere"]);
+        expect(main.querySelectorAll("h2").length).toBe(1);
+    });
+
+    it("says the models could not be fetched, rather than drawing an empty page", async () => {
+        stubFetch(new Error("Bad Gateway"));
+        openFromSidebar();
+        await settle();
+
+        expect(main.querySelector(".subform-model-status")!.textContent).toBe(
+            "The subform data models could not be fetched: Failed to fetch subform data models: Bad Gateway"
+        );
+        expect(main.querySelector("#subform-model-list")).toBeNull();
+    });
+
+    it("does not draw the models into a page opened while they were being fetched", async () => {
+        stubFetch(subformDataModels("ny"));
+        openFromSidebar();
+        (
+            Array.from(document.querySelectorAll("#sidebar button")).find((button) => button.textContent === "Package versions") as HTMLButtonElement
+        ).click();
+        await settle();
+
+        expect(main.querySelector("#subform-model-list")).toBeNull();
+        expect(main.querySelector(".subform-model-status")).toBeNull();
+        expect(Array.from(main.querySelectorAll("h2")).map((node) => node.textContent)).toEqual(["Package versions"]);
+    });
+});

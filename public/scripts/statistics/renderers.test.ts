@@ -122,6 +122,7 @@ describe("renderAdminSidebar", () => {
             "Resource usage",
             "Component usage",
             "Data model bindings",
+            "Subform data models",
             "Package versions",
             "Display layouts"
         ]);
