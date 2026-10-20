@@ -210,6 +210,18 @@
             "value": "Dispensasjonsreferanse"
         },
         {
+            "id": "resource.dispensasjonssoeknad.annetTema.title",
+            "value": "Annet"
+        },
+        {
+            "id": "resource.dispensasjonssoeknad.tekniskeKrav.title",
+            "value": "Tekniske krav"
+        },
+        {
+            "id": "resource.dispensasjonssoeknad.title",
+            "value": "Dispensasjonssøknad"
+        },
+        {
             "id": "resource.dispensasjonsvarsel.bestemmelse.title",
             "value": "Dette søkes det dispensasjon fra"
         },

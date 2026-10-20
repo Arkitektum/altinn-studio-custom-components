@@ -312,6 +312,24 @@
         }
     },
     {
+        "id": "resource.dispensasjonssoeknad.annetTema.title",
+        "values": {
+            "nb": "Annet"
+        }
+    },
+    {
+        "id": "resource.dispensasjonssoeknad.tekniskeKrav.title",
+        "values": {
+            "nb": "Tekniske krav"
+        }
+    },
+    {
+        "id": "resource.dispensasjonssoeknad.title",
+        "values": {
+            "nb": "Dispensasjonssøknad"
+        }
+    },
+    {
         "id": "resource.dispensasjonsvarsel.bestemmelse.title",
         "values": {
             "nb": "Dette søkes det dispensasjon fra"

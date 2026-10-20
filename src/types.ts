@@ -188,6 +188,7 @@ export interface InstantiatedComponent {
     /** The alt text an image component carries, which the element takes as its own attribute. */
     alt?: string;
     // Worked out by CustomDispensasjonsvarsel, and read by the renderer that decides what a varsel shows.
+    // CustomDispensasjon works out the last two as well, for the heading of a dispensasjonssøknad.
     isPlanBestemmelsesType?: boolean;
     isAndrePlanbestemmelser?: boolean;
     isAnnetLovForskrift?: boolean;
