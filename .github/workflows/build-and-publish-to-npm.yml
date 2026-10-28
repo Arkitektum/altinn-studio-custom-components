@@ -24,10 +24,11 @@ jobs:
               with:
                   node-version: "24"
 
-            # Trusted publishing requires npm 11.5.1 or newer
+            # Trusted publishing requires npm 11.5.1 or newer. Held to major 11 rather than @latest, so a new npm major does
+            # not arrive unreviewed in the one job that can publish.
             - name: Update npm
               run: |
-                  npm install -g npm@latest
+                  npm install -g npm@11
                   npm --version
 
             # Enable Corepack and activate the Yarn version from package.json
