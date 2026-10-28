@@ -12,6 +12,8 @@ permissions:
 jobs:
     publish-npm-package:
         runs-on: ubuntu-latest
+        # Waits for a reviewer to approve before anything runs, so creating a release is not on its own enough to publish.
+        environment: release
 
         steps:
             - name: Checkout code
