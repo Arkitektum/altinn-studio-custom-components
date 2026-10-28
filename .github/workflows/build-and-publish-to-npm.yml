@@ -51,8 +51,10 @@ jobs:
 
             - name: Determine dist-tag
               id: dist_tag
+              # The tag reaches the script as an environment variable, not pasted into it, so a tag name cannot run as shell code.
+              env:
+                  TAG_NAME: ${{ github.event.release.tag_name }}
               run: |
-                  TAG_NAME="${{ github.event.release.tag_name }}"
                   if [[ "$TAG_NAME" == *"-"* ]]; then
                     DIST_TAG=$(echo "$TAG_NAME" | sed 's/.*-\([a-zA-Z]*\).*/\1/')
                   else
