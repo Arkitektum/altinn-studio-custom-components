@@ -218,7 +218,7 @@ These surfaces are development-only and are not part of the published `dist/`.
 
 Browser-side logging goes through `@arkitektum/client-logger` (wrapped in `src/functions/clientLoggerHelpers.ts`).
 API/fetch calls log result, errors, warnings, and response time to **Elastic**.
-The target endpoint is environment-aware — `src/constants/urls.ts` maps the current Altinn app origin (local / test / production) to the matching `frontendlogger.*.dibk.no` URL.
+The target endpoint is environment-aware — `src/constants/urls.ts` maps the current Altinn app origin (local / test / production) to the matching `frontendlogger.*.dibk.no` URL. Any other origin, such as another org's app, gets no logger, and nothing is logged.
 
 ---
 

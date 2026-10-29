@@ -5,8 +5,7 @@
 export const clientLoggerApiUrls = {
     local: "https://frontendlogger.ft-dev.dibk.no/log",
     test: "https://frontendlogger.ft-test.dibk.no/log",
-    production: "https://frontendlogger.ft.dibk.no/log",
-    default: "https://frontendlogger.ft-dev.dibk.no/log"
+    production: "https://frontendlogger.ft.dibk.no/log"
 } satisfies Record<string, string>;
 
 /**

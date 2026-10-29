@@ -72,10 +72,14 @@ export async function fetchWithTimeoutAndClientLogger(
 /**
  * Get the client logger API URL based on the origin the app is served from.
  *
+ * Only DIBK's own app origins have a logger. Anywhere else (another org's app, a page that only renders the
+ * components) there is nothing to log to: the entries carry instance ids and request URLs, and they do not belong in
+ * DIBK's logs.
+ *
  * @param {string} [origin] - The origin to look up. The page's own unless a test hands it one.
- * @returns {string} The client logger API URL.
+ * @returns {string | null} The client logger API URL, or null when the origin has no logger.
  */
-export function getClientLoggerApiUrl(origin = globalThis.location.origin) {
+export function getClientLoggerApiUrl(origin = globalThis.location.origin): string | null {
     switch (origin) {
         case altinnAppOrigins.local:
             return clientLoggerApiUrls.local;
@@ -84,20 +88,20 @@ export function getClientLoggerApiUrl(origin = globalThis.location.origin) {
         case altinnAppOrigins.production:
             return clientLoggerApiUrls.production;
         default:
-            console.warn(`Unrecognized origin '${origin}', defaulting client logger API URL to '${clientLoggerApiUrls.default}'`);
-            return clientLoggerApiUrls.default;
+            console.info(`No client logger for origin '${origin}', so nothing is logged.`);
+            return null;
     }
 }
 
 /**
  * Get an instance of the ClientLogger.
  *
- * @param {*} app
- * @param {*} instanceId
- * @returns {ClientLogger} An instance of the ClientLogger.
+ * @param {string} [origin] - The origin to log for. The page's own unless a test hands it one.
+ * @returns {ClientLogger | null} An instance of the ClientLogger, or null when the origin has no logger.
  */
-export function getClientLoggerInstance() {
-    const apiUrl = getClientLoggerApiUrl();
+export function getClientLoggerInstance(origin = globalThis.location.origin): ClientLogger | null {
+    const apiUrl = getClientLoggerApiUrl(origin);
+    if (apiUrl === null) return null;
     const appName = "a3-pdf";
     // The package declares the source map argument as a string, but it is optional in practice and this call has
     // never had one. The assertion is erased at build time, so nothing about the call changes.

@@ -133,23 +133,31 @@ describe("getClientLoggerApiUrl", () => {
         expect(getClientLoggerApiUrl(altinnAppOrigins.production)).toBe(clientLoggerApiUrls.production);
     });
 
-    it("falls back to the default for an origin it does not know, and says so", () => {
-        const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+    // Another org's app, and the docs site: neither belongs in DIBK's logs.
+    it.each(["https://another-org.apps.altinn.no", "https://arkitektum.github.io", "https://somewhere.else"])(
+        "has no logger for %s, and says so",
+        (origin) => {
+            const infoSpy = jest.spyOn(console, "info").mockImplementation(() => {});
 
-        expect(getClientLoggerApiUrl("https://somewhere.else")).toBe(clientLoggerApiUrls.default);
-        expect(warnSpy).toHaveBeenCalledTimes(1);
-        warnSpy.mockRestore();
-    });
+            expect(getClientLoggerApiUrl(origin)).toBeNull();
+            expect(infoSpy).toHaveBeenCalledTimes(1);
+            infoSpy.mockRestore();
+        }
+    );
 });
 
 describe("getClientLoggerInstance", () => {
-    it("logs as the PDF app, to the URL for the page's own origin", () => {
-        const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
-
-        const logger = getClientLoggerInstance() as unknown as { logApiUrl: string; appName: string };
+    it("logs as the PDF app, to the URL for the origin", () => {
+        const logger = getClientLoggerInstance(altinnAppOrigins.test) as unknown as { logApiUrl: string; appName: string };
 
         expect(logger.appName).toBe("a3-pdf");
-        expect(logger.logApiUrl).toBe(getClientLoggerApiUrl(globalThis.location.origin));
-        warnSpy.mockRestore();
+        expect(logger.logApiUrl).toBe(clientLoggerApiUrls.test);
+    });
+
+    it("is null for an origin with no logger", () => {
+        const infoSpy = jest.spyOn(console, "info").mockImplementation(() => {});
+
+        expect(getClientLoggerInstance("https://another-org.apps.altinn.no")).toBeNull();
+        infoSpy.mockRestore();
     });
 });
