@@ -79,7 +79,9 @@ export default class CustomGrouplistUtfallSvarType extends CustomComponent {
             acc[key]!.push(new UtfallSvar(obj));
 
             return acc;
-        }, {});
+            // No prototype, so a code value that names one of Object's own properties ("constructor", "__proto__") is
+            // just another group, rather than an existing non-array that push throws on.
+        }, Object.create(null));
 
         const getSortPriority = (item: UtfallSvar) => {
             if (item.erUtfallBesvart) return 2; // besvart tidligere

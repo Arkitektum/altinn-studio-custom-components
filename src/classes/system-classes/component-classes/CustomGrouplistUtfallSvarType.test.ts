@@ -163,6 +163,18 @@ describe("CustomGrouplistUtfallSvarType", () => {
             const result = instance.groupArrayItemsByUtfallType(null) as Record<string, unknown[]>;
             expect(result).toEqual({});
         });
+
+        // The code value comes from the submission, so it can be anything, including a name every object already has.
+        it("keeps every group when a code value names a property every object has", () => {
+            const instance = new CustomGrouplistUtfallSvarType({});
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            const codes = ["constructor", "__proto__", "toString", "X"];
+            const result = instance.groupArrayItemsByUtfallType(codes.map((kodeverdi) => ({ utfallType: { kodeverdi } })));
+
+            expect(Object.keys(result).sort()).toEqual([...codes].sort());
+            codes.forEach((code) => expect(result[code]).toHaveLength(1));
+            expect(Object.prototype.hasOwnProperty.call(Object.prototype, "X")).toBe(false);
+        });
     });
 });
 

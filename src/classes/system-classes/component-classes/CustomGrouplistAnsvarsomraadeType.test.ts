@@ -156,6 +156,18 @@ describe("CustomGrouplistAnsvarsomraadeType", () => {
             const instance = new CustomGrouplistAnsvarsomraadeType({});
             expect(instance.groupArrayItemsByFunksjon(null)).toEqual({});
         });
+
+        // The code value comes from the submission, so it can be anything, including a name every object already has.
+        it("keeps every group when a code value names a property every object has", () => {
+            (hasValue as unknown as jest.Mock).mockReturnValue(true);
+            const codes = ["constructor", "__proto__", "toString", "X"];
+            const instance = new CustomGrouplistAnsvarsomraadeType({});
+            const result = instance.groupArrayItemsByFunksjon(codes.map((kodeverdi) => ({ funksjon: { kodeverdi } })));
+
+            expect(Object.keys(result).sort()).toEqual([...codes].sort());
+            codes.forEach((code) => expect(result[code]).toHaveLength(1));
+            expect(Object.prototype.hasOwnProperty.call(Object.prototype, "X")).toBe(false);
+        });
     });
 
     describe("getResourceBindings", () => {
