@@ -184,8 +184,9 @@ export const componentMap = {
 export function getComponentForTagName(tagName: string) {
     const tagNameLower = tagName.toLowerCase();
     // The map is keyed by the tags this package defines; anything else is a caller asking for something that does
-    // not exist, which is what the null answer is for.
-    return componentMap[tagNameLower as keyof typeof componentMap] || null;
+    // not exist, which is what the null answer is for. Only the map's own keys count: a plain lookup would answer
+    // "constructor" with Object and "__proto__" with Object.prototype, and either would then be treated as a component.
+    return Object.hasOwn(componentMap, tagNameLower) ? componentMap[tagNameLower as keyof typeof componentMap] : null;
 }
 
 export function instantiateComponent(element: unknown): InstantiatedComponent | null {

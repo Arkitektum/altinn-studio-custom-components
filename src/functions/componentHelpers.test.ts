@@ -35,6 +35,12 @@ describe("getComponentForTagName", () => {
     it("is case-insensitive", () => {
         expect(getComponentForTagName("CUSTOM-FIELD")).toBe(getComponentForTagName("custom-field"));
     });
+
+    // The tag name comes from the layout, so it can be anything, including a name every object already has. Only these
+    // two are still such a name once lowercased; toString and the rest become tostring and match nothing anyway.
+    it.each(["constructor", "__proto__", "Constructor"])("answers null for %s", (tagName) => {
+        expect(getComponentForTagName(tagName)).toBeNull();
+    });
 });
 
 describe("instantiateComponent", () => {
@@ -51,6 +57,13 @@ describe("instantiateComponent", () => {
     it("returns null and warns for an unknown tag name", () => {
         const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
         expect(instantiateComponent({ tagName: "custom-does-not-exist" })).toBeNull();
+        expect(warnSpy).toHaveBeenCalled();
+        jest.mocked(warnSpy).mockRestore();
+    });
+
+    it("returns null and warns for a tag name every object has, rather than instantiating Object", () => {
+        const warnSpy = jest.spyOn(console, "warn").mockImplementation(() => {});
+        expect(instantiateComponent({ tagName: "constructor" })).toBeNull();
         expect(warnSpy).toHaveBeenCalled();
         jest.mocked(warnSpy).mockRestore();
     });
