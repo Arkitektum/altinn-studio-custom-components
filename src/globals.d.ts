@@ -18,6 +18,12 @@ declare global {
     var defaultTextResources: unknown;
 
     /**
+     * The client logger init created for the page, or null when the page has none. Kept here for the same reason: a
+     * component that fails to render reports it, and has nothing else to reach the logger through.
+     */
+    var clientLogger: import("@arkitektum/client-logger").ClientLogger | null | undefined;
+
+    /**
      * What the development pages keep on globalThis.
      *
      * The statistics and dev-tools pages are plain scripts with no module boundary between their parts, so the data

@@ -1,3 +1,6 @@
+// Dependencies
+import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+
 // Global functions
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
 import type { InstantiatedComponent } from "../types.ts";
@@ -204,7 +207,7 @@ function removeEmptyComponentElement(host: HTMLElement, elementToHideWhenEmpty: 
  *   whose `formData` keys are dynamic (e.g. one binding per row) and therefore can't be described by a fixed allow-list.
  * @returns {Object} The instantiated component.
  */
-export function renderCustomComponent(
+function drawCustomComponent(
     host: HTMLElement,
     {
         type,
@@ -267,4 +270,67 @@ export function renderCustomComponent(
         removeEmptyComponentElement(host, elementToHideWhenEmpty);
     }
     return component;
+}
+
+/** Shown where a component that failed to render would have been, unless the app's own text resources say otherwise. */
+const RENDER_ERROR_TEXT_RESOURCE = "resource.componentRenderError";
+const RENDER_ERROR_FALLBACK_TEXT = "Denne delen kunne ikke vises.";
+
+/**
+ * Puts a notice where a component that failed to render would have been, and reports the failure.
+ *
+ * Without the notice a failed component is simply blank, and a reader of the PDF has no way to tell that something is
+ * missing. The client logger gets the error's name and which component it was, never the message: messages can quote
+ * the data the component was given (a JSON parse error does), and form data must not reach the logs. The console,
+ * which stays in the reader's own browser, gets the whole error.
+ *
+ * @param host - The custom element that failed.
+ * @param type - Which family the component belongs to: "base", "data" or "layout".
+ * @param error - What was thrown.
+ */
+function renderComponentRenderError(host: HTMLElement, type: string, error: unknown): void {
+    const tagName = host?.tagName?.toLowerCase() ?? "unknown";
+    const id = host?.id || "";
+    const errorName = error instanceof Error ? error.name : typeof error;
+
+    console.error(`Could not render <${tagName}>${id ? ` (id '${id}')` : ""}.`, error);
+    globalThis.clientLogger?.postLogData([
+        {
+            level: "Error",
+            message: `Could not render <${tagName}>: ${errorName}`,
+            custom_fields: [
+                { key: "component", value: tagName },
+                { key: "componentId", value: id },
+                { key: "componentType", value: type }
+            ]
+        }
+    ]);
+
+    const text = getTextResourceFromResourceBinding(RENDER_ERROR_TEXT_RESOURCE);
+    const noticeElement = document.createElement("p");
+    noticeElement.classList.add("custom-component-render-error");
+    // The lookup answers the key itself when no text resources are loaded, which is no use to a reader.
+    noticeElement.textContent = text && text !== RENDER_ERROR_TEXT_RESOURCE ? text : RENDER_ERROR_FALLBACK_TEXT;
+    host.replaceChildren(noticeElement);
+}
+
+/**
+ * Renders a custom component, the way every component's `connectedCallback` does: see `drawCustomComponent` for the
+ * steps and the options.
+ *
+ * A component that throws while it is drawn, typically because its data has a shape it did not expect, is replaced by
+ * a short notice rather than left blank, and the failure is logged. One broken component no longer hides itself
+ * silently, and it never stops the rest of the page from rendering.
+ *
+ * @param host - The custom element instance (`this` inside `connectedCallback`).
+ * @param options - Lifecycle options, as `drawCustomComponent` takes them.
+ * @returns The instantiated component, or null when it could not be rendered.
+ */
+export function renderCustomComponent(host: HTMLElement, options: Parameters<typeof drawCustomComponent>[1]): InstantiatedComponent | null {
+    try {
+        return drawCustomComponent(host, options);
+    } catch (error) {
+        renderComponentRenderError(host, options.type, error);
+        return null;
+    }
 }

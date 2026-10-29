@@ -100,6 +100,7 @@ The typical flow (see `src/components/data-components/custom-field-data/index.ts
    Layout components differ here: `hideIfEmpty` is **always true and cannot be opted out of**, and an empty layout is **removed from the document** rather than hidden with `display: none` — a top-level layout usually has no container to hide, and a hidden-but-present tag still leaves a gap in the summary view and the generated PDF.
    Emptiness is checked twice for a layout: once on the data (`isEmpty`) before rendering, and once on the rendered output afterwards, so a layout whose data is present but whose every child resolved to empty is dropped too. Validation feedback counts as content, so a layout that has messages to show is kept.
 3. Otherwise the class produces `CustomElementHtmlAttributes`, and `createCustomElement(...)` (from the utils package) renders the underlying base element into the DOM.
+4. If any of this throws, typically because the data has a shape the component did not expect, `renderCustomComponent` replaces the component with a short notice (`resource.componentRenderError`, "Denne delen kunne ikke vises.") so a reader of the PDF can tell something is missing. It logs the component's tag, id and the error's name through the client logger, never the error message, which can quote form data.
 
 ---
 

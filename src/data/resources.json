@@ -246,6 +246,12 @@
         }
     },
     {
+        "id": "resource.componentRenderError",
+        "values": {
+            "nb": "Denne delen kunne ikke vises."
+        }
+    },
+    {
         "id": "resource.dato.title",
         "values": {
             "nb": "Dato"

@@ -166,6 +166,10 @@
             "value": "Bygningstype"
         },
         {
+            "id": "resource.componentRenderError",
+            "value": "Denne delen kunne ikke vises."
+        },
+        {
             "id": "resource.dato.title",
             "value": "Dato"
         },

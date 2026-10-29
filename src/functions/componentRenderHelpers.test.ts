@@ -427,6 +427,117 @@ describe("renderCustomComponent — layout components", () => {
     });
 });
 
+describe("renderCustomComponent — a component that fails to render", () => {
+    let errorSpy: ReturnType<typeof jest.spyOn>;
+    let postLogData: jest.Mock;
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+        errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+        postLogData = jest.fn();
+        globalThis.clientLogger = { postLogData } as unknown as typeof globalThis.clientLogger;
+        jest.mocked(instantiateComponent).mockReturnValue({});
+        jest.mocked(getComponentContainerElement).mockReturnValue(null);
+        jest.mocked(isDevMode).mockReturnValue(false);
+    });
+
+    afterEach(() => {
+        errorSpy.mockRestore();
+        delete globalThis.clientLogger;
+        delete globalThis.textResources;
+        delete globalThis.defaultTextResources;
+    });
+
+    function failingHost() {
+        const host = document.createElement("custom-list-data");
+        host.id = "list1";
+        return host;
+    }
+
+    it("shows the notice from the text resources in its place, and answers null", () => {
+        globalThis.defaultTextResources = { resources: [{ id: "resource.componentRenderError", value: "Noe mangler her." }] };
+        const host = failingHost();
+        const render = jest.fn(() => {
+            throw new TypeError("listItems.forEach is not a function");
+        });
+
+        expect(renderCustomComponent(host, { type: "data", render })).toBeNull();
+        expect(host.textContent).toBe("Noe mangler her.");
+        expect(host.querySelector(".custom-component-render-error")).not.toBeNull();
+    });
+
+    it("falls back to the built-in notice when no text resources are loaded", () => {
+        const host = failingHost();
+        const render = jest.fn(() => {
+            throw new TypeError("listItems.forEach is not a function");
+        });
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(host.textContent).toBe("Denne delen kunne ikke vises.");
+    });
+
+    it("replaces whatever the component had drawn before it threw", () => {
+        const host = failingHost();
+        const render = jest.fn((target: HTMLElement) => {
+            target.appendChild(document.createElement("ul"));
+            throw new TypeError("listItems.forEach is not a function");
+        });
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(host.children).toHaveLength(1);
+        expect(host.querySelector("ul")).toBeNull();
+    });
+
+    it("shows the notice when the component cannot even be instantiated", () => {
+        const host = failingHost();
+        jest.mocked(instantiateComponent).mockImplementation(() => {
+            throw new TypeError("itemKey.split is not a function");
+        });
+        const render = jest.fn();
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(render).not.toHaveBeenCalled();
+        expect(host.textContent).toBe("Denne delen kunne ikke vises.");
+    });
+
+    // A parse error quotes the text it choked on, and that text is form data.
+    it("logs which component failed and the error's name, never its message", () => {
+        const host = failingHost();
+        const render = jest.fn(() => {
+            throw new SyntaxError('Unexpected token "12345678901" is not valid JSON');
+        });
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(postLogData).toHaveBeenCalledTimes(1);
+        const [entry] = postLogData.mock.calls[0]![0];
+        expect(entry.level).toBe("Error");
+        expect(entry.message).toBe("Could not render <custom-list-data>: SyntaxError");
+        expect(entry.custom_fields).toEqual([
+            { key: "component", value: "custom-list-data" },
+            { key: "componentId", value: "list1" },
+            { key: "componentType", value: "data" }
+        ]);
+        expect(JSON.stringify(postLogData.mock.calls)).not.toContain("12345678901");
+        expect(errorSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it("still shows the notice when the page has no client logger", () => {
+        delete globalThis.clientLogger;
+        const host = failingHost();
+        const render = jest.fn(() => {
+            throw new TypeError("listItems.forEach is not a function");
+        });
+
+        renderCustomComponent(host, { type: "data", render });
+
+        expect(host.textContent).toBe("Denne delen kunne ikke vises.");
+    });
+});
+
 describe("validateHostDataAttributes", () => {
     let errorSpy: ReturnType<typeof jest.spyOn>;
 

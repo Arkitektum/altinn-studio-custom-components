@@ -177,6 +177,7 @@ export default async function initCustomComponents() {
     } catch (error) {
         console.error("Could not create the client logger instance.", error);
     }
+    globalThis.clientLogger = clientLogger;
     // Both are parsed out of the URL and either can come back missing. The logger takes that in its stride, so
     // they are carried as they are rather than being filled in with something that was never true.
     const clientLoggerCustomFields = [
