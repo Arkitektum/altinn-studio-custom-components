@@ -1,12 +1,12 @@
 /**
  * @jest-environment jsdom
- * @jest-environment-options {"url": "https://org.example/dibk/varselplanoppstartuttalelse-v3/#/instance/512345/abc-def?query=1"}
+ * @jest-environment-options {"url": "https://dibk.apps.tt02.altinn.no/dibk/varselplanoppstartuttalelse-v3/#/instance/512345/abc-def?query=1"}
  */
 
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
+import initCustomComponents, { isAltinnAppOrigin } from "./init.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
-import initCustomComponents from "./init.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
 
 jest.mock("./textResourceHelpers.ts", () => ({
@@ -22,7 +22,7 @@ jest.mock("./htmlElementHelpers.ts", () => ({
 }));
 
 describe("initCustomComponents", () => {
-    const origin = "https://org.example";
+    const origin = "https://dibk.apps.tt02.altinn.no";
     const org = "dibk";
     const app = "varselplanoppstartuttalelse-v3";
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
@@ -194,5 +194,36 @@ describe("initCustomComponents", () => {
         await initCustomComponents();
 
         expect(updateBodyClassNamesForApplication).toHaveBeenCalledWith(org, app);
+    });
+});
+
+describe("isAltinnAppOrigin", () => {
+    const appOrigins = [
+        "https://dibk.apps.altinn.no",
+        "https://dibk.apps.tt02.altinn.no",
+        "https://another-org.apps.altinn.no",
+        "http://local.altinn.cloud",
+        "http://local.altinn.cloud:8000",
+        "https://local.altinn.cloud"
+    ];
+    // The docs site is the case that started this: two path segments, and nothing to do with an Altinn app.
+    const otherOrigins = [
+        "https://arkitektum.github.io",
+        "http://localhost:8080",
+        "http://dibk.apps.altinn.no",
+        "https://apps.altinn.no",
+        "https://dibk.apps.altinn.no.example.com",
+        "https://dibkapps.altinn.no",
+        "ftp://local.altinn.cloud",
+        "null",
+        ""
+    ];
+
+    it.each(appOrigins)("accepts %s", (origin) => {
+        expect(isAltinnAppOrigin(origin)).toBe(true);
+    });
+
+    it.each(otherOrigins)("refuses '%s'", (origin) => {
+        expect(isAltinnAppOrigin(origin)).toBe(false);
     });
 });

@@ -80,7 +80,7 @@ devTools and statistics are development surfaces (see §7).
 ### Bootstrapping in an Altinn app
 
 1. The app loads `main.css` and `main.js` from `wwwroot/altinn-studio-custom-components` (see the README installation steps).
-2. `src/functions/init.ts` (`initCustomComponents`) runs on startup. It:
+2. `src/functions/init.ts` (`initCustomComponents`) runs on startup. On a page that is not served from an Altinn app origin (`*.apps.altinn.no`, `*.apps.tt02.altinn.no` or `local.altinn.cloud`) it stops there, so a page that only renders the components, such as the docs site, boots nothing. Otherwise it:
     - derives `org`, `app`, and `instanceId` from the URL,
     - fetches the user's profile to determine the preferred language (falling back to `nb`),
     - loads the app's **text resources** and **default text resources** and stores them on `globalThis` (`globalThis.textResources`, `globalThis.defaultTextResources`, `globalThis.selectedLanguage`),

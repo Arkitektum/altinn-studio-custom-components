@@ -40,6 +40,30 @@ function loadScriptAsync(
 }
 
 /**
+ * Whether an origin is one an Altinn app is served from: an app host on Altinn's production or tt02 environment, or
+ * LocalTest. Every app is served from its org's own subdomain, so the check is on the domain rather than a list of orgs.
+ *
+ * The path cannot answer this on its own: any page with two path segments looks like `/{org}/{app}/`, so a page that
+ * only uses the components (the docs site's `/altinn-studio-custom-components-docs/index.html`, for one) would
+ * otherwise be booted as an app, loading the Altinn frontend from the CDN and posting to the client logger.
+ *
+ * @param origin - The origin to check, such as `https://dibk.apps.altinn.no`.
+ * @returns True when an Altinn app can be served from the origin.
+ */
+export function isAltinnAppOrigin(origin: string): boolean {
+    let url: URL;
+    try {
+        url = new URL(origin);
+    } catch {
+        return false;
+    }
+    if (url.hostname === "local.altinn.cloud") {
+        return url.protocol === "http:" || url.protocol === "https:";
+    }
+    return url.protocol === "https:" && (url.hostname.endsWith(".apps.altinn.no") || url.hostname.endsWith(".apps.tt02.altinn.no"));
+}
+
+/**
  * Fetches the default text resources for a given language, with an optional fallback language if the primary fetch fails.
  *
  * @param location - Where the page is, which carries the instance id in its hash.
@@ -131,6 +155,12 @@ async function fetchUserLanguage(
  * @throws {Error} Throws an error if the app frontend script could not be loaded.
  */
 export default async function initCustomComponents() {
+    // Anywhere but an Altinn app the components are only being rendered, so there is no app to boot and nothing to log.
+    if (!isAltinnAppOrigin(globalThis.location.origin)) {
+        console.info("Not served from an Altinn app origin, so the Altinn app frontend is not loaded.");
+        return;
+    }
+
     const appId = globalThis.location.pathname.split("/");
     const instanceId = getInstanceIdFromLocation(globalThis.location);
     const origin = globalThis.location.origin;
