@@ -145,7 +145,7 @@ For a full list of available components and examples, see the documentation site
     cp .env.sample .env
     ```
 
-    The dev server reads this file via `dotenv-webpack`. `PORT` sets the dev server port (default `9000`), while `API_PORT` and `GITEA_TOKEN` are only needed for the Statistics dashboard (see below).
+    The dev server reads this file via `dotenv-webpack`. `PORT` sets the dev server port (default `9000`), while `API_PORT` is only needed for the Statistics dashboard (see below). The Gitea token the dashboard's data comes through belongs to the API, not to this app.
 
 5. Start the development server:
 
