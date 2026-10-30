@@ -1,8 +1,8 @@
 import type { BegrunnelseProps } from "../data-classes/Begrunnelse.ts";
 import type { EiendomByggestedProps } from "../data-classes/EiendomByggested.ts";
 import type { GenerelleVilkaarProps } from "../data-classes/GenerelleVilkaar.ts";
-import type { KommunensSaksnummerProps } from "../data-classes/KommunensSaksnummer.ts";
 import type { KodeProps } from "../data-classes/Kode.ts";
+import type { KommunensSaksnummerProps } from "../data-classes/KommunensSaksnummer.ts";
 import type { MetadataProps } from "../data-classes/Metadata.ts";
 import type { NasjonalArealplanIdProps } from "../data-classes/NasjonalArealplanId.ts";
 import type { PartProps } from "../data-classes/Part.ts";
