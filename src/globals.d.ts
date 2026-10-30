@@ -18,6 +18,12 @@ declare global {
     var defaultTextResources: unknown;
 
     /**
+     * The app's global data, put on the page by the index page that app backend v9 and later generate. Only its
+     * presence is read: it tells init that the page already loads the app frontend that ships with the backend.
+     */
+    var altinnAppGlobalData: unknown;
+
+    /**
      * The client logger init created for the page, or null when the page has none. Kept here for the same reason: a
      * component that fails to render reports it, and has nothing else to reach the logger through.
      */

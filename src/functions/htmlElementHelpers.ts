@@ -100,13 +100,82 @@ function parseJsonAttribute(element: HTMLElement, attributeName: string, fallbac
 }
 
 /**
- * Extracts and parses the form data from a given HTML element's "formdata" attribute.
+ * The inputs app frontend v9 sets as properties on the element rather than as attributes.
+ *
+ * The v4 frontend that v8 apps load from the CDN put them in JSON attributes before the element was inserted. The
+ * frontend that ships with app backend v9 sets them as properties after the element is connected, so a component
+ * reads them from here when the attribute is absent, and is drawn again once they arrive.
+ */
+const HOST_PROPERTY_NAMES = ["formData", "texts"] as const;
+type HostPropertyName = (typeof HOST_PROPERTY_NAMES)[number];
+type HostPropertyValues = Partial<Record<HostPropertyName, unknown>>;
+
+const hostPropertyValues: WeakMap<HTMLElement, HostPropertyValues> = new WeakMap();
+const pendingHostPropertyChanges: WeakSet<HTMLElement> = new WeakSet();
+
+/**
+ * The value the app frontend last set for one of the host properties.
+ *
+ * @param element - The custom element.
+ * @param name - The property name.
+ * @returns The value, or undefined when the frontend has set nothing.
+ */
+export function getHostPropertyValue(element: HTMLElement, name: HostPropertyName): unknown {
+    return hostPropertyValues.get(element)?.[name];
+}
+
+/**
+ * Calls back whenever the app frontend sets one of the host properties on the element.
+ *
+ * The frontend sets several of them in one go, so the callback runs once per batch, in a microtask, and only while the
+ * element is in the document. Calling this again for the same element does nothing, which lets every render ask for
+ * it. A value set before the accessors were in place is picked up rather than lost.
+ *
+ * @param element - The custom element.
+ * @param onChange - What to do when the properties change, typically drawing the component again.
+ */
+export function observeHostProperties(element: HTMLElement, onChange: () => void): void {
+    if (!element || hostPropertyValues.has(element)) {
+        return;
+    }
+    const values: HostPropertyValues = {};
+    hostPropertyValues.set(element, values);
+
+    for (const name of HOST_PROPERTY_NAMES) {
+        if (Object.prototype.hasOwnProperty.call(element, name)) {
+            values[name] = (element as unknown as Record<string, unknown>)[name];
+            delete (element as unknown as Record<string, unknown>)[name];
+        }
+        Object.defineProperty(element, name, {
+            configurable: true,
+            enumerable: true,
+            get: () => values[name],
+            set: (value: unknown) => {
+                values[name] = value;
+                if (pendingHostPropertyChanges.has(element)) {
+                    return;
+                }
+                pendingHostPropertyChanges.add(element);
+                queueMicrotask(() => {
+                    pendingHostPropertyChanges.delete(element);
+                    if (element.isConnected) {
+                        onChange();
+                    }
+                });
+            }
+        });
+    }
+}
+
+/**
+ * Extracts the form data from a given HTML element's "formdata" attribute, or from the `formData` property the app
+ * frontend sets when there is no attribute.
  *
  * @param {HTMLElement} element - The HTML element containing the "formdata" attribute.
  * @returns {Object|null} The parsed form data object if it exists and is valid, otherwise null.
  */
 function getFormDataFromElement(element: HTMLElement) {
-    const formData = parseJsonAttribute(element, "formdata");
+    const formData = parseJsonAttribute(element, "formdata") ?? getHostPropertyValue(element, "formData") ?? null;
     return hasValue(formData) && formData;
 }
 
@@ -139,7 +208,7 @@ function getTextFromElement(element: HTMLElement) {
  * @returns {Object|boolean} The parsed "texts" object if it exists and is valid, otherwise `false`.
  */
 function getTextsFromElement(element: HTMLElement) {
-    const texts = parseJsonAttribute(element, "texts");
+    const texts = parseJsonAttribute(element, "texts") ?? getHostPropertyValue(element, "texts") ?? null;
     return hasValue(texts) && texts;
 }
 
