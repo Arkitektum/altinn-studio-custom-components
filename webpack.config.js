@@ -31,9 +31,11 @@ module.exports = {
                 test: /\.css$/i,
                 use: [MiniCssExtractPlugin.loader, "css-loader"]
             },
+            // The fonts are embedded in main.css rather than written next to it. An Altinn app on backend v9 loads
+            // every file in wwwroot/custom-css as a stylesheet, so the CSS has to be the only file there.
             {
                 test: /\.woff2?$/i,
-                type: "asset/resource"
+                type: "asset/inline"
             }
         ]
     },

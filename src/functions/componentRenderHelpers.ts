@@ -3,9 +3,9 @@ import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-cu
 
 // Global functions
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
+import { getHostPropertyValue, hasRenderedContent, observeHostProperties } from "./htmlElementHelpers.ts";
 import type { InstantiatedComponent } from "../types.ts";
 import { getComponentContainerElement } from "./helpers.ts";
-import { hasRenderedContent } from "./htmlElementHelpers.ts";
 import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
 
@@ -98,7 +98,7 @@ function validateResourceValues(resourceValues: unknown, type: string, component
  */
 export function validateHostDataAttributes(host: HTMLElement, type: string): void {
     const componentName = host?.tagName?.toLowerCase() || "unknown";
-    const formData = parseHostJsonAttribute(host, "formdata", componentName);
+    const formData = parseHostJsonAttribute(host, "formdata", componentName) ?? getHostPropertyValue(host, "formData") ?? null;
     const resourceValues = parseHostJsonAttribute(host, "resourcevalues", componentName);
     validateFormData(formData, type, componentName);
     validateResourceValues(resourceValues, type, componentName);
@@ -172,6 +172,29 @@ function getPaddedWrapperElement(host: HTMLElement): HTMLElement | null {
 function removeEmptyComponentElement(host: HTMLElement, elementToHideWhenEmpty: HTMLElement | null): void {
     const elementToRemove = elementToHideWhenEmpty || host;
     elementToRemove?.remove?.();
+}
+
+/** The containers drawCustomComponent hid because their component was empty, so a later draw with data can show them. */
+const containersHiddenWhenEmpty: WeakSet<HTMLElement> = new WeakSet();
+
+/**
+ * Whether the host was placed by the app frontend that ships with app backend v9 and is still waiting for its data.
+ *
+ * That frontend creates the element first and sets its form data as a property afterwards. Drawn before then, the
+ * component would look empty, and an empty layout removes itself from the document for good. The frontend marks the
+ * elements it creates with a data-testid holding the tag name, which the components never write on the children
+ * they draw, so a child is never held back.
+ *
+ * @param {HTMLElement} host - The custom element instance.
+ * @returns {boolean} True when the component should wait for the frontend to set its form data.
+ */
+function isAwaitingFrontendFormData(host: HTMLElement): boolean {
+    return (
+        typeof globalThis.altinnAppGlobalData !== "undefined" &&
+        host?.getAttribute?.("data-testid") === host?.tagName?.toLowerCase() &&
+        !host.hasAttribute("formdata") &&
+        getHostPropertyValue(host, "formData") === undefined
+    );
 }
 
 /**
@@ -255,8 +278,14 @@ function drawCustomComponent(
             if (hiddenEl) host.appendChild(hiddenEl);
         } else if (!isLayout) {
             elementToHideWhenEmpty!.style.display = "none";
+            containersHiddenWhenEmpty.add(elementToHideWhenEmpty!);
         }
     } else {
+        // A component can be drawn again once its data arrives, so show a container an earlier, empty draw hid.
+        if (elementToHideWhenEmpty && containersHiddenWhenEmpty.has(elementToHideWhenEmpty)) {
+            elementToHideWhenEmpty.style.display = "";
+            containersHiddenWhenEmpty.delete(elementToHideWhenEmpty);
+        }
         render(host, component);
         addDevToolsOverlay(host, component, type);
     }
@@ -322,11 +351,18 @@ function renderComponentRenderError(host: HTMLElement, type: string, error: unkn
  * a short notice rather than left blank, and the failure is logged. One broken component no longer hides itself
  * silently, and it never stops the rest of the page from rendering.
  *
+ * The app frontend that ships with app backend v9 sets the form data and texts as properties after the element is
+ * connected, so a component it placed is not drawn until its form data is set, and is drawn again whenever they change.
+ *
  * @param host - The custom element instance (`this` inside `connectedCallback`).
  * @param options - Lifecycle options, as `drawCustomComponent` takes them.
  * @returns The instantiated component, or null when it could not be rendered.
  */
 export function renderCustomComponent(host: HTMLElement, options: Parameters<typeof drawCustomComponent>[1]): InstantiatedComponent | null {
+    observeHostProperties(host, () => renderCustomComponent(host, options));
+    if (isAwaitingFrontendFormData(host)) {
+        return null;
+    }
     try {
         return drawCustomComponent(host, options);
     } catch (error) {

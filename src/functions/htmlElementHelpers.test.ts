@@ -1,4 +1,4 @@
-import { addBodyClassNamesForApplication, getPropsFromElementAttributes } from "./htmlElementHelpers.ts";
+import { addBodyClassNamesForApplication, getPropsFromElementAttributes, observeHostProperties } from "./htmlElementHelpers.ts";
 
 /* @jest-environment jsdom */
 
@@ -129,6 +129,83 @@ describe("getPropsFromElementAttributes", () => {
 
         const props = getPropsFromElementAttributes(el);
         expect(props!.tagName).toBe("section");
+    });
+});
+
+describe("observeHostProperties", () => {
+    // The frontend that ships with app backend v9 sets these as properties once the element is in the document.
+    const connectedElement = () => document.body.appendChild(document.createElement("div"));
+
+    afterEach(() => {
+        document.body.replaceChildren();
+    });
+
+    test("reads formData and texts set as properties when there are no attributes", () => {
+        const element = connectedElement();
+        observeHostProperties(element, () => {});
+
+        Object.assign(element, { formData: { simpleBinding: "verdi" }, texts: { title: "Tittel" } });
+        const props = getPropsFromElementAttributes(element);
+
+        expect(props.formData).toEqual({ simpleBinding: "verdi" });
+        expect(props.texts).toEqual({ title: "Tittel" });
+    });
+
+    test("prefers the attributes over the properties", () => {
+        const element = connectedElement();
+        element.setAttribute("formdata", JSON.stringify({ simpleBinding: "attributt" }));
+        observeHostProperties(element, () => {});
+
+        Object.assign(element, { formData: { simpleBinding: "egenskap" } });
+
+        expect(getPropsFromElementAttributes(element).formData).toEqual({ simpleBinding: "attributt" });
+    });
+
+    test("calls back once for properties set together", async () => {
+        const element = connectedElement();
+        const onChange = jest.fn();
+        observeHostProperties(element, onChange);
+
+        Object.assign(element, { texts: { title: "Tittel" } });
+        Object.assign(element, { formData: { simpleBinding: "verdi" } });
+        await Promise.resolve();
+
+        expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    test("does not call back for an element that has left the document", async () => {
+        const element = connectedElement();
+        const onChange = jest.fn();
+        observeHostProperties(element, onChange);
+
+        element.remove();
+        Object.assign(element, { formData: { simpleBinding: "verdi" } });
+        await Promise.resolve();
+
+        expect(onChange).not.toHaveBeenCalled();
+    });
+
+    test("keeps a value set before the properties were observed", () => {
+        const element = connectedElement();
+        Object.assign(element, { formData: { simpleBinding: "tidlig" } });
+
+        observeHostProperties(element, () => {});
+
+        expect(getPropsFromElementAttributes(element).formData).toEqual({ simpleBinding: "tidlig" });
+    });
+
+    test("installs the accessors only once per element", async () => {
+        const element = connectedElement();
+        const first = jest.fn();
+        const second = jest.fn();
+        observeHostProperties(element, first);
+        observeHostProperties(element, second);
+
+        Object.assign(element, { formData: { simpleBinding: "verdi" } });
+        await Promise.resolve();
+
+        expect(first).toHaveBeenCalledTimes(1);
+        expect(second).not.toHaveBeenCalled();
     });
 });
 
