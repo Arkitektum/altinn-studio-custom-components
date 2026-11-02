@@ -13,7 +13,7 @@ For how to contribute, see [CONTRIBUTING](./CONTRIBUTING.md).
 A collection of reusable **custom HTML elements** (Web Components) for **Altinn Studio** apps.
 The components provide consistent, standardized presentation of domain data for digital public services, following standards from **Direktoratet for Byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
 
-The package is distributed as a set of static assets (`main.js`, `main.css`, fonts, and generated resource files) that an Altinn app copies into its `wwwroot` and loads in the browser.
+The package is distributed as a set of static assets (`main.js`, `main.css` with the fonts embedded, and generated resource files) that an Altinn app copies into its `wwwroot` and loads in the browser.
 It is **not** a framework or a server component — everything runs client-side in the user's browser, both in the interactive form and in the generated PDF layout.
 
 ---

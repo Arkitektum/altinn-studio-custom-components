@@ -165,7 +165,7 @@ The build writes these files to `dist/`:
 
 | File                                 | Exported as                                  | What it is for                                                                          |
 | ------------------------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `main.js`, `main.css` and fonts      | `.` and `./styles.css`                       | The components, loaded by the app                                                       |
+| `main.js` and `main.css`             | `.` and `./styles.css`                       | The components, loaded by the app                                                       |
 | `resource.nb.json`, `resources.json` | `./resources/nb.json` and `./resources.json` | The default text resources                                                              |
 | `dataModelBindingKeys.json`          | `./dataModelBindingKeys.json`                | The `dataModelBindings` keys each component reads, see below                            |
 | `layout.schema.json`                 | `./layout.schema.json`                       | The schema for app layout files, see [step 6](#6-optional-editor-help-for-layout-files) |
