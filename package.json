@@ -43,7 +43,7 @@
     },
     "homepage": "https://github.com/Arkitektum/altinn-studio-custom-components#readme",
     "devDependencies": {
-        "@babel/core": "^8.0.9",
+        "@babel/core": "^8.0.10",
         "@babel/preset-env": "^8.0.7",
         "@babel/preset-typescript": "^8.0.7",
         "@eslint/js": "^10.0.1",
@@ -56,8 +56,8 @@
         "css-minimizer-webpack-plugin": "^8.0.0",
         "dotenv": "^18.0.9",
         "dotenv-webpack": "^9.0.0",
-        "eslint": "^10.13.0",
-        "globals": "^17.13.0",
+        "eslint": "^10.14.0",
+        "globals": "^17.14.0",
         "html-webpack-plugin": "^5.6.8",
         "jest": "^30.5.2",
         "jest-environment-jsdom": "^30.5.2",
@@ -68,7 +68,7 @@
         "vscode-json-languageservice": "^5.7.2",
         "vscode-languageserver-textdocument": "^1.0.16",
         "webpack": "^5.112.2",
-        "webpack-cli": "^7.2.3",
+        "webpack-cli": "^7.3.1",
         "webpack-dev-server": "^6.1.0"
     },
     "engines": {
