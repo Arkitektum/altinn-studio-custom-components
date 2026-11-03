@@ -90,7 +90,9 @@ describe("buildLayoutSchema", () => {
             itemTermKey: "b",
             itemDescriptionKey: "c",
             dataItemKey: "d",
-            dataTitleItemKey: "e"
+            dataTitleItemKey: "e",
+            dataType: "model",
+            dataKey: "f.g"
         };
         expect(Object.keys(attributes).sort()).toEqual(Object.keys(layoutAttributeSchemas).sort());
         const specific = new Set(getComponentSpecificAttributes());
@@ -150,9 +152,18 @@ describe("buildLayoutSchema", () => {
         ]);
     });
 
-    it("requires dataModelBindings on a component that has to have something bound, and not on one that reads none", () => {
-        expect(errorsWithOurs(layoutWith({ id: "field", type: "Custom", tagName: "custom-field-data" }))).toEqual(["required dataModelBindings"]);
+    it("requires dataModelBindings or dataType on a component that has to have something bound, and neither on one that reads none", () => {
+        expect(errorsWithOurs(layoutWith({ id: "field", type: "Custom", tagName: "custom-field-data" }))).toEqual([
+            "required dataModelBindings",
+            "required dataType"
+        ]);
         expect(errorsWithOurs(layoutWith({ id: "header", type: "Custom", tagName: "custom-header-text" }))).toEqual([]);
+    });
+
+    it("accepts a component that reads its form data from the app in place of its bindings", () => {
+        const dispensasjon = { id: "dispensasjon", type: "Custom", tagName: "custom-dispensasjon", dataType: "DispensasjonssoeknadDataV1" };
+        const field = { id: "field", type: "Custom", tagName: "custom-field-data", dataType: "ET", dataKey: "metadata.ftbId" };
+        expect(errorsWithOurs(layoutWith(dispensasjon, field))).toEqual([]);
     });
 
     it("marks a deprecated binding key with its hint, and still accepts it", () => {

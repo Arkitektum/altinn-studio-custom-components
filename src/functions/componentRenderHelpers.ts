@@ -1,10 +1,11 @@
 // Dependencies
-import { getTextResourceFromResourceBinding } from "@arkitektum/altinn-studio-custom-components-utils";
+import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
+import type { ComponentProps, InstantiatedComponent } from "../types.ts";
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
-import { getHostPropertyValue, hasRenderedContent, observeHostProperties } from "./htmlElementHelpers.ts";
-import type { InstantiatedComponent } from "../types.ts";
+import { getHostPropertyValue, getPropsFromElementAttributes, hasRenderedContent, observeHostProperties } from "./htmlElementHelpers.ts";
+import { getAppFormDataForElement } from "./appFormDataHelpers.ts";
 import { getComponentContainerElement } from "./helpers.ts";
 import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
@@ -112,6 +113,9 @@ export function validateHostDataAttributes(host: HTMLElement, type: string): voi
  * the document rather than merely hidden, so no stray tag is left behind in the summary view or the generated PDF.
  */
 const LAYOUT_TYPE = "layout";
+
+/** The attribute the v9 frontend waits for to leave the page before it says the page is ready for print. */
+const LOADING_ATTRIBUTE = "data-loading";
 
 /**
  * Resolves the effective `hideIfEmpty` flag for a component.
@@ -228,6 +232,7 @@ function isAwaitingFrontendFormData(host: HTMLElement): boolean {
  *   It does not apply to a child component, which takes its parent's decision.
  * @param {boolean} [options.validateData=true] - When false, skip data-attribute key validation. Use for components
  *   whose `formData` keys are dynamic (e.g. one binding per row) and therefore can't be described by a fixed allow-list.
+ * @param {*} [formDataFromApp] - Form data the component fetched from the app, drawn from in place of the element's.
  * @returns {Object} The instantiated component.
  */
 function drawCustomComponent(
@@ -248,12 +253,19 @@ function drawCustomComponent(
         alwaysHideWhenEmpty?: boolean;
         hideWhenEmptyByDefault?: boolean;
         validateData?: boolean;
-    }
+    },
+    formDataFromApp?: unknown
 ) {
-    if (validateData) {
+    // Form data the component fetched from the app replaces what the frontend handed it, which there is then nothing to check.
+    const usesFormDataFromApp = formDataFromApp !== undefined;
+    if (validateData && !usesFormDataFromApp) {
         validateHostDataAttributes(host, type);
     }
-    const component = instantiateComponent(host);
+    const component = instantiateComponent(
+        usesFormDataFromApp
+            ? ({ ...getPropsFromElementAttributes(host), formData: hasValue(formDataFromApp) && formDataFromApp } as ComponentProps)
+            : host
+    );
     const isLayout = type === LAYOUT_TYPE;
     // The padded wrapper wins over the container, so hiding an empty component collapses its padding too.
     const elementToHideWhenEmpty = getPaddedWrapperElement(host) || getComponentContainerElement(host);
@@ -354,17 +366,35 @@ function renderComponentRenderError(host: HTMLElement, type: string, error: unkn
  * The app frontend that ships with app backend v9 sets the form data and texts as properties after the element is
  * connected, so a component it placed is not drawn until its form data is set, and is drawn again whenever they change.
  *
+ * A component whose layout names a `dataType` reads its form data from the app instead, see appFormDataHelpers.ts. It
+ * carries `data-loading` while the data is on its way, which holds back the page's readiness for print, and is drawn
+ * once it arrives. When the data element cannot be told, it is drawn from the frontend's data as before.
+ *
  * @param host - The custom element instance (`this` inside `connectedCallback`).
  * @param options - Lifecycle options, as `drawCustomComponent` takes them.
  * @returns The instantiated component, or null when it could not be rendered.
  */
 export function renderCustomComponent(host: HTMLElement, options: Parameters<typeof drawCustomComponent>[1]): InstantiatedComponent | null {
     observeHostProperties(host, () => renderCustomComponent(host, options));
-    if (isAwaitingFrontendFormData(host)) {
+    const appFormData = getAppFormDataForElement(host, () => {
+        if (host.isConnected) {
+            renderCustomComponent(host, options);
+        } else {
+            host.removeAttribute(LOADING_ATTRIBUTE);
+        }
+    });
+    if (appFormData.status === "pending") {
+        // Holds back the page's readiness for print until the component has its data and is drawn.
+        host.setAttribute(LOADING_ATTRIBUTE, "");
+        return null;
+    }
+    host.removeAttribute(LOADING_ATTRIBUTE);
+    const formDataFromApp = appFormData.status === "ready" ? appFormData.formData : undefined;
+    if (formDataFromApp === undefined && isAwaitingFrontendFormData(host)) {
         return null;
     }
     try {
-        return drawCustomComponent(host, options);
+        return drawCustomComponent(host, options, formDataFromApp);
     } catch (error) {
         renderComponentRenderError(host, options.type, error);
         return null;

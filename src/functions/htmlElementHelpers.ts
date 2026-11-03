@@ -50,6 +50,8 @@ export function getPropsFromElementAttributes(element: HTMLElement) {
         itemDescriptionKey: getItemDescriptionKey(element),
         dataItemKey: getDataItemKey(element),
         dataTitleItemKey: getDataTitleItemKey(element),
+        dataType: getDataType(element),
+        dataKey: getDataKey(element),
         hideOrgNr: getHideOrgNr(element),
         format: getFormat(element),
         tableColumns: getTableColumns(element),
@@ -294,6 +296,28 @@ function getFeedbackType(element: HTMLElement) {
 function getItemKey(element: HTMLElement) {
     const itemKey = element?.getAttribute("itemKey");
     return hasValue(itemKey) && itemKey;
+}
+
+/**
+ * Retrieves the data type whose form data the component reads from the app, from the "dataType" attribute.
+ *
+ * @param {HTMLElement} element - The HTML element from which to retrieve the attribute.
+ * @returns {string|boolean} The data type if it exists and has a value, otherwise `false`.
+ */
+function getDataType(element: HTMLElement) {
+    const dataType = element?.getAttribute("dataType");
+    return hasValue(dataType) && dataType;
+}
+
+/**
+ * Retrieves the path to the value the component shows in the form data it reads from the app, from the "dataKey" attribute.
+ *
+ * @param {HTMLElement} element - The HTML element from which to retrieve the attribute.
+ * @returns {string|boolean} The path if it exists and has a value, otherwise `false`.
+ */
+function getDataKey(element: HTMLElement) {
+    const dataKey = element?.getAttribute("dataKey");
+    return hasValue(dataKey) && dataKey;
 }
 
 /**

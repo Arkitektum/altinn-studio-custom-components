@@ -1,5 +1,6 @@
 import { addDevToolsOverlay, isDevMode, renderHiddenDevToolsElement } from "./devToolsHelpers.ts";
 import { renderCustomComponent, validateHostDataAttributes } from "./componentRenderHelpers.ts";
+import { getAppFormDataForElement } from "./appFormDataHelpers.ts";
 import { getComponentContainerElement } from "./helpers.ts";
 import { instantiateComponent } from "./componentHelpers.ts";
 import { renderFeedbackListElement } from "./feedbackHelpers.ts";
@@ -12,6 +13,7 @@ jest.mock("./devToolsHelpers.ts", () => ({
 }));
 jest.mock("./helpers.ts", () => ({ getComponentContainerElement: jest.fn() }));
 jest.mock("./feedbackHelpers.ts", () => ({ renderFeedbackListElement: jest.fn() }));
+jest.mock("./appFormDataHelpers.ts", () => ({ getAppFormDataForElement: jest.fn(() => ({ status: "none" })) }));
 
 describe("renderCustomComponent", () => {
     beforeEach(() => {
@@ -92,6 +94,80 @@ describe("renderCustomComponent", () => {
 
             expect(container.style.display).toBe("");
             expect(render).toHaveBeenCalledTimes(1);
+        });
+    });
+
+    describe("with form data read from the app", () => {
+        beforeEach(() => {
+            jest.mocked(isDevMode).mockReturnValue(false);
+            jest.mocked(getComponentContainerElement).mockReturnValue(null);
+            jest.mocked(instantiateComponent).mockReturnValue({});
+        });
+
+        afterEach(() => {
+            document.body.replaceChildren();
+        });
+
+        it("waits with data-loading set while the data is on its way, then draws from it", () => {
+            const host = document.body.appendChild(document.createElement("custom-test"));
+            let onSettled: () => void = () => {};
+            jest.mocked(getAppFormDataForElement).mockImplementationOnce((_host, callback) => {
+                onSettled = callback;
+                return { status: "pending" };
+            });
+            const render = jest.fn();
+
+            renderCustomComponent(host, { type: "layout", render });
+            expect(host.hasAttribute("data-loading")).toBe(true);
+            expect(render).not.toHaveBeenCalled();
+
+            jest.mocked(getAppFormDataForElement).mockReturnValueOnce({ status: "ready", formData: { plannavn: "Plan 1" } });
+            onSettled();
+
+            expect(host.hasAttribute("data-loading")).toBe(false);
+            expect(render).toHaveBeenCalledTimes(1);
+            expect(instantiateComponent).toHaveBeenCalledWith(expect.objectContaining({ formData: { plannavn: "Plan 1" } }));
+        });
+
+        it("does not wait for the frontend's data when it has the app's", () => {
+            globalThis.altinnAppGlobalData = {};
+            const host = document.body.appendChild(document.createElement("custom-test"));
+            host.setAttribute("data-testid", "custom-test");
+            jest.mocked(getAppFormDataForElement).mockReturnValueOnce({ status: "ready", formData: { plannavn: "Plan 1" } });
+            const render = jest.fn();
+
+            renderCustomComponent(host, { type: "layout", render });
+
+            expect(render).toHaveBeenCalledTimes(1);
+            delete globalThis.altinnAppGlobalData;
+        });
+
+        it("draws from the element as before when the data cannot be had", () => {
+            const host = document.body.appendChild(document.createElement("custom-test"));
+            jest.mocked(getAppFormDataForElement).mockReturnValueOnce({ status: "unavailable" });
+            const render = jest.fn();
+
+            renderCustomComponent(host, { type: "data", render });
+
+            expect(render).toHaveBeenCalledTimes(1);
+            expect(instantiateComponent).toHaveBeenCalledWith(host);
+        });
+
+        it("only lifts data-loading for an element that has left the page when its data arrives", () => {
+            const host = document.body.appendChild(document.createElement("custom-test"));
+            let onSettled: () => void = () => {};
+            jest.mocked(getAppFormDataForElement).mockImplementationOnce((_host, callback) => {
+                onSettled = callback;
+                return { status: "pending" };
+            });
+            const render = jest.fn();
+
+            renderCustomComponent(host, { type: "layout", render });
+            host.remove();
+            onSettled();
+
+            expect(host.hasAttribute("data-loading")).toBe(false);
+            expect(render).not.toHaveBeenCalled();
         });
     });
 

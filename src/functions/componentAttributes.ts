@@ -17,6 +17,12 @@ export const attributesReadWithData: Record<string, string[]> = {
     showRowNumbers: ["custom-table-data"]
 };
 
+/**
+ * Attributes every component accepts though no component class reads them: `resourceBindings`, whose keys are checked
+ * per component, and `dataType` and `dataKey`, which the render lifecycle reads to fetch the form data a component draws from.
+ */
+const ACCEPTED_ON_EVERY_COMPONENT = ["resourceBindings", "dataType", "dataKey"];
+
 type ComponentClass = new (props: ComponentProps) => unknown;
 
 /** Constructs a component with props that record which of `names` it reads. */
@@ -44,14 +50,14 @@ function recordAttributeReads(ComponentClass: ComponentClass, tagName: string, n
 /**
  * The attributes only some components read: the ones the base class does not copy onto every component.
  *
- * The base class copies `hideIfEmpty`, `size` and the like onto every component, and whether a component honours them depends on how it hands them on while it renders, so those are accepted on every component. `resourceBindings` is accepted on every component too, since the keys in it are checked per component.
+ * The base class copies `hideIfEmpty`, `size` and the like onto every component, and whether a component honours them depends on how it hands them on while it renders, so those are accepted on every component, as are the ones in ACCEPTED_ON_EVERY_COMPONENT.
  *
  * @returns {string[]} The attribute names, in the order layoutAttributeSchemas lists them.
  */
 export function getComponentSpecificAttributes(): string[] {
     const names = Object.keys(layoutAttributeSchemas);
     const copiedByTheBaseClass = recordAttributeReads(CustomComponent, "custom-component", names);
-    return names.filter((name) => name !== "resourceBindings" && !copiedByTheBaseClass.has(name));
+    return names.filter((name) => !ACCEPTED_ON_EVERY_COMPONENT.includes(name) && !copiedByTheBaseClass.has(name));
 }
 
 /**
