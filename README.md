@@ -47,9 +47,27 @@ Add the following snippet to ensure npm packages are installed and copied to `ww
 </Target>
 ```
 
-### 4. Include the scripts and styles in `/views/Home/index.cshtml`
+### 4. Include the scripts and styles
 
-Replace `[ORG NAME]` and `[APP NAME]` with the correct values:
+#### Apps on Altinn.App v9
+
+The app generates its own index page, and includes every file in `wwwroot/custom-js` and `wwwroot/custom-css`. Add this to the `CopyAssetsToWwwroot` target from step 3, and delete `/views/Home/Index.cshtml` if the app has one:
+
+```xml
+<ItemGroup>
+  <CustomJsAssets Include="node_modules/@arkitektum/altinn-studio-custom-components/dist/main.js" />
+  <CustomCssAssets Include="node_modules/@arkitektum/altinn-studio-custom-components/dist/main.css" />
+</ItemGroup>
+<MakeDir Directories="wwwroot/custom-js;wwwroot/custom-css" />
+<Copy SourceFiles="@(CustomJsAssets)" DestinationFolder="wwwroot/custom-js" SkipUnchangedFiles="true" />
+<Copy SourceFiles="@(CustomCssAssets)" DestinationFolder="wwwroot/custom-css" SkipUnchangedFiles="true" />
+```
+
+Only `main.css` goes in `custom-css`, since the page loads every file there as a stylesheet. The fonts are embedded in it.
+
+#### Apps on Altinn.App v8
+
+Include them in `/views/Home/index.cshtml`. Replace `[ORG NAME]` and `[APP NAME]` with the correct values:
 
 ```html
 <html>
@@ -91,6 +109,51 @@ Good to know:
 - The file comes with `dotnet build` (step 3), so it always matches the package version the app installs. In a fresh clone, VS Code cannot load it until the app has been built once.
 - A `json.schemas` setting in VS Code does not work for this, because VS Code uses the file's own `$schema`.
 - To use the schema without a build, point `$schema` at `https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json` instead. That is the latest published version, which can take a while to catch up after a release.
+
+---
+
+## Reading form data from the app
+
+On apps on Altinn.App v9, a component can read its form data from the app instead of through `dataModelBindings`. Name the data type in the layout:
+
+```json
+{
+    "id": "dispensasjon",
+    "type": "Custom",
+    "tagName": "custom-dispensasjon",
+    "dataType": "DispensasjonssoeknadDataV1"
+}
+```
+
+- A layout component, such as `custom-dispensasjon`, gets the whole form data of that data type, so it needs no binding for each root property.
+- A data component names the value it shows with `dataKey`, a dot-separated path from the root of the form data:
+
+```json
+{
+    "id": "eiendom",
+    "type": "Custom",
+    "tagName": "custom-table-eiendom",
+    "dataType": "ET",
+    "dataKey": "eiendomByggested.eiendom"
+}
+```
+
+Objects and lists arrive as they are in the data model, also in Summary2 and the PDF.
+
+### Which data element is read
+
+1. The subform entry the page shows, when it has that data type. That covers a subform's own pages and its own PDF.
+2. Otherwise the only data element of that data type in the instance.
+3. Otherwise none. With several entries of the same subform type, a summary that lists them all doesn't say which entry a component belongs to. The component then draws from its `dataModelBindings`, if it has any, and is otherwise empty.
+
+So always set `dataType` on components in subform layouts. Without it, a subform layout shown inside the main form's summary can't tell its data apart from the main form's.
+
+### Good to know
+
+- **Only what is named is fetched.** The components fetch the instance's list of data elements, and the form data of the data types named on the page, with the user's own login. Other form data in the instance is never fetched.
+- **The PDF waits.** A component carries `data-loading` while it fetches, which holds back the PDF until it is drawn.
+- **Data is refreshed per page.** The data is fetched again after the user moves to another page, so a summary shows what the user just entered.
+- **v8 apps** still need `dataModelBindings`. There, `dataType` and `dataKey` are ignored.
 
 ---
 
