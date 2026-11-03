@@ -113,6 +113,10 @@ export interface ComponentProps {
     itemDescriptionKey?: string;
     dataItemKey?: string;
     dataTitleItemKey?: string;
+    /** The data type whose form data the component reads from the app rather than from its bindings, see appFormDataHelpers.ts. */
+    dataType?: string;
+    /** Where in that form data the value the component shows is, as a path from its root. */
+    dataKey?: string;
     formData?: Record<string, unknown>;
     tableColumns?: TableColumn[];
     resourceBindings?: Record<string, ResourceBindingValue>;

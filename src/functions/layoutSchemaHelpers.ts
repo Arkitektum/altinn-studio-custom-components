@@ -240,8 +240,10 @@ export function buildLayoutSchema(altinnSchema: JsonSchema, expressionSchema: Js
                     ),
                     ...(bindingKeys ? { dataModelBindings: getDataModelBindingsSchema(componentTagName, bindingKeys) } : {})
                 },
-                // A component that has to have something bound cannot leave dataModelBindings out altogether.
-                ...(bindingKeys?.expected.length || bindingKeys?.oneOf?.length ? { required: ["dataModelBindings"] } : {})
+                // A component that has to have something bound cannot leave dataModelBindings out altogether, unless it reads its form data from the app.
+                ...(bindingKeys?.expected.length || bindingKeys?.oneOf?.length
+                    ? { anyOf: [{ required: ["dataModelBindings"] }, { required: ["dataType"] }] }
+                    : {})
             }
         };
     });
