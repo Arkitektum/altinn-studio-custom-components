@@ -83,6 +83,7 @@ import customTablePlan from "./data-components/custom-table-plan/index.ts";
 // Layout components
 import dispensasjon from "./layout-components/dispensasjon/index.ts";
 import dispensasjonsvarsel from "./layout-components/dispensasjonsvarsel/index.ts";
+import endringAvRolleIByggesaken from "./layout-components/endring-av-rolle-i-byggesaken/index.ts";
 import gjennomfoeringsplan from "./layout-components/gjennomfoeringsplan/index.ts";
 import gjenpartNabovarsel from "./layout-components/gjenpart-nabovarsel/index.ts";
 
@@ -177,6 +178,7 @@ export {
     customTablePlan,
     dispensasjon,
     dispensasjonsvarsel,
+    endringAvRolleIByggesaken,
     gjennomfoeringsplan,
     gjenpartNabovarsel
 };

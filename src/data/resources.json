@@ -426,6 +426,18 @@
         }
     },
     {
+        "id": "resource.endringAvRolleIByggesaken.gjelderFraDato.title",
+        "values": {
+            "nb": "Endringen gjelder fra"
+        }
+    },
+    {
+        "id": "resource.endringAvRolleIByggesaken.title",
+        "values": {
+            "nb": "Endring av rolle i byggesaken"
+        }
+    },
+    {
         "id": "resource.endringenGjelder.endringstype.title",
         "values": {
             "nb": "Endringstyper"
@@ -435,6 +447,12 @@
         "id": "resource.endringenGjelder.title",
         "values": {
             "nb": "Endringen gjelder"
+        }
+    },
+    {
+        "id": "resource.endringMeldtAv.title",
+        "values": {
+            "nb": "Endringen er meldt av"
         }
     },
     {
@@ -1431,6 +1449,30 @@
         "id": "resource.respons.samtykkeMottattDato.title",
         "values": {
             "nb": "Mottatt samtykke"
+        }
+    },
+    {
+        "id": "resource.rolleendringer.rolleendring.aktoerendring.title",
+        "values": {
+            "nb": "Endring"
+        }
+    },
+    {
+        "id": "resource.rolleendringer.rolleendring.aktoertype.title",
+        "values": {
+            "nb": "Rolle"
+        }
+    },
+    {
+        "id": "resource.rolleendringer.rolleendring.erRolleendringErklaert.title",
+        "values": {
+            "nb": "Erklært"
+        }
+    },
+    {
+        "id": "resource.rolleendringer.title",
+        "values": {
+            "nb": "Rolleendringer"
         }
     },
     {
