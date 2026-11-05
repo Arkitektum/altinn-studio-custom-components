@@ -286,12 +286,24 @@
             "value": "0"
         },
         {
+            "id": "resource.endringAvRolleIByggesaken.gjelderFraDato.title",
+            "value": "Endringen gjelder fra"
+        },
+        {
+            "id": "resource.endringAvRolleIByggesaken.title",
+            "value": "Endring av rolle i byggesaken"
+        },
+        {
             "id": "resource.endringenGjelder.endringstype.title",
             "value": "Endringstyper"
         },
         {
             "id": "resource.endringenGjelder.title",
             "value": "Endringen gjelder"
+        },
+        {
+            "id": "resource.endringMeldtAv.title",
+            "value": "Endringen er meldt av"
         },
         {
             "id": "resource.energiforsyning.title",
@@ -956,6 +968,22 @@
         {
             "id": "resource.respons.samtykkeMottattDato.title",
             "value": "Mottatt samtykke"
+        },
+        {
+            "id": "resource.rolleendringer.rolleendring.aktoerendring.title",
+            "value": "Endring"
+        },
+        {
+            "id": "resource.rolleendringer.rolleendring.aktoertype.title",
+            "value": "Rolle"
+        },
+        {
+            "id": "resource.rolleendringer.rolleendring.erRolleendringErklaert.title",
+            "value": "Erklært"
+        },
+        {
+            "id": "resource.rolleendringer.title",
+            "value": "Rolleendringer"
         },
         {
             "id": "resource.saksbehandler.title",
