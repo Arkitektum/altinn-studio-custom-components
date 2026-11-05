@@ -2,10 +2,12 @@ import type { DataModelBindingKeys } from "../../types.ts";
 
 import CustomDispensasjon from "../system-classes/component-classes/CustomDispensasjon.ts";
 import CustomDispensasjonsvarsel from "../system-classes/component-classes/CustomDispensasjonsvarsel.ts";
+import CustomEndringAvRolleIByggesaken from "../system-classes/component-classes/CustomEndringAvRolleIByggesaken.ts";
 import CustomGjennomfoeringsplan from "../system-classes/component-classes/CustomGjennomfoeringsplan.ts";
 import CustomGjenpartNabovarsel from "../system-classes/component-classes/CustomGjenpartNabovarsel.ts";
 import Dispensasjon from "./Dispensasjon.ts";
 import Dispensasjonsvarsel from "./Dispensasjonsvarsel.ts";
+import EndringAvRolleIByggesaken from "./EndringAvRolleIByggesaken.ts";
 import Gjennomfoeringsplan from "./Gjennomfoeringsplan.ts";
 import GjenpartNabovarsel from "./GjenpartNabovarsel.ts";
 
@@ -33,6 +35,7 @@ function getKeysReadByConstructor(LayoutClass: new (props: Record<string, unknow
 const layoutComponents: [name: string, bindingKeys: DataModelBindingKeys, LayoutClass: new (props: Record<string, unknown>) => unknown][] = [
     ["CustomDispensasjon", CustomDispensasjon.dataModelBindingKeys, Dispensasjon],
     ["CustomDispensasjonsvarsel", CustomDispensasjonsvarsel.dataModelBindingKeys, Dispensasjonsvarsel],
+    ["CustomEndringAvRolleIByggesaken", CustomEndringAvRolleIByggesaken.dataModelBindingKeys, EndringAvRolleIByggesaken],
     ["CustomGjennomfoeringsplan", CustomGjennomfoeringsplan.dataModelBindingKeys, Gjennomfoeringsplan],
     ["CustomGjenpartNabovarsel", CustomGjenpartNabovarsel.dataModelBindingKeys, GjenpartNabovarsel]
 ];

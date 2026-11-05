@@ -5,6 +5,7 @@ import CustomDescriptionListData from "../classes/system-classes/component-class
 import CustomDispensasjon from "../classes/system-classes/component-classes/CustomDispensasjon.ts";
 import CustomDispensasjonsvarsel from "../classes/system-classes/component-classes/CustomDispensasjonsvarsel.ts";
 import CustomDivider from "../classes/system-classes/component-classes/CustomDivider.ts";
+import CustomEndringAvRolleIByggesaken from "../classes/system-classes/component-classes/CustomEndringAvRolleIByggesaken.ts";
 import CustomFeedback from "../classes/system-classes/component-classes/CustomFeedback.ts";
 import CustomFeedbackData from "../classes/system-classes/component-classes/CustomFeedbackData.ts";
 import CustomFeedbacklistData from "../classes/system-classes/component-classes/CustomFeedbacklistData.ts";
@@ -102,6 +103,7 @@ export const componentMap = {
     "custom-dispensasjon": CustomDispensasjon,
     "custom-dispensasjonsvarsel": CustomDispensasjonsvarsel,
     "custom-divider": CustomDivider,
+    "custom-endring-av-rolle-i-byggesaken": CustomEndringAvRolleIByggesaken,
     "custom-feedback": CustomFeedback,
     "custom-feedback-data": CustomFeedbackData,
     "custom-feedbacklist-data": CustomFeedbacklistData,

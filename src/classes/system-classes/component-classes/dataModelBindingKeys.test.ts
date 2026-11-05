@@ -9,7 +9,13 @@ import { componentMap } from "../../../functions/componentHelpers.ts";
  */
 
 /** Read in a layout class, and checked against it in the layout classes' own test. */
-const LAYOUT_COMPONENTS = ["custom-dispensasjon", "custom-dispensasjonsvarsel", "custom-gjennomfoeringsplan", "custom-gjenpart-nabovarsel"];
+const LAYOUT_COMPONENTS = [
+    "custom-dispensasjon",
+    "custom-dispensasjonsvarsel",
+    "custom-endring-av-rolle-i-byggesaken",
+    "custom-gjennomfoeringsplan",
+    "custom-gjenpart-nabovarsel"
+];
 
 /**
  * Components deliberately without a list:

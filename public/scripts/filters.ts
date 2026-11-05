@@ -163,6 +163,7 @@ export const BASE_COMPONENT_TAG_NAMES = [
 export const LAYOUT_COMPONENT_TAG_NAMES = [
     "custom-dispensasjon",
     "custom-dispensasjonsvarsel",
+    "custom-endring-av-rolle-i-byggesaken",
     "custom-gjennomfoeringsplan",
     "custom-gjenpart-nabovarsel"
 ];
