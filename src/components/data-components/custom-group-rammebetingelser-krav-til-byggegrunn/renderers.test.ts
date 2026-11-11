@@ -56,9 +56,8 @@ describe("whether there are environmental conditions", () => {
         });
     });
 
-    it("leaves the wording for an unanswered question to whatever the shared default says", () => {
-        // Unlike the connection groups, which silence it with an empty string, this one names no default at all.
-        expect(attributes(renderers.renderHarMiljoeforholdElement(component)).resourceBindings.defaultText).toBeUndefined();
+    it("gives an unanswered question no default text, so hideIfEmpty can hide it rather than showing the shared default", () => {
+        expect(attributes(renderers.renderHarMiljoeforholdElement(component)).resourceBindings.defaultText).toBe("");
     });
 });
 

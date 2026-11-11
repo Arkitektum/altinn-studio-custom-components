@@ -35,7 +35,10 @@ export function renderHarMiljoeforholdElement(component?: InstantiatedComponent 
         resourceBindings: {
             title: component?.resourceBindings?.harMiljoeforhold?.title,
             trueText: component?.resourceBindings?.harMiljoeforhold?.trueText,
-            falseText: component?.resourceBindings?.harMiljoeforhold?.falseText
+            falseText: component?.resourceBindings?.harMiljoeforhold?.falseText,
+            // An unanswered question would otherwise fall back to the shared default text, "-", which counts as content
+            // and keeps hideIfEmpty from hiding it. Empty, it is hidden, as the connection groups do.
+            defaultText: ""
         },
         resourceValues: {
             data: data?.harMiljoeforhold
