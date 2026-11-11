@@ -32,6 +32,22 @@ describe("CustomGroupSamsvarAnsvarsomraade", () => {
         expect(instance instanceof CustomComponent).toBe(true);
     });
 
+    it("getResourceBindings gives no default text unless one is configured, so an unanswered value hides rather than showing the shared default", () => {
+        const instance = new CustomGroupSamsvarAnsvarsomraade({});
+        const result = instance.getResourceBindings({});
+        expect("defaultText" in result.erAnsvarsomraadetAvsluttet).toBe(false);
+        expect("defaultText" in result.tilstrekkeligSikkerhet).toBe(false);
+
+        const configured = instance.getResourceBindings({
+            resourceBindings: {
+                erAnsvarsomraadetAvsluttet: { defaultText: "resource.ikkeOppgitt" },
+                tilstrekkeligSikkerhet: { defaultText: "resource.ikkeOppgitt" }
+            }
+        });
+        expect(configured.erAnsvarsomraadetAvsluttet.defaultText).toBe("resource.ikkeOppgitt");
+        expect(configured.tilstrekkeligSikkerhet.defaultText).toBe("resource.ikkeOppgitt");
+    });
+
     describe("constructor", () => {
         it("should set isEmpty to true and resourceValues.data to emptyFieldText when data is empty", () => {
             const props = { formData: {}, resourceBindings: {} };

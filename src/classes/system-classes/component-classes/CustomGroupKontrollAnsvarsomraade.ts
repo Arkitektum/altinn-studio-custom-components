@@ -91,7 +91,10 @@ export default class CustomGroupKontrollAnsvarsomraade extends CustomComponent {
                 title: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title || "resource.erAnsvarsomraadetAvsluttet.title",
                 trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText || "resource.trueText.default",
                 falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText || "resource.falseText.default",
-                defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText || "resource.emptyFieldText.default"
+                // Only when one is configured: without it the field hides when unanswered, rather than showing the shared default.
+                ...(props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText
+                    ? { defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText }
+                    : {})
             },
             ansvarsomraade: {
                 title: props?.resourceBindings?.ansvarsomraade?.title || "resource.ansvarsomraade.title",

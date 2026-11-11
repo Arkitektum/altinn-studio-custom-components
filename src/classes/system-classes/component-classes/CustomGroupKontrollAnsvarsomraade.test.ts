@@ -31,6 +31,17 @@ describe("CustomGroupKontrollAnsvarsomraade", () => {
         jest.clearAllMocks();
     });
 
+    it("getResourceBindings gives no default text unless one is configured, so an unanswered value hides rather than showing the shared default", () => {
+        const instance = new CustomGroupKontrollAnsvarsomraade({});
+        const result = instance.getResourceBindings({});
+        expect("defaultText" in result.erAnsvarsomraadetAvsluttet).toBe(false);
+
+        const configured = instance.getResourceBindings({
+            resourceBindings: { erAnsvarsomraadetAvsluttet: { defaultText: "resource.ikkeOppgitt" } }
+        });
+        expect(configured.erAnsvarsomraadetAvsluttet.defaultText).toBe("resource.ikkeOppgitt");
+    });
+
     describe("constructor", () => {
         it("should set isEmpty to true and use emptyFieldText when data is empty", () => {
             (helpers.getComponentDataValue as unknown as jest.Mock).mockReturnValue(undefined);

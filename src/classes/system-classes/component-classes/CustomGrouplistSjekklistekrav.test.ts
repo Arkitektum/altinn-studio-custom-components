@@ -83,6 +83,17 @@ describe("CustomGrouplistSjekklistekrav", () => {
         expect(instance.hasValidationMessages).toBe(true);
     });
 
+    it("checks the default text only when one is configured, as a missing one is not an error but an item that hides", () => {
+        (hasMissingTextResources as unknown as jest.Mock).mockReturnValue([]);
+
+        new CustomGrouplistSjekklistekrav({});
+        new CustomGrouplistSjekklistekrav({ resourceBindings: { defaultText: "resource.ikkeBesvart" } });
+
+        const [withoutText, withText] = (hasMissingTextResources as unknown as jest.Mock).mock.calls.map((call) => call[0].sjekklistekrav);
+        expect("defaultText" in withoutText).toBe(false);
+        expect(withText.defaultText).toBe("resource.ikkeBesvart");
+    });
+
     it("getValueFromFormData should return array of Sjekklistekrav instances", () => {
         (getComponentDataValue as unknown as jest.Mock).mockReturnValue([{ foo: "bar" }, { baz: "qux" }]);
         const props = {};
@@ -101,7 +112,8 @@ describe("CustomGrouplistSjekklistekrav", () => {
 
         expect(bindings.sjekklistekrav.trueText).toBe("resource.trueText.default");
         expect(bindings.sjekklistekrav.falseText).toBe("resource.falseText.default");
-        expect(bindings.sjekklistekrav.defaultText).toBe("resource.emptyFieldText.default");
+        // No shared default text, so an unanswered item hides rather than showing "-".
+        expect("defaultText" in bindings.sjekklistekrav).toBe(false);
         expect(bindings.sjekklistekrav.title).toBe("resource.krav.sjekklistekrav.title");
         expect(bindings.sjekklistekrav.emptyFieldText).toBe("resource.emptyFieldText.default");
     });

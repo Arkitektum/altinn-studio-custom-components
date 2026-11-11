@@ -85,7 +85,8 @@ export default class CustomGroupSjekklistekrav extends CustomComponent {
         const resourceBindings: ResourceBindingGroup = {
             trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default"
+            // Only when one is configured: without it the field hides when unanswered, rather than showing the shared default.
+            ...(props?.resourceBindings?.defaultText ? { defaultText: props?.resourceBindings?.defaultText } : {})
         };
         if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
             resourceBindings.emptyFieldText = props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default";

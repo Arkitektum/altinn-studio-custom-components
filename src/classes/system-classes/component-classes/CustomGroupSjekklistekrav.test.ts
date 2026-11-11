@@ -55,7 +55,6 @@ describe("CustomGroupSjekklistekrav", () => {
         expect(instance.resourceBindings).toEqual({
             trueText: "resource.trueText.default",
             falseText: "resource.falseText.default",
-            defaultText: "resource.emptyFieldText.default",
             emptyFieldText: "resource.emptyFieldText.default"
         });
         expect(instance.resourceValues.data).toBe("Empty Field");
@@ -139,14 +138,13 @@ describe("CustomGroupSjekklistekrav", () => {
         expect(result).toEqual({ mockData: "data" });
     });
 
-    it("getResourceBindings should set defaults if not provided", () => {
+    it("getResourceBindings should set defaults if not provided, with no default text, so an unanswered item hides rather than showing the shared default", () => {
         const instance = new CustomGroupSjekklistekrav({});
         const result = instance.getResourceBindings({});
         expect(result).toEqual({
             sjekklistekrav: {
                 trueText: "resource.trueText.default",
                 falseText: "resource.falseText.default",
-                defaultText: "resource.emptyFieldText.default",
                 emptyFieldText: "resource.emptyFieldText.default"
             }
         });

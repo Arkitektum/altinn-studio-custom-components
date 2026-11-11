@@ -51,7 +51,8 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
             sjekklistekrav: {
                 trueText: resourceBindings?.sjekklistekrav?.trueText,
                 falseText: resourceBindings?.sjekklistekrav?.falseText,
-                defaultText: resourceBindings?.sjekklistekrav?.defaultText
+                // Checked only when configured, as a missing default text is no longer an error but a field that hides.
+                ...(resourceBindings?.sjekklistekrav?.defaultText ? { defaultText: resourceBindings.sjekklistekrav.defaultText } : {})
             }
         };
         if (props?.hideTitle !== true && props?.hideTitle !== "true") {
@@ -106,7 +107,8 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
         const resourceBindings: ResourceBindingGroup = {
             trueText: props?.resourceBindings?.trueText || "resource.trueText.default",
             falseText: props?.resourceBindings?.falseText || "resource.falseText.default",
-            defaultText: props?.resourceBindings?.defaultText || "resource.emptyFieldText.default",
+            // Only when one is configured: without it the field hides when unanswered, rather than showing the shared default.
+            ...(props?.resourceBindings?.defaultText ? { defaultText: props?.resourceBindings?.defaultText } : {}),
             sjekklistepunkt: props?.resourceBindings?.sjekklistepunkt,
             sjekklistepunktsvar: props?.resourceBindings?.sjekklistepunktsvar
         };

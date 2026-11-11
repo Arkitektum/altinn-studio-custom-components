@@ -90,7 +90,10 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
                 title: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.title || "resource.erAnsvarsomraadetAvsluttet.title",
                 trueText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.trueText || "resource.trueText.default",
                 falseText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.falseText || "resource.falseText.default",
-                defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText || "resource.emptyFieldText.default"
+                // Only when one is configured: without it the field hides when unanswered, rather than showing the shared default.
+                ...(props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText
+                    ? { defaultText: props?.resourceBindings?.erAnsvarsomraadetAvsluttet?.defaultText }
+                    : {})
             },
             avdekketArbeider: {
                 title: props?.resourceBindings?.avdekketArbeider?.title || "resource.avdekketArbeider.title",
@@ -136,7 +139,10 @@ export default class CustomGroupSamsvarAnsvarsomraade extends CustomComponent {
                 title: props?.resourceBindings?.tilstrekkeligSikkerhet?.title || "resource.tilstrekkeligSikkerhet.title",
                 trueText: props?.resourceBindings?.tilstrekkeligSikkerhet?.trueText || "resource.trueText.default",
                 falseText: props?.resourceBindings?.tilstrekkeligSikkerhet?.falseText || "resource.falseText.default",
-                defaultText: props?.resourceBindings?.tilstrekkeligSikkerhet?.defaultText || "resource.emptyFieldText.default"
+                // Only when one is configured: without it the field hides when unanswered, rather than showing the shared default.
+                ...(props?.resourceBindings?.tilstrekkeligSikkerhet?.defaultText
+                    ? { defaultText: props?.resourceBindings?.tilstrekkeligSikkerhet?.defaultText }
+                    : {})
             },
             arbeidGjenstaaendeInnenfor: {
                 title: props?.resourceBindings?.arbeidGjenstaaendeInnenfor?.title || "resource.gjenstaaendeArbeider.gjenstaaendeInnenfor.title",

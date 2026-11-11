@@ -143,6 +143,22 @@ describe("CustomGrouplistSamsvarAnsvarsomraade", () => {
         expect(getComponentDataValue).toHaveBeenCalledWith("props");
     });
 
+    it("getResourceBindings gives no default text unless one is configured, so an unanswered value hides rather than showing the shared default", () => {
+        const instance = new CustomGrouplistSamsvarAnsvarsomraade({});
+        const result = instance.getResourceBindings({});
+        expect("defaultText" in result.erAnsvarsomraadetAvsluttet).toBe(false);
+        expect("defaultText" in result.tilstrekkeligSikkerhet).toBe(false);
+
+        const configured = instance.getResourceBindings({
+            resourceBindings: {
+                erAnsvarsomraadetAvsluttet: { defaultText: "resource.ikkeOppgitt" },
+                tilstrekkeligSikkerhet: { defaultText: "resource.ikkeOppgitt" }
+            }
+        });
+        expect(configured.erAnsvarsomraadetAvsluttet.defaultText).toBe("resource.ikkeOppgitt");
+        expect(configured.tilstrekkeligSikkerhet.defaultText).toBe("resource.ikkeOppgitt");
+    });
+
     it("getResourceBindings should return all keys with defaults if not provided", () => {
         const instance = Object.create(CustomGrouplistSamsvarAnsvarsomraade.prototype);
         const result = instance.getResourceBindings({});
