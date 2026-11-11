@@ -180,6 +180,23 @@ describe("CustomFieldBooleanText", () => {
         expect(bindings.booleanText.emptyFieldText).toBe("EMPTY");
     });
 
+    it("getResourceBindings gives no default text with hideIfEmpty, so an unanswered value is hidden rather than shown as the shared default", () => {
+        const instance = new CustomFieldBooleanText({});
+        for (const hideIfEmpty of [true, "true"]) {
+            const bindings = instance.getResourceBindings({ hideIfEmpty });
+            expect(bindings.booleanText.defaultText).toBeUndefined();
+            expect(bindings.booleanText.emptyFieldText).toBeUndefined();
+            expect(bindings.booleanText.trueText).toBe("resource.trueText.default");
+            expect(bindings.booleanText.falseText).toBe("resource.falseText.default");
+        }
+    });
+
+    it("getResourceBindings keeps a default text that is given, with hideIfEmpty too, so a text like Ikke oppgitt still shows", () => {
+        const instance = new CustomFieldBooleanText({});
+        const bindings = instance.getResourceBindings({ hideIfEmpty: true, resourceBindings: { defaultText: "Ikke oppgitt" } });
+        expect(bindings.booleanText.defaultText).toBe("Ikke oppgitt");
+    });
+
     it("getResourceBindings should use defaults if not provided", () => {
         const instance = new CustomFieldBooleanText({});
         const bindings = instance.getResourceBindings({});

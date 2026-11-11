@@ -74,10 +74,11 @@ export default class CustomFieldBooleanText extends CustomComponent {
      * @param {string} [props.resourceBindings.falseText] - Text to display for false value.
      * @param {string} [props.resourceBindings.defaultText] - Default text to display.
      * @param {string} [props.resourceBindings.emptyFieldText] - Text to display when field is empty.
-     * @param {boolean|string} [props.hideIfEmpty] - If true, hides the empty field text.
+     * @param {boolean|string} [props.hideIfEmpty] - If true, an unanswered value is hidden: there is no empty field text, and no default text unless one is given, since the shared default would count as content and keep it showing.
      * @returns {Object} Resource bindings object for boolean text.
      */
     getResourceBindings(props?: ComponentProps) {
+        const hideIfEmpty = props?.hideIfEmpty === true || props?.hideIfEmpty === "true";
         const resourceBindings: { booleanText: ResourceBindingGroup } = {
             booleanText: {
                 trueText:
@@ -91,10 +92,12 @@ export default class CustomFieldBooleanText extends CustomComponent {
                 defaultText:
                     props?.resourceBindings?.defaultText !== undefined && props?.resourceBindings?.defaultText !== null
                         ? props?.resourceBindings?.defaultText
-                        : "resource.emptyFieldText.default"
+                        : hideIfEmpty
+                          ? undefined
+                          : "resource.emptyFieldText.default"
             }
         };
-        if (props?.hideIfEmpty !== true && props?.hideIfEmpty !== "true") {
+        if (!hideIfEmpty) {
             resourceBindings.booleanText = {
                 ...resourceBindings.booleanText,
                 emptyFieldText: props?.resourceBindings?.emptyFieldText || "resource.emptyFieldText.default"
