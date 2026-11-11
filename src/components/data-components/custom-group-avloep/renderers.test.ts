@@ -78,9 +78,8 @@ describe("the four yes or no questions", () => {
     });
 
     it.each(booleanFields)("%s says nothing at all when the question went unanswered", (name) => {
-        // Each of them sets an empty default rather than letting the shared "not given" wording appear, so an
-        // unanswered question reads as absent rather than as a stated non-answer.
-        expect(attributes(byName[name]!(component)).resourceBindings.defaultText).toBe("");
+        // No default text of its own: with hideIfEmpty, custom-field-boolean-text hides an unanswered value itself.
+        expect(attributes(byName[name]!(component)).resourceBindings.defaultText).toBeUndefined();
         expect(attributes(byName[name]!({ resourceValues: { data: {} } })).resourceValues).toBeNull();
     });
 });

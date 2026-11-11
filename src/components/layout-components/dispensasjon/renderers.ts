@@ -1029,8 +1029,7 @@ export function renderGenerelleVilkaarNorskSvenskDansk(component?: InstantiatedC
         hideIfEmpty: true,
         resourceBindings: {
             trueText: component?.resourceBindings?.generelleVilkaarNorskSvenskDansk?.trueText,
-            falseText: "",
-            defaultText: ""
+            falseText: ""
         },
         resourceValues: {
             data: data?.generelleVilkaar?.norskSvenskDansk

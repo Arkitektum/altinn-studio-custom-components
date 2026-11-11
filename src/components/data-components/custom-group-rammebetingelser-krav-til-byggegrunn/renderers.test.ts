@@ -56,8 +56,9 @@ describe("whether there are environmental conditions", () => {
         });
     });
 
-    it("gives an unanswered question no default text, so hideIfEmpty can hide it rather than showing the shared default", () => {
-        expect(attributes(renderers.renderHarMiljoeforholdElement(component)).resourceBindings.defaultText).toBe("");
+    it("gives an unanswered question no default text of its own, leaving hideIfEmpty to hide it", () => {
+        // No default text of its own: with hideIfEmpty, custom-field-boolean-text hides an unanswered value itself.
+        expect(attributes(renderers.renderHarMiljoeforholdElement(component)).resourceBindings.defaultText).toBeUndefined();
     });
 });
 

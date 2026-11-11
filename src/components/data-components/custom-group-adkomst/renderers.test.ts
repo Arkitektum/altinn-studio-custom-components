@@ -58,7 +58,8 @@ describe("whether the access is new or changed", () => {
     });
 
     it("says nothing at all when the question went unanswered", () => {
-        expect(attributes(renderers.renderErNyEllerEndretAdkomstElement(component)).resourceBindings.defaultText).toBe("");
+        // No default text of its own: with hideIfEmpty, custom-field-boolean-text hides an unanswered value itself.
+        expect(attributes(renderers.renderErNyEllerEndretAdkomstElement(component)).resourceBindings.defaultText).toBeUndefined();
         expect(attributes(renderers.renderErNyEllerEndretAdkomstElement({ resourceValues: { data: {} } })).resourceValues).toBeNull();
     });
 });

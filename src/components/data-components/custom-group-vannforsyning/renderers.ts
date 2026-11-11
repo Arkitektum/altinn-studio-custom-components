@@ -100,8 +100,7 @@ export function renderKrysserVannforsyningAnnensGrunnElement(component?: Instant
         resourceBindings: {
             title: component?.resourceBindings?.krysserVannforsyningAnnensGrunn?.title,
             trueText: component?.resourceBindings?.krysserVannforsyningAnnensGrunn?.trueText,
-            falseText: component?.resourceBindings?.krysserVannforsyningAnnensGrunn?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.krysserVannforsyningAnnensGrunn?.falseText
         },
         resourceValues: {
             data: data?.krysserVannforsyningAnnensGrunn
@@ -137,8 +136,7 @@ export function renderHarTinglystErklaeringElement(component?: InstantiatedCompo
         resourceBindings: {
             title: component?.resourceBindings?.harTinglystErklaering?.title,
             trueText: component?.resourceBindings?.harTinglystErklaering?.trueText,
-            falseText: component?.resourceBindings?.harTinglystErklaering?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.harTinglystErklaering?.falseText
         },
         resourceValues: {
             data: data?.harTinglystErklaering

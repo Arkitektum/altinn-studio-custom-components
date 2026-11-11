@@ -44,8 +44,7 @@ export function renderLedesOvervannTilTerrengElement(component?: InstantiatedCom
         resourceBindings: {
             title: component?.resourceBindings?.ledesOvervannTilTerreng?.title,
             trueText: component?.resourceBindings?.ledesOvervannTilTerreng?.trueText,
-            falseText: component?.resourceBindings?.ledesOvervannTilTerreng?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.ledesOvervannTilTerreng?.falseText
         },
         resourceValues: {
             data: data?.ledesOvervannTilTerreng
@@ -72,8 +71,7 @@ export function renderLedesOvervannTilAvloepssystemElement(component?: Instantia
         resourceBindings: {
             title: component?.resourceBindings?.ledesOvervannTilAvloepssystem?.title,
             trueText: component?.resourceBindings?.ledesOvervannTilAvloepssystem?.trueText,
-            falseText: component?.resourceBindings?.ledesOvervannTilAvloepssystem?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.ledesOvervannTilAvloepssystem?.falseText
         },
         resourceValues: {
             data: data?.ledesOvervannTilAvloepssystem

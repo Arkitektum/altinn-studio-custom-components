@@ -40,8 +40,7 @@ export function renderErLoefteinnretningIBygningElement(component?: Instantiated
         resourceBindings: {
             title: component?.resourceBindings?.erLoefteinnretningIBygning?.title,
             trueText: component?.resourceBindings?.erLoefteinnretningIBygning?.trueText,
-            falseText: component?.resourceBindings?.erLoefteinnretningIBygning?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.erLoefteinnretningIBygning?.falseText
         },
         resourceValues: {
             data: data?.erLoefteinnretningIBygning
@@ -68,8 +67,7 @@ export function renderPlanleggesLoefteinnretningIBygningElement(component?: Inst
         resourceBindings: {
             title: component?.resourceBindings?.planleggesLoefteinnretningIBygning?.title,
             trueText: component?.resourceBindings?.planleggesLoefteinnretningIBygning?.trueText,
-            falseText: component?.resourceBindings?.planleggesLoefteinnretningIBygning?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.planleggesLoefteinnretningIBygning?.falseText
         },
         resourceValues: {
             data: data?.planleggesLoefteinnretningIBygning

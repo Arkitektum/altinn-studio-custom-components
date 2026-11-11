@@ -67,8 +67,7 @@ export function renderKrysserAvloepAnnensGrunnElement(component?: InstantiatedCo
         resourceBindings: {
             title: component?.resourceBindings?.krysserAvloepAnnensGrunn?.title,
             trueText: component?.resourceBindings?.krysserAvloepAnnensGrunn?.trueText,
-            falseText: component?.resourceBindings?.krysserAvloepAnnensGrunn?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.krysserAvloepAnnensGrunn?.falseText
         },
         resourceValues: {
             data: data?.krysserAvloepAnnensGrunn
@@ -104,8 +103,7 @@ export function renderHarTinglystErklaeringElement(component?: InstantiatedCompo
         resourceBindings: {
             title: component?.resourceBindings?.harTinglystErklaering?.title,
             trueText: component?.resourceBindings?.harTinglystErklaering?.trueText,
-            falseText: component?.resourceBindings?.harTinglystErklaering?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.harTinglystErklaering?.falseText
         },
         resourceValues: {
             data: data?.harTinglystErklaering
@@ -141,8 +139,7 @@ export function renderSkalInstallereVannklosettElement(component?: InstantiatedC
         resourceBindings: {
             title: component?.resourceBindings?.skalInstallereVannklosett?.title,
             trueText: component?.resourceBindings?.skalInstallereVannklosett?.trueText,
-            falseText: component?.resourceBindings?.skalInstallereVannklosett?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.skalInstallereVannklosett?.falseText
         },
         resourceValues: {
             data: data?.skalInstallereVannklosett
@@ -178,8 +175,7 @@ export function renderHarUtslippstillatelseElement(component?: InstantiatedCompo
         resourceBindings: {
             title: component?.resourceBindings?.harUtslippstillatelse?.title,
             trueText: component?.resourceBindings?.harUtslippstillatelse?.trueText,
-            falseText: component?.resourceBindings?.harUtslippstillatelse?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.harUtslippstillatelse?.falseText
         },
         resourceValues: {
             data: data?.harUtslippstillatelse

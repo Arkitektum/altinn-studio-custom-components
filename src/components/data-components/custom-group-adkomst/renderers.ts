@@ -35,8 +35,7 @@ export function renderErNyEllerEndretAdkomstElement(component?: InstantiatedComp
         resourceBindings: {
             title: component?.resourceBindings?.erNyEllerEndretAdkomst?.title,
             trueText: component?.resourceBindings?.erNyEllerEndretAdkomst?.trueText,
-            falseText: component?.resourceBindings?.erNyEllerEndretAdkomst?.falseText,
-            defaultText: ""
+            falseText: component?.resourceBindings?.erNyEllerEndretAdkomst?.falseText
         },
         resourceValues: {
             data: data?.erNyEllerEndretAdkomst
