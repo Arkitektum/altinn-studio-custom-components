@@ -13,7 +13,11 @@ const booleanFields: [string, string, boolean][] = [
 const component = {
     resourceBindings: {
         ...Object.fromEntries(booleanFields.map(([, key]) => [key, { title: key, trueText: "Ja", falseText: "Nei" }])),
-        planlagteLoefteinnretninger: { title: "Planlagte løfteinnretninger", emptyFieldText: "Ingen planlagte" }
+        planlagteLoefteinnretninger: { title: "Planlagte løfteinnretninger", emptyFieldText: "Ingen planlagte" },
+        planleggesHeis: { title: "Heis" },
+        planleggesLoefteplattform: { title: "Løfteplattform" },
+        planleggesRulletrapp: { title: "Rulletrapp" },
+        planleggesTrappeheis: { title: "Trappeheis" }
     },
     resourceValues: {
         data: {
@@ -86,10 +90,14 @@ describe("the planned equipment", () => {
         });
     });
 
-    it("carries the list's own title and the text for when there is nothing planned", () => {
+    it("carries the list's own title, the text for when there is nothing planned, and the title of each kind", () => {
         expect(attributes(renderers.renderPlanlagteLoefteinnretningerElement(component)).resourceBindings).toEqual({
             title: "Planlagte løfteinnretninger",
-            emptyFieldText: "Ingen planlagte"
+            emptyFieldText: "Ingen planlagte",
+            planleggesHeis: { title: "Heis" },
+            planleggesLoefteplattform: { title: "Løfteplattform" },
+            planleggesRulletrapp: { title: "Rulletrapp" },
+            planleggesTrappeheis: { title: "Trappeheis" }
         });
     });
 });

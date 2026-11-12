@@ -93,7 +93,11 @@ export function renderPlanlagteLoefteinnretningerElement(component?: Instantiate
         hideIfEmpty: true,
         resourceBindings: {
             title: component?.resourceBindings?.planlagteLoefteinnretninger?.title,
-            emptyFieldText: component?.resourceBindings?.planlagteLoefteinnretninger?.emptyFieldText
+            emptyFieldText: component?.resourceBindings?.planlagteLoefteinnretninger?.emptyFieldText,
+            planleggesHeis: component?.resourceBindings?.planleggesHeis,
+            planleggesLoefteplattform: component?.resourceBindings?.planleggesLoefteplattform,
+            planleggesRulletrapp: component?.resourceBindings?.planleggesRulletrapp,
+            planleggesTrappeheis: component?.resourceBindings?.planleggesTrappeheis
         },
         resourceValues: {
             data

@@ -11,6 +11,9 @@ const resourceBindings = {
     eiendomMatrikkelinformasjonBolignummer: { title: "Bolignr." },
     eiendomMatrikkelinformasjonBygningsnummer: { title: "Bygningsnr." },
     eier: { title: "Eier" },
+    eierNavn: { title: "Eiers navn", emptyFieldText: "Uten navn" },
+    eierTelefonnummer: { title: "Eiers telefon" },
+    eierEpost: { title: "Eiers e-post" },
     eierAdresse: { title: "Adresse" },
     responsNabovarselSendtVia: { title: "Sendt via" },
     responsNabovarselSendt: { title: "Varsel sendt" },
@@ -83,6 +86,15 @@ describe("the neighbour and the owner", () => {
         expect(attributes(renderers.renderEierAdresseElement(neighbour()))).toMatchObject({
             tagName: "custom-field-adresse",
             resourceValues: { data: { adresselinje1: "Storgata 3" } }
+        });
+    });
+
+    it("hands the owner's name, phone and e-mail overrides to the part table under the names it reads", () => {
+        expect(attributes(renderers.renderEierPartElement(neighbour())).resourceBindings).toEqual({
+            title: "Eier",
+            navn: { title: "Eiers navn", emptyFieldText: "Uten navn" },
+            telefonnummer: { title: "Eiers telefon" },
+            epost: { title: "Eiers e-post" }
         });
     });
 });

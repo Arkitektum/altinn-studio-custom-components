@@ -4,7 +4,9 @@ import * as renderers from "./renderers.ts";
 const component = {
     resourceBindings: {
         harMiljoeforhold: { title: "Miljøforhold", trueText: "Ja", falseText: "Nei" },
-        omraaderisiko: { title: "Områderisiko", description: "Risikoer som gjelder området" }
+        omraaderisiko: { title: "Områderisiko" },
+        risikotype: { title: "Type risiko", emptyFieldText: "Ingen type" },
+        sikkerhetsklasse: { title: "Klasse", emptyFieldText: "Ingen klasse" }
     },
     resourceValues: {
         data: {
@@ -69,8 +71,15 @@ describe("the area risks", () => {
             hideIfEmpty: "true",
             hideTitle: null,
             wrapped: false,
-            resourceBindings: { title: "Områderisiko", description: "Risikoer som gjelder området" },
             resourceValues: { data: [{ kodebeskrivelse: "Flom" }] }
+        });
+    });
+
+    it("hands the table its own title and the column overrides this group was given", () => {
+        expect(attributes(renderers.renderOmraaderisiko(component)).resourceBindings).toEqual({
+            title: "Områderisiko",
+            risikotype: { title: "Type risiko", emptyFieldText: "Ingen type" },
+            sikkerhetsklasse: { title: "Klasse", emptyFieldText: "Ingen klasse" }
         });
     });
 

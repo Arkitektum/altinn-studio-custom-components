@@ -60,7 +60,8 @@ export function renderOmraaderisiko(component?: InstantiatedComponent | null) {
         size: getAdjustedHeaderSize(component?.size || "h2", 1),
         resourceBindings: {
             title: component?.resourceBindings?.omraaderisiko?.title,
-            description: component?.resourceBindings?.omraaderisiko?.description
+            risikotype: component?.resourceBindings?.risikotype,
+            sikkerhetsklasse: component?.resourceBindings?.sikkerhetsklasse
         },
         resourceValues: {
             data

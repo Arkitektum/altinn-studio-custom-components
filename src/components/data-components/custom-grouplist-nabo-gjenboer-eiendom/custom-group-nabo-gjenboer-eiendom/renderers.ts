@@ -54,6 +54,9 @@ export function renderNaboGjenboerEiendomElement(component?: InstantiatedCompone
  * @param {Object} component?.resourceBindings - The resource bindings for the component.
  * @param {Object} component?.resourceBindings.eier - The resource bindings specific to "eier".
  * @param {string} component?.resourceBindings.eier.title - The title for the "eier" part.
+ * @param {Object} [component?.resourceBindings.eierNavn] - Handed to the part table as its "navn" bindings.
+ * @param {Object} [component?.resourceBindings.eierTelefonnummer] - Handed to the part table as its "telefonnummer" bindings.
+ * @param {Object} [component?.resourceBindings.eierEpost] - Handed to the part table as its "epost" bindings.
  * @returns {HTMLElement} The rendered custom table part element wrapped in a container.
  */
 export function renderEierPartElement(component?: InstantiatedComponent | null) {
@@ -65,7 +68,10 @@ export function renderEierPartElement(component?: InstantiatedComponent | null) 
         hideTitle: false,
         size: component?.size || "h4",
         resourceBindings: {
-            title: component?.resourceBindings?.eier?.title
+            title: component?.resourceBindings?.eier?.title,
+            navn: component?.resourceBindings?.eierNavn,
+            telefonnummer: component?.resourceBindings?.eierTelefonnummer,
+            epost: component?.resourceBindings?.eierEpost
         },
         resourceValues: {
             data: data?.eier
