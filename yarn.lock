@@ -5,10 +5,10 @@ __metadata:
   version: 10
   cacheKey: 10c0
 
-"@arkitektum/altinn-studio-custom-components-utils@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:2.0.7"
-  checksum: 10c0/3583ed528615814bc01b6af2d46ac89801368e2900c7960eadd542b1538939bb8bbcf4361edc4338bde7df6a14a5d15f208bfce090878013a9835590f832aa79
+"@arkitektum/altinn-studio-custom-components-utils@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "@arkitektum/altinn-studio-custom-components-utils@npm:2.0.8"
+  checksum: 10c0/6cd14250109b484d798dd32418f24ce2031f9c1f56940b9655d24e726afb6f189c225e053f0c8834a264e78d40fb3ddd7c32f4f965c973b031e370d94daa1bad
   languageName: node
   linkType: hard
 
@@ -16,7 +16,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@arkitektum/altinn-studio-custom-components@workspace:."
   dependencies:
-    "@arkitektum/altinn-studio-custom-components-utils": "npm:^2.0.7"
+    "@arkitektum/altinn-studio-custom-components-utils": "npm:^2.0.8"
     "@arkitektum/client-logger": "npm:^1.2.2"
     "@babel/core": "npm:^8.1.0"
     "@babel/preset-env": "npm:^8.0.7"
@@ -8883,15 +8883,15 @@ __metadata:
   linkType: hard
 
 "tar@npm:^7.5.7":
-  version: 7.5.22
-  resolution: "tar@npm:7.5.22"
+  version: 7.5.23
+  resolution: "tar@npm:7.5.23"
   dependencies:
     "@isaacs/fs-minipass": "npm:^4.0.0"
     chownr: "npm:^3.0.0"
     minipass: "npm:^7.1.2"
     minizlib: "npm:^3.1.0"
     yallist: "npm:^5.0.0"
-  checksum: 10c0/1311f6be85a8157ac4c9147bae43e13923d2a1aae15e4aa1bd5239e4e03d2cf53cfe103dde7f35832fbb4c938b042856bc8e9a0afd29abd05e2d1608788c4fea
+  checksum: 10c0/41324dc475f655e6a322729dacac14e3114ed4b18cba350be5d1eb52b1aa2794a1c78c2a5b7f49d3d15f53c058158168121eaf6c5d2f75a0a9565b344bf3a18a
   languageName: node
   linkType: hard
 
