@@ -244,7 +244,7 @@ function getVersionColorClass(version: string | undefined, latestVersion: string
 }
 
 /**
- * Renders the package versions page, displaying the versions of the altinn-studio-custom-components package and the altinn-app-frontend assets for all Altinn Studio apps.
+ * Renders the package versions page, displaying the versions of the altinn-studio-custom-components package, the altinn-app-frontend assets and the Dibk.Ftpb.Common.AltinnApps NuGet package for all Altinn Studio apps.
  *
  * @param {HTMLElement} containerElement - The DOM element to render the package versions page into.
  */
@@ -272,11 +272,14 @@ export function renderPackageVersionsPage(containerElement: HTMLElement) {
     altinnAppFrontendCSSHeader.textContent = "Altinn App Frontend CSS";
     const altinnAppFrontendJSHeader = document.createElement("th");
     altinnAppFrontendJSHeader.textContent = "Altinn App Frontend JS";
+    const dibkFtpbCommonAltinnAppsHeader = document.createElement("th");
+    dibkFtpbCommonAltinnAppsHeader.textContent = "Dibk.Ftpb.Common.AltinnApps";
 
     headerRow.appendChild(appHeader);
     headerRow.appendChild(altinnStudioCustomComponentsHeader);
     headerRow.appendChild(altinnAppFrontendCSSHeader);
     headerRow.appendChild(altinnAppFrontendJSHeader);
+    headerRow.appendChild(dibkFtpbCommonAltinnAppsHeader);
     tableHeaderElement.appendChild(headerRow);
     tableElement.appendChild(tableHeaderElement);
 
@@ -292,11 +295,16 @@ export function renderPackageVersionsPage(containerElement: HTMLElement) {
         altinnAppFrontendCSSCell.textContent = app.packageVersions.altinnAppFrontendCSS || "N/A";
         const altinnAppFrontendJSCell = document.createElement("td");
         altinnAppFrontendJSCell.textContent = app.packageVersions.altinnAppFrontendJS || "N/A";
+        // Not colour-coded like the others: the package is published to an internal NuGet feed, so there is no latest
+        // version to compare against.
+        const dibkFtpbCommonAltinnAppsCell = document.createElement("td");
+        dibkFtpbCommonAltinnAppsCell.textContent = app.packageVersions.dibkFtpbCommonAltinnApps || "N/A";
 
         row.appendChild(appCell);
         row.appendChild(altinnStudioCustomComponentsCell);
         row.appendChild(altinnAppFrontendCSSCell);
         row.appendChild(altinnAppFrontendJSCell);
+        row.appendChild(dibkFtpbCommonAltinnAppsCell);
         tableBodyElement.appendChild(row);
 
         return {

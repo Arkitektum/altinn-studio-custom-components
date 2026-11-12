@@ -335,6 +335,19 @@ describe("internal renderers functions", () => {
         expect(() => renderPackageVersionsPage(el)).not.toThrow();
         expect(el.textContent).toContain("Package versions");
     });
+    it("renderPackageVersionsPage shows the Dibk.Ftpb.Common.AltinnApps version in a fourth column, or N/A without one", () => {
+        globalThis.packageVersions = [
+            { appOwner: "owner1", appName: "app1", packageVersions: { altinnStudioCustomComponents: "1.0", dibkFtpbCommonAltinnApps: "0.7.1" } },
+            { appOwner: "owner1", appName: "app2", packageVersions: { altinnStudioCustomComponents: "1.0", dibkFtpbCommonAltinnApps: null } }
+        ];
+        const el = document.createElement("div");
+        renderPackageVersionsPage(el);
+        const headers = Array.from(el.querySelectorAll("th"), (th) => th.textContent);
+        const fourthColumn = Array.from(el.querySelectorAll("tbody tr"), (row) => row.children[4]!);
+        expect(headers[4]).toBe("Dibk.Ftpb.Common.AltinnApps");
+        expect(fourthColumn.map((cell) => cell.textContent)).toEqual(["0.7.1", "N/A"]);
+        expect(fourthColumn.map((cell) => cell.className)).toEqual(["", ""]);
+    });
     it("getDisplayLayoutMainHeading returns h1 element", () => {
         const h1 = getDisplayLayoutMainHeading();
         expect(h1.tagName).toBe("H1");
