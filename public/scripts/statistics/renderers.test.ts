@@ -340,6 +340,7 @@ describe("internal renderers functions", () => {
             { appOwner: "owner1", appName: "app1", packageVersions: { altinnStudioCustomComponents: "1.0", dibkFtpbCommonAltinnApps: "0.7.1" } },
             { appOwner: "owner1", appName: "app2", packageVersions: { altinnStudioCustomComponents: "1.0", dibkFtpbCommonAltinnApps: null } }
         ];
+        globalThis.latestPackageVersions = { dibkFtpbCommonAltinnApps: "0.7.1" };
         const el = document.createElement("div");
         renderPackageVersionsPage(el);
         const headers = Array.from(el.querySelectorAll("th"), (th) => th.textContent);
@@ -347,6 +348,18 @@ describe("internal renderers functions", () => {
         expect(headers[4]).toBe("Dibk.Ftpb.Common.AltinnApps");
         expect(fourthColumn.map((cell) => cell.textContent)).toEqual(["0.7.1", "N/A"]);
         expect(fourthColumn.map((cell) => cell.className)).toEqual(["", ""]);
+    });
+    it("renderPackageVersionsPage colours the Dibk.Ftpb.Common.AltinnApps version by how far behind the latest it is", () => {
+        globalThis.packageVersions = ["0.9.0", "1.6.3", "1.7.4", "1.7.5", "2.0.0-alpha"].map((version, index) => ({
+            appOwner: "owner1",
+            appName: `app${index}`,
+            packageVersions: { dibkFtpbCommonAltinnApps: version }
+        }));
+        globalThis.latestPackageVersions = { dibkFtpbCommonAltinnApps: "1.7.5" };
+        const el = document.createElement("div");
+        renderPackageVersionsPage(el);
+        const fourthColumn = Array.from(el.querySelectorAll("tbody tr"), (row) => row.children[4]!.className);
+        expect(fourthColumn).toEqual(["version-outdated-major", "version-outdated-minor", "version-outdated-patch", "", ""]);
     });
     it("getDisplayLayoutMainHeading returns h1 element", () => {
         const h1 = getDisplayLayoutMainHeading();

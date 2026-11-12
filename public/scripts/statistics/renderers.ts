@@ -295,8 +295,6 @@ export function renderPackageVersionsPage(containerElement: HTMLElement) {
         altinnAppFrontendCSSCell.textContent = app.packageVersions.altinnAppFrontendCSS || "N/A";
         const altinnAppFrontendJSCell = document.createElement("td");
         altinnAppFrontendJSCell.textContent = app.packageVersions.altinnAppFrontendJS || "N/A";
-        // Not colour-coded like the others: the package is published to an internal NuGet feed, so there is no latest
-        // version to compare against.
         const dibkFtpbCommonAltinnAppsCell = document.createElement("td");
         dibkFtpbCommonAltinnAppsCell.textContent = app.packageVersions.dibkFtpbCommonAltinnApps || "N/A";
 
@@ -311,6 +309,7 @@ export function renderPackageVersionsPage(containerElement: HTMLElement) {
             ccCell: altinnStudioCustomComponentsCell,
             cssCell: altinnAppFrontendCSSCell,
             jsCell: altinnAppFrontendJSCell,
+            dibkCell: dibkFtpbCommonAltinnAppsCell,
             versions: app.packageVersions
         };
     });
@@ -320,13 +319,15 @@ export function renderPackageVersionsPage(containerElement: HTMLElement) {
     containerElement.appendChild(contentContainerElement);
 
     const latestPackageVersions = globalThis.latestPackageVersions;
-    versionCells.forEach(({ ccCell, cssCell, jsCell, versions }: ApiValue) => {
+    versionCells.forEach(({ ccCell, cssCell, jsCell, dibkCell, versions }: ApiValue) => {
         const ccClass = getVersionColorClass(versions.altinnStudioCustomComponents, latestPackageVersions.altinnStudioCustomComponents);
         if (ccClass) ccCell.classList.add(ccClass);
         const cssClass = getVersionColorClass(versions.altinnAppFrontendCSS, latestPackageVersions.altinnAppFrontend);
         if (cssClass) cssCell.classList.add(cssClass);
         const jsClass = getVersionColorClass(versions.altinnAppFrontendJS, latestPackageVersions.altinnAppFrontend);
         if (jsClass) jsCell.classList.add(jsClass);
+        const dibkClass = getVersionColorClass(versions.dibkFtpbCommonAltinnApps, latestPackageVersions.dibkFtpbCommonAltinnApps);
+        if (dibkClass) dibkCell.classList.add(dibkClass);
     });
 }
 
