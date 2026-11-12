@@ -123,6 +123,7 @@ describe("CustomGroupDispensasjonOversikt", () => {
         expect(instance.getComponentUsage()).toEqual([
             "custom-feedbacklist-validation-messages",
             "custom-field-count-data",
+            "custom-field-data",
             "custom-header-text",
             "custom-paragraph",
             "custom-table-data"
