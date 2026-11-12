@@ -8,8 +8,8 @@ import CustomComponent from "../CustomComponent.ts";
 import Eiendom from "../../data-classes/Eiendom.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 // Constants
 import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
@@ -95,16 +95,6 @@ export default class CustomTableNaboGjenboerEiendom extends CustomComponent {
         return (data as { matrikkelinformasjon?: EiendomProps }[])
             .map((eiendom) => new Eiendom(eiendom?.matrikkelinformasjon))
             .filter((eiendom) => this.hasEiendomValue(eiendom));
-    }
-
-    /**
-     * Retrieves validation messages based on provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing bindings for text resources.
-     * @returns {Array} An array of missing text resource messages, if any.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

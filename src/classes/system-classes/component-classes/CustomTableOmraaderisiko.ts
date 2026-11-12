@@ -7,8 +7,8 @@ import CustomComponent from "../CustomComponent.ts";
 import Omraaderisiko from "../../data-classes/Omraaderisiko.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 // Constants
 import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
@@ -82,16 +82,6 @@ export default class CustomTableOmraaderisiko extends CustomComponent {
         return Array.isArray(data)
             ? data.map((omraaderisiko) => new Omraaderisiko(omraaderisiko)).filter((omraaderisiko) => this.hasOmraaderisikoValue(omraaderisiko))
             : [];
-    }
-
-    /**
-     * Retrieves validation messages based on provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
-     * @returns {boolean} Returns true if there are missing text resources, otherwise false.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

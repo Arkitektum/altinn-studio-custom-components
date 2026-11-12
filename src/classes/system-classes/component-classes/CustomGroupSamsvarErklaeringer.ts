@@ -4,11 +4,11 @@ import { getTextResourceFromResourceBinding, hasValue } from "@arkitektum/altinn
 
 // Classes
 import CustomComponent from "../CustomComponent.ts";
+import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
-import SamsvarAnsvarsomraade from "../../data-classes/SamsvarAnsvarsomraade.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 // Constants
 import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
@@ -77,16 +77,6 @@ export default class CustomGroupSamsvarErklaeringer extends CustomComponent {
             return undefined;
         }
         return Array.isArray(data) ? data.map((ansvarsomraade) => new SamsvarAnsvarsomraade(ansvarsomraade, resourceBindings)) : [];
-    }
-
-    /**
-     * Retrieves validation messages based on the provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing text resource bindings to be validated.
-     * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

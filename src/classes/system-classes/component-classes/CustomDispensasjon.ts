@@ -1,4 +1,4 @@
-import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -7,8 +7,8 @@ import CustomComponent from "../CustomComponent.ts";
 import Dispensasjon from "../../layout-classes/Dispensasjon.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentResourceValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomDispensasjon is a custom component class for handling "dispensasjon" (exemption) data and logic.
@@ -122,16 +122,6 @@ export default class CustomDispensasjon extends CustomComponent {
      */
     dataIsAnnetLovForskrift(data: unknown): boolean {
         return (data as Dispensasjon)?.dispensasjonstema?.kodeverdi?.toUpperCase() === "ANNETLOVFORSKRIFT";
-    }
-
-    /**
-     * Retrieves validation messages based on provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
-     * @returns {Array|string|boolean} The result of the hasMissingTextResources function, indicating missing text resources.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

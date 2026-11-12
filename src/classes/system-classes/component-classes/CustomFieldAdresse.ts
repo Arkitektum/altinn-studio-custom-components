@@ -8,8 +8,8 @@ import Adresse from "../../data-classes/Adresse.ts";
 import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 // Constants
 import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.ts";
@@ -106,16 +106,6 @@ export default class CustomFieldAdresse extends CustomComponent {
      */
     formatKommunenavn(adresse?: AdresseFields): string {
         return adresse?.kommunenavn ? `${adresse?.kommunenavn}` : "";
-    }
-
-    /**
-     * Retrieves validation messages based on provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
-     * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

@@ -1,4 +1,4 @@
-import type { ComponentProps, DataModelBindingKeys, ResourceBindingGroup } from "../../../types.ts";
+import type { ComponentProps, DataModelBindingKeys } from "../../../types.ts";
 // Dependencies
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -7,8 +7,8 @@ import CustomComponent from "../CustomComponent.ts";
 import Dispensasjonsvarsel from "../../layout-classes/Dispensasjonsvarsel.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentResourceValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomDispensasjonsvarsel is a custom component class that extends the base CustomComponent class. It is designed to represent a "dispensasjonsvarsel" (dispensation notice) in a user interface, providing functionality to determine if the component has content, retrieve values from form data, and manage resource bindings and validation messages.
@@ -84,16 +84,6 @@ export default class CustomDispensasjonsvarsel extends CustomComponent {
      */
     getValueFromFormData(props: ComponentProps): Dispensasjonsvarsel | undefined {
         return hasValue(props?.formData) ? new Dispensasjonsvarsel(props.formData) : undefined;
-    }
-
-    /**
-     * Retrieves validation messages based on provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
-     * @returns {Array|string|boolean} The result of the hasMissingTextResources function, indicating missing text resources.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

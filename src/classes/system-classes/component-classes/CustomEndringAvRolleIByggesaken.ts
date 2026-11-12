@@ -4,8 +4,8 @@ import CustomComponent from "../CustomComponent.ts";
 import EndringAvRolleIByggesaken from "../../layout-classes/EndringAvRolleIByggesaken.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentResourceValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomEndringAvRolleIByggesaken is a custom component class for handling "Endring av rolle i byggesaken" logic.
@@ -60,16 +60,6 @@ export default class CustomEndringAvRolleIByggesaken extends CustomComponent {
      */
     getValueFromFormData(props: ComponentProps): EndringAvRolleIByggesaken {
         return new EndringAvRolleIByggesaken(props?.formData);
-    }
-
-    /**
-     * Retrieves validation messages based on provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing keys for text resources to validate.
-     * @returns {boolean} Returns true if there are missing text resources, otherwise false.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

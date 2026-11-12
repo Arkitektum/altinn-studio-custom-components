@@ -64,16 +64,6 @@ export default class CustomFieldListData extends CustomComponent {
     }
 
     /**
-     * Determines if the provided form data value contains content.
-     *
-     * @param {*} formDataValue - The value from the form data to check.
-     * @returns {boolean} True if the form data value has content; otherwise, false.
-     */
-    hasContent(formDataValue: unknown): boolean {
-        return hasValue(formDataValue);
-    }
-
-    /**
      * Retrieves a list of values from an array of objects based on a dot-separated key path.
      *
      * @param {Array<Object>} items - The array of objects to extract values from.

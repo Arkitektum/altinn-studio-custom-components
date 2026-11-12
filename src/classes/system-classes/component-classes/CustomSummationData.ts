@@ -77,16 +77,6 @@ export default class CustomSummationData extends CustomComponent {
     }
 
     /**
-     * Checks if the provided form data contains any content.
-     *
-     * @param {Object} formDataValue - The form data object to check.
-     * @returns {boolean} Returns true if the form data contains a value, otherwise false.
-     */
-    hasContent(formDataValue: unknown): boolean {
-        return hasValue(formDataValue);
-    }
-
-    /**
      * Retrieves the component usage, which is an array of custom component names that this class utilizes.
      *
      * @returns {Array<string>} An array of custom component names used by this class.

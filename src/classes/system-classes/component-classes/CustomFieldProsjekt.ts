@@ -48,16 +48,6 @@ export default class CustomFieldProsjekt extends CustomComponent {
     }
 
     /**
-     * Checks if the provided form data value has content.
-     *
-     * @param {*} formDataValue - The value from the form data to check.
-     * @returns {boolean} Returns true if the form data value has content, otherwise false.
-     */
-    hasContent(formDataValue: unknown): boolean {
-        return hasValue(formDataValue);
-    }
-
-    /**
      * Formats a project object into a string containing the project name and project number (if available).
      *
      * @param {Object} prosjekt - The project object to format.

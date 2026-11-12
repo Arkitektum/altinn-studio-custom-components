@@ -7,8 +7,8 @@ import AnsvarsrettAnsvarsomraade from "../../data-classes/AnsvarsrettAnsvarsomra
 import CustomComponent from "../CustomComponent.ts";
 
 // Global functions
-import { hasMissingTextResources, hasValidationMessages } from "../../../functions/validations.ts";
 import { getComponentDataValue } from "../../../functions/helpers.ts";
+import { hasValidationMessages } from "../../../functions/validations.ts";
 
 /**
  * CustomTableAnsvarsrettAnsvarsomraade is a custom component class for handling and displaying
@@ -91,16 +91,6 @@ export default class CustomTableAnsvarsrettAnsvarsomraade extends CustomComponen
             return undefined;
         }
         return Array.isArray(data) ? data.map((ansvarsomraade) => new AnsvarsrettAnsvarsomraade(ansvarsomraade, resourceBindings)) : [];
-    }
-
-    /**
-     * Retrieves validation messages based on the provided text resource bindings.
-     *
-     * @param {Object} textResourceBindings - An object containing text resource bindings to be validated.
-     * @returns {Array|string|boolean} The result of the validation, as returned by hasMissingTextResources.
-     */
-    getValidationMessages(textResourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
-        return hasMissingTextResources(textResourceBindings);
     }
 
     /**

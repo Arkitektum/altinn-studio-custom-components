@@ -53,16 +53,6 @@ export default class CustomFieldData extends CustomComponent {
     }
 
     /**
-     * Checks if the provided form data value contains content.
-     *
-     * @param {*} formDataValue - The value from the form data to check.
-     * @returns {boolean} Returns true if the value has content, otherwise false.
-     */
-    hasContent(formDataValue: unknown): boolean {
-        return hasValue(formDataValue);
-    }
-
-    /**
      * Retrieves and formats the value from the provided form data props.
      *
      * @param {Object} props - The properties containing form data and formatting options.
