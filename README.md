@@ -216,7 +216,7 @@ For a full list of available components and examples, see the documentation site
     yarn start
     ```
 
-    Then open [http://localhost:9000](http://localhost:9000). The local playground links to a component tester, the [DevTools mode](#devtools-mode) page, and a Statistics page.
+    Then open [http://localhost:9000](http://localhost:9000). The start page links to the Developer tools page and the Statistics page.
 
 ### Building
 

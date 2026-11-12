@@ -17,7 +17,7 @@ For a high-level picture of how the package and its sibling repositories fit tog
     ```
 
     The correct Yarn version is then activated automatically from the `packageManager` field in `package.json`.
-    (The CI removes any preinstalled Yarn 1 and uses Corepack — do the same locally if `yarn --version` does not report `4.x`.)
+    (The CI removes any preinstalled Yarn 1 and uses Corepack. Do the same locally if `yarn --version` does not report `4.x`.)
 
 ---
 
@@ -37,19 +37,15 @@ For a high-level picture of how the package and its sibling repositories fit tog
     cp .env.sample .env
     ```
 
-    - `PORT` — dev server port (default `9000`).
-    - `API_PORT` — **only** needed for the local **Statistics** dashboard.
+    - `PORT`: dev server port (default `9000`).
+    - `API_PORT`: **only** needed for the local **Statistics** dashboard.
       You can skip it for ordinary component work.
 
     The Statistics dashboard calls a separate backend, the [`altinn-studio-custom-components-api`](https://github.com/Arkitektum/altinn-studio-custom-components-api) repository, on `http://localhost:<API_PORT>` (default `9001`).
     To use the dashboard you must also clone that repo and run it (`yarn start`) with a matching `API_PORT`.
-    Only the API reads Altinn Studio, so the Gitea token it needs goes in the API's environment, not this app's. Its README says where to keep it.
+    Only the API reads Altinn Studio, so the Gitea token it needs goes in the API's environment, not this app's. Its README says how to create one and where to keep it.
 
-    To generate a Gitea token:
-    - Go to <https://altinn.studio/repos/user/settings/applications>
-    - Create a token with the **`read:repository`** scope, and give it an expiry date
-
-    > ⚠️ `.env` is git-ignored. Never commit tokens or secrets.
+    > `.env` is git-ignored. Never commit tokens or secrets.
 
 3. **Start the dev server**
 
@@ -58,7 +54,7 @@ For a high-level picture of how the package and its sibling repositories fit tog
     ```
 
     Open <http://localhost:9000>.
-    The playground links to a component tester, the **Developer tools** page, and the **Statistics** page.
+    The start page links to the **Developer tools** page and the **Statistics** page.
 
 ---
 
@@ -81,27 +77,27 @@ Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn
 
 1. **Create the element directory** under `src/components/<component-type>/<component-tag-name>/` and add the files it needs (`index.ts`, plus `README.md`, `styles.css`, etc. as appropriate).
    `<component-type>` is one of:
-    - `base-components` — primitive building blocks; accept literal values; not bound to a data model or resources.
-    - `data-components` — bound to the data model and resources.
+    - `base-components`: primitive building blocks; accept literal values; not bound to a data model or resources.
+    - `data-components`: bound to the data model and resources.
       The first segment after `custom-` (`field`, `paragraph`, `table`, `group`, `grouplist`, …) signals the rendering shape; the suffix names the class/data type (or generic `data` / `text`).
       Children may be base components or other data components.
-    - `layout-components` — a complete form layout composed of multiple data and base components.
+    - `layout-components`: a complete form layout composed of multiple data and base components.
 
 2. **Register the element** by importing it in `src/components/index.ts`.
 
 3. **Add the component class** in `src/classes/system-classes/component-classes/<ComponentTagName>.ts` (PascalCase), extending `CustomComponent`.
    Data and layout components should implement:
 
-    - `getValueFromFormData` — resolve the value from `resourceValues` or the data-model binding; often instantiate a domain data class from `src/classes/data-classes` or `src/classes/system-classes/data-classes`.
-    - `getResourceBindings` — return all resource bindings; each must have a default value and be overridable.
-    - `getComponentUsage` — return the tag names of the component's direct children (used by the Statistics tool).
-    - `getValidationMessages` — return a `ValidationMessages` object (often via `hasMissingTextResources`, passing the bindings from `getResourceBindings`).
-    - `hasContent` — drive the `isEmpty` / `hideIfEmpty` behavior.
+    - `getValueFromFormData`: resolve the value from `resourceValues` or the data-model binding; often instantiate a domain data class from `src/classes/data-classes` or `src/classes/system-classes/data-classes`.
+    - `getResourceBindings`: return all resource bindings; each must have a default value and be overridable.
+    - `getComponentUsage`: return the tag names of the component's direct children (used by the Statistics tool).
+    - `getValidationMessages`: return a `ValidationMessages` object (often via `hasMissingTextResources`, passing the bindings from `getResourceBindings`).
+    - `hasContent`: drive the `isEmpty` / `hideIfEmpty` behavior.
       Return `true` **only** if the component will actually render something (e.g. if it has data but nothing is rendered, return `false`).
 
 4. **Register the tag name in the allow-list.**
    Add the new tag name to `customElementTagNames.ts` in the [`altinn-studio-custom-components-utils`](https://github.com/Arkitektum/altinn-studio-custom-components-utils) package, then release it and bump the dependency here.
-   This is required for security reasons — `createCustomElement` throws for any tag name not on the list, so the component will not render until it is added (and the updated utils version is released and bumped here).
+   This is required for security reasons: `createCustomElement` throws for any tag name not on the list, so the component will not render until it is added (and the updated utils version is released and bumped here).
 
 5. **Add tests.**
    Place `*.test.ts` next to the class/functions you add and cover the logic with Jest.
@@ -113,7 +109,7 @@ Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn
 
 ## Adding, removing, or changing a resource
 
-- Edit **`src/data/resources.json`** — the single source of truth. Each entry:
+- Edit **`src/data/resources.json`**, the single source of truth. Each entry:
 
     ```json
     {
@@ -134,8 +130,8 @@ Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn
 
 ## Coding conventions
 
-- **Web standards first** — components are native custom elements; there is no UI framework runtime.
-- **Thin elements, fat classes** — keep element `index.ts` files limited to registration and delegation; put logic in the component class.
+- **Web standards first**: components are native custom elements; there is no UI framework runtime.
+- **Thin elements, fat classes**: keep element `index.ts` files limited to registration and delegation; put logic in the component class.
 - **JSDoc** on classes and exported functions.
 - **Formatting & linting** via Prettier (`.prettierrc`) and ESLint (`eslint.config.mjs`).
   Run `yarn lint` before pushing.
@@ -147,8 +143,8 @@ Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn
 
 1. Branch off `main`.
 2. Keep changes focused; update or add tests and documentation.
-3. Ensure `yarn test`, `yarn lint`, and `yarn build` pass locally.
-4. Open a PR against `main`. CI (`ci.yml` and the ESLint scan) must be green before merge.
+3. Ensure `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test` and `yarn build` pass locally.
+4. Open a PR against `main`. CI (`ci.yml`) must be green before merge.
 
 ---
 
@@ -156,7 +152,7 @@ Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn
 
 - Releases are **triggered by creating a GitHub Release**.
   The publish workflows then install, typecheck, test, build, and publish to **npm** (with provenance) and to **GitHub Packages**.
-- The npm **dist-tag** is derived from the release tag: a tag containing a hyphen (e.g. `1.2.3-beta.1`) is published under that prerelease tag; otherwise it goes to `latest`.
-- Bump the version in `package.json` as part of the change that warrants a release, following semantic versioning.
+- The npm **dist-tag** is derived from the release tag: a tag containing a hyphen (e.g. `v1.2.3-beta.1`) is published under that prerelease tag; otherwise it goes to `latest`.
+- Bump the version in `package.json` as part of the change that warrants a release, following semantic versioning. The release tag must be that version with a `v` in front, or the publish workflows stop.
 
 > Only maintainers can publish releases.

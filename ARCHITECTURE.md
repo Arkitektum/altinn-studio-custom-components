@@ -14,7 +14,7 @@ A collection of reusable **custom HTML elements** (Web Components) for **Altinn 
 The components provide consistent, standardized presentation of domain data for digital public services, following standards from **Direktoratet for Byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
 
 The package is distributed as a set of static assets (`main.js`, `main.css` with the fonts embedded, and generated resource files) that an Altinn app copies into its `wwwroot` and loads in the browser.
-It is **not** a framework or a server component — everything runs client-side in the user's browser, both in the interactive form and in the generated PDF layout.
+It is **not** a framework or a server component: everything runs client-side in the user's browser, both in the interactive form and in the generated PDF layout.
 
 ---
 
@@ -27,13 +27,13 @@ Two families of repositories share this directory. The **components family** bui
 
 **Published libraries**
 
-| Package                                                       | Role                                                                                                                                                                                                  |
-| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **`@arkitektum/altinn-studio-custom-components`** (this repo) | The custom components themselves.                                                                                                                                                                     |
-| **`@arkitektum/altinn-studio-custom-components-utils`**       | Shared functions and classes — most importantly `createCustomElement`, `CustomElementHtmlAttributes`, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
-| **`@arkitektum/client-logger`**                               | Helper functions and classes for logging to Elastic from the browser. A runtime dependency of this package.                                                                                           |
-| **`@arkitektum/ftpb-testmotor-client`**                       | Reads example form data from the FtPB testmotor. Used by the statistics API and by the API tools. Nothing in this repository uses it.                                                                 |
-| **`@arkitektum/ftpb-app-catalogue`**                          | The Altinn Studio apps the tooling knows about, and the data type each one's form data lives under. Used by the statistics API and by the API tools. Nothing in this repository uses it.              |
+| Package                                                       | Role                                                                                                                                                                                                 |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`@arkitektum/altinn-studio-custom-components`** (this repo) | The custom components themselves.                                                                                                                                                                    |
+| **`@arkitektum/altinn-studio-custom-components-utils`**       | Shared functions and classes, most importantly `createCustomElement`, `CustomElementHtmlAttributes`, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
+| **`@arkitektum/client-logger`**                               | Helper functions and classes for logging to Elastic from the browser. A runtime dependency of this package.                                                                                          |
+| **`@arkitektum/ftpb-testmotor-client`**                       | Reads example form data from the FtPB testmotor. Used by the statistics API and by the API tools. Nothing in this repository uses it.                                                                |
+| **`@arkitektum/ftpb-app-catalogue`**                          | The Altinn Studio apps the tooling knows about, and the data type each one's form data lives under. Used by the statistics API and by the API tools. Nothing in this repository uses it.             |
 
 **Applications** (none published)
 
@@ -90,14 +90,14 @@ devTools and statistics are development surfaces (see §7).
 
 ### How a component renders
 
-Each component's `index.ts` is thin — it defines the custom element and delegates logic to a **component class**.
+Each component's `index.ts` is thin: it defines the custom element and delegates logic to a **component class**.
 The typical flow (see `src/components/data-components/custom-field-data/index.ts`):
 
 1. `instantiateComponent(this)` builds the component-class instance from the element's attributes.
 2. If the component is configured with `hideIfEmpty` and resolves to empty, it is hidden (or shown as a placeholder in DevTools mode).
-   What gets hidden is the padded `[data-summary-target]` wrapper that `addContainerElement` puts around the component, when there is one — hiding only the component would leave that wrapper's `0.75rem` block padding behind as an empty band. This matters for child components in particular, whose "container" is the component itself.
+   What gets hidden is the padded `[data-summary-target]` wrapper that `addContainerElement` puts around the component, when there is one, since hiding only the component would leave that wrapper's `0.75rem` block padding behind as an empty band. This matters for child components in particular, whose "container" is the component itself.
    Tables and matrices (the nine wrapper tables, `custom-table-data` and `custom-matrix-data`) hide when empty unless the app says `hideIfEmpty="false"`, where other data components show unless told to hide. The default is for a table an app places: one drawn inside another component is told by its parent.
-   Layout components differ here: `hideIfEmpty` is **always true and cannot be opted out of**, and an empty layout is **removed from the document** rather than hidden with `display: none` — a top-level layout usually has no container to hide, and a hidden-but-present tag still leaves a gap in the summary view and the generated PDF.
+   Layout components differ here: `hideIfEmpty` is **always true and cannot be opted out of**, and an empty layout is **removed from the document** rather than hidden with `display: none`, since a top-level layout usually has no container to hide, and a hidden-but-present tag still leaves a gap in the summary view and the generated PDF.
    Emptiness is checked twice for a layout: once on the data (`isEmpty`) before rendering, and once on the rendered output afterwards, so a layout whose data is present but whose every child resolved to empty is dropped too. Validation feedback counts as content, so a layout that has messages to show is kept.
 3. Otherwise the class produces `CustomElementHtmlAttributes`, and `createCustomElement(...)` (from the utils package) renders the underlying base element into the DOM.
 4. If any of this throws, typically because the data has a shape the component did not expect, `renderCustomComponent` replaces the component with a short notice (`resource.componentRenderError`, "Denne delen kunne ikke vises.") so a reader of the PDF can tell something is missing. It logs the component's tag, id and the error's name through the client logger, never the error message, which can quote form data.
@@ -136,20 +136,20 @@ src/
 └── styles/                # CSS
 
 public/                    # Dev-only HTML + scripts for the local playground, DevTools, Statistics
-scripts/                   # create-symlinks.js, ResourceGeneratorPlugin.js
+scripts/                   # build helpers: symlinks, resource generation, binding keys, layout schema
 ```
 
 ### Component model
 
 There are three component categories, mirrored by the `base-components` / `data-components` / `layout-components` directories:
 
-- **Base components** — the most primitive building blocks (e.g. `custom-field`, `custom-paragraph`, `custom-table`).
+- **Base components**: the most primitive building blocks (e.g. `custom-field`, `custom-paragraph`, `custom-table`).
   They accept literal values as props and are not connected to a data model or to resources.
-- **Data components** — connected to a data model.
+- **Data components**: connected to a data model.
   They read values from the model and text from the resource files.
   The tag name encodes intent: the part after `custom-` (`field`, `paragraph`, `table`, `group`, `grouplist`, …) indicates the rendering shape, and the suffix indicates the concrete class/data type (or generic `data` / `text`).
   A data component's children may be base components or other data components.
-- **Layout components** — like a group data component, but represent a complete form layout composed of multiple data and base components.
+- **Layout components**: like a group data component, but represent a complete form layout composed of multiple data and base components.
 
 ### Component classes
 
@@ -158,7 +158,7 @@ By convention these classes implement:
 
 | Method                  | Responsibility                                                                                                                                                                                                                                                                                     |
 | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `getValueFromFormData`  | Resolve the value — from `resourceValues` or by reading the binding from the data model. Often wraps the value in a domain data class.                                                                                                                                                             |
+| `getValueFromFormData`  | Resolve the value, from `resourceValues` or by reading the binding from the data model. Often wraps the value in a domain data class.                                                                                                                                                              |
 | `getResourceBindings`   | Return all resource bindings the component needs. Every binding has a default and can be overridden.                                                                                                                                                                                               |
 | `getComponentUsage`     | List the tag names of the component's direct children. Used by the Statistics tool to know which components are used indirectly.                                                                                                                                                                   |
 | `getValidationMessages` | Apply the component's validation rules and return a `ValidationMessages` object (often via `hasMissingTextResources`).                                                                                                                                                                             |
@@ -179,7 +179,7 @@ Each entry has an `id` and a `values` map keyed by language code:
 ```
 
 - The **`ResourceGeneratorPlugin`** (webpack) reads `resources.json` and emits one file per language, `src/data/resource.<lang>.json`, containing only that language's values.
-  **These generated files must not be edited by hand** — change `resources.json` and they are regenerated (the dev server regenerates and re-sorts by `id` on save).
+  **These generated files must not be edited by hand**: change `resources.json` and they are regenerated (the dev server regenerates and re-sorts by `id` on save).
 - `create-symlinks.js` links the generated files into `public/data/` for the dev playground.
 - `copy-dist-resources` (in the `build` script) copies the resource files into `dist/` for publishing.
 
@@ -194,7 +194,7 @@ This lets apps override a global/common resource value.
 ## 6. Security model: the tag-name allow-list
 
 Custom elements are only rendered through `createCustomElement(tagName, attributes)` in the utils package, which throws `Invalid tag name` unless `tagName` is present in `customElementTagNames` (`isValidTagName`).
-This allow-list — maintained in `@arkitektum/altinn-studio-custom-components-utils` — is the central guard that prevents arbitrary element names from being injected at render time.
+This allow-list, maintained in `@arkitektum/altinn-studio-custom-components-utils`, is the central guard that prevents arbitrary element names from being injected at render time.
 **A new component's tag name must be added to that list or it will not render.**
 See [SECURITY.md](./SECURITY.md) for the threat model.
 
@@ -204,12 +204,12 @@ See [SECURITY.md](./SECURITY.md) for the threat model.
 
 The dev server (`yarn start`, webpack-dev-server) serves a local playground in addition to the shipped bundle:
 
-- **`index.html`** — the component playground / tester.
-- **`devTools.html`** — DevTools overlay mode (also reachable in a real app via `?devtools=true`).
+- **`index.html`**: a start page linking to the two below.
+- **`devTools.html`**: DevTools overlay mode (also reachable in a real app via `?devtools=true`).
   Each component gets an inspection badge color-coded by category (Base / Data / Layout).
   See the README for details.
-- **`statistics.html`** — a dashboard that analyzes component usage and resource coverage across apps.
-  It calls the local **`altinn-studio-custom-components-api`** on `API_PORT` (default `9001`) and therefore requires a Gitea token in `.env` (see [CONTRIBUTING](./CONTRIBUTING.md)).
+- **`statistics.html`**: a dashboard over the apps in the shared catalogue: component and text resource usage, data model binding drift, subform data model differences, package versions, and every app's display layouts drawn with its example data.
+  It calls the local **`altinn-studio-custom-components-api`** on `API_PORT` (default `9001`), which needs a Gitea token in its own environment (see [CONTRIBUTING](./CONTRIBUTING.md)).
 
 These surfaces are development-only and are not part of the published `dist/`.
 
@@ -219,18 +219,20 @@ These surfaces are development-only and are not part of the published `dist/`.
 
 Browser-side logging goes through `@arkitektum/client-logger` (wrapped in `src/functions/clientLoggerHelpers.ts`).
 API/fetch calls log result, errors, warnings, and response time to **Elastic**.
-The target endpoint is environment-aware — `src/constants/urls.ts` maps the current Altinn app origin (local / test / production) to the matching `frontendlogger.*.dibk.no` URL. Any other origin, such as another org's app, gets no logger, and nothing is logged.
+The target endpoint is environment-aware: `getClientLoggerApiUrl` in `src/functions/clientLoggerHelpers.ts` maps the current Altinn app origin (local / test / production) to the matching `frontendlogger.*.dibk.no` URL. Any other origin, such as another org's app, gets no logger, and nothing is logged.
 
 ---
 
 ## 9. Build & release pipeline
 
-The `build` script runs three steps:
+The `build` script runs five steps:
 
 ```text
-yarn symlinks            # create-symlinks.js   → link generated resources into public/data
-NODE_ENV=production webpack   # bundle to dist/  (uses webpack.config.js)
-yarn copy-dist-resources # copy src/data/resource.*.json + resources.json into dist/
+yarn symlinks                          # create-symlinks.js   → link generated resources into public/data
+NODE_ENV=production webpack            # bundle to dist/  (uses webpack.config.js)
+yarn copy-dist-resources               # copy src/data/resource.*.json + resources.json into dist/
+yarn generate-data-model-binding-keys  # write dist/dataModelBindingKeys.json
+yarn generate-layout-schema            # write dist/layout.schema.json
 ```
 
 Only `dist/` and `README.md` are published (`package.json#files`).
@@ -240,10 +242,10 @@ Only `dist/` and `README.md` are published (`package.json#files`).
 
 **CI** (`.github/workflows/`):
 
-- `ci.yml` — install, `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test`, `yarn build` on push/PR to `main`.
-- `eslint.yml` — ESLint scan, uploads SARIF to the GitHub Security tab (also on a weekly schedule).
-- `build-and-publish-to-npm.yml` / `build-and-publish-to-github.yml` — on GitHub **release created**: install, typecheck, test, build, then publish to npm (with a provenance attestation, which trusted publishing generates) and to GitHub Packages.
-  The dist-tag is derived from the release tag — a tag containing `-` (e.g. `1.2.3-beta.1`) publishes under that prerelease tag, otherwise `latest`.
+- `ci.yml`: install, `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test`, `yarn build` on push/PR to `main`.
+- `eslint.yml`: ESLint scan, uploads SARIF to the GitHub Security tab (also on a weekly schedule).
+- `build-and-publish-to-npm.yml` / `build-and-publish-to-github.yml`: on GitHub **release created**: install, typecheck, test, build, then publish to npm (with a provenance attestation, which trusted publishing generates) and to GitHub Packages.
+  The dist-tag is derived from the release tag: a tag containing `-` (e.g. `v1.2.3-beta.1`) publishes under that prerelease tag, otherwise `latest`.
 
 ---
 

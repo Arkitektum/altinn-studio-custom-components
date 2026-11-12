@@ -36,7 +36,7 @@ jobs:
                     exit 1
                   fi
 
-            # 👇 Ensure Yarn v4 from packageManager is used
+            # Ensures the Yarn 4 named in packageManager is used.
             - name: Enable Corepack & activate Yarn 4
               run: |
                   corepack enable

@@ -50,7 +50,7 @@ A few properties of the design are relevant when assessing security:
   Log messages should contain only what is needed for diagnostics.
 - **Secrets.**
   No secrets belong in this repository.
-  The only token used during development is a Gitea `read:repository` token for the local **Statistics** dashboard; it lives in a git-ignored `.env` file and is never bundled or published.
+  The only token used during development is a Gitea `read:repository` token that the separate statistics API uses to feed the local **Statistics** dashboard. It lives in that API's environment, never in this repository, and is never bundled or published.
   See [CONTRIBUTING.md](./CONTRIBUTING.md).
 - **Published surface.**
   Only `dist/` and `README.md` are published to npm.
