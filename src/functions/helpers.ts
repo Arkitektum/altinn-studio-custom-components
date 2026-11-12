@@ -160,7 +160,7 @@ const EMPTY_ID_CONTAINER_MAX_DEPTH = 2;
  * Retrieves the container element for a given component.
  *
  * An `id` is optional in the layout JSON, and `addContainerElement` sets `data-summary-target` from whatever the
- * component's id is — so every id-less component's container targets the empty string. Walking the whole ancestor
+ * component's id is, so every id-less component's container targets the empty string. Walking the whole ancestor
  * chain for `""` would therefore match the *first* id-less container above the component, however far up that is,
  * which need not be its own: for a component nested well below its wrapper that is another component's container,
  * and the caller goes on to hide or even remove it along with everything else inside.
@@ -179,7 +179,7 @@ export function getComponentContainerElement(component: HTMLElement): HTMLElemen
         return component;
     }
     if (!component.id) {
-        // The component itself, its parent, or its grandparent — the deepest an id-less component sits inside its
+        // The component itself, its parent, or its grandparent: the deepest an id-less component sits inside its
         // own container. Bounded rather than walking to the first empty-target container anywhere above it.
         let current: HTMLElement | null = component;
         for (let depth = 0; current && depth <= EMPTY_ID_CONTAINER_MAX_DEPTH; depth++, current = current.parentElement) {

@@ -54,7 +54,7 @@ function parseHostJsonAttribute(host: HTMLElement, attributeName: string, compon
  */
 function validateFormData(formData: unknown, type: string, componentName: string): void {
     const allowedKeys = allowedFormDataKeysForTypes[type];
-    // `null` (or an unconfigured type) means "allow all keys" — skip validation.
+    // `null` (or an unconfigured type) means "allow all keys", so there is nothing to validate.
     if (!formData || allowedKeys == null) {
         return;
     }
@@ -74,7 +74,7 @@ function validateFormData(formData: unknown, type: string, componentName: string
  */
 function validateResourceValues(resourceValues: unknown, type: string, componentName: string): void {
     const allowedKeys = allowedResourceValuesKeysForTypes[type];
-    // `null` (or an unconfigured type) means "allow all keys" — skip validation.
+    // `null` (or an unconfigured type) means "allow all keys", so there is nothing to validate.
     if (!resourceValues || allowedKeys == null) {
         return;
     }
@@ -92,7 +92,7 @@ function validateResourceValues(resourceValues: unknown, type: string, component
  * This is a developer-facing guard rail: it reminds authors of new components to pass primary data only through
  * the standardized channels (`formData.simpleBinding`, `formData.data`, `resourceValues.data`) and read it via
  * `getComponentDataValue`. It logs in every environment so mistakes surface wherever a component runs, and it
- * never throws — malformed JSON is reported and ignored rather than aborting the render.
+ * never throws: malformed JSON is reported and ignored rather than aborting the render.
  *
  * @param {HTMLElement} host - The custom element instance.
  * @param {string} type - The component type (e.g., "base", "data", "layout").
@@ -109,7 +109,7 @@ export function validateHostDataAttributes(host: HTMLElement, type: string): voi
  * The DevTools category for whole-form layout components.
  *
  * Layout components are treated differently from base and data components when they turn out to be empty: their
- * `hideIfEmpty` defaults to true, since an empty whole-form layout is never meaningful, and they are removed from
+ * `hideIfEmpty` is always true, since an empty whole-form layout is never meaningful, and they are removed from
  * the document rather than merely hidden, so no stray tag is left behind in the summary view or the generated PDF.
  */
 const LAYOUT_TYPE = "layout";
@@ -206,8 +206,9 @@ function isAwaitingFrontendFormData(host: HTMLElement): boolean {
  *
  * 1. Instantiate the component class from the element's attributes.
  * 2. If the component resolves to empty and should be hidden, skip the render and hide its container (or, in DevTools
- *    mode, render a hidden-element placeholder badge). This is gated on the effective `hideIfEmpty` flag — true by
- *    default for layout components, otherwise taken from the component — and `alwaysHideWhenEmpty` forces it on.
+ *    mode, render a hidden-element placeholder badge). This is gated on the effective `hideIfEmpty` flag (see
+ *    `resolveHideIfEmpty`): always true for layout components, and otherwise the host's attribute, else the
+ *    component's, else `hideWhenEmptyByDefault`. `alwaysHideWhenEmpty` forces it on.
  * 3. Otherwise invoke the component-specific `render` callback and attach the DevTools overlay.
  * 4. Optionally append a validation feedback list when `withFeedback` is set and the component has messages.
  * 5. For layout components, drop the element entirely when nothing was rendered inside it.
@@ -360,7 +361,7 @@ function renderComponentRenderError(host: HTMLElement, type: string, error: unkn
  * steps and the options.
  *
  * A component that throws while it is drawn, typically because its data has a shape it did not expect, is replaced by
- * a short notice rather than left blank, and the failure is logged. One broken component no longer hides itself
+ * a short notice rather than left blank, and the failure is logged, so a broken component does not hide itself
  * silently, and it never stops the rest of the page from rendering.
  *
  * The app frontend that ships with app backend v9 sets the form data and texts as properties after the element is
@@ -368,7 +369,7 @@ function renderComponentRenderError(host: HTMLElement, type: string, error: unkn
  *
  * A component whose layout names a `dataType` reads its form data from the app instead, see appFormDataHelpers.ts. It
  * carries `data-loading` while the data is on its way, which holds back the page's readiness for print, and is drawn
- * once it arrives. When the data element cannot be told, it is drawn from the frontend's data as before.
+ * once it arrives. When the data element cannot be told, it is drawn from the frontend's data.
  *
  * @param host - The custom element instance (`this` inside `connectedCallback`).
  * @param options - Lifecycle options, as `drawCustomComponent` takes them.

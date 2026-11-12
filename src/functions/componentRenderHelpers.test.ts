@@ -142,7 +142,7 @@ describe("renderCustomComponent", () => {
             delete globalThis.altinnAppGlobalData;
         });
 
-        it("draws from the element as before when the data cannot be had", () => {
+        it("draws from the element's own form data when the data cannot be had", () => {
             const host = document.body.appendChild(document.createElement("custom-test"));
             jest.mocked(getAppFormDataForElement).mockReturnValueOnce({ status: "unavailable" });
             const render = jest.fn();
@@ -359,7 +359,7 @@ describe("renderCustomComponent", () => {
     });
 });
 
-describe("renderCustomComponent — padded container wrapper", () => {
+describe("renderCustomComponent: padded container wrapper", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         jest.mocked(isDevMode).mockReturnValue(false);
@@ -433,7 +433,7 @@ describe("renderCustomComponent — padded container wrapper", () => {
     });
 });
 
-describe("renderCustomComponent — layout components", () => {
+describe("renderCustomComponent: layout components", () => {
     beforeEach(() => {
         jest.clearAllMocks();
         jest.mocked(isDevMode).mockReturnValue(false);
@@ -580,7 +580,7 @@ describe("renderCustomComponent — layout components", () => {
     });
 });
 
-describe("renderCustomComponent — a component that fails to render", () => {
+describe("renderCustomComponent: a component that fails to render", () => {
     let errorSpy: ReturnType<typeof jest.spyOn>;
     let postLogData: jest.Mock;
 

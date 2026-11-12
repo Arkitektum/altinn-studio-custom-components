@@ -51,7 +51,7 @@ export default class CustomGrouplistSjekklistekrav extends CustomComponent {
             sjekklistekrav: {
                 trueText: resourceBindings?.sjekklistekrav?.trueText,
                 falseText: resourceBindings?.sjekklistekrav?.falseText,
-                // Checked only when configured, as a missing default text is no longer an error but a field that hides.
+                // Checked only when configured: without a default text, an unanswered item hides.
                 ...(resourceBindings?.sjekklistekrav?.defaultText ? { defaultText: resourceBindings.sjekklistekrav.defaultText } : {})
             }
         };

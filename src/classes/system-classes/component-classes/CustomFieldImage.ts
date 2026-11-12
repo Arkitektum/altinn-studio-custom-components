@@ -15,9 +15,9 @@ import { SIMPLE_BINDING_OR_DATA } from "../../../constants/dataModelBindingKeys.
  * CustomFieldImage renders an image (PNG/JPEG/SVG/…) from a source string.
  *
  * The source is resolved in priority order:
- *  1. The data model binding value (`formData.simpleBinding`/`data`) — for a per-instance
+ *  1. The data model binding value (`formData.simpleBinding`/`data`), for a per-instance
  *     image stored as a URL or a base64 data URI (`data:image/jpeg;base64,...`).
- *  2. `resourceBindings.src` — a static path/URL/data URI from the text resources,
+ *  2. `resourceBindings.src`: a static path/URL/data URI from the text resources,
  *     useful as a placeholder or for a fixed image.
  *
  * Optional `resourceBindings.title` renders a caption above the image, and
@@ -67,7 +67,7 @@ export default class CustomFieldImage extends CustomComponent {
     /**
      * Retrieves the component usage, which is an array of custom component names that this class utilizes.
      *
-     * @returns {Array<string>} An empty array — this component renders a plain image element.
+     * @returns {Array<string>} An empty array, since this component renders a plain image element.
      */
     getComponentUsage(): string[] {
         return [];

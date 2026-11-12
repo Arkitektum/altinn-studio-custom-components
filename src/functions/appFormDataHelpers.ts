@@ -18,13 +18,13 @@ import { fetchWithTimeoutAndClientLogger } from "./clientLoggerHelpers.ts";
 
 /** What a component asking for form data from the app is told. */
 export type AppFormDataState =
-    /** The component did not ask, or the page is not one this serves. Draw from the frontend's data as before. */
+    /** The component did not ask, or the page is not one this serves. Draw from the frontend's data. */
     | { status: "none" }
     /** The data is on its way. Wait, and draw again when told. */
     | { status: "pending" }
     /** The form data, ready to draw from. */
     | { status: "ready"; formData: unknown }
-    /** The data element could not be found or fetched. Draw from the frontend's data as before. */
+    /** The data element could not be found or fetched. Draw from the frontend's data. */
     | { status: "unavailable" };
 
 /** Where on the page the instance is, read from its address. */

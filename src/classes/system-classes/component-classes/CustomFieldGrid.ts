@@ -10,7 +10,7 @@ import { instantiateComponent } from "../../../functions/componentHelpers.ts";
 
 /**
  * CustomFieldGrid renders a vertical key/value table (label column + value column),
- * one row per column definition — mirroring the "Felt | Verdi" table of a formal letter.
+ * one row per column definition, mirroring the "Felt | Verdi" table of a formal letter.
  *
  * Each row reads its value from `formData[column.dataKey]` (one data model binding per row)
  * or from a static `column.value`, and is rendered by an arbitrary child component
@@ -64,7 +64,7 @@ export default class CustomFieldGrid extends CustomComponent {
         return tableColumns.map((column) => {
             const cellData = this.getCellData(column, formData);
             // The grid renders the label (term) itself, so the value child must NOT render its own
-            // title — otherwise components that ignore `hideTitle` (e.g. custom-field-kommunens-saksnummer)
+            // title, or components that ignore `hideTitle` (e.g. custom-field-kommunens-saksnummer)
             // would duplicate the label inside the value cell.
             const valueComponent = {
                 tagName: column?.tagName || "custom-field-data",
@@ -89,11 +89,11 @@ export default class CustomFieldGrid extends CustomComponent {
      * Resolves the value for a single grid row.
      *
      * Precedence:
-     *  1. `column.value` — a static literal value.
-     *  2. `column.dataKeys` — an array of binding keys whose resolved values are
+     *  1. `column.value`: a static literal value.
+     *  2. `column.dataKeys`: an array of binding keys whose resolved values are
      *     joined with `column.separator` (default " / "); empty parts are dropped.
      *     Used for composite fields such as Arealplan-ID (kommunenr / landkode / planId).
-     *  3. `column.dataKey` — a single binding key.
+     *  3. `column.dataKey`: a single binding key.
      *
      * @param {Object} column - The column definition.
      * @param {Object} formData - The resolved form data (one entry per dataModelBindings key).

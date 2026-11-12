@@ -272,7 +272,7 @@ describe("getComponentContainerElement", () => {
     });
     it("does not match another id-less component's container", () => {
         // Every id-less component's container targets "", so walking ancestors for "" could match a container that
-        // belongs to a different component — which the caller would then hide or remove wholesale.
+        // belongs to a different component, which the caller would then hide or remove wholesale.
         const otherContainer = document.createElement("div");
         otherContainer.setAttribute("data-summary-target", "");
         const otherContent = document.createElement("div");

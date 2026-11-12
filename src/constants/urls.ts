@@ -1,6 +1,6 @@
 /**
  * This module defines constants for API URLs and origins used in the client logger and Altinn app integration.
- * It also provides a function to get the appropriate client logger API URL based on the current origin.
+ * Which client logger URL an origin gets is decided by `getClientLoggerApiUrl` in clientLoggerHelpers.ts.
  */
 export const clientLoggerApiUrls = {
     local: "https://frontendlogger.ft-dev.dibk.no/log",

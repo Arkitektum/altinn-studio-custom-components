@@ -136,8 +136,7 @@ export function renderSummationElement(data: unknown) {
     summationElement.classList.add("custom-summation");
     if (Array.isArray(data)) {
         data.forEach((summationItem: InstantiatedComponent) => {
-            // Append the element rather than concatenating its serialized HTML: `innerHTML +=` re-parses everything
-            // already in the container on every item, discarding and rebuilding the nodes it had just created.
+            // Appended as an element, so the nodes already in the container are kept rather than re-parsed for every item.
             summationElement.appendChild(renderSummationItemElement(summationItem, false));
         });
     }

@@ -46,7 +46,7 @@ const declarationsTitle = (areas: unknown) =>
     attributes(table(areas)).columns.find((entry) => entry.dataKey === "faseSamsvarKontrollList.resourceValues.data")?.resourceBindings?.title;
 
 describe("hiding when empty", () => {
-    // The inner table used to be told to hide whenever it was empty, so an empty table showed nothing even with hideIfEmpty="false".
+    // Hiding whenever the inner table is empty would show nothing even with hideIfEmpty="false".
     it("leaves the decision to the component, passing its own hideIfEmpty on", () => {
         expect(
             attributes(renderAnsvarsrettAnsvarsomraadeTable({ resourceBindings, resourceValues: { data: [] }, hideIfEmpty: true })).hideIfEmpty

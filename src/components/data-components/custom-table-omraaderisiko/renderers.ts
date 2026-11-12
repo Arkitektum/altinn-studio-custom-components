@@ -13,8 +13,8 @@ import { CustomElementHtmlAttributes, createCustomElement } from "@arkitektum/al
  * @param {Object} [component?.resourceBindings.sikkerhetsklasse] - Resource bindings for "sikkerhetsklasse" column.
  * @param {string} [component?.resourceBindings.sikkerhetsklasse.title] - Title for "sikkerhetsklasse" column.
  * @param {string} [component?.resourceBindings.sikkerhetsklasse.emptyFieldText] - Text to display if "sikkerhetsklasse" field is empty.
- * @param {Object} [component?.resourceBindings.omraadeRisiko] - Resource bindings for table title.
- * @param {string} [component?.resourceBindings.omraadeRisiko.description] - Description for the table.
+ * @param {Object} [component?.resourceBindings.omraaderisiko] - Resource bindings for the table.
+ * @param {string} [component?.resourceBindings.omraaderisiko.title] - Title for the table.
  * @param {string} [component.size] - Size attribute for the table.
  * @param {Object} [component?.resourceValues] - Resource values for the table.
  * @returns {HTMLElement} The rendered custom table element.

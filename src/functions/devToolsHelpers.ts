@@ -50,7 +50,7 @@ export function isDevMode() {
 /**
  * Truncates a string to a specified maximum length, adding an ellipsis if the string exceeds the limit.
  * @param {string} str - The string to truncate.
- * @param {number} [maxLen=80] - The maximum length of the string.
+ * @param {number} [maxLen=300] - The maximum length of the string.
  * @returns {string} The truncated string.
  */
 function truncate(str: string, maxLen = 300): string {

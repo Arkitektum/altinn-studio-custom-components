@@ -4,8 +4,8 @@ import { CustomElementHtmlAttributes, addContainerElement, createCustomElement }
 
 /*
  * The pieces nearly every group component draws inside itself: a heading, and the paragraph shown in place of its
- * content when it is empty. They were copied into each component's renderers.ts, and webpack kept every copy, so each
- * component now re-exports these instead, keeping its own name for them and its own default heading level.
+ * content when it is empty. Kept here once rather than in each component's renderers.ts, so the bundle holds one copy.
+ * Components use them directly or wrap them with their own name and default heading level.
  */
 
 /**

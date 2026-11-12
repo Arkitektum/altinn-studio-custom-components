@@ -57,8 +57,7 @@ describe("fetchTextResources", () => {
 
     it("falls back when the request timed out, without blaming a parsing error for it", async () => {
         // The fetch helper answers with nothing on a timeout rather than throwing, and logs the timeout itself.
-        // This used to read .ok off that nothing, so the failure was reported as "Cannot read properties of
-        // undefined (reading 'ok')" under a "Network or parsing error" heading.
+        // Reading .ok off that nothing would report the failure as a "Network or parsing error".
         const fallbackData = { key: "fallback" };
         jest.mocked(fetchWithTimeoutAndClientLogger)
             .mockResolvedValueOnce(undefined)

@@ -103,8 +103,8 @@ export function getClientLoggerInstance(origin = globalThis.location.origin): Cl
     const apiUrl = getClientLoggerApiUrl(origin);
     if (apiUrl === null) return null;
     const appName = "a3-pdf";
-    // The package declares the source map argument as a string, but it is optional in practice and this call has
-    // never had one. The assertion is erased at build time, so nothing about the call changes.
+    // The package declares the source map argument as a string, but it is optional in practice and this call has none
+    // to give. The assertion is erased at build time, so nothing about the call changes.
     const clientLogger = new ClientLogger(apiUrl, null as unknown as string, appName);
     return clientLogger;
 }

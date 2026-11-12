@@ -64,8 +64,8 @@ describe("the rows", () => {
     });
 
     it("draws the bold without writing it into the data it was handed", () => {
-        // The cell is the component's own resourceValues.data. Rendering used to assign the bold onto it, so the
-        // model came back from a render carrying styling that belongs to the drawing.
+        // The cell is the component's own resourceValues.data, so assigning the bold onto it would leave the model
+        // carrying styling that belongs to the drawing.
         const data = matrixData();
         const headingCell = data.matrixRows[0]![0] as { styleOverride?: Record<string, string> };
         const before = headingCell.styleOverride;

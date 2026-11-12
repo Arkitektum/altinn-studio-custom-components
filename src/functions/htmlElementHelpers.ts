@@ -22,6 +22,8 @@ import { hasValue, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-co
  *   @property {string} itemDescriptionKey - The item description key associated with the element.
  *   @property {string} dataItemKey - The data item key associated with the element.
  *   @property {string} dataTitleItemKey - The data title item key associated with the element.
+ *   @property {string} dataType - The data type the element reads its form data from.
+ *   @property {string} dataKey - The key within that data the element reads.
  *   @property {boolean} hideOrgNr - Whether to hide the organization number.
  *   @property {string} format - The format attribute of the element.
  *   @property {Array} tableColumns - The table columns configuration.
@@ -29,8 +31,7 @@ import { hasValue, isValidHeaderSize } from "@arkitektum/altinn-studio-custom-co
  *   @property {Object} resourceBindings - Text resource bindings for the element.
  *   @property {Object} resourceValues - Resource values for the element.
  *   @property {boolean} enableLinks - Whether to enable links in the field value.
- *   @property {string} sortKey - The sort key associated with the element.
- *   @property {string} endSymbol - The end symbol for the element.
+ *   @property {Object} order - The ordering configuration for the element.
  */
 export function getPropsFromElementAttributes(element: HTMLElement) {
     return {
@@ -321,10 +322,10 @@ function getDataKey(element: HTMLElement) {
 }
 
 /**
- * Retrieves the value of the "sortKey" attribute from the given HTML element.
+ * Retrieves the parsed value of the "order" attribute from the given HTML element.
  * Returns the value only if it exists and is considered valid by the hasValue function.
  *
- * @param {HTMLElement} element - The HTML element from which to retrieve the "sortKey" attribute.
+ * @param {HTMLElement} element - The HTML element from which to retrieve the "order" attribute.
  * @returns {Object|false} The order object if valid, otherwise false.
  */
 function getOrder(element: HTMLElement) {
@@ -406,7 +407,7 @@ function getFormat(element: HTMLElement) {
  * Retrieves and parses the "tableColumns" attribute from a given HTML element.
  *
  * @param {HTMLElement} element - The HTML element from which to extract the "tableColumns" attribute.
- * @returns {any|null} The parsed table columns if present and valid, otherwise null.
+ * @returns {any|false} The parsed table columns if present and valid, otherwise false.
  */
 function getTableColumns(element: HTMLElement) {
     const tableColumns = parseJsonAttribute(element, "tableColumns");
@@ -464,7 +465,6 @@ function getEnableLinks(element: HTMLElement) {
  * @param {string} org - The organization identifier to include in the class name.
  * @param {string} app - The application identifier to include in the class name.
  * @returns {void}
- * @example
  */
 export function addBodyClassNamesForApplication(org?: string, app?: string): void {
     if (org && app) {
@@ -493,7 +493,6 @@ export function removeAllBodyClassNamesForApplication() {
  * @param {string} org - The organization identifier to include in the new class name.
  * @param {string} app - The application identifier to include in the new class name.
  * @returns {void}
- * @example
  */
 export function updateBodyClassNamesForApplication(org?: string, app?: string): void {
     removeAllBodyClassNamesForApplication();

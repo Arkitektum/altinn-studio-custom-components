@@ -46,7 +46,7 @@ export const fetchTextResources = async (
     try {
         const primaryResponse = await fetchWithTimeoutAndClientLogger(textResourcesApiUrl, {}, 5000, clientLogger, customFields);
         // The helper answers with nothing when the request timed out or the network failed, having logged why on the
-        // way past. Reading `.ok` off that threw a TypeError, which the catch below then reported as a parsing error.
+        // way past, so the response is checked before anything is read off it.
         const outcome = primaryResponse ? `Response status: ${primaryResponse.status}.` : "No response: the request timed out or the network failed.";
         if (primaryResponse?.ok) {
             const textResourcesData = await primaryResponse.json();

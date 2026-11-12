@@ -58,8 +58,8 @@ describe("CustomDispensasjonsvarsel", () => {
     });
 
     it("shows the empty field text when there is no form data at all", () => {
-        // The real hasValue reports any boolean as content, which is how an absent form data used to end up stored
-        // as false rather than the empty field text.
+        // The real hasValue reports any boolean as content, so an absent form data stored as false would read as
+        // content rather than as the empty field text.
         const empty = new CustomDispensasjonsvarsel({ formData: undefined } as unknown as ComponentProps);
         expect(empty.isEmpty).toBe(true);
         expect(empty.resourceValues.data).not.toBe(false);

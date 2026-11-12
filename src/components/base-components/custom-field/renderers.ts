@@ -51,6 +51,15 @@ function renderFieldValueElement(fieldValue: unknown, enableLinks: boolean | und
     return fieldValueElement;
 }
 
+/** The options renderFieldElement takes. */
+export interface FieldElementOptions {
+    /** Whether to hand back the serialized HTML rather than the element itself. */
+    returnHtml?: boolean;
+    inline?: boolean;
+    styleOverride?: Record<string, string>;
+    enableLinks?: boolean;
+}
+
 /**
  * Renders a custom field element with a title and value, supporting various options.
  *
@@ -63,14 +72,6 @@ function renderFieldValueElement(fieldValue: unknown, enableLinks: boolean | und
  * @param {boolean} [options.enableLinks] - If true, enables link rendering in the field value.
  * @returns {string|HTMLElement} The rendered field element as an HTML string or DOM element, depending on `options.returnHtml`.
  */
-export interface FieldElementOptions {
-    /** Whether to hand back the serialized HTML rather than the element itself. */
-    returnHtml?: boolean;
-    inline?: boolean;
-    styleOverride?: Record<string, string>;
-    enableLinks?: boolean;
-}
-
 export function renderFieldElement(fieldTitle: string, fieldValue: unknown, options: FieldElementOptions & { returnHtml: false }): HTMLDivElement;
 export function renderFieldElement(fieldTitle: string, fieldValue: unknown, options?: FieldElementOptions): string;
 export function renderFieldElement(fieldTitle: string, fieldValue: unknown, options?: FieldElementOptions) {
@@ -82,8 +83,8 @@ export function renderFieldElement(fieldTitle: string, fieldValue: unknown, opti
     };
     const fieldElement = document.createElement("div");
     fieldElement.classList.add("field");
-    // The title comes right before the value, which is how a screen reader reads the pair. No aria-labelledby: a plain
-    // span with no role cannot be named, so it was ignored.
+    // The title comes right before the value, which is how a screen reader reads the pair. A plain span with no role
+    // cannot be named, so there is no aria-labelledby.
     if (fieldTitle?.length) {
         fieldElement.appendChild(renderFieldTitleElement(fieldTitle, options.inline));
     }

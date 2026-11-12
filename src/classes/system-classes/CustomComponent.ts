@@ -101,7 +101,7 @@ export default class CustomComponent {
      * `getComponentDataValue`, which resolves the value from `resourceValues.data` (child components) or
      * `formData.simpleBinding` / `formData.data` (bound components). New components should rely on this default
      * and only override `getValueFromFormData` when they need to transform, wrap, or combine the raw value
-     * (e.g. instantiating a model class or formatting) — always building on `getComponentDataValue` rather than
+     * (e.g. instantiating a model class or formatting), always building on `getComponentDataValue` rather than
      * reading other props for the primary data.
      *
      * @param {Object} props - The properties containing the component's data.
@@ -131,7 +131,7 @@ export default class CustomComponent {
      * differently (e.g. table headers) override this.
      *
      * @param {Object} resourceBindings - The resource bindings to validate.
-     * @returns {Array|string|boolean} The missing-text-resource validation result.
+     * @returns {ValidationMessages} The messages for any missing text resources.
      */
     getValidationMessages(resourceBindings?: Record<string, ResourceBindingGroup | undefined>) {
         return hasMissingTextResources(resourceBindings);

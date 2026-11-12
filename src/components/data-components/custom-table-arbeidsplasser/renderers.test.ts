@@ -29,7 +29,7 @@ function attributes(element: HTMLElement) {
 }
 
 describe("hiding when empty", () => {
-    // The inner table used to be told to hide whenever it was empty, so an empty table showed nothing even with hideIfEmpty="false".
+    // Hiding whenever the inner table is empty would show nothing even with hideIfEmpty="false".
     it("leaves the decision to the component, passing its own hideIfEmpty on", () => {
         expect(attributes(renderArbeidsplasserTable({ ...component, hideIfEmpty: true })).hideIfEmpty).toBe("true");
         expect(attributes(renderArbeidsplasserTable(component)).hideIfEmpty).toBeNull();

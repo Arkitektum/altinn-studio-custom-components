@@ -10,8 +10,7 @@ import { getEmptyFieldText } from "../../../functions/helpers.ts";
  *
  * @param {Object} tableHeader - The table header configuration object.
  * @param {string} tableHeader.text - The text content for the table header.
- * @param {Object} [tableHeader.props] - Additional properties for the table header.
- * @param {Object} [tableHeader.props.styleOverride] - CSS styles to apply to the table header.
+ * @param {Object} [tableHeader.styleOverride] - CSS styles to apply to the table header.
  * @returns {HTMLElement} The created table header (th) element.
  */
 function renderTableHeaderElement(tableHeader: TableHeader) {
