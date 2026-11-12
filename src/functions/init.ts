@@ -3,6 +3,7 @@ import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHel
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
 import type { LogCustomField } from "../types.ts";
+import { getInstanceRoute } from "./appFormDataHelpers.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
 
 /**
@@ -100,16 +101,19 @@ function holdNativeDomContentLoaded(): void {
 }
 
 /**
- * Fetches the default text resources for a given language, with an optional fallback language if the primary fetch fails.
+ * Reads the instance id, `{partyId}/{instanceGuid}`, from where the page is.
  *
- * @param location - Where the page is, which carries the instance id in its hash.
- * @returns The instance ID extracted from the location hash.
+ * App frontend v4 carries it in the hash (`#/instance/{partyId}/{instanceGuid}/...`), v9 in the path.
+ *
+ * @param location - Where the page is.
+ * @returns The instance id, or undefined on a page that shows no instance.
  */
-function getInstanceIdFromLocation(location: Location): string {
-    const splittedHash = location?.hash?.split("/");
-    const instanceIdWithQuery = `${splittedHash?.[2]}/${splittedHash?.[3]}`;
-    // Splitting a string always yields a first part, even when there was no separator to split on.
-    return instanceIdWithQuery.split("?")[0]!;
+function getInstanceIdFromLocation(location: Location): string | undefined {
+    const [, segment, partyId, instanceGuid] = location?.hash?.split("?")[0]?.split("/") ?? [];
+    if (segment === "instance" && partyId && instanceGuid) {
+        return `${partyId}/${instanceGuid}`;
+    }
+    return getInstanceRoute(location)?.instanceId;
 }
 
 /**

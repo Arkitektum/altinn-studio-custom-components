@@ -269,6 +269,41 @@ describe("initCustomComponents", () => {
             expect(getHold()).toBeUndefined();
         });
     });
+
+    describe("the instance id carried on every log entry", () => {
+        const startUrl = globalThis.location.href;
+        const instanceGuid = "0e9f1c3a-2b4d-4c5e-8f6a-7b8c9d0e1f2a";
+        const loggedInstanceId = () =>
+            (jest.mocked(fetchTextResources).mock.calls[0]?.[6] as { key: string; value?: string }[] | undefined)?.find(
+                (field) => field.key === "instanceId"
+            )?.value;
+
+        afterEach(() => {
+            globalThis.history.replaceState(null, "", startUrl);
+        });
+
+        it("reads it from the hash, as app frontend v4 routes", async () => {
+            await initCustomComponents();
+
+            expect(loggedInstanceId()).toBe("512345/abc-def");
+        });
+
+        it("reads it from the path, as app frontend v9 routes", async () => {
+            globalThis.history.replaceState(null, "", `/${org}/${app}/instance/512345/${instanceGuid}/Task_1/Side1`);
+
+            await initCustomComponents();
+
+            expect(loggedInstanceId()).toBe(`512345/${instanceGuid}`);
+        });
+
+        it("carries none on a page that shows no instance", async () => {
+            globalThis.history.replaceState(null, "", `/${org}/${app}/`);
+
+            await initCustomComponents();
+
+            expect(loggedInstanceId()).toBeUndefined();
+        });
+    });
 });
 
 describe("isAltinnAppOrigin", () => {
