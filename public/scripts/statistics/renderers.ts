@@ -934,7 +934,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     // The text resources for the chosen language are on globalThis, and a synchronization puts the default language
     // back there, so they are set up again before the page is.
     const optionsToDrawAgainWith = selectedOptions;
-    drawOpenPageAgain = async () => {
+    const drawThisPageAgain = async () => {
         applyTextResourcesForLanguage(
             globalThis.multilingualDefaultTextResources,
             globalThis.multilingualAppResourceValues,
@@ -945,6 +945,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         containerElement.innerHTML = "";
         await renderDisplayLayoutsPage(containerElement, globalThis.exampleData, globalThis.applicationMetadata, optionsToDrawAgainWith);
     };
+    drawOpenPageAgain = drawThisPageAgain;
     const titleElement = document.createElement("h2");
     titleElement.textContent = "Display layouts";
     containerElement.appendChild(titleElement);
@@ -998,6 +999,10 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
 
     const altinnStudioForms = globalThis.altinnStudioForms || (await fetchAltinnStudioForms());
     globalThis.altinnStudioForms = altinnStudioForms;
+    // Another page, or this one with other choices, was opened while the forms were fetched, and has the container.
+    if (drawOpenPageAgain !== drawThisPageAgain) {
+        return;
+    }
 
     const dataType = altinnStudioForms.find(
         (app: ApiValue) => app.appName === selectedDisplayLayoutAppName && app.appOwner === selectedDisplayLayoutAppOwner
@@ -1106,11 +1111,21 @@ export function renderAdminSidebar() {
     setIconLabel(displayLayoutsButton, "layout", "Display layouts");
     displayLayoutsButton.onclick = async () => {
         mainElement!.innerHTML = "";
-        const exampleData = globalThis.exampleData || (await fetchExampleData());
-        const applicationMetadata = globalThis.applicationMetadata || (await fetchApplicationMetadata());
-        globalThis.exampleData = exampleData;
-        globalThis.applicationMetadata = applicationMetadata;
-        renderDisplayLayoutsPage(mainElement!, exampleData, applicationMetadata);
+        // Marks this page as the one opening, so a page opened while the data below is fetched keeps the container.
+        const opening = () => {};
+        drawOpenPageAgain = opening;
+        try {
+            const exampleData = globalThis.exampleData || (await fetchExampleData());
+            const applicationMetadata = globalThis.applicationMetadata || (await fetchApplicationMetadata());
+            if (drawOpenPageAgain !== opening) {
+                return;
+            }
+            globalThis.exampleData = exampleData;
+            globalThis.applicationMetadata = applicationMetadata;
+            await renderDisplayLayoutsPage(mainElement!, exampleData, applicationMetadata);
+        } catch (error) {
+            console.error("Could not open the display layouts page:", error);
+        }
     };
     displayLayoutsListItem.appendChild(displayLayoutsButton);
     sidebarList.appendChild(displayLayoutsListItem);

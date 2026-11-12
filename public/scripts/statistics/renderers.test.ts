@@ -56,6 +56,7 @@ jest.mock("../../../src/functions/htmlElementHelpers.ts", () => ({
     updateBodyClassNamesForApplication: jest.fn()
 }));
 
+import { fetchAltinnStudioForms, getUpdatedApiData } from "./apiHelpers.ts";
 import {
     findExampleDataForApp,
     getApplicationMetadataForSelectedApp,
@@ -90,7 +91,6 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
-import { getUpdatedApiData } from "./apiHelpers.ts";
 
 describe("renderAdminSidebar", () => {
     beforeEach(() => {
@@ -326,6 +326,32 @@ describe("internal renderers functions", () => {
         (renderSelectFormFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderTextInputFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderUsageFilterForComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
+    });
+    it("leaves the container to a page opened while the display layouts page was fetching its forms", async () => {
+        globalThis.altinnStudioForms = undefined;
+        let answer: (forms: unknown) => void = () => {};
+        const forms: Promise<unknown> = new Promise((resolve) => {
+            answer = resolve;
+        });
+        (fetchAltinnStudioForms as unknown as jest.Mock).mockReturnValueOnce(forms);
+        renderAdminSidebar();
+        const button = (label: string) =>
+            Array.from(document.querySelectorAll("#sidebar button")).find((element) => element.textContent === label) as HTMLButtonElement;
+
+        button("Display layouts").click();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        // The forms are fetched once an app is chosen.
+        const appSelect = document.getElementById("select-display-layout-application") as HTMLSelectElement;
+        appSelect.value = "owner1/app1";
+        appSelect.dispatchEvent(new Event("change"));
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        button("Package versions").click();
+        answer([{ appName: "app1", appOwner: "owner1", dataType: "dt" }]);
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        const mainElement = document.getElementById("admin-main")!;
+        expect(mainElement.querySelector("h2")!.textContent).toBe("Package versions");
+        expect(mainElement.querySelector(".page")).toBeNull();
     });
     it("renderComponentUsagePage runs without error", () => {
         const el = document.createElement("div");
