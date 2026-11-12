@@ -445,6 +445,18 @@ describe("internal renderers functions", () => {
         const result = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, globalThis.exampleData, { formType: "main", fileNames: {} });
         expect(result).toEqual({ dt: "Standard" });
     });
+    it("setDefaultSelectedFileNameForDisplayLayouts keeps a chosen file the app still has", () => {
+        const displayLayout = { appName: "app1", appOwner: "owner1", dataType: "dt" };
+        const fileNames = { dt: "Maksimumsversjon", other: "Kept" };
+        const result = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, globalThis.exampleData, { formType: "main", fileNames });
+        expect(result).toEqual(fileNames);
+    });
+    it("setDefaultSelectedFileNameForDisplayLayouts falls back to the first file when the chosen one is gone", () => {
+        const displayLayout = { appName: "app1", appOwner: "owner1", dataType: "dt" };
+        const fileNames = { dt: "Removed by a synchronization", other: "Kept" };
+        const result = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, globalThis.exampleData, { formType: "main", fileNames });
+        expect(result).toEqual({ dt: "Standard", other: "Kept" });
+    });
     it("setDefaultSelectedFileNameForDisplayLayouts does not default from another app's examples", () => {
         const displayLayout = { appName: "app2", appOwner: "owner1", dataType: "dt" };
         const result = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, globalThis.exampleData, { formType: "main", fileNames: {} });

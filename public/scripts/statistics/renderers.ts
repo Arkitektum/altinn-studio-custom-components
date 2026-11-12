@@ -832,7 +832,8 @@ export function setDefaultSelectedFileNameForDisplayLayouts(
     if (files.length === 0) {
         return selectedOptions.fileNames;
     }
-    if (!selectedOptions.fileNames?.[dataType]) {
+    // A file chosen before a synchronization that no longer has it falls back to the first, like an unchosen one.
+    if (!files.includes(selectedOptions.fileNames?.[dataType])) {
         return { ...selectedOptions.fileNames, [dataType]: files[0] };
     }
     return selectedOptions.fileNames;
