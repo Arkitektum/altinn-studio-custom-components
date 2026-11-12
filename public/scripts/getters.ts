@@ -6,7 +6,7 @@ import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 import { beautifyJson } from "./formatters.ts";
 
 // Local functions
-import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage.ts";
+import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.ts";
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.ts";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./devTools/renderers.ts";
 import { setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
@@ -34,7 +34,7 @@ export function getDataModelSummaryText(dataModel: ApiValue, index: number) {
  * @returns {HTMLUListElement} The list element containing all data model items.
  */
 export function getDataModelListElements() {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")!) || [];
+    const dataModels = getDataModels();
     const dataModelListElement = document.createElement("ul");
     dataModelListElement.id = "data-model-list";
     dataModelListElement.classList.add("data-model-list");
@@ -92,7 +92,7 @@ export function getDataModelListElements() {
             }
             // The editor for an open data model writes back by index, which no longer points at the same model.
             const dataModelEditorOpen = document.querySelector("#data-model-list li.active") !== null;
-            const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")!) || [];
+            const dataModels = getDataModels();
             dataModels.splice(index, 1);
             addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
             renderSidebar();
@@ -125,7 +125,7 @@ export function getDataModelListElements() {
 export function getCodeInputElementForDataModel(dataModelIndex: number) {
     const codeInputElement = document.createElement("textarea");
     codeInputElement.id = "code-input";
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")!) || [];
+    const dataModels = getDataModels();
     const dataModel = dataModels[dataModelIndex];
     codeInputElement.value = JSON.stringify(dataModel.data, null, 2);
     codeInputElement.onchange = function () {

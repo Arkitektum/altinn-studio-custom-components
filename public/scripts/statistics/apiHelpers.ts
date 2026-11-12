@@ -1,4 +1,3 @@
-import type { ApiValue } from "../types.ts";
 // Local functions
 import { showSyncProgress } from "./syncProgress.ts";
 
@@ -11,6 +10,29 @@ declare const process: { env: Record<string, string | undefined> };
 const API_PORT = process.env.API_PORT || 9001;
 
 /**
+ * Fetches one of the local API's endpoints and answers its JSON.
+ *
+ * A failure is logged and thrown again, with the message the sync progress panel shows for that request.
+ *
+ * @param {string} path - The path under `/api/`, with its query if it has one.
+ * @param {string} what - What the endpoint answers with, as the error message names it.
+ * @returns {Promise<any>} The parsed JSON.
+ * @throws {Error} If the request fails or the response is not OK.
+ */
+async function fetchApiJson(path: string, what: string) {
+    try {
+        const response = await fetch(`http://localhost:${API_PORT}/api/${path}`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch ${what}: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error(`Error fetching ${what}:`, error);
+        throw error;
+    }
+}
+
+/**
  * Fetches display layouts from the local API endpoint.
  *
  * @async
@@ -19,18 +41,7 @@ const API_PORT = process.env.API_PORT || 9001;
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchDisplayLayouts() {
-    const url = `http://localhost:${API_PORT}/api/displayLayouts`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch DisplayLayout.json: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching DisplayLayout.json:", error);
-            throw error;
-        });
+    return fetchApiJson("displayLayouts", "DisplayLayout.json");
 }
 
 /**
@@ -44,18 +55,7 @@ export async function fetchDisplayLayouts() {
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchPackageVersions() {
-    const url = `http://localhost:${API_PORT}/api/packageVersions`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch package.json files: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching package.json files:", error);
-            throw error;
-        });
+    return fetchApiJson("packageVersions", "package.json files");
 }
 
 /**
@@ -70,18 +70,7 @@ export async function fetchPackageVersions() {
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchLatestPackageVersions() {
-    const url = `http://localhost:${API_PORT}/api/latestPackageVersions`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch latest package versions: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching latest package versions:", error);
-            throw error;
-        });
+    return fetchApiJson("latestPackageVersions", "latest package versions");
 }
 
 /**
@@ -96,19 +85,8 @@ export async function fetchLatestPackageVersions() {
  * @throws {Error} If the fetch request fails or the response is not OK.
  */
 export async function fetchAppResources(language?: string) {
-    const base = `http://localhost:${API_PORT}/api/appResources`;
-    const url = language ? `${base}?language=${encodeURIComponent(language)}` : base;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch app resource values: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching app resource values:", error);
-            throw error;
-        });
+    const path = language ? `appResources?language=${encodeURIComponent(language)}` : "appResources";
+    return fetchApiJson(path, "app resource values");
 }
 
 /**
@@ -130,18 +108,7 @@ export function fetchDefaultTextResources() {
  * @throws {Error} If the network request fails or the response is not OK.
  */
 export async function fetchExampleData() {
-    const url = `http://localhost:${API_PORT}/api/exampleData`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch example data: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching example data:", error);
-            throw error;
-        });
+    return fetchApiJson("exampleData", "example data");
 }
 
 /**
@@ -152,12 +119,7 @@ export async function fetchExampleData() {
  * @throws {Error} If the network request fails or the response is not OK.
  */
 export async function fetchSubformDataModels() {
-    const url = `http://localhost:${API_PORT}/api/subformDataModels`;
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Failed to fetch subform data models: ${response.statusText}`);
-    }
-    return response.json();
+    return fetchApiJson("subformDataModels", "subform data models");
 }
 
 /**
@@ -169,18 +131,7 @@ export async function fetchSubformDataModels() {
  * @throws {Error} If the network request fails or the response is not OK.
  */
 export async function fetchApplicationMetadata() {
-    const url = `http://localhost:${API_PORT}/api/applicationMetadata`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch application metadata: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching application metadata:", error);
-            throw error;
-        });
+    return fetchApiJson("applicationMetadata", "application metadata");
 }
 
 /**
@@ -195,18 +146,7 @@ export async function fetchApplicationMetadata() {
  * @throws {Error} If the fetch operation fails or the response is not OK.
  */
 export async function fetchAltinnStudioForms() {
-    const url = `http://localhost:${API_PORT}/api/altinnStudioForms`;
-    return fetch(url)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error(`Failed to fetch Altinn Studio forms: ${response.statusText}`);
-            }
-            return response.json();
-        })
-        .catch((error: ApiValue) => {
-            console.error("Error fetching Altinn Studio forms:", error);
-            throw error;
-        });
+    return fetchApiJson("altinnStudioForms", "Altinn Studio forms");
 }
 
 /**

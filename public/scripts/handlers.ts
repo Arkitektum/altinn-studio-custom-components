@@ -1,5 +1,5 @@
 // Local functions
-import { addValueToLocalStorage, getValueFromLocalStorage } from "./localStorage.ts";
+import { addValueToLocalStorage, getDataModels } from "./localStorage.ts";
 import { removeTrailingOrLeadingComma } from "./formatters.ts";
 
 /**
@@ -9,7 +9,7 @@ import { removeTrailingOrLeadingComma } from "./formatters.ts";
  * @param {number} index - The index of the data model to update.
  */
 export function handleDataModelTypeOnChange(index: number) {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")!) || [];
+    const dataModels = getDataModels();
     const dataModelTypeInputElement = document.getElementById(`data-model-type-input-${index}`);
     dataModels[index].dataType = (dataModelTypeInputElement as HTMLInputElement).value;
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
@@ -24,7 +24,7 @@ export function handleDataModelTypeOnChange(index: number) {
  * @param {number} index - The index of the data model to update.
  */
 export function handleDataModelDataOnChange(index: number) {
-    const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")!) || [];
+    const dataModels = getDataModels();
     const dataModelDataInputElement = document.getElementById("code-input");
     dataModels[index].data = JSON.parse(removeTrailingOrLeadingComma((dataModelDataInputElement as HTMLInputElement).value));
     addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
