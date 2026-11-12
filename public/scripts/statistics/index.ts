@@ -1,12 +1,5 @@
 import type { ApiData, ApiValue, DisplayLayoutEntry } from "../types.ts";
 // Local functions
-import {
-    addDataToGlobalThis,
-    addValueToLocalStorage,
-    addValuesToLocalStorage,
-    getValueFromLocalStorage,
-    getValuesFromLocalStorage
-} from "../localStorage.ts";
 import { fetchDefaultTextResources, getUpdatedApiData } from "./apiHelpers.ts";
 import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.ts";
 import {
@@ -15,26 +8,56 @@ import {
     getUsageForMissingResources,
     getUsageForResources
 } from "../validators.ts";
+import { loadApiData, removeLegacyLocalStorage, saveApiData } from "./apiDataStore.ts";
 import { redrawOpenPage, renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
+import { addDataToGlobalThis } from "../localStorage.ts";
 import { flattenAppLayouts } from "./displayLayoutHelpers.ts";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.ts";
 import { getDataModelBindingDriftForAllLayouts } from "./dataModelBindingHelpers.ts";
 import { getSubformDataModelDrift } from "./subformDataModelHelpers.ts";
 
-export function getDataFromLocalStorage(): Record<string, ApiValue> {
-    const lastUpdated = getValueFromLocalStorage("lastUpdated");
-    return {
-        lastUpdated,
-        ...getValuesFromLocalStorage([
-            "displayLayouts",
-            "packageVersions",
-            "latestPackageVersions",
-            "multilingualAppResourceValues",
-            "exampleData",
-            "applicationMetadata",
-            "subformDataModels"
-        ])
-    };
+/** What a synchronization fetches, by the name it is stored and put on globalThis under. */
+const API_DATA_KEYS = [
+    "displayLayouts",
+    "packageVersions",
+    "latestPackageVersions",
+    "multilingualAppResourceValues",
+    "exampleData",
+    "applicationMetadata",
+    "subformDataModels"
+];
+
+/**
+ * Reads what the last synchronization stored, and when it ran.
+ *
+ * When the store cannot be read at all, that counts as nothing stored, so the tools synchronize instead.
+ *
+ * @returns {Promise<Object>} The stored data and `lastUpdated`, each undefined when nothing is stored.
+ */
+export async function getStoredApiData(): Promise<Record<string, ApiValue>> {
+    try {
+        return await loadApiData([...API_DATA_KEYS, "lastUpdated"]);
+    } catch (error) {
+        console.error("Could not read the stored data, synchronizing instead:", error);
+        return {};
+    }
+}
+
+/**
+ * Stores what a synchronization fetched and when, so the next page load can use it without synchronizing.
+ *
+ * A failure to store does not stop the tools: the data is still shown, and the next page load synchronizes again.
+ *
+ * @param {ApiData} apiData - The fetched data.
+ * @param {string} lastUpdated - When it was fetched.
+ * @returns {Promise<void>}
+ */
+export async function storeApiData(apiData: ApiData, lastUpdated: string) {
+    try {
+        await saveApiData({ ...apiData, lastUpdated });
+    } catch (error) {
+        console.error("Could not store the synchronized data, the next page load synchronizes again:", error);
+    }
 }
 
 export function getMissingResourceBindingsWithUsage(
@@ -67,7 +90,8 @@ export function getAllTextResourceUsage(
 }
 
 /**
- * Stores what a synchronization fetched, works out everything the pages read from it, and puts both on globalThis.
+ * Works out everything the pages read from what a synchronization fetched, and puts both on globalThis. Storing the
+ * data for the next page load is storeApiData's job.
  *
  * The usage pages read the text resource and component usage worked out here rather than the raw layouts, so this
  * has to run after every synchronization and not only on page load. When it only ran on page load, a synchronization
@@ -89,18 +113,6 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
     const multilingualDefaultTextResources = fetchDefaultTextResources();
     const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, "nb");
     const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, "nb");
-    addValuesToLocalStorage({
-        defaultTextResources,
-        multilingualDefaultTextResources,
-        displayLayouts,
-        packageVersions,
-        latestPackageVersions,
-        appResourceValues,
-        multilingualAppResourceValues,
-        exampleData,
-        applicationMetadata,
-        subformDataModels
-    });
     const flattenedLayouts = flattenAppLayouts(displayLayouts);
     const allTextResourceUsage = getAllTextResourceUsage(flattenedLayouts, multilingualAppResourceValues, multilingualDefaultTextResources);
     const componentUsage = getComponentUsageTreeForAllLayouts(flattenedLayouts);
@@ -135,6 +147,7 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
  * @returns {Promise<void>}
  */
 export async function loadDevTools() {
+    removeLegacyLocalStorage();
     let {
         displayLayouts,
         packageVersions,
@@ -144,7 +157,7 @@ export async function loadDevTools() {
         lastUpdated,
         applicationMetadata,
         subformDataModels
-    } = getDataFromLocalStorage();
+    } = await getStoredApiData();
     if (
         !displayLayouts ||
         !packageVersions ||
@@ -170,7 +183,19 @@ export async function loadDevTools() {
             return;
         }
         lastUpdated = new Date().toISOString();
-        addValueToLocalStorage("lastUpdated", lastUpdated);
+        // Stored before applyApiData, which adds to the layouts while working out the component usage.
+        await storeApiData(
+            {
+                displayLayouts,
+                packageVersions,
+                latestPackageVersions,
+                multilingualAppResourceValues,
+                exampleData,
+                applicationMetadata,
+                subformDataModels
+            },
+            lastUpdated
+        );
     }
     applyApiData(
         {
@@ -187,7 +212,8 @@ export async function loadDevTools() {
 
     renderAdminSidebar();
     // After a synchronization the open page is drawn again from the new data, keeping what was chosen on it.
-    renderSynchronizeButton((apiData: ApiData, synchronizedAt: string) => {
+    renderSynchronizeButton(async (apiData: ApiData, synchronizedAt: string) => {
+        await storeApiData(apiData, synchronizedAt);
         applyApiData(apiData, synchronizedAt);
         void redrawOpenPage();
     });

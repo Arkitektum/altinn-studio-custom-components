@@ -1,33 +1,6 @@
 import type { DisplayLayoutEntry } from "../types.ts";
 
-import { getAllTextResourceUsage, getDataFromLocalStorage, getMissingResourceBindingsWithUsage } from "./index.ts";
-
-jest.mock("../localStorage.ts", () => ({
-    getValueFromLocalStorage: (key: string) => {
-        const map: Record<string, string> = {
-            lastUpdated: "2024-01-01",
-            multilingualDefaultTextResources: "1",
-            displayLayouts: "2",
-            packageVersions: "3",
-            multilingualAppResourceValues: "4",
-            exampleData: "5"
-        };
-        return map[key] || null;
-    },
-    getValuesFromLocalStorage: (keys: string[]) => {
-        const map: Record<string, number> = {
-            multilingualDefaultTextResources: 1,
-            displayLayouts: 2,
-            packageVersions: 3,
-            multilingualAppResourceValues: 4,
-            exampleData: 5
-        };
-        return keys.reduce((acc: Record<string, number | undefined>, key: string) => {
-            acc[key] = map[key];
-            return acc;
-        }, {});
-    }
-}));
+import { getAllTextResourceUsage, getMissingResourceBindingsWithUsage } from "./index.ts";
 
 jest.mock("../validators.ts", () => ({
     getResourceBindingsWithUsageFromApplications: jest.fn(() => new Set(["foo"])),
@@ -35,17 +8,6 @@ jest.mock("../validators.ts", () => ({
     getUsageForMissingResources: jest.fn(() => ({ missingResourcesUsage: [1], missingResourcesWithLocalValueUsage: [2] })),
     getUsageForResources: jest.fn(() => [10])
 }));
-
-describe("getDataFromLocalStorage", () => {
-    it("returns all expected keys from localStorage", () => {
-        const result = getDataFromLocalStorage();
-        expect(result.lastUpdated).toBe("2024-01-01");
-        expect(result.displayLayouts).toBe(2);
-        expect(result.packageVersions).toBe(3);
-        expect(result.multilingualAppResourceValues).toBe(4);
-        expect(result.exampleData).toBe(5);
-    });
-});
 
 describe("getMissingResourceBindingsWithUsage", () => {
     it("returns missingResourceBindings and usages", () => {

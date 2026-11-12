@@ -9,7 +9,6 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
-import { addDataToGlobalThis, addValueToLocalStorage } from "../localStorage.ts";
 import { applyTextResourcesForLanguage, getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
 import {
@@ -39,6 +38,7 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
+import { addDataToGlobalThis } from "../localStorage.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { languages } from "../languages.ts";
 import { setIconLabel } from "../icons.ts";
@@ -1158,9 +1158,10 @@ export function renderNoDataMessage(onRetry: () => void) {
 /**
  * Renders a "Synchronize data" button and last updated timestamp in the sidebar.
  *
- * When the button is clicked, it fetches updated API data, records when, hands the data to `onSynchronized`, and
+ * When the button is clicked, it fetches updated API data, hands it and when it was fetched to `onSynchronized`, and
  * refreshes the last updated timestamp. Storing the data and working out what the pages read from it is
- * `onSynchronized`'s job, which is `applyApiData` in the dev tools, so a sync and a page load do exactly the same.
+ * `onSynchronized`'s job, which is `storeApiData` and `applyApiData` in the dev tools, so a sync and a page load do
+ * exactly the same.
  *
  * Uses `globalThis.lastUpdated` for the initial timestamp, and expects an element with id "sidebar" in the DOM.
  *
@@ -1210,7 +1211,6 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
         ] = apiData;
 
         const lastUpdated = new Date().toISOString();
-        addValueToLocalStorage("lastUpdated", lastUpdated);
         onSynchronized(
             {
                 displayLayouts,

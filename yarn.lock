@@ -32,6 +32,7 @@ __metadata:
     dotenv: "npm:^18.0.10"
     dotenv-webpack: "npm:^9.0.0"
     eslint: "npm:^10.14.0"
+    fake-indexeddb: "npm:^6.2.8"
     globals: "npm:^17.14.0"
     html-webpack-plugin: "npm:^5.6.8"
     jest: "npm:^30.5.2"
@@ -5326,6 +5327,13 @@ __metadata:
     type-is: "npm:^2.1.0"
     vary: "npm:^1.1.2"
   checksum: 10c0/7d6c1a3e404db0a26f7ed1143ad6bb0bcf33fec8dc66b3e56b59f94f4660e7d3d8395bf03f80e51f6b74ce976856a3e97133a371ec4d012409729fff9233eb15
+  languageName: node
+  linkType: hard
+
+"fake-indexeddb@npm:^6.2.8":
+  version: 6.2.8
+  resolution: "fake-indexeddb@npm:6.2.8"
+  checksum: 10c0/69a85018a3a714e81ae88d9294ab54ed73f83a23dd28b926d41dabf892a939dd029207e8f2dca1238ed5ebde75f1971a7a8ab14f773d5fad396923e117b6e8fe
   languageName: node
   linkType: hard
 
