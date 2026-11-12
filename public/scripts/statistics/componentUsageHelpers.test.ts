@@ -12,7 +12,6 @@ describe("getComponentUsageTreeForAllLayouts", () => {
                 appOwner: "o",
                 appName: "a",
                 layoutName: "sub-v1",
-                isSubform: true,
                 subformAppName: "sub-v1",
                 layout: layoutWith("custom-field-data", "sub")
             }
@@ -29,7 +28,6 @@ describe("getComponentUsageTreeForAllLayouts", () => {
                 appOwner: "o",
                 appName: "a",
                 layoutName: "sub-v1",
-                isSubform: true,
                 subformAppName: "sub-v1",
                 layout: layoutWith("custom-field-adresse", "adr")
             }

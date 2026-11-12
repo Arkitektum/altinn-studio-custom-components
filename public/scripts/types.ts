@@ -43,17 +43,12 @@ export interface DisplayLayout {
 /**
  * One entry of the display layouts the API answers with.
  *
- * An app entry holds several named layouts, and the subforms it carries in `subForms`. An entry marked `isSubform`
- * carries a single layout instead, and getAppEntries leaves it out.
+ * An app entry holds several named layouts, and the subforms it carries in `subForms`.
  */
 export interface DisplayLayoutEntry {
     appOwner?: string;
     appName?: string;
     dataType?: string;
-    isSubform?: boolean;
-    layoutName?: string;
-    path?: string;
-    layout?: Layout;
     displayLayouts?: DisplayLayout[];
     [key: string]: ApiValue;
 }
@@ -63,7 +58,6 @@ export interface FlattenedLayout {
     appOwner?: string;
     appName?: string;
     dataType?: string;
-    isSubform?: boolean;
     /** For a subform carried by an app, the subform app's name. The app it is credited to is `appName`. */
     subformAppName?: string;
     layoutName?: string;

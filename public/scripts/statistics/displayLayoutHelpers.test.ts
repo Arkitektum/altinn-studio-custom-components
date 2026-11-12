@@ -1,11 +1,4 @@
-import {
-    DEFAULT_LAYOUT_NAME,
-    flattenAppLayouts,
-    getAppEntries,
-    getFormFilterOptions,
-    selectStoredOption,
-    setSelectOptions
-} from "./displayLayoutHelpers.ts";
+import { flattenAppLayouts, getAppEntries, getFormFilterOptions, selectStoredOption, setSelectOptions } from "./displayLayoutHelpers.ts";
 import { MAIN_FORM_FILTER_VALUE } from "../filters.ts";
 
 import type { ApiValue } from "../types.ts";
@@ -30,28 +23,6 @@ describe("flattenAppLayouts", () => {
         expect(result[1].layout).toEqual({ data: { layout: [] } });
     });
 
-    it("passes an entry with a single layout through with a default layout name", () => {
-        const displayLayouts = [{ appOwner: "o", appName: "a", dataType: "DT", layout: { data: { layout: [] } } }];
-        const result = flattenAppLayouts(displayLayouts);
-        expect(result.length).toBe(1);
-        expect(result[0].layoutName).toBe(DEFAULT_LAYOUT_NAME);
-        expect(result[0].appName).toBe("a");
-    });
-
-    it("leaves out standalone subform entries", () => {
-        const displayLayouts = [
-            {
-                appOwner: "o",
-                appName: "a",
-                dataType: "DT",
-                displayLayouts: [{ name: "DisplayLayout", path: "p1", layout: { data: { layout: [] } } }]
-            },
-            { appOwner: "o", appName: "sub", dataType: "SubDT", isSubform: true, layout: { data: { layout: [] } } }
-        ];
-        const result = flattenAppLayouts(displayLayouts);
-        expect(result.map((entry: ApiValue) => entry.appName)).toEqual(["a"]);
-    });
-
     it("credits each subform an app carries to that app, named after the subform app", () => {
         const subformLayout = { data: { layout: [{ id: "sub" }] } };
         const displayLayouts = [
@@ -65,12 +36,11 @@ describe("flattenAppLayouts", () => {
         ];
         const result = flattenAppLayouts(displayLayouts);
         expect(result.map((entry: ApiValue) => entry.layoutName)).toEqual(["DisplayLayout", "sub-v1"]);
-        expect(result[0].isSubform).toBeUndefined();
+        expect(result[0].subformAppName).toBeUndefined();
         expect(result[1]).toMatchObject({
             appOwner: "o",
             appName: "a",
             dataType: "SubDT",
-            isSubform: true,
             subformAppName: "sub-v1",
             layout: subformLayout
         });
@@ -155,15 +125,6 @@ describe("setSelectOptions", () => {
 });
 
 describe("getAppEntries", () => {
-    it("keeps the apps and leaves out the standalone subform entries", () => {
-        const displayLayouts = [
-            { appOwner: "o", appName: "a", displayLayouts: [] },
-            { appOwner: "o", appName: "sub", isSubform: true, layout: {} },
-            { appOwner: "o", appName: "b", displayLayouts: [] }
-        ];
-        expect(getAppEntries(displayLayouts).map((entry: ApiValue) => entry.appName)).toEqual(["a", "b"]);
-    });
-
     it("answers with no apps for input that is not a list", () => {
         expect(getAppEntries(undefined)).toEqual([]);
     });

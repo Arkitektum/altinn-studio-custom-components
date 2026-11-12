@@ -185,7 +185,6 @@ describe("getResourceUsage", () => {
                 appOwner: "o",
                 appName: "a",
                 layoutName: "sub-v1",
-                isSubform: true,
                 subformAppName: "sub-v1",
                 layout: { data: { layout: [{ tagName: "Y", type: "Custom", resourceBindings: { a: "id1" } }] } }
             }
@@ -225,7 +224,7 @@ describe("getUsageForMissingResources", () => {
         const binding = { data: { layout: [{ tagName: "X", type: "Custom", resourceBindings: { a: "id1" } }] } };
         const layouts = [
             { appOwner: "o", appName: "a", layoutName: "DisplayLayout", layout: binding },
-            { appOwner: "o", appName: "a", layoutName: "sub-v1", isSubform: true, subformAppName: "sub-v1", layout: binding }
+            { appOwner: "o", appName: "a", layoutName: "sub-v1", subformAppName: "sub-v1", layout: binding }
         ];
         const result = validators.getUsageForMissingResources(layouts, ["id1"], []);
         const usageLayouts = result.missingResourcesUsage.map((entry: ApiValue) => entry.usage[0].layouts[0]);

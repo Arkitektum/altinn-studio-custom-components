@@ -119,7 +119,7 @@ describe("getDataModelBindingDriftForAllLayouts", () => {
     it("names the subform on a use in a subform layout, and nothing on a use in a main layout", () => {
         const result = getDataModelBindingDriftForAllLayouts([
             layoutWith([gjennomfoeringsplan("main", [])]),
-            layoutWith([gjennomfoeringsplan("sub", [])], { layoutName: "sub-v1", isSubform: true, subformAppName: "sub-v1" })
+            layoutWith([gjennomfoeringsplan("sub", [])], { layoutName: "sub-v1", subformAppName: "sub-v1" })
         ]);
         const usages = usagesFor(result, "custom-gjennomfoeringsplan");
         expect(Object.keys(usages.find((usage: ApiValue) => usage.id === "main"))).not.toContain("subformAppName");
