@@ -9,9 +9,8 @@ export const DEFAULT_LAYOUT_NAME = "DisplayLayout";
 /**
  * The app entries among the display layout entries, leaving out the standalone subform entries.
  *
- * The API also answers with one standalone entry per subform, holding a copy of its layout kept in the API's own
- * repository. That copy is from before each app's own subform layouts were fetched, which every app now carries in its
- * `subForms`. A standalone entry is not an app, so it is neither offered as one nor counted as one.
+ * An entry marked `isSubform` is a standalone subform entry rather than an app, so it is neither offered as one nor
+ * counted as one. Each app carries its own subform layouts in `subForms`.
  *
  * @param {Array<Object>} displayLayouts - The app/subform display layout entries the API answered with.
  * @returns {Array<Object>} The entries that are apps.

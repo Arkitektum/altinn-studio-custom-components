@@ -17,7 +17,7 @@ const findingLabels: Record<FindingType, string> = { missing: "Missing", ignored
 /**
  * Narrows the drift to the filters chosen on the page, which are stored on globalThis.
  *
- * Unlike the component usage list, the uses themselves are narrowed, not only the components: choosing an app lists that app's findings and nobody else's. Choosing a kind of finding keeps only that kind on each use, and drops the uses left with none. Every component stays, so one with nothing left reads as having no drift.
+ * The uses themselves are narrowed, not only the components: choosing an app lists that app's findings and nobody else's. Choosing a kind of finding keeps only that kind on each use, and drops the uses left with none. Every component stays, so one with nothing left reads as having no drift.
  *
  * @param {Array} drift - The drift for every checked component.
  * @returns {Array} The same components, each with only the uses and findings that pass the filters.

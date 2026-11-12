@@ -111,7 +111,7 @@ class ResourceGeneratorPlugin {
      * @param {import('webpack').Compiler} compiler - The webpack compiler instance.
      */
     apply(compiler) {
-        // Run once on startup
+        // Before every compile, so a watch rebuild picks up changed resources too
         compiler.hooks.beforeCompile.tap("ResourceGeneratorPlugin", () => {
             this.generate();
         });

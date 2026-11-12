@@ -52,8 +52,8 @@ let drawOpenPageAgain: (() => void | Promise<void>) | null = null;
 /**
  * Draws the open page again from the data on globalThis, keeping the choices made on it.
  *
- * Called after a synchronization, which replaces that data. Without it the open page went on showing the old data
- * until it was opened again from the sidebar.
+ * Called after a synchronization, which replaces that data, so the open page shows the new data without being opened
+ * again from the sidebar.
  *
  * @async
  * @returns {Promise<void>}
@@ -101,7 +101,7 @@ export function renderResourceUsagePage(containerElement: HTMLElement, { keepFil
     containerElement.appendChild(renderSelectApplicationFilterForTextResourcesList(containerElement!, allTextResourceUsage, applications));
     containerElement.appendChild(renderSelectFormFilterForTextResourcesList(containerElement!, allTextResourceUsage, applications));
     containerElement.appendChild(renderTextInputFilterForTextResourcesList(containerElement!, allTextResourceUsage));
-    // Filtered only when the choices were kept. A fresh visit shows the whole list, as it always has.
+    // Filtered only when the choices were kept. A fresh visit shows the whole list.
     const listedTextResources = keepFilters ? filterTextResourcesBySelectedFilters(allTextResourceUsage) : allTextResourceUsage;
     containerElement.appendChild(renderDefaultTextResourcesList(listedTextResources, allTextResourceUsage));
 }
@@ -205,7 +205,7 @@ export function renderComponentUsagePage(containerElement: HTMLElement, { keepFi
     containerElement.appendChild(renderSelectFormFilterForComponentUsageList(containerElement!, componentUsage, applications));
     containerElement.appendChild(renderSelectComponentTypeFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderTextInputFilterForComponentUsageList(containerElement!, componentUsage));
-    // Filtered only when the choices were kept. A fresh visit shows the whole list, as it always has.
+    // Filtered only when the choices were kept. A fresh visit shows the whole list.
     containerElement.appendChild(renderComponentUsageList(keepFilters ? filterComponentsBySelectedFilters(componentUsage) : componentUsage));
 }
 
@@ -451,7 +451,7 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement: HTMLElemen
  *
  * Example data is keyed on the app and not only on the data type, because the API reads the main form examples from
  * the FtPB testmotor, which is keyed by app id: dibk/fa-v3 and dibk/fa-v5 are both filed under the data type FA and
- * hold different files. Matching on the data type alone showed one of them the other's examples.
+ * hold different files, so matching on the data type alone would show one of them the other's examples.
  *
  * A subform's examples are matched the same way. The testmotor files them per app, so each app declaring a subform has
  * an entry of its own for it, and two apps can hold different files for the same subform.
@@ -486,8 +486,8 @@ function getExampleFileNames(exampleDataEntry: ApiValue) {
 /**
  * Says so when example data could not be fetched, rather than rendering nothing.
  *
- * A picker with no dropdown used to mean both "this data type has no examples" and "the examples could not be
- * fetched". They are different answers, and only one of them is a problem worth chasing.
+ * "This data type has no examples" and "the examples could not be fetched" are different answers, and only one of
+ * them is a problem worth chasing, so the second is said out loud rather than left as a picker with no dropdown.
  *
  * @param {HTMLElement} containerElement - Where to append the message.
  * @param {Object} [exampleDataEntry] - The entry, which carries `error` when there was one.
@@ -1041,13 +1041,10 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
 /**
  * Renders the admin sidebar with navigation buttons for different admin pages.
  *
- * This function creates a sidebar containing buttons for "Resource Usage",
- * "Package Versions", and "Display Layouts". When a button is clicked,
- * the corresponding page is rendered in the main admin area.
+ * The sidebar has a button for each page: Resource usage, Component usage, Data model bindings, Subform data models,
+ * Package versions and Display layouts. A click renders that page in the main admin area.
  *
- * Dependencies:
- * - Assumes the existence of elements with IDs "admin-main" and "sidebar" in the DOM.
- * - Assumes the existence of the functions: renderResourceUsagePage, renderPackageVersionsPage, and renderDisplayLayoutsPage.
+ * Expects elements with the ids "admin-main" and "sidebar" in the DOM.
  */
 export function renderAdminSidebar() {
     const mainElement = document.getElementById("admin-main");

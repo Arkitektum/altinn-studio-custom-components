@@ -94,8 +94,8 @@ export function getAllTextResourceUsage(
  * data for the next page load is storeApiData's job.
  *
  * The usage pages read the text resource and component usage worked out here rather than the raw layouts, so this
- * has to run after every synchronization and not only on page load. When it only ran on page load, a synchronization
- * stored the new layouts and left the usage pages counting the old ones until the page was reloaded.
+ * has to run after every synchronization and not only on page load, or the usage pages would go on counting the old
+ * layouts until the page was reloaded.
  *
  * @param {ApiData} apiData - The fetched data.
  * @param {string|number|undefined} lastUpdated - When it was fetched.

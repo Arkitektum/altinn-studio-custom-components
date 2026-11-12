@@ -36,7 +36,7 @@ export async function fetchDisplayLayouts() {
 /**
  * Fetches the available package versions from the local API.
  *
- * Makes a GET request to `http://localhost:9001/api/packageVersions` and returns the parsed JSON response.
+ * Makes a GET request to `http://localhost:${API_PORT}/api/packageVersions` and returns the parsed JSON response.
  * Throws an error if the request fails or the response is not OK.
  *
  * @async
@@ -61,7 +61,7 @@ export async function fetchPackageVersions() {
 /**
  * Fetches the latest package versions from the local API.
  *
- * Makes a GET request to `http://localhost:9001/api/latestPackageVersions` and returns the parsed JSON response.
+ * Makes a GET request to `http://localhost:${API_PORT}/api/latestPackageVersions` and returns the parsed JSON response.
  * Throws an error if the request fails or the response is not OK.
  *
  * @async
@@ -112,10 +112,10 @@ export async function fetchAppResources(language?: string) {
 }
 
 /**
- * Fetches default text resources from the local API endpoint.
+ * The default text resources bundled with the dev tools, from `src/data/resources.json`. Nothing is fetched.
  *
  * @function fetchDefaultTextResources
- * @returns {Object} The default text resources as a JSON object.
+ * @returns {Object} The default text resources.
  */
 export function fetchDefaultTextResources() {
     return defaultTextResources;

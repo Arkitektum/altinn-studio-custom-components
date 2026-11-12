@@ -117,8 +117,8 @@ describe("fetchSubformDataModels", () => {
 });
 
 describe("getUpdatedApiData", () => {
-    it("returns all data in order, with local defaultTextResources", async () => {
-        // Arrange: mock fetch for the 5 fetch-based calls (skip for fetchDefaultTextResources)
+    it("returns all data in order", async () => {
+        // One answer for each of the seven requests, in the order they are made.
         (fetch as unknown as jest.Mock)
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(2) }) // layouts
             .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(3) }) // packageVersions

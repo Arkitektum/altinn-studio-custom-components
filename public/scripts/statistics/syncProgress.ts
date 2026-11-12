@@ -69,8 +69,7 @@ function createElement(tagName: string, className: string, text?: string) {
  *
  * Each row waits, then says how much came back and how long it took, or why it failed. A progress bar and a running
  * clock sit above them. When every request has succeeded the panel closes itself after a moment. When any has failed
- * it stays open with the reasons and a Close button, since a panel that closed would leave nothing to read, and one
- * that never closed was what a failed request used to leave behind.
+ * it stays open with the reasons and a Close button, since a panel that closed would leave nothing to read.
  *
  * @param {SyncSource[]} sources - The requests, in the order they are shown.
  * @param {SyncProgressOptions} [options]

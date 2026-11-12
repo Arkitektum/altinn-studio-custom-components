@@ -572,7 +572,7 @@ describe("getDataModelsForApp", () => {
 
 describe("renderExampleDataError", () => {
     it("says the examples could not be fetched, rather than rendering nothing", () => {
-        // "No examples for this data type" and "the examples could not be fetched" used to look identical: no
+        // "No examples for this data type" and "the examples could not be fetched" must not look identical, with no
         // dropdown either way.
         const containerElement = document.createElement("div");
         const rendered = renderExampleDataError(containerElement!, { dataType: "FA", error: "the testmotor could not be reached" }, "FA");

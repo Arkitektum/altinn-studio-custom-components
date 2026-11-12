@@ -1,9 +1,9 @@
 /**
  * Keeps what a synchronization fetched between page loads, in IndexedDB.
  *
- * It used to be kept in localStorage, which holds about 5 MB per site. The example data alone outgrew that in
- * November 2026, when one example file of about 3 MB arrived, and saving it threw QuotaExceededError. IndexedDB allows
- * far more, and stores the values as they are, without turning them into JSON first.
+ * IndexedDB rather than localStorage, which holds about 5 MB per site: the example data alone can pass that, with one
+ * example file reaching about 3 MB. IndexedDB allows far more, and stores the values as they are, without turning
+ * them into JSON first.
  */
 
 const DATABASE_NAME = "altinn-studio-custom-components-dev-tools";
@@ -11,8 +11,8 @@ const DATABASE_VERSION = 1;
 const STORE_NAME = "apiData";
 
 /**
- * What the dev tools kept in localStorage before they moved to IndexedDB. Removed on load, so they no longer take up
- * the space the dev tools page's own values (the layout code, data models and text resources) share with them.
+ * Keys an older version of the dev tools wrote to localStorage. Removed on load, so they do not take up the space the
+ * dev tools page's own values (the layout code, data models and text resources) share with them.
  */
 export const LEGACY_LOCAL_STORAGE_KEYS = [
     "displayLayouts",
@@ -108,7 +108,7 @@ export async function loadApiData(keys: string[]): Promise<Record<string, unknow
 }
 
 /**
- * Removes what the dev tools kept in localStorage before they moved to IndexedDB, leaving every other key alone.
+ * Removes the keys in LEGACY_LOCAL_STORAGE_KEYS from localStorage, leaving every other key alone.
  */
 export function removeLegacyLocalStorage() {
     for (const key of LEGACY_LOCAL_STORAGE_KEYS) {

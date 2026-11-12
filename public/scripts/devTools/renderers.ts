@@ -27,14 +27,6 @@ import { setIconLabel } from "../icons.ts";
  * - Creates a custom element and wraps it in a container.
  *
  * The resulting elements are then appended to the container element with the ID "code-results".
- *
- * Dependencies:
- * - getLayoutCode(): Function that returns the current layout code (single component or array).
- * - getDataForComponent(component): Function that returns data for a given component.
- * - CustomElementHtmlAttributes: Class for constructing HTML attributes for custom elements.
- * - createCustomElement(tagName, attributes): Function that creates a custom element.
- * - addContainerElement(element): Function that wraps an element in a container.
- * - appendChildren(parent, children): Function that appends multiple children to a parent element.
  */
 export function renderResults() {
     const componentCode = getLayoutCode();
@@ -106,28 +98,10 @@ export function renderTextResourceStatusIndicators(validationResults: ApiValue) 
  *
  * The sidebar includes:
  * - Layout code button to edit layout code.
- * - Text resources button with validation and management options (validate, order, add defaults, remove unused/duplicates).
+ * - Text resources button with validation and management options (validate, order, remove unused/duplicates).
  * - Data model list and button to add new data models.
  *
  * This function manipulates the DOM directly to construct the sidebar and attaches event handlers for user interactions.
- *
- * Dependencies:
- * - getCodeInputElementForLayoutCode
- * - getCodeInputElementForTextResources
- * - updateDataInputElement
- * - setActiveSidebarElement
- * - validateResources
- * - renderValidationMessages
- * - renderFeedbackListElement
- * - getTextResources
- * - addValueToLocalStorage
- * - closeValidationDialog
- * - renderResults
- * - renderTextResourceStatusIndicators
- * - getDefaultValueForResource
- * - openValidationDialog
- * - getDataModelListElements
- * - addDataModel
  */
 export function renderSidebar() {
     const sidebarElement = document.getElementById("sidebar");

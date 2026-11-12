@@ -43,8 +43,8 @@ export interface DisplayLayout {
 /**
  * One entry of the display layouts the API answers with.
  *
- * An app entry holds several named layouts, and the subforms it carries in `subForms`. A standalone subform entry
- * carries a single layout instead; getAppEntries leaves those out.
+ * An app entry holds several named layouts, and the subforms it carries in `subForms`. An entry marked `isSubform`
+ * carries a single layout instead, and getAppEntries leaves it out.
  */
 export interface DisplayLayoutEntry {
     appOwner?: string;
