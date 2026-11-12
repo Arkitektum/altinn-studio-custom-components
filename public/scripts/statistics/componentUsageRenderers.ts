@@ -1,6 +1,7 @@
 import type { ApiValue, Layout, LayoutComponent } from "../types.ts";
 import { filterComponentsByApplication, filterComponentsByTextInput, filterComponentsByType, filterComponentsByUsage } from "../filters.ts";
-import { getFormFilterOptions, selectStoredOption, setSelectOptions } from "./displayLayoutHelpers.ts";
+import { renderApplicationFilter, renderFormFilter, renderLabelledSelectFilter, renderTextFilter, storedChoice } from "../filterControls.ts";
+import type { AppFormChoices } from "../filterControls.ts";
 
 /**
  * Get the number of unique apps using a component.
@@ -393,47 +394,6 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
 }
 
 /**
- * Appends a labelled <select> built from the given options to a `.filter-container` and returns it.
- *
- * @param {string} labelText - The label shown next to the select.
- * @param {string} selectId - The id assigned to the select element.
- * @param {Array<{ value: string, text: string }>} options - The options to render, first one selected by default.
- * @param {Function} onChange - Called with the select's value whenever the selection changes.
- * @param {string} [storedValue] - A value chosen before, selected instead of the first option when it is offered.
- * @returns {HTMLFormElement} The container element holding the label and select.
- */
-function renderLabelledSelectFilter(
-    labelText: string,
-    selectId: string,
-    options: { value: string; text: string }[],
-    onChange: (value: string) => void,
-    storedValue?: string
-) {
-    const filterContainerElement = document.createElement("form");
-    filterContainerElement.classList.add("filter-container");
-
-    const labelElement = document.createElement("label");
-    labelElement.htmlFor = selectId;
-    labelElement.innerHTML = labelText;
-    filterContainerElement.appendChild(labelElement);
-
-    const selectElement = document.createElement("select");
-    selectElement.id = selectId;
-    options.forEach((option: ApiValue) => {
-        const optionElement = document.createElement("option");
-        optionElement.value = option.value;
-        optionElement.textContent = option.text;
-        selectElement.appendChild(optionElement);
-    });
-
-    selectElement.onchange = () => onChange(selectElement.value);
-    selectStoredOption(selectElement, storedValue, options[0]?.value ?? "");
-
-    filterContainerElement.appendChild(selectElement);
-    return filterContainerElement;
-}
-
-/**
  * Renders the "Filter by usage" dropdown (All / Unused / Used once) for the component usage list.
  *
  * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
@@ -486,67 +446,33 @@ export function renderSelectComponentTypeFilterForComponentUsageList(containerEl
     return filterElement;
 }
 
+/** Where the component usage page keeps its application and form choices. */
+const componentAppFormChoices: AppFormChoices = {
+    appOwner: storedChoice("componentSelectedAppOwner"),
+    appName: storedChoice("componentSelectedAppName"),
+    form: storedChoice("componentSelectedForm")
+};
+
 /**
  * Renders a select dropdown for filtering the component usage list by application.
  *
  * @param {HTMLElement} containerElement - The container element holding the component usage list, re-filtered on change.
  * @param {Array<Object>} components - The full list of component usage objects to filter when the selection changes.
  * @param {Array<{ appOwner: string, appName: string }>} applications - The list of applications to populate the dropdown.
- * @returns {HTMLDivElement} The DOM element containing the application filter select dropdown.
+ * @returns {HTMLFormElement} The DOM element containing the application filter select dropdown.
  */
 export function renderSelectApplicationFilterForComponentUsageList(
     containerElement: HTMLElement,
     components: LayoutComponent[] | undefined,
     applications: ApiValue
 ) {
-    const selectContainerElement = document.createElement("div");
-    selectContainerElement.classList.add("filter-container");
-
-    const applicationSelectLabelElement = document.createElement("label");
-    applicationSelectLabelElement.htmlFor = "component-application-filter-select";
-    applicationSelectLabelElement.innerHTML = "Application";
-    selectContainerElement.appendChild(applicationSelectLabelElement);
-
-    const applicationSelectElement = document.createElement("select");
-    applicationSelectElement.id = "component-application-filter-select";
-
-    const defaultOptionElement = document.createElement("option");
-    defaultOptionElement.value = "";
-    defaultOptionElement.innerHTML = "All applications";
-    applicationSelectElement.appendChild(defaultOptionElement);
-
-    (applications || []).forEach((app: ApiValue) => {
-        const appOptionElement = document.createElement("option");
-        appOptionElement.value = `${app?.appOwner}/${app?.appName}`;
-        appOptionElement.textContent = `${app?.appOwner}/${app?.appName}`;
-        applicationSelectElement.appendChild(appOptionElement);
+    return renderApplicationFilter(containerElement, {
+        selectId: "component-application-filter-select",
+        formSelectId: "component-form-filter-select",
+        applications,
+        choices: componentAppFormChoices,
+        onChange: () => handleComponentFilterChange(containerElement, components)
     });
-
-    // Starts on the app chosen before, when there is one and it is still offered.
-    const storedApp =
-        globalThis.componentSelectedAppOwner && globalThis.componentSelectedAppName
-            ? `${globalThis.componentSelectedAppOwner}/${globalThis.componentSelectedAppName}`
-            : "";
-    if (!selectStoredOption(applicationSelectElement, storedApp, "")) {
-        globalThis.componentSelectedAppOwner = "";
-        globalThis.componentSelectedAppName = "";
-    }
-
-    applicationSelectElement.onchange = () => {
-        const [appOwner, appName] = applicationSelectElement.value.split("/");
-        globalThis.componentSelectedAppOwner = appOwner || "";
-        globalThis.componentSelectedAppName = appName || "";
-        // The forms on offer follow the app, as they do on the Display layouts page.
-        const formSelectElement = containerElement.querySelector("#component-form-filter-select") as HTMLSelectElement | null;
-        if (formSelectElement) {
-            const formOptions = getFormFilterOptions(applications, globalThis.componentSelectedAppOwner, globalThis.componentSelectedAppName);
-            globalThis.componentSelectedForm = setSelectOptions(formSelectElement, formOptions, globalThis.componentSelectedForm || "");
-        }
-        handleComponentFilterChange(containerElement, components);
-    };
-
-    selectContainerElement.appendChild(applicationSelectElement);
-    return selectContainerElement;
 }
 
 /**
@@ -563,18 +489,12 @@ export function renderSelectFormFilterForComponentUsageList(
     components: LayoutComponent[] | undefined,
     applications: ApiValue
 ) {
-    const formOptions = getFormFilterOptions(applications, globalThis.componentSelectedAppOwner, globalThis.componentSelectedAppName);
-    const filterElement = renderLabelledSelectFilter("Form", "component-form-filter-select", formOptions, (value: string) => {
-        globalThis.componentSelectedForm = value;
-        handleComponentFilterChange(containerElement, components);
+    return renderFormFilter({
+        selectId: "component-form-filter-select",
+        applications,
+        choices: componentAppFormChoices,
+        onChange: () => handleComponentFilterChange(containerElement, components)
     });
-    // Keep a form chosen before when it is still on offer, and fall back to every form when it is not.
-    globalThis.componentSelectedForm = setSelectOptions(
-        filterElement.querySelector("select") as HTMLSelectElement,
-        formOptions,
-        globalThis.componentSelectedForm || ""
-    );
-    return filterElement;
 }
 
 /**
@@ -585,46 +505,16 @@ export function renderSelectFormFilterForComponentUsageList(
  * @returns {HTMLDivElement} The DOM element containing the text input filter.
  */
 export function renderTextInputFilterForComponentUsageList(containerElement: HTMLElement, components: LayoutComponent[] | undefined) {
-    const textInputContainerElement = document.createElement("div");
-    textInputContainerElement.classList.add("filter-container");
-
-    const textInputLabelElement = document.createElement("label");
-    textInputLabelElement.htmlFor = "component-text-filter-input";
-    textInputLabelElement.innerHTML = "Filter by text";
-    textInputContainerElement.appendChild(textInputLabelElement);
-
-    const textFilterInputElement = document.createElement("input");
-    textFilterInputElement.id = "component-text-filter-input";
-    textFilterInputElement.type = "text";
-    textFilterInputElement.placeholder = "Enter text to filter components";
-    textInputContainerElement.appendChild(textFilterInputElement);
-
-    const matchBySelectElement = document.createElement("select");
-    matchBySelectElement.id = "component-match-by-select";
-
-    const matchByTagOptionElement = document.createElement("option");
-    matchByTagOptionElement.value = "tag";
-    matchByTagOptionElement.innerHTML = "Match by tag";
-    matchBySelectElement.appendChild(matchByTagOptionElement);
-
-    const matchByIdOptionElement = document.createElement("option");
-    matchByIdOptionElement.value = "id";
-    matchByIdOptionElement.innerHTML = "Match by ID";
-    matchBySelectElement.appendChild(matchByIdOptionElement);
-
-    textInputContainerElement.appendChild(matchBySelectElement);
-
-    textFilterInputElement.value = globalThis.componentTextFilter || "";
-    globalThis.componentMatchBy = selectStoredOption(matchBySelectElement, globalThis.componentMatchBy, "tag");
-
-    const updateComponentListBasedOnTextInputFilter = () => {
-        globalThis.componentTextFilter = textFilterInputElement.value;
-        globalThis.componentMatchBy = matchBySelectElement.value;
-        handleComponentFilterChange(containerElement, components);
-    };
-
-    textFilterInputElement.oninput = updateComponentListBasedOnTextInputFilter;
-    matchBySelectElement.onchange = updateComponentListBasedOnTextInputFilter;
-
-    return textInputContainerElement;
+    return renderTextFilter({
+        inputId: "component-text-filter-input",
+        matchById: "component-match-by-select",
+        placeholder: "Enter text to filter components",
+        matchOptions: [
+            { value: "tag", text: "Match by tag" },
+            { value: "id", text: "Match by ID" }
+        ],
+        text: storedChoice("componentTextFilter"),
+        matchBy: storedChoice("componentMatchBy"),
+        onChange: () => handleComponentFilterChange(containerElement, components)
+    });
 }

@@ -1,6 +1,7 @@
 import type { ApiValue, Layout, LayoutComponent } from "./types.ts";
 import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters.ts";
-import { getFormFilterOptions, selectStoredOption, setSelectOptions } from "./statistics/displayLayoutHelpers.ts";
+import { renderApplicationFilter, renderFormFilter, renderLabelledSelectFilter, renderTextFilter, storedChoice } from "./filterControls.ts";
+import type { AppFormChoices } from "./filterControls.ts";
 import { getLanguageNameFromCode } from "./languages.ts";
 
 /**
@@ -368,95 +369,45 @@ function handleFilterChange(containerElement: HTMLElement, textResources: ApiVal
     containerElement.appendChild(newListElement);
 }
 
+/** Where the text resource usage page keeps its application and form choices. */
+const textResourceAppFormChoices: AppFormChoices = {
+    appOwner: storedChoice("selectedAppOwner"),
+    appName: storedChoice("selectedAppName"),
+    form: storedChoice("selectedForm")
+};
+
 /**
- * Renders a set of usage filters for a text resources list.
+ * Renders the "Filter by usage" dropdown for a text resources list.
  *
  * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
  * @param {Array} textResources - The full list of text resources to filter when the selection changes.
- * @returns {HTMLDivElement} The DOM element containing the rendered usage filters for the text resources list.
+ * @returns {HTMLFormElement} The DOM element containing the usage filter.
  */
 export function renderUsageFilterForTextResourcesList(containerElement: HTMLElement, textResources: ApiValue) {
-    const filterContainerElement = document.createElement("form");
-    filterContainerElement.classList.add("filter-container");
-
-    const filterLabelElement = document.createElement("label");
-    filterLabelElement.innerHTML = "Filter by usage:";
-    filterContainerElement.appendChild(filterLabelElement);
-
-    const filterSelectElement = document.createElement("select");
-
-    const allResourcesOptionElement = document.createElement("option");
-    allResourcesOptionElement.id = "filter-all-resources";
-    allResourcesOptionElement.value = "all";
-    allResourcesOptionElement.textContent = "All";
-    allResourcesOptionElement.selected = true;
-
-    const unusedResourcesOptionElement = document.createElement("option");
-    unusedResourcesOptionElement.id = "filter-unused-resources";
-    unusedResourcesOptionElement.value = "unused";
-    unusedResourcesOptionElement.textContent = "Unused";
-
-    const usedOnceResourcesOptionElement = document.createElement("option");
-    usedOnceResourcesOptionElement.id = "filter-used-once-resources";
-    usedOnceResourcesOptionElement.value = "used-once";
-    usedOnceResourcesOptionElement.textContent = "Used once";
-
-    const withDuplicatesResourcesOptionElement = document.createElement("option");
-    withDuplicatesResourcesOptionElement.id = "filter-with-duplicates-resources";
-    withDuplicatesResourcesOptionElement.value = "with-duplicates";
-    withDuplicatesResourcesOptionElement.textContent = "With duplicates";
-
-    const deprecatedResourcesOptionElement = document.createElement("option");
-    deprecatedResourcesOptionElement.id = "filter-deprecated-resources";
-    deprecatedResourcesOptionElement.value = "deprecated";
-    deprecatedResourcesOptionElement.textContent = "Deprecated";
-
-    const missingResourcesOptionElement = document.createElement("option");
-    missingResourcesOptionElement.id = "filter-missing-resources";
-    missingResourcesOptionElement.value = "missing";
-    missingResourcesOptionElement.textContent = "Missing";
-
-    const missingWithLocalValueResourcesOptionElement = document.createElement("option");
-    missingWithLocalValueResourcesOptionElement.id = "filter-missing-with-local-value-resources";
-    missingWithLocalValueResourcesOptionElement.value = "missing-with-local-value";
-    missingWithLocalValueResourcesOptionElement.textContent = "Missing with local value";
-
-    const missingNbTranslationsOptionElement = document.createElement("option");
-    missingNbTranslationsOptionElement.id = "filter-missing-nb-translations-resources";
-    missingNbTranslationsOptionElement.value = "missing-nb-translations";
-    missingNbTranslationsOptionElement.textContent = `Missing translation for ${getLanguageNameFromCode("nb")}`;
-
-    const missingNnTranslationsOptionElement = document.createElement("option");
-    missingNnTranslationsOptionElement.id = "filter-missing-nn-translations-resources";
-    missingNnTranslationsOptionElement.value = "missing-nn-translations";
-    missingNnTranslationsOptionElement.textContent = `Missing translation for ${getLanguageNameFromCode("nn")}`;
-
-    const missingEnTranslationsOptionElement = document.createElement("option");
-    missingEnTranslationsOptionElement.id = "filter-missing-en-translations-resources";
-    missingEnTranslationsOptionElement.value = "missing-en-translations";
-    missingEnTranslationsOptionElement.textContent = `Missing translation for ${getLanguageNameFromCode("en")}`;
-
-    filterSelectElement.onchange = () => {
-        globalThis.selectedFilter = filterSelectElement.value;
-        handleFilterChange(containerElement, textResources);
-    };
-
-    filterSelectElement.appendChild(allResourcesOptionElement);
-    filterSelectElement.appendChild(unusedResourcesOptionElement);
-    filterSelectElement.appendChild(usedOnceResourcesOptionElement);
-    filterSelectElement.appendChild(withDuplicatesResourcesOptionElement);
-    filterSelectElement.appendChild(deprecatedResourcesOptionElement);
-    filterSelectElement.appendChild(missingResourcesOptionElement);
-    filterSelectElement.appendChild(missingWithLocalValueResourcesOptionElement);
-    filterSelectElement.appendChild(missingNbTranslationsOptionElement);
-    filterSelectElement.appendChild(missingNnTranslationsOptionElement);
-    filterSelectElement.appendChild(missingEnTranslationsOptionElement);
-
-    globalThis.selectedFilter = selectStoredOption(filterSelectElement, globalThis.selectedFilter, "all");
-
-    filterContainerElement.appendChild(filterSelectElement);
-
-    return filterContainerElement;
+    const filterElement = renderLabelledSelectFilter(
+        "Filter by usage:",
+        "text-resource-usage-filter-select",
+        [
+            { value: "all", text: "All" },
+            { value: "unused", text: "Unused" },
+            { value: "used-once", text: "Used once" },
+            { value: "with-duplicates", text: "With duplicates" },
+            { value: "deprecated", text: "Deprecated" },
+            { value: "missing", text: "Missing" },
+            { value: "missing-with-local-value", text: "Missing with local value" },
+            ...["nb", "nn", "en"].map((code) => ({
+                value: `missing-${code}-translations`,
+                text: `Missing translation for ${getLanguageNameFromCode(code)}`
+            }))
+        ],
+        (value: string) => {
+            globalThis.selectedFilter = value;
+            handleFilterChange(containerElement, textResources);
+        },
+        globalThis.selectedFilter
+    );
+    globalThis.selectedFilter = (filterElement.querySelector("select") as HTMLSelectElement).value;
+    return filterElement;
 }
 
 /**
@@ -465,58 +416,16 @@ export function renderUsageFilterForTextResourcesList(containerElement: HTMLElem
  * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
  * @param {Array} textResources - The full list of text resources to filter when the selection changes.
  * @param {Array<{ appName: string }>} applications - The list of applications to populate the filter dropdown.
- * @returns {HTMLElement} The DOM element containing the application filter select dropdown.
+ * @returns {HTMLFormElement} The DOM element containing the application filter select dropdown.
  */
 export function renderSelectApplicationFilterForTextResourcesList(containerElement: HTMLElement, textResources: ApiValue, applications: ApiValue) {
-    const selectContainerElement = document.createElement("div");
-    selectContainerElement.classList.add("filter-container");
-
-    const applicationSelectLabelElement = document.createElement("label");
-    applicationSelectLabelElement.htmlFor = "application-filter-select";
-    applicationSelectLabelElement.innerHTML = "Application";
-    selectContainerElement.appendChild(applicationSelectLabelElement);
-
-    const applicationSelectElement = document.createElement("select");
-    applicationSelectElement.id = "application-filter-select";
-
-    const defaultOptionElement = document.createElement("option");
-    defaultOptionElement.value = "";
-    defaultOptionElement.innerHTML = "All applications";
-    applicationSelectElement.appendChild(defaultOptionElement);
-
-    applications.forEach((app: ApiValue) => {
-        const appOptionElement = document.createElement("option");
-        appOptionElement.value = `${app?.appOwner}/${app?.appName}`;
-        appOptionElement.textContent = `${app?.appOwner}/${app?.appName}`;
-        applicationSelectElement.appendChild(appOptionElement);
+    return renderApplicationFilter(containerElement, {
+        selectId: "application-filter-select",
+        formSelectId: "form-filter-select",
+        applications,
+        choices: textResourceAppFormChoices,
+        onChange: () => handleFilterChange(containerElement, textResources)
     });
-
-    const updateResourceListBasedOnApplicationFilter = () => {
-        const selectElementValue = applicationSelectElement.value;
-        const [appOwner, appName] = selectElementValue.split("/");
-        globalThis.selectedAppOwner = appOwner || "";
-        globalThis.selectedAppName = appName || "";
-        // The forms on offer follow the app, as they do on the Display layouts page.
-        const formSelectElement = containerElement.querySelector("#form-filter-select") as HTMLSelectElement | null;
-        if (formSelectElement) {
-            const formOptions = getFormFilterOptions(applications, globalThis.selectedAppOwner, globalThis.selectedAppName);
-            globalThis.selectedForm = setSelectOptions(formSelectElement, formOptions, globalThis.selectedForm || "");
-        }
-        handleFilterChange(containerElement, textResources);
-    };
-
-    applicationSelectElement.onchange = updateResourceListBasedOnApplicationFilter;
-
-    // Starts on the app chosen before, when there is one and it is still offered.
-    const storedApp = globalThis.selectedAppOwner && globalThis.selectedAppName ? `${globalThis.selectedAppOwner}/${globalThis.selectedAppName}` : "";
-    if (!selectStoredOption(applicationSelectElement, storedApp, "")) {
-        globalThis.selectedAppOwner = "";
-        globalThis.selectedAppName = "";
-    }
-
-    selectContainerElement.appendChild(applicationSelectElement);
-
-    return selectContainerElement;
 }
 
 /**
@@ -526,33 +435,15 @@ export function renderSelectApplicationFilterForTextResourcesList(containerEleme
  * @param {HTMLElement} containerElement - The container element holding the resources list, re-filtered on change.
  * @param {Array} textResources - The full list of text resources to filter when the selection changes.
  * @param {Array<Object>} applications - The display layout entries, whose subforms populate the dropdown.
- * @returns {HTMLElement} The DOM element containing the form filter select dropdown.
+ * @returns {HTMLFormElement} The DOM element containing the form filter select dropdown.
  */
 export function renderSelectFormFilterForTextResourcesList(containerElement: HTMLElement, textResources: ApiValue, applications: ApiValue) {
-    const selectContainerElement = document.createElement("div");
-    selectContainerElement.classList.add("filter-container");
-
-    const formSelectLabelElement = document.createElement("label");
-    formSelectLabelElement.htmlFor = "form-filter-select";
-    formSelectLabelElement.innerHTML = "Form";
-    selectContainerElement.appendChild(formSelectLabelElement);
-
-    const formSelectElement = document.createElement("select");
-    formSelectElement.id = "form-filter-select";
-    globalThis.selectedForm = setSelectOptions(
-        formSelectElement,
-        getFormFilterOptions(applications, globalThis.selectedAppOwner, globalThis.selectedAppName),
-        globalThis.selectedForm || ""
-    );
-
-    formSelectElement.onchange = () => {
-        globalThis.selectedForm = formSelectElement.value;
-        handleFilterChange(containerElement, textResources);
-    };
-
-    selectContainerElement.appendChild(formSelectElement);
-
-    return selectContainerElement;
+    return renderFormFilter({
+        selectId: "form-filter-select",
+        applications,
+        choices: textResourceAppFormChoices,
+        onChange: () => handleFilterChange(containerElement, textResources)
+    });
 }
 
 /**
@@ -565,46 +456,16 @@ export function renderSelectFormFilterForTextResourcesList(containerElement: HTM
  * @returns {HTMLDivElement} The DOM element containing the filter UI.
  */
 export function renderTextInputFilterForTextResourcesList(containerElement: HTMLElement, textResources: ApiValue) {
-    const textInputContainerElement = document.createElement("div");
-    textInputContainerElement.classList.add("filter-container");
-
-    const textInputLabelElement = document.createElement("label");
-    textInputLabelElement.htmlFor = "text-filter-input";
-    textInputLabelElement.innerHTML = "Filter by text";
-    textInputContainerElement.appendChild(textInputLabelElement);
-
-    const textFilterInputElement = document.createElement("input");
-    textFilterInputElement.id = "text-filter-input";
-    textFilterInputElement.type = "text";
-    textFilterInputElement.placeholder = "Enter text to filter resources";
-    textInputContainerElement.appendChild(textFilterInputElement);
-
-    const matchBySelectElement = document.createElement("select");
-    matchBySelectElement.id = "match-by-select";
-
-    const matchByIdOptionElement = document.createElement("option");
-    matchByIdOptionElement.value = "id";
-    matchByIdOptionElement.innerHTML = "Match by ID";
-    matchBySelectElement.appendChild(matchByIdOptionElement);
-
-    const matchByValueOptionElement = document.createElement("option");
-    matchByValueOptionElement.value = "value";
-    matchByValueOptionElement.innerHTML = "Match by Value";
-    matchBySelectElement.appendChild(matchByValueOptionElement);
-
-    textInputContainerElement.appendChild(matchBySelectElement);
-
-    textFilterInputElement.value = globalThis.textFilter || "";
-    globalThis.matchBy = selectStoredOption(matchBySelectElement, globalThis.matchBy, "id");
-
-    const updateResourceListBasedOnTextInputFilter = () => {
-        globalThis.textFilter = textFilterInputElement.value;
-        globalThis.matchBy = matchBySelectElement.value;
-        handleFilterChange(containerElement, textResources);
-    };
-
-    textFilterInputElement.oninput = updateResourceListBasedOnTextInputFilter;
-    matchBySelectElement.onchange = updateResourceListBasedOnTextInputFilter;
-
-    return textInputContainerElement;
+    return renderTextFilter({
+        inputId: "text-filter-input",
+        matchById: "match-by-select",
+        placeholder: "Enter text to filter resources",
+        matchOptions: [
+            { value: "id", text: "Match by ID" },
+            { value: "value", text: "Match by Value" }
+        ],
+        text: storedChoice("textFilter"),
+        matchBy: storedChoice("matchBy"),
+        onChange: () => handleFilterChange(containerElement, textResources)
+    });
 }
