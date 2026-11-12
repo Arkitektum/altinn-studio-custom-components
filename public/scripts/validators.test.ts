@@ -54,6 +54,33 @@ describe("getResourceBindingsWithUsageFromApplications", () => {
     });
 });
 
+describe("reading the bindings of synchronized layouts", () => {
+    const layoutComponent = () => ({
+        id: "c1",
+        type: "Custom",
+        tagName: "custom-field-data",
+        resourceBindings: { title: "c1.title" },
+        dataModelBindings: { simpleBinding: "a.b" }
+    });
+
+    afterEach(() => localStorage.removeItem("dataModels"));
+
+    it("finds a custom component's bindings and leaves the component as it was", () => {
+        const component = layoutComponent();
+        const set = validators.getResourceBindingsWithUsageFromApplications([{ layout: { data: { layout: [component] } } }], "custom");
+        expect(set.has("c1.title")).toBe(true);
+        expect(component).toEqual(layoutComponent());
+    });
+
+    it("does not read the data models the DevTools page keeps", () => {
+        localStorage.setItem("dataModels", JSON.stringify([{ dataType: "", data: { a: { b: "from DevTools" } } }]));
+        const getItem = jest.spyOn(Storage.prototype, "getItem");
+        validators.getResourceBindingsWithUsageFromApplications([{ layout: { data: { layout: [layoutComponent()] } } }], "custom");
+        expect(getItem.mock.calls.some(([key]) => key === "dataModels")).toBe(false);
+        getItem.mockRestore();
+    });
+});
+
 describe("renderValidationMessages", () => {
     it("renders error, warning, info", () => {
         const validationResults = {

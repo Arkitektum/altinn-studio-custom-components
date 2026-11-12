@@ -199,25 +199,26 @@ function getTextResourcesWithEmptyValue(textResources: ApiValue) {
 /**
  * Extracts and adds resource bindings from a component to the provided resourceBindingsSet.
  *
- * Depending on the component type (custom or Altinn), it delegates to the appropriate handler
- * to add resource bindings. It also updates the component's formData property.
- *
- * Note: This function intentionally mutates the provided {@link componentProps} object by
- * adding or updating its `formData` property based on the current data models.
+ * Depending on the component type (custom or Altinn), it delegates to the appropriate handler to add resource bindings. The component is read with its form data taken from `dataModels`, on a copy, so the object passed in is left as it is.
  *
  * @param {Set} resourceBindingsSet - The set to which resource bindings will be added.
  * @param {Object} componentProps - The properties of the component, including tagName, type, and others.
  * @param {string} [componentType="all"] - The type of component to process ("custom", "altinn", or "all").
+ * @param {Array} [dataModels=[]] - The data models the component's form data is read from.
  */
-export function getResourceBindingsFromComponent(resourceBindingsSet: ApiValue, componentProps: ApiValue, componentType = "all") {
+export function getResourceBindingsFromComponent(
+    resourceBindingsSet: ApiValue,
+    componentProps: ApiValue,
+    componentType = "all",
+    dataModels: ApiValue = []
+) {
     const isCustomComponent = componentProps?.tagName?.length && componentProps?.type === "Custom";
-    const dataModels = getDataModels();
-    componentProps.formData = getDataForComponent(componentProps, dataModels);
+    const componentWithData = { ...componentProps, formData: getDataForComponent(componentProps, dataModels) };
 
     if (isCustomComponent && (componentType === "custom" || componentType === "all")) {
-        addResourceBindingsFromCustomComponent(componentProps, resourceBindingsSet);
+        addResourceBindingsFromCustomComponent(componentWithData, resourceBindingsSet);
     } else if (!isCustomComponent && (componentType === "altinn" || componentType === "all")) {
-        addResourceBindingsFromAltinnComponent(componentProps, resourceBindingsSet);
+        addResourceBindingsFromAltinnComponent(componentWithData, resourceBindingsSet);
     }
 }
 
@@ -226,12 +227,18 @@ export function getResourceBindingsFromComponent(resourceBindingsSet: ApiValue, 
  *
  * @param {Set} resourceBindingsSet - A Set to collect unique resource bindings.
  * @param {Array<Object>} componentsArray - An array of component property objects to process.
- * @param {string} [componentType="all"] - Optional. The type of components to filter by; defaults to "all".
+ * @param {string} [componentType="all"] - Optional. The type of components to filter by, "all" by default.
+ * @param {Array} [dataModels=[]] - The data models the components' form data is read from.
  * @returns {Set} The updated Set containing all found resource bindings.
  */
-export function getResourceBindingsFromComponents(resourceBindingsSet: ApiValue, componentsArray: ApiValue, componentType = "all") {
+export function getResourceBindingsFromComponents(
+    resourceBindingsSet: ApiValue,
+    componentsArray: ApiValue,
+    componentType = "all",
+    dataModels: ApiValue = []
+) {
     for (const componentProps of componentsArray) {
-        getResourceBindingsFromComponent(resourceBindingsSet, componentProps, componentType);
+        getResourceBindingsFromComponent(resourceBindingsSet, componentProps, componentType, dataModels);
     }
     return resourceBindingsSet;
 }
@@ -289,7 +296,7 @@ export function validateResources() {
     const components = Array.isArray(normalizedComponentCode) ? normalizedComponentCode : [componentCode];
 
     const resourceBindingsSet = new Set(ALTINN_RESOURCE_BINDINGS);
-    const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all");
+    const allResourceBindings = getResourceBindingsFromComponents(resourceBindingsSet, components, "all", getDataModels());
 
     const unusedResourceBindings = getUnusedResourceBindings(allResourceBindings, textResources);
     const { missingResourceBindings, literalValues } = getMissingResourceBindings(

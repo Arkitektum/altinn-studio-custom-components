@@ -183,7 +183,6 @@ export async function loadDevTools() {
             return;
         }
         lastUpdated = new Date().toISOString();
-        // Stored before applyApiData, which adds to the layouts while working out the component usage.
         await storeApiData(
             {
                 displayLayouts,
