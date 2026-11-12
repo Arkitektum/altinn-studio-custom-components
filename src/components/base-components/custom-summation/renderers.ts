@@ -1,28 +1,15 @@
 import type { InstantiatedComponent } from "../../../types.ts";
 // Dependencies
-import { CustomElementHtmlAttributes, createCustomElement, hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
+import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
 import { formatNumber } from "../../../functions/dataFormatHelpers.ts";
 
-/**
- * Renders a custom header element with the specified title and size.
- *
- * @param {string} title - The title to display in the header.
- * @param {string|number} size - The size attribute for the header element.
- * @returns {HTMLElement|undefined} The created custom header element, or undefined if no title is provided.
- */
-export function renderHeaderElement(title: string, size?: string) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        size,
-        resourceValues: {
-            title
-        }
-    });
-    if (title) {
-        return createCustomElement("custom-header", htmlAttributes);
-    }
-}
+// Shared with the other base components
+import { renderHeaderElement } from "../shared/childElements.ts";
+
+// Re-exported so the component and its tests keep importing it from here.
+export { renderHeaderElement };
 
 /**
  * Creates a <span> element representing a summation item operator.

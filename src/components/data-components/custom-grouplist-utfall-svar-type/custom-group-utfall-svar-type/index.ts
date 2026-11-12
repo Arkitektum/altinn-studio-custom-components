@@ -1,6 +1,6 @@
 // Global functions
 import { renderCustomComponent } from "../../../../functions/componentRenderHelpers.ts";
-import { renderEmptyFieldText } from "../../custom-grouplist-sjekklistekrav/custom-group-sjekklistekrav/renderers.ts";
+import { renderEmptyFieldText } from "../../shared/childElements.ts";
 
 // Local functions
 import { renderUtfallSvarGroupList } from "./renderers.ts";

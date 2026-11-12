@@ -5,22 +5,8 @@ import { addStyle } from "@arkitektum/altinn-studio-custom-components-utils";
 // Global functions
 import { generateUniqueId } from "../../../functions/helpers.ts";
 
-/**
- * Creates a span element representing a field title with a specific class and optional ID.
- *
- * @param {string} fieldTitle - The text content for the field title.
- * @param {string} [fieldTitleId] - Optional ID to assign to the span element.
- * @returns {HTMLSpanElement} The created span element with the field title.
- */
-function renderFieldTitleElement(fieldTitle: string, fieldTitleId: string | null) {
-    const fieldTitleLabelElement = document.createElement("span");
-    if (fieldTitleId) {
-        fieldTitleLabelElement.id = fieldTitleId;
-    }
-    fieldTitleLabelElement.classList.add("field-title");
-    fieldTitleLabelElement.textContent = fieldTitle;
-    return fieldTitleLabelElement;
-}
+// Shared with the other base components
+import { renderFieldTitleElement } from "../shared/childElements.ts";
 
 /**
  * Renders a description list (<dl>) element from an array of list items.

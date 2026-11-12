@@ -5,6 +5,12 @@ import { CustomElementHtmlAttributes, addStyle, createCustomElement, hasValue } 
 // Global functions
 import { getEmptyFieldText } from "../../../functions/helpers.ts";
 
+// Shared with the other base components
+import { renderHeaderElement } from "../shared/childElements.ts";
+
+// Re-exported so the component and its tests keep importing it from here.
+export { renderHeaderElement };
+
 /**
  * Creates a table header (th) element with the specified text and style.
  *
@@ -74,25 +80,6 @@ function renderMatrixRowElement(matrixRow: CellComponentProps[]) {
     }
 
     return tr;
-}
-
-/**
- * Renders a custom header element if the text is provided.
- *
- * @param {string} title - The text content for the header element.
- * @param {string} size - The size of the header element.
- * @returns {HTMLElement|undefined} The created custom header element or undefined if no text is provided.
- */
-export function renderHeaderElement(title: string, size?: string) {
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        size,
-        resourceValues: {
-            title
-        }
-    });
-    if (title) {
-        return createCustomElement("custom-header", htmlAttributes);
-    }
 }
 
 /**
