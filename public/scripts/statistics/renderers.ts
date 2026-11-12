@@ -799,10 +799,8 @@ export function getDisplayLayoutMainHeading() {
     const localAppResources = globalThis.textResources as ApiValue;
     const headingElement = document.createElement("h1");
     const headingResourceId = "appName";
-    const headingText = localAppResources?.resources?.length
-        ? localAppResources.resources.find((res: ApiValue) => res.id === headingResourceId)?.value
-        : "Display layout";
-    headingElement.textContent = headingText;
+    const headingText = localAppResources?.resources?.find((res: ApiValue) => res.id === headingResourceId)?.value;
+    headingElement.textContent = headingText || "Display layout";
     return headingElement;
 }
 

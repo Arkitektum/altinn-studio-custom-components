@@ -433,6 +433,12 @@ describe("internal renderers functions", () => {
         expect(h1.tagName).toBe("H1");
         expect(h1.textContent).toBe("Test App");
     });
+    it("getDisplayLayoutMainHeading falls back to Display layout when the app has no name", () => {
+        globalThis.textResources = { resources: [{ id: "appLogo.url", value: "logo.svg" }] };
+        expect(getDisplayLayoutMainHeading().textContent).toBe("Display layout");
+        globalThis.textResources = { resources: [] };
+        expect(getDisplayLayoutMainHeading().textContent).toBe("Display layout");
+    });
     it("setDefaultSelectedFileNameForDisplayLayouts returns unchanged fileNames if empty", () => {
         const selectedOptions = { formType: "main", fileNames: {} };
         const result = setDefaultSelectedFileNameForDisplayLayouts(globalThis.displayLayouts[0], globalThis.exampleData, selectedOptions);

@@ -23,7 +23,7 @@ import { validateResources } from "./validators.ts";
  */
 export function getDataModelSummaryText(dataModel: ApiValue, index: number) {
     const dataTypeName = dataModel.dataType?.length > 0 ? dataModel.dataType : `Data model ${index + 1}`;
-    const dataModelType = index === 0 ? `[main] ${dataModel.dataType}` : dataTypeName;
+    const dataModelType = index === 0 ? `[main] ${dataTypeName}` : dataTypeName;
     return dataModelType;
 }
 
@@ -90,11 +90,17 @@ export function getDataModelListElements() {
             if (!confirm("Are you sure you want to remove this data model? This action cannot be undone.")) {
                 return;
             }
+            // The editor for an open data model writes back by index, which no longer points at the same model.
+            const dataModelEditorOpen = document.querySelector("#data-model-list li.active") !== null;
             const dataModels = JSON.parse(getValueFromLocalStorage("dataModels")!) || [];
             dataModels.splice(index, 1);
             addValueToLocalStorage("dataModels", JSON.stringify(dataModels));
             renderSidebar();
             renderResults();
+            if (dataModelEditorOpen) {
+                updateDataInputElement(getCodeInputElementForLayoutCode());
+                setActiveSidebarElement("layout-code");
+            }
         };
         optionButtonsContainerElement.appendChild(dataModelListItemRemoveButtonElement);
 

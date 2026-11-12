@@ -10,6 +10,10 @@ describe("getDataModelSummaryText", () => {
     it("returns fallback for missing dataType", () => {
         expect(getDataModelSummaryText({}, 2)).toBe("Data model 3");
     });
+    it("names the main data model by its position when it has no type", () => {
+        expect(getDataModelSummaryText({ dataType: "" }, 0)).toBe("[main] Data model 1");
+        expect(getDataModelSummaryText({}, 0)).toBe("[main] Data model 1");
+    });
 });
 
 describe("getResourcesForLanguage", () => {
