@@ -35,9 +35,6 @@ export const fetchTextResources = async (
             "Invalid parameters provided to fetchTextResources. " + "Expected non-empty strings for 'origin', 'org', 'app', and 'language'.",
             { origin, org, app, language }
         );
-    }
-
-    if (!isNonEmptyString(language)) {
         return null;
     }
 

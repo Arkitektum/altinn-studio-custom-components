@@ -111,6 +111,17 @@ describe("fetchTextResources", () => {
         expect(result).toBeNull();
         expect(fetchWithTimeoutAndClientLogger).not.toHaveBeenCalled();
     });
+
+    it.each([
+        ["origin", ["", org, app]],
+        ["org", [origin, " ", app]],
+        ["app", [origin, org, ""]]
+    ])("returns null without fetching when the %s is missing", async (_name, [givenOrigin, givenOrg, givenApp]) => {
+        const result = await fetchTextResources(givenOrigin!, givenOrg!, givenApp!, "en", "nb");
+
+        expect(result).toBeNull();
+        expect(fetchWithTimeoutAndClientLogger).not.toHaveBeenCalled();
+    });
 });
 
 describe("fetchDefaultTextResources", () => {
