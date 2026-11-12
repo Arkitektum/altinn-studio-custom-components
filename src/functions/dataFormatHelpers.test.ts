@@ -7,9 +7,6 @@ import {
     formatTime,
     getAvailableDateTimeLanguageOrDefault,
     injectAnchorElements,
-    isValidDateString,
-    parseDateString,
-    parseTimeString,
     toDate
 } from "./dataFormatHelpers.ts";
 
@@ -52,48 +49,6 @@ describe("getAvailableDateTimeLanguageOrDefault", () => {
     it('returns "default" if language is not available', () => {
         expect(getAvailableDateTimeLanguageOrDefault("fr")).toBe("default");
         expect(getAvailableDateTimeLanguageOrDefault("")).toBe("default");
-    });
-});
-
-describe("parseDateString", () => {
-    it("parses valid dd.mm.yyyy date", () => {
-        expect(parseDateString("01.02.2023")).toBe("2023-02-01T00:00:00.000Z");
-        expect(parseDateString("31.12.1999")).toBe("1999-12-31T00:00:00.000Z");
-    });
-    it("returns null for invalid date format", () => {
-        expect(parseDateString("2023-02-01")).toBeNull();
-        expect(parseDateString("32.01.2024")).toBeNull();
-        expect(parseDateString("01.13.2023")).toBeNull();
-        expect(parseDateString("abc")).toBeNull();
-    });
-});
-
-describe("parseTimeString", () => {
-    it("parses valid hh:mm time", () => {
-        expect(parseTimeString("13:45")).toBe("1970-01-01T13:45:00.000Z");
-        expect(parseTimeString("00:00")).toBe("1970-01-01T00:00:00.000Z");
-    });
-    it("parses valid hh:mm:ss time", () => {
-        expect(parseTimeString("23:59:59")).toBe("1970-01-01T23:59:59.000Z");
-    });
-    it("returns null for invalid time", () => {
-        expect(parseTimeString("24:00")).toBeNull();
-        expect(parseTimeString("12:60")).toBeNull();
-        expect(parseTimeString("12:34:60")).toBeNull();
-        expect(parseTimeString("abc")).toBeNull();
-    });
-});
-
-describe("isValidDateString", () => {
-    it("returns true for valid ISO date", () => {
-        expect(isValidDateString("2023-02-01T00:00:00.000Z")).toBe(true);
-        expect(isValidDateString("1999-12-31")).toBe(true);
-    });
-    it("returns false for invalid date", () => {
-        expect(isValidDateString("not-a-date")).toBe(false);
-        expect(isValidDateString("")).toBe(false);
-        expect(isValidDateString(null)).toBe(false);
-        expect(isValidDateString("31.02.2024")).toBe(false);
     });
 });
 

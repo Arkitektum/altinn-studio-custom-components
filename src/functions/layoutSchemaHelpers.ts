@@ -17,7 +17,7 @@ type JsonSchema = Record<string, unknown>;
 export const LAYOUT_SCHEMA_ID = "https://cdn.jsdelivr.net/npm/@arkitektum/altinn-studio-custom-components/dist/layout.schema.json";
 
 /** Where Altinn publishes its layout and expression schemas. */
-export const ALTINN_LAYOUT_SCHEMA_BASE_URL = "https://altinncdn.no/toolkits/altinn-app-frontend/4/schemas/json/layout/";
+const ALTINN_LAYOUT_SCHEMA_BASE_URL = "https://altinncdn.no/toolkits/altinn-app-frontend/4/schemas/json/layout/";
 
 /**
  * Builds the schema for one component's `dataModelBindings` from the keys it declares.

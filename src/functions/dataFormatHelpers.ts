@@ -18,55 +18,6 @@ export function getAvailableDateTimeLanguageOrDefault(language: string): string 
     return "default";
 }
 
-/**
- * Parses a date string in the format "dd.mm.yyyy" and returns the date in ISO format.
- * Returns null if the input is not a valid date or does not match the expected format.
- *
- * @param {string} dateString - The date string to parse (expected format: "dd.mm.yyyy").
- * @returns {string|null} The ISO formatted date string if valid, otherwise null.
- */
-export function parseDateString(dateString: string): string | null {
-    // Match the string against the dd.mm.yyyy format
-    const regex = /^(\d{2})\.(\d{2})\.(\d{4})$/;
-    const match = regex.exec(dateString);
-
-    if (!match) return null;
-
-    const day = Number.parseInt(match[1]!, 10);
-    const month = Number.parseInt(match[2]!, 10) - 1; // JavaScript months are 0-based
-    const year = Number.parseInt(match[3]!, 10);
-
-    const date = new Date(Date.UTC(year, month, day));
-
-    // Check if the constructed date is valid and matches input (to avoid invalid ones like 32.01.2024)
-    if (date.getFullYear() === year && date.getMonth() === month && date.getDate() === day) {
-        return date.toISOString(); // Return in ISO format
-    }
-
-    return null; // Not a valid date
-}
-
-/**
- * Parses a time string in the format "hh:mm" or "hh:mm:ss" and returns an ISO 8601 string.
- *
- * @param {string} timeString - The time string to parse (e.g., "13:45" or "13:45:30").
- * @returns {string|null} The ISO 8601 formatted string representing the time, or null if the input is invalid.
- */
-export function parseTimeString(timeString: string) {
-    // Match the string against the hh:mm:ss format
-    const regex = /^(\d{2}):(\d{2})(?::(\d{2}))?$/;
-    const match = regex.exec(timeString);
-    if (!match) return null;
-    const hours = Number.parseInt(match[1]!, 10);
-    const minutes = Number.parseInt(match[2]!, 10);
-    const seconds = match[3] ? Number.parseInt(match[3]!, 10) : 0;
-    if (hours < 0 || hours > 23 || minutes < 0 || minutes > 59 || seconds < 0 || seconds > 59) {
-        return null; // Invalid time
-    }
-    const date = new Date(Date.UTC(1970, 0, 1, hours, minutes, seconds)); // Use a fixed date
-    return date.toISOString(); // Return in ISO format
-}
-
 /** The message shown in place of a date or time that cannot be read. */
 const invalidDateText = "Ugyldig datoformat";
 
@@ -132,10 +83,6 @@ export function toDate(value?: string | Date | null): Date | null {
     }
     const date = new Date(text);
     return Number.isNaN(date.getTime()) ? null : date;
-}
-
-export function isValidDateString(dateString?: string | Date | null): boolean {
-    return toDate(dateString) !== null;
 }
 
 /**
