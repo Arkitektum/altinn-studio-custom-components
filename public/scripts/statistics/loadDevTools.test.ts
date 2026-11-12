@@ -2,6 +2,10 @@ import { loadApiData, saveApiData } from "./apiDataStore.ts";
 import { loadDevTools } from "./index.ts";
 import { useFakeIndexedDb } from "./fakeIndexedDb.ts";
 
+// index.ts boots the page from window.onload, and jest's jsdom window fires load just after this file is imported.
+// Left in place, that boot runs a second loadDevTools alongside the one each test calls.
+globalThis.onload = null;
+
 /**
  * loadDevTools runs against the real helpers here, with only fetch stubbed, for the same reason as
  * applyApiData.test.ts: index.test.ts mocks what this would need to exercise.
