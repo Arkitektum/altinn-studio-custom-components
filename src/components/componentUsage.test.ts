@@ -28,13 +28,31 @@ function namedTags(source: string): string[] {
 
 /*
  * The statistics page builds its usage tree from getComponentUsage, so a tag a component draws and does not list is a
- * use the page never shows. Base components are the leaves of that tree and list nothing, so only the data and layout
- * components are held to it. A tag built at runtime, from a variable, is not seen here.
+ * use the page never shows. A tag drawn through the shared module a component imports counts as the component's own.
+ * A tag built at runtime, from a variable, is not seen here.
  */
 describe("getComponentUsage", () => {
-    const folders = ["data-components", "layout-components"].flatMap((kind) => componentFolders(join(__dirname, kind)));
+    const folders = ["base-components", "data-components", "layout-components"].flatMap((kind) => componentFolders(join(__dirname, kind)));
 
-    it("lists every tag a data or layout component names in its own files", () => {
+    /**
+     * The source of a file, and of each function it imports from a shared module, since what those draw is drawn by
+     * the component. Only the functions it imports count: the module also holds pieces this component does not use.
+     */
+    function sourcesOf(file: string): string[] {
+        const source = readFileSync(file, "utf8");
+        // Imported to call, or re-exported for the component's index.ts to call: either way the component draws it.
+        const fromShared = [...source.matchAll(/(?:import|export) \{([^}]*)\} from "((?:\.\.\/)+shared\/childElements\.ts)"/g)];
+        return [
+            source,
+            ...fromShared.flatMap((statement) => {
+                const functions = readFileSync(join(file, "..", statement[2]!), "utf8").split(/\n(?=export function )/);
+                const names = statement[1]!.split(",").map((name) => name.trim().split(/\s+as\s+/)[0]!);
+                return functions.filter((body) => names.some((name) => body.startsWith(`export function ${name}(`)));
+            })
+        ];
+    }
+
+    it("lists every tag a component names in its own files and the shared module it draws from", () => {
         const unlisted = folders.flatMap((folder) => {
             const name = folder.split("/").at(-1)!;
             const tagName = name.startsWith("custom-") ? name : `custom-${name}`;
@@ -42,7 +60,7 @@ describe("getComponentUsage", () => {
             if (files.length === 0) return [];
             const listed: string[] =
                 (instantiateComponent({ tagName }) as { getComponentUsage?: () => string[] } | null)?.getComponentUsage?.() ?? [];
-            const named = new Set(files.flatMap((file) => namedTags(readFileSync(file, "utf8"))));
+            const named = new Set(files.flatMap((file) => sourcesOf(file).flatMap(namedTags)));
             named.delete(tagName);
             return [...named].filter((tag) => !listed.includes(tag)).map((tag) => `${tagName} draws ${tag}`);
         });

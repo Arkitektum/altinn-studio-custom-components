@@ -36,4 +36,13 @@ export default class CustomSummation extends CustomComponent {
     hasContent(props?: ComponentProps): boolean {
         return hasValue(props?.resourceValues?.data);
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-header"];
+    }
 }

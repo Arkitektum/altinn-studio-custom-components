@@ -39,4 +39,15 @@ export default class CustomMatrix extends CustomComponent {
     hasContent(props?: ComponentProps): boolean {
         return hasValue(props?.resourceValues?.data);
     }
+
+    /**
+     * Retrieves the component usage, which is an array of custom component names that this class utilizes.
+     *
+     * A cell names its own tag, and `custom-field-data` is the one it draws when it does not.
+     *
+     * @returns {Array<string>} An array of custom component names used by this class.
+     */
+    getComponentUsage(): string[] {
+        return ["custom-field-data", "custom-header"];
+    }
 }
