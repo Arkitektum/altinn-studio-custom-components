@@ -180,6 +180,47 @@ describe("renderSynchronizeButton", () => {
         expect(onSynchronized).not.toHaveBeenCalled();
         expect(document.querySelector(".last-updated")!.textContent).toBe(before);
     });
+    it("stays disabled until onSynchronized has stored and applied the data", async () => {
+        (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6, 7]);
+        let finish: () => void = () => {};
+        // No earlier timestamp, so a new one cannot read the same as the old to the second.
+        globalThis.lastUpdated = 0;
+        renderSynchronizeButton(() => {
+            const applied: Promise<void> = new Promise((resolve) => {
+                finish = resolve;
+            });
+            return applied;
+        });
+        const button = document.querySelector("#sidebar button") as HTMLButtonElement;
+        const before = document.querySelector(".last-updated")!.textContent;
+
+        button.click();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        expect(button.disabled).toBe(true);
+        expect(document.querySelector(".last-updated")!.textContent).toBe(before);
+
+        finish();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+        expect(button.disabled).toBe(false);
+        expect(document.querySelector(".last-updated")!.textContent).not.toBe(before);
+    });
+    it("can be pressed again, and keeps the old timestamp, when onSynchronized fails", async () => {
+        (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6, 7]);
+        const consoleError = jest.spyOn(console, "error").mockImplementation(() => {});
+        globalThis.lastUpdated = 0;
+        renderSynchronizeButton(() => Promise.reject(new Error("redraw failed")));
+        const button = document.querySelector("#sidebar button") as HTMLButtonElement;
+        const before = document.querySelector(".last-updated")!.textContent;
+
+        button.click();
+        await new Promise((resolve) => setTimeout(resolve, 0));
+
+        expect(button.disabled).toBe(false);
+        expect(button.textContent).toBe("Synchronize data");
+        expect(document.querySelector(".last-updated")!.textContent).toBe(before);
+        expect(consoleError).toHaveBeenCalled();
+        consoleError.mockRestore();
+    });
     it("hands what it fetched to onSynchronized, with when it was fetched", async () => {
         (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6, 7]);
         const onSynchronized = jest.fn();

@@ -214,7 +214,7 @@ export async function loadDevTools() {
     renderSynchronizeButton(async (apiData: ApiData, synchronizedAt: string) => {
         await storeApiData(apiData, synchronizedAt);
         applyApiData(apiData, synchronizedAt);
-        void redrawOpenPage();
+        await redrawOpenPage();
     });
 }
 

@@ -1165,9 +1165,9 @@ export function renderNoDataMessage(onRetry: () => void) {
  *
  * Uses `globalThis.lastUpdated` for the initial timestamp, and expects an element with id "sidebar" in the DOM.
  *
- * @param {Function} [onSynchronized] - Called with the fetched data and when it was fetched.
+ * @param {Function} [onSynchronized] - Called with the fetched data and when it was fetched. The button stays disabled until what it returns has settled, and "Last updated" changes only if it succeeds.
  */
-export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastUpdated: string) => void = () => {}) {
+export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastUpdated: string) => unknown = () => {}) {
     const sidebarElement = document.getElementById("sidebar");
 
     const synchronizeElementsContainer = document.createElement("div");
@@ -1185,34 +1185,21 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
-        // One synchronization at a time. A second click while one runs would start another set of requests and open
-        // a second progress panel over the first.
+        // One synchronization at a time, from the first request until onSynchronized has stored and applied the data.
+        // A second click in that time would start another set of requests and open a second progress panel over the
+        // first.
         synchronizeButton.disabled = true;
         synchronizeButton.textContent = "Synchronizing…";
-        let apiData;
         try {
-            apiData = await getUpdatedApiData();
-        } catch {
-            // The progress panel already says which request failed and why. Nothing is stored, so the tools keep
-            // the data they had.
-            return;
-        } finally {
-            synchronizeButton.disabled = false;
-            synchronizeButton.textContent = "Synchronize data";
-        }
-        const [
-            displayLayouts,
-            packageVersions,
-            latestPackageVersions,
-            multilingualAppResourceValues,
-            exampleData,
-            applicationMetadata,
-            subformDataModels
-        ] = apiData;
-
-        const lastUpdated = new Date().toISOString();
-        onSynchronized(
-            {
+            let apiData;
+            try {
+                apiData = await getUpdatedApiData();
+            } catch {
+                // The progress panel already says which request failed and why. Nothing is stored, so the tools keep
+                // the data they had.
+                return;
+            }
+            const [
                 displayLayouts,
                 packageVersions,
                 latestPackageVersions,
@@ -1220,11 +1207,29 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
                 exampleData,
                 applicationMetadata,
                 subformDataModels
-            },
-            lastUpdated
-        );
+            ] = apiData;
 
-        lastUpdatedElement.textContent = `Last updated: ${new Date(lastUpdated).toLocaleString()}`;
+            const lastUpdated = new Date().toISOString();
+            await onSynchronized(
+                {
+                    displayLayouts,
+                    packageVersions,
+                    latestPackageVersions,
+                    multilingualAppResourceValues,
+                    exampleData,
+                    applicationMetadata,
+                    subformDataModels
+                },
+                lastUpdated
+            );
+
+            lastUpdatedElement.textContent = `Last updated: ${new Date(lastUpdated).toLocaleString()}`;
+        } catch (error) {
+            console.error("Could not apply the synchronized data:", error);
+        } finally {
+            synchronizeButton.disabled = false;
+            synchronizeButton.textContent = "Synchronize data";
+        }
     };
     synchronizeElementsContainer.appendChild(synchronizeButton);
 }
