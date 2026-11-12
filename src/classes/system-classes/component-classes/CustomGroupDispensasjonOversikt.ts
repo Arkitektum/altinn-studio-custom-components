@@ -109,6 +109,13 @@ export default class CustomGroupDispensasjonOversikt extends CustomComponent {
      * @returns {Array<string>} An array of custom component names used by this class.
      */
     getComponentUsage(): string[] {
-        return ["custom-feedbacklist-validation-messages", "custom-field-count-data", "custom-header-text", "custom-paragraph", "custom-table-data"];
+        return [
+            "custom-feedbacklist-validation-messages",
+            "custom-field-count-data",
+            "custom-field-data",
+            "custom-header-text",
+            "custom-paragraph",
+            "custom-table-data"
+        ];
     }
 }

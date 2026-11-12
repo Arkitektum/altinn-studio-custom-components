@@ -119,6 +119,6 @@ export default class CustomGrouplistEttersending extends CustomComponent {
      * @returns {Array<string>} An array of custom component names used by this class.
      */
     getComponentUsage(): string[] {
-        return ["custom-feedbacklist-validation-messages", "custom-group-ettersending", "custom-header-text", "custom-paragraph"];
+        return ["custom-divider", "custom-feedbacklist-validation-messages", "custom-group-ettersending", "custom-header-text", "custom-paragraph"];
     }
 }

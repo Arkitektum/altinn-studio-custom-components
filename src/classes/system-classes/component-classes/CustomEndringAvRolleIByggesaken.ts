@@ -206,6 +206,7 @@ export default class CustomEndringAvRolleIByggesaken extends CustomComponent {
         return [
             "custom-feedbacklist-validation-messages",
             "custom-field-adresse",
+            "custom-field-boolean-text",
             "custom-field-data",
             "custom-field-kommunens-saksnummer",
             "custom-header-text",
