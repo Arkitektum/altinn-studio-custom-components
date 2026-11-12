@@ -140,8 +140,6 @@ dist
 
 # Symlinks
 public/data/resource.**.json
-public/docs/data/resource.**.json
-api/data/resources.json
 
 # Claude directory
 .claude/

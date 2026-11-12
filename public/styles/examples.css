@@ -383,12 +383,6 @@ svg.icon {
                             background-color: var(--color-info-light);
                         }
                     }
-                    &.add-default-values-for-missing-resources-button {
-                        background-color: var(--color-success-default);
-                        &:hover {
-                            background-color: var(--color-success-light);
-                        }
-                    }
                 }
             }
         }
@@ -749,10 +743,6 @@ svg.icon {
                                 &.indicator-localValue {
                                     background-color: var(--color-info-muted);
                                     color: var(--color-info-default);
-                                }
-                                &.indicator-global {
-                                    background-color: var(--color-success-muted);
-                                    color: var(--color-success-default);
                                 }
                                 &.indicator-unused,
                                 &.indicator-deprecated {

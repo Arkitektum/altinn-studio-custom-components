@@ -143,7 +143,7 @@ export function getResourcesWithSameValue(resources: ApiValue, resource: ApiValu
  * Any component that is neither a base nor a layout component is treated as a data component (the catch-all),
  * so only these two smaller sets need to be listed explicitly.
  */
-export const BASE_COMPONENT_TAG_NAMES = [
+const BASE_COMPONENT_TAG_NAMES = [
     "custom-description-list",
     "custom-divider",
     "custom-feedback",
@@ -160,7 +160,7 @@ export const BASE_COMPONENT_TAG_NAMES = [
  * Tag names of the layout components. Source of truth: the directories under src/components/layout-components
  * (their tag names are the directory name prefixed with "custom-").
  */
-export const LAYOUT_COMPONENT_TAG_NAMES = [
+const LAYOUT_COMPONENT_TAG_NAMES = [
     "custom-dispensasjon",
     "custom-dispensasjonsvarsel",
     "custom-endring-av-rolle-i-byggesaken",

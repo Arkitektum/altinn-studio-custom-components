@@ -13,8 +13,7 @@ jest.mock("@arkitektum/altinn-studio-custom-components-utils", () => ({
 // Mock local dependencies
 jest.mock("../localStorage.ts", () => ({
     addDataToGlobalThis: jest.fn(),
-    addValueToLocalStorage: jest.fn(),
-    addValuesToLocalStorage: jest.fn()
+    addValueToLocalStorage: jest.fn()
 }));
 
 jest.mock("./apiHelpers.ts", () => ({

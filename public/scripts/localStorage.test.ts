@@ -10,18 +10,6 @@ describe("addValueToLocalStorage and getValueFromLocalStorage", () => {
     });
 });
 
-describe("addValuesToLocalStorage and getValuesFromLocalStorage", () => {
-    beforeEach(() => {
-        localStorage.clear();
-    });
-    it("sets and gets multiple values", () => {
-        localStorageUtils.addValuesToLocalStorage({ a: 1, b: { x: 2 } });
-        const result = localStorageUtils.getValuesFromLocalStorage(["a", "b"]);
-        expect(result.a).toBe(1);
-        expect(result.b).toEqual({ x: 2 });
-    });
-});
-
 describe("getLayoutCode", () => {
     beforeEach(() => {
         localStorage.clear();

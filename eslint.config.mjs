@@ -31,7 +31,6 @@ export default defineConfig([
     },
     {
         files: ["**/*.{js,mjs,cjs,ts}"],
-        plugins: { js },
         languageOptions: { globals: { ...globals.browser, ...globals.node } },
         rules: {
             "sort-imports": [
@@ -43,18 +42,11 @@ export default defineConfig([
         }
     },
     {
-        ignores: ["dist/**", "docs/**", "coverage/**", "node_modules/", "**/vendor/*.js"]
+        ignores: ["dist/**", "coverage/**", "node_modules/"]
     },
     {
-        files: ["**/*.test.{js,ts}", "**/*.spec.{js,ts}"], // 👈 Only apply to test files
-        languageOptions: {
-            globals: {
-                ...globals.jest // 👈 Add Jest globals like `describe`, `it`, `expect`
-            }
-        },
+        files: ["**/*.test.ts", "**/*.spec.ts"],
         rules: {
-            // Optional: Jest-specific rules
-            "no-undef": "off", // Jest defines globals, so we disable this warning
             // A mock factory runs before the imports, so it cannot reach one. Requiring the module inside the
             // factory is jest's own convention and the only thing that works there.
             "@typescript-eslint/no-require-imports": "off"

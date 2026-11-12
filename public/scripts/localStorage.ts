@@ -13,18 +13,6 @@ export function addValueToLocalStorage(key: string, value: ApiValue) {
 }
 
 /**
- * Adds multiple key-value pairs to localStorage.
- * Each value is stringified using JSON.stringify before storing.
- *
- * @param {Object} values - An object containing key-value pairs to store in localStorage.
- */
-export function addValuesToLocalStorage(values: ApiValue) {
-    for (const [key, value] of Object.entries(values)) {
-        addValueToLocalStorage(key, JSON.stringify(value));
-    }
-}
-
-/**
  * Retrieves a value from the browser's localStorage for the specified key.
  *
  * @param {string} key - The key whose value should be retrieved from localStorage.
@@ -32,20 +20,6 @@ export function addValuesToLocalStorage(values: ApiValue) {
  */
 export function getValueFromLocalStorage(key: string) {
     return localStorage.getItem(key);
-}
-
-/**
- * Retrieves multiple values from localStorage and parses them as JSON.
- *
- * @param {string[]} keys - An array of keys to retrieve from localStorage.
- * @returns {Object} An object mapping each key to its parsed value from localStorage.
- */
-export function getValuesFromLocalStorage(keys: string[]): Record<string, ApiValue> {
-    const values: Record<string, ApiValue> = {};
-    for (const key of keys) {
-        values[key] = JSON.parse(getValueFromLocalStorage(key)!);
-    }
-    return values;
 }
 
 /**

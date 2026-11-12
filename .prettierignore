@@ -9,5 +9,4 @@ src/data/altinn/
 
 # Build output.
 dist/
-docs/
 coverage/

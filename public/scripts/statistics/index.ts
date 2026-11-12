@@ -34,7 +34,7 @@ const API_DATA_KEYS = [
  *
  * @returns {Promise<Object>} The stored data and `lastUpdated`, each undefined when nothing is stored.
  */
-export async function getStoredApiData(): Promise<Record<string, ApiValue>> {
+async function getStoredApiData(): Promise<Record<string, ApiValue>> {
     try {
         return await loadApiData([...API_DATA_KEYS, "lastUpdated"]);
     } catch (error) {
