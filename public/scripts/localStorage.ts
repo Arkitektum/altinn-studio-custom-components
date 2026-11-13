@@ -1,5 +1,6 @@
 import type { ApiValue } from "./types.ts";
 // Local functions
+import { languages } from "./languages.ts";
 import { removeTrailingOrLeadingComma } from "./formatters.ts";
 
 /**
@@ -47,14 +48,44 @@ export function getDataModels() {
 }
 
 /**
- * Retrieves and parses the text resources from local storage.
+ * The language chosen in devTools, nb until another one is chosen.
+ *
+ * @returns {string} The language code.
+ */
+export function getSelectedLanguage() {
+    const language = getValueFromLocalStorage("devToolsLanguage");
+    return languages.some(({ code }) => code === language) ? language! : "nb";
+}
+
+/**
+ * Stores the language chosen in devTools.
+ *
+ * @param {string} language - The language code.
+ */
+export function setSelectedLanguage(language: string) {
+    addValueToLocalStorage("devToolsLanguage", language);
+}
+
+/**
+ * The localStorage key the app's text resources for a language are kept under. nb keeps the key used before there were languages, so text resources stored then stay where they are.
+ *
+ * @param {string} [language] - The language code, the chosen language when left out.
+ * @returns {string} The key.
+ */
+export function getTextResourcesStorageKey(language = getSelectedLanguage()) {
+    return language === "nb" ? "textResources" : `textResources.${language}`;
+}
+
+/**
+ * Retrieves and parses the text resources for a language from local storage.
  * If no text resources are found, returns an empty object.
  * Removes any trailing or leading commas before parsing the JSON.
  *
+ * @param {string} [language] - The language code, the chosen language when left out.
  * @returns {Object} The parsed text resources object from local storage.
  */
-export function getTextResources() {
-    const textResources = getValueFromLocalStorage("textResources") || "{}";
+export function getTextResources(language = getSelectedLanguage()) {
+    const textResources = getValueFromLocalStorage(getTextResourcesStorageKey(language)) || "{}";
     return JSON.parse(removeTrailingOrLeadingComma(textResources));
 }
 

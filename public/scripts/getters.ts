@@ -1,12 +1,9 @@
 import type { ApiValue } from "./types.ts";
-// Dependencies
-import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
-
 // Global functions
 import { beautifyJson, parseJsonInput } from "./formatters.ts";
 
 // Local functions
-import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.ts";
+import { addValueToLocalStorage, getDataModels, getTextResourcesStorageKey, getValueFromLocalStorage } from "./localStorage.ts";
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.ts";
 import { renderJsonInputError, setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./devTools/renderers.ts";
@@ -222,7 +219,8 @@ function cleanUpTextResources(textResources: ApiValue) {
 export function getCodeInputElementForTextResources() {
     const codeInputElement = document.createElement("textarea");
     codeInputElement.id = "code-input";
-    codeInputElement.value = getValueFromLocalStorage("textResources") || "";
+    const storageKey = getTextResourcesStorageKey();
+    codeInputElement.value = getValueFromLocalStorage(storageKey) || "";
     codeInputElement.onchange = function () {
         const { value: textResources, error } = parseJsonInput(codeInputElement.value);
         renderJsonInputError(error);
@@ -232,7 +230,7 @@ export function getCodeInputElementForTextResources() {
         const cleanedTextResources = cleanUpTextResources(textResources);
         const cleanedTextResourcesJson = beautifyJson(JSON.stringify(cleanedTextResources, null, 2));
         codeInputElement.value = cleanedTextResourcesJson;
-        addValueToLocalStorage("textResources", cleanedTextResourcesJson);
+        addValueToLocalStorage(storageKey, cleanedTextResourcesJson);
         globalThis.textResources = JSON.parse(cleanedTextResourcesJson);
         renderResults();
 
@@ -240,39 +238,6 @@ export function getCodeInputElementForTextResources() {
         renderTextResourceStatusIndicators(validationResults);
     };
     return codeInputElement;
-}
-
-/**
- * Fetches the default text resources for a given language.
- * If fetching for the specified language fails, attempts to fetch resources for the fallback language ("nb").
- *
- * @async
- * @param {string} language - The language code to fetch text resources for (e.g., "en", "nb").
- * @returns {Promise<Object|null>} The fetched text resources object if successful, or null if both attempts fail.
- */
-export async function fetchDefaultTextResources(language: string) {
-    const fallbackLanguage = "nb";
-    const defaultTextResourcesApiUrl = `data/resource.${language}.json`;
-    let defaultTextResourcesData;
-    try {
-        defaultTextResourcesData = await fetch(defaultTextResourcesApiUrl).then((response) => response.json());
-    } catch (error) {
-        console.error("Could not retrieve default text resources for the selected language.", error);
-        try {
-            const fallbackDefaultTextResourcesApiUrl = `data/resource.${fallbackLanguage}.json`;
-            defaultTextResourcesData = await fetch(fallbackDefaultTextResourcesApiUrl).then((response) => response.json());
-        } catch (fallbackError) {
-            console.error("Could not retrieve default text resources for the fallback language.", fallbackError);
-            return null;
-        }
-    }
-
-    if (hasValue(defaultTextResourcesData)) {
-        return defaultTextResourcesData;
-    } else {
-        console.error("Could not retrieve default text resources for the selected language.");
-        return null;
-    }
 }
 
 /**

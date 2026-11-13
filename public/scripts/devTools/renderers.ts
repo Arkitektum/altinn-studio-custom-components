@@ -10,13 +10,24 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
-import { addDataModel, addValueToLocalStorage, getDataModels, getLayoutCode, getTextResources } from "../localStorage.ts";
+import {
+    addDataModel,
+    addValueToLocalStorage,
+    getDataModels,
+    getLayoutCode,
+    getSelectedLanguage,
+    getTextResources,
+    getTextResourcesStorageKey,
+    setSelectedLanguage
+} from "../localStorage.ts";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "../UI.ts";
 import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataModelListElements } from "../getters.ts";
 import { renderValidationMessages, validateResources } from "../validators.ts";
+import { applyLanguage } from "./language.ts";
 import { checkLayoutComponents } from "./layoutChecks.ts";
 
 // Global functions
+import { languages } from "../languages.ts";
 import { renderFeedbackListElement } from "../../../src/functions/feedbackHelpers.ts";
 import { setIconLabel } from "../icons.ts";
 
@@ -57,6 +68,47 @@ export function renderResults() {
         .filter((attr: ApiValue) => attr !== undefined);
     appendChildren(containerElement!, resultsElements);
     renderLayoutFindings();
+}
+
+/**
+ * Renders the language picker for the sidebar. Choosing a language stores it, puts its text resources on globalThis, and draws the sidebar, the preview and the text resource counts again.
+ * An open editor stays open, and the text resources editor is filled with the chosen language's text resources.
+ *
+ * @returns {HTMLElement} The picker.
+ */
+export function renderLanguagePicker() {
+    const containerElement = document.createElement("div");
+    containerElement.classList.add("language-picker");
+    const labelElement = document.createElement("label");
+    labelElement.setAttribute("for", "devtools-language");
+    labelElement.textContent = "Language";
+    const selectElement = document.createElement("select");
+    selectElement.id = "devtools-language";
+    const selectedLanguage = getSelectedLanguage();
+    for (const { code, name } of languages) {
+        const optionElement = document.createElement("option");
+        optionElement.value = code;
+        optionElement.textContent = name;
+        optionElement.selected = code === selectedLanguage;
+        selectElement.appendChild(optionElement);
+    }
+    selectElement.onchange = function () {
+        const activeItemId = document.querySelector("#sidebar li.active")?.id;
+        setSelectedLanguage(selectElement.value);
+        applyLanguage(selectElement.value);
+        renderSidebar();
+        renderResults();
+        renderTextResourceStatusIndicators(validateResources());
+        if (activeItemId === "text-resources-code") {
+            updateDataInputElement(getCodeInputElementForTextResources());
+        }
+        if (activeItemId) {
+            setActiveSidebarElement(activeItemId);
+        }
+        document.getElementById("devtools-language")?.focus();
+    };
+    containerElement.append(labelElement, selectElement);
+    return containerElement;
 }
 
 /**
@@ -180,6 +232,8 @@ export function renderSidebar() {
     const sidebarElement = document.getElementById("sidebar");
     sidebarElement!.innerHTML = "";
 
+    sidebarElement!.appendChild(renderLanguagePicker());
+
     const fileListElement = document.createElement("ul");
     fileListElement.id = "file-list";
     fileListElement.classList.add("file-list");
@@ -261,7 +315,7 @@ export function renderSidebar() {
                 resources: orderedResources
             };
             const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-            addValueToLocalStorage("textResources", updatedResourcesJson);
+            addValueToLocalStorage(getTextResourcesStorageKey(), updatedResourcesJson);
             const textResourcesInputElement = getCodeInputElementForTextResources();
             updateDataInputElement(textResourcesInputElement);
             setActiveSidebarElement(textResourcesItemId);
@@ -294,7 +348,7 @@ export function renderSidebar() {
                     })
                 };
                 const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-                addValueToLocalStorage("textResources", updatedResourcesJson);
+                addValueToLocalStorage(getTextResourcesStorageKey(), updatedResourcesJson);
                 const textResourcesInputElement = getCodeInputElementForTextResources();
                 updateDataInputElement(textResourcesInputElement);
                 setActiveSidebarElement(textResourcesItemId);
@@ -321,7 +375,7 @@ export function renderSidebar() {
                     resources: currentTextResourcesValue.resources.filter((res: ApiValue) => !unusedResourceIds.includes(res.id))
                 };
                 const updatedResourcesJson = JSON.stringify(updatedTextResourcesValue, null, 2);
-                addValueToLocalStorage("textResources", updatedResourcesJson);
+                addValueToLocalStorage(getTextResourcesStorageKey(), updatedResourcesJson);
                 const textResourcesInputElement = getCodeInputElementForTextResources();
                 updateDataInputElement(textResourcesInputElement);
                 setActiveSidebarElement(textResourcesItemId);

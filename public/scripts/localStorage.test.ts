@@ -72,3 +72,55 @@ describe("addDataToGlobalThis", () => {
         delete (globalThis as Record<string, unknown>).bar;
     });
 });
+
+describe("getSelectedLanguage and setSelectedLanguage", () => {
+    beforeEach(() => {
+        localStorage.clear();
+    });
+    it("is nb until another language is chosen", () => {
+        expect(localStorageUtils.getSelectedLanguage()).toBe("nb");
+    });
+    it("returns the stored language", () => {
+        localStorageUtils.setSelectedLanguage("nn");
+        expect(localStorage.getItem("devToolsLanguage")).toBe("nn");
+        expect(localStorageUtils.getSelectedLanguage()).toBe("nn");
+    });
+    it("falls back to nb for a stored value that is not one of the languages", () => {
+        localStorage.setItem("devToolsLanguage", "se");
+        expect(localStorageUtils.getSelectedLanguage()).toBe("nb");
+    });
+});
+
+describe("getTextResourcesStorageKey", () => {
+    beforeEach(() => {
+        localStorage.clear();
+    });
+    it("keeps nb under the key used before there were languages", () => {
+        expect(localStorageUtils.getTextResourcesStorageKey("nb")).toBe("textResources");
+    });
+    it("keeps other languages under a key of their own", () => {
+        expect(localStorageUtils.getTextResourcesStorageKey("nn")).toBe("textResources.nn");
+        expect(localStorageUtils.getTextResourcesStorageKey("en")).toBe("textResources.en");
+    });
+    it("uses the chosen language when none is given", () => {
+        expect(localStorageUtils.getTextResourcesStorageKey()).toBe("textResources");
+        localStorageUtils.setSelectedLanguage("en");
+        expect(localStorageUtils.getTextResourcesStorageKey()).toBe("textResources.en");
+    });
+});
+
+describe("getTextResources for a language", () => {
+    beforeEach(() => {
+        localStorage.clear();
+        localStorage.setItem("textResources", '{"language":"nb"}');
+        localStorage.setItem("textResources.nn", '{"language":"nn"}');
+    });
+    it("reads the given language's text resources", () => {
+        expect(localStorageUtils.getTextResources("nn")).toEqual({ language: "nn" });
+        expect(localStorageUtils.getTextResources("en")).toEqual({});
+    });
+    it("reads the chosen language's text resources when none is given", () => {
+        localStorageUtils.setSelectedLanguage("nn");
+        expect(localStorageUtils.getTextResources()).toEqual({ language: "nn" });
+    });
+});
