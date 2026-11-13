@@ -106,6 +106,7 @@ describe("Compare with installed version on the display layouts page", () => {
         await new Promise((resolve) => setTimeout(resolve, 20));
         const frames = Array.from(main.querySelectorAll(".upgrade-preview iframe")) as HTMLIFrameElement[];
         expect(frames.map((frame) => frame.title)).toEqual(["The form drawn with version 17.2.0", "The form drawn with the local build"]);
+        expect(frames.map((frame) => frame.style.width)).toEqual(["21cm", "21cm"]);
         const components = new DOMParser().parseFromString(frames[0]!.srcdoc, "text/html").querySelector("#preview-components")!;
         const field = components.querySelector("custom-field-data")!;
         expect(field.id).toBe("tittel");

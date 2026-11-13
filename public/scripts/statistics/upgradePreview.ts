@@ -76,7 +76,7 @@ export function buildPreviewDocument(options: PreviewDocumentOptions) {
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="${escapeAttribute(policy)}">
 <link rel="stylesheet" href="${escapeAttribute(options.styleUrl)}">
-<style>.${DIFFERS_CLASS} { outline: 3px solid #e5a000; outline-offset: 2px; } body { margin: 0; padding: 12px; }</style>
+<style>.${DIFFERS_CLASS} { outline: 3px solid #e5a000; outline-offset: 2px; } html, body { margin: 0; background: #fff; } #preview-components { box-sizing: border-box; padding: 1cm 1.25cm; }</style>
 <script>
 const textResources = ${scriptJson(options.textResources)};
 const defaultTextResources = ${scriptJson(options.defaultTextResources)};
@@ -133,15 +133,52 @@ export function compareDrawnComponents(installedDocument: Document, localDocumen
     return { differing, total };
 }
 
+/** The width of an A4 page, as the single page view draws it, in each orientation. */
+export const PAGE_WIDTHS = { portrait: "21cm", landscape: "29.7cm" } as const;
+
+/**
+ * The orientation the form is printed in: landscape when the components drawn in any of the frames asked for it, as gjennomfoeringsplan does, and portrait otherwise.
+ *
+ * @param {Array<Window | null>} frameWindows - The frames' windows, after their components are drawn.
+ * @returns {"portrait" | "landscape"} The orientation.
+ */
+export function getPageOrientation(...frameWindows: (Window | null)[]): keyof typeof PAGE_WIDTHS {
+    return frameWindows.some((frameWindow) => (frameWindow as { pageOrientation?: string } | null)?.pageOrientation === "landscape")
+        ? "landscape"
+        : "portrait";
+}
+
+/**
+ * Makes each frame as wide as an A4 page in the given orientation, and as tall as what it drew.
+ *
+ * @param {HTMLIFrameElement[]} frames - The frames.
+ * @param {"portrait" | "landscape"} orientation - The orientation.
+ */
+export function sizeFramesAsPages(frames: HTMLIFrameElement[], orientation: keyof typeof PAGE_WIDTHS) {
+    for (const frame of frames) {
+        frame.style.width = PAGE_WIDTHS[orientation];
+    }
+    for (const frame of frames) {
+        frame.style.height = `${(frame.contentDocument?.documentElement.scrollHeight ?? 0) + 4}px`;
+    }
+}
+
 /** Resolves once a frame has loaded its document, scripts and styles. */
 function frameLoaded(frame: HTMLIFrameElement): Promise<void> {
     return new Promise((resolve) => frame.addEventListener("load", () => resolve(), { once: true }));
 }
 
-function createFrame(title: string) {
+/**
+ * A frame for one version, as wide as a portrait page from the start, so it does not jump from the browser's default width once its form is drawn.
+ *
+ * @param {string} title - What the frame shows, for assistive technology.
+ * @returns {HTMLIFrameElement} The frame.
+ */
+export function createFrame(title: string) {
     const frame = document.createElement("iframe");
     frame.title = title;
     frame.classList.add("upgrade-preview-frame");
+    frame.style.width = PAGE_WIDTHS.portrait;
     return frame;
 }
 
@@ -227,9 +264,7 @@ export async function renderUpgradePreview(containerElement: HTMLElement, option
         return null;
     }
     const result = compareDrawnComponents(installedDocument, localDocument);
-    for (const frame of [installedFrame, localFrame]) {
-        frame.style.height = `${(frame.contentDocument?.documentElement.scrollHeight ?? 0) + 4}px`;
-    }
+    sizeFramesAsPages([installedFrame, localFrame], getPageOrientation(installedFrame.contentWindow, localFrame.contentWindow));
     const names = result.differing.map((index) => options.componentNames[index] ?? `component ${index + 1}`);
     statusElement.textContent = result.differing.length
         ? `${result.differing.length} of ${result.total} components draw differently with the local build than with ${version}, marked in both: ${names.join(", ")}.`

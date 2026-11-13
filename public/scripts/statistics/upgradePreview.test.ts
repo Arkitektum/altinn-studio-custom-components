@@ -2,9 +2,12 @@ import {
     DIFFERS_CLASS,
     buildPreviewDocument,
     compareDrawnComponents,
+    createFrame,
     drawnOutput,
     getInstalledVersion,
-    renderUpgradePreview
+    getPageOrientation,
+    renderUpgradePreview,
+    sizeFramesAsPages
 } from "./upgradePreview.ts";
 import { getPackageFileUrl } from "./apiHelpers.ts";
 
@@ -56,6 +59,11 @@ describe("buildPreviewDocument", () => {
         expect(scriptSource(buildPreviewDocument({ ...options, allowEval: false }))).toBe(
             "script-src 'unsafe-inline' http://localhost:9000 http://localhost:9001"
         );
+    });
+    it("draws the form on a white page with the single page view's margins", () => {
+        const css = parse(buildPreviewDocument(options)).querySelector("head style")!.textContent!;
+        expect(css).toContain("html, body { margin: 0; background: #fff; }");
+        expect(css).toContain("#preview-components { box-sizing: border-box; padding: 1cm 1.25cm; }");
     });
     it("loads the version's styles, and its script after the form's elements so they are defined in place", () => {
         const preview = parse(buildPreviewDocument(options));
@@ -177,5 +185,40 @@ describe("renderUpgradePreview", () => {
         });
         expect(asked).toEqual([getPackageFileUrl("17.2.0", "resource.nb.json")]);
         expect(asked[0]!.endsWith("/api/packageFiles/17.2.0/resource.nb.json")).toBe(true);
+    });
+});
+
+describe("getPageOrientation", () => {
+    it("is landscape when any frame's components asked for it, as gjennomfoeringsplan does", () => {
+        expect(getPageOrientation({ pageOrientation: "portrait" } as unknown as Window, { pageOrientation: "landscape" } as unknown as Window)).toBe(
+            "landscape"
+        );
+    });
+    it("is portrait otherwise, also for a frame without a window", () => {
+        expect(getPageOrientation({} as Window, null)).toBe("portrait");
+        expect(getPageOrientation()).toBe("portrait");
+    });
+});
+
+describe("sizeFramesAsPages", () => {
+    it("makes each frame as wide as an A4 page in the orientation, and as tall as what it drew", () => {
+        const frames = [document.createElement("iframe"), document.createElement("iframe")];
+        frames.forEach((frame) => document.body.appendChild(frame));
+        Object.defineProperty(frames[0]!.contentDocument!.documentElement, "scrollHeight", { value: 1200, configurable: true });
+        sizeFramesAsPages(frames, "landscape");
+        expect(frames.map((frame) => frame.style.width)).toEqual(["29.7cm", "29.7cm"]);
+        expect(frames[0]!.style.height).toBe("1204px");
+        sizeFramesAsPages(frames, "portrait");
+        expect(frames.map((frame) => frame.style.width)).toEqual(["21cm", "21cm"]);
+        frames.forEach((frame) => frame.remove());
+    });
+});
+
+describe("createFrame", () => {
+    it("starts as wide as a portrait page, with its title", () => {
+        const frame = createFrame("The form drawn with version 17.2.0");
+        expect(frame.style.width).toBe("21cm");
+        expect(frame.title).toBe("The form drawn with version 17.2.0");
+        expect(frame.classList.contains("upgrade-preview-frame")).toBe(true);
     });
 });

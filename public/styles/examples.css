@@ -659,6 +659,10 @@ svg.icon {
                 margin: 0 auto;
                 padding: 0 16px;
             }
+            /* Two A4 pages side by side are wider than the usual column, so the comparison may use the whole width, and scroll sideways past it. */
+            & main:has(> .upgrade-preview:not([hidden])) {
+                max-width: none;
+            }
             & .unshown-data {
                 & details.unshown-data-form {
                     margin: 8px 0;
@@ -757,16 +761,17 @@ svg.icon {
                     font-size: 14px;
                 }
                 & .upgrade-preview-columns {
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
+                    display: flex;
                     gap: 16px;
+                    width: max-content;
+                    margin: 0 auto;
                 }
                 & .upgrade-preview-column h3 {
                     margin: 0 0 8px;
                     font-size: 16px;
                 }
                 & iframe.upgrade-preview-frame {
-                    width: 100%;
+                    display: block;
                     min-height: 400px;
                     border: 1px solid var(--color-border-dark-highlight);
                     border-radius: 4px;
