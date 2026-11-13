@@ -141,12 +141,12 @@ describe("renderSynchronizeButton", () => {
         (renderUsageFilterForTextResourcesList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
         (renderComponentUsageList as unknown as jest.Mock).mockReturnValue(document.createElement("div"));
     });
-    it("renders synchronize button and last updated", () => {
+    it("renders synchronize button and how old the data is", () => {
         renderSynchronizeButton();
         const sidebar = document.getElementById("sidebar");
         expect(sidebar!.querySelector("button")).not.toBeNull();
         expect(sidebar!.textContent).toContain("Synchronize data");
-        expect(sidebar!.textContent).toContain("Last updated:");
+        expect(sidebar!.querySelector(".last-updated")!.textContent).toBe("Synchronized just now");
     });
     it("can only be pressed once while a synchronization runs, and can be pressed again after it fails", async () => {
         let fail: (reason: unknown) => void = () => {};
@@ -182,7 +182,7 @@ describe("renderSynchronizeButton", () => {
     it("stays disabled until onSynchronized has stored and applied the data", async () => {
         (getUpdatedApiData as unknown as jest.Mock).mockResolvedValueOnce([1, 2, 3, 4, 5, 6, 7]);
         let finish: () => void = () => {};
-        // No earlier timestamp, so a new one cannot read the same as the old to the second.
+        // No earlier timestamp, so the age shown before cannot read the same as the one after.
         globalThis.lastUpdated = 0;
         renderSynchronizeButton(() => {
             const applied: Promise<void> = new Promise((resolve) => {
@@ -241,7 +241,8 @@ describe("renderSynchronizeButton", () => {
             subformDataModels: 7
         });
         expect(new Date(lastUpdated).toISOString()).toBe(lastUpdated);
-        expect(document.querySelector(".last-updated")!.textContent).toBe(`Last updated: ${new Date(lastUpdated).toLocaleString()}`);
+        expect(document.querySelector(".last-updated")!.textContent).toBe("Synchronized just now");
+        expect(document.querySelector(".last-updated")!.getAttribute("title")).toBe(`Synchronized ${new Date(lastUpdated).toLocaleString()}`);
     });
 });
 

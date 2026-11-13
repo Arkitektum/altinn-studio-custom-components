@@ -306,6 +306,10 @@ svg.icon {
                     font-size: 0.8rem;
                     margin-top: 8px;
                     color: #ccc;
+                    &.stale {
+                        color: var(--color-warning-default);
+                        font-weight: 600;
+                    }
                 }
             }
         }

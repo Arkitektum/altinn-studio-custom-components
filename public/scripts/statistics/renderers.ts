@@ -51,6 +51,7 @@ import {
 import { addDataToGlobalThis } from "../localStorage.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { languages } from "../languages.ts";
+import { renderDataAge } from "./dataAge.ts";
 import { setIconLabel } from "../icons.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
@@ -1210,16 +1211,21 @@ export function renderNoDataMessage(onRetry: () => void) {
 }
 
 /**
- * Renders a "Synchronize data" button and last updated timestamp in the sidebar.
+ * Keeps the age under the Synchronize button current, replaced when the button is drawn again.
+ */
+let dataAgeTimer: ReturnType<typeof setInterval> | undefined;
+
+/**
+ * Renders a "Synchronize data" button in the sidebar, with how long ago the data was synchronized under it, marked as stale after STALE_AFTER_DAYS.
  *
  * When the button is clicked, it fetches updated API data, hands it and when it was fetched to `onSynchronized`, and
- * refreshes the last updated timestamp. Storing the data and working out what the pages read from it is
+ * shows the new age. Storing the data and working out what the pages read from it is
  * `onSynchronized`'s job, which is `storeApiData` and `applyApiData` in the dev tools, so a sync and a page load do
  * exactly the same.
  *
  * Uses `globalThis.lastUpdated` for the initial timestamp, and expects an element with id "sidebar" in the DOM.
  *
- * @param {Function} [onSynchronized] - Called with the fetched data and when it was fetched. The button stays disabled until what it returns has settled, and "Last updated" changes only if it succeeds.
+ * @param {Function} [onSynchronized] - Called with the fetched data and when it was fetched. The button stays disabled until what it returns has settled, and the age under the button changes only if it succeeds.
  */
 export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastUpdated: string) => unknown = () => {}) {
     const sidebarElement = document.getElementById("sidebar");
@@ -1233,9 +1239,11 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
 
     const lastUpdatedElement = document.createElement("span");
     lastUpdatedElement.classList.add("last-updated");
-    const lastUpdated = globalThis.lastUpdated ? new Date(globalThis.lastUpdated) : null;
-    lastUpdatedElement.textContent = lastUpdated ? `Last updated: ${lastUpdated.toLocaleString()}` : "Last updated: N/A";
+    renderDataAge(lastUpdatedElement, globalThis.lastUpdated);
     synchronizeElementsContainer.appendChild(lastUpdatedElement);
+    // Kept current while the page stays open, so data left for days reads as days old.
+    clearInterval(dataAgeTimer);
+    dataAgeTimer = setInterval(() => renderDataAge(lastUpdatedElement, globalThis.lastUpdated), 60 * 1000);
 
     synchronizeButton.textContent = "Synchronize data";
     synchronizeButton.onclick = async () => {
@@ -1277,7 +1285,7 @@ export function renderSynchronizeButton(onSynchronized: (apiData: ApiData, lastU
                 lastUpdated
             );
 
-            lastUpdatedElement.textContent = `Last updated: ${new Date(lastUpdated).toLocaleString()}`;
+            renderDataAge(lastUpdatedElement, lastUpdated);
         } catch (error) {
             console.error("Could not apply the synchronized data:", error);
         } finally {
