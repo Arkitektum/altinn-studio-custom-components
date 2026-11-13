@@ -29,7 +29,7 @@ export interface DataModelBindingDriftUsage {
  * @param {string} tagName - The component's tag name.
  * @returns {DataModelBindingKeys|null} The declared keys, or null when the component declares none.
  */
-function getDataModelBindingKeys(tagName: string): DataModelBindingKeys | null {
+export function getDataModelBindingKeys(tagName: string): DataModelBindingKeys | null {
     const ComponentClass = getComponentForTagName(tagName) as { dataModelBindingKeys?: DataModelBindingKeys } | null;
     return ComponentClass?.dataModelBindingKeys || null;
 }

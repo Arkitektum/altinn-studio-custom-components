@@ -149,6 +149,7 @@ export function getCodeInputElementForDataModel(dataModelIndex: number) {
 export function getCodeInputElementForLayoutCode() {
     const codeInputElement = document.createElement("textarea");
     codeInputElement.id = "code-input";
+    codeInputElement.dataset.editor = "layout";
     codeInputElement.value = getValueFromLocalStorage("code") || "";
     codeInputElement.onchange = function () {
         const { value, error } = parseJsonInput(codeInputElement.value);

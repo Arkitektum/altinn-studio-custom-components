@@ -280,6 +280,37 @@ svg.icon {
                 background-color: #5a1d1d;
                 color: #fff;
             }
+            & .layout-findings {
+                flex: 0 0 auto;
+                max-height: 40vh;
+                overflow: auto;
+                padding: 0.5em 0.75em;
+                font-family: monospace;
+                font-size: 12px;
+                background-color: #202224;
+                color: #dcdcdc;
+                border-bottom: 1px solid #303234;
+                & summary {
+                    cursor: pointer;
+                }
+                & ul {
+                    margin: 0.5em 0 0;
+                    padding: 0;
+                    list-style: none;
+                }
+                & li {
+                    padding: 2px 0 2px 0.75em;
+                    border-left: 3px solid;
+                    margin-bottom: 4px;
+                    overflow-wrap: anywhere;
+                    &.warning {
+                        border-color: var(--color-warning-default);
+                    }
+                    &.info {
+                        border-color: var(--color-info-default);
+                    }
+                }
+            }
             & textarea {
                 width: 100%;
                 flex: 1 1 auto;

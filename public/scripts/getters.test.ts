@@ -151,3 +151,14 @@ describe("getCodeInputElementForLayoutCode given valid JSON", () => {
         expect(document.querySelector(".code-input-error")).toBeNull();
     });
 });
+
+describe("getCodeInputElementForLayoutCode", () => {
+    it("marks the input as the layout code editor, which the layout check looks for", () => {
+        expect(getCodeInputElementForLayoutCode().dataset.editor).toBe("layout");
+    });
+    it("leaves the other editors unmarked", () => {
+        localStorage.setItem("dataModels", JSON.stringify([{ dataType: "main", data: {} }]));
+        expect(getCodeInputElementForTextResources().dataset.editor).toBeUndefined();
+        expect(getCodeInputElementForDataModel(0).dataset.editor).toBeUndefined();
+    });
+});

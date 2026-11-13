@@ -1,4 +1,5 @@
 import type { ApiValue, LayoutComponent } from "../types.ts";
+import type { LayoutFinding } from "./layoutChecks.ts";
 // Dependencies
 import {
     CustomElementHtmlAttributes,
@@ -13,6 +14,7 @@ import { addDataModel, addValueToLocalStorage, getDataModels, getLayoutCode, get
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "../UI.ts";
 import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataModelListElements } from "../getters.ts";
 import { renderValidationMessages, validateResources } from "../validators.ts";
+import { checkLayoutComponents } from "./layoutChecks.ts";
 
 // Global functions
 import { renderFeedbackListElement } from "../../../src/functions/feedbackHelpers.ts";
@@ -54,6 +56,77 @@ export function renderResults() {
         })
         .filter((attr: ApiValue) => attr !== undefined);
     appendChildren(containerElement!, resultsElements);
+    renderLayoutFindings();
+}
+
+/**
+ * Checks the layout code against what each component reads and the loaded data models, then shows the counts in the sidebar and the findings above the layout code editor when it is open.
+ */
+export function renderLayoutFindings() {
+    const layoutCode = getLayoutCode();
+    const components = Array.isArray(layoutCode) ? layoutCode : [layoutCode];
+    const findings = checkLayoutComponents(components, getDataModels());
+    renderLayoutFindingsIndicators(findings);
+    renderLayoutFindingsPanel(findings);
+}
+
+/**
+ * Shows the number of warnings and of information findings on the layout code item in the sidebar.
+ *
+ * @param {Array} findings - The layout findings.
+ */
+export function renderLayoutFindingsIndicators(findings: LayoutFinding[]) {
+    const indicatorsContainerElement = document.getElementById("layout-findings-indicators");
+    if (!indicatorsContainerElement) return;
+    indicatorsContainerElement.innerHTML = "";
+    const warningsCount = findings.filter((finding) => finding.severity === "warning").length;
+    const infoCount = findings.filter((finding) => finding.severity === "info").length;
+    for (const [count, className, label] of [
+        [warningsCount, "unused", "warnings"],
+        [infoCount, "empty", "notes"]
+    ] as [number, string, string][]) {
+        const indicatorElement = document.createElement("span");
+        indicatorElement.classList.add("status-indicator", count === 0 ? "success" : className);
+        indicatorElement.textContent = String(count);
+        indicatorElement.title = `${count} ${label}`;
+        indicatorsContainerElement.appendChild(indicatorElement);
+    }
+}
+
+/**
+ * Lists the layout findings above the layout code editor, when that editor is open and there is something to list.
+ * Whether the list was folded is kept from the one it replaces.
+ *
+ * @param {Array} findings - The layout findings.
+ */
+export function renderLayoutFindingsPanel(findings: LayoutFinding[]) {
+    const dataInputElement = document.getElementById("data-input");
+    const layoutCodeInputElement = dataInputElement?.querySelector('#code-input[data-editor="layout"]');
+    const previousPanelElement = dataInputElement?.querySelector(".layout-findings") as HTMLDetailsElement | null | undefined;
+    const wasOpen = previousPanelElement ? previousPanelElement.open : true;
+    previousPanelElement?.remove();
+    if (!layoutCodeInputElement || !findings.length) return;
+
+    const panelElement = document.createElement("details");
+    panelElement.classList.add("layout-findings");
+    panelElement.open = wasOpen;
+    const warningsCount = findings.filter((finding) => finding.severity === "warning").length;
+    const infoCount = findings.length - warningsCount;
+    const summaryElement = document.createElement("summary");
+    summaryElement.textContent = `Layout check: ${warningsCount} ${warningsCount === 1 ? "warning" : "warnings"}, ${infoCount} ${infoCount === 1 ? "note" : "notes"}`;
+    panelElement.appendChild(summaryElement);
+
+    const listElement = document.createElement("ul");
+    for (const finding of findings) {
+        const itemElement = document.createElement("li");
+        itemElement.classList.add(finding.severity);
+        const componentElement = document.createElement("strong");
+        componentElement.textContent = finding.component;
+        itemElement.append(componentElement, ` ${finding.message}`);
+        listElement.appendChild(itemElement);
+    }
+    panelElement.appendChild(listElement);
+    layoutCodeInputElement.before(panelElement);
 }
 
 /**
@@ -115,14 +188,30 @@ export function renderSidebar() {
     const layoutCodeItemId = "layout-code";
     const layoutCodeListElement = document.createElement("li");
     layoutCodeListElement.id = layoutCodeItemId;
-    const layoutCodeButtonElement = document.createElement("button");
-    setIconLabel(layoutCodeButtonElement, "layout", "Layout code");
-    layoutCodeButtonElement.onclick = function () {
+    const openLayoutCodeEditor = function () {
         const codeInputElement = getCodeInputElementForLayoutCode();
         updateDataInputElement(codeInputElement);
         setActiveSidebarElement(layoutCodeItemId);
+        renderLayoutFindings();
     };
-    layoutCodeListElement.appendChild(layoutCodeButtonElement);
+    const layoutCodeButtonsContainerElement = document.createElement("div");
+    layoutCodeButtonsContainerElement.classList.add("buttons-container");
+    const layoutCodeButtonElement = document.createElement("button");
+    setIconLabel(layoutCodeButtonElement, "layout", "Layout code");
+    layoutCodeButtonElement.onclick = openLayoutCodeEditor;
+    const layoutCodeOptionButtonsContainerElement = document.createElement("div");
+    layoutCodeOptionButtonsContainerElement.classList.add("option-buttons-container");
+    const layoutFindingsButtonElement = document.createElement("button");
+    layoutFindingsButtonElement.classList.add("layout-findings-button");
+    layoutFindingsButtonElement.setAttribute("aria-label", "Show the layout check");
+    layoutFindingsButtonElement.onclick = openLayoutCodeEditor;
+    const layoutFindingsIndicatorsElement = document.createElement("div");
+    layoutFindingsIndicatorsElement.id = "layout-findings-indicators";
+    layoutFindingsIndicatorsElement.classList.add("status-indicators-container");
+    layoutFindingsButtonElement.appendChild(layoutFindingsIndicatorsElement);
+    layoutCodeOptionButtonsContainerElement.appendChild(layoutFindingsButtonElement);
+    layoutCodeButtonsContainerElement.append(layoutCodeButtonElement, layoutCodeOptionButtonsContainerElement);
+    layoutCodeListElement.appendChild(layoutCodeButtonsContainerElement);
     fileListElement.appendChild(layoutCodeListElement);
 
     // Text resources code
@@ -267,4 +356,5 @@ export function renderSidebar() {
         renderSidebar();
     };
     sidebarElement!.appendChild(addDataModelButtonElement);
+    renderLayoutFindings();
 }
