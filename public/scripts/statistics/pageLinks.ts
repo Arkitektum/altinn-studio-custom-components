@@ -3,7 +3,7 @@
  */
 
 export type StatisticsPageId =
-    "resource-usage" | "component-usage" | "data-model-bindings" | "subform-data-models" | "package-versions" | "display-layouts";
+    "resource-usage" | "component-usage" | "data-model-bindings" | "subform-data-models" | "package-versions" | "display-layouts" | "render-health";
 
 type FilterValue = string | boolean;
 
@@ -42,7 +42,8 @@ export const pageFilters: Record<StatisticsPageId, Record<string, { global: keyo
         agreeing: { global: "subformModelShowAgreeing", defaultValue: false }
     },
     "package-versions": {},
-    "display-layouts": {}
+    "display-layouts": {},
+    "render-health": {}
 };
 
 /**

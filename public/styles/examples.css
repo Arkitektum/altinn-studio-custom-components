@@ -659,6 +659,49 @@ svg.icon {
                 margin: 0 auto;
                 padding: 0 16px;
             }
+            & .render-health {
+                & .render-health-controls {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    margin: 12px 0;
+                    & button {
+                        padding: 8px 14px;
+                        border: none;
+                        border-radius: 4px;
+                        background-color: var(--color-background-primary);
+                        color: var(--color-text-white);
+                        font-size: 14px;
+                        font-family: var(--font-family-default);
+                        cursor: pointer;
+                        &:disabled {
+                            opacity: 0.6;
+                            cursor: progress;
+                        }
+                    }
+                    & #render-health-progress {
+                        font-size: 14px;
+                        color: var(--color-text-white-muted);
+                    }
+                }
+                & .render-health-stale {
+                    color: var(--color-warning-default);
+                    font-weight: 600;
+                }
+                & table.render-health-failures {
+                    width: 100%;
+                    border-collapse: collapse;
+                    font-size: 13px;
+                    & th,
+                    & td {
+                        text-align: left;
+                        vertical-align: top;
+                        padding: 6px 8px;
+                        border-bottom: 1px solid var(--color-border-dark-highlight);
+                        overflow-wrap: anywhere;
+                    }
+                }
+            }
             & .open-in-devtools {
                 display: flex;
                 justify-content: flex-end;

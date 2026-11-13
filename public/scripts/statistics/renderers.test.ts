@@ -123,7 +123,8 @@ describe("renderAdminSidebar", () => {
             "Data model bindings",
             "Subform data models",
             "Package versions",
-            "Display layouts"
+            "Display layouts",
+            "Render health"
         ]);
     });
 });

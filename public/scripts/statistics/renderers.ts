@@ -1,14 +1,8 @@
-import type { ApiData, ApiValue, FlattenedLayout, Layout, LayoutComponent } from "../types.ts";
+import type { ApiData, ApiValue, FlattenedLayout, Layout } from "../types.ts";
 import type { DisplayLayoutsOptions, StatisticsPageId } from "./pageLinks.ts";
 import type { DisplayLayoutForDevTools } from "./openInDevTools.ts";
 // Dependencies
-import {
-    CustomElementHtmlAttributes,
-    addContainerElement,
-    appendChildren,
-    createCustomElement,
-    getDataForComponent
-} from "@arkitektum/altinn-studio-custom-components-utils";
+import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
 import { addDataToGlobalThis, setSelectedLanguage } from "../localStorage.ts";
@@ -50,10 +44,12 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
+import { drawLayoutComponents } from "./drawComponents.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { getDevToolsWorkspaceForDisplayLayout } from "./openInDevTools.ts";
 import { languages } from "../languages.ts";
 import { renderDataAge } from "./dataAge.ts";
+import { renderRenderHealthPage } from "./renderHealth.ts";
 import { setIconLabel } from "../icons.ts";
 import { storeWorkspace } from "../devTools/workspace.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
@@ -1030,23 +1026,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     // Built once rather than per component, and narrowed to this app before the data types inside it are matched.
     const dataModels = getDataModelsForApp(appData, displayLayout);
 
-    const resultsElements = components
-        .map((component: LayoutComponent | undefined) => {
-            if (!component?.tagName) {
-                return;
-            }
-            const formData = getDataForComponent(component, dataModels, dataType, selectedOptions.fileNames);
-            const htmlAttributes = new CustomElementHtmlAttributes({
-                ...component,
-                formData
-            });
-            const containerElement = addContainerElement(createCustomElement(component?.tagName, htmlAttributes));
-            if (component?.tagName === "custom-header-text") {
-                containerElement.style.margin = "0 -.75rem";
-            }
-            return containerElement;
-        })
-        .filter((attr: ApiValue) => attr !== undefined);
+    const resultsElements = drawLayoutComponents(components, dataModels, dataType, selectedOptions.fileNames).map(({ element }) => element);
     appendChildren(codeResultsElement, resultsElements);
 
     if (!selectedSubForm) {
@@ -1110,7 +1090,7 @@ export function renderOpenInDevToolsButton(displayLayout: DisplayLayoutForDevToo
  * Renders the admin sidebar with navigation buttons for different admin pages.
  *
  * The sidebar has a button for each page: Resource usage, Component usage, Data model bindings, Subform data models,
- * Package versions and Display layouts. A click renders that page in the main admin area, and puts it in the address.
+ * Package versions, Display layouts and Render health. A click renders that page in the main admin area, and puts it in the address.
  * A filter changed on the open page is put in the address too.
  *
  * Expects elements with the ids "admin-main" and "sidebar" in the DOM.
@@ -1126,7 +1106,8 @@ export function renderAdminSidebar() {
         ["data-model-bindings", "link", "Data model bindings"],
         ["subform-data-models", "database", "Subform data models"],
         ["package-versions", "package", "Package versions"],
-        ["display-layouts", "layout", "Display layouts"]
+        ["display-layouts", "layout", "Display layouts"],
+        ["render-health", "health", "Render health"]
     ];
     for (const [pageId, icon, label] of pages) {
         const listItem = document.createElement("li");
@@ -1181,6 +1162,14 @@ export async function openStatisticsPage(pageId: StatisticsPageId, { params }: {
         case "display-layouts":
             await openDisplayLayoutsPage(mainElement, params ? getDisplayLayoutsOptions(params) : undefined);
             return;
+        case "render-health":
+            openPageId = "render-health";
+            drawOpenPageAgain = () => {
+                mainElement.innerHTML = "";
+                renderRenderHealthPage(mainElement);
+            };
+            renderRenderHealthPage(mainElement);
+            break;
     }
     writeOpenPageHash();
 }
