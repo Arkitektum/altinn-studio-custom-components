@@ -22,6 +22,7 @@ import {
 } from "../localStorage.ts";
 import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "../UI.ts";
 import { getCodeInputElementForLayoutCode, getCodeInputElementForTextResources, getDataModelListElements } from "../getters.ts";
+import { getWorkspace, getWorkspaceFileName, parseWorkspace, storeWorkspace } from "./workspace.ts";
 import { renderValidationMessages, validateResources } from "../validators.ts";
 import { applyLanguage } from "./language.ts";
 import { checkLayoutComponents } from "./layoutChecks.ts";
@@ -410,5 +411,82 @@ export function renderSidebar() {
         renderSidebar();
     };
     sidebarElement!.appendChild(addDataModelButtonElement);
+    sidebarElement!.appendChild(renderWorkspaceButtons());
     renderLayoutFindings();
+}
+
+/**
+ * Saves the workspace (layout code, data models and the app's text resources in each language) as a JSON file.
+ */
+export function exportWorkspace() {
+    const blob = new Blob([JSON.stringify(getWorkspace(), null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const linkElement = document.createElement("a");
+    linkElement.href = url;
+    linkElement.download = getWorkspaceFileName();
+    linkElement.click();
+    setTimeout(() => URL.revokeObjectURL(url), 0);
+}
+
+/**
+ * Replaces the workspace with an exported one, once the user has confirmed it, and draws everything again with the editor closed.
+ * A file that is not a workspace is reported and changes nothing.
+ *
+ * @param {string} text - The file's content.
+ * @param {string} fileName - The file's name, for the messages.
+ * @returns {boolean} Whether the workspace was replaced.
+ */
+export function importWorkspace(text: string, fileName: string) {
+    const { workspace, error } = parseWorkspace(text);
+    if (!workspace) {
+        alert(`${fileName} could not be imported. ${error}`);
+        return false;
+    }
+    if (!confirm(`Replace the layout code, data models and text resources with the ones in ${fileName}? This cannot be undone.`)) {
+        return false;
+    }
+    storeWorkspace(workspace);
+    applyLanguage(getSelectedLanguage());
+    const dataInputElement = document.getElementById("data-input");
+    if (dataInputElement) dataInputElement.innerHTML = "";
+    renderSidebar();
+    renderResults();
+    renderTextResourceStatusIndicators(validateResources());
+    return true;
+}
+
+/**
+ * Renders the Export and Import buttons for the sidebar.
+ *
+ * @returns {HTMLElement} The buttons.
+ */
+export function renderWorkspaceButtons() {
+    const containerElement = document.createElement("div");
+    containerElement.classList.add("workspace-buttons");
+
+    const exportButtonElement = document.createElement("button");
+    exportButtonElement.classList.add("export-workspace-button");
+    setIconLabel(exportButtonElement, "download", "Export");
+    exportButtonElement.title = "Save the layout code, data models and text resources as a file";
+    exportButtonElement.onclick = exportWorkspace;
+
+    const fileInputElement = document.createElement("input");
+    fileInputElement.type = "file";
+    fileInputElement.accept = ".json,application/json";
+    fileInputElement.hidden = true;
+    fileInputElement.classList.add("import-workspace-input");
+    fileInputElement.onchange = async function () {
+        const file = fileInputElement.files?.[0];
+        fileInputElement.value = "";
+        if (file) importWorkspace(await file.text(), file.name);
+    };
+
+    const importButtonElement = document.createElement("button");
+    importButtonElement.classList.add("import-workspace-button");
+    setIconLabel(importButtonElement, "upload", "Import");
+    importButtonElement.title = "Replace the layout code, data models and text resources with an exported file";
+    importButtonElement.onclick = () => fileInputElement.click();
+
+    containerElement.append(exportButtonElement, importButtonElement, fileInputElement);
+    return containerElement;
 }

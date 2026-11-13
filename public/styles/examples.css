@@ -247,6 +247,30 @@ svg.icon {
                     background-color: #393b3d;
                 }
             }
+            & .workspace-buttons {
+                display: flex;
+                gap: 8px;
+                margin: 0 8px 12px;
+                & button {
+                    flex: 1;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 6px;
+                    padding: 8px 0;
+                    border: none;
+                    border-radius: 4px;
+                    background-color: #303234;
+                    color: #fff;
+                    font-size: 14px;
+                    font-family: var(--font-family-default);
+                    cursor: pointer;
+                    transition: var(--background-transition-default);
+                    &:hover {
+                        background-color: #393b3d;
+                    }
+                }
+            }
             & .synchronize-container {
                 margin: 16px 8px 16px 8px;
                 padding: 12px;
