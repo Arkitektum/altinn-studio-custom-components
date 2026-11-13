@@ -185,6 +185,13 @@ describe("renderRenderHealthResults", () => {
         expect(cells).toEqual(["dibk/et-v4", "sub-v1", "None", "<custom-field-data> inner, in outer", "TypeError: <b>x</b>"]);
         expect(element.querySelector("tbody b")).toBeNull();
     });
+    it("counts one drawing and one component in the singular", () => {
+        const element = document.createElement("div");
+        renderRenderHealthResults(element, { failures: [], drawings: 1, lastUpdated: globalThis.lastUpdated });
+        expect(element.textContent).toBe("Every component was drawn, in 1 drawing.");
+        renderRenderHealthResults(element, { failures: [failure], drawings: 1, lastUpdated: globalThis.lastUpdated });
+        expect(element.querySelector(".render-health-summary")!.textContent).toBe("1 component could not be drawn, in 1 of 1 drawing.");
+    });
     it("says when the results are from before the last synchronization", () => {
         const element = document.createElement("div");
         renderRenderHealthResults(element, { failures: [], drawings: 1, lastUpdated: "2026-11-01T10:00:00.000Z" });

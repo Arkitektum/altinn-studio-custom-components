@@ -34,3 +34,15 @@ export function parseJsonInput(text: string): { value?: ApiValue; error?: string
         return { error: (error as Error).message };
     }
 }
+
+/**
+ * The noun for a count: the singular for exactly one, the plural otherwise, so "1 form" and "0 forms" both read right.
+ *
+ * @param {number} count - How many.
+ * @param {string} singular - The noun for one, e.g. "form".
+ * @param {string} [plural] - The noun for any other count, the singular with an "s" when left out.
+ * @returns {string} The noun.
+ */
+export function pluralize(count: number, singular: string, plural = `${singular}s`) {
+    return count === 1 ? singular : plural;
+}

@@ -72,7 +72,7 @@ describe("unshown data page", () => {
         expect(button.disabled).toBe(true);
         await settle();
         expect(button.disabled).toBe(false);
-        expect(main.querySelector(".unshown-data-summary")!.textContent).toBe("1 value is never shown, in 1 of 1 forms.");
+        expect(main.querySelector(".unshown-data-summary")!.textContent).toBe("1 value is never shown, in 1 of 1 form.");
         expect(Array.from(main.querySelectorAll(".unshown-data-form li")).map((item) => item.textContent)).toEqual(["ubrukt in 1 of 1 example file"]);
     });
 

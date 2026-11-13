@@ -1,4 +1,4 @@
-import { beautifyJson, parseJsonInput, removeTrailingOrLeadingComma } from "./formatters.ts";
+import { beautifyJson, parseJsonInput, pluralize, removeTrailingOrLeadingComma } from "./formatters.ts";
 
 describe("removeTrailingOrLeadingComma", () => {
     it("removes leading comma", () => {
@@ -66,5 +66,17 @@ describe("parseJsonInput", () => {
         expect(result.value).toBeUndefined();
         expect(typeof result.error).toBe("string");
         expect(result.error!.length > 0).toBe(true);
+    });
+});
+
+describe("pluralize", () => {
+    it("gives the singular for exactly one, and the plural for any other count", () => {
+        expect(pluralize(1, "form")).toBe("form");
+        expect(pluralize(0, "form")).toBe("forms");
+        expect(pluralize(2, "form")).toBe("forms");
+    });
+    it("takes a plural that is not the singular with an s", () => {
+        expect(pluralize(1, "value is", "values are")).toBe("value is");
+        expect(pluralize(3, "value is", "values are")).toBe("values are");
     });
 });

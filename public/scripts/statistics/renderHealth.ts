@@ -4,6 +4,7 @@ import { fetchAltinnStudioForms, fetchExampleData } from "./apiHelpers.ts";
 import { findExampleDataForApp, getDataModelsForApp } from "./renderers.ts";
 import { applyTextResourcesForLanguage } from "./textResourceLanguage.ts";
 import { drawLayoutComponents } from "./drawComponents.ts";
+import { pluralize } from "../formatters.ts";
 
 /** One drawing of a form: an app's display layout or subform, with one of its example files. */
 export interface RenderTarget {
@@ -244,7 +245,7 @@ export function renderRenderHealthPage(containerElement: HTMLElement) {
             const targets = getRenderTargets(globalThis.displayLayouts, exampleData, altinnStudioForms);
             const failures = await runRenderHealthCheck(targets, (done, total) => {
                 const currentProgressElement = document.getElementById("render-health-progress");
-                if (currentProgressElement) currentProgressElement.textContent = `Drew ${done} of ${total} forms`;
+                if (currentProgressElement) currentProgressElement.textContent = `Drew ${done} of ${total} ${pluralize(total, "form")}`;
             });
             lastResult = { failures, drawings: targets.length, lastUpdated };
             const currentResultsElement = document.getElementById("render-health-results");
@@ -290,8 +291,8 @@ export function renderRenderHealthResults(resultsElement: HTMLElement, result: R
         result.failures.map(({ appOwner, appName, formName, fileName }) => `${appOwner}/${appName}/${formName}/${fileName}`)
     ).size;
     summaryElement.textContent = result.failures.length
-        ? `${result.failures.length} ${result.failures.length === 1 ? "component" : "components"} could not be drawn, in ${failedDrawings} of ${result.drawings} drawings.`
-        : `Every component was drawn, in ${result.drawings} drawings.`;
+        ? `${result.failures.length} ${pluralize(result.failures.length, "component")} could not be drawn, in ${failedDrawings} of ${result.drawings} ${pluralize(result.drawings, "drawing")}.`
+        : `Every component was drawn, in ${result.drawings} ${pluralize(result.drawings, "drawing")}.`;
     resultsElement.appendChild(summaryElement);
     if (!result.failures.length) return;
 

@@ -196,6 +196,14 @@ describe("renderUnshownDataResults", () => {
         renderUnshownDataResults(element, { forms: [{ ...form, unshown: [] }], lastUpdated: globalThis.lastUpdated });
         expect(element.textContent).toBe("Every value in the example data is shown, in 1 form.");
     });
+    it("counts one form, one value and one example file in the singular", () => {
+        const element = document.createElement("div");
+        const single = { ...form, files: 1, values: 1, unshown: [{ path: "soeknad.ubrukt", files: 1 }] };
+        renderUnshownDataResults(element, { forms: [single], lastUpdated: globalThis.lastUpdated });
+        expect(element.querySelector(".unshown-data-summary")!.textContent).toBe("1 value is never shown, in 1 of 1 form.");
+        expect(element.querySelector("summary")!.textContent).toBe("dibk/et-v4, DisplayLayout (Byggesoknad): 1 of 1 value never shown");
+        expect(element.querySelector("li")!.textContent).toBe("soeknad.ubrukt in 1 of 1 example file");
+    });
     it("says when the results are from before the last synchronization", () => {
         const element = document.createElement("div");
         renderUnshownDataResults(element, { forms: [], lastUpdated: "2026-11-01T10:00:00.000Z" });

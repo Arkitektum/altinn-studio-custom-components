@@ -5,6 +5,7 @@ import { fetchAltinnStudioForms, fetchExampleData } from "./apiHelpers.ts";
 import { applyTextResourcesForLanguage } from "./textResourceLanguage.ts";
 import { drawLayoutComponents } from "./drawComponents.ts";
 import { getRenderTargets } from "./renderHealth.ts";
+import { pluralize } from "../formatters.ts";
 
 /**
  * Finds the example data no component reads. Each form is drawn, out of sight, with its example data behind a proxy that records which values are read, and the values that are never read are listed.
@@ -299,7 +300,7 @@ export function renderUnshownDataPage(containerElement: HTMLElement) {
             globalThis.altinnStudioForms = altinnStudioForms;
             const lastUpdated = globalThis.lastUpdated;
             const targets = getRenderTargets(globalThis.displayLayouts, exampleData, altinnStudioForms);
-            const forms = await runUnshownDataCheck(targets, (done, total) => setProgress(`Drew ${done} of ${total} forms`));
+            const forms = await runUnshownDataCheck(targets, (done, total) => setProgress(`Drew ${done} of ${total} ${pluralize(total, "form")}`));
             lastResult = { forms, lastUpdated };
             const currentResultsElement = document.getElementById("unshown-data-results");
             if (currentResultsElement) renderUnshownDataResults(currentResultsElement, lastResult);
@@ -341,22 +342,22 @@ export function renderUnshownDataResults(resultsElement: HTMLElement, result: Un
     const summaryElement = document.createElement("p");
     summaryElement.classList.add("unshown-data-summary");
     summaryElement.textContent = unshownCount
-        ? `${unshownCount} ${unshownCount === 1 ? "value is" : "values are"} never shown, in ${formsWithUnshown.length} of ${result.forms.length} forms.`
-        : `Every value in the example data is shown, in ${result.forms.length} ${result.forms.length === 1 ? "form" : "forms"}.`;
+        ? `${unshownCount} ${pluralize(unshownCount, "value is", "values are")} never shown, in ${formsWithUnshown.length} of ${result.forms.length} ${pluralize(result.forms.length, "form")}.`
+        : `Every value in the example data is shown, in ${result.forms.length} ${pluralize(result.forms.length, "form")}.`;
     resultsElement.appendChild(summaryElement);
 
     for (const form of formsWithUnshown) {
         const detailsElement = document.createElement("details");
         detailsElement.classList.add("unshown-data-form");
         const summary = document.createElement("summary");
-        summary.textContent = `${form.appOwner}/${form.appName}, ${form.formName} (${form.dataType}): ${form.unshown.length} of ${form.values} values never shown`;
+        summary.textContent = `${form.appOwner}/${form.appName}, ${form.formName} (${form.dataType}): ${form.unshown.length} of ${form.values} ${pluralize(form.values, "value")} never shown`;
         detailsElement.appendChild(summary);
         const listElement = document.createElement("ul");
         for (const { path, files } of form.unshown) {
             const itemElement = document.createElement("li");
             const pathElement = document.createElement("code");
             pathElement.textContent = path;
-            itemElement.append(pathElement, ` in ${files} of ${form.files} example ${form.files === 1 ? "file" : "files"}`);
+            itemElement.append(pathElement, ` in ${files} of ${form.files} example ${pluralize(form.files, "file")}`);
             listElement.appendChild(itemElement);
         }
         detailsElement.appendChild(listElement);
