@@ -1,4 +1,4 @@
-import { beautifyJson, removeTrailingOrLeadingComma } from "./formatters.ts";
+import { beautifyJson, parseJsonInput, removeTrailingOrLeadingComma } from "./formatters.ts";
 
 describe("removeTrailingOrLeadingComma", () => {
     it("removes leading comma", () => {
@@ -49,5 +49,22 @@ describe("beautifyJson", () => {
 
     it("throws on invalid JSON", () => {
         expect(() => beautifyJson("not json")).toThrow();
+    });
+});
+
+describe("parseJsonInput", () => {
+    it("returns the parsed value and no error for valid JSON", () => {
+        expect(parseJsonInput('{"a":1}')).toEqual({ value: { a: 1 } });
+    });
+
+    it("removes leading/trailing commas before parsing", () => {
+        expect(parseJsonInput(',{"a":1},')).toEqual({ value: { a: 1 } });
+    });
+
+    it("returns the parser's message and no value for invalid JSON", () => {
+        const result = parseJsonInput('{"a":1');
+        expect(result.value).toBeUndefined();
+        expect(typeof result.error).toBe("string");
+        expect(result.error!.length > 0).toBe(true);
     });
 });

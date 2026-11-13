@@ -42,6 +42,27 @@ export function updateDataInputElement(inputElement: HTMLElement) {
 }
 
 /**
+ * Shows why the text in the code input was not saved, above the input, or removes the message when there is none.
+ *
+ * @param {string} [message] - The JSON parser's message, or nothing when the text was saved.
+ */
+export function renderJsonInputError(message?: string) {
+    const dataInputElement = document.getElementById("data-input");
+    const codeInputElement = document.getElementById("code-input");
+    dataInputElement?.querySelector(".code-input-error")?.remove();
+    codeInputElement?.removeAttribute("aria-invalid");
+    if (!message) {
+        return;
+    }
+    const errorElement = document.createElement("p");
+    errorElement.classList.add("code-input-error");
+    errorElement.setAttribute("role", "alert");
+    errorElement.textContent = `Not saved, the JSON is invalid: ${message}`;
+    codeInputElement?.setAttribute("aria-invalid", "true");
+    dataInputElement?.prepend(errorElement);
+}
+
+/**
  * Opens a modal validation dialog and displays the provided content element inside it.
  *
  * @param {HTMLElement} contentElement - The DOM element to display inside the dialog's content area.

@@ -3,13 +3,13 @@ import type { ApiValue } from "./types.ts";
 import { hasValue } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Global functions
-import { beautifyJson } from "./formatters.ts";
+import { beautifyJson, parseJsonInput } from "./formatters.ts";
 
 // Local functions
 import { addValueToLocalStorage, getDataModels, getValueFromLocalStorage } from "./localStorage.ts";
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.ts";
+import { renderJsonInputError, setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./devTools/renderers.ts";
-import { setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
 import { setIconLabel } from "./icons.ts";
 import { validateResources } from "./validators.ts";
 
@@ -117,7 +117,7 @@ export function getDataModelListElements() {
 /**
  * Creates and returns a textarea element for editing the data of a specific data model.
  * The textarea is populated with the JSON stringified data of the selected data model.
- * On change, it triggers data model update and re-renders results.
+ * On change, it triggers data model update and re-renders results. Invalid JSON saves nothing and is reported above the input.
  *
  * @param {number} dataModelIndex - The index of the data model to edit.
  * @returns {HTMLTextAreaElement} The textarea element for editing the data model.
@@ -129,8 +129,11 @@ export function getCodeInputElementForDataModel(dataModelIndex: number) {
     const dataModel = dataModels[dataModelIndex];
     codeInputElement.value = JSON.stringify(dataModel.data, null, 2);
     codeInputElement.onchange = function () {
-        handleDataModelDataOnChange(dataModelIndex);
-        renderResults();
+        const error = handleDataModelDataOnChange(dataModelIndex);
+        renderJsonInputError(error);
+        if (!error) {
+            renderResults();
+        }
     };
     return codeInputElement;
 }
@@ -139,6 +142,7 @@ export function getCodeInputElementForDataModel(dataModelIndex: number) {
  * Creates and returns a textarea element for code input, initializes its value from local storage,
  * and sets up an onchange handler to beautify the JSON, update local storage, render results,
  * validate resources, and update status indicators.
+ * Invalid JSON saves nothing and is reported above the input.
  *
  * @returns {HTMLTextAreaElement} The configured textarea element for code input.
  */
@@ -147,7 +151,12 @@ export function getCodeInputElementForLayoutCode() {
     codeInputElement.id = "code-input";
     codeInputElement.value = getValueFromLocalStorage("code") || "";
     codeInputElement.onchange = function () {
-        codeInputElement.value = beautifyJson(codeInputElement.value);
+        const { value, error } = parseJsonInput(codeInputElement.value);
+        renderJsonInputError(error);
+        if (error) {
+            return;
+        }
+        codeInputElement.value = JSON.stringify(value, null, 2);
         addValueToLocalStorage("code", codeInputElement.value);
         renderResults();
 
@@ -205,6 +214,7 @@ function cleanUpTextResources(textResources: ApiValue) {
  * The textarea is pre-filled with the value from local storage (if available).
  * On change, it parses, cleans, beautifies, and saves the text resources,
  * updates the global `window.textResources`, and triggers rendering and validation.
+ * Invalid JSON saves nothing and is reported above the input.
  *
  * @returns {HTMLTextAreaElement} The textarea element for text resource input.
  */
@@ -213,7 +223,11 @@ export function getCodeInputElementForTextResources() {
     codeInputElement.id = "code-input";
     codeInputElement.value = getValueFromLocalStorage("textResources") || "";
     codeInputElement.onchange = function () {
-        const textResources = JSON.parse(codeInputElement?.value);
+        const { value: textResources, error } = parseJsonInput(codeInputElement.value);
+        renderJsonInputError(error);
+        if (error) {
+            return;
+        }
         const cleanedTextResources = cleanUpTextResources(textResources);
         const cleanedTextResourcesJson = beautifyJson(JSON.stringify(cleanedTextResources, null, 2));
         codeInputElement.value = cleanedTextResourcesJson;

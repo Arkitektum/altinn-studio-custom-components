@@ -1,4 +1,4 @@
-import { closeValidationDialog, openValidationDialog, setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
+import { closeValidationDialog, openValidationDialog, renderJsonInputError, setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
 
 describe("setActiveSidebarElement", () => {
     let item1: HTMLElement | null, item2: HTMLElement | null;
@@ -79,5 +79,33 @@ describe("openValidationDialog and closeValidationDialog", () => {
         openValidationDialog(content!);
         closeValidationDialog();
         expect(dialog!.open).toBe(false);
+    });
+});
+
+describe("renderJsonInputError", () => {
+    beforeEach(() => {
+        document.body.innerHTML = `<section id="data-input"><textarea id="code-input"></textarea></section>`;
+    });
+    it("shows the message above the code input and marks the input invalid", () => {
+        renderJsonInputError("Unexpected end of JSON input");
+        const dataInput = document.getElementById("data-input");
+        const errorElement = dataInput!.firstElementChild;
+        expect(errorElement!.classList.contains("code-input-error")).toBe(true);
+        expect(errorElement!.getAttribute("role")).toBe("alert");
+        expect(errorElement!.textContent).toBe("Not saved, the JSON is invalid: Unexpected end of JSON input");
+        expect(document.getElementById("code-input")!.getAttribute("aria-invalid")).toBe("true");
+    });
+    it("replaces an earlier message instead of adding a second one", () => {
+        renderJsonInputError("first");
+        renderJsonInputError("second");
+        const errorElements = document.querySelectorAll(".code-input-error");
+        expect(errorElements).toHaveLength(1);
+        expect(errorElements[0]!.textContent).toBe("Not saved, the JSON is invalid: second");
+    });
+    it("removes the message and the invalid mark when called without a message", () => {
+        renderJsonInputError("first");
+        renderJsonInputError();
+        expect(document.querySelector(".code-input-error")).toBeNull();
+        expect(document.getElementById("code-input")!.hasAttribute("aria-invalid")).toBe(false);
     });
 });

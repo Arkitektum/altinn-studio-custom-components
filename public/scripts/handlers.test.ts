@@ -28,4 +28,16 @@ describe("handleDataModelDataOnChange", () => {
         const models = JSON.parse(localStorage.getItem("dataModels")!);
         expect(models[0].data).toEqual({ foo: 1 });
     });
+    it("saves nothing and returns the parser's message for invalid JSON", () => {
+        const textarea = document.getElementById("code-input");
+        (textarea as HTMLInputElement).value = '{"foo":';
+        const error = handleDataModelDataOnChange(0);
+        expect(typeof error).toBe("string");
+        expect(JSON.parse(localStorage.getItem("dataModels")!)).toEqual([{ data: "old" }]);
+    });
+    it("returns nothing when the data was saved", () => {
+        const textarea = document.getElementById("code-input");
+        (textarea as HTMLInputElement).value = '{"foo":1}';
+        expect(handleDataModelDataOnChange(0)).toBeUndefined();
+    });
 });

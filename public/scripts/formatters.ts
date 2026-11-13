@@ -20,3 +20,17 @@ export function removeTrailingOrLeadingComma(value: ApiValue) {
 export function beautifyJson(json: string) {
     return JSON.stringify(JSON.parse(removeTrailingOrLeadingComma(json)), null, 2);
 }
+
+/**
+ * Parses the JSON typed into one of the developer tools' code inputs, removing a leading or trailing comma first.
+ *
+ * @param {string} text - The text in the code input.
+ * @returns {{ value?: any, error?: string }} The parsed value, or the parser's message when the text is not valid JSON.
+ */
+export function parseJsonInput(text: string): { value?: ApiValue; error?: string } {
+    try {
+        return { value: JSON.parse(removeTrailingOrLeadingComma(text)) };
+    } catch (error) {
+        return { error: (error as Error).message };
+    }
+}

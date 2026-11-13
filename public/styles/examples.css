@@ -270,9 +270,20 @@ svg.icon {
             flex-basis: 100%;
             height: 100vh;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            & .code-input-error {
+                margin: 0;
+                padding: 0.75em;
+                font-family: monospace;
+                font-size: 12px;
+                background-color: #5a1d1d;
+                color: #fff;
+            }
             & textarea {
                 width: 100%;
-                height: 100vh;
+                flex: 1 1 auto;
+                min-height: 0;
                 resize: none;
                 padding: 0.75em;
                 overflow: auto;
