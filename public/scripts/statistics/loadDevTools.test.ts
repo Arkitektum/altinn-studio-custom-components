@@ -115,6 +115,28 @@ describe("loadDevTools", () => {
         expect(await stored("lastUpdated", "displayLayouts")).toEqual({ lastUpdated: undefined, displayLayouts: undefined });
     });
 
+    it("opens the page the address names once the data is loaded", async () => {
+        stubApi();
+        history.replaceState(null, "", "#/package-versions");
+        try {
+            await loadDevTools();
+            expect(document.querySelector("#admin-main h2")!.textContent).toBe("Package versions");
+        } finally {
+            history.replaceState(null, "", "#");
+        }
+    });
+
+    it("opens the page Back or Forward leads to", async () => {
+        stubApi();
+        history.replaceState(null, "", "#");
+        await loadDevTools();
+        history.replaceState(null, "", "#/package-versions");
+        globalThis.dispatchEvent(new PopStateEvent("popstate"));
+        await settle();
+        expect(document.querySelector("#admin-main h2")!.textContent).toBe("Package versions");
+        history.replaceState(null, "", "#");
+    });
+
     it("draws the open page again from what a synchronization brings", async () => {
         stubApi();
         await loadDevTools();

@@ -1,4 +1,5 @@
 import type { ApiData, ApiValue, FlattenedLayout, Layout, LayoutComponent } from "../types.ts";
+import type { DisplayLayoutsOptions, StatisticsPageId } from "./pageLinks.ts";
 // Dependencies
 import {
     CustomElementHtmlAttributes,
@@ -9,6 +10,15 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
+import {
+    applyPageFilters,
+    getDisplayLayoutsHash,
+    getDisplayLayoutsOptions,
+    getPageHash,
+    parsePageHash,
+    resetPageFilters,
+    setLocationHash
+} from "./pageLinks.ts";
 import { applyTextResourcesForLanguage, getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
 import {
@@ -60,6 +70,21 @@ let drawOpenPageAgain: (() => void | Promise<void>) | null = null;
  */
 export async function redrawOpenPage() {
     await drawOpenPageAgain?.();
+    writeOpenPageHash();
+}
+
+/**
+ * Which page is open, null until one has been.
+ */
+let openPageId: StatisticsPageId | null = null;
+
+/**
+ * Puts the open page's filter choices in the address. The display layouts page puts its own there each time it is drawn.
+ */
+export function writeOpenPageHash() {
+    if (openPageId && openPageId !== "display-layouts") {
+        setLocationHash(getPageHash(openPageId));
+    }
 }
 
 /**
@@ -75,6 +100,7 @@ export async function redrawOpenPage() {
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
 export function renderResourceUsagePage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    openPageId = "resource-usage";
     drawOpenPageAgain = () => {
         containerElement.innerHTML = "";
         renderResourceUsagePage(containerElement, { keepFilters: true });
@@ -82,15 +108,10 @@ export function renderResourceUsagePage(containerElement: HTMLElement, { keepFil
     const allTextResourceUsage = globalThis.allTextResourceUsage;
     const applications = getAppEntries(globalThis.displayLayouts);
 
-    // The filter controls start from these, so a fresh visit resets them. Left as they were, the controls would show
+    // The filter controls start from their defaults (in pageFilters), so a fresh visit resets them. Left as they were, the controls would show
     // the last visit's choices while the list below showed everything.
     if (!keepFilters) {
-        globalThis.textFilter = "";
-        globalThis.matchBy = "id";
-        globalThis.selectedFilter = "all";
-        globalThis.selectedAppOwner = "";
-        globalThis.selectedAppName = "";
-        globalThis.selectedForm = "";
+        resetPageFilters("resource-usage");
     }
 
     const titleElement = document.createElement("h2");
@@ -116,6 +137,7 @@ export function renderResourceUsagePage(containerElement: HTMLElement, { keepFil
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
 export function renderDataModelBindingsPage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    openPageId = "data-model-bindings";
     drawOpenPageAgain = () => {
         containerElement.innerHTML = "";
         renderDataModelBindingsPage(containerElement, { keepFilters: true });
@@ -124,11 +146,7 @@ export function renderDataModelBindingsPage(containerElement: HTMLElement, { kee
     const applications = getAppEntries(globalThis.displayLayouts);
 
     if (!keepFilters) {
-        globalThis.bindingDriftSelectedAppOwner = "";
-        globalThis.bindingDriftSelectedAppName = "";
-        globalThis.bindingDriftSelectedForm = "";
-        globalThis.bindingDriftFindingFilter = "";
-        globalThis.bindingDriftShowWithoutFindings = false;
+        resetPageFilters("data-model-bindings");
     }
 
     const titleElement = document.createElement("h2");
@@ -148,6 +166,7 @@ export function renderDataModelBindingsPage(containerElement: HTMLElement, { kee
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
 export function renderSubformDataModelsPage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    openPageId = "subform-data-models";
     drawOpenPageAgain = () => {
         containerElement.innerHTML = "";
         renderSubformDataModelsPage(containerElement, { keepFilters: true });
@@ -155,9 +174,7 @@ export function renderSubformDataModelsPage(containerElement: HTMLElement, { kee
     const drift = globalThis.subformDataModelDrift;
 
     if (!keepFilters) {
-        globalThis.subformModelSelectedApp = "";
-        globalThis.subformModelPathFilter = "";
-        globalThis.subformModelShowAgreeing = false;
+        resetPageFilters("subform-data-models");
     }
 
     const titleElement = document.createElement("h2");
@@ -178,6 +195,7 @@ export function renderSubformDataModelsPage(containerElement: HTMLElement, { kee
  * @param {boolean} [options.keepFilters] - Keep the filter choices made before rather than resetting them.
  */
 export function renderComponentUsagePage(containerElement: HTMLElement, { keepFilters = false }: { keepFilters?: boolean } = {}) {
+    openPageId = "component-usage";
     drawOpenPageAgain = () => {
         containerElement.innerHTML = "";
         renderComponentUsagePage(containerElement, { keepFilters: true });
@@ -185,16 +203,10 @@ export function renderComponentUsagePage(containerElement: HTMLElement, { keepFi
     const componentUsage = globalThis.componentUsage;
     const applications = getAppEntries(globalThis.displayLayouts);
 
-    // The filter controls start from these, so a fresh visit resets them. Left as they were, the controls would show
+    // The filter controls start from their defaults (in pageFilters), so a fresh visit resets them. Left as they were, the controls would show
     // the last visit's choices while the list below showed everything.
     if (!keepFilters) {
-        globalThis.componentUsageFilter = "all";
-        globalThis.componentSelectedAppOwner = "";
-        globalThis.componentSelectedAppName = "";
-        globalThis.componentSelectedForm = "";
-        globalThis.componentTypeFilter = "";
-        globalThis.componentTextFilter = "";
-        globalThis.componentMatchBy = "tag";
+        resetPageFilters("component-usage");
     }
 
     const titleElement = document.createElement("h2");
@@ -249,6 +261,7 @@ function getVersionColorClass(version: string | undefined, latestVersion: string
  * @param {HTMLElement} containerElement - The DOM element to render the package versions page into.
  */
 export function renderPackageVersionsPage(containerElement: HTMLElement) {
+    openPageId = "package-versions";
     drawOpenPageAgain = () => {
         containerElement.innerHTML = "";
         renderPackageVersionsPage(containerElement);
@@ -930,6 +943,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         displayLayoutAppName: selectedOptions?.displayLayoutAppName || null,
         displayLayoutAppOwner: selectedOptions?.displayLayoutAppOwner || null
     };
+    openPageId = "display-layouts";
+    setLocationHash(getDisplayLayoutsHash(selectedOptions));
     // The text resources for the chosen language are on globalThis, and a synchronization puts the default language
     // back there, so they are set up again before the page is.
     const optionsToDrawAgainWith = selectedOptions;
@@ -973,6 +988,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     }
 
     selectedOptions.fileNames = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions);
+    setLocationHash(getDisplayLayoutsHash(selectedOptions));
 
     renderSelectDisplayLayoutFilenameFilter(containerElement!, displayLayout, selectedOptions, appData, applicationMetadata);
     renderSelectFormTypeFilter(containerElement!, displayLayout, selectedOptions, appData, applicationMetadata);
@@ -1042,7 +1058,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
  * Renders the admin sidebar with navigation buttons for different admin pages.
  *
  * The sidebar has a button for each page: Resource usage, Component usage, Data model bindings, Subform data models,
- * Package versions and Display layouts. A click renders that page in the main admin area.
+ * Package versions and Display layouts. A click renders that page in the main admin area, and puts it in the address.
+ * A filter changed on the open page is put in the address too.
  *
  * Expects elements with the ids "admin-main" and "sidebar" in the DOM.
  */
@@ -1051,92 +1068,118 @@ export function renderAdminSidebar() {
     const sidebarElement = document.getElementById("sidebar");
 
     const sidebarList = document.createElement("ul");
+    const pages: [StatisticsPageId, Parameters<typeof setIconLabel>[1], string][] = [
+        ["resource-usage", "book", "Resource usage"],
+        ["component-usage", "components", "Component usage"],
+        ["data-model-bindings", "link", "Data model bindings"],
+        ["subform-data-models", "database", "Subform data models"],
+        ["package-versions", "package", "Package versions"],
+        ["display-layouts", "layout", "Display layouts"]
+    ];
+    for (const [pageId, icon, label] of pages) {
+        const listItem = document.createElement("li");
+        const button = document.createElement("button");
+        setIconLabel(button, icon, label);
+        button.onclick = () => openStatisticsPage(pageId);
+        listItem.appendChild(button);
+        sidebarList.appendChild(listItem);
+    }
 
-    const resourceUsageListItem = document.createElement("li");
-    const resourceUsageButton = document.createElement("button");
-    setIconLabel(resourceUsageButton, "book", "Resource usage");
-    resourceUsageButton.onclick = () => {
-        mainElement!.innerHTML = "";
-        renderResourceUsagePage(mainElement!);
-    };
-    resourceUsageListItem.appendChild(resourceUsageButton);
-    sidebarList.appendChild(resourceUsageListItem);
-
-    const componentUsageListItem = document.createElement("li");
-    const componentUsageButton = document.createElement("button");
-    setIconLabel(componentUsageButton, "components", "Component usage");
-    componentUsageButton.onclick = () => {
-        mainElement!.innerHTML = "";
-        renderComponentUsagePage(mainElement!);
-    };
-    componentUsageListItem.appendChild(componentUsageButton);
-    sidebarList.appendChild(componentUsageListItem);
-
-    const dataModelBindingsListItem = document.createElement("li");
-    const dataModelBindingsButton = document.createElement("button");
-    setIconLabel(dataModelBindingsButton, "link", "Data model bindings");
-    dataModelBindingsButton.onclick = () => {
-        mainElement!.innerHTML = "";
-        renderDataModelBindingsPage(mainElement!);
-    };
-    dataModelBindingsListItem.appendChild(dataModelBindingsButton);
-    sidebarList.appendChild(dataModelBindingsListItem);
-
-    const subformDataModelsListItem = document.createElement("li");
-    const subformDataModelsButton = document.createElement("button");
-    setIconLabel(subformDataModelsButton, "database", "Subform data models");
-    subformDataModelsButton.onclick = () => {
-        mainElement!.innerHTML = "";
-        renderSubformDataModelsPage(mainElement!);
-    };
-    subformDataModelsListItem.appendChild(subformDataModelsButton);
-    sidebarList.appendChild(subformDataModelsListItem);
-
-    const packageVersionsListItem = document.createElement("li");
-    const packageVersionsButton = document.createElement("button");
-    setIconLabel(packageVersionsButton, "package", "Package versions");
-    packageVersionsButton.onclick = () => {
-        mainElement!.innerHTML = "";
-        renderPackageVersionsPage(mainElement!);
-    };
-    packageVersionsListItem.appendChild(packageVersionsButton);
-    sidebarList.appendChild(packageVersionsListItem);
-
-    const displayLayoutsListItem = document.createElement("li");
-    const displayLayoutsButton = document.createElement("button");
-    setIconLabel(displayLayoutsButton, "layout", "Display layouts");
-    displayLayoutsButton.onclick = async () => {
-        mainElement!.innerHTML = "";
-        // Marks this page as the one opening, so a page opened while the data below is fetched keeps the container.
-        const opening = () => {};
-        drawOpenPageAgain = opening;
-        try {
-            const exampleData = globalThis.exampleData || (await fetchExampleData());
-            const applicationMetadata = globalThis.applicationMetadata || (await fetchApplicationMetadata());
-            if (drawOpenPageAgain !== opening) {
-                return;
-            }
-            globalThis.exampleData = exampleData;
-            globalThis.applicationMetadata = applicationMetadata;
-            await renderDisplayLayoutsPage(mainElement!, exampleData, applicationMetadata);
-        } catch (error) {
-            console.error("Could not open the display layouts page:", error);
-        }
-    };
-    displayLayoutsListItem.appendChild(displayLayoutsButton);
-    sidebarList.appendChild(displayLayoutsListItem);
+    // A filter control changes its global before the event reaches the page, so the address is written from the choices just made.
+    mainElement?.addEventListener("change", writeOpenPageHash);
+    mainElement?.addEventListener("input", writeOpenPageHash);
 
     sidebarElement!.appendChild(sidebarList);
 }
 
 /**
- * Says there is no data to show yet, with a button to try fetching it again.
+ * Opens a page. From the sidebar its filters start at their defaults and it gets an entry in the history. From an address its filters are those in the address.
  *
- * Shown when the first synchronization fails, when there is nothing stored to fall back on. Every page reads that
- * data, so the sidebar's page buttons are left out until there is some.
- *
- * @param {Function} onRetry - Called when the Try again button is pressed, after the message has been removed.
+ * @param {StatisticsPageId} pageId - The page.
+ * @param {Object} [options]
+ * @param {URLSearchParams} [options.params] - The filter choices in the address the page is opened from.
+ * @returns {Promise<void>}
  */
+export async function openStatisticsPage(pageId: StatisticsPageId, { params }: { params?: URLSearchParams } = {}) {
+    const mainElement = document.getElementById("admin-main")!;
+    mainElement.innerHTML = "";
+    const fromAddress = params !== undefined;
+    if (fromAddress) {
+        applyPageFilters(pageId, params);
+    } else {
+        setLocationHash(`#/${pageId}`, { newEntry: true });
+    }
+    const options = { keepFilters: fromAddress };
+    switch (pageId) {
+        case "resource-usage":
+            renderResourceUsagePage(mainElement, options);
+            break;
+        case "component-usage":
+            renderComponentUsagePage(mainElement, options);
+            break;
+        case "data-model-bindings":
+            renderDataModelBindingsPage(mainElement, options);
+            break;
+        case "subform-data-models":
+            renderSubformDataModelsPage(mainElement, options);
+            break;
+        case "package-versions":
+            renderPackageVersionsPage(mainElement);
+            break;
+        case "display-layouts":
+            await openDisplayLayoutsPage(mainElement, params ? getDisplayLayoutsOptions(params) : undefined);
+            return;
+    }
+    writeOpenPageHash();
+}
+
+/**
+ * Opens the page the address names, with the choices in it. An address that names no page leaves the open page as it is.
+ *
+ * @returns {Promise<void>}
+ */
+export async function openPageFromLocation() {
+    const page = parsePageHash(globalThis.location.hash);
+    if (page) {
+        await openStatisticsPage(page.pageId, { params: page.params });
+    }
+}
+
+/**
+ * Opens the display layouts page, fetching the example data and application metadata first when they are not loaded.
+ *
+ * @param {HTMLElement} mainElement - The element the page is drawn in.
+ * @param {DisplayLayoutsOptions} [selectedOptions] - The choices to open it with, from an address.
+ * @returns {Promise<void>}
+ */
+async function openDisplayLayoutsPage(mainElement: HTMLElement, selectedOptions?: DisplayLayoutsOptions) {
+    openPageId = "display-layouts";
+    // Marks this page as the one opening, so a page opened while the data below is fetched keeps the container.
+    const opening = () => {};
+    drawOpenPageAgain = opening;
+    try {
+        const exampleData = globalThis.exampleData || (await fetchExampleData());
+        const applicationMetadata = globalThis.applicationMetadata || (await fetchApplicationMetadata());
+        if (drawOpenPageAgain !== opening) {
+            return;
+        }
+        globalThis.exampleData = exampleData;
+        globalThis.applicationMetadata = applicationMetadata;
+        if (selectedOptions?.language) {
+            applyTextResourcesForLanguage(
+                globalThis.multilingualDefaultTextResources,
+                globalThis.multilingualAppResourceValues,
+                selectedOptions.language,
+                selectedOptions.displayLayoutAppOwner ?? undefined,
+                selectedOptions.displayLayoutAppName ?? undefined
+            );
+        }
+        await renderDisplayLayoutsPage(mainElement, exampleData, applicationMetadata, selectedOptions);
+    } catch (error) {
+        console.error("Could not open the display layouts page:", error);
+    }
+}
+
 export function renderNoDataMessage(onRetry: () => void) {
     const mainElement = document.getElementById("admin-main");
     if (!mainElement) {

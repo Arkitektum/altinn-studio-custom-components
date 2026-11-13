@@ -9,7 +9,7 @@ import {
     getUsageForResources
 } from "../validators.ts";
 import { loadApiData, removeLegacyLocalStorage, saveApiData } from "./apiDataStore.ts";
-import { redrawOpenPage, renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
+import { openPageFromLocation, redrawOpenPage, renderAdminSidebar, renderNoDataMessage, renderSynchronizeButton } from "./renderers.ts";
 import { addDataToGlobalThis } from "../localStorage.ts";
 import { flattenAppLayouts } from "./displayLayoutHelpers.ts";
 import { getComponentUsageTreeForAllLayouts } from "./componentUsageHelpers.ts";
@@ -138,7 +138,12 @@ export function applyApiData(apiData: ApiData, lastUpdated: string | number | un
 }
 
 /**
- * Loads the dev tools: the stored data, or a fresh synchronization when nothing is stored, then the sidebar.
+ * Whether Back and Forward are followed already, since loadDevTools runs again when the first synchronization fails and is retried.
+ */
+let followsAddress = false;
+
+/**
+ * Loads the dev tools: the stored data, or a fresh synchronization when nothing is stored, then the sidebar, then the page the address names, if any.
  *
  * When that first synchronization fails there is nothing to show, so it says so, offers to try again, and renders no
  * sidebar until there is data for its pages to read.
@@ -216,6 +221,12 @@ export async function loadDevTools() {
         applyApiData(apiData, synchronizedAt);
         await redrawOpenPage();
     });
+    // Back, Forward and an address typed in open the page the address names.
+    if (!followsAddress) {
+        globalThis.addEventListener("popstate", openPageFromLocation);
+        followsAddress = true;
+    }
+    await openPageFromLocation();
 }
 
 globalThis.onload = loadDevTools;
