@@ -43,6 +43,20 @@ describe("buildPreviewDocument", () => {
             "default-src 'none'; script-src 'unsafe-inline' http://localhost:9000 http://localhost:9001; style-src 'unsafe-inline' http://localhost:9000 http://localhost:9001; font-src data: http://localhost:9000 http://localhost:9001; img-src data: http://localhost:9000 http://localhost:9001; connect-src 'none'"
         );
     });
+    it("lets the frame's scripts evaluate strings only when asked to, as the dev server's build needs", () => {
+        const scriptSource = (html: string) =>
+            parse(html)
+                .querySelector('meta[http-equiv="Content-Security-Policy"]')!
+                .getAttribute("content")!
+                .split("; ")
+                .find((directive) => directive.startsWith("script-src"));
+        expect(scriptSource(buildPreviewDocument({ ...options, allowEval: true }))).toBe(
+            "script-src 'unsafe-inline' 'unsafe-eval' http://localhost:9000 http://localhost:9001"
+        );
+        expect(scriptSource(buildPreviewDocument({ ...options, allowEval: false }))).toBe(
+            "script-src 'unsafe-inline' http://localhost:9000 http://localhost:9001"
+        );
+    });
     it("loads the version's styles, and its script after the form's elements so they are defined in place", () => {
         const preview = parse(buildPreviewDocument(options));
         expect(preview.querySelector('link[rel="stylesheet"]')!.getAttribute("href")).toBe(options.styleUrl);

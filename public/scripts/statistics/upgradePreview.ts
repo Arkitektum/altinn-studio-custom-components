@@ -48,12 +48,14 @@ export interface PreviewDocumentOptions {
     componentsHtml: string;
     /** Where scripts, styles and fonts may come from: the dev server and -api. */
     allowedOrigins: string[];
+    /** Let the frame's scripts evaluate strings, which the dev server's build of the local bundle needs: it is built with eval source maps. */
+    allowEval?: boolean;
 }
 
 /**
  * The document a frame draws one version in.
  *
- * The text resources are put on the globals both the current and older versions read them from. Its content security policy lets it load scripts, styles, fonts and images only from the dev server and -api, and fetch nothing, so an older version's start-up cannot reach the app or Altinn's CDN.
+ * The text resources are put on the globals both the current and older versions read them from. Its content security policy lets it load scripts, styles, fonts and images only from the dev server and -api, and fetch nothing, so an older version's start-up cannot reach the app or Altinn's CDN. That includes the dev server's live reload, so the local frame is not reloaded, and its marks lost, when a file is saved; the browser logs the blocked connection once.
  *
  * @param {PreviewDocumentOptions} options
  * @returns {string} The document, for the frame's srcdoc.
@@ -62,7 +64,7 @@ export function buildPreviewDocument(options: PreviewDocumentOptions) {
     const origins = options.allowedOrigins.join(" ");
     const policy = [
         "default-src 'none'",
-        `script-src 'unsafe-inline' ${origins}`,
+        `script-src 'unsafe-inline'${options.allowEval ? " 'unsafe-eval'" : ""} ${origins}`,
         `style-src 'unsafe-inline' ${origins}`,
         `font-src data: ${origins}`,
         `img-src data: ${origins}`,
@@ -195,7 +197,9 @@ export async function renderUpgradePreview(containerElement: HTMLElement, option
         ...common,
         scriptUrl: new URL("main.js", globalThis.location.origin).href,
         styleUrl: new URL("main.css", globalThis.location.origin).href,
-        defaultTextResources: options.localDefaultTextResources
+        defaultTextResources: options.localDefaultTextResources,
+        // The dev server builds main.js with eval source maps. The installed version is a published, minified build and needs no eval.
+        allowEval: true
     });
 
     const columnsElement = document.createElement("div");

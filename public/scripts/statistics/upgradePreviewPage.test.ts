@@ -112,6 +112,13 @@ describe("Compare with installed version on the display layouts page", () => {
         expect(field.children).toHaveLength(0);
         expect(frames[0]!.srcdoc).toContain("/api/packageFiles/17.2.0/main.js");
         expect(frames[1]!.srcdoc).toContain(`${location.origin}/main.js`);
+        const scriptSource = (frame: HTMLIFrameElement) =>
+            new DOMParser()
+                .parseFromString(frame.srcdoc, "text/html")
+                .querySelector('meta[http-equiv="Content-Security-Policy"]')!
+                .getAttribute("content")!;
+        expect(scriptSource(frames[0]!)).not.toContain("'unsafe-eval'");
+        expect(scriptSource(frames[1]!)).toContain("script-src 'unsafe-inline' 'unsafe-eval'");
         expect(asked).toHaveLength(1);
     });
 });
