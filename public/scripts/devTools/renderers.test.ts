@@ -6,6 +6,9 @@ jest.mock("../localStorage.ts", () => ({
     getDataForComponent: jest.fn(() => ({ foo: "bar" })),
     addValueToLocalStorage: jest.fn(),
     getTextResources: jest.fn(() => ({ resources: [] })),
+    getSelectedLanguage: jest.fn(() => "nb"),
+    setSelectedLanguage: jest.fn(),
+    getTextResourcesStorageKey: jest.fn(() => "textResources"),
     addDataModel: jest.fn()
 }));
 jest.mock("../UI.ts", () => ({

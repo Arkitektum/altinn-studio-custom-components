@@ -5,6 +5,9 @@ module.exports = {
     testPathIgnorePatterns: ["/node_modules/"],
     verbose: true,
     setupFilesAfterEnv: ["<rootDir>/setup-jest.js"],
+    moduleNameMapper: {
+        "\\.css$": "<rootDir>/jest-style-stub.js"
+    },
     transform: {
         "^.+\\.[jt]sx?$": ["babel-jest", { presets: ["@babel/preset-env", "@babel/preset-typescript"] }]
     },
