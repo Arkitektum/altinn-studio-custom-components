@@ -1,5 +1,6 @@
 import {
     DIFFERS_CLASS,
+    FRAME_HEIGHT_ALLOWANCE,
     MIN_COMPARISON_SCALE,
     buildPreviewDocument,
     compareDrawnComponents,
@@ -7,6 +8,7 @@ import {
     drawnOutput,
     fitComparison,
     getComparisonScale,
+    getDrawnHeight,
     getFrameWidth,
     getInstalledVersion,
     getPageOrientation,
@@ -66,7 +68,8 @@ describe("buildPreviewDocument", () => {
     });
     it("draws the form on a white page with the single page view's margins and heading spacing", () => {
         const css = parse(buildPreviewDocument(options)).querySelector("head style")!.textContent!;
-        expect(css).toContain("html, body { margin: 0; background: #fff; }");
+        expect(css).toContain("html, body { margin: 0; background: #fff; overflow: hidden; }");
+        expect(css).toContain("*, *::before, *::after { box-sizing: border-box; }");
         expect(css).toContain("#admin-main > .page { position: relative; box-sizing: border-box; padding: 1cm 1.25cm; }");
         expect(css).toContain("#admin-main > .page > h1 { margin-top: 67px; margin-bottom: 22px; }");
     });
@@ -233,16 +236,56 @@ describe("getPageOrientation", () => {
 });
 
 describe("sizeFramesAsPages", () => {
-    it("makes each frame as wide as an A4 page in the orientation, and as tall as what it drew", () => {
-        const frames = [document.createElement("iframe"), document.createElement("iframe")];
-        frames.forEach((frame) => document.body.appendChild(frame));
-        Object.defineProperty(frames[0]!.contentDocument!.documentElement, "scrollHeight", { value: 1200, configurable: true });
+    const frameWithBodyHeight = (height: number) => {
+        const frame = document.createElement("iframe");
+        document.body.appendChild(frame);
+        Object.defineProperty(frame.contentDocument!.body, "scrollHeight", { value: height, configurable: true });
+        return frame;
+    };
+    afterEach(() => {
+        document.querySelectorAll("iframe").forEach((frame) => frame.remove());
+    });
+
+    it("makes each frame as wide as an A4 page in the orientation, and as tall as what it drew with a few pixels to spare", () => {
+        const frames = [frameWithBodyHeight(1200), frameWithBodyHeight(900)];
         sizeFramesAsPages(frames, "landscape");
         expect(frames.map((frame) => frame.style.width)).toEqual(["29.7cm", "29.7cm"]);
-        expect(frames[0]!.style.height).toBe("1204px");
+        expect(frames.map((frame) => frame.style.height)).toEqual(["1204px", "904px"]);
+        expect(FRAME_HEIGHT_ALLOWANCE).toBe(4);
         sizeFramesAsPages(frames, "portrait");
         expect(frames.map((frame) => frame.style.width)).toEqual(["21cm", "21cm"]);
-        frames.forEach((frame) => frame.remove());
+    });
+    it("keeps the frame as tall as what it drew when that changes height later, with the frame's own ResizeObserver", () => {
+        const frame = frameWithBodyHeight(1200);
+        const observed: Element[] = [];
+        let callback: () => void = () => {};
+        (frame.contentWindow as unknown as { ResizeObserver: unknown }).ResizeObserver = class {
+            constructor(onResize: () => void) {
+                callback = onResize;
+            }
+            observe(element: Element) {
+                observed.push(element);
+            }
+        };
+        sizeFramesAsPages([frame], "portrait");
+        expect(observed).toEqual([frame.contentDocument!.body]);
+        Object.defineProperty(frame.contentDocument!.body, "scrollHeight", { value: 1350, configurable: true });
+        callback();
+        expect(frame.style.height).toBe("1354px");
+        Object.defineProperty(frame.contentDocument!.body, "scrollHeight", { value: 1100, configurable: true });
+        callback();
+        expect(frame.style.height).toBe("1104px");
+    });
+});
+
+describe("getDrawnHeight", () => {
+    it("is the height of what the frame drew, rounded up, and 0 without a document", () => {
+        const frame = document.createElement("iframe");
+        document.body.appendChild(frame);
+        Object.defineProperty(frame.contentDocument!.body, "scrollHeight", { value: 812.4, configurable: true });
+        expect(getDrawnHeight(frame)).toBe(813);
+        frame.remove();
+        expect(getDrawnHeight(document.createElement("iframe"))).toBe(0);
     });
 });
 

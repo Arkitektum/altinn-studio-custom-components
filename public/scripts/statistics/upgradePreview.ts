@@ -59,7 +59,7 @@ export interface PreviewDocumentOptions {
 /**
  * The document a frame draws one version in.
  *
- * The page is laid out as the single page view lays it out, `#admin-main > .page` on a body with the app's classes, so each version's own styles size and place the logo. The text resources are put on the globals both the current and older versions read them from. Its content security policy lets it load scripts, styles, fonts and images only from the dev server and -api, and fetch nothing, so an older version's start-up cannot reach the app or Altinn's CDN. That includes the dev server's live reload, so the local frame is not reloaded, and its marks lost, when a file is saved; the browser logs the blocked connection once.
+ * The page is laid out as the single page view lays it out, `#admin-main > .page` on a body with the app's classes, so each version's own styles size and place the logo, and with every box sized as the dev tools' styles size it (border-box). The frame never scrolls: it is made as tall as its page, and the mouse wheel over it scrolls the page it is on. The text resources are put on the globals both the current and older versions read them from. Its content security policy lets it load scripts, styles, fonts and images only from the dev server and -api, and fetch nothing, so an older version's start-up cannot reach the app or Altinn's CDN. That includes the dev server's live reload, so the local frame is not reloaded, and its marks lost, when a file is saved; the browser logs the blocked connection once.
  *
  * @param {PreviewDocumentOptions} options
  * @returns {string} The document, for the frame's srcdoc.
@@ -80,7 +80,7 @@ export function buildPreviewDocument(options: PreviewDocumentOptions) {
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="${escapeAttribute(policy)}">
 <link rel="stylesheet" href="${escapeAttribute(options.styleUrl)}">
-<style>.${DIFFERS_CLASS} { outline: 3px solid #e5a000; outline-offset: 2px; } html, body { margin: 0; background: #fff; } #admin-main > .page { position: relative; box-sizing: border-box; padding: 1cm 1.25cm; } #admin-main > .page > h1 { margin-top: 67px; margin-bottom: 22px; }</style>
+<style>.${DIFFERS_CLASS} { outline: 3px solid #e5a000; outline-offset: 2px; } *, *::before, *::after { box-sizing: border-box; } html, body { margin: 0; background: #fff; overflow: hidden; } #admin-main > .page { position: relative; box-sizing: border-box; padding: 1cm 1.25cm; } #admin-main > .page > h1 { margin-top: 67px; margin-bottom: 22px; }</style>
 <script>
 const textResources = ${scriptJson(options.textResources)};
 const defaultTextResources = ${scriptJson(options.defaultTextResources)};
@@ -195,8 +195,22 @@ export function getPageOrientation(...frameWindows: (Window | null)[]): keyof ty
         : "portrait";
 }
 
+/** The pixels a frame is given beyond what it drew, so rounding at a zoom below 100% cannot cut off the bottom of the page. */
+export const FRAME_HEIGHT_ALLOWANCE = 4;
+
 /**
- * Makes each frame as wide as an A4 page in the given orientation, and as tall as what it drew.
+ * How tall what a frame drew is: its body, which, unlike the document, is not stretched to the frame's own height and so can also get shorter.
+ *
+ * @param {HTMLIFrameElement} frame - The frame.
+ * @returns {number} The height, in CSS pixels, or 0 when the frame has no document.
+ */
+export function getDrawnHeight(frame: HTMLIFrameElement) {
+    const body = frame.contentDocument?.body;
+    return body ? Math.ceil(Math.max(body.scrollHeight, body.getBoundingClientRect().height)) : 0;
+}
+
+/**
+ * Makes each frame as wide as an A4 page in the given orientation, and as tall as what it drew, and keeps it as tall as that while what it drew changes height, as when an image or a font arrives after the frame has loaded.
  *
  * @param {HTMLIFrameElement[]} frames - The frames.
  * @param {"portrait" | "landscape"} orientation - The orientation.
@@ -206,7 +220,17 @@ export function sizeFramesAsPages(frames: HTMLIFrameElement[], orientation: keyo
         frame.style.width = PAGE_WIDTHS[orientation];
     }
     for (const frame of frames) {
-        frame.style.height = `${(frame.contentDocument?.documentElement.scrollHeight ?? 0) + 4}px`;
+        const fitHeight = () => {
+            // A few pixels to spare, inside the page's bottom margin: a zoomed frame rounds its height, and could otherwise cut off the last pixel or two.
+            frame.style.height = `${getDrawnHeight(frame) + FRAME_HEIGHT_ALLOWANCE}px`;
+        };
+        fitHeight();
+        // The frame's own ResizeObserver, since the body it watches is in the frame's document. Setting the frame's height does not change the body's, so it cannot set itself off.
+        const FrameResizeObserver = (frame.contentWindow as (Window & typeof globalThis) | null)?.ResizeObserver;
+        const body = frame.contentDocument?.body;
+        if (FrameResizeObserver && body) {
+            new FrameResizeObserver(fitHeight).observe(body);
+        }
     }
 }
 
