@@ -1,5 +1,6 @@
 import type { ApiData, ApiValue, FlattenedLayout, Layout, LayoutComponent } from "../types.ts";
 import type { DisplayLayoutsOptions, StatisticsPageId } from "./pageLinks.ts";
+import type { DisplayLayoutForDevTools } from "./openInDevTools.ts";
 // Dependencies
 import {
     CustomElementHtmlAttributes,
@@ -10,6 +11,7 @@ import {
 } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
+import { addDataToGlobalThis, setSelectedLanguage } from "../localStorage.ts";
 import {
     applyPageFilters,
     getDisplayLayoutsHash,
@@ -48,11 +50,12 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
-import { addDataToGlobalThis } from "../localStorage.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
+import { getDevToolsWorkspaceForDisplayLayout } from "./openInDevTools.ts";
 import { languages } from "../languages.ts";
 import { renderDataAge } from "./dataAge.ts";
 import { setIconLabel } from "../icons.ts";
+import { storeWorkspace } from "../devTools/workspace.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
 /**
@@ -1052,7 +1055,55 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     }
 
     pageElement.appendChild(codeResultsElement);
+    containerElement.appendChild(
+        renderOpenInDevToolsButton(
+            {
+                appOwner: selectedDisplayLayoutAppOwner,
+                appName: selectedDisplayLayoutAppName,
+                components,
+                dataModels,
+                mainDataType: dataType,
+                fileNames: selectedOptions.fileNames,
+                multilingualAppResourceValues: globalThis.multilingualAppResourceValues || []
+            },
+            selectedSubForm ? selectedSubForm.appName : getDisplayLayoutByFormType(displayLayout, selectedOptions.formType)?.name,
+            selectedOptions.language
+        )
+    );
     containerElement.appendChild(pageElement);
+}
+
+/**
+ * Renders the button that opens the drawn form in devTools, in a new tab, after confirming that it replaces the devTools workspace.
+ * devTools is given the form's components, the chosen example data and the app's text resources, and the language chosen here.
+ *
+ * @param {DisplayLayoutForDevTools} displayLayout - What the page draws.
+ * @param {string} [formName] - The form's name, for the confirmation.
+ * @param {string} language - The language chosen on the page.
+ * @returns {HTMLElement} The button, in a container of its own.
+ */
+export function renderOpenInDevToolsButton(displayLayout: DisplayLayoutForDevTools, formName: string | undefined, language: string) {
+    const containerElement = document.createElement("div");
+    containerElement.classList.add("open-in-devtools");
+    const buttonElement = document.createElement("button");
+    buttonElement.type = "button";
+    buttonElement.classList.add("open-in-devtools-button");
+    setIconLabel(buttonElement, "layout", "Open in devTools");
+    buttonElement.onclick = () => {
+        const form = `${displayLayout.appOwner}/${displayLayout.appName}${formName ? ` (${formName})` : ""}`;
+        if (
+            !confirm(
+                `Replace the layout code, data models and text resources in devTools with ${form}? Export the devTools workspace first to keep what is there.`
+            )
+        ) {
+            return;
+        }
+        storeWorkspace(getDevToolsWorkspaceForDisplayLayout(displayLayout));
+        setSelectedLanguage(language);
+        globalThis.open("/devTools", "_blank", "noopener");
+    };
+    containerElement.appendChild(buttonElement);
+    return containerElement;
 }
 
 /**
