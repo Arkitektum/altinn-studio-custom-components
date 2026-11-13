@@ -50,6 +50,7 @@ import { getDevToolsWorkspaceForDisplayLayout } from "./openInDevTools.ts";
 import { languages } from "../languages.ts";
 import { renderDataAge } from "./dataAge.ts";
 import { renderRenderHealthPage } from "./renderHealth.ts";
+import { renderUnshownDataPage } from "./unshownData.ts";
 import { setIconLabel } from "../icons.ts";
 import { storeWorkspace } from "../devTools/workspace.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
@@ -1090,7 +1091,7 @@ export function renderOpenInDevToolsButton(displayLayout: DisplayLayoutForDevToo
  * Renders the admin sidebar with navigation buttons for different admin pages.
  *
  * The sidebar has a button for each page: Resource usage, Component usage, Data model bindings, Subform data models,
- * Package versions, Display layouts and Render health. A click renders that page in the main admin area, and puts it in the address.
+ * Package versions, Display layouts, Render health and Unshown data. A click renders that page in the main admin area, and puts it in the address.
  * A filter changed on the open page is put in the address too.
  *
  * Expects elements with the ids "admin-main" and "sidebar" in the DOM.
@@ -1107,7 +1108,8 @@ export function renderAdminSidebar() {
         ["subform-data-models", "database", "Subform data models"],
         ["package-versions", "package", "Package versions"],
         ["display-layouts", "layout", "Display layouts"],
-        ["render-health", "health", "Render health"]
+        ["render-health", "health", "Render health"],
+        ["unshown-data", "hidden", "Unshown data"]
     ];
     for (const [pageId, icon, label] of pages) {
         const listItem = document.createElement("li");
@@ -1169,6 +1171,14 @@ export async function openStatisticsPage(pageId: StatisticsPageId, { params }: {
                 renderRenderHealthPage(mainElement);
             };
             renderRenderHealthPage(mainElement);
+            break;
+        case "unshown-data":
+            openPageId = "unshown-data";
+            drawOpenPageAgain = () => {
+                mainElement.innerHTML = "";
+                renderUnshownDataPage(mainElement);
+            };
+            renderUnshownDataPage(mainElement);
             break;
     }
     writeOpenPageHash();

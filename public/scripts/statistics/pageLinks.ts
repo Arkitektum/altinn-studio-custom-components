@@ -3,7 +3,14 @@
  */
 
 export type StatisticsPageId =
-    "resource-usage" | "component-usage" | "data-model-bindings" | "subform-data-models" | "package-versions" | "display-layouts" | "render-health";
+    | "resource-usage"
+    | "component-usage"
+    | "data-model-bindings"
+    | "subform-data-models"
+    | "package-versions"
+    | "display-layouts"
+    | "render-health"
+    | "unshown-data";
 
 type FilterValue = string | boolean;
 
@@ -43,7 +50,8 @@ export const pageFilters: Record<StatisticsPageId, Record<string, { global: keyo
     },
     "package-versions": {},
     "display-layouts": {},
-    "render-health": {}
+    "render-health": {},
+    "unshown-data": {}
 };
 
 /**

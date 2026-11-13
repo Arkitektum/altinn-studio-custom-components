@@ -124,7 +124,8 @@ describe("renderAdminSidebar", () => {
             "Subform data models",
             "Package versions",
             "Display layouts",
-            "Render health"
+            "Render health",
+            "Unshown data"
         ]);
     });
 });
