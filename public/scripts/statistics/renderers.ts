@@ -445,7 +445,6 @@ function renderSelectDisplayLayoutApplicationFilter(containerElement: HTMLElemen
         // to the first available data file by setDefaultSelectedFileNameForDisplayLayouts.
         selectedOptions.formType = "main";
         selectedOptions.fileNames = {};
-        updateBodyClassNamesForApplication(appOwner, appName);
         const exampleData = globalThis.exampleData || (await fetchExampleData());
         const localTextResources = getLocalTextResourcesForApp(appName, appOwner, globalThis.appResourceValues);
         addDataToGlobalThis({
@@ -948,6 +947,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     };
     openPageId = "display-layouts";
     setLocationHash(getDisplayLayoutsHash(selectedOptions));
+    // The logo's size and place come from the org and app classes on body, so they are set for every drawing: the page can open on an app from its address, not only from the app picker.
+    updateBodyClassNamesForApplication(selectedOptions.displayLayoutAppOwner ?? undefined, selectedOptions.displayLayoutAppName ?? undefined);
     // The text resources for the chosen language are on globalThis, and a synchronization puts the default language
     // back there, so they are set up again before the page is.
     const optionsToDrawAgainWith = selectedOptions;
