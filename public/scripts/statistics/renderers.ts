@@ -1041,6 +1041,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         pageElement.appendChild(mainHeadingElement);
     }
 
+    // The logo and heading, so the upgrade preview draws its pages as this one is drawn.
+    const pageHeadHtml = pageElement.innerHTML;
     pageElement.appendChild(codeResultsElement);
     const actionsElement = renderOpenInDevToolsButton(
         {
@@ -1062,6 +1064,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         renderUpgradePreviewButton(previewElement, pageElement, {
             version: getInstalledVersion(globalThis.packageVersions, selectedDisplayLayoutAppOwner, selectedDisplayLayoutAppName),
             componentsHtml,
+            pageHeadHtml,
+            bodyClasses: [`org-${selectedDisplayLayoutAppOwner}`, `app-${selectedDisplayLayoutAppName}`],
             componentNames: drawnComponents.map(({ component }) => component.id || component.tagName || ""),
             textResources: globalThis.textResources,
             localDefaultTextResources: globalThis.defaultTextResources,

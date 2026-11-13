@@ -64,10 +64,33 @@ describe("buildPreviewDocument", () => {
             "script-src 'unsafe-inline' http://localhost:9000 http://localhost:9001"
         );
     });
-    it("draws the form on a white page with the single page view's margins", () => {
+    it("draws the form on a white page with the single page view's margins and heading spacing", () => {
         const css = parse(buildPreviewDocument(options)).querySelector("head style")!.textContent!;
         expect(css).toContain("html, body { margin: 0; background: #fff; }");
-        expect(css).toContain("#preview-components { box-sizing: border-box; padding: 1cm 1.25cm; }");
+        expect(css).toContain("#admin-main > .page { position: relative; box-sizing: border-box; padding: 1cm 1.25cm; }");
+        expect(css).toContain("#admin-main > .page > h1 { margin-top: 67px; margin-bottom: 22px; }");
+    });
+    it("lays the page out as the single page view does, so the version's styles place the logo", () => {
+        const preview = parse(
+            buildPreviewDocument({
+                ...options,
+                pageHeadHtml: '<img class="logo-image" src="/assets/images/orgs/dibk/dibk.svg" alt="dibk logo"><h1>Søknad</h1>',
+                bodyClasses: ["org-dibk", "app-et-v4"]
+            })
+        );
+        expect(preview.body.className).toBe("org-dibk app-et-v4");
+        const page = preview.querySelector("body > #admin-main > .page")!;
+        expect(Array.from(page.children).map((child) => child.tagName.toLowerCase() + (child.id ? `#${child.id}` : ""))).toEqual([
+            "img",
+            "h1",
+            "div#preview-components"
+        ]);
+        expect(page.querySelector("img")!.getAttribute("src")).toBe("/assets/images/orgs/dibk/dibk.svg");
+    });
+    it("escapes the body classes", () => {
+        const preview = parse(buildPreviewDocument({ ...options, bodyClasses: ['org-x"><script>alert(1)</script>'] }));
+        expect(preview.body.className).toBe('org-x"><script>alert(1)</script>');
+        expect(preview.querySelectorAll("script")).toHaveLength(2);
     });
     it("loads the version's styles, and its script after the form's elements so they are defined in place", () => {
         const preview = parse(buildPreviewDocument(options));
@@ -75,7 +98,8 @@ describe("buildPreviewDocument", () => {
         const scripts = Array.from(preview.querySelectorAll("script"));
         expect(scripts[scripts.length - 1]!.getAttribute("src")).toBe(options.scriptUrl);
         expect(preview.querySelector("#preview-components")!.innerHTML).toBe(options.componentsHtml);
-        expect(preview.querySelector("#preview-components")!.nextElementSibling).toBe(scripts[scripts.length - 1]!);
+        expect(preview.body.lastElementChild).toBe(scripts[scripts.length - 1]!);
+        expect(preview.getElementById("admin-main")!.nextElementSibling).toBe(scripts[scripts.length - 1]!);
     });
     it("puts the text resources where the current and older versions read them, and keeps them from ending the script", () => {
         const preview = parse(buildPreviewDocument(options));
@@ -161,6 +185,8 @@ describe("renderUpgradePreview", () => {
         const result = await renderUpgradePreview(container, {
             version: "17.2.0",
             componentsHtml: "",
+            pageHeadHtml: "",
+            bodyClasses: [],
             componentNames: [],
             textResources: {},
             localDefaultTextResources: {},
@@ -182,6 +208,8 @@ describe("renderUpgradePreview", () => {
         await renderUpgradePreview(document.createElement("div"), {
             version: "17.2.0",
             componentsHtml: "",
+            pageHeadHtml: "",
+            bodyClasses: [],
             componentNames: [],
             textResources: {},
             localDefaultTextResources: {},

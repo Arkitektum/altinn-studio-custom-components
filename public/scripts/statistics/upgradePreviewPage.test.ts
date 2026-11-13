@@ -108,6 +108,18 @@ describe("Compare with installed version on the display layouts page", () => {
         expect(frames.map((frame) => frame.title)).toEqual(["The form drawn with version 17.2.0", "The form drawn with the local build"]);
         expect(frames.map((frame) => frame.style.width)).toEqual(["21cm", "21cm"]);
         const components = new DOMParser().parseFromString(frames[0]!.srcdoc, "text/html").querySelector("#preview-components")!;
+        const frameDocument = new DOMParser().parseFromString(frames[0]!.srcdoc, "text/html");
+        expect(frameDocument.body.className).toBe("org-dibk app-et-v4");
+        expect(frameDocument.querySelector("#admin-main > .page > img.logo-image")).not.toBeNull();
+        expect(frameDocument.querySelector("#admin-main > .page > h1")!.textContent).toBe(
+            document.querySelector("#admin-main > .page > h1")!.textContent
+        );
+        expect(frameDocument.querySelector("#preview-components h1")).toBeNull();
+        expect(
+            Array.from(frameDocument.querySelector("#admin-main > .page")!.children).map(
+                (child) => child.tagName.toLowerCase() + (child.id ? `#${child.id}` : "")
+            )
+        ).toEqual(["img", "h1", "div#preview-components"]);
         const field = components.querySelector("custom-field-data")!;
         expect(field.id).toBe("tittel");
         expect(field.children).toHaveLength(0);

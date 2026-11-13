@@ -46,6 +46,10 @@ export interface PreviewDocumentOptions {
     language: string;
     /** The form's elements as markup. */
     componentsHtml: string;
+    /** What the single page view draws on the page before the form, as markup: the app's logo, and the heading of a main form. */
+    pageHeadHtml?: string;
+    /** The app's classes for body, which the logo's size and place in the version's styles are read from, e.g. "org-dibk". */
+    bodyClasses?: string[];
     /** Where scripts, styles and fonts may come from: the dev server and -api. */
     allowedOrigins: string[];
     /** Let the frame's scripts evaluate strings, which the dev server's build of the local bundle needs: it is built with eval source maps. */
@@ -55,7 +59,7 @@ export interface PreviewDocumentOptions {
 /**
  * The document a frame draws one version in.
  *
- * The text resources are put on the globals both the current and older versions read them from. Its content security policy lets it load scripts, styles, fonts and images only from the dev server and -api, and fetch nothing, so an older version's start-up cannot reach the app or Altinn's CDN. That includes the dev server's live reload, so the local frame is not reloaded, and its marks lost, when a file is saved; the browser logs the blocked connection once.
+ * The page is laid out as the single page view lays it out, `#admin-main > .page` on a body with the app's classes, so each version's own styles size and place the logo. The text resources are put on the globals both the current and older versions read them from. Its content security policy lets it load scripts, styles, fonts and images only from the dev server and -api, and fetch nothing, so an older version's start-up cannot reach the app or Altinn's CDN. That includes the dev server's live reload, so the local frame is not reloaded, and its marks lost, when a file is saved; the browser logs the blocked connection once.
  *
  * @param {PreviewDocumentOptions} options
  * @returns {string} The document, for the frame's srcdoc.
@@ -76,7 +80,7 @@ export function buildPreviewDocument(options: PreviewDocumentOptions) {
 <meta charset="utf-8">
 <meta http-equiv="Content-Security-Policy" content="${escapeAttribute(policy)}">
 <link rel="stylesheet" href="${escapeAttribute(options.styleUrl)}">
-<style>.${DIFFERS_CLASS} { outline: 3px solid #e5a000; outline-offset: 2px; } html, body { margin: 0; background: #fff; } #preview-components { box-sizing: border-box; padding: 1cm 1.25cm; }</style>
+<style>.${DIFFERS_CLASS} { outline: 3px solid #e5a000; outline-offset: 2px; } html, body { margin: 0; background: #fff; } #admin-main > .page { position: relative; box-sizing: border-box; padding: 1cm 1.25cm; } #admin-main > .page > h1 { margin-top: 67px; margin-bottom: 22px; }</style>
 <script>
 const textResources = ${scriptJson(options.textResources)};
 const defaultTextResources = ${scriptJson(options.defaultTextResources)};
@@ -86,8 +90,8 @@ globalThis.defaultTextResources = defaultTextResources;
 globalThis.appConfig = { selectedLanguage: ${scriptJson(options.language)}, textResources, defaultTextResources };
 </script>
 </head>
-<body>
-<div id="preview-components">${options.componentsHtml}</div>
+<body class="${escapeAttribute((options.bodyClasses ?? []).join(" "))}">
+<div id="admin-main"><div class="page">${options.pageHeadHtml ?? ""}<div id="preview-components">${options.componentsHtml}</div></div></div>
 <script src="${escapeAttribute(options.scriptUrl)}"></script>
 </body>
 </html>`;
@@ -229,6 +233,10 @@ export interface UpgradePreviewOptions {
     version: string;
     /** The form's elements as markup. */
     componentsHtml: string;
+    /** The logo, and the heading of a main form, as the single page view draws them before the form. */
+    pageHeadHtml: string;
+    /** The app's classes for body, e.g. "org-dibk" and "app-et-v4". */
+    bodyClasses: string[];
     /** The ids, or tag names, of the form's components, in order, to name the ones that differ. */
     componentNames: string[];
     textResources: unknown;
@@ -266,7 +274,14 @@ export async function renderUpgradePreview(containerElement: HTMLElement, option
     const allowedOrigins = [globalThis.location.origin, API_ORIGIN];
     const installedFrame = createFrame(`The form drawn with version ${version}`);
     const localFrame = createFrame("The form drawn with the local build");
-    const common = { textResources: options.textResources, language: options.language, componentsHtml: options.componentsHtml, allowedOrigins };
+    const common = {
+        textResources: options.textResources,
+        language: options.language,
+        componentsHtml: options.componentsHtml,
+        pageHeadHtml: options.pageHeadHtml,
+        bodyClasses: options.bodyClasses,
+        allowedOrigins
+    };
     installedFrame.srcdoc = buildPreviewDocument({
         ...common,
         scriptUrl: getPackageFileUrl(version, "main.js"),
