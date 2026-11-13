@@ -1068,7 +1068,10 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
             language: selectedOptions.language
         })
     );
+    // A form that prints in landscape, as gjennomfoeringsplan does, says so as its components are placed. Reset first, or the form drawn before it would decide.
+    globalThis.pageOrientation = undefined;
     containerElement.append(actionsElement, previewElement, pageElement);
+    pageElement.classList.toggle("landscape", globalThis.pageOrientation === "landscape");
 }
 
 /**
