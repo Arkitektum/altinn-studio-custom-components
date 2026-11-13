@@ -1,9 +1,13 @@
 import {
     DIFFERS_CLASS,
+    MIN_COMPARISON_SCALE,
     buildPreviewDocument,
     compareDrawnComponents,
     createFrame,
     drawnOutput,
+    fitComparison,
+    getComparisonScale,
+    getFrameWidth,
     getInstalledVersion,
     getPageOrientation,
     renderUpgradePreview,
@@ -220,5 +224,53 @@ describe("createFrame", () => {
         expect(frame.style.width).toBe("21cm");
         expect(frame.title).toBe("The form drawn with version 17.2.0");
         expect(frame.classList.contains("upgrade-preview-frame")).toBe(true);
+    });
+});
+
+describe("getFrameWidth", () => {
+    it("is a page and its border, in CSS pixels", () => {
+        expect(getFrameWidth("portrait")).toBeCloseTo((21 * 96) / 2.54 + 2, 5);
+        expect(getFrameWidth("landscape")).toBeCloseTo((29.7 * 96) / 2.54 + 2, 5);
+    });
+});
+
+describe("getComparisonScale", () => {
+    const fullWidth = (orientation: "portrait" | "landscape") => 2 * getFrameWidth(orientation) + 16;
+    it("is full size when both frames and the gap fit", () => {
+        expect(getComparisonScale(fullWidth("portrait"), "portrait")).toBe(1);
+        expect(getComparisonScale(4000, "landscape")).toBe(1);
+    });
+    it("shrinks the frames, not the gap, just enough to fit", () => {
+        const scale = getComparisonScale(1558, "landscape");
+        expect(scale).toBeCloseTo((1558 - 16) / (2 * getFrameWidth("landscape")), 5);
+        expect(2 * getFrameWidth("landscape") * scale + 16).toBeCloseTo(1558, 5);
+    });
+    it("never shrinks them below the smallest scale that is still readable", () => {
+        expect(MIN_COMPARISON_SCALE).toBe(0.5);
+        expect(getComparisonScale(300, "landscape")).toBe(0.5);
+    });
+    it("is full size when there is no width to go by", () => {
+        expect(getComparisonScale(0, "portrait")).toBe(1);
+        expect(getComparisonScale(Number.NaN, "portrait")).toBe(1);
+    });
+});
+
+describe("fitComparison", () => {
+    it("zooms the frames' row to fit, and says by how much", () => {
+        const columns = document.createElement("div");
+        const scale = document.createElement("p");
+        fitComparison(columns, scale, 2 * getFrameWidth("portrait") * 0.95 + 16, "portrait");
+        expect(Number(columns.style.getPropertyValue("--upgrade-preview-zoom"))).toBeCloseTo(0.95, 5);
+        expect(scale.hidden).toBe(false);
+        expect(scale.textContent).toBe("Shown at 95% to fit side by side.");
+    });
+    it("shows full size, and says nothing, once both pages fit again", () => {
+        const columns = document.createElement("div");
+        const scale = document.createElement("p");
+        fitComparison(columns, scale, 800, "portrait");
+        fitComparison(columns, scale, 4000, "portrait");
+        expect(columns.style.getPropertyValue("--upgrade-preview-zoom")).toBe("");
+        expect(scale.hidden).toBe(true);
+        expect(scale.textContent).toBe("");
     });
 });

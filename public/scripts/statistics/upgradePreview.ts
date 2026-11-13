@@ -136,6 +136,49 @@ export function compareDrawnComponents(installedDocument: Document, localDocumen
 /** The width of an A4 page, as the single page view draws it, in each orientation. */
 export const PAGE_WIDTHS = { portrait: "21cm", landscape: "29.7cm" } as const;
 
+/** The smallest the comparison is shown at to fit side by side. Below it the text gets too small to read, and the pages scroll sideways instead. */
+export const MIN_COMPARISON_SCALE = 0.5;
+
+/** The gap between the two frames, in CSS pixels, which is not shrunk with them. */
+const COMPARISON_GAP = 16;
+
+/** The width one frame takes at full size: the page and its border, in CSS pixels. */
+export function getFrameWidth(orientation: keyof typeof PAGE_WIDTHS) {
+    return (Number.parseFloat(PAGE_WIDTHS[orientation]) * 96) / 2.54 + 2;
+}
+
+/**
+ * How much to shrink the frames so both fit in the width there is, beside the gap between them, never past full size or below MIN_COMPARISON_SCALE.
+ *
+ * @param {number} availableWidth - The width there is, in CSS pixels.
+ * @param {"portrait" | "landscape"} orientation - The pages' orientation.
+ * @returns {number} The scale, 1 for full size.
+ */
+export function getComparisonScale(availableWidth: number, orientation: keyof typeof PAGE_WIDTHS) {
+    if (!(availableWidth > 0)) return 1;
+    return Math.min(1, Math.max(MIN_COMPARISON_SCALE, (availableWidth - COMPARISON_GAP) / (2 * getFrameWidth(orientation))));
+}
+
+/**
+ * Shrinks the frames to fit the width of the comparison, and says how much when it does. The stylesheet zooms the frames by `--upgrade-preview-zoom`, set on their row. Zoom, unlike a transform, shrinks the room the frames take as well as what they show.
+ *
+ * @param {HTMLElement} columnsElement - The frames' row.
+ * @param {HTMLElement} scaleElement - Where to say how much the pages are shrunk.
+ * @param {number} availableWidth - The width there is, in CSS pixels.
+ * @param {"portrait" | "landscape"} orientation - The pages' orientation.
+ */
+export function fitComparison(columnsElement: HTMLElement, scaleElement: HTMLElement, availableWidth: number, orientation: keyof typeof PAGE_WIDTHS) {
+    const scale = getComparisonScale(availableWidth, orientation);
+    const percent = Math.round(scale * 100);
+    if (percent < 100) {
+        columnsElement.style.setProperty("--upgrade-preview-zoom", String(scale));
+    } else {
+        columnsElement.style.removeProperty("--upgrade-preview-zoom");
+    }
+    scaleElement.hidden = percent >= 100;
+    scaleElement.textContent = percent < 100 ? `Shown at ${percent}% to fit side by side.` : "";
+}
+
 /**
  * The orientation the form is printed in: landscape when the components drawn in any of the frames asked for it, as gjennomfoeringsplan does, and portrait otherwise.
  *
@@ -264,7 +307,21 @@ export async function renderUpgradePreview(containerElement: HTMLElement, option
         return null;
     }
     const result = compareDrawnComponents(installedDocument, localDocument);
-    sizeFramesAsPages([installedFrame, localFrame], getPageOrientation(installedFrame.contentWindow, localFrame.contentWindow));
+    const orientation = getPageOrientation(installedFrame.contentWindow, localFrame.contentWindow);
+    sizeFramesAsPages([installedFrame, localFrame], orientation);
+    const scaleElement = document.createElement("p");
+    scaleElement.classList.add("upgrade-preview-scale");
+    statusElement.after(scaleElement);
+    fitComparison(columnsElement, scaleElement, containerElement.clientWidth, orientation);
+    // Fitted again as the window is resized, for as long as these frames are shown. The window rather than the container is watched: zooming the frames changes the container's height, and a ResizeObserver on it would set itself off.
+    const refit = () => {
+        if (!columnsElement.isConnected) {
+            globalThis.removeEventListener("resize", refit);
+            return;
+        }
+        fitComparison(columnsElement, scaleElement, containerElement.clientWidth, orientation);
+    };
+    globalThis.addEventListener("resize", refit);
     const names = result.differing.map((index) => options.componentNames[index] ?? `component ${index + 1}`);
     statusElement.textContent = result.differing.length
         ? `${result.differing.length} of ${result.total} components draw differently with the local build than with ${version}, marked in both: ${names.join(", ")}.`

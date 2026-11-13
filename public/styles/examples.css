@@ -762,8 +762,12 @@ svg.icon {
             }
             & .upgrade-preview {
                 margin: 16px 0;
-                & .upgrade-preview-status {
+                & .upgrade-preview-status,
+                & .upgrade-preview-scale {
                     font-size: 14px;
+                }
+                & .upgrade-preview-scale {
+                    color: var(--color-text-white-muted);
                 }
                 & .upgrade-preview-columns {
                     display: flex;
@@ -777,6 +781,8 @@ svg.icon {
                 }
                 & iframe.upgrade-preview-frame {
                     display: block;
+                    /* Set on the frames' row by fitComparison, so the headings above the frames keep their size. */
+                    zoom: var(--upgrade-preview-zoom, 1);
                     min-height: 400px;
                     border: 1px solid var(--color-border-dark-highlight);
                     border-radius: 4px;
