@@ -727,6 +727,7 @@ svg.icon {
             & .open-in-devtools {
                 display: flex;
                 justify-content: flex-end;
+                gap: 8px;
                 margin: 16px 0 0;
                 & button {
                     display: inline-flex;
@@ -744,6 +745,32 @@ svg.icon {
                     &:hover {
                         background-color: var(--color-background-primary-hover);
                     }
+                    &:disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+            & .upgrade-preview {
+                margin: 16px 0;
+                & .upgrade-preview-status {
+                    font-size: 14px;
+                }
+                & .upgrade-preview-columns {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 16px;
+                }
+                & .upgrade-preview-column h3 {
+                    margin: 0 0 8px;
+                    font-size: 16px;
+                }
+                & iframe.upgrade-preview-frame {
+                    width: 100%;
+                    min-height: 400px;
+                    border: 1px solid var(--color-border-dark-highlight);
+                    border-radius: 4px;
+                    background-color: #fff;
                 }
             }
             & .paper {

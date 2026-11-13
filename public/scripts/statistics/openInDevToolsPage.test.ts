@@ -85,7 +85,9 @@ describe("Open in devTools on the display layouts page", () => {
     it("draws the button above the form", () => {
         const button = document.querySelector("#admin-main .open-in-devtools-button") as HTMLButtonElement;
         expect(button.textContent).toBe("Open in devTools");
-        expect(button.parentElement!.nextElementSibling!.classList.contains("page")).toBe(true);
+        const page = document.querySelector("#admin-main > .page")!;
+        expect(button.parentElement!.parentElement).toBe(page.parentElement);
+        expect(Boolean(button.parentElement!.compareDocumentPosition(page) & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true);
     });
 
     it("gives devTools the form, the chosen example data, the app's text resources and the language, then opens it in a new tab", () => {

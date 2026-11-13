@@ -1,6 +1,7 @@
 import type { ApiData, ApiValue, FlattenedLayout, Layout } from "../types.ts";
 import type { DisplayLayoutsOptions, StatisticsPageId } from "./pageLinks.ts";
 import type { DisplayLayoutForDevTools } from "./openInDevTools.ts";
+import type { UpgradePreviewOptions } from "./upgradePreview.ts";
 // Dependencies
 import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
@@ -44,6 +45,7 @@ import {
     renderTextInputFilterForTextResourcesList,
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
+import { getInstalledVersion, renderUpgradePreview } from "./upgradePreview.ts";
 import { drawLayoutComponents } from "./drawComponents.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { getDevToolsWorkspaceForDisplayLayout } from "./openInDevTools.ts";
@@ -1027,7 +1029,10 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     // Built once rather than per component, and narrowed to this app before the data types inside it are matched.
     const dataModels = getDataModelsForApp(appData, displayLayout);
 
-    const resultsElements = drawLayoutComponents(components, dataModels, dataType, selectedOptions.fileNames).map(({ element }) => element);
+    const drawnComponents = drawLayoutComponents(components, dataModels, dataType, selectedOptions.fileNames);
+    const resultsElements = drawnComponents.map(({ element }) => element);
+    // Taken before the elements are put in the page and draw themselves, so the upgrade preview gets the elements with their data and nothing drawn.
+    const componentsHtml = resultsElements.map((element) => element.outerHTML).join("");
     appendChildren(codeResultsElement, resultsElements);
 
     if (!selectedSubForm) {
@@ -1036,22 +1041,75 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     }
 
     pageElement.appendChild(codeResultsElement);
-    containerElement.appendChild(
-        renderOpenInDevToolsButton(
-            {
-                appOwner: selectedDisplayLayoutAppOwner,
-                appName: selectedDisplayLayoutAppName,
-                components,
-                dataModels,
-                mainDataType: dataType,
-                fileNames: selectedOptions.fileNames,
-                multilingualAppResourceValues: globalThis.multilingualAppResourceValues || []
-            },
-            selectedSubForm ? selectedSubForm.appName : getDisplayLayoutByFormType(displayLayout, selectedOptions.formType)?.name,
-            selectedOptions.language
-        )
+    const actionsElement = renderOpenInDevToolsButton(
+        {
+            appOwner: selectedDisplayLayoutAppOwner,
+            appName: selectedDisplayLayoutAppName,
+            components,
+            dataModels,
+            mainDataType: dataType,
+            fileNames: selectedOptions.fileNames,
+            multilingualAppResourceValues: globalThis.multilingualAppResourceValues || []
+        },
+        selectedSubForm ? selectedSubForm.appName : getDisplayLayoutByFormType(displayLayout, selectedOptions.formType)?.name,
+        selectedOptions.language
     );
-    containerElement.appendChild(pageElement);
+    const previewElement = document.createElement("section");
+    previewElement.classList.add("upgrade-preview");
+    previewElement.hidden = true;
+    actionsElement.appendChild(
+        renderUpgradePreviewButton(previewElement, pageElement, {
+            version: getInstalledVersion(globalThis.packageVersions, selectedDisplayLayoutAppOwner, selectedDisplayLayoutAppName),
+            componentsHtml,
+            componentNames: drawnComponents.map(({ component }) => component.id || component.tagName || ""),
+            textResources: globalThis.textResources,
+            localDefaultTextResources: globalThis.defaultTextResources,
+            language: selectedOptions.language
+        })
+    );
+    containerElement.append(actionsElement, previewElement, pageElement);
+}
+
+/**
+ * Renders the button that compares the drawn form with the version of the package the app has installed, in place of the drawing, and back again.
+ * Without a known installed version it is disabled and says why.
+ *
+ * @param {HTMLElement} previewElement - Where the comparison is shown.
+ * @param {HTMLElement} pageElement - The drawing, hidden while the comparison shows.
+ * @param {Object} options - What to compare, see renderUpgradePreview, with the installed version undefined when it is not known.
+ * @returns {HTMLButtonElement} The button.
+ */
+export function renderUpgradePreviewButton(
+    previewElement: HTMLElement,
+    pageElement: HTMLElement,
+    options: Omit<UpgradePreviewOptions, "version"> & { version: string | undefined }
+) {
+    const buttonElement = document.createElement("button");
+    buttonElement.type = "button";
+    buttonElement.classList.add("upgrade-preview-button");
+    const { version } = options;
+    const compareLabel = version ? `Compare with ${version}` : "Compare with installed version";
+    setIconLabel(buttonElement, "package", compareLabel);
+    if (!version) {
+        buttonElement.disabled = true;
+        buttonElement.title = "The app's installed version of the package is not known. Synchronize to read it from the app.";
+        return buttonElement;
+    }
+    buttonElement.title = `Draw this form with version ${version}, which the app has installed, beside the local build`;
+    buttonElement.onclick = async () => {
+        if (!previewElement.hidden) {
+            previewElement.hidden = true;
+            previewElement.replaceChildren();
+            pageElement.hidden = false;
+            setIconLabel(buttonElement, "package", compareLabel);
+            return;
+        }
+        previewElement.hidden = false;
+        pageElement.hidden = true;
+        setIconLabel(buttonElement, "package", "Close comparison");
+        await renderUpgradePreview(previewElement, { ...options, version });
+    };
+    return buttonElement;
 }
 
 /**

@@ -19,6 +19,20 @@ const API_PORT = process.env.API_PORT || 9001;
  * @returns {Promise<any>} The parsed JSON.
  * @throws {Error} If the request fails or the response is not OK.
  */
+/** Where -api is, which the upgrade preview loads a published version of the package from. */
+export const API_ORIGIN = `http://localhost:${API_PORT}`;
+
+/**
+ * The address of a file of a published version of the package, served by -api from npm.
+ *
+ * @param {string} version - A full version number, e.g. "17.2.0".
+ * @param {string} fileName - "main.js", "main.css" or "resource.nb.json".
+ * @returns {string} The address.
+ */
+export function getPackageFileUrl(version: string, fileName: string) {
+    return `${API_ORIGIN}/api/packageFiles/${encodeURIComponent(version)}/${encodeURIComponent(fileName)}`;
+}
+
 async function fetchApiJson(path: string, what: string) {
     try {
         const response = await fetch(`http://localhost:${API_PORT}/api/${path}`);
