@@ -61,3 +61,26 @@ export function createIcon(name: IconName): SVGSVGElement {
 export function setIconLabel(element: HTMLElement, name: IconName, label: string) {
     element.replaceChildren(createIcon(name), document.createTextNode(label));
 }
+
+/**
+ * Gives an element an icon followed by one of several labels it switches between, with all of them stacked in the same place, so the element is always as wide as the longest and does not move what is beside it when the label changes. Only the current label is shown, and read out.
+ *
+ * @param {HTMLElement} element - The element to label, usually a button.
+ * @param {IconName} name - Which icon to draw.
+ * @param {string[]} labels - Every label the element switches between.
+ * @param {string} current - The label to show now.
+ */
+export function setStackedIconLabel(element: HTMLElement, name: IconName, labels: string[], current: string) {
+    const stackElement = document.createElement("span");
+    stackElement.classList.add("stacked-labels");
+    for (const label of labels) {
+        const labelElement = document.createElement("span");
+        labelElement.textContent = label;
+        if (label !== current) {
+            labelElement.classList.add("stacked-label-unused");
+            labelElement.setAttribute("aria-hidden", "true");
+        }
+        stackElement.appendChild(labelElement);
+    }
+    element.replaceChildren(createIcon(name), stackElement);
+}

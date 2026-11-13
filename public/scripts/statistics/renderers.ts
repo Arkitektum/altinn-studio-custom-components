@@ -46,6 +46,7 @@ import {
     renderUsageFilterForTextResourcesList
 } from "../textResourceUsageRenderers.ts";
 import { getInstalledVersion, renderUpgradePreview } from "./upgradePreview.ts";
+import { setIconLabel, setStackedIconLabel } from "../icons.ts";
 import { drawLayoutComponents } from "./drawComponents.ts";
 import { getAppEntries } from "./displayLayoutHelpers.ts";
 import { getDevToolsWorkspaceForDisplayLayout } from "./openInDevTools.ts";
@@ -53,7 +54,6 @@ import { languages } from "../languages.ts";
 import { renderDataAge } from "./dataAge.ts";
 import { renderRenderHealthPage } from "./renderHealth.ts";
 import { renderUnshownDataPage } from "./unshownData.ts";
-import { setIconLabel } from "../icons.ts";
 import { storeWorkspace } from "../devTools/workspace.ts";
 import { updateBodyClassNamesForApplication } from "../../../src/functions/htmlElementHelpers.ts";
 
@@ -1097,24 +1097,27 @@ export function renderUpgradePreviewButton(
     buttonElement.classList.add("upgrade-preview-button");
     const { version } = options;
     const compareLabel = version ? `Compare with ${version}` : "Compare with installed version";
-    setIconLabel(buttonElement, "package", compareLabel);
     if (!version) {
+        setIconLabel(buttonElement, "package", compareLabel);
         buttonElement.disabled = true;
         buttonElement.title = "The app's installed version of the package is not known. Synchronize to read it from the app.";
         return buttonElement;
     }
+    // Both labels are stacked in the button, so it keeps its width, and Open in devTools beside it keeps its place, as the label changes.
+    const labels = [compareLabel, "Close comparison"];
+    setStackedIconLabel(buttonElement, "package", labels, compareLabel);
     buttonElement.title = `Draw this form with version ${version}, which the app has installed, beside the local build`;
     buttonElement.onclick = async () => {
         if (!previewElement.hidden) {
             previewElement.hidden = true;
             previewElement.replaceChildren();
             pageElement.hidden = false;
-            setIconLabel(buttonElement, "package", compareLabel);
+            setStackedIconLabel(buttonElement, "package", labels, compareLabel);
             return;
         }
         previewElement.hidden = false;
         pageElement.hidden = true;
-        setIconLabel(buttonElement, "package", "Close comparison");
+        setStackedIconLabel(buttonElement, "package", labels, "Close comparison");
         await renderUpgradePreview(previewElement, { ...options, version });
     };
     return buttonElement;

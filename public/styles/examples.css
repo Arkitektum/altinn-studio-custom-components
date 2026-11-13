@@ -384,6 +384,8 @@ svg.icon {
             overflow: auto scroll;
             &.admin {
                 flex-basis: 100%;
+                /* So what is wider than the content column can be measured against, and centred in, the whole width beside the sidebar. */
+                container-type: inline-size;
             }
         }
         & .page {
@@ -663,10 +665,13 @@ svg.icon {
                 margin: 0 auto;
                 padding: 0 16px;
             }
-            /* Two A4 pages side by side, or one landscape page, are wider than the usual column, so they may use the whole width, and scroll sideways past it. */
-            & main:has(> .upgrade-preview:not([hidden])),
-            & main:has(> .page.landscape:not([hidden])) {
-                max-width: none;
+            /*
+             * The content column keeps its width and place, so the heading, pickers and buttons do not move when a wider page is shown.
+             * A landscape page breaks out of it, centred on it, but never past the left of the area beside the sidebar.
+             */
+            & main > .page.landscape {
+                margin-left: max(calc(50% - 50cqw + 16px), calc(50% - 14.85cm));
+                margin-right: 0;
             }
             & .unshown-data {
                 & details.unshown-data-form {
@@ -733,6 +738,15 @@ svg.icon {
                     }
                 }
             }
+            & .stacked-labels {
+                display: inline-grid;
+                & > span {
+                    grid-area: 1 / 1;
+                }
+                & > .stacked-label-unused {
+                    visibility: hidden;
+                }
+            }
             & .open-in-devtools {
                 display: flex;
                 justify-content: flex-end;
@@ -762,6 +776,11 @@ svg.icon {
             }
             & .upgrade-preview {
                 margin: 16px 0;
+                /* The comparison breaks out of the content column to use the whole width beside the sidebar, and scrolls sideways when even that is too narrow. */
+                width: calc(100cqw - 32px);
+                margin-left: calc(50% - 50cqw + 16px);
+                box-sizing: border-box;
+                overflow-x: auto;
                 & .upgrade-preview-status,
                 & .upgrade-preview-scale {
                     font-size: 14px;

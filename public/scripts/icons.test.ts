@@ -1,6 +1,6 @@
 import type { IconName } from "./icons.ts";
 
-import { createIcon, setIconLabel } from "./icons.ts";
+import { createIcon, setIconLabel, setStackedIconLabel } from "./icons.ts";
 
 const iconNames: IconName[] = ["book", "components", "database", "layout", "link", "package", "sort", "trash"];
 
@@ -37,5 +37,32 @@ describe("setIconLabel", () => {
         setIconLabel(button, "database", "<b>[main] model</b>");
         expect(button.querySelector("b")).toBeNull();
         expect(button.textContent).toBe("<b>[main] model</b>");
+    });
+});
+
+describe("setStackedIconLabel", () => {
+    const labels = ["Compare with 17.2.0", "Close comparison"];
+    const shown = (element: HTMLElement) =>
+        Array.from(element.querySelectorAll(".stacked-labels > span:not(.stacked-label-unused)")).map((label) => label.textContent);
+
+    it("puts the icon first, then every label stacked, with only the current one shown and read out", () => {
+        const button = document.createElement("button");
+        setStackedIconLabel(button, "package", labels, "Compare with 17.2.0");
+        expect((button.firstChild as Element).classList.contains("icon")).toBe(true);
+        const stacked = Array.from(button.querySelectorAll(".stacked-labels > span"));
+        expect(stacked.map((label) => label.textContent)).toEqual(labels);
+        expect(shown(button)).toEqual(["Compare with 17.2.0"]);
+        expect(stacked[0]!.hasAttribute("aria-hidden")).toBe(false);
+        expect(stacked[1]!.getAttribute("aria-hidden")).toBe("true");
+    });
+    it("switches the label shown, replacing what the element held", () => {
+        const button = document.createElement("button");
+        button.textContent = "old";
+        setStackedIconLabel(button, "package", labels, "Compare with 17.2.0");
+        setStackedIconLabel(button, "package", labels, "Close comparison");
+        expect(shown(button)).toEqual(["Close comparison"]);
+        expect(button.querySelectorAll(".icon")).toHaveLength(1);
+        expect(button.querySelectorAll(".stacked-labels > span")).toHaveLength(2);
+        expect(button.textContent).not.toContain("old");
     });
 });

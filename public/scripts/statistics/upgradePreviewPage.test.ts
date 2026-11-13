@@ -7,6 +7,9 @@ describe("Compare with installed version on the display layouts page", () => {
     const originalError = console.error;
     const originalFetch = globalThis.fetch;
 
+    /** The label the button shows now: it holds every label it switches between, stacked, so it keeps its width. */
+    const shownLabel = (button: HTMLElement) => button.querySelector(".stacked-labels > span:not(.stacked-label-unused)")!.textContent;
+
     async function openPage(packageVersions: unknown[]) {
         document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
         Object.assign(globalThis, {
@@ -61,7 +64,7 @@ describe("Compare with installed version on the display layouts page", () => {
     it("offers to compare with the version the app has installed, beside Open in devTools", async () => {
         const main = await openPage([{ appOwner: "dibk", appName: "et-v4", packageVersions: { altinnStudioCustomComponents: "17.2.0" } }]);
         const button = main.querySelector(".upgrade-preview-button") as HTMLButtonElement;
-        expect(button.textContent).toBe("Compare with 17.2.0");
+        expect(shownLabel(button)).toBe("Compare with 17.2.0");
         expect(button.disabled).toBe(false);
         expect(button.parentElement!.querySelector(".open-in-devtools-button")).not.toBeNull();
     });
@@ -75,7 +78,11 @@ describe("Compare with installed version on the display layouts page", () => {
         await (button.onclick as unknown as () => Promise<void>)();
         expect(preview.hidden).toBe(false);
         expect(page.hidden).toBe(true);
-        expect(button.textContent).toBe("Close comparison");
+        expect(shownLabel(button)).toBe("Close comparison");
+        expect(Array.from(button.querySelectorAll(".stacked-labels > span")).map((label) => label.textContent)).toEqual([
+            "Compare with 17.2.0",
+            "Close comparison"
+        ]);
         expect(preview.querySelector(".upgrade-preview-status")!.textContent).toBe(
             "Version 17.2.0 could not be loaded from the API. Is it running, and can it reach npm?"
         );
@@ -83,7 +90,7 @@ describe("Compare with installed version on the display layouts page", () => {
         expect(preview.hidden).toBe(true);
         expect(preview.childNodes).toHaveLength(0);
         expect(page.hidden).toBe(false);
-        expect(button.textContent).toBe("Compare with 17.2.0");
+        expect(shownLabel(button)).toBe("Compare with 17.2.0");
     });
 
     it("cannot compare when the app's installed version is not known, and says why", async () => {
