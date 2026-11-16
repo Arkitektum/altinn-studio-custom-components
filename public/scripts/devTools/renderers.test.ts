@@ -199,10 +199,10 @@ describe("renderLayoutFindingsPanel", () => {
     beforeEach(() => {
         document.body.innerHTML = `<section id="data-input"><textarea id="code-input" data-editor="layout"></textarea></section>`;
     });
-    it("lists the findings above the layout code editor, as text", () => {
+    it("lists the findings below the layout code editor, as text", () => {
         renderers.renderLayoutFindingsPanel(findings);
         const panel = document.querySelector("#data-input > .layout-findings") as HTMLDetailsElement;
-        expect(panel.nextElementSibling!.id).toBe("code-input");
+        expect(panel.previousElementSibling!.id).toBe("code-input");
         expect(panel.open).toBe(true);
         expect(panel.querySelector("summary")!.textContent).toBe("Layout check: 1 warning, 1 note");
         const items = panel.querySelectorAll("li");

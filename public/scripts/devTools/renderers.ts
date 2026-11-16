@@ -118,7 +118,7 @@ export function renderLanguagePicker() {
 }
 
 /**
- * Checks the layout code against what each component reads and the loaded data models, then shows the counts in the sidebar and the findings above the layout code editor when it is open.
+ * Checks the layout code against what each component reads and the loaded data models, then shows the counts in the sidebar and the findings below the layout code editor when it is open.
  */
 export function renderLayoutFindings() {
     const layoutCode = getLayoutCode();
@@ -178,7 +178,7 @@ function renderStatusIndicators(containerElement: HTMLElement, checkName: string
 }
 
 /**
- * Lists the layout findings above the layout code editor, when that editor is open and there is something to list.
+ * Lists the layout findings below the layout code editor, when that editor is open and there is something to list. Below, so the code does not move as the list changes while typing.
  * Whether the list was folded is kept from the one it replaces.
  *
  * @param {Array} findings - The layout findings.
@@ -210,7 +210,7 @@ export function renderLayoutFindingsPanel(findings: LayoutFinding[]) {
         listElement.appendChild(itemElement);
     }
     panelElement.appendChild(listElement);
-    layoutCodeInputElement.before(panelElement);
+    layoutCodeInputElement.after(panelElement);
 }
 
 /**

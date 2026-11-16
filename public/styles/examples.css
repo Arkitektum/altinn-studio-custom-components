@@ -367,7 +367,7 @@ svg.icon {
                 font-size: 12px;
                 background-color: var(--color-surface-raised);
                 color: var(--color-editor-text);
-                border-bottom: 1px solid var(--color-control);
+                border-top: 1px solid var(--color-control);
                 & summary {
                     cursor: pointer;
                 }

@@ -25,7 +25,7 @@ describe("layout check in devTools", () => {
         const counts = [...document.querySelectorAll("#layout-code #layout-findings-indicators span")].map((span) => span.textContent);
         expect(counts).toEqual(["1", "1"]);
     });
-    it("lists the findings above the layout code editor when the count is clicked", () => {
+    it("lists the findings below the layout code editor when the count is clicked", () => {
         renderSidebar();
         (document.querySelector("#layout-code .layout-findings-button") as HTMLButtonElement).click();
         const items = [...document.querySelectorAll("#data-input .layout-findings li")].map((item) => item.textContent);
