@@ -42,7 +42,7 @@ export function updateDataInputElement(inputElement: HTMLElement) {
 }
 
 /**
- * Shows why the text in the code input was not saved, above the input, or removes the message when there is none.
+ * Shows why the text in the code input was not saved, right below the input, or removes the message when there is none. Below, so the code does not move when the message goes as the JSON is fixed while typing.
  *
  * @param {string} [message] - The JSON parser's message, or nothing when the text was saved.
  */
@@ -59,7 +59,11 @@ export function renderJsonInputError(message?: string) {
     errorElement.setAttribute("role", "alert");
     errorElement.textContent = `Not saved, the JSON is invalid: ${message}`;
     codeInputElement?.setAttribute("aria-invalid", "true");
-    dataInputElement?.prepend(errorElement);
+    if (codeInputElement) {
+        codeInputElement.after(errorElement);
+    } else {
+        dataInputElement?.append(errorElement);
+    }
 }
 
 /**

@@ -86,10 +86,10 @@ describe("renderJsonInputError", () => {
     beforeEach(() => {
         document.body.innerHTML = `<section id="data-input"><textarea id="code-input"></textarea></section>`;
     });
-    it("shows the message above the code input and marks the input invalid", () => {
+    it("shows the message right below the code input and marks the input invalid", () => {
+        document.getElementById("data-input")!.insertAdjacentHTML("beforeend", '<details class="layout-findings"></details>');
         renderJsonInputError("Unexpected end of JSON input");
-        const dataInput = document.getElementById("data-input");
-        const errorElement = dataInput!.firstElementChild;
+        const errorElement = document.getElementById("code-input")!.nextElementSibling;
         expect(errorElement!.classList.contains("code-input-error")).toBe(true);
         expect(errorElement!.getAttribute("role")).toBe("alert");
         expect(errorElement!.textContent).toBe("Not saved, the JSON is invalid: Unexpected end of JSON input");
@@ -101,6 +101,11 @@ describe("renderJsonInputError", () => {
         const errorElements = document.querySelectorAll(".code-input-error");
         expect(errorElements).toHaveLength(1);
         expect(errorElements[0]!.textContent).toBe("Not saved, the JSON is invalid: second");
+    });
+    it("shows the message at the end when there is no code input", () => {
+        document.body.innerHTML = `<section id="data-input"><p class="editor-empty"></p></section>`;
+        renderJsonInputError("first");
+        expect(document.getElementById("data-input")!.lastElementChild!.classList.contains("code-input-error")).toBe(true);
     });
     it("removes the message and the invalid mark when called without a message", () => {
         renderJsonInputError("first");
