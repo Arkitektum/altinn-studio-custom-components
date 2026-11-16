@@ -16,12 +16,12 @@ export function getLocalTextResourcesForApp(appName: string | undefined, appOwne
     return appResourceValues.find((app: ApiValue) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
 }
 
-/** The language the package's own texts fall back to, as in the app. */
-const DEFAULT_TEXT_FALLBACK_LANGUAGE = "nb";
+/** The language the package's texts and an app's own texts fall back to, as in the app. */
+const TEXT_FALLBACK_LANGUAGE = "nb";
 
 /**
  * Puts the text resources for one language on globalThis, which is where the components read them: the default
- * ones, every app's, and the selected app's own.
+ * ones, every app's, and the selected app's own. Where the package or an app has no texts in the language, its nb texts are used, as in the app.
  *
  * @param {Array} multilingualDefaultTextResources - The default text resources in every language.
  * @param {Array} multilingualAppResourceValues - Every app's text resources in every language.
@@ -40,8 +40,13 @@ export function applyTextResourcesForLanguage(
     const textsInLanguage = getResourcesForLanguage(multilingualDefaultTextResources, language);
     const defaultTextResources = textsInLanguage?.resources?.length
         ? textsInLanguage
-        : getResourcesForLanguage(multilingualDefaultTextResources, DEFAULT_TEXT_FALLBACK_LANGUAGE);
-    const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, language);
+        : getResourcesForLanguage(multilingualDefaultTextResources, TEXT_FALLBACK_LANGUAGE);
+    // An app's own texts fall back to its nb texts when it has none in the language, as the app does when it has no resource file for it. Like the app, a whole file falls back, not single texts missing from one.
+    const appTextsInLanguage = getAppResourceValuesForLanguage(multilingualAppResourceValues, language);
+    const appTextsInFallback = getAppResourceValuesForLanguage(multilingualAppResourceValues, TEXT_FALLBACK_LANGUAGE);
+    const appResourceValues = appTextsInLanguage.map((app: ApiValue, index: number) =>
+        app?.resources?.resources?.length ? app : (appTextsInFallback[index] ?? app)
+    );
     const textResources = getLocalTextResourcesForApp(appName, appOwner, appResourceValues);
     addDataToGlobalThis({
         defaultTextResources,

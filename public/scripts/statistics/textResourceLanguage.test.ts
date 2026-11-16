@@ -41,9 +41,28 @@ describe("applyTextResourcesForLanguage", () => {
         expect(globalThis.defaultTextResources).toEqual({ language: "nb", resources: [{ id: "common.yes", value: "Ja" }] });
     });
 
-    it("leaves the app's own texts in the chosen language, without falling back", () => {
+    it("falls back to an app's nb texts when the app has none in the language, as the app does", () => {
         applyTextResourcesForLanguage(multilingualDefaultTextResources, multilingualAppResourceValues, "nn", "dibk", "a-v1");
 
-        expect(globalThis.textResources).toEqual({ language: "nn", resources: [] });
+        expect(globalThis.textResources).toEqual({ language: "nb", resources: [{ id: "appName", value: "Søknad" }] });
+        expect(globalThis.appResourceValues.map((app: { resources: { language: string } }) => app.resources.language)).toEqual(["nb", "nb"]);
+    });
+
+    it("falls back per app, and per file rather than per text", () => {
+        const partlyTranslated = [
+            {
+                appOwner: "dibk",
+                appName: "a-v1",
+                resourceValues: [
+                    { id: "appName", values: { nb: "Søknad", nn: "Søknad på nynorsk" } },
+                    { id: "only.nb", values: { nb: "Bare bokmål" } }
+                ]
+            },
+            { appOwner: "dibk", appName: "b-v1", resourceValues: [{ id: "appName", values: { nb: "Varsel" } }] }
+        ];
+        applyTextResourcesForLanguage(multilingualDefaultTextResources, partlyTranslated, "nn", "dibk", "a-v1");
+
+        expect(globalThis.textResources).toEqual({ language: "nn", resources: [{ id: "appName", value: "Søknad på nynorsk" }] });
+        expect(globalThis.appResourceValues.map((app: { resources: { language: string } }) => app.resources.language)).toEqual(["nn", "nb"]);
     });
 });
