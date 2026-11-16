@@ -669,6 +669,11 @@ svg.icon {
             & main > h2 {
                 display: block;
             }
+            /* What a page says in place of its content, e.g. before a choice is made. */
+            & main > p.page-message {
+                font-size: 14px;
+                color: var(--color-text-white-muted);
+            }
             /*
              * The content column keeps its width and place, so the heading, pickers and buttons do not move when a wider page is shown.
              * A landscape page breaks out of it, centred on it, but never past the left of the area beside the sidebar.

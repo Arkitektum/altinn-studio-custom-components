@@ -262,6 +262,26 @@ describe("statistics page links", () => {
             });
         });
 
+        it("asks for an application before one is chosen", async () => {
+            clickSidebar("Display layouts");
+            await settle();
+            expect(main.querySelector("p.page-message")!.textContent).toBe("Choose an application to draw its form.");
+        });
+
+        it("says when the application an address names is not in the synchronized data", async () => {
+            await openFromAddress("/statistics/display-layouts?owner=o&app=gone");
+            await settle();
+            expect(main.querySelector("p.page-message")!.textContent).toBe(
+                "o/gone is not in the synchronized data. Choose another application, or synchronize if it was added since."
+            );
+        });
+
+        it("says nothing in place of the form once an application is chosen", async () => {
+            await openFromAddress("/statistics/display-layouts?owner=o&app=a");
+            await settle();
+            expect(main.querySelector("p.page-message")).toBeNull();
+        });
+
         it("puts the app chosen on the page in the address", async () => {
             clickSidebar("Display layouts");
             await settle();

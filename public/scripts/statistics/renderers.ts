@@ -955,9 +955,14 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     );
 
     if (!displayLayout) {
-        const errorElement = document.createElement("p");
-        errorElement.textContent = "Display layout not found.";
-        containerElement.appendChild(errorElement);
+        const messageElement = document.createElement("p");
+        messageElement.classList.add("page-message");
+        // No app is chosen until one is picked. An app that is chosen but not found comes from an address, e.g. a link to an app no longer in the catalogue.
+        messageElement.textContent =
+            selectedDisplayLayoutAppName && selectedDisplayLayoutAppOwner
+                ? `${selectedDisplayLayoutAppOwner}/${selectedDisplayLayoutAppName} is not in the synchronized data. Choose another application, or synchronize if it was added since.`
+                : "Choose an application to draw its form.";
+        containerElement.appendChild(messageElement);
         return;
     }
 
