@@ -943,7 +943,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         formType: selectedOptions?.formType || "main",
         language: selectedOptions?.language || "nb",
         displayLayoutAppName: selectedOptions?.displayLayoutAppName || null,
-        displayLayoutAppOwner: selectedOptions?.displayLayoutAppOwner || null
+        displayLayoutAppOwner: selectedOptions?.displayLayoutAppOwner || null,
+        compare: selectedOptions?.compare === true
     };
     openPageId = "display-layouts";
     setLocationHash(getDisplayLayoutsHash(selectedOptions));
@@ -1071,7 +1072,13 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
             fallbackTextResources: globalThis.fallbackTextResources,
             fallbackDefaultTextResources: globalThis.fallbackDefaultTextResources,
             localDefaultTextResources: globalThis.defaultTextResources,
-            language: selectedOptions.language
+            language: selectedOptions.language,
+            // The comparison stays open as the app, language, form or example file changes, and in the address.
+            compare: selectedOptions.compare === true,
+            onCompareChange: (compare: boolean) => {
+                selectedOptions.compare = compare;
+                setLocationHash(getDisplayLayoutsHash(selectedOptions));
+            }
         })
     );
     // A form that prints in landscape, as gjennomfoeringsplan does, says so as its components are placed. Reset first, or the form drawn before it would decide.
@@ -1092,14 +1099,21 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
 export function renderUpgradePreviewButton(
     previewElement: HTMLElement,
     pageElement: HTMLElement,
-    options: Omit<UpgradePreviewOptions, "version"> & { version: string | undefined }
+    options: Omit<UpgradePreviewOptions, "version"> & {
+        version: string | undefined;
+        /** Open the comparison at once, as it was open in the drawing before this one. */
+        compare?: boolean;
+        /** Told when the comparison is opened or closed from the button. */
+        onCompareChange?: (compare: boolean) => void;
+    }
 ) {
     const buttonElement = document.createElement("button");
     buttonElement.type = "button";
     buttonElement.classList.add("upgrade-preview-button");
-    const { version } = options;
+    const { version, compare, onCompareChange, ...previewOptions } = options;
     const compareLabel = version ? `Compare with ${version}` : "Compare with installed version";
     if (!version) {
+        // An app with no known installed version is shown on its own. The comparison opens again for the next app that has one.
         setIconLabel(buttonElement, "package", compareLabel);
         buttonElement.disabled = true;
         buttonElement.title = "The app's installed version of the package is not known. Synchronize to read it from the app.";
@@ -1109,19 +1123,31 @@ export function renderUpgradePreviewButton(
     const labels = [compareLabel, "Close comparison"];
     setStackedIconLabel(buttonElement, "package", labels, compareLabel);
     buttonElement.title = `Draw this form with version ${version}, which the app has installed, beside the local build`;
-    buttonElement.onclick = async () => {
-        if (!previewElement.hidden) {
-            previewElement.hidden = true;
-            previewElement.replaceChildren();
-            pageElement.hidden = false;
-            setStackedIconLabel(buttonElement, "package", labels, compareLabel);
-            return;
-        }
+    const close = () => {
+        previewElement.hidden = true;
+        previewElement.replaceChildren();
+        pageElement.hidden = false;
+        setStackedIconLabel(buttonElement, "package", labels, compareLabel);
+    };
+    const open = async () => {
         previewElement.hidden = false;
         pageElement.hidden = true;
         setStackedIconLabel(buttonElement, "package", labels, "Close comparison");
-        await renderUpgradePreview(previewElement, { ...options, version });
+        await renderUpgradePreview(previewElement, { ...previewOptions, version });
     };
+    buttonElement.onclick = async () => {
+        if (!previewElement.hidden) {
+            close();
+            onCompareChange?.(false);
+            return;
+        }
+        onCompareChange?.(true);
+        await open();
+    };
+    if (compare) {
+        // Opened once the button and the comparison are in the page, which the caller does as soon as this returns.
+        queueMicrotask(() => void open());
+    }
     return buttonElement;
 }
 

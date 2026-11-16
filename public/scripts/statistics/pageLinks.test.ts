@@ -93,11 +93,21 @@ describe("display layouts address", () => {
             displayLayoutAppName: "et-v4",
             formType: "sub-v1",
             language: "nn",
-            fileNames: { ByggesoknadV4: "eksempel 2.xml" }
+            fileNames: { ByggesoknadV4: "eksempel 2.xml" },
+            compare: false
         };
         const hash = getDisplayLayoutsHash(options);
         expect(hash).toBe("#/display-layouts?owner=dibk&app=et-v4&form=sub-v1&lang=nn&file.ByggesoknadV4=eksempel+2.xml");
         expect(getDisplayLayoutsOptions(parsePageHash(hash)!.params)).toEqual(options);
+    });
+    it("names an open comparison, and reads it back, only when it is open", () => {
+        const hash = getDisplayLayoutsHash({ displayLayoutAppOwner: "dibk", displayLayoutAppName: "et-v4", compare: true });
+        expect(hash).toBe("#/display-layouts?owner=dibk&app=et-v4&compare=1");
+        expect(getDisplayLayoutsOptions(parsePageHash(hash)!.params).compare).toBe(true);
+        expect(getDisplayLayoutsHash({ displayLayoutAppOwner: "dibk", displayLayoutAppName: "et-v4", compare: false })).toBe(
+            "#/display-layouts?owner=dibk&app=et-v4"
+        );
+        expect(getDisplayLayoutsOptions(new URLSearchParams("compare=yes")).compare).toBe(false);
     });
     it("reads the defaults for the choices an address leaves out", () => {
         expect(getDisplayLayoutsOptions(new URLSearchParams("file.=x"))).toEqual({
@@ -105,7 +115,8 @@ describe("display layouts address", () => {
             displayLayoutAppName: null,
             formType: "main",
             language: "nb",
-            fileNames: {}
+            fileNames: {},
+            compare: false
         });
     });
 });

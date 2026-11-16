@@ -1,5 +1,5 @@
 import "../../../src/components/index.ts";
-import { openPageFromLocation } from "./renderers.ts";
+import { openPageFromLocation, renderAdminSidebar } from "./renderers.ts";
 
 // Unmocked on purpose: the button is drawn by the real display layouts page.
 describe("Compare with installed version on the display layouts page", () => {
@@ -10,7 +10,10 @@ describe("Compare with installed version on the display layouts page", () => {
     /** The label the button shows now: it holds every label it switches between, stacked, so it keeps its width. */
     const shownLabel = (button: HTMLElement) => button.querySelector(".stacked-labels > span:not(.stacked-label-unused)")!.textContent;
 
-    async function openPage(packageVersions: unknown[], { language = "nb", multilingualAppResourceValues = [] as unknown[] } = {}) {
+    async function openPage(
+        packageVersions: unknown[],
+        { language = "nb", multilingualAppResourceValues = [] as unknown[], otherApps = [] as unknown[] } = {}
+    ) {
         document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
         Object.assign(globalThis, {
             displayLayouts: [
@@ -29,7 +32,8 @@ describe("Compare with installed version on the display layouts page", () => {
                             }
                         }
                     ]
-                }
+                },
+                ...otherApps
             ],
             exampleData: [],
             applicationMetadata: [],
@@ -153,5 +157,91 @@ describe("Compare with installed version on the display layouts page", () => {
         expect(scriptSource(frames[0]!)).not.toContain("'unsafe-eval'");
         expect(scriptSource(frames[1]!)).toContain("script-src 'unsafe-inline' 'unsafe-eval'");
         expect(asked).toHaveLength(1);
+    });
+
+    describe("staying open as the choices change", () => {
+        const versions = [
+            { appOwner: "dibk", appName: "et-v4", packageVersions: { altinnStudioCustomComponents: "17.2.0" } },
+            { appOwner: "dibk", appName: "rs-v4", packageVersions: { altinnStudioCustomComponents: "17.1.0" } }
+        ];
+        const settle = () => new Promise((resolve) => setTimeout(resolve, 20));
+        const secondApp = {
+            appOwner: "dibk",
+            appName: "rs-v4",
+            displayLayouts: [{ name: "DisplayLayout", layout: { data: { layout: [{ id: "x", type: "Custom", tagName: "custom-field-data" }] } } }]
+        };
+        const isComparing = (main: HTMLElement) =>
+            !(main.querySelector(".upgrade-preview") as HTMLElement).hidden && (main.querySelector("#admin-main > .page") as HTMLElement).hidden;
+
+        it("puts an open comparison in the address, and takes it out when closed", async () => {
+            const main = await openPage(versions);
+            const button = main.querySelector(".upgrade-preview-button") as HTMLButtonElement;
+            await (button.onclick as unknown as () => Promise<void>)();
+            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=et-v4&compare=1");
+            await (button.onclick as unknown as () => Promise<void>)();
+            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=et-v4");
+        });
+
+        it("keeps comparing when another app is chosen, with that app's installed version", async () => {
+            const main = await openPage(versions, { otherApps: [secondApp] });
+            await (main.querySelector(".upgrade-preview-button") as HTMLButtonElement as unknown as { onclick: () => Promise<void> }).onclick();
+            const select = main.querySelector("#select-display-layout-application") as HTMLSelectElement;
+            select.value = "dibk/rs-v4";
+            select.dispatchEvent(new Event("change"));
+            await settle();
+            expect(isComparing(main)).toBe(true);
+            expect(shownLabel(main.querySelector(".upgrade-preview-button")!)).toBe("Close comparison");
+            expect(main.querySelector(".upgrade-preview-status")!.textContent).toContain("17.1.0");
+            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=rs-v4&compare=1");
+        });
+
+        it("keeps comparing when the language changes", async () => {
+            const main = await openPage(versions);
+            await (main.querySelector(".upgrade-preview-button") as HTMLButtonElement as unknown as { onclick: () => Promise<void> }).onclick();
+            const select = main.querySelector("#select-language-for-resources") as HTMLSelectElement;
+            select.value = "nn";
+            select.dispatchEvent(new Event("change"));
+            await settle();
+            expect(isComparing(main)).toBe(true);
+            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=et-v4&lang=nn&compare=1");
+        });
+
+        it("opens comparing from an address that says so", async () => {
+            document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
+            history.replaceState(null, "", "#/display-layouts?owner=dibk&app=et-v4&compare=1");
+            await openPageFromLocation();
+            await settle();
+            const main = document.getElementById("admin-main")!;
+            expect(isComparing(main)).toBe(true);
+        });
+
+        it("shows an app with no known installed version on its own, and compares again for the next app that has one", async () => {
+            const main = await openPage([versions[0]], { otherApps: [secondApp] });
+            await (main.querySelector(".upgrade-preview-button") as HTMLButtonElement as unknown as { onclick: () => Promise<void> }).onclick();
+            const select = main.querySelector("#select-display-layout-application") as HTMLSelectElement;
+            select.value = "dibk/rs-v4";
+            select.dispatchEvent(new Event("change"));
+            await settle();
+            expect(isComparing(main)).toBe(false);
+            expect((main.querySelector(".upgrade-preview-button") as HTMLButtonElement).disabled).toBe(true);
+            const back = main.querySelector("#select-display-layout-application") as HTMLSelectElement;
+            back.value = "dibk/et-v4";
+            back.dispatchEvent(new Event("change"));
+            await settle();
+            expect(isComparing(main)).toBe(true);
+        });
+
+        it("starts closed when the page is opened from the sidebar", async () => {
+            const main = await openPage(versions);
+            await (main.querySelector(".upgrade-preview-button") as HTMLButtonElement as unknown as { onclick: () => Promise<void> }).onclick();
+            renderAdminSidebar();
+            (Array.from(document.querySelectorAll("#sidebar button")).find((b) => b.textContent === "Display layouts") as HTMLButtonElement).click();
+            await settle();
+            const select = document.querySelector("#select-display-layout-application") as HTMLSelectElement;
+            select.value = "dibk/et-v4";
+            select.dispatchEvent(new Event("change"));
+            await settle();
+            expect(isComparing(document.getElementById("admin-main")!)).toBe(false);
+        });
     });
 });

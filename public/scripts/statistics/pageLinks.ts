@@ -63,6 +63,8 @@ export interface DisplayLayoutsOptions {
     formType?: string;
     language?: string;
     fileNames?: Record<string, string>;
+    /** Whether the form is compared with the version the app has installed, which stays so as the other choices change. */
+    compare?: boolean;
 }
 
 const globals = globalThis as unknown as Record<string, FilterValue | undefined>;
@@ -131,6 +133,7 @@ export function getDisplayLayoutsHash(options: DisplayLayoutsOptions) {
     for (const [dataType, fileName] of Object.entries(options.fileNames || {})) {
         if (fileName) params.set(`file.${dataType}`, fileName);
     }
+    if (options.compare) params.set("compare", "1");
     const query = params.toString();
     return `#/display-layouts${query ? `?${query}` : ""}`;
 }
@@ -151,7 +154,8 @@ export function getDisplayLayoutsOptions(params: URLSearchParams): DisplayLayout
         displayLayoutAppName: params.get("app"),
         formType: params.get("form") || "main",
         language: params.get("lang") || "nb",
-        fileNames
+        fileNames,
+        compare: params.get("compare") === "1"
     };
 }
 
