@@ -118,6 +118,7 @@ describe("renderAdminSidebar", () => {
         expect(buttons.length > 0).toBe(true);
         expect(buttons.every((button) => (button.firstChild as Element | null)?.classList?.contains("icon"))).toBe(true);
         expect(buttons.map((button) => button.textContent)).toEqual([
+            "Overview",
             "Resource usage",
             "Component usage",
             "Data model bindings",

@@ -130,6 +130,54 @@ describe("statistics page links", () => {
         expect(history.length).toBe(length + 1);
     });
 
+    describe("the overview", () => {
+        it("opens at the statistics path on its own, marked in the sidebar", async () => {
+            await openFromAddress("/statistics");
+            expect(main.querySelector("h2")!.textContent).toBe("Overview");
+            expect(document.querySelector('#sidebar [aria-current="page"]')!.textContent).toBe("Overview");
+        });
+
+        it("opens when Back returns to the statistics path from a page", async () => {
+            clickSidebar("Package versions");
+            await openFromAddress("/statistics/");
+            expect(main.querySelector("h2")!.textContent).toBe("Overview");
+        });
+
+        it("leaves the open page as it is for an address that names no page", async () => {
+            clickSidebar("Package versions");
+            await openFromAddress("/statistics/no-such-page");
+            expect(main.querySelector("h2")!.textContent).toBe("Package versions");
+        });
+
+        it("opens from the sidebar at the statistics path, with an entry in the history", () => {
+            clickSidebar("Component usage");
+            const length = history.length;
+            clickSidebar("Overview");
+            expect(main.querySelector("h2")!.textContent).toBe("Overview");
+            expect(location.pathname + location.search).toBe("/statistics");
+            expect(history.length).toBe(length + 1);
+            expect(document.querySelector('#sidebar [aria-current="page"]')!.textContent).toBe("Overview");
+        });
+
+        it("opens a page from its link in place", async () => {
+            clickSidebar("Overview");
+            const link = Array.from(main.querySelectorAll("a")).find((anchor) => anchor.textContent === "Component usage")!;
+            link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, button: 0 }));
+            await settle();
+            expect(main.querySelector("h2")!.textContent).toBe("Component usage");
+            expect(location.pathname + location.search).toBe("/statistics/component-usage");
+        });
+
+        it("is drawn again after a synchronization, from the new data", async () => {
+            clickSidebar("Overview");
+            globalThis.packageVersions = [{ packageVersions: {} }, { packageVersions: {} }];
+            await redrawOpenPage();
+            const packageLine = Array.from(main.querySelectorAll("dt")).find((term) => term.textContent === "Package versions")!;
+            expect(packageLine.nextElementSibling!.textContent).toBe("2 apps, 0 behind on a package");
+            expect(location.pathname + location.search).toBe("/statistics");
+        });
+    });
+
     describe("the open page in the sidebar", () => {
         function currentButtons() {
             return Array.from(document.querySelectorAll('#sidebar button[aria-current="page"]')).map((button) => button.textContent);

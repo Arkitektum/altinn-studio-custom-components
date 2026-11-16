@@ -707,6 +707,37 @@ svg.icon {
                     }
                 }
             }
+            /* The overview: each page as a link, with what it holds or does beside it. */
+            & dl.overview-list {
+                display: grid;
+                grid-template-columns: max-content 1fr;
+                font-size: 14px;
+                & dt,
+                & dd {
+                    margin: 0;
+                    padding: 10px 0;
+                    border-bottom: 1px solid var(--color-border-dark-highlight);
+                }
+                & > :nth-last-child(-n + 2) {
+                    border-bottom: none;
+                }
+                & dt {
+                    /* Padding rather than a column gap, so each row's line runs unbroken across both columns. */
+                    padding-right: 32px;
+                    font-weight: 600;
+                }
+                & dd {
+                    color: var(--color-text-white-muted);
+                }
+                & a {
+                    color: #6ea8ff;
+                    text-decoration: none;
+                    &:hover {
+                        color: #9cc3ff;
+                        text-decoration: underline;
+                    }
+                }
+            }
             & .render-health,
             & .unshown-data,
             & .upgrade-check {

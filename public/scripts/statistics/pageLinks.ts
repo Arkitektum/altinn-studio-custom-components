@@ -179,6 +179,16 @@ export function parsePageAddress(address: string) {
 }
 
 /**
+ * Whether a path is the statistics path on its own, which is where the overview is.
+ *
+ * @param {string} pathname - The address's path.
+ * @returns {boolean} True for "/statistics" and "/statistics/".
+ */
+export function isOverviewAddress(pathname: string) {
+    return pathname === STATISTICS_PATH || pathname === `${STATISTICS_PATH}/`;
+}
+
+/**
  * The address an old link names, from when the page and its choices were kept after a #, e.g. "#/component-usage?app=et-v4", so links and bookmarks from then still open their page.
  *
  * @param {string} hash - The address's fragment.

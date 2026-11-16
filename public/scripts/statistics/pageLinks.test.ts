@@ -5,6 +5,7 @@ import {
     getDisplayLayoutsAddress,
     getDisplayLayoutsOptions,
     getPageAddress,
+    isOverviewAddress,
     pageFilters,
     parsePageAddress,
     resetPageFilters,
@@ -94,6 +95,18 @@ describe("parsePageAddress", () => {
         "statistics/component-usage"
     ])("names no page in %p", (address) => {
         expect(parsePageAddress(address)).toBeNull();
+    });
+});
+
+describe("isOverviewAddress", () => {
+    it.each([
+        ["/statistics", true],
+        ["/statistics/", true],
+        ["/statistics/component-usage", false],
+        ["/statistics.html", false],
+        ["/devTools", false]
+    ])("says %s is the overview: %s", (pathname, expected) => {
+        expect(isOverviewAddress(pathname as string)).toBe(expected);
     });
 });
 
