@@ -125,7 +125,8 @@ describe("renderAdminSidebar", () => {
             "Package versions",
             "Display layouts",
             "Render health",
-            "Unshown data"
+            "Unshown data",
+            "Upgrade check"
         ]);
     });
 });

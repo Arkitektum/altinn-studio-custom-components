@@ -17,6 +17,7 @@ function target(components: unknown[], files: Record<string, unknown> = { "eksem
         appOwner: "dibk",
         appName: "et-v4",
         formName: "DisplayLayout",
+        formType: "layout:DisplayLayout",
         components: components as RenderTarget["components"],
         dataModels: [{ dataType: "Byggesoknad", data: files }],
         dataType: "Byggesoknad",

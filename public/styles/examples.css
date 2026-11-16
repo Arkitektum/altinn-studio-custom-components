@@ -673,8 +673,17 @@ svg.icon {
                 margin-left: max(calc(50% - 50cqw + 16px), calc(50% - 14.85cm));
                 margin-right: 0;
             }
-            & .unshown-data {
-                & details.unshown-data-form {
+            & .unshown-data,
+            & .upgrade-check {
+                & details.upgrade-check-app a {
+                    /* Light enough to read on the dark page, as the start page's links are. */
+                    color: #6ea8ff;
+                    &:hover {
+                        color: #9cc3ff;
+                    }
+                }
+                & details.unshown-data-form,
+                & details.upgrade-check-app {
                     margin: 8px 0;
                     padding: 8px 12px;
                     border: 1px solid var(--color-border-dark-highlight);
@@ -695,7 +704,8 @@ svg.icon {
                 }
             }
             & .render-health,
-            & .unshown-data {
+            & .unshown-data,
+            & .upgrade-check {
                 & .render-health-controls {
                     display: flex;
                     align-items: center;

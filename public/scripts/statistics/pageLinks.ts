@@ -10,7 +10,8 @@ export type StatisticsPageId =
     | "package-versions"
     | "display-layouts"
     | "render-health"
-    | "unshown-data";
+    | "unshown-data"
+    | "upgrade-check";
 
 type FilterValue = string | boolean;
 
@@ -51,7 +52,8 @@ export const pageFilters: Record<StatisticsPageId, Record<string, { global: keyo
     "package-versions": {},
     "display-layouts": {},
     "render-health": {},
-    "unshown-data": {}
+    "unshown-data": {},
+    "upgrade-check": {}
 };
 
 /**

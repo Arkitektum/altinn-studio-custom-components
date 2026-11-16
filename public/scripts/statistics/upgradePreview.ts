@@ -240,7 +240,7 @@ export function sizeFramesAsPages(frames: HTMLIFrameElement[], orientation: keyo
 }
 
 /** Resolves once a frame has loaded its document, scripts and styles. */
-function frameLoaded(frame: HTMLIFrameElement): Promise<void> {
+export function frameLoaded(frame: HTMLIFrameElement): Promise<void> {
     return new Promise((resolve) => frame.addEventListener("load", () => resolve(), { once: true }));
 }
 

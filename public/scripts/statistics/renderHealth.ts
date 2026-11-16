@@ -11,6 +11,8 @@ export interface RenderTarget {
     appOwner: string;
     appName: string;
     formName: string;
+    /** The form's value on the Display layouts page: "layout:<name>" for a display layout, the subform's app name for a subform. */
+    formType: string;
     components: (LayoutComponent | undefined)[];
     dataModels: ApiValue[];
     /** The data type text bindings are read from, as on the display layouts page. */
@@ -64,16 +66,18 @@ export function getRenderTargets(
         const forms = [
             ...(app.displayLayouts || []).map((layout: ApiValue) => ({
                 formName: layout?.name,
+                formType: `layout:${layout?.name}`,
                 formDataType: app.dataType,
                 components: layout?.layout?.data?.layout
             })),
             ...(app.subForms || []).map((subForm: ApiValue) => ({
                 formName: subForm?.appName,
+                formType: String(subForm?.appName),
                 formDataType: subForm?.dataType,
                 components: subForm?.layout?.data?.layout
             }))
         ];
-        for (const { formName, formDataType, components } of forms) {
+        for (const { formName, formType, formDataType, components } of forms) {
             if (!Array.isArray(components) || !components.length) continue;
             const fileNames: string[] = findExampleDataForApp(exampleData, app, formDataType)?.files?.map((file: ApiValue) => file.name) ?? [];
             const files = fileNames.length ? fileNames : [undefined];
@@ -82,6 +86,7 @@ export function getRenderTargets(
                     appOwner,
                     appName,
                     formName: String(formName),
+                    formType,
                     components,
                     dataModels,
                     dataType,

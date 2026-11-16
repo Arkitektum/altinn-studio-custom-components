@@ -11,6 +11,7 @@ function target(components: unknown[], data: unknown = { soeknad: { tittel: "Sø
         appOwner: "dibk",
         appName: "et-v4",
         formName: "DisplayLayout",
+        formType: "layout:DisplayLayout",
         components: components as RenderTarget["components"],
         dataModels: [{ dataType: "Byggesoknad", data: { "eksempel.xml": data } }],
         dataType: "Byggesoknad",
@@ -58,6 +59,7 @@ describe("getRenderTargets", () => {
             { formName: "sub-v1", fileName: "v.xml", fileNames: { Vedlegg: "v.xml" } },
             { formName: "sub-v2", fileName: undefined, fileNames: {} }
         ]);
+        expect(targets.map(({ formType }) => formType)).toEqual(["layout:DisplayLayout", "layout:DisplayLayout", "sub-v1", "sub-v2"]);
     });
     it("reads text bindings from the app's main data type, as the display layouts page does", () => {
         const targets = getRenderTargets(displayLayouts, exampleData, forms);
