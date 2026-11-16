@@ -665,6 +665,10 @@ svg.icon {
                 margin: 0 auto;
                 padding: 0 16px;
             }
+            /* main.css makes headings inline-block for the components. The page title gets a line of its own, so the filters after it start a new row. */
+            & main > h2 {
+                display: block;
+            }
             /*
              * The content column keeps its width and place, so the heading, pickers and buttons do not move when a wider page is shown.
              * A landscape page breaks out of it, centred on it, but never past the left of the area beside the sidebar.
@@ -1194,8 +1198,11 @@ svg.icon {
                     }
                 }
             }
+            /* Filters sit side by side, aligned on their controls, and wrap onto a new row when the column is full. */
             & .filter-container {
-                margin: 16px auto;
+                display: inline-block;
+                vertical-align: bottom;
+                margin: 0 24px 16px 0;
                 padding: 0;
                 border: none;
                 & legend {
