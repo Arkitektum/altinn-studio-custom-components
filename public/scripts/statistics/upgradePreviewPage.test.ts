@@ -65,7 +65,7 @@ describe("Compare with installed version on the display layouts page", () => {
         history.replaceState(null, "", "/statistics");
     });
 
-    it("offers to compare with the version the app has installed, beside Open in devTools", async () => {
+    it("offers to compare with the version the app has installed, beside Open in developer tools", async () => {
         const main = await openPage([{ appOwner: "dibk", appName: "et-v4", packageVersions: { altinnStudioCustomComponents: "17.2.0" } }]);
         const button = main.querySelector(".upgrade-preview-button") as HTMLButtonElement;
         expect(shownLabel(button)).toBe("Compare with 17.2.0");

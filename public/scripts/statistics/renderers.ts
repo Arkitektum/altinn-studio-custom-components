@@ -1102,7 +1102,7 @@ export function renderUpgradePreviewButton(
         buttonElement.title = "The app's installed version of the package is not known. Synchronize to read it from the app.";
         return buttonElement;
     }
-    // Both labels are stacked in the button, so it keeps its width, and Open in devTools beside it keeps its place, as the label changes.
+    // Both labels are stacked in the button, so it keeps its width, and Open in developer tools beside it keeps its place, as the label changes.
     const labels = [compareLabel, "Close comparison"];
     setStackedIconLabel(buttonElement, "package", labels, compareLabel);
     buttonElement.title = `Draw this form with version ${version}, which the app has installed, beside the local build`;
@@ -1149,12 +1149,12 @@ export function renderOpenInDevToolsButton(displayLayout: DisplayLayoutForDevToo
     const buttonElement = document.createElement("button");
     buttonElement.type = "button";
     buttonElement.classList.add("open-in-devtools-button");
-    setIconLabel(buttonElement, "layout", "Open in devTools");
+    setIconLabel(buttonElement, "layout", "Open in developer tools");
     buttonElement.onclick = () => {
         const form = `${displayLayout.appOwner}/${displayLayout.appName}${formName ? ` (${formName})` : ""}`;
         if (
             !confirm(
-                `Replace the layout code, data models and text resources in devTools with ${form}? Export the devTools workspace first to keep what is there.`
+                `Replace the layout code, data models and text resources in the developer tools with ${form}? Export the developer tools workspace first to keep what is there.`
             )
         ) {
             return;

@@ -1,7 +1,7 @@
 import { openPageFromLocation } from "./renderers.ts";
 
 // Unmocked on purpose: the button is drawn by the real display layouts page, and writes what devTools reads.
-describe("Open in devTools on the display layouts page", () => {
+describe("Open in developer tools on the display layouts page", () => {
     const { confirm, open } = globalThis;
     const originalWarn = console.warn;
     let opened: unknown[][];
@@ -84,7 +84,7 @@ describe("Open in devTools on the display layouts page", () => {
 
     it("draws the button above the form", () => {
         const button = document.querySelector("#admin-main .open-in-devtools-button") as HTMLButtonElement;
-        expect(button.textContent).toBe("Open in devTools");
+        expect(button.textContent).toBe("Open in developer tools");
         const page = document.querySelector("#admin-main > .page")!;
         expect(button.parentElement!.parentElement).toBe(page.parentElement);
         expect(Boolean(button.parentElement!.compareDocumentPosition(page) & Node.DOCUMENT_POSITION_FOLLOWING)).toBe(true);
@@ -107,7 +107,7 @@ describe("Open in devTools on the display layouts page", () => {
         expect(localStorage.getItem("devToolsLanguage")).toBe("nn");
         expect(opened).toEqual([["/devTools", "_blank", "noopener"]]);
         expect(confirmMessages).toEqual([
-            "Replace the layout code, data models and text resources in devTools with dibk/et-v4 (DisplayLayout)? Export the devTools workspace first to keep what is there."
+            "Replace the layout code, data models and text resources in the developer tools with dibk/et-v4 (DisplayLayout)? Export the developer tools workspace first to keep what is there."
         ]);
     });
 
