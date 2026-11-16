@@ -30,6 +30,24 @@
     --color-background-dark: #0c1117;
     --color-background-dark-highlight: #131a25;
     --color-border-dark-highlight: #334155;
+    /* The sidebars and the controls in them, darkest first. */
+    --color-surface-sidebar: #14171a;
+    --color-surface-raised: #202224;
+    --color-control: #303234;
+    --color-control-hover: #393b3d;
+    /* The code editor's own dark theme. */
+    --color-editor-background: #1e1e1e;
+    --color-editor-text: #dcdcdc;
+    --color-editor-error: #5a1d1d;
+    /* Links on the dark pages: at least 7.2:1 on #131a25, and lighter on hover. */
+    --color-link: #6ea8ff;
+    --color-link-hover: #9cc3ff;
+    /* Text that steps back, such as a count of zero: 5.7:1 on #131a25. */
+    --color-text-faint: #8b949e;
+    /* How far behind its latest release an app's package is, on the package versions page. */
+    --color-version-major: #ff4444;
+    --color-version-minor: #ff9900;
+    --color-version-patch: #ffcc00;
     /* Status colours for the dark surfaces of the dev tools. The components' own (main.css) are made for white paper and fall below 4.5:1 on the sidebar's grey. Each of these is at least 4.8:1 on #303234 and its hover, #393b3d. */
     --color-status-error: #ff8a80;
     --color-status-warning: #ffb74d;
@@ -110,22 +128,16 @@ svg.icon {
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             padding: 0;
             overflow-y: auto;
-            background-color: #14171a;
+            background-color: var(--color-surface-sidebar);
             color: var(--color-text-white);
             z-index: 1;
-            & h2 {
-                margin-top: 0;
-                font-size: 18px;
-                color: #333;
-                padding: 8px;
-            }
             & .language-picker {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
                 gap: 8px;
                 padding: 10px 14px;
-                border-bottom: 1px solid #202224;
+                border-bottom: 1px solid var(--color-surface-raised);
                 & label {
                     font-size: 14px;
                 }
@@ -147,7 +159,7 @@ svg.icon {
                 & li {
                     font-size: 18px;
                     background: none;
-                    border-bottom: 1px solid #202224;
+                    border-bottom: 1px solid var(--color-surface-raised);
                     transition: var(--background-transition-default);
                     cursor: pointer;
                     &:hover {
@@ -170,7 +182,7 @@ svg.icon {
                             font-size: 16px;
                             border: none;
                             color: #fff;
-                            background-color: #202224;
+                            background-color: var(--color-surface-raised);
                             outline: 1px solid rgba(255, 255, 255, 0.75);
                         }
                         & .buttons-container {
@@ -203,13 +215,13 @@ svg.icon {
                             text-align: right;
                             & button {
                                 width: auto;
-                                background-color: #303234;
+                                background-color: var(--color-control);
                                 border-radius: 4px;
                                 margin: 0 3px;
                                 padding: 5px 10px;
                                 text-align: center;
                                 &:hover {
-                                    background-color: #393b3d;
+                                    background-color: var(--color-control-hover);
                                 }
                             }
                             & .status-indicators-container {
@@ -239,7 +251,7 @@ svg.icon {
             }
             & .add-button {
                 width: calc(100% - 16px);
-                background-color: #303234;
+                background-color: var(--color-control);
                 color: #fff;
                 border: none;
                 cursor: pointer;
@@ -251,7 +263,7 @@ svg.icon {
                 font-family: var(--font-family-default);
                 transition: var(--background-transition-default);
                 &:hover {
-                    background-color: #393b3d;
+                    background-color: var(--color-control-hover);
                 }
             }
             & .workspace-buttons {
@@ -267,21 +279,21 @@ svg.icon {
                     padding: 8px 0;
                     border: none;
                     border-radius: 4px;
-                    background-color: #303234;
+                    background-color: var(--color-control);
                     color: #fff;
                     font-size: 14px;
                     font-family: var(--font-family-default);
                     cursor: pointer;
                     transition: var(--background-transition-default);
                     &:hover {
-                        background-color: #393b3d;
+                        background-color: var(--color-control-hover);
                     }
                 }
             }
             & .synchronize-container {
                 margin: 16px 8px 16px 8px;
                 padding: 12px;
-                background-color: #202224;
+                background-color: var(--color-surface-raised);
                 border-radius: 4px;
                 text-align: center;
                 display: flex;
@@ -311,7 +323,7 @@ svg.icon {
                 & span.last-updated {
                     font-size: 0.8rem;
                     margin-top: 8px;
-                    color: #ccc;
+                    color: var(--color-text-white-muted);
                     &.stale {
                         color: var(--color-warning-default);
                         font-weight: 600;
@@ -343,7 +355,7 @@ svg.icon {
                 padding: 0.75em;
                 font-family: monospace;
                 font-size: 12px;
-                background-color: #5a1d1d;
+                background-color: var(--color-editor-error);
                 color: #fff;
             }
             & .layout-findings {
@@ -353,9 +365,9 @@ svg.icon {
                 padding: 0.5em 0.75em;
                 font-family: monospace;
                 font-size: 12px;
-                background-color: #202224;
-                color: #dcdcdc;
-                border-bottom: 1px solid #303234;
+                background-color: var(--color-surface-raised);
+                color: var(--color-editor-text);
+                border-bottom: 1px solid var(--color-control);
                 & summary {
                     cursor: pointer;
                 }
@@ -386,8 +398,8 @@ svg.icon {
                 overflow: auto;
                 white-space: nowrap;
                 font-family: monospace;
-                background-color: #1e1e1e;
-                color: #dcdcdc;
+                background-color: var(--color-editor-background);
+                color: var(--color-editor-text);
                 border: none;
                 font-size: 12px;
                 line-height: 1.5;
@@ -407,7 +419,7 @@ svg.icon {
             flex: 0 0 6px;
             height: 100vh;
             cursor: col-resize;
-            background-color: #202224;
+            background-color: var(--color-surface-raised);
             transition: var(--background-transition-default);
             &:hover,
             &:focus-visible {
@@ -522,7 +534,7 @@ svg.icon {
                     cursor: pointer;
                     color: var(--color-text-white);
                     &:hover {
-                        color: #ff0000;
+                        color: var(--color-status-error);
                     }
                 }
             }
@@ -762,9 +774,9 @@ svg.icon {
             & .upgrade-check {
                 & details.upgrade-check-app a {
                     /* Light enough to read on the dark page, as the start page's links are. */
-                    color: #6ea8ff;
+                    color: var(--color-link);
                     &:hover {
-                        color: #9cc3ff;
+                        color: var(--color-link-hover);
                     }
                 }
                 & details.unshown-data-form,
@@ -811,10 +823,10 @@ svg.icon {
                     color: var(--color-text-white-muted);
                 }
                 & a {
-                    color: #6ea8ff;
+                    color: var(--color-link);
                     text-decoration: none;
                     &:hover {
-                        color: #9cc3ff;
+                        color: var(--color-link-hover);
                         text-decoration: underline;
                     }
                 }
@@ -1051,13 +1063,13 @@ svg.icon {
             }
 
             & .version-outdated-major {
-                color: #ff4444;
+                color: var(--color-version-major);
             }
             & .version-outdated-minor {
-                color: #ff9900;
+                color: var(--color-version-minor);
             }
             & .version-outdated-patch {
-                color: #ffcc00;
+                color: var(--color-version-patch);
             }
 
             & .expand-collapse-icon {
@@ -1173,7 +1185,7 @@ svg.icon {
                         & .usage-zero,
                         & .usage-zero .usage-count {
                             font-weight: 400;
-                            color: #8b949e;
+                            color: var(--color-text-faint);
                         }
                         & .usage-attention,
                         & .usage-attention .usage-count {
@@ -1399,11 +1411,11 @@ svg.icon {
         margin: 0;
         padding: 0;
         & a {
-            color: #287fff;
+            color: var(--color-link);
             text-decoration: none;
             transition: var(--background-transition-default);
             &:hover {
-                color: #3d9bff;
+                color: var(--color-link-hover);
             }
         }
         & main.main-intro {
