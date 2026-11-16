@@ -30,11 +30,11 @@ describe("the page's orientation on the display layouts page", () => {
     });
     afterEach(() => {
         console.warn = originalWarn;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     async function openApp(appName: string) {
-        history.replaceState(null, "", `#/display-layouts?owner=dibk&app=${appName}`);
+        history.replaceState(null, "", `/statistics/display-layouts?owner=dibk&app=${appName}`);
         await openPageFromLocation();
         await new Promise((resolve) => setTimeout(resolve, 20));
         return document.querySelector("#admin-main > .page")!;

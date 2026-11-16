@@ -26,7 +26,7 @@ describe("the app's classes on body, on the display layouts page", () => {
     });
     afterEach(() => {
         console.warn = originalWarn;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     async function openAddress(hash: string) {
@@ -36,14 +36,14 @@ describe("the app's classes on body, on the display layouts page", () => {
     }
 
     it("are set when the page opens on an app from its address, so the logo is sized from the start", async () => {
-        await openAddress("#/display-layouts?owner=dibk&app=et-v4");
+        await openAddress("/statistics/display-layouts?owner=dibk&app=et-v4");
         expect(document.body.classList.contains("org-dibk")).toBe(true);
         expect(document.body.classList.contains("app-et-v4")).toBe(true);
         expect(document.body.classList.contains("developer-tools")).toBe(true);
     });
 
     it("follow the app chosen in the picker", async () => {
-        await openAddress("#/display-layouts?owner=dibk&app=et-v4");
+        await openAddress("/statistics/display-layouts?owner=dibk&app=et-v4");
         const select = document.getElementById("select-display-layout-application") as HTMLSelectElement;
         select.value = "dat/kart-v1";
         select.dispatchEvent(new Event("change"));
@@ -54,8 +54,8 @@ describe("the app's classes on body, on the display layouts page", () => {
     });
 
     it("are taken away when the page opens with no app chosen", async () => {
-        await openAddress("#/display-layouts?owner=dibk&app=et-v4");
-        await openAddress("#/display-layouts");
+        await openAddress("/statistics/display-layouts?owner=dibk&app=et-v4");
+        await openAddress("/statistics/display-layouts");
         expect(document.body.classList.contains("org-dibk")).toBe(false);
         expect(document.body.classList.contains("app-et-v4")).toBe(false);
     });

@@ -45,27 +45,27 @@ describe("unshown data page", () => {
             multilingualDefaultTextResources: [],
             multilingualAppResourceValues: []
         });
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
         renderAdminSidebar();
     });
 
     afterEach(() => {
         console.warn = originalWarn;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     it("opens from the sidebar, with a button and nothing checked yet", () => {
         (
             Array.from(document.querySelectorAll("#sidebar button")).find((button) => button.textContent === "Unshown data") as HTMLButtonElement
         ).click();
-        expect(location.hash).toBe("#/unshown-data");
+        expect(location.pathname + location.search).toBe("/statistics/unshown-data");
         expect(main.querySelector("h2")!.textContent).toBe("Unshown data");
         expect((main.querySelector("#unshown-data-check-button") as HTMLButtonElement).textContent).toBe("Check all apps");
         expect(main.querySelector("#unshown-data-results")!.textContent).toBe("");
     });
 
     it("checks every form with example data when the button is pressed, and lists the values never shown", async () => {
-        history.replaceState(null, "", "#/unshown-data");
+        history.replaceState(null, "", "/statistics/unshown-data");
         await openPageFromLocation();
         const button = main.querySelector("#unshown-data-check-button") as HTMLButtonElement;
         button.click();
@@ -77,7 +77,7 @@ describe("unshown data page", () => {
     });
 
     it("keeps the last results when drawn again after a synchronization, and says they are from before it", async () => {
-        history.replaceState(null, "", "#/unshown-data");
+        history.replaceState(null, "", "/statistics/unshown-data");
         await openPageFromLocation();
         (main.querySelector("#unshown-data-check-button") as HTMLButtonElement).click();
         await settle();

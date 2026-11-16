@@ -27,10 +27,10 @@ const packageVersions = [
 describe("getComparisonLink", () => {
     it("links to the Display layouts comparison for the form and example file", () => {
         expect(getComparisonLink(target("et-v4", "layout:DisplayLayout", "eksempel 2.xml"))).toBe(
-            "#/display-layouts?owner=dibk&app=et-v4&form=layout%3ADisplayLayout&file.Byggesoknad=eksempel+2.xml&compare=1"
+            "/statistics/display-layouts?owner=dibk&app=et-v4&form=layout%3ADisplayLayout&file.Byggesoknad=eksempel+2.xml&compare=1"
         );
         expect(getComparisonLink(target("et-v4", "sub-v1", "s.xml"))).toBe(
-            "#/display-layouts?owner=dibk&app=et-v4&form=sub-v1&file.Byggesoknad=s.xml&compare=1"
+            "/statistics/display-layouts?owner=dibk&app=et-v4&form=sub-v1&file.Byggesoknad=s.xml&compare=1"
         );
     });
 });
@@ -143,7 +143,7 @@ describe("renderUpgradeCheckResults", () => {
                         formName: "DisplayLayout",
                         fileName: "b.xml",
                         components: ["tittel", "<b>x</b>"],
-                        link: "#/display-layouts?owner=dibk&app=et-v4&compare=1"
+                        link: "/statistics/display-layouts?owner=dibk&app=et-v4&compare=1"
                     }
                 ]
             },
@@ -160,7 +160,7 @@ describe("renderUpgradeCheckResults", () => {
         const app = element.querySelector("details.upgrade-check-app")!;
         expect(app.querySelector("summary")!.textContent).toBe("dibk/et-v4, installed 17.2.0: 1 of 4 drawings change");
         const link = app.querySelector("li a") as HTMLAnchorElement;
-        expect(link.getAttribute("href")).toBe("#/display-layouts?owner=dibk&app=et-v4&compare=1");
+        expect(link.getAttribute("href")).toBe("/statistics/display-layouts?owner=dibk&app=et-v4&compare=1");
         expect(link.textContent).toBe("DisplayLayout, b.xml");
         expect(app.querySelector("li")!.textContent).toBe("DisplayLayout, b.xml: tittel, <b>x</b>");
         expect(app.querySelector("li b")).toBeNull();
@@ -194,7 +194,7 @@ describe("upgrade check page", () => {
     afterEach(() => {
         globalThis.fetch = originalFetch;
         console.error = originalError;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     it("opens from the sidebar, and lists an app whose installed version cannot be loaded as not checked", async () => {
@@ -221,7 +221,7 @@ describe("upgrade check page", () => {
         (
             Array.from(document.querySelectorAll("#sidebar button")).find((button) => button.textContent === "Upgrade check") as HTMLButtonElement
         ).click();
-        expect(location.hash).toBe("#/upgrade-check");
+        expect(location.pathname + location.search).toBe("/statistics/upgrade-check");
         const button = document.getElementById("upgrade-check-button") as HTMLButtonElement;
         expect(button.textContent).toBe("Check all apps");
         await (button.onclick as unknown as () => Promise<void>)();
@@ -230,7 +230,7 @@ describe("upgrade check page", () => {
             "Not checked, the installed version could not be loaded: dibk/et-v4 (17.2.0)"
         );
         expect(document.querySelector(".upgrade-scan-frames")).toBeNull();
-        history.replaceState(null, "", "#/upgrade-check");
+        history.replaceState(null, "", "/statistics/upgrade-check");
         await openPageFromLocation();
         expect(document.querySelector(".upgrade-check-others")!.textContent).toContain("dibk/et-v4");
         globalThis.lastUpdated = "2026-11-17T10:00:00.000Z";

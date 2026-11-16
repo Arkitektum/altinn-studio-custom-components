@@ -70,7 +70,7 @@ describe("Open in devTools on the display layouts page", () => {
             appResourceValues: [],
             defaultTextResources: undefined
         });
-        history.replaceState(null, "", "#/display-layouts?owner=dibk&app=et-v4&lang=nn&file.Byggesoknad=eksempel-2.xml");
+        history.replaceState(null, "", "/statistics/display-layouts?owner=dibk&app=et-v4&lang=nn&file.Byggesoknad=eksempel-2.xml");
         await openPageFromLocation();
         await new Promise((resolve) => setTimeout(resolve, 20));
     });
@@ -79,7 +79,7 @@ describe("Open in devTools on the display layouts page", () => {
         globalThis.confirm = confirm;
         globalThis.open = open;
         console.warn = originalWarn;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     it("draws the button above the form", () => {

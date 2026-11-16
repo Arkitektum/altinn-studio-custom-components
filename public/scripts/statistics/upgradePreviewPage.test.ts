@@ -43,7 +43,7 @@ describe("Compare with installed version on the display layouts page", () => {
             appResourceValues: [],
             packageVersions
         });
-        history.replaceState(null, "", `#/display-layouts?owner=dibk&app=et-v4${language === "nb" ? "" : `&lang=${language}`}`);
+        history.replaceState(null, "", `/statistics/display-layouts?owner=dibk&app=et-v4${language === "nb" ? "" : `&lang=${language}`}`);
         await openPageFromLocation();
         await new Promise((resolve) => setTimeout(resolve, 20));
         return document.getElementById("admin-main")!;
@@ -62,7 +62,7 @@ describe("Compare with installed version on the display layouts page", () => {
         console.warn = originalWarn;
         console.error = originalError;
         globalThis.fetch = originalFetch;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     it("offers to compare with the version the app has installed, beside Open in devTools", async () => {
@@ -177,9 +177,9 @@ describe("Compare with installed version on the display layouts page", () => {
             const main = await openPage(versions);
             const button = main.querySelector(".upgrade-preview-button") as HTMLButtonElement;
             await (button.onclick as unknown as () => Promise<void>)();
-            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=et-v4&compare=1");
+            expect(location.pathname + location.search).toBe("/statistics/display-layouts?owner=dibk&app=et-v4&compare=1");
             await (button.onclick as unknown as () => Promise<void>)();
-            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=et-v4");
+            expect(location.pathname + location.search).toBe("/statistics/display-layouts?owner=dibk&app=et-v4");
         });
 
         it("keeps comparing when another app is chosen, with that app's installed version", async () => {
@@ -192,7 +192,7 @@ describe("Compare with installed version on the display layouts page", () => {
             expect(isComparing(main)).toBe(true);
             expect(shownLabel(main.querySelector(".upgrade-preview-button")!)).toBe("Close comparison");
             expect(main.querySelector(".upgrade-preview-status")!.textContent).toContain("17.1.0");
-            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=rs-v4&compare=1");
+            expect(location.pathname + location.search).toBe("/statistics/display-layouts?owner=dibk&app=rs-v4&compare=1");
         });
 
         it("keeps comparing when the language changes", async () => {
@@ -203,12 +203,12 @@ describe("Compare with installed version on the display layouts page", () => {
             select.dispatchEvent(new Event("change"));
             await settle();
             expect(isComparing(main)).toBe(true);
-            expect(location.hash).toBe("#/display-layouts?owner=dibk&app=et-v4&lang=nn&compare=1");
+            expect(location.pathname + location.search).toBe("/statistics/display-layouts?owner=dibk&app=et-v4&lang=nn&compare=1");
         });
 
         it("opens comparing from an address that says so", async () => {
             document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
-            history.replaceState(null, "", "#/display-layouts?owner=dibk&app=et-v4&compare=1");
+            history.replaceState(null, "", "/statistics/display-layouts?owner=dibk&app=et-v4&compare=1");
             await openPageFromLocation();
             await settle();
             const main = document.getElementById("admin-main")!;

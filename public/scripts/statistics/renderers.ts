@@ -6,16 +6,19 @@ import type { UpgradePreviewOptions } from "./upgradePreview.ts";
 import { appendChildren } from "@arkitektum/altinn-studio-custom-components-utils";
 
 // Local functions
-import { addDataToGlobalThis, setSelectedLanguage } from "../localStorage.ts";
 import {
+    STATISTICS_PATH,
     applyPageFilters,
-    getDisplayLayoutsHash,
+    getAddressFromOldLink,
+    getCurrentAddress,
+    getDisplayLayoutsAddress,
     getDisplayLayoutsOptions,
-    getPageHash,
-    parsePageHash,
+    getPageAddress,
+    parsePageAddress,
     resetPageFilters,
-    setLocationHash
+    setLocation
 } from "./pageLinks.ts";
+import { addDataToGlobalThis, setSelectedLanguage } from "../localStorage.ts";
 import { applyTextResourcesForLanguage, getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
 import { fetchAltinnStudioForms, fetchApplicationMetadata, fetchExampleData, getUpdatedApiData } from "./apiHelpers.ts";
 import {
@@ -74,7 +77,7 @@ let drawOpenPageAgain: (() => void | Promise<void>) | null = null;
  */
 export async function redrawOpenPage() {
     await drawOpenPageAgain?.();
-    writeOpenPageHash();
+    writeOpenPageAddress();
 }
 
 /**
@@ -85,9 +88,9 @@ let openPageId: StatisticsPageId | null = null;
 /**
  * Puts the open page's filter choices in the address. The display layouts page puts its own there each time it is drawn.
  */
-export function writeOpenPageHash() {
+export function writeOpenPageAddress() {
     if (openPageId && openPageId !== "display-layouts") {
-        setLocationHash(getPageHash(openPageId));
+        setLocation(getPageAddress(openPageId));
     }
 }
 
@@ -948,7 +951,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
         compare: selectedOptions?.compare === true
     };
     openPageId = "display-layouts";
-    setLocationHash(getDisplayLayoutsHash(selectedOptions));
+    setLocation(getDisplayLayoutsAddress(selectedOptions));
     // The logo's size and place come from the org and app classes on body, so they are set for every drawing: the page can open on an app from its address, not only from the app picker.
     updateBodyClassNamesForApplication(selectedOptions.displayLayoutAppOwner ?? undefined, selectedOptions.displayLayoutAppName ?? undefined);
     // The text resources for the chosen language are on globalThis, and a synchronization puts the default language
@@ -994,7 +997,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     }
 
     selectedOptions.fileNames = setDefaultSelectedFileNameForDisplayLayouts(displayLayout, appData, selectedOptions);
-    setLocationHash(getDisplayLayoutsHash(selectedOptions));
+    setLocation(getDisplayLayoutsAddress(selectedOptions));
 
     renderSelectDisplayLayoutFilenameFilter(containerElement!, displayLayout, selectedOptions, appData, applicationMetadata);
     renderSelectFormTypeFilter(containerElement!, displayLayout, selectedOptions, appData, applicationMetadata);
@@ -1078,7 +1081,7 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
             compare: selectedOptions.compare === true,
             onCompareChange: (compare: boolean) => {
                 selectedOptions.compare = compare;
-                setLocationHash(getDisplayLayoutsHash(selectedOptions));
+                setLocation(getDisplayLayoutsAddress(selectedOptions));
             }
         })
     );
@@ -1220,8 +1223,18 @@ export function renderAdminSidebar() {
     }
 
     // A filter control changes its global before the event reaches the page, so the address is written from the choices just made.
-    mainElement?.addEventListener("change", writeOpenPageHash);
-    mainElement?.addEventListener("input", writeOpenPageHash);
+    mainElement?.addEventListener("change", writeOpenPageAddress);
+    mainElement?.addEventListener("input", writeOpenPageAddress);
+    // A link on a page to another statistics page opens it in place, as the sidebar does, rather than loading the whole page again.
+    mainElement?.addEventListener("click", (event) => {
+        const link = (event.target as Element | null)?.closest?.("a[href]");
+        const href = link?.getAttribute("href");
+        if (!href || !parsePageAddress(href) || event.defaultPrevented || event.button !== 0) return;
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        setLocation(href, { newEntry: true });
+        void openPageFromLocation();
+    });
 
     sidebarElement!.appendChild(sidebarList);
 }
@@ -1241,7 +1254,7 @@ export async function openStatisticsPage(pageId: StatisticsPageId, { params }: {
     if (fromAddress) {
         applyPageFilters(pageId, params);
     } else {
-        setLocationHash(`#/${pageId}`, { newEntry: true });
+        setLocation(`${STATISTICS_PATH}/${pageId}`, { newEntry: true });
     }
     const options = { keepFilters: fromAddress };
     switch (pageId) {
@@ -1288,7 +1301,7 @@ export async function openStatisticsPage(pageId: StatisticsPageId, { params }: {
             renderUpgradeCheckPage(mainElement);
             break;
     }
-    writeOpenPageHash();
+    writeOpenPageAddress();
 }
 
 /**
@@ -1297,7 +1310,12 @@ export async function openStatisticsPage(pageId: StatisticsPageId, { params }: {
  * @returns {Promise<void>}
  */
 export async function openPageFromLocation() {
-    const page = parsePageHash(globalThis.location.hash);
+    // An old link, from when the page was kept after a #, is moved to the address it means.
+    const addressFromOldLink = getAddressFromOldLink(globalThis.location.hash);
+    if (addressFromOldLink) {
+        setLocation(addressFromOldLink);
+    }
+    const page = parsePageAddress(getCurrentAddress());
     if (page) {
         await openStatisticsPage(page.pageId, { params: page.params });
     }

@@ -5,7 +5,7 @@ import { API_ORIGIN, fetchAltinnStudioForms, fetchExampleData, getPackageFileUrl
 import { buildPreviewDocument, compareDrawnComponents, createFrame, frameLoaded, getInstalledVersion } from "./upgradePreview.ts";
 import { applyTextResourcesForLanguage } from "./textResourceLanguage.ts";
 import { drawLayoutComponents } from "./drawComponents.ts";
-import { getDisplayLayoutsHash } from "./pageLinks.ts";
+import { getDisplayLayoutsAddress } from "./pageLinks.ts";
 import { getRenderTargets } from "./renderHealth.ts";
 import { getResourcesForLanguage } from "../getters.ts";
 import { pluralize } from "../formatters.ts";
@@ -55,7 +55,7 @@ export type DrawPair = (target: RenderTarget, version: string) => Promise<string
  * @returns {string} The address.
  */
 export function getComparisonLink(target: RenderTarget) {
-    return getDisplayLayoutsHash({
+    return getDisplayLayoutsAddress({
         displayLayoutAppOwner: target.appOwner,
         displayLayoutAppName: target.appName,
         formType: target.formType,

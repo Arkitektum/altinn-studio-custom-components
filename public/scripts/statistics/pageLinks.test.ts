@@ -1,12 +1,14 @@
 import {
     applyPageFilters,
-    getDisplayLayoutsHash,
+    getAddressFromOldLink,
+    getCurrentAddress,
+    getDisplayLayoutsAddress,
     getDisplayLayoutsOptions,
-    getPageHash,
+    getPageAddress,
     pageFilters,
-    parsePageHash,
+    parsePageAddress,
     resetPageFilters,
-    setLocationHash
+    setLocation
 } from "./pageLinks.ts";
 
 describe("resetPageFilters", () => {
@@ -41,16 +43,16 @@ describe("applyPageFilters", () => {
     });
 });
 
-describe("getPageHash", () => {
+describe("getPageAddress", () => {
     it("names only the page when every filter is at its default", () => {
         resetPageFilters("resource-usage");
-        expect(getPageHash("resource-usage")).toBe("#/resource-usage");
-        expect(getPageHash("package-versions")).toBe("#/package-versions");
+        expect(getPageAddress("resource-usage")).toBe("/statistics/resource-usage");
+        expect(getPageAddress("package-versions")).toBe("/statistics/package-versions");
     });
     it("names the filters that are not at their default, encoded", () => {
         resetPageFilters("subform-data-models");
         Object.assign(globalThis, { subformModelPathFilter: "a b&c", subformModelShowAgreeing: true });
-        expect(getPageHash("subform-data-models")).toBe("#/subform-data-models?path=a+b%26c&agreeing=1");
+        expect(getPageAddress("subform-data-models")).toBe("/statistics/subform-data-models?path=a+b%26c&agreeing=1");
     });
     it("gives back the same filters when the address is read again", () => {
         resetPageFilters("component-usage");
@@ -60,32 +62,54 @@ describe("getPageHash", () => {
             componentTypeFilter: "data",
             componentMatchBy: "id"
         });
-        const hash = getPageHash("component-usage");
+        const hash = getPageAddress("component-usage");
         resetPageFilters("component-usage");
-        applyPageFilters("component-usage", parsePageHash(hash)!.params);
-        expect(getPageHash("component-usage")).toBe(hash);
+        applyPageFilters("component-usage", parsePageAddress(hash)!.params);
+        expect(getPageAddress("component-usage")).toBe(hash);
         expect(globalThis.componentTypeFilter).toBe("data");
     });
 });
 
-describe("parsePageHash", () => {
+describe("parsePageAddress", () => {
     it("reads the page and its filters", () => {
-        const page = parsePageHash("#/component-usage?app=a&type=data");
+        const page = parsePageAddress("/statistics/component-usage?app=a&type=data");
         expect(page!.pageId).toBe("component-usage");
         expect(page!.params.get("app")).toBe("a");
         expect(page!.params.get("type")).toBe("data");
     });
     it("reads a page without filters", () => {
-        expect(parsePageHash("#/package-versions")!.params.toString()).toBe("");
+        expect(parsePageAddress("/statistics/package-versions")!.params.toString()).toBe("");
     });
-    it.each(["", "#", "#/", "#/unknown-page", "#component-usage", "#/constructor", "#/component-usage/extra"])("names no page in %p", (hash) => {
-        expect(parsePageHash(hash)).toBeNull();
+    it.each([
+        "",
+        "/statistics",
+        "/statistics/",
+        "/statistics/unknown-page",
+        "/statistics/constructor",
+        "/statistics/component-usage/extra",
+        "/statisticsx/component-usage",
+        "/other/component-usage",
+        "/app/statistics/component-usage",
+        "#/component-usage",
+        "statistics/component-usage"
+    ])("names no page in %p", (address) => {
+        expect(parsePageAddress(address)).toBeNull();
+    });
+});
+
+describe("getAddressFromOldLink", () => {
+    it("gives the address an old # link means, with its choices", () => {
+        expect(getAddressFromOldLink("#/component-usage?app=a&type=data")).toBe("/statistics/component-usage?app=a&type=data");
+        expect(getAddressFromOldLink("#/package-versions")).toBe("/statistics/package-versions");
+    });
+    it.each(["", "#", "#/", "#/unknown-page", "#component-usage"])("gives nothing for %p, which names no page", (hash) => {
+        expect(getAddressFromOldLink(hash)).toBeNull();
     });
 });
 
 describe("display layouts address", () => {
     it("names only the page when every choice is at its default", () => {
-        expect(getDisplayLayoutsHash({ formType: "main", language: "nb", fileNames: {} })).toBe("#/display-layouts");
+        expect(getDisplayLayoutsAddress({ formType: "main", language: "nb", fileNames: {} })).toBe("/statistics/display-layouts");
     });
     it("names the app, form, language and example file chosen", () => {
         const options = {
@@ -96,16 +120,16 @@ describe("display layouts address", () => {
             fileNames: { ByggesoknadV4: "eksempel 2.xml" },
             compare: false
         };
-        const hash = getDisplayLayoutsHash(options);
-        expect(hash).toBe("#/display-layouts?owner=dibk&app=et-v4&form=sub-v1&lang=nn&file.ByggesoknadV4=eksempel+2.xml");
-        expect(getDisplayLayoutsOptions(parsePageHash(hash)!.params)).toEqual(options);
+        const hash = getDisplayLayoutsAddress(options);
+        expect(hash).toBe("/statistics/display-layouts?owner=dibk&app=et-v4&form=sub-v1&lang=nn&file.ByggesoknadV4=eksempel+2.xml");
+        expect(getDisplayLayoutsOptions(parsePageAddress(hash)!.params)).toEqual(options);
     });
     it("names an open comparison, and reads it back, only when it is open", () => {
-        const hash = getDisplayLayoutsHash({ displayLayoutAppOwner: "dibk", displayLayoutAppName: "et-v4", compare: true });
-        expect(hash).toBe("#/display-layouts?owner=dibk&app=et-v4&compare=1");
-        expect(getDisplayLayoutsOptions(parsePageHash(hash)!.params).compare).toBe(true);
-        expect(getDisplayLayoutsHash({ displayLayoutAppOwner: "dibk", displayLayoutAppName: "et-v4", compare: false })).toBe(
-            "#/display-layouts?owner=dibk&app=et-v4"
+        const hash = getDisplayLayoutsAddress({ displayLayoutAppOwner: "dibk", displayLayoutAppName: "et-v4", compare: true });
+        expect(hash).toBe("/statistics/display-layouts?owner=dibk&app=et-v4&compare=1");
+        expect(getDisplayLayoutsOptions(parsePageAddress(hash)!.params).compare).toBe(true);
+        expect(getDisplayLayoutsAddress({ displayLayoutAppOwner: "dibk", displayLayoutAppName: "et-v4", compare: false })).toBe(
+            "/statistics/display-layouts?owner=dibk&app=et-v4"
         );
         expect(getDisplayLayoutsOptions(new URLSearchParams("compare=yes")).compare).toBe(false);
     });
@@ -121,20 +145,26 @@ describe("display layouts address", () => {
     });
 });
 
-describe("setLocationHash", () => {
+describe("setLocation", () => {
     it("adds an entry to the history for a new page, and replaces it for a filter choice", () => {
         const length = history.length;
-        setLocationHash("#/package-versions", { newEntry: true });
-        expect(location.hash).toBe("#/package-versions");
+        setLocation("/statistics/package-versions", { newEntry: true });
+        expect(location.pathname + location.search).toBe("/statistics/package-versions");
         expect(history.length).toBe(length + 1);
-        setLocationHash("#/component-usage?app=a");
-        expect(location.hash).toBe("#/component-usage?app=a");
+        setLocation("/statistics/component-usage?app=a");
+        expect(location.pathname + location.search).toBe("/statistics/component-usage?app=a");
         expect(history.length).toBe(length + 1);
     });
+    it("takes an old # off the address, also when the path is already the one given", () => {
+        history.replaceState(null, "", "/statistics/resource-usage#/component-usage");
+        setLocation("/statistics/resource-usage");
+        expect(location.hash).toBe("");
+        expect(getCurrentAddress()).toBe("/statistics/resource-usage");
+    });
     it("leaves the history alone when the address is already the one given", () => {
-        setLocationHash("#/resource-usage", { newEntry: true });
+        setLocation("/statistics/resource-usage", { newEntry: true });
         const length = history.length;
-        setLocationHash("#/resource-usage", { newEntry: true });
+        setLocation("/statistics/resource-usage", { newEntry: true });
         expect(history.length).toBe(length);
     });
 });

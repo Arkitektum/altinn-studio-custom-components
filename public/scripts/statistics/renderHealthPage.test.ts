@@ -55,27 +55,27 @@ describe("render health page", () => {
             multilingualDefaultTextResources: [],
             multilingualAppResourceValues: []
         });
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
         renderAdminSidebar();
     });
 
     afterEach(() => {
         console.warn = originalWarn;
-        history.replaceState(null, "", "#");
+        history.replaceState(null, "", "/statistics");
     });
 
     it("opens from the sidebar, with a button and nothing checked yet", () => {
         (
             Array.from(document.querySelectorAll("#sidebar button")).find((button) => button.textContent === "Render health") as HTMLButtonElement
         ).click();
-        expect(location.hash).toBe("#/render-health");
+        expect(location.pathname + location.search).toBe("/statistics/render-health");
         expect(main.querySelector("h2")!.textContent).toBe("Render health");
         expect((main.querySelector("#render-health-check-button") as HTMLButtonElement).textContent).toBe("Check all apps");
         expect(main.querySelector("#render-health-results")!.textContent).toBe("");
     });
 
     it("checks every app when the button is pressed, and lists what could not be drawn", async () => {
-        history.replaceState(null, "", "#/render-health");
+        history.replaceState(null, "", "/statistics/render-health");
         await openPageFromLocation();
         const button = main.querySelector("#render-health-check-button") as HTMLButtonElement;
         button.click();
@@ -90,7 +90,7 @@ describe("render health page", () => {
     });
 
     it("keeps the last results when opened again, and says when the data has been synchronized since", async () => {
-        history.replaceState(null, "", "#/render-health");
+        history.replaceState(null, "", "/statistics/render-health");
         await openPageFromLocation();
         (main.querySelector("#render-health-check-button") as HTMLButtonElement).click();
         await settle();

@@ -16,7 +16,9 @@ module.exports = {
     },
     output: {
         filename: "[name].js",
-        path: path.resolve(__dirname, "dist")
+        path: path.resolve(__dirname, "dist"),
+        // From the root, so the scripts and styles load on pages under a path such as /statistics/component-usage.
+        publicPath: "/"
     },
     plugins: [
         new Dotenv(),

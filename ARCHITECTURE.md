@@ -204,11 +204,12 @@ See [SECURITY.md](./SECURITY.md) for the threat model.
 
 The dev server (`yarn start`, webpack-dev-server) serves a local playground in addition to the shipped bundle:
 
-- **`index.html`**: a start page linking to the two below.
-- **`devTools.html`**: DevTools overlay mode (also reachable in a real app via `?devtools=true`).
+- **`index.html`**, at `/`: a start page linking to the two below.
+- **`devTools.html`**, at `/devTools`: DevTools overlay mode (also reachable in a real app via `?devtools=true`).
   Each component gets an inspection badge color-coded by category (Base / Data / Layout).
   See the README for details.
-- **`statistics.html`**: a dashboard over the apps in the shared catalogue: component and text resource usage, data model binding drift, subform data model differences, package versions, and every app's display layouts drawn with its example data.
+- **`statistics.html`**, at `/statistics`: a dashboard over the apps in the shared catalogue: component and text resource usage, data model binding drift, subform data model differences, package versions, every app's display layouts drawn with its example data (and compared with the version the app has installed), and checks of every form for render errors, unshown data and changes an upgrade would bring.
+  Each page has an address of its own, `/statistics/<page>` with its choices as a query, e.g. `/statistics/component-usage?app=et-v4`. The dev server answers every address under `/statistics` with the same page, which is why the pages load their scripts and styles from the root. Old links of the form `statistics.html#/<page>` still open their page.
   It calls the local **`altinn-studio-custom-components-api`** on `API_PORT` (default `9001`), which needs a Gitea token in its own environment (see [CONTRIBUTING](./CONTRIBUTING.md)).
 
 These surfaces are development-only and are not part of the published `dist/`.

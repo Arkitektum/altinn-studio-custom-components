@@ -1,5 +1,6 @@
 /**
- * Links to the statistics pages: the open page and its filter choices are kept in the address, as `#/<page>?<filter>=<value>`, so a page can be reloaded, sent to someone, or reached with Back and Forward.
+ * Links to the statistics pages: the open page and its filter choices are kept in the address, as `/statistics/<page>?<filter>=<value>`, so a page can be reloaded, sent to someone, or reached with Back and Forward.
+ * The dev server answers every address under /statistics with the statistics page.
  */
 
 export type StatisticsPageId =
@@ -14,6 +15,9 @@ export type StatisticsPageId =
     | "upgrade-check";
 
 type FilterValue = string | boolean;
+
+/** Where the statistics pages live. Each page is a path under it. */
+export const STATISTICS_PATH = "/statistics";
 
 /**
  * The filters each page keeps in globalThis: for each name used in the address, the global it is kept in and its default.
@@ -107,9 +111,9 @@ export function applyPageFilters(pageId: StatisticsPageId, params: URLSearchPara
  * The address of a page with its filters as they are now, leaving out the ones at their default.
  *
  * @param {StatisticsPageId} pageId - The page.
- * @returns {string} The address, e.g. "#/component-usage?app=et-v4".
+ * @returns {string} The address, e.g. "/statistics/component-usage?app=et-v4".
  */
-export function getPageHash(pageId: StatisticsPageId) {
+export function getPageAddress(pageId: StatisticsPageId) {
     const params = new URLSearchParams();
     for (const [name, { global, defaultValue }] of Object.entries(pageFilters[pageId])) {
         const value = globals[global] ?? defaultValue;
@@ -117,16 +121,16 @@ export function getPageHash(pageId: StatisticsPageId) {
         params.set(name, typeof defaultValue === "boolean" ? (value ? "1" : "0") : String(value));
     }
     const query = params.toString();
-    return `#/${pageId}${query ? `?${query}` : ""}`;
+    return getPageAddressFor(pageId, query);
 }
 
 /**
  * The address of the display layouts page with its choices, leaving out the ones at their default.
  *
  * @param {DisplayLayoutsOptions} options - The choices on the page.
- * @returns {string} The address, e.g. "#/display-layouts?owner=dibk&app=et-v4&lang=nn".
+ * @returns {string} The address, e.g. "/statistics/display-layouts?owner=dibk&app=et-v4&lang=nn".
  */
-export function getDisplayLayoutsHash(options: DisplayLayoutsOptions) {
+export function getDisplayLayoutsAddress(options: DisplayLayoutsOptions) {
     const params = new URLSearchParams();
     if (options.displayLayoutAppOwner) params.set("owner", options.displayLayoutAppOwner);
     if (options.displayLayoutAppName) params.set("app", options.displayLayoutAppName);
@@ -137,7 +141,7 @@ export function getDisplayLayoutsHash(options: DisplayLayoutsOptions) {
     }
     if (options.compare) params.set("compare", "1");
     const query = params.toString();
-    return `#/display-layouts${query ? `?${query}` : ""}`;
+    return getPageAddressFor("display-layouts", query);
 }
 
 /**
@@ -164,28 +168,61 @@ export function getDisplayLayoutsOptions(params: URLSearchParams): DisplayLayout
 /**
  * Reads which page, and which choices on it, an address names.
  *
- * @param {string} hash - The address's fragment, e.g. "#/component-usage?app=et-v4".
+ * @param {string} address - The address's path and query, e.g. "/statistics/component-usage?app=et-v4".
  * @returns {{ pageId: StatisticsPageId, params: URLSearchParams } | null} The page and the choices, or null when the address names no page.
  */
-export function parsePageHash(hash: string) {
-    const match = /^#\/([^?]*)(?:\?(.*))?$/.exec(hash);
+export function parsePageAddress(address: string) {
+    const match = /^\/statistics\/([^/?]*)(?:\?(.*))?$/.exec(address);
     const pageId = match?.[1];
     if (!isStatisticsPageId(pageId)) return null;
     return { pageId, params: new URLSearchParams(match?.[2] ?? "") };
 }
 
 /**
+ * The address an old link names, from when the page and its choices were kept after a #, e.g. "#/component-usage?app=et-v4", so links and bookmarks from then still open their page.
+ *
+ * @param {string} hash - The address's fragment.
+ * @returns {string | null} The address, e.g. "/statistics/component-usage?app=et-v4", or null when the fragment names no page.
+ */
+export function getAddressFromOldLink(hash: string) {
+    const match = /^#\/([^?]*)(?:\?(.*))?$/.exec(hash);
+    const pageId = match?.[1];
+    if (!isStatisticsPageId(pageId)) return null;
+    return getPageAddressFor(pageId, match?.[2] ?? "");
+}
+
+/**
+ * The address of a page with the given query.
+ *
+ * @param {StatisticsPageId} pageId - The page.
+ * @param {string} query - The query, without its "?".
+ * @returns {string} The address.
+ */
+function getPageAddressFor(pageId: StatisticsPageId, query: string) {
+    return `${STATISTICS_PATH}/${pageId}${query ? `?${query}` : ""}`;
+}
+
+/**
+ * The page's address as it is now: its path and query.
+ *
+ * @returns {string} The address.
+ */
+export function getCurrentAddress() {
+    return `${globalThis.location.pathname}${globalThis.location.search}`;
+}
+
+/**
  * Puts an address in the address bar. A new page gets an entry of its own in the history, so Back returns to the page before it. A filter choice replaces the entry, so Back does not step through every keystroke.
  *
- * @param {string} hash - The address.
+ * @param {string} address - The address's path and query.
  * @param {Object} [options]
  * @param {boolean} [options.newEntry] - Add an entry to the history rather than replacing the current one.
  */
-export function setLocationHash(hash: string, { newEntry = false }: { newEntry?: boolean } = {}) {
-    if (globalThis.location.hash === hash) return;
+export function setLocation(address: string, { newEntry = false }: { newEntry?: boolean } = {}) {
+    if (getCurrentAddress() === address && !globalThis.location.hash) return;
     if (newEntry) {
-        globalThis.history.pushState(null, "", hash);
+        globalThis.history.pushState(null, "", address);
     } else {
-        globalThis.history.replaceState(null, "", hash);
+        globalThis.history.replaceState(null, "", address);
     }
 }
