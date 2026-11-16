@@ -90,6 +90,7 @@ describe("statistics page links", () => {
         expect(Array.from(main.querySelectorAll("#component-usage-list .component-tag-name")).map((node) => node.textContent)).toEqual([
             "custom-field-data"
         ]);
+        expect(main.querySelector("#component-usage-list .list-summary")!.textContent).toBe("1 of 2 components match the chosen filters.");
         expect(location.pathname + location.search).toBe("/statistics/component-usage?form=sub-v1");
     });
 

@@ -1,5 +1,6 @@
 import {
     filterComponentsBySelectedFilters,
+    renderComponentUsageList,
     renderComponentUsageListItem,
     renderSelectApplicationFilterForComponentUsageList,
     renderSelectComponentTypeFilterForComponentUsageList,
@@ -60,6 +61,25 @@ describe("renderComponentUsageListItem", () => {
     });
 });
 
+describe("renderComponentUsageList", () => {
+    it("says how many of all the components passed the filters, above the list", () => {
+        const all = [
+            { tagName: "custom-a", usages: [] },
+            { tagName: "custom-b", usages: [] },
+            { tagName: "custom-c", usages: [] }
+        ];
+        const list = renderComponentUsageList(all.slice(1), all);
+        expect(list.firstElementChild!.classList.contains("list-summary")).toBe(true);
+        expect(list.firstElementChild!.textContent).toBe("2 of 3 components match the chosen filters.");
+        expect(list.querySelectorAll(".component-usage-list-item").length).toBe(2);
+    });
+
+    it("counts the listed components as all of them when not told otherwise", () => {
+        const list = renderComponentUsageList([{ tagName: "custom-a", usages: [] }]);
+        expect(list.querySelector(".list-summary")!.textContent).toBe("1 of 1 components match the chosen filters.");
+    });
+});
+
 describe("component usage filters", () => {
     // A container seeded with the initial (unfiltered) list, mirroring how renderComponentUsagePage lays out the page.
     function setupContainer() {
@@ -100,6 +120,7 @@ describe("component usage filters", () => {
         select!.dispatchEvent(new Event("change"));
 
         expect(renderedTagNames(container)).toEqual(["custom-field"]);
+        expect(container.querySelector("#component-usage-list .list-summary")!.textContent).toBe("1 of 4 components match the chosen filters.");
     });
 
     it("component type filter renders options and filters by category", () => {

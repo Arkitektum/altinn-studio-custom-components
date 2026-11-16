@@ -225,3 +225,16 @@ export function renderTextFilter({
 
     return textInputContainerElement;
 }
+
+/**
+ * The line at the top of a usage list saying how many of all the entries passed the filters.
+ *
+ * @param {string} text - What to say.
+ * @returns {HTMLParagraphElement} The line.
+ */
+export function renderListSummary(text: string) {
+    const summaryElement = document.createElement("p");
+    summaryElement.classList.add("list-summary");
+    summaryElement.textContent = text;
+    return summaryElement;
+}

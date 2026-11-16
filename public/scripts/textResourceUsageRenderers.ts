@@ -1,6 +1,13 @@
 import type { ApiValue, Layout, LayoutComponent } from "./types.ts";
 import { filterResources, filterResourcesByApplication, filterTextResourcesByTextInput, getResourcesWithSameValue } from "./filters.ts";
-import { renderApplicationFilter, renderFormFilter, renderLabelledSelectFilter, renderTextFilter, storedChoice } from "./filterControls.ts";
+import {
+    renderApplicationFilter,
+    renderFormFilter,
+    renderLabelledSelectFilter,
+    renderListSummary,
+    renderTextFilter,
+    storedChoice
+} from "./filterControls.ts";
 import type { AppFormChoices } from "./filterControls.ts";
 import { getLanguageNameFromCode } from "./languages.ts";
 
@@ -327,6 +334,9 @@ export function renderDefaultTextResourcesList(filteredTextResources: ApiValue, 
     defaultResourcesListElement.id = "default-text-resources-list";
     defaultResourcesListElement.classList.add("paper");
     defaultResourcesListElement.innerHTML = "";
+    defaultResourcesListElement.appendChild(
+        renderListSummary(`${filteredTextResources.length} of ${allTextResources.length} text resources match the chosen filters.`)
+    );
     filteredTextResources.forEach((textResource: ApiValue) => {
         const listItemElement = renderDefaultTextResourceListItem(textResource, allTextResources);
         defaultResourcesListElement.appendChild(listItemElement);

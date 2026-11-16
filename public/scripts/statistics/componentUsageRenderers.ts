@@ -1,6 +1,13 @@
 import type { ApiValue, Layout, LayoutComponent } from "../types.ts";
 import { filterComponentsByApplication, filterComponentsByTextInput, filterComponentsByType, filterComponentsByUsage } from "../filters.ts";
-import { renderApplicationFilter, renderFormFilter, renderLabelledSelectFilter, renderTextFilter, storedChoice } from "../filterControls.ts";
+import {
+    renderApplicationFilter,
+    renderFormFilter,
+    renderLabelledSelectFilter,
+    renderListSummary,
+    renderTextFilter,
+    storedChoice
+} from "../filterControls.ts";
 import type { AppFormChoices } from "../filterControls.ts";
 
 /**
@@ -343,11 +350,14 @@ export function renderComponentUsageListItem(component: LayoutComponent | undefi
  * @param {Array} componentUsage - An array of component usage objects.
  * @returns {HTMLElement} - The list element representing the component usages.
  */
-export function renderComponentUsageList(componentUsage: ApiValue) {
+export function renderComponentUsageList(componentUsage: ApiValue, allComponents: ApiValue = componentUsage) {
     const componentUsageListElement = document.createElement("div");
     componentUsageListElement.id = "component-usage-list";
     componentUsageListElement.classList.add("paper");
     componentUsageListElement.innerHTML = "";
+    componentUsageListElement.appendChild(
+        renderListSummary(`${componentUsage.length} of ${(allComponents || []).length} components match the chosen filters.`)
+    );
     componentUsage.forEach((component: LayoutComponent | undefined) => {
         const listItemElement = renderComponentUsageListItem(component);
         componentUsageListElement.appendChild(listItemElement);
@@ -389,7 +399,7 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
     if (existingListElement) {
         existingListElement.remove();
     }
-    const newListElement = renderComponentUsageList(filteredComponents);
+    const newListElement = renderComponentUsageList(filteredComponents, components);
     containerElement.appendChild(newListElement);
 }
 

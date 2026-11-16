@@ -228,7 +228,9 @@ export function renderComponentUsagePage(containerElement: HTMLElement, { keepFi
     containerElement.appendChild(renderSelectComponentTypeFilterForComponentUsageList(containerElement!, componentUsage));
     containerElement.appendChild(renderTextInputFilterForComponentUsageList(containerElement!, componentUsage));
     // Filtered only when the choices were kept. A fresh visit shows the whole list.
-    containerElement.appendChild(renderComponentUsageList(keepFilters ? filterComponentsBySelectedFilters(componentUsage) : componentUsage));
+    containerElement.appendChild(
+        renderComponentUsageList(keepFilters ? filterComponentsBySelectedFilters(componentUsage) : componentUsage, componentUsage)
+    );
 }
 
 /**

@@ -86,6 +86,17 @@ describe("renderDefaultTextResourcesList", () => {
         expect(el).toBeInstanceOf(HTMLElement);
         expect(el.querySelectorAll(".default-text-resource-list-item").length).toBe(2);
     });
+
+    it("says how many of all the text resources passed the filters, above the list", () => {
+        const resources = [
+            { usage: [], resource: { id: "id1", values: { nb: "Hei" } }, presence: "" },
+            { usage: [], resource: { id: "id2", values: { nb: "Ha det" } }, presence: "" },
+            { usage: [], resource: { id: "id3", values: { nb: "Takk" } }, presence: "" }
+        ];
+        const el = renderDefaultTextResourcesList(resources.slice(0, 1), resources);
+        expect(el.firstElementChild!.classList.contains("list-summary")).toBe(true);
+        expect(el.firstElementChild!.textContent).toBe("1 of 3 text resources match the chosen filters.");
+    });
 });
 
 describe("renderUsageFilterForTextResourcesList", () => {
@@ -165,6 +176,9 @@ describe("renderSelectFormFilterForTextResourcesList", () => {
         choose(applicationSelect, "o/b");
         expect(Array.from(formSelect.options).map((option) => option.value)).toEqual(["", ":main", "sub-v1"]);
         expect(renderedIds(container)).toEqual(["sub-b"]);
+        expect(container.querySelector("#default-text-resources-list .list-summary")!.textContent).toBe(
+            "1 of 3 text resources match the chosen filters."
+        );
     });
 
     it("falls back to every form when the selected app does not carry the chosen subform", () => {
