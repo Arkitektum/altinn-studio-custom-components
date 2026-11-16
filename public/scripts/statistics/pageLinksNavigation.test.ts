@@ -130,6 +130,48 @@ describe("statistics page links", () => {
         expect(history.length).toBe(length + 1);
     });
 
+    describe("the open page in the sidebar", () => {
+        function currentButtons() {
+            return Array.from(document.querySelectorAll('#sidebar button[aria-current="page"]')).map((button) => button.textContent);
+        }
+        function activeItems() {
+            return Array.from(document.querySelectorAll("#sidebar li.active")).map((item) => item.textContent);
+        }
+
+        it("marks no page before one is opened", () => {
+            expect(currentButtons()).toEqual([]);
+            expect(activeItems()).toEqual([]);
+        });
+
+        it("marks the page opened from the sidebar, and only that one", () => {
+            clickSidebar("Component usage");
+            clickSidebar("Package versions");
+            expect(currentButtons()).toEqual(["Package versions"]);
+            expect(activeItems()).toEqual(["Package versions"]);
+        });
+
+        it("marks the page an address opens", async () => {
+            await openFromAddress("/statistics/subform-data-models");
+            expect(currentButtons()).toEqual(["Subform data models"]);
+            expect(activeItems()).toEqual(["Subform data models"]);
+        });
+
+        it("marks the page a link on another page opens", async () => {
+            clickSidebar("Package versions");
+            const link = document.createElement("a");
+            link.href = "/statistics/component-usage";
+            main.appendChild(link);
+            link.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, button: 0 }));
+            await settle();
+            expect(currentButtons()).toEqual(["Component usage"]);
+        });
+
+        it("marks a page that loads its data first as soon as it is chosen", () => {
+            clickSidebar("Display layouts");
+            expect(currentButtons()).toEqual(["Display layouts"]);
+        });
+    });
+
     it("leaves other links, and links opened with a modifier key, to the browser", () => {
         clickSidebar("Package versions");
         const other = document.createElement("a");

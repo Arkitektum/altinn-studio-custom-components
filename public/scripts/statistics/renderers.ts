@@ -1217,6 +1217,7 @@ export function renderAdminSidebar() {
         const listItem = document.createElement("li");
         const button = document.createElement("button");
         setIconLabel(button, icon, label);
+        button.dataset.pageId = pageId;
         button.onclick = () => openStatisticsPage(pageId);
         listItem.appendChild(button);
         sidebarList.appendChild(listItem);
@@ -1240,6 +1241,24 @@ export function renderAdminSidebar() {
 }
 
 /**
+ * Marks the sidebar button of the open page as the current one, and no other.
+ *
+ * @param {StatisticsPageId} pageId - The open page.
+ */
+function markOpenPageInSidebar(pageId: StatisticsPageId) {
+    const buttons: NodeListOf<HTMLButtonElement> = document.querySelectorAll("#sidebar button[data-page-id]");
+    for (const button of buttons) {
+        const isOpen = button.dataset.pageId === pageId;
+        if (isOpen) {
+            button.setAttribute("aria-current", "page");
+        } else {
+            button.removeAttribute("aria-current");
+        }
+        button.closest("li")?.classList.toggle("active", isOpen);
+    }
+}
+
+/**
  * Opens a page. From the sidebar its filters start at their defaults and it gets an entry in the history. From an address its filters are those in the address.
  *
  * @param {StatisticsPageId} pageId - The page.
@@ -1250,6 +1269,7 @@ export function renderAdminSidebar() {
 export async function openStatisticsPage(pageId: StatisticsPageId, { params }: { params?: URLSearchParams } = {}) {
     const mainElement = document.getElementById("admin-main")!;
     mainElement.innerHTML = "";
+    markOpenPageInSidebar(pageId);
     const fromAddress = params !== undefined;
     if (fromAddress) {
         applyPageFilters(pageId, params);
