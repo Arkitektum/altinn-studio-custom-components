@@ -30,6 +30,8 @@
     --color-background-dark: #0c1117;
     --color-background-dark-highlight: #131a25;
     --color-border-dark-highlight: #334155;
+    /* The longest a line of prose runs before it gets hard to follow back to the next line. */
+    --measure: 72ch;
 }
 
 @keyframes spin {
@@ -673,6 +675,7 @@ svg.icon {
             }
             /* What a page says in place of its content, e.g. before a choice is made. */
             & main > p.page-message {
+                max-width: var(--measure);
                 font-size: 14px;
                 color: var(--color-text-white-muted);
             }
@@ -868,6 +871,10 @@ svg.icon {
                 border: 1px solid var(--color-border-dark-highlight);
                 border-radius: 8px;
                 color: var(--color-text-white);
+                /* Descriptions and messages in a panel, not the lists and tables beside them. */
+                & > p {
+                    max-width: var(--measure);
+                }
                 & .binding-drift-summary,
                 & .list-summary {
                     margin: 0 0 8px;
