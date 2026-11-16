@@ -315,10 +315,13 @@ svg.icon {
                 }
             }
         }
+        /* The editor takes what the preview leaves, but never less than 320px. Once the divider is moved, it keeps the width chosen (--editor-width) and the preview takes the rest. */
         & section.data-input {
             padding: 0;
             margin: 0;
-            flex-basis: 100%;
+            flex: 1 1 0;
+            min-width: 320px;
+            max-width: calc(100vw - 330px - 6px - 240px);
             height: 100vh;
             overflow: hidden;
             display: flex;
@@ -379,14 +382,43 @@ svg.icon {
                 outline: none;
             }
         }
+        &.has-editor-width {
+            & section.data-input {
+                flex: 0 0 var(--editor-width);
+            }
+            & .page-container {
+                flex: 1 1 0;
+            }
+        }
+        /* Between the editor and the preview: drag it, or focus it and use the arrow keys, Home and End. */
+        & .split-handle {
+            flex: 0 0 6px;
+            height: 100vh;
+            cursor: col-resize;
+            background-color: #202224;
+            transition: var(--background-transition-default);
+            &:hover,
+            &:focus-visible {
+                background-color: var(--color-background-primary);
+            }
+            &:focus-visible {
+                outline: 2px solid var(--color-text-white);
+                outline-offset: -2px;
+            }
+        }
+        &.is-resizing-editor {
+            cursor: col-resize;
+            user-select: none;
+        }
+        /* The preview wants room for the A4 page (830px) and gives way to the editor down to 240px, scrolling sideways when the page does not fit. */
         & .page-container {
-            flex-basis: 830px;
-            min-width: 830px;
+            flex: 0 1 830px;
+            min-width: 240px;
             height: 100vh;
             overflow: auto scroll;
             &.admin {
-                flex-basis: 100%;
-                /* The 830px above keeps room for the dev tools' A4 page beside the editor. The statistics pages fit the window instead, and a form wider than it scrolls sideways. */
+                flex: 1 1 100%;
+                /* The statistics pages have no editor beside them, so they fit the window, and a form wider than it scrolls sideways. */
                 min-width: 0;
                 /* So what is wider than the content column can be measured against, and centred in, the whole width beside the sidebar. */
                 container-type: inline-size;
