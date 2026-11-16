@@ -202,15 +202,21 @@ svg.icon {
                         transition: var(--background-transition-default);
                         font-family: var(--font-family-default);
                     }
+                    /* The name takes the room the option buttons leave, and is cut short with an ellipsis only when it does not fit. */
                     & .buttons-container {
-                        & button {
-                            width: 194px;
+                        display: flex;
+                        align-items: center;
+                        & > button {
+                            flex: 1 1 auto;
+                            min-width: 0;
+                            width: auto;
                             text-overflow: ellipsis;
                             white-space: nowrap;
                             overflow: hidden;
                         }
                         & .option-buttons-container {
-                            width: 131px;
+                            flex: 0 0 auto;
+                            padding-right: 6px;
                             display: inline-block;
                             text-align: right;
                             & button {

@@ -58,7 +58,10 @@ export function getDataModelListElements() {
         };
 
         const dataModelListItemButtonElement = document.createElement("button");
-        setIconLabel(dataModelListItemButtonElement, "database", getDataModelSummaryText(dataModel, index));
+        const summaryText = getDataModelSummaryText(dataModel, index);
+        setIconLabel(dataModelListItemButtonElement, "database", summaryText);
+        // The whole name, for when the sidebar cuts it short.
+        dataModelListItemButtonElement.title = summaryText;
         dataModelListItemButtonElement.onclick = function () {
             const codeInputElement = getCodeInputElementForDataModel(index);
             updateDataInputElement(codeInputElement);

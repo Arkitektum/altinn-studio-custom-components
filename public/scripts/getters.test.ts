@@ -4,6 +4,7 @@ import {
     getCodeInputElementForDataModel,
     getCodeInputElementForLayoutCode,
     getCodeInputElementForTextResources,
+    getDataModelListElements,
     getDataModelSummaryText,
     getDefaultValueForResource,
     getResourcesForLanguage
@@ -259,5 +260,22 @@ describe("editors while typing", () => {
         type(input, '{"a":2}');
         await pause();
         expect(JSON.parse(localStorage.getItem("dataModels")!)).toEqual([{ dataType: "main", data: { a: 2 } }]);
+    });
+});
+
+describe("getDataModelListElements", () => {
+    beforeEach(() => localStorage.clear());
+
+    it("gives each data model's button its whole name as a tooltip, for when the sidebar cuts it short", () => {
+        localStorage.setItem(
+            "dataModels",
+            JSON.stringify([{ dataType: "main", data: {} }, { dataType: "GjennomfoeringsplanUnderskjemaDataV7", data: {} }, { data: {} }])
+        );
+        const buttons = Array.from(getDataModelListElements().querySelectorAll(".buttons-container > button"));
+        expect(buttons.map((button) => button.getAttribute("title"))).toEqual([
+            "[main] main",
+            "GjennomfoeringsplanUnderskjemaDataV7",
+            "Data model 3"
+        ]);
     });
 });
