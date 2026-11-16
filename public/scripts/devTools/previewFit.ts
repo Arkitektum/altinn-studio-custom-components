@@ -47,13 +47,23 @@ export function setUpPreviewFit() {
     const scaleElement = document.createElement("p");
     scaleElement.classList.add("preview-scale");
     pageElement.before(scaleElement);
-    const fit = () => fitPreview(containerElement, pageElement, scaleElement);
-    fit();
-    // Zooming the page changes how tall it is, not how wide the preview is, so watching the preview cannot set itself off.
+    let fittedWidth = containerElement.clientWidth;
+    fitPreview(containerElement, pageElement, scaleElement);
+    // Fitted in the next frame, not while the size change is being reported: zooming the page can add or remove the preview's sideways scrollbar, which changes its height, and a change made while sizes are being reported is one the browser cannot deliver ("ResizeObserver loop completed with undelivered notifications"). A change of height alone leaves the fit as it is.
+    let pendingFrame: number | undefined;
+    const fitInNextFrame = () => {
+        if (pendingFrame !== undefined) cancelAnimationFrame(pendingFrame);
+        pendingFrame = requestAnimationFrame(() => {
+            pendingFrame = undefined;
+            if (containerElement.clientWidth === fittedWidth) return;
+            fittedWidth = containerElement.clientWidth;
+            fitPreview(containerElement, pageElement, scaleElement);
+        });
+    };
     if (typeof ResizeObserver === "function") {
-        new ResizeObserver(fit).observe(containerElement);
+        new ResizeObserver(fitInNextFrame).observe(containerElement);
     } else {
-        globalThis.addEventListener("resize", fit);
+        globalThis.addEventListener("resize", fitInNextFrame);
     }
     return scaleElement;
 }

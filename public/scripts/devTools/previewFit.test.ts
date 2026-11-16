@@ -89,33 +89,77 @@ describe("setUpPreviewFit", () => {
         expect(zoom(page)).toBe("0.5");
     });
 
-    it("fits the page again whenever the preview changes width, as when the divider moves", () => {
-        let observed: Element | null = null;
-        let callback: (() => void) | null = null;
+    /** Lets the next animation frame run, in which the fit is made. */
+    const nextFrame = () => new Promise((resolve) => setTimeout(resolve, 50));
+
+    function observeWithFake() {
+        const fake: { observed: Element | null; callback: (() => void) | null } = { observed: null, callback: null };
         globalThis.ResizeObserver = class {
             constructor(resizeCallback: () => void) {
-                callback = resizeCallback;
+                fake.callback = resizeCallback;
             }
             observe(element: Element) {
-                observed = element;
+                fake.observed = element;
             }
             unobserve() {}
             disconnect() {}
         } as unknown as typeof ResizeObserver;
+        return fake;
+    }
+
+    it("fits the page again whenever the preview changes width, as when the divider moves", async () => {
+        const fake = observeWithFake();
         const { container, page } = setUp(PORTRAIT_WIDTH / 2);
         setUpPreviewFit();
-        expect(observed).toBe(container);
+        expect(fake.observed).toBe(container);
         Object.defineProperty(container, "clientWidth", { configurable: true, value: PORTRAIT_WIDTH * 0.8 });
-        callback!();
+        fake.callback!();
+        await nextFrame();
         expect(Number(zoom(page))).toBeCloseTo(0.8, 10);
     });
 
-    it("follows the window instead where there is no ResizeObserver", () => {
+    it("changes nothing while the size change is being reported, only in the next frame", async () => {
+        const fake = observeWithFake();
+        const { container, page } = setUp(PORTRAIT_WIDTH / 2);
+        setUpPreviewFit();
+        Object.defineProperty(container, "clientWidth", { configurable: true, value: PORTRAIT_WIDTH * 0.8 });
+        fake.callback!();
+        expect(zoom(page)).toBe("0.5");
+        await nextFrame();
+        expect(Number(zoom(page))).toBeCloseTo(0.8, 10);
+    });
+
+    it("leaves the fit alone when only the preview's height changed, as when a scrollbar comes or goes", async () => {
+        const fake = observeWithFake();
+        const { page } = setUp(PORTRAIT_WIDTH * 0.8);
+        setUpPreviewFit();
+        // Landscape would fit smaller, so a fit made now would show.
+        page.classList.add("landscape");
+        fake.callback!();
+        await nextFrame();
+        expect(Number(zoom(page))).toBeCloseTo(0.8, 10);
+    });
+
+    it("remembers the width it last fitted to, so a height change after a width change leaves the fit alone too", async () => {
+        const fake = observeWithFake();
+        const { container, page } = setUp(PORTRAIT_WIDTH / 2);
+        setUpPreviewFit();
+        Object.defineProperty(container, "clientWidth", { configurable: true, value: PORTRAIT_WIDTH * 0.8 });
+        fake.callback!();
+        await nextFrame();
+        page.classList.add("landscape");
+        fake.callback!();
+        await nextFrame();
+        expect(Number(zoom(page))).toBeCloseTo(0.8, 10);
+    });
+
+    it("follows the window instead where there is no ResizeObserver", async () => {
         globalThis.ResizeObserver = undefined as unknown as typeof ResizeObserver;
         const { container, page } = setUp(PORTRAIT_WIDTH / 2);
         setUpPreviewFit();
         Object.defineProperty(container, "clientWidth", { configurable: true, value: PORTRAIT_WIDTH * 0.8 });
         globalThis.dispatchEvent(new Event("resize"));
+        await nextFrame();
         expect(Number(zoom(page))).toBeCloseTo(0.8, 10);
     });
 });
