@@ -441,9 +441,9 @@ svg.icon {
             cursor: col-resize;
             user-select: none;
         }
-        /* The preview wants room for the A4 page (830px) and gives way to the editor down to 240px, scrolling sideways when the page does not fit. */
+        /* The preview wants room for the A4 page with its 0.5cm margins (22cm) and a scrollbar, so the page shows at full size when there is space. It gives way to the editor down to 240px, and fitPreview shrinks the page to fit, down to half size. */
         & .page-container {
-            flex: 0 1 830px;
+            flex: 0 1 calc(22cm + 20px);
             min-width: 240px;
             height: 100vh;
             overflow: auto scroll;
