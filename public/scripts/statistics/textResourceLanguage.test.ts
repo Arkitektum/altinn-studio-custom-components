@@ -34,4 +34,16 @@ describe("applyTextResourcesForLanguage", () => {
         expect(globalThis.textResources).toEqual([]);
         expect(globalThis.defaultTextResources).toEqual({ language: "nb", resources: [{ id: "common.yes", value: "Ja" }] });
     });
+
+    it("falls back to the package's nb texts for a language the package has none in, as the app does", () => {
+        applyTextResourcesForLanguage(multilingualDefaultTextResources, multilingualAppResourceValues, "nn", "dibk", "a-v1");
+
+        expect(globalThis.defaultTextResources).toEqual({ language: "nb", resources: [{ id: "common.yes", value: "Ja" }] });
+    });
+
+    it("leaves the app's own texts in the chosen language, without falling back", () => {
+        applyTextResourcesForLanguage(multilingualDefaultTextResources, multilingualAppResourceValues, "nn", "dibk", "a-v1");
+
+        expect(globalThis.textResources).toEqual({ language: "nn", resources: [] });
+    });
 });

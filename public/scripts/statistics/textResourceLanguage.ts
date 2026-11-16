@@ -16,6 +16,9 @@ export function getLocalTextResourcesForApp(appName: string | undefined, appOwne
     return appResourceValues.find((app: ApiValue) => app.appName === appName && app.appOwner === appOwner)?.resources || [];
 }
 
+/** The language the package's own texts fall back to, as in the app. */
+const DEFAULT_TEXT_FALLBACK_LANGUAGE = "nb";
+
 /**
  * Puts the text resources for one language on globalThis, which is where the components read them: the default
  * ones, every app's, and the selected app's own.
@@ -33,7 +36,11 @@ export function applyTextResourcesForLanguage(
     appOwner: string | undefined,
     appName: string | undefined
 ) {
-    const defaultTextResources = getResourcesForLanguage(multilingualDefaultTextResources, language);
+    // The package's texts fall back to nb for a language it has none in, as an app does when the package ships no resource file for its language.
+    const textsInLanguage = getResourcesForLanguage(multilingualDefaultTextResources, language);
+    const defaultTextResources = textsInLanguage?.resources?.length
+        ? textsInLanguage
+        : getResourcesForLanguage(multilingualDefaultTextResources, DEFAULT_TEXT_FALLBACK_LANGUAGE);
     const appResourceValues = getAppResourceValuesForLanguage(multilingualAppResourceValues, language);
     const textResources = getLocalTextResourcesForApp(appName, appOwner, appResourceValues);
     addDataToGlobalThis({
