@@ -90,6 +90,62 @@ describe("renderTextResourceStatusIndicators", () => {
         expect(spans[1]!.classList.contains("unused")!).toBe(true);
         expect(spans[2]!.classList.contains("empty")!).toBe(true);
     });
+
+    it("says in each count's tooltip what it counts", () => {
+        renderers.renderTextResourceStatusIndicators({
+            missingResourceBindings: [1],
+            duplicateTextResources: [],
+            unusedResourceBindings: [3],
+            literalValues: [4],
+            emptyTextResources: []
+        });
+        const titles = Array.from(document.querySelectorAll("#text-resource-status-indicators span")).map((span) => span.getAttribute("title"));
+        expect(titles).toEqual([
+            "1 error: missing or duplicate resources",
+            "2 warnings: unused resources or literal values",
+            "0 notes: empty resources"
+        ]);
+    });
+
+    it("names the button it is in by the check and every count, and marks zeros as success", () => {
+        document.body.innerHTML = '<button><div id="text-resource-status-indicators"></div></button>';
+        renderers.renderTextResourceStatusIndicators({
+            missingResourceBindings: [1, 2],
+            duplicateTextResources: [],
+            unusedResourceBindings: [],
+            literalValues: [],
+            emptyTextResources: [5]
+        });
+        expect(document.querySelector("button")!.getAttribute("aria-label")).toBe("Text resource check: 2 errors, 0 warnings, 1 note");
+        expect(document.querySelectorAll("#text-resource-status-indicators .success")).toHaveLength(1);
+    });
+
+    it("replaces the counts drawn before", () => {
+        const noFindings = {
+            missingResourceBindings: [],
+            duplicateTextResources: [],
+            unusedResourceBindings: [],
+            literalValues: [],
+            emptyTextResources: []
+        };
+        renderers.renderTextResourceStatusIndicators({ ...noFindings, missingResourceBindings: [1] });
+        renderers.renderTextResourceStatusIndicators(noFindings);
+        const spans = Array.from(document.querySelectorAll("#text-resource-status-indicators span"));
+        expect(spans.map((span) => span.textContent)).toEqual(["0", "0", "0"]);
+    });
+
+    it("does nothing when the sidebar is not drawn", () => {
+        document.body.innerHTML = "";
+        expect(() =>
+            renderers.renderTextResourceStatusIndicators({
+                missingResourceBindings: [],
+                duplicateTextResources: [],
+                unusedResourceBindings: [],
+                literalValues: [],
+                emptyTextResources: []
+            })
+        ).not.toThrow();
+    });
 });
 
 describe("renderSidebar", () => {
@@ -117,6 +173,12 @@ describe("renderLayoutFindingsIndicators", () => {
         expect(spans[0]!.getAttribute("title")).toBe("2 warnings");
         expect(spans[1]!.textContent).toBe("1");
         expect(spans[1]!.classList.contains("empty")).toBe(true);
+        expect(spans[1]!.getAttribute("title")).toBe("1 note");
+    });
+    it("names the button it is in by the check and both counts", () => {
+        document.body.innerHTML = '<button><div id="layout-findings-indicators"></div></button>';
+        renderers.renderLayoutFindingsIndicators([{ component: "a", severity: "warning", message: "x" }]);
+        expect(document.querySelector("button")!.getAttribute("aria-label")).toBe("Layout check: 1 warning, 0 notes");
     });
     it("marks a count of zero as success, and replaces the earlier counts", () => {
         renderers.renderLayoutFindingsIndicators([{ component: "a", severity: "warning", message: "x" }]);

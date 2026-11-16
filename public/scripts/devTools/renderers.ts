@@ -131,19 +131,45 @@ export function renderLayoutFindings() {
 export function renderLayoutFindingsIndicators(findings: LayoutFinding[]) {
     const indicatorsContainerElement = document.getElementById("layout-findings-indicators");
     if (!indicatorsContainerElement) return;
-    indicatorsContainerElement.innerHTML = "";
     const warningsCount = findings.filter((finding) => finding.severity === "warning").length;
     const infoCount = findings.filter((finding) => finding.severity === "info").length;
-    for (const [count, className, label] of [
-        [warningsCount, "unused", "warnings"],
-        [infoCount, "empty", "notes"]
-    ] as [number, string, string][]) {
+    renderStatusIndicators(indicatorsContainerElement, "Layout check", [
+        { count: warningsCount, className: "unused", one: "warning", many: "warnings" },
+        { count: infoCount, className: "empty", one: "note", many: "notes" }
+    ]);
+}
+
+/** One count beside an item in the sidebar: how many of a kind of finding there are, and what that kind is. */
+interface StatusCount {
+    count: number;
+    /** The class for the count's colour when it is not zero. */
+    className: string;
+    one: string;
+    many: string;
+    /** What the kind of finding covers, said after the count in its tooltip. */
+    explanation?: string;
+}
+
+/**
+ * Draws counts in a container inside a sidebar button, each with a tooltip saying what it counts, and names the button by its check and every count, since the bare numbers say nothing to a screen reader.
+ *
+ * @param {HTMLElement} containerElement - The container, emptied first.
+ * @param {string} checkName - What the button opens, e.g. "Layout check".
+ * @param {StatusCount[]} counts - The counts, in the order they are shown.
+ */
+function renderStatusIndicators(containerElement: HTMLElement, checkName: string, counts: StatusCount[]) {
+    containerElement.innerHTML = "";
+    const descriptions: string[] = [];
+    for (const { count, className, one, many, explanation } of counts) {
+        const description = `${count} ${count === 1 ? one : many}`;
+        descriptions.push(description);
         const indicatorElement = document.createElement("span");
         indicatorElement.classList.add("status-indicator", count === 0 ? "success" : className);
         indicatorElement.textContent = String(count);
-        indicatorElement.title = `${count} ${label}`;
-        indicatorsContainerElement.appendChild(indicatorElement);
+        indicatorElement.title = explanation ? `${description}: ${explanation}` : description;
+        containerElement.appendChild(indicatorElement);
     }
+    containerElement.closest("button")?.setAttribute("aria-label", `${checkName}: ${descriptions.join(", ")}`);
 }
 
 /**
@@ -197,26 +223,17 @@ export function renderLayoutFindingsPanel(findings: LayoutFinding[]) {
  */
 export function renderTextResourceStatusIndicators(validationResults: ApiValue) {
     const statusIndicatorsContainerElement = document.getElementById("text-resource-status-indicators");
-    statusIndicatorsContainerElement!.innerHTML = "";
+    if (!statusIndicatorsContainerElement) return;
 
     const resourceErrorsCount = validationResults.missingResourceBindings.length + validationResults.duplicateTextResources.length;
     const resourceWarningsCount = validationResults.unusedResourceBindings.length + validationResults.literalValues.length;
     const resourceInfoCount = validationResults.emptyTextResources.length;
 
-    const resourceErrorsIndicator = document.createElement("span");
-    resourceErrorsIndicator.classList.add("status-indicator", resourceErrorsCount === 0 ? "success" : "missing");
-    resourceErrorsIndicator.innerHTML = resourceErrorsCount;
-    statusIndicatorsContainerElement!.appendChild(resourceErrorsIndicator);
-
-    const resourceWarningsIndicator = document.createElement("span");
-    resourceWarningsIndicator.classList.add("status-indicator", resourceWarningsCount === 0 ? "success" : "unused");
-    resourceWarningsIndicator.innerHTML = resourceWarningsCount;
-    statusIndicatorsContainerElement!.appendChild(resourceWarningsIndicator);
-
-    const resourceInfoIndicator = document.createElement("span");
-    resourceInfoIndicator.classList.add("status-indicator", resourceInfoCount === 0 ? "success" : "empty");
-    resourceInfoIndicator.innerHTML = resourceInfoCount;
-    statusIndicatorsContainerElement!.appendChild(resourceInfoIndicator);
+    renderStatusIndicators(statusIndicatorsContainerElement, "Text resource check", [
+        { count: resourceErrorsCount, className: "missing", one: "error", many: "errors", explanation: "missing or duplicate resources" },
+        { count: resourceWarningsCount, className: "unused", one: "warning", many: "warnings", explanation: "unused resources or literal values" },
+        { count: resourceInfoCount, className: "empty", one: "note", many: "notes", explanation: "empty resources" }
+    ]);
 }
 
 /**
@@ -258,7 +275,7 @@ export function renderSidebar() {
     layoutCodeOptionButtonsContainerElement.classList.add("option-buttons-container");
     const layoutFindingsButtonElement = document.createElement("button");
     layoutFindingsButtonElement.classList.add("layout-findings-button");
-    layoutFindingsButtonElement.setAttribute("aria-label", "Show the layout check");
+    layoutFindingsButtonElement.setAttribute("aria-label", "Layout check");
     layoutFindingsButtonElement.onclick = openLayoutCodeEditor;
     const layoutFindingsIndicatorsElement = document.createElement("div");
     layoutFindingsIndicatorsElement.id = "layout-findings-indicators";
@@ -296,6 +313,7 @@ export function renderSidebar() {
 
     const validateTextResourcesButtonElement = document.createElement("button");
     validateTextResourcesButtonElement.classList.add("validate-text-resources-button");
+    validateTextResourcesButtonElement.setAttribute("aria-label", "Text resource check");
     validateTextResourcesButtonElement.onclick = function () {
         // Open validation dialog
         const validationResults = validateResources();

@@ -30,6 +30,11 @@
     --color-background-dark: #0c1117;
     --color-background-dark-highlight: #131a25;
     --color-border-dark-highlight: #334155;
+    /* Status colours for the dark surfaces of the dev tools. The components' own (main.css) are made for white paper and fall below 4.5:1 on the sidebar's grey. Each of these is at least 4.8:1 on #303234 and its hover, #393b3d. */
+    --color-status-error: #ff8a80;
+    --color-status-warning: #ffb74d;
+    --color-status-info: #4fc3f7;
+    --color-status-zero: #a8b0b8;
     /* The longest a line of prose runs before it gets hard to follow back to the next line. */
     --measure: 72ch;
 }
@@ -214,16 +219,17 @@ svg.icon {
                                     min-width: 32px;
                                     text-align: center;
                                     &.missing {
-                                        color: var(--color-error-default);
+                                        color: var(--color-status-error);
                                     }
                                     &.unused {
-                                        color: var(--color-warning-default);
+                                        color: var(--color-status-warning);
                                     }
                                     &.empty {
-                                        color: var(--color-info-default);
+                                        color: var(--color-status-info);
                                     }
+                                    /* Zero is the count least worth reading, so it steps back, as on the statistics lists. */
                                     &.success {
-                                        color: var(--color-success-default);
+                                        color: var(--color-status-zero);
                                     }
                                 }
                             }
