@@ -104,6 +104,21 @@ describe("buildPreviewDocument", () => {
         expect(preview.body.lastElementChild).toBe(scripts[scripts.length - 1]!);
         expect(preview.getElementById("admin-main")!.nextElementSibling).toBe(scripts[scripts.length - 1]!);
     });
+    it("puts the nb texts where a single missing text is looked up, and null when there are none", () => {
+        const fallbackTextResources = { language: "nb", resources: [{ id: "app.only.nb", value: "</script>Bare bokmål" }] };
+        const fallbackDefaultTextResources = { language: "nb", resources: [{ id: "resource.x", value: "X" }] };
+        const run = (html: string) => {
+            const frameGlobals: Record<string, unknown> = {};
+            new Function("globalThis", parse(html).querySelector("head script")!.textContent!)(frameGlobals);
+            return frameGlobals;
+        };
+        const withFallback = run(buildPreviewDocument({ ...options, fallbackTextResources, fallbackDefaultTextResources }));
+        expect(withFallback.fallbackTextResources).toEqual(fallbackTextResources);
+        expect(withFallback.fallbackDefaultTextResources).toEqual(fallbackDefaultTextResources);
+        const without = run(buildPreviewDocument(options));
+        expect(without.fallbackTextResources).toBeNull();
+        expect(without.fallbackDefaultTextResources).toBeNull();
+    });
     it("puts the text resources where the current and older versions read them, and keeps them from ending the script", () => {
         const preview = parse(buildPreviewDocument(options));
         const inline = preview.querySelector("head script")!.textContent!;

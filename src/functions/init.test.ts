@@ -7,6 +7,7 @@ import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHel
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
 import initCustomComponents, { isAltinnAppOrigin } from "./init.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
+import { defaultTextResourceLanguages } from "../constants/defaultTextResourceLanguages.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
 
 jest.mock("./textResourceHelpers.ts", () => ({
@@ -19,6 +20,10 @@ jest.mock("./clientLoggerHelpers.ts", () => ({
 }));
 jest.mock("./htmlElementHelpers.ts", () => ({
     updateBodyClassNamesForApplication: jest.fn()
+}));
+// A plain array, so a test can let the package ship a language it does not ship yet.
+jest.mock("../constants/defaultTextResourceLanguages.ts", () => ({
+    defaultTextResourceLanguages: ["nb"]
 }));
 
 describe("initCustomComponents", () => {
@@ -53,6 +58,8 @@ describe("initCustomComponents", () => {
         delete globalThis.selectedLanguage;
         delete globalThis.textResources;
         delete globalThis.defaultTextResources;
+        delete globalThis.fallbackTextResources;
+        delete globalThis.fallbackDefaultTextResources;
     });
 
     afterEach(() => {
@@ -76,6 +83,79 @@ describe("initCustomComponents", () => {
         expect(globalThis.selectedLanguage).toBe("en");
         expect(fetchTextResources).toHaveBeenCalledWith(origin, org, app, "en", "nb", clientLogger, expect.any(Array));
         expect(fetchDefaultTextResources).toHaveBeenCalledWith(origin, org, app, "en", "nb", clientLogger, expect.any(Array));
+    });
+
+    describe("the nb texts a reader in another language falls back to, text by text", () => {
+        const profileLanguage = (language: string) =>
+            jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
+                ok: true,
+                status: 200,
+                json: async () => ({ profileSettingPreference: { language } })
+            } as unknown as Response);
+
+        afterEach(() => {
+            (defaultTextResourceLanguages as string[]).splice(1);
+        });
+
+        it("loads the app's and the package's nb texts for a reader in a language the package ships", async () => {
+            (defaultTextResourceLanguages as string[]).push("en");
+            profileLanguage("en");
+            jest.mocked(fetchTextResources).mockImplementation(async (_o, _g, _a, language) => ({
+                language,
+                resources: [{ id: "app", value: language }]
+            }));
+            jest.mocked(fetchDefaultTextResources).mockImplementation(async (_o, _g, _a, language) => ({
+                language,
+                resources: [{ id: "pkg", value: language }]
+            }));
+
+            await initCustomComponents();
+
+            expect(fetchTextResources).toHaveBeenCalledWith(origin, org, app, "nb", null, clientLogger, expect.any(Array));
+            expect(fetchDefaultTextResources).toHaveBeenCalledWith(origin, org, app, "nb", null, clientLogger, expect.any(Array));
+            expect(globalThis.textResources).toEqual({ language: "en", resources: [{ id: "app", value: "en" }] });
+            expect(globalThis.defaultTextResources).toEqual({ language: "en", resources: [{ id: "pkg", value: "en" }] });
+            expect(globalThis.fallbackTextResources).toEqual({ language: "nb", resources: [{ id: "app", value: "nb" }] });
+            expect(globalThis.fallbackDefaultTextResources).toEqual({ language: "nb", resources: [{ id: "pkg", value: "nb" }] });
+        });
+
+        it("does not ask for the package's nb texts twice when the package ships no file for the reader's language", async () => {
+            profileLanguage("en");
+
+            await initCustomComponents();
+
+            expect(fetchTextResources).toHaveBeenCalledWith(origin, org, app, "nb", null, clientLogger, expect.any(Array));
+            expect(jest.mocked(fetchDefaultTextResources).mock.calls.map((call) => [call[3], call[4]])).toEqual([["en", "nb"]]);
+            expect(globalThis.fallbackDefaultTextResources).toBeNull();
+        });
+
+        it("asks for nothing more for an nb reader", async () => {
+            profileLanguage("nb");
+
+            await initCustomComponents();
+
+            expect(jest.mocked(fetchTextResources).mock.calls.map((call) => call[3])).toEqual(["nb"]);
+            expect(jest.mocked(fetchDefaultTextResources).mock.calls.map((call) => call[3])).toEqual(["nb"]);
+            expect(globalThis.fallbackTextResources).toBeNull();
+            expect(globalThis.fallbackDefaultTextResources).toBeNull();
+        });
+
+        it("keeps the reader's own texts when an nb request fails", async () => {
+            profileLanguage("nn");
+            const failNb = async (_o: string, _g: string, _a: string, language: string) => {
+                if (language === "nb") throw new Error("nb failed");
+                return { language, resources: [] };
+            };
+            jest.mocked(fetchTextResources).mockImplementation(failNb);
+            jest.mocked(fetchDefaultTextResources).mockImplementation(failNb);
+
+            await initCustomComponents();
+
+            expect(globalThis.textResources).toEqual({ language: "nn", resources: [] });
+            expect(globalThis.defaultTextResources).toEqual({ language: "nn", resources: [] });
+            expect(globalThis.fallbackTextResources).toBeNull();
+            expect(globalThis.fallbackDefaultTextResources).toBeNull();
+        });
     });
 
     it("falls back to nb and still loads the app frontend when the profile request returns 500", async () => {

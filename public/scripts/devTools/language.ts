@@ -21,7 +21,7 @@ export function getDefaultTextResourcesForLanguage(language: string, multilingua
 }
 
 /**
- * Puts the text resources for a language on globalThis, which is where the components read them: the app's own text resources stored for that language, and the package's.
+ * Puts the text resources for a language on globalThis, which is where the components read them: the app's own text resources stored for that language, and the package's, and for any other language than nb, both in nb for a single text missing from those.
  *
  * @param {string} language - The language code, e.g. "nn".
  */
@@ -29,4 +29,10 @@ export function applyLanguage(language: string) {
     globalThis.selectedLanguage = language;
     globalThis.textResources = getTextResources(language);
     globalThis.defaultTextResources = getDefaultTextResourcesForLanguage(language);
+    // For any other language than nb, the nb texts, the app's and the package's, are where a text missing from those above is looked up, as in the app.
+    const readsFallbackLanguage = language === FALLBACK_LANGUAGE;
+    globalThis.fallbackTextResources = readsFallbackLanguage ? null : getTextResources(FALLBACK_LANGUAGE);
+    globalThis.fallbackDefaultTextResources = readsFallbackLanguage
+        ? null
+        : getResourcesForLanguage(multilingualDefaultTextResources, FALLBACK_LANGUAGE);
 }

@@ -43,6 +43,9 @@ export interface PreviewDocumentOptions {
     textResources: unknown;
     /** The package's default text resources for this version. */
     defaultTextResources: unknown;
+    /** The app's and the package's nb texts, where the components look up a single text missing from those in the language. Versions before per-text fallback do not read them. */
+    fallbackTextResources?: unknown;
+    fallbackDefaultTextResources?: unknown;
     language: string;
     /** The form's elements as markup. */
     componentsHtml: string;
@@ -87,6 +90,8 @@ const defaultTextResources = ${scriptJson(options.defaultTextResources)};
 globalThis.selectedLanguage = ${scriptJson(options.language)};
 globalThis.textResources = textResources;
 globalThis.defaultTextResources = defaultTextResources;
+globalThis.fallbackTextResources = ${scriptJson(options.fallbackTextResources ?? null)};
+globalThis.fallbackDefaultTextResources = ${scriptJson(options.fallbackDefaultTextResources ?? null)};
 globalThis.appConfig = { selectedLanguage: ${scriptJson(options.language)}, textResources, defaultTextResources };
 </script>
 </head>
@@ -264,6 +269,9 @@ export interface UpgradePreviewOptions {
     /** The ids, or tag names, of the form's components, in order, to name the ones that differ. */
     componentNames: string[];
     textResources: unknown;
+    /** The app's and the package's nb texts for a single text missing from those in the language, null for nb. */
+    fallbackTextResources?: unknown;
+    fallbackDefaultTextResources?: unknown;
     /** The package's default text resources from the local source, in the language chosen on the page. */
     localDefaultTextResources: unknown;
     language: string;
@@ -300,6 +308,8 @@ export async function renderUpgradePreview(containerElement: HTMLElement, option
     const localFrame = createFrame("The form drawn with the local build");
     const common = {
         textResources: options.textResources,
+        fallbackTextResources: options.fallbackTextResources,
+        fallbackDefaultTextResources: options.fallbackDefaultTextResources,
         language: options.language,
         componentsHtml: options.componentsHtml,
         pageHeadHtml: options.pageHeadHtml,

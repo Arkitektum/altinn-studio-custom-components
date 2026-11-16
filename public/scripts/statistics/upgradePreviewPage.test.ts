@@ -10,7 +10,7 @@ describe("Compare with installed version on the display layouts page", () => {
     /** The label the button shows now: it holds every label it switches between, stacked, so it keeps its width. */
     const shownLabel = (button: HTMLElement) => button.querySelector(".stacked-labels > span:not(.stacked-label-unused)")!.textContent;
 
-    async function openPage(packageVersions: unknown[]) {
+    async function openPage(packageVersions: unknown[], { language = "nb", multilingualAppResourceValues = [] as unknown[] } = {}) {
         document.body.innerHTML = '<div id="sidebar"></div><main id="admin-main"></main>';
         Object.assign(globalThis, {
             displayLayouts: [
@@ -35,11 +35,11 @@ describe("Compare with installed version on the display layouts page", () => {
             applicationMetadata: [],
             altinnStudioForms: [{ appOwner: "dibk", appName: "et-v4", dataType: "Byggesoknad" }],
             multilingualDefaultTextResources: [],
-            multilingualAppResourceValues: [],
+            multilingualAppResourceValues,
             appResourceValues: [],
             packageVersions
         });
-        history.replaceState(null, "", "#/display-layouts?owner=dibk&app=et-v4");
+        history.replaceState(null, "", `#/display-layouts?owner=dibk&app=et-v4${language === "nb" ? "" : `&lang=${language}`}`);
         await openPageFromLocation();
         await new Promise((resolve) => setTimeout(resolve, 20));
         return document.getElementById("admin-main")!;
@@ -103,7 +103,12 @@ describe("Compare with installed version on the display layouts page", () => {
 
     it("gives the comparison the form's elements with their data, and nothing drawn", async () => {
         const asked: string[] = [];
-        const main = await openPage([{ appOwner: "dibk", appName: "et-v4", packageVersions: { altinnStudioCustomComponents: "17.2.0" } }]);
+        const main = await openPage([{ appOwner: "dibk", appName: "et-v4", packageVersions: { altinnStudioCustomComponents: "17.2.0" } }], {
+            language: "nn",
+            multilingualAppResourceValues: [
+                { appOwner: "dibk", appName: "et-v4", resourceValues: [{ id: "app.only.nb", values: { nb: "Bare bokmål" } }] }
+            ]
+        });
         globalThis.fetch = (async (url: string) => {
             asked.push(String(url));
             return { ok: true, json: async () => ({ language: "nb", resources: [] }) };
@@ -131,6 +136,14 @@ describe("Compare with installed version on the display layouts page", () => {
         expect(field.id).toBe("tittel");
         expect(field.children).toHaveLength(0);
         expect(frames[0]!.srcdoc).toContain("/api/packageFiles/17.2.0/main.js");
+        for (const frame of frames) {
+            const frameGlobals: Record<string, unknown> = {};
+            new Function("globalThis", new DOMParser().parseFromString(frame.srcdoc, "text/html").querySelector("head script")!.textContent!)(
+                frameGlobals
+            );
+            expect(frameGlobals.fallbackTextResources).toEqual({ language: "nb", resources: [{ id: "app.only.nb", value: "Bare bokmål" }] });
+            expect((frameGlobals.fallbackDefaultTextResources as { language: string }).language).toBe("nb");
+        }
         expect(frames[1]!.srcdoc).toContain(`${location.origin}/main.js`);
         const scriptSource = (frame: HTMLIFrameElement) =>
             new DOMParser()

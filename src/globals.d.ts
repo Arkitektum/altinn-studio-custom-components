@@ -16,6 +16,9 @@ declare global {
     var selectedLanguage: string | undefined;
     var textResources: unknown;
     var defaultTextResources: unknown;
+    /** The app's and the package's nb texts, for a text missing from those in the reader's language. Unset for an nb reader. */
+    var fallbackTextResources: unknown;
+    var fallbackDefaultTextResources: unknown;
 
     /**
      * The app's global data, put on the page by the index page that app backend v9 and later generate. Only its

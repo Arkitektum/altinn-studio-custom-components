@@ -65,4 +65,19 @@ describe("applyTextResourcesForLanguage", () => {
         expect(globalThis.textResources).toEqual({ language: "nn", resources: [{ id: "appName", value: "Søknad på nynorsk" }] });
         expect(globalThis.appResourceValues.map((app: { resources: { language: string } }) => app.resources.language)).toEqual(["nn", "nb"]);
     });
+
+    it("puts the selected app's and the package's nb texts where a single missing text is looked up, for any other language than nb", () => {
+        applyTextResourcesForLanguage(multilingualDefaultTextResources, multilingualAppResourceValues, "en", "dibk", "b-v1");
+
+        expect(globalThis.fallbackTextResources).toEqual({ language: "nb", resources: [{ id: "appName", value: "Varsel" }] });
+        expect(globalThis.fallbackDefaultTextResources).toEqual({ language: "nb", resources: [{ id: "common.yes", value: "Ja" }] });
+    });
+
+    it("clears those for nb, which has nothing to fall back to", () => {
+        applyTextResourcesForLanguage(multilingualDefaultTextResources, multilingualAppResourceValues, "en", "dibk", "b-v1");
+        applyTextResourcesForLanguage(multilingualDefaultTextResources, multilingualAppResourceValues, "nb", "dibk", "b-v1");
+
+        expect(globalThis.fallbackTextResources).toBeNull();
+        expect(globalThis.fallbackDefaultTextResources).toBeNull();
+    });
 });

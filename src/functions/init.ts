@@ -3,6 +3,7 @@ import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHel
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
 import type { LogCustomField } from "../types.ts";
+import { defaultTextResourceLanguages } from "../constants/defaultTextResourceLanguages.ts";
 import { getInstanceRoute } from "./appFormDataHelpers.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
 
@@ -241,15 +242,29 @@ export default async function initCustomComponents() {
     let selectedLanguage = fallbackLanguage;
     let textResources = null;
     let defaultTextResources = null;
+    let fallbackTextResources = null;
+    let fallbackDefaultTextResources = null;
 
     try {
         updateBodyClassNamesForApplication(org, app);
 
         selectedLanguage = (await fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCustomFields)) || fallbackLanguage;
 
-        [textResources, defaultTextResources] = await Promise.all([
+        // A reader in another language than nb also gets the nb texts, the app's and the package's, for a text missing
+        // from those in their language: the components look there before showing a text's id.
+        // A failed nb request leaves those texts out, and never costs the reader the texts in their own language.
+        const readsFallbackLanguage = selectedLanguage === fallbackLanguage;
+        const orNothing = (request: Promise<unknown>) => request.catch(() => null);
+        [textResources, defaultTextResources, fallbackTextResources, fallbackDefaultTextResources] = await Promise.all([
             fetchTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger, clientLoggerCustomFields),
-            fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger, clientLoggerCustomFields)
+            fetchDefaultTextResources(origin, org, app, selectedLanguage, fallbackLanguage, clientLogger, clientLoggerCustomFields),
+            readsFallbackLanguage
+                ? null
+                : orNothing(fetchTextResources(origin, org, app, fallbackLanguage, null, clientLogger, clientLoggerCustomFields)),
+            // The package's texts are already nb for a language it ships no file for, so they are not asked for twice.
+            readsFallbackLanguage || !defaultTextResourceLanguages.includes(selectedLanguage)
+                ? null
+                : orNothing(fetchDefaultTextResources(origin, org, app, fallbackLanguage, null, clientLogger, clientLoggerCustomFields))
         ]);
     } catch (error) {
         // Language and text resource problems must never prevent the app frontend from being loaded,
@@ -267,6 +282,8 @@ export default async function initCustomComponents() {
     globalThis.selectedLanguage = selectedLanguage;
     globalThis.textResources = textResources;
     globalThis.defaultTextResources = defaultTextResources;
+    globalThis.fallbackTextResources = fallbackTextResources;
+    globalThis.fallbackDefaultTextResources = fallbackDefaultTextResources;
 
     if (!bundledAppFrontend) {
         await loadScriptAsync(

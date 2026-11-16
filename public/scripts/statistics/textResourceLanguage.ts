@@ -21,7 +21,8 @@ const TEXT_FALLBACK_LANGUAGE = "nb";
 
 /**
  * Puts the text resources for one language on globalThis, which is where the components read them: the default
- * ones, every app's, and the selected app's own. Where the package or an app has no texts in the language, its nb texts are used, as in the app.
+ * ones, every app's, and the selected app's own. Where the package or an app has no texts in the language, its nb texts are used, as in the app,
+ * and for any other language than nb, the nb texts are also put where the components look for a single text missing from those.
  *
  * @param {Array} multilingualDefaultTextResources - The default text resources in every language.
  * @param {Array} multilingualAppResourceValues - Every app's text resources in every language.
@@ -41,16 +42,24 @@ export function applyTextResourcesForLanguage(
     const defaultTextResources = textsInLanguage?.resources?.length
         ? textsInLanguage
         : getResourcesForLanguage(multilingualDefaultTextResources, TEXT_FALLBACK_LANGUAGE);
-    // An app's own texts fall back to its nb texts when it has none in the language, as the app does when it has no resource file for it. Like the app, a whole file falls back, not single texts missing from one.
+    // An app's own texts fall back to its nb texts when it has none in the language, as the app does when it has no resource file for it.
     const appTextsInLanguage = getAppResourceValuesForLanguage(multilingualAppResourceValues, language);
     const appTextsInFallback = getAppResourceValuesForLanguage(multilingualAppResourceValues, TEXT_FALLBACK_LANGUAGE);
     const appResourceValues = appTextsInLanguage.map((app: ApiValue, index: number) =>
         app?.resources?.resources?.length ? app : (appTextsInFallback[index] ?? app)
     );
     const textResources = getLocalTextResourcesForApp(appName, appOwner, appResourceValues);
+    // For any other language than nb, the app's and the package's nb texts are where a text missing from those above is looked up, as in the app.
+    const readsFallbackLanguage = language === TEXT_FALLBACK_LANGUAGE;
+    const fallbackTextResources = readsFallbackLanguage ? null : getLocalTextResourcesForApp(appName, appOwner, appTextsInFallback);
+    const fallbackDefaultTextResources = readsFallbackLanguage
+        ? null
+        : getResourcesForLanguage(multilingualDefaultTextResources, TEXT_FALLBACK_LANGUAGE);
     addDataToGlobalThis({
         defaultTextResources,
         appResourceValues,
-        textResources
+        textResources,
+        fallbackTextResources,
+        fallbackDefaultTextResources
     });
 }

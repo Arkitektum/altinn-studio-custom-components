@@ -1068,6 +1068,8 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
             bodyClasses: [`org-${selectedDisplayLayoutAppOwner}`, `app-${selectedDisplayLayoutAppName}`],
             componentNames: drawnComponents.map(({ component }) => component.id || component.tagName || ""),
             textResources: globalThis.textResources,
+            fallbackTextResources: globalThis.fallbackTextResources,
+            fallbackDefaultTextResources: globalThis.fallbackDefaultTextResources,
             localDefaultTextResources: globalThis.defaultTextResources,
             language: selectedOptions.language
         })
