@@ -87,6 +87,20 @@ describe("renderDefaultTextResourcesList", () => {
         expect(el.querySelectorAll(".default-text-resource-list-item").length).toBe(2);
     });
 
+    it("makes a duplicate count above zero stand out, and steps back the zeros", () => {
+        const resources = [
+            { usage: [], resource: { id: "id1", values: { nb: "Hei" } }, presence: "" },
+            { usage: [], resource: { id: "id2", values: { nb: "Hei" } }, presence: "" },
+            { usage: [], resource: { id: "id3", values: { nb: "Takk" } }, presence: "" }
+        ];
+        const el = renderDefaultTextResourcesList(resources, resources);
+        const duplicateCounts = Array.from(el.querySelectorAll(".duplicate-usage"));
+        expect(duplicateCounts.map((count) => count.textContent)).toEqual(["Duplicates: 1", "Duplicates: 1", "Duplicates: 0"]);
+        expect(duplicateCounts.map((count) => count.classList.contains("usage-attention"))).toEqual([true, true, false]);
+        expect(duplicateCounts.map((count) => count.classList.contains("usage-zero"))).toEqual([false, false, true]);
+        expect(el.querySelector(".app-usage")!.classList.contains("usage-attention")).toBe(false);
+    });
+
     it("says how many of all the text resources passed the filters, above the list", () => {
         const resources = [
             { usage: [], resource: { id: "id1", values: { nb: "Hei" } }, presence: "" },

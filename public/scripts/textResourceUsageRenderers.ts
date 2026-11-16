@@ -10,6 +10,7 @@ import {
 } from "./filterControls.ts";
 import type { AppFormChoices } from "./filterControls.ts";
 import { getLanguageNameFromCode } from "./languages.ts";
+import { renderUsageCount } from "./usageCounts.ts";
 
 /**
  * Renders a component as a collapsible list item using a <details> element.
@@ -270,20 +271,12 @@ export function renderDefaultTextResourceListItem(textResource: ApiValue, allTex
     const usageContainerElement = document.createElement("div");
     usageContainerElement.classList.add("usage-container");
 
-    const appUsageElement = document.createElement("span");
-    appUsageElement.classList.add("app-usage");
-    appUsageElement.innerHTML = `Apps: ${numberOfAppsUsingResource}`;
-    usageContainerElement.appendChild(appUsageElement);
-
-    const componentUsageElement = document.createElement("span");
-    componentUsageElement.classList.add("component-usage");
-    componentUsageElement.innerHTML = `Components: ${numberOfComponentsUsingResource}`;
-    usageContainerElement.appendChild(componentUsageElement);
-
-    const duplicateUsageElement = document.createElement("span");
-    duplicateUsageElement.classList.add("duplicate-usage");
-    duplicateUsageElement.innerHTML = `Duplicates: ${resourcesWithSameValue.length}`;
-    usageContainerElement.appendChild(duplicateUsageElement);
+    usageContainerElement.append(
+        renderUsageCount("Apps", numberOfAppsUsingResource, "app-usage"),
+        renderUsageCount("Components", numberOfComponentsUsingResource, "component-usage"),
+        // Another resource with the same value is worth a look, so a count above zero stands out.
+        renderUsageCount("Duplicates", resourcesWithSameValue.length, "duplicate-usage", { attentionWhenNotZero: true })
+    );
 
     summaryElement.appendChild(usageContainerElement);
 

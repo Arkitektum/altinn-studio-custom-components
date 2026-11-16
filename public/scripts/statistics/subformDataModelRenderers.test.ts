@@ -114,7 +114,7 @@ describe("renderSubformDataModelListItem", () => {
 
         expect(item.querySelector(".component-tag-name")!.firstChild!.textContent).toBe("DispensasjonssoeknadDataV1");
         expect(texts(item, ".indicator")).toEqual(["Differs", "Unreadable: 1"]);
-        expect(texts(item, ".usage-container span")).toEqual(["Variants: 2", "Apps: 4"]);
+        expect(texts(item, ".usage-container > span")).toEqual(["Variants: 2", "Apps: 4"]);
     });
 
     it("lists the variants under the letters the table's columns use", () => {

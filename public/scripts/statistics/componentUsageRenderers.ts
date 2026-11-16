@@ -9,6 +9,7 @@ import {
     storedChoice
 } from "../filterControls.ts";
 import type { AppFormChoices } from "../filterControls.ts";
+import { renderUsageCount } from "../usageCounts.ts";
 
 /**
  * Get the number of unique apps using a component.
@@ -280,15 +281,10 @@ export function renderComponentUsageListItem(component: LayoutComponent | undefi
     const usageContainerElement = document.createElement("div");
     usageContainerElement.classList.add("usage-container");
 
-    const appUsageElement = document.createElement("span");
-    appUsageElement.classList.add("app-usage");
-    appUsageElement.innerHTML = `Apps: ${getAppUsageCountForComponent(component)}`;
-    usageContainerElement.appendChild(appUsageElement);
-
-    const componentUsageElement = document.createElement("span");
-    componentUsageElement.classList.add("component-usage");
-    componentUsageElement.innerHTML = `Components: ${component?.usages?.length || 0}`;
-    usageContainerElement.appendChild(componentUsageElement);
+    usageContainerElement.append(
+        renderUsageCount("Apps", getAppUsageCountForComponent(component), "app-usage"),
+        renderUsageCount("Components", component?.usages?.length || 0, "component-usage")
+    );
 
     summaryElement.appendChild(usageContainerElement);
 

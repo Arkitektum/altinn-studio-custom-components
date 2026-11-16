@@ -2,6 +2,7 @@ import { getFormFilterOptions, selectStoredOption, setSelectOptions } from "./di
 import type { ApiValue } from "../types.ts";
 import type { DataModelBindingDriftUsage } from "./dataModelBindingHelpers.ts";
 import { isSelectedForm } from "../filters.ts";
+import { renderUsageCount } from "../usageCounts.ts";
 
 /** One checked component and the uses of it whose layouts bind other keys than it reads. */
 export interface DataModelBindingDriftEntry {
@@ -153,8 +154,8 @@ export function renderDataModelBindingDriftListItem(component: DataModelBindingD
     const usageContainerElement = document.createElement("div");
     usageContainerElement.classList.add("usage-container");
     usageContainerElement.append(
-        createTextElement("span", `Apps: ${groupedUsages.length}`, "app-usage"),
-        createTextElement("span", `Components: ${component.usages.length}`, "component-usage")
+        renderUsageCount("Apps", groupedUsages.length, "app-usage"),
+        renderUsageCount("Components", component.usages.length, "component-usage")
     );
     listItemElement.appendChild(createSummary(tagNameContainerElement, [usageContainerElement]));
 

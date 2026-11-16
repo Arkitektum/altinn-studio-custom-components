@@ -384,6 +384,8 @@ svg.icon {
             overflow: auto scroll;
             &.admin {
                 flex-basis: 100%;
+                /* The 830px above keeps room for the dev tools' A4 page beside the editor. The statistics pages fit the window instead, and a form wider than it scrolls sideways. */
+                min-width: 0;
                 /* So what is wider than the content column can be measured against, and centred in, the whole width beside the sidebar. */
                 container-type: inline-size;
             }
@@ -1015,6 +1017,8 @@ svg.icon {
                         display: flex;
                         flex-direction: column;
                         width: 100%;
+                        /* Lets a long id or value wrap rather than push the counts out of the list. */
+                        min-width: 0;
                         & .resource-id,
                         & .component-tag-name {
                             font-size: 14px;
@@ -1069,25 +1073,45 @@ svg.icon {
                             }
                         }
                     }
+                    /* The counts form columns: each label left, its number right, so the numbers line up from row to row. */
                     & .usage-container {
                         display: flex;
-                        gap: 12px;
-                        min-width: 290px;
+                        flex-shrink: 0;
+                        gap: 24px;
                         justify-content: flex-end;
-                        & span {
-                            font-size: 14px;
-                            font-weight: 300;
+                        & > span {
+                            display: inline-flex;
+                            justify-content: space-between;
+                            gap: 8px;
+                            font-size: 13px;
                             color: var(--color-text-white-muted);
-                            text-align: left;
+                        }
+                        & .usage-count {
+                            font-weight: 600;
+                            font-variant-numeric: tabular-nums;
+                            color: var(--color-text-white);
+                        }
+                        /* Zero is the count least worth reading, so it steps back. */
+                        & .usage-zero,
+                        & .usage-zero .usage-count {
+                            font-weight: 400;
+                            color: #8b949e;
+                        }
+                        & .usage-attention,
+                        & .usage-attention .usage-count {
+                            color: var(--color-warning-light);
                         }
                         .app-usage {
-                            min-width: 56px;
+                            min-width: 64px;
                         }
                         .component-usage {
-                            min-width: 120px;
+                            min-width: 116px;
                         }
                         .duplicate-usage {
-                            min-width: 90px;
+                            min-width: 104px;
+                        }
+                        .variant-usage {
+                            min-width: 88px;
                         }
                     }
                 }

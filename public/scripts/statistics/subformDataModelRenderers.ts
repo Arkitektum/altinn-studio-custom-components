@@ -1,5 +1,6 @@
 import type { SubformDataModelDrift, SubformDataModelVariant, XsdField } from "./subformDataModelHelpers.ts";
 import { createLabelledSelect, createSummary, createTextElement } from "./dataModelBindingRenderers.ts";
+import { renderUsageCount } from "../usageCounts.ts";
 import { selectStoredOption } from "./displayLayoutHelpers.ts";
 
 /** One subform's drift as the page shows it, with whether it has anything to show under the chosen filters. */
@@ -173,10 +174,7 @@ export function renderSubformDataModelListItem(entry: FilteredSubformDataModelDr
     const appCount = entry.variants.reduce((total, variant) => total + variant.apps.length, 0) + entry.unreadable.length;
     const countsElement = document.createElement("div");
     countsElement.classList.add("usage-container");
-    countsElement.append(
-        createTextElement("span", `Variants: ${entry.variants.length}`, "component-usage"),
-        createTextElement("span", `Apps: ${appCount}`, "app-usage")
-    );
+    countsElement.append(renderUsageCount("Variants", entry.variants.length, "variant-usage"), renderUsageCount("Apps", appCount, "app-usage"));
     listItemElement.appendChild(createSummary(titleContainerElement, [countsElement]));
 
     const detailsElement = document.createElement("div");
