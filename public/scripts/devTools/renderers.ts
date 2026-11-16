@@ -26,6 +26,7 @@ import { getWorkspace, getWorkspaceFileName, parseWorkspace, storeWorkspace } fr
 import { renderValidationMessages, validateResources } from "../validators.ts";
 import { applyLanguage } from "./language.ts";
 import { checkLayoutComponents } from "./layoutChecks.ts";
+import { renderEmptyPreviewMessage } from "./emptyStates.ts";
 
 // Global functions
 import { languages } from "../languages.ts";
@@ -40,7 +41,7 @@ import { setIconLabel } from "../icons.ts";
  * - Constructs the appropriate HTML attributes.
  * - Creates a custom element and wraps it in a container.
  *
- * The resulting elements are then appended to the container element with the ID "code-results".
+ * The resulting elements are then appended to the container element with the ID "code-results". With none to draw, it says how to get some there.
  */
 export function renderResults() {
     const componentCode = getLayoutCode();
@@ -67,7 +68,11 @@ export function renderResults() {
             return containerElement;
         })
         .filter((attr: ApiValue) => attr !== undefined);
-    appendChildren(containerElement!, resultsElements);
+    if (resultsElements.length) {
+        appendChildren(containerElement!, resultsElements);
+    } else {
+        containerElement!.appendChild(renderEmptyPreviewMessage());
+    }
     renderLayoutFindings();
 }
 

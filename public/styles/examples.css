@@ -332,6 +332,14 @@ svg.icon {
             overflow: hidden;
             display: flex;
             flex-direction: column;
+            /* In place of an editor until one is chosen in the sidebar. */
+            & .editor-empty {
+                max-width: var(--measure);
+                margin: 0;
+                padding: 24px;
+                font-size: 14px;
+                color: var(--color-text-white-muted);
+            }
             & .code-input-error {
                 margin: 0;
                 padding: 0.75em;
@@ -428,6 +436,25 @@ svg.icon {
                 min-width: 0;
                 /* So what is wider than the content column can be measured against, and centred in, the whole width beside the sidebar. */
                 container-type: inline-size;
+            }
+        }
+        /* On the preview's page when the layout code has nothing to draw. Screen only, see the print rules. */
+        & .preview-empty {
+            max-width: 44ch;
+            margin: 6cm auto 0;
+            text-align: center;
+            font-size: 15px;
+            & p {
+                color: #5c6670;
+            }
+            & .preview-empty-heading {
+                margin-bottom: 8px;
+                font-size: 20px;
+                font-weight: 500;
+                color: var(--color-text-default);
+            }
+            & a {
+                color: var(--color-background-primary);
             }
         }
         /* Says how much the dev tools preview's page is shrunk to fit, set by fitPreview. Hidden at full size. */
@@ -1439,7 +1466,8 @@ svg.icon {
 
 @media print {
     aside.sidebar,
-    section.data-input {
+    section.data-input,
+    .preview-empty {
         display: none;
     }
     html {
