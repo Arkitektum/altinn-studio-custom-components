@@ -111,10 +111,43 @@ export function getDataModelListElements() {
     return dataModelListElement;
 }
 
+/** How long typing has to pause before an editor's JSON is saved and drawn. */
+export const PREVIEW_DELAY_MS = 300;
+
+/**
+ * Saves and draws an editor's JSON once typing pauses, so the preview follows what is typed rather than waiting for the editor to be left.
+ *
+ * The save it is given leaves invalid JSON alone without a word, since JSON is mostly invalid halfway through typing it, and leaves the text as typed. Leaving the editor saves at once, reports invalid JSON and beautifies, so a save still waiting is dropped then. So is one for an editor no longer on the page.
+ *
+ * @param {HTMLTextAreaElement} codeInputElement - The editor.
+ * @param {Function} saveWhileTyping - Saves and draws what is typed, when it is valid.
+ */
+export function previewWhileTyping(codeInputElement: HTMLTextAreaElement, saveWhileTyping: () => void) {
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    codeInputElement.addEventListener("input", () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+            if (codeInputElement.isConnected) saveWhileTyping();
+        }, PREVIEW_DELAY_MS);
+    });
+    codeInputElement.addEventListener("change", () => clearTimeout(timer));
+}
+
+/**
+ * Trims text, and leaves anything else as it is, so a resource still being typed, with no value yet, does not stop the rest being saved.
+ *
+ * @param {unknown} value - The value.
+ * @returns {unknown} The value, trimmed when it is text.
+ */
+function trimIfText(value: ApiValue) {
+    return typeof value === "string" ? value.trim() : value;
+}
+
 /**
  * Creates and returns a textarea element for editing the data of a specific data model.
  * The textarea is populated with the JSON stringified data of the selected data model.
  * On change, it triggers data model update and re-renders results. Invalid JSON saves nothing and is reported above the input.
+ * While typing, valid JSON is saved and drawn once typing pauses, see previewWhileTyping.
  *
  * @param {number} dataModelIndex - The index of the data model to edit.
  * @returns {HTMLTextAreaElement} The textarea element for editing the data model.
@@ -125,13 +158,17 @@ export function getCodeInputElementForDataModel(dataModelIndex: number) {
     const dataModels = getDataModels();
     const dataModel = dataModels[dataModelIndex];
     codeInputElement.value = JSON.stringify(dataModel.data, null, 2);
-    codeInputElement.onchange = function () {
+    const save = (whileTyping: boolean) => {
         const error = handleDataModelDataOnChange(dataModelIndex);
-        renderJsonInputError(error);
-        if (!error) {
-            renderResults();
+        if (error) {
+            if (!whileTyping) renderJsonInputError(error);
+            return;
         }
+        renderJsonInputError();
+        renderResults();
     };
+    codeInputElement.onchange = () => save(false);
+    previewWhileTyping(codeInputElement, () => save(true));
     return codeInputElement;
 }
 
@@ -140,6 +177,7 @@ export function getCodeInputElementForDataModel(dataModelIndex: number) {
  * and sets up an onchange handler to beautify the JSON, update local storage, render results,
  * validate resources, and update status indicators.
  * Invalid JSON saves nothing and is reported above the input.
+ * While typing, valid JSON is saved and drawn once typing pauses, see previewWhileTyping.
  *
  * @returns {HTMLTextAreaElement} The configured textarea element for code input.
  */
@@ -148,19 +186,24 @@ export function getCodeInputElementForLayoutCode() {
     codeInputElement.id = "code-input";
     codeInputElement.dataset.editor = "layout";
     codeInputElement.value = getValueFromLocalStorage("code") || "";
-    codeInputElement.onchange = function () {
+    const save = (whileTyping: boolean) => {
         const { value, error } = parseJsonInput(codeInputElement.value);
-        renderJsonInputError(error);
         if (error) {
+            if (!whileTyping) renderJsonInputError(error);
             return;
         }
-        codeInputElement.value = JSON.stringify(value, null, 2);
-        addValueToLocalStorage("code", codeInputElement.value);
+        renderJsonInputError();
+        const json = JSON.stringify(value, null, 2);
+        // Beautified only once the editor is left, so the text does not move under the cursor while typing.
+        if (!whileTyping) codeInputElement.value = json;
+        addValueToLocalStorage("code", json);
         renderResults();
 
         const validationResults = validateResources();
         renderTextResourceStatusIndicators(validationResults);
     };
+    codeInputElement.onchange = () => save(false);
+    previewWhileTyping(codeInputElement, () => save(true));
     return codeInputElement;
 }
 
@@ -185,17 +228,17 @@ function cleanUpTextResources(textResources: ApiValue) {
     }
     textResources.resources = textResources.resources.map((res: ApiValue) => {
         const textResource: { id: string; value: string; variables?: ApiValue } = {
-            id: res.id.trim(),
-            value: res.value.trim()
+            id: trimIfText(res.id),
+            value: trimIfText(res.value)
         };
         if (res.variables) {
             textResource.variables = res?.variables.map((variable: ApiValue) => {
                 const cleanedVariable: { key: string; dataSource: string; defaultValue?: string } = {
-                    key: variable.key.trim(),
-                    dataSource: variable.dataSource.trim()
+                    key: trimIfText(variable.key),
+                    dataSource: trimIfText(variable.dataSource)
                 };
                 if (variable.defaultValue) {
-                    cleanedVariable.defaultValue = variable.defaultValue.trim();
+                    cleanedVariable.defaultValue = trimIfText(variable.defaultValue);
                 }
                 return cleanedVariable;
             });
@@ -213,6 +256,7 @@ function cleanUpTextResources(textResources: ApiValue) {
  * On change, it parses, cleans, beautifies, and saves the text resources,
  * updates the global `window.textResources`, and triggers rendering and validation.
  * Invalid JSON saves nothing and is reported above the input.
+ * While typing, valid JSON is saved and drawn once typing pauses, see previewWhileTyping.
  *
  * @returns {HTMLTextAreaElement} The textarea element for text resource input.
  */
@@ -221,15 +265,17 @@ export function getCodeInputElementForTextResources() {
     codeInputElement.id = "code-input";
     const storageKey = getTextResourcesStorageKey();
     codeInputElement.value = getValueFromLocalStorage(storageKey) || "";
-    codeInputElement.onchange = function () {
+    const save = (whileTyping: boolean) => {
         const { value: textResources, error } = parseJsonInput(codeInputElement.value);
-        renderJsonInputError(error);
         if (error) {
+            if (!whileTyping) renderJsonInputError(error);
             return;
         }
+        renderJsonInputError();
         const cleanedTextResources = cleanUpTextResources(textResources);
         const cleanedTextResourcesJson = beautifyJson(JSON.stringify(cleanedTextResources, null, 2));
-        codeInputElement.value = cleanedTextResourcesJson;
+        // Cleaned up and beautified in the editor only once it is left, so the text does not move under the cursor while typing.
+        if (!whileTyping) codeInputElement.value = cleanedTextResourcesJson;
         addValueToLocalStorage(storageKey, cleanedTextResourcesJson);
         globalThis.textResources = JSON.parse(cleanedTextResourcesJson);
         renderResults();
@@ -237,6 +283,8 @@ export function getCodeInputElementForTextResources() {
         const validationResults = validateResources();
         renderTextResourceStatusIndicators(validationResults);
     };
+    codeInputElement.onchange = () => save(false);
+    previewWhileTyping(codeInputElement, () => save(true));
     return codeInputElement;
 }
 
