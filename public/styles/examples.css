@@ -424,7 +424,16 @@ svg.icon {
                 container-type: inline-size;
             }
         }
+        /* Says how much the dev tools preview's page is shrunk to fit, set by fitPreview. Hidden at full size. */
+        & .preview-scale {
+            margin: 8px 0 0;
+            font-size: 12px;
+            text-align: center;
+            color: var(--color-text-white-muted);
+        }
         & .page {
+            /* Set by fitPreview in the dev tools, so the page fits beside the editor rather than scrolling sideways. Screen only: print is always full size. */
+            zoom: var(--preview-zoom, 1);
             margin: 0.5cm auto;
             background: #fff;
             box-shadow: 0 4px 5px rgba(75, 75, 75, 0.2);

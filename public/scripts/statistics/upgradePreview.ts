@@ -1,6 +1,7 @@
 import type { ApiValue } from "../types.ts";
 // Local functions
 import { API_ORIGIN, getPackageFileUrl } from "./apiHelpers.ts";
+import { MIN_PAGE_SCALE, PAGE_WIDTHS, centimetresToPixels, getFitScale } from "../pageScale.ts";
 
 /**
  * The upgrade preview on the Display layouts page: the drawn form, once with the version of the package the app has installed and once with the local build, side by side, with the components whose output differs marked.
@@ -142,18 +143,18 @@ export function compareDrawnComponents(installedDocument: Document, localDocumen
     return { differing, total };
 }
 
-/** The width of an A4 page, as the single page view draws it, in each orientation. */
-export const PAGE_WIDTHS = { portrait: "21cm", landscape: "29.7cm" } as const;
+/** The width of an A4 page in each orientation, shared with the dev tools preview. */
+export { PAGE_WIDTHS };
 
-/** The smallest the comparison is shown at to fit side by side. Below it the text gets too small to read, and the pages scroll sideways instead. */
-export const MIN_COMPARISON_SCALE = 0.5;
+/** The smallest the comparison is shown at to fit side by side, the same as the dev tools preview. */
+export const MIN_COMPARISON_SCALE = MIN_PAGE_SCALE;
 
 /** The gap between the two frames, in CSS pixels, which is not shrunk with them. */
 const COMPARISON_GAP = 16;
 
 /** The width one frame takes at full size: the page and its border, in CSS pixels. */
 export function getFrameWidth(orientation: keyof typeof PAGE_WIDTHS) {
-    return (Number.parseFloat(PAGE_WIDTHS[orientation]) * 96) / 2.54 + 2;
+    return centimetresToPixels(Number.parseFloat(PAGE_WIDTHS[orientation])) + 2;
 }
 
 /**
@@ -165,7 +166,7 @@ export function getFrameWidth(orientation: keyof typeof PAGE_WIDTHS) {
  */
 export function getComparisonScale(availableWidth: number, orientation: keyof typeof PAGE_WIDTHS) {
     if (!(availableWidth > 0)) return 1;
-    return Math.min(1, Math.max(MIN_COMPARISON_SCALE, (availableWidth - COMPARISON_GAP) / (2 * getFrameWidth(orientation))));
+    return getFitScale(availableWidth - COMPARISON_GAP, 2 * getFrameWidth(orientation));
 }
 
 /**
