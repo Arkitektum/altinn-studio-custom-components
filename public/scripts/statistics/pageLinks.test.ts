@@ -5,6 +5,7 @@ import {
     getDisplayLayoutsAddress,
     getDisplayLayoutsOptions,
     getPageAddress,
+    getPageTitle,
     isOverviewAddress,
     pageFilters,
     parsePageAddress,
@@ -95,6 +96,21 @@ describe("parsePageAddress", () => {
         "statistics/component-usage"
     ])("names no page in %p", (address) => {
         expect(parsePageAddress(address)).toBeNull();
+    });
+});
+
+describe("getPageTitle", () => {
+    it("names the page, then Statistics", () => {
+        expect(getPageTitle("component-usage")).toBe("Component usage · Statistics");
+    });
+    it("names the overview when there is no page", () => {
+        expect(getPageTitle(null)).toBe("Overview · Statistics");
+    });
+    it("puts what the page shows first, when it shows one thing", () => {
+        expect(getPageTitle("display-layouts", "dibk/et-v4")).toBe("dibk/et-v4 · Display layouts · Statistics");
+    });
+    it("leaves out an empty detail", () => {
+        expect(getPageTitle("display-layouts", "")).toBe("Display layouts · Statistics");
     });
 });
 

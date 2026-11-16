@@ -2,7 +2,7 @@ import type { ApiValue } from "../types.ts";
 import type { StatisticsPageId } from "./pageLinks.ts";
 import type { SubformDataModelDrift } from "./subformDataModelHelpers.ts";
 
-import { STATISTICS_PATH } from "./pageLinks.ts";
+import { PAGE_LABELS, STATISTICS_PATH } from "./pageLinks.ts";
 import { getPackageVersionClasses } from "./versionStatus.ts";
 
 /** One line of the overview: a page, and what it holds or does. */
@@ -57,33 +57,33 @@ export function getOverviewLines(data: OverviewData): OverviewLine[] {
     return [
         {
             pageId: "resource-usage",
-            label: "Resource usage",
+            label: PAGE_LABELS["resource-usage"],
             summary: `${plural(defaultResourceCount, "text resource", "text resources")}, ${missingResourceCount} missing, ${localValueResourceCount} missing with local value`
         },
         {
             pageId: "component-usage",
-            label: "Component usage",
+            label: PAGE_LABELS["component-usage"],
             summary: `${usedComponents.length} of ${plural(components.length, "component", "components")} in use, in ${plural(appsUsingComponents.size, "app", "apps")}`
         },
         {
             pageId: "data-model-bindings",
-            label: "Data model bindings",
+            label: PAGE_LABELS["data-model-bindings"],
             summary: `${componentsWithFindings} of ${plural(bindingDrift.length, "checked component", "checked components")} with findings`
         },
         {
             pageId: "subform-data-models",
-            label: "Subform data models",
+            label: PAGE_LABELS["subform-data-models"],
             summary: `${differingSubforms} of ${plural(subformDrift.length, "subform", "subforms")} with copies that differ`
         },
         {
             pageId: "package-versions",
-            label: "Package versions",
+            label: PAGE_LABELS["package-versions"],
             summary: `${plural(apps.length, "app", "apps")}, ${appsBehind} behind on a package`
         },
-        { pageId: "display-layouts", label: "Display layouts", summary: "Draws an app's form with its example data" },
-        { pageId: "render-health", label: "Render health", summary: "Checks every form for components that could not be drawn" },
-        { pageId: "unshown-data", label: "Unshown data", summary: "Finds values in the example data that no component shows" },
-        { pageId: "upgrade-check", label: "Upgrade check", summary: "Finds forms that would draw differently after an upgrade" }
+        { pageId: "display-layouts", label: PAGE_LABELS["display-layouts"], summary: "Draws an app's form with its example data" },
+        { pageId: "render-health", label: PAGE_LABELS["render-health"], summary: "Checks every form for components that could not be drawn" },
+        { pageId: "unshown-data", label: PAGE_LABELS["unshown-data"], summary: "Finds values in the example data that no component shows" },
+        { pageId: "upgrade-check", label: PAGE_LABELS["upgrade-check"], summary: "Finds forms that would draw differently after an upgrade" }
     ];
 }
 

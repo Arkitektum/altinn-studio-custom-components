@@ -7,6 +7,7 @@ import { appendChildren } from "@arkitektum/altinn-studio-custom-components-util
 
 // Local functions
 import {
+    PAGE_LABELS,
     STATISTICS_PATH,
     applyPageFilters,
     getAddressFromOldLink,
@@ -14,6 +15,7 @@ import {
     getDisplayLayoutsAddress,
     getDisplayLayoutsOptions,
     getPageAddress,
+    getPageTitle,
     isOverviewAddress,
     parsePageAddress,
     resetPageFilters,
@@ -919,6 +921,11 @@ async function renderDisplayLayoutsPage(containerElement: HTMLElement, appData: 
     };
     openPageId = "display-layouts";
     setLocation(getDisplayLayoutsAddress(selectedOptions));
+    const chosenApp =
+        selectedOptions.displayLayoutAppOwner && selectedOptions.displayLayoutAppName
+            ? `${selectedOptions.displayLayoutAppOwner}/${selectedOptions.displayLayoutAppName}`
+            : undefined;
+    document.title = getPageTitle("display-layouts", chosenApp);
     // The logo's size and place come from the org and app classes on body, so they are set for every drawing: the page can open on an app from its address, not only from the app picker.
     updateBodyClassNamesForApplication(selectedOptions.displayLayoutAppOwner ?? undefined, selectedOptions.displayLayoutAppName ?? undefined);
     // The text resources for the chosen language are on globalThis, and a synchronization puts the default language
@@ -1181,21 +1188,21 @@ export function renderAdminSidebar() {
     overviewButton.onclick = () => openOverviewPage();
     overviewItem.appendChild(overviewButton);
     sidebarList.appendChild(overviewItem);
-    const pages: [StatisticsPageId, Parameters<typeof setIconLabel>[1], string][] = [
-        ["resource-usage", "book", "Resource usage"],
-        ["component-usage", "components", "Component usage"],
-        ["data-model-bindings", "link", "Data model bindings"],
-        ["subform-data-models", "database", "Subform data models"],
-        ["package-versions", "package", "Package versions"],
-        ["display-layouts", "layout", "Display layouts"],
-        ["render-health", "health", "Render health"],
-        ["unshown-data", "hidden", "Unshown data"],
-        ["upgrade-check", "columns", "Upgrade check"]
+    const pages: [StatisticsPageId, Parameters<typeof setIconLabel>[1]][] = [
+        ["resource-usage", "book"],
+        ["component-usage", "components"],
+        ["data-model-bindings", "link"],
+        ["subform-data-models", "database"],
+        ["package-versions", "package"],
+        ["display-layouts", "layout"],
+        ["render-health", "health"],
+        ["unshown-data", "hidden"],
+        ["upgrade-check", "columns"]
     ];
-    for (const [pageId, icon, label] of pages) {
+    for (const [pageId, icon] of pages) {
         const listItem = document.createElement("li");
         const button = document.createElement("button");
-        setIconLabel(button, icon, label);
+        setIconLabel(button, icon, PAGE_LABELS[pageId]);
         button.dataset.pageId = pageId;
         button.onclick = () => openStatisticsPage(pageId);
         listItem.appendChild(button);
@@ -1250,6 +1257,7 @@ export function openOverviewPage({ fromAddress = false }: { fromAddress?: boolea
     const mainElement = document.getElementById("admin-main")!;
     mainElement.innerHTML = "";
     markOpenPageInSidebar(OVERVIEW);
+    document.title = getPageTitle(null);
     if (!fromAddress) {
         setLocation(STATISTICS_PATH, { newEntry: true });
     }
@@ -1274,6 +1282,7 @@ export async function openStatisticsPage(pageId: StatisticsPageId, { params }: {
     const mainElement = document.getElementById("admin-main")!;
     mainElement.innerHTML = "";
     markOpenPageInSidebar(pageId);
+    document.title = getPageTitle(pageId);
     const fromAddress = params !== undefined;
     if (fromAddress) {
         applyPageFilters(pageId, params);

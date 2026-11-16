@@ -179,6 +179,24 @@ describe("statistics page links", () => {
         });
     });
 
+    describe("the browser tab's title", () => {
+        it("names the page opened from the sidebar", () => {
+            clickSidebar("Component usage");
+            expect(document.title).toBe("Component usage · Statistics");
+        });
+
+        it("names the page an address opens", async () => {
+            await openFromAddress("/statistics/package-versions");
+            expect(document.title).toBe("Package versions · Statistics");
+        });
+
+        it("names the overview", async () => {
+            clickSidebar("Package versions");
+            clickSidebar("Overview");
+            expect(document.title).toBe("Overview · Statistics");
+        });
+    });
+
     describe("the open page in the sidebar", () => {
         function currentButtons() {
             return Array.from(document.querySelectorAll('#sidebar button[aria-current="page"]')).map((button) => button.textContent);
@@ -261,6 +279,15 @@ describe("statistics page links", () => {
                 appResourceValues: [],
                 defaultTextResources: undefined
             });
+        });
+
+        it("names the chosen app in the browser tab's title, and only the page before one is chosen", async () => {
+            clickSidebar("Display layouts");
+            await settle();
+            expect(document.title).toBe("Display layouts · Statistics");
+            choose(main.querySelector("#select-display-layout-application") as HTMLSelectElement, "o/a");
+            await settle();
+            expect(document.title).toBe("o/a · Display layouts · Statistics");
         });
 
         it("asks for an application before one is chosen", async () => {

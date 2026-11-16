@@ -16,6 +16,30 @@ export type StatisticsPageId =
 
 type FilterValue = string | boolean;
 
+/** Each page's name, as the sidebar, the overview and the browser's tab call it. */
+export const PAGE_LABELS: Record<StatisticsPageId, string> = {
+    "resource-usage": "Resource usage",
+    "component-usage": "Component usage",
+    "data-model-bindings": "Data model bindings",
+    "subform-data-models": "Subform data models",
+    "package-versions": "Package versions",
+    "display-layouts": "Display layouts",
+    "render-health": "Render health",
+    "unshown-data": "Unshown data",
+    "upgrade-check": "Upgrade check"
+};
+
+/**
+ * The browser tab's title for a page, so history and bookmarks tell the pages apart: what is shown on it, when that is one thing, then the page, then "Statistics".
+ *
+ * @param {StatisticsPageId | null} pageId - The page, or null for the overview.
+ * @param {string} [detail] - What the page shows, e.g. the app on the display layouts page.
+ * @returns {string} The title, e.g. "dibk/et-v4 · Display layouts · Statistics".
+ */
+export function getPageTitle(pageId: StatisticsPageId | null, detail?: string) {
+    return [detail, pageId ? PAGE_LABELS[pageId] : "Overview", "Statistics"].filter(Boolean).join(" · ");
+}
+
 /** Where the statistics pages live. Each page is a path under it. */
 export const STATISTICS_PATH = "/statistics";
 
