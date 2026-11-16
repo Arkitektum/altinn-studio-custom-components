@@ -297,7 +297,8 @@ svg.icon {
                 }
             }
             & .synchronize-container {
-                margin: 16px 8px 16px 8px;
+                /* At the foot of the sidebar, apart from the pages above it. In a window too short for both it follows the pages and scrolls with them. */
+                margin: auto 8px 16px 8px;
                 padding: 12px;
                 background-color: var(--color-surface-raised);
                 border-radius: 4px;
@@ -753,6 +754,15 @@ svg.icon {
             }
         }
         &.admin {
+            /* A column, so the Synchronize box can take the room left below the pages. */
+            & aside.sidebar {
+                display: flex;
+                flex-direction: column;
+                & > ul {
+                    flex: 0 0 auto;
+                    margin-bottom: 16px;
+                }
+            }
             & main {
                 max-width: 1115px;
                 margin: 0 auto;
