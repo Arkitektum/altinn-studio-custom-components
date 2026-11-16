@@ -396,21 +396,11 @@ svg.icon {
                     }
                 }
             }
-            & textarea {
-                width: 100%;
+            /* The CodeMirror editor (createCodeEditor), filling the column above the error and the layout check. Its colours are in its theme. */
+            & .code-editor {
                 flex: 1 1 auto;
                 min-height: 0;
-                resize: none;
-                padding: 0.75em;
-                overflow: auto;
-                white-space: nowrap;
-                font-family: monospace;
                 background-color: var(--color-editor-background);
-                color: var(--color-editor-text);
-                border: none;
-                font-size: 12px;
-                line-height: 1.5;
-                outline: none;
             }
         }
         &.has-editor-width {

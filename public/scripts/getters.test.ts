@@ -10,6 +10,9 @@ import {
     getResourcesForLanguage
 } from "./getters.ts";
 
+/** An editor as the tests use it: its text through `value`, as with the textarea it replaced. */
+type CodeInput = HTMLElement & { value: string };
+
 describe("getDataModelSummaryText", () => {
     it("returns [main] for first index", () => {
         expect(getDataModelSummaryText({ dataType: "Person" }, 0)).toBe("[main] Person");
@@ -108,7 +111,7 @@ describe("getDefaultValueForResource", () => {
 });
 
 describe("code inputs given invalid JSON", () => {
-    const cases: [name: string, storageKey: string, stored: string, getInput: () => HTMLTextAreaElement][] = [
+    const cases: [name: string, storageKey: string, stored: string, getInput: () => CodeInput][] = [
         ["layout code", "code", '{"tagName":"custom-field"}', getCodeInputElementForLayoutCode],
         ["text resources", "textResources", '{"resources":[]}', getCodeInputElementForTextResources],
         ["data model", "dataModels", '[{"dataType":"main","data":{"a":1}}]', () => getCodeInputElementForDataModel(0)]
@@ -169,12 +172,12 @@ describe("editors while typing", () => {
     const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     const pause = () => wait(PREVIEW_DELAY_MS + 50);
 
-    function type(input: HTMLTextAreaElement, value: string) {
+    function type(input: CodeInput, value: string) {
         input.value = value;
         input.dispatchEvent(new Event("input"));
     }
 
-    function mount(input: HTMLTextAreaElement) {
+    function mount(input: CodeInput) {
         document.getElementById("data-input")!.appendChild(input);
         return input;
     }

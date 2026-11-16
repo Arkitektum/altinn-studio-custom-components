@@ -107,6 +107,14 @@ describe("renderJsonInputError", () => {
         renderJsonInputError("first");
         expect(document.getElementById("data-input")!.lastElementChild!.classList.contains("code-input-error")).toBe(true);
     });
+    it("has an editor that can mark the error mark it, and clear it again", () => {
+        const marks: (string | undefined)[] = [];
+        const editor = document.getElementById("code-input") as HTMLElement & { setJsonError?: (message?: string) => void };
+        editor.setJsonError = (message?: string) => marks.push(message);
+        renderJsonInputError("first");
+        renderJsonInputError();
+        expect(marks).toEqual(["first", undefined]);
+    });
     it("removes the message and the invalid mark when called without a message", () => {
         renderJsonInputError("first");
         renderJsonInputError();

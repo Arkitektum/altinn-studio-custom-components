@@ -43,14 +43,16 @@ export function updateDataInputElement(inputElement: HTMLElement) {
 
 /**
  * Shows why the text in the code input was not saved, right below the input, or removes the message when there is none. Below, so the code does not move when the message goes as the JSON is fixed while typing.
+ * An editor that can mark the place the JSON stopped parsing (see createCodeEditor) marks it too.
  *
  * @param {string} [message] - The JSON parser's message, or nothing when the text was saved.
  */
 export function renderJsonInputError(message?: string) {
     const dataInputElement = document.getElementById("data-input");
-    const codeInputElement = document.getElementById("code-input");
+    const codeInputElement = document.getElementById("code-input") as (HTMLElement & { setJsonError?: (message?: string) => void }) | null;
     dataInputElement?.querySelector(".code-input-error")?.remove();
     codeInputElement?.removeAttribute("aria-invalid");
+    codeInputElement?.setJsonError?.(message);
     if (!message) {
         return;
     }

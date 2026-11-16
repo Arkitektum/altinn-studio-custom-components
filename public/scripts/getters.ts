@@ -7,6 +7,7 @@ import { addValueToLocalStorage, getDataModels, getTextResourcesStorageKey, getV
 import { handleDataModelDataOnChange, handleDataModelTypeOnChange } from "./handlers.ts";
 import { renderJsonInputError, setActiveSidebarElement, updateDataInputElement } from "./UI.ts";
 import { renderResults, renderSidebar, renderTextResourceStatusIndicators } from "./devTools/renderers.ts";
+import { createCodeEditor } from "./devTools/codeEditor.ts";
 import { setIconLabel } from "./icons.ts";
 import { validateResources } from "./validators.ts";
 
@@ -122,10 +123,10 @@ export const PREVIEW_DELAY_MS = 300;
  *
  * The save it is given leaves invalid JSON alone without a word, since JSON is mostly invalid halfway through typing it, and leaves the text as typed. Leaving the editor saves at once, reports invalid JSON and beautifies, so a save still waiting is dropped then. So is one for an editor no longer on the page.
  *
- * @param {HTMLTextAreaElement} codeInputElement - The editor.
+ * @param {HTMLElement} codeInputElement - The editor.
  * @param {Function} saveWhileTyping - Saves and draws what is typed, when it is valid.
  */
-export function previewWhileTyping(codeInputElement: HTMLTextAreaElement, saveWhileTyping: () => void) {
+export function previewWhileTyping(codeInputElement: HTMLElement, saveWhileTyping: () => void) {
     let timer: ReturnType<typeof setTimeout> | undefined;
     codeInputElement.addEventListener("input", () => {
         clearTimeout(timer);
@@ -147,20 +148,19 @@ function trimIfText(value: ApiValue) {
 }
 
 /**
- * Creates and returns a textarea element for editing the data of a specific data model.
- * The textarea is populated with the JSON stringified data of the selected data model.
+ * Creates and returns an editor for the data of a specific data model.
+ * The editor is populated with the JSON stringified data of the selected data model.
  * On change, it triggers data model update and re-renders results. Invalid JSON saves nothing and is reported above the input.
  * While typing, valid JSON is saved and drawn once typing pauses, see previewWhileTyping.
  *
  * @param {number} dataModelIndex - The index of the data model to edit.
- * @returns {HTMLTextAreaElement} The textarea element for editing the data model.
+ * @returns {CodeEditorElement} The editor for the data model.
  */
 export function getCodeInputElementForDataModel(dataModelIndex: number) {
-    const codeInputElement = document.createElement("textarea");
-    codeInputElement.id = "code-input";
     const dataModels = getDataModels();
     const dataModel = dataModels[dataModelIndex];
-    codeInputElement.value = JSON.stringify(dataModel.data, null, 2);
+    const codeInputElement = createCodeEditor(JSON.stringify(dataModel.data, null, 2));
+    codeInputElement.id = "code-input";
     const save = (whileTyping: boolean) => {
         const error = handleDataModelDataOnChange(dataModelIndex);
         if (error) {
@@ -176,19 +176,18 @@ export function getCodeInputElementForDataModel(dataModelIndex: number) {
 }
 
 /**
- * Creates and returns a textarea element for code input, initializes its value from local storage,
+ * Creates and returns the layout code editor, initializes its value from local storage,
  * and sets up an onchange handler to beautify the JSON, update local storage, render results,
  * validate resources, and update status indicators.
  * Invalid JSON saves nothing and is reported above the input.
  * While typing, valid JSON is saved and drawn once typing pauses, see previewWhileTyping.
  *
- * @returns {HTMLTextAreaElement} The configured textarea element for code input.
+ * @returns {CodeEditorElement} The layout code editor.
  */
 export function getCodeInputElementForLayoutCode() {
-    const codeInputElement = document.createElement("textarea");
+    const codeInputElement = createCodeEditor(getValueFromLocalStorage("code") || "");
     codeInputElement.id = "code-input";
     codeInputElement.dataset.editor = "layout";
-    codeInputElement.value = getValueFromLocalStorage("code") || "";
     const save = (whileTyping: boolean) => {
         const { value, error } = parseJsonInput(codeInputElement.value);
         if (error) {
@@ -254,20 +253,19 @@ function cleanUpTextResources(textResources: ApiValue) {
 }
 
 /**
- * Creates and returns a textarea element for editing text resources.
- * The textarea is pre-filled with the value from local storage (if available).
+ * Creates and returns an editor for text resources.
+ * The editor is pre-filled with the value from local storage (if available).
  * On change, it parses, cleans, beautifies, and saves the text resources,
  * updates the global `window.textResources`, and triggers rendering and validation.
  * Invalid JSON saves nothing and is reported above the input.
  * While typing, valid JSON is saved and drawn once typing pauses, see previewWhileTyping.
  *
- * @returns {HTMLTextAreaElement} The textarea element for text resource input.
+ * @returns {CodeEditorElement} The text resources editor.
  */
 export function getCodeInputElementForTextResources() {
-    const codeInputElement = document.createElement("textarea");
-    codeInputElement.id = "code-input";
     const storageKey = getTextResourcesStorageKey();
-    codeInputElement.value = getValueFromLocalStorage(storageKey) || "";
+    const codeInputElement = createCodeEditor(getValueFromLocalStorage(storageKey) || "");
+    codeInputElement.id = "code-input";
     const save = (whileTyping: boolean) => {
         const { value: textResources, error } = parseJsonInput(codeInputElement.value);
         if (error) {
