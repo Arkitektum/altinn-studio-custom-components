@@ -2,7 +2,7 @@ import type { ApiValue, LayoutComponent } from "../types.ts";
 import type { Workspace } from "../devTools/workspace.ts";
 // Local functions
 import { WORKSPACE_FORMAT, WORKSPACE_VERSION } from "../devTools/workspace.ts";
-import { getAppResourceValuesForLanguage } from "../getters.ts";
+import { getAppResourceValuesForLanguage } from "../textResourceGetters.ts";
 import { getLocalTextResourcesForApp } from "./textResourceLanguage.ts";
 import { languages } from "../languages.ts";
 

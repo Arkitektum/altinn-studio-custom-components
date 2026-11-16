@@ -1,6 +1,6 @@
 import type { ApiValue } from "../types.ts";
 // Local functions
-import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.ts";
+import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../textResourceGetters.ts";
 import { addDataToGlobalThis } from "../localStorage.ts";
 
 /**

@@ -9,7 +9,7 @@ import ValidationMessages from "../../src/classes/system-classes/ValidationMessa
 import { getDataModels, getLayoutCode, getTextResources } from "./localStorage.ts";
 
 // Global functions
-import { getDefaultValueForResource } from "./getters.ts";
+import { getDefaultValueForResource } from "./textResourceGetters.ts";
 import { instantiateComponent } from "../../src/functions/componentHelpers.ts";
 
 // Altinn-specific resource bindings used across validation logic

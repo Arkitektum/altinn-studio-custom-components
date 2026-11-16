@@ -7,7 +7,7 @@ import { applyTextResourcesForLanguage } from "./textResourceLanguage.ts";
 import { drawLayoutComponents } from "./drawComponents.ts";
 import { getDisplayLayoutsAddress } from "./pageLinks.ts";
 import { getRenderTargets } from "./renderHealth.ts";
-import { getResourcesForLanguage } from "../getters.ts";
+import { getResourcesForLanguage } from "../textResourceGetters.ts";
 import { pluralize } from "../formatters.ts";
 
 /**

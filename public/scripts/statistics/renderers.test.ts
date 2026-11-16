@@ -23,7 +23,7 @@ jest.mock("./apiHelpers.ts", () => ({
     getUpdatedApiData: (jest.fn() as unknown as jest.Mock).mockResolvedValue({})
 }));
 
-jest.mock("../getters.ts", () => ({
+jest.mock("../textResourceGetters.ts", () => ({
     getAppResourceValuesForLanguage: jest.fn(),
     getResourcesForLanguage: jest.fn()
 }));

@@ -1,7 +1,7 @@
 import type { ApiData, ApiValue, DisplayLayoutEntry } from "../types.ts";
 // Local functions
 import { fetchDefaultTextResources, getUpdatedApiData } from "./apiHelpers.ts";
-import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../getters.ts";
+import { getAppResourceValuesForLanguage, getResourcesForLanguage } from "../textResourceGetters.ts";
 import {
     getMissingResourceBindings,
     getResourceBindingsWithUsageFromApplications,

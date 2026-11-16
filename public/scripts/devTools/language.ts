@@ -1,5 +1,5 @@
 // Local functions
-import { getResourcesForLanguage } from "../getters.ts";
+import { getResourcesForLanguage } from "../textResourceGetters.ts";
 import { getTextResources } from "../localStorage.ts";
 
 // Data
