@@ -152,7 +152,7 @@ describe("renderSidebar", () => {
     it("renders sidebar UI and attaches event handlers", () => {
         renderers.renderSidebar();
         expect(document.getElementById("sidebar")!.innerHTML!).toContain("file-list");
-        expect(document.getElementById("sidebar")!.innerHTML!).toContain("Add Data Model");
+        expect(document.getElementById("sidebar")!.innerHTML!).toContain("Add data model");
     });
 });
 

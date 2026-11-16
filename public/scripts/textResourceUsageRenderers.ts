@@ -388,7 +388,7 @@ const textResourceAppFormChoices: AppFormChoices = {
  */
 export function renderUsageFilterForTextResourcesList(containerElement: HTMLElement, textResources: ApiValue) {
     const filterElement = renderLabelledSelectFilter(
-        "Filter by usage:",
+        "Filter by usage",
         "text-resource-usage-filter-select",
         [
             { value: "all", text: "All" },

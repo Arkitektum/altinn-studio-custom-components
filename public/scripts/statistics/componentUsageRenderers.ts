@@ -408,7 +408,7 @@ function handleComponentFilterChange(containerElement: HTMLElement, components: 
  */
 export function renderUsageFilterForComponentUsageList(containerElement: HTMLElement, components: LayoutComponent[] | undefined) {
     const filterElement = renderLabelledSelectFilter(
-        "Filter by usage:",
+        "Filter by usage",
         "component-usage-filter-select",
         [
             { value: "all", text: "All" },

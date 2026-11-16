@@ -427,7 +427,7 @@ export function renderSidebar() {
 
     const addDataModelButtonElement = document.createElement("button");
     addDataModelButtonElement.id = "add-data-model-button";
-    addDataModelButtonElement.innerHTML = "Add Data Model";
+    addDataModelButtonElement.textContent = "Add data model";
     addDataModelButtonElement.classList.add("add-button");
     addDataModelButtonElement.onclick = function () {
         addDataModel();
