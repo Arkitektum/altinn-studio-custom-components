@@ -118,6 +118,28 @@ function getInstanceIdFromLocation(location: Location): string | undefined {
 }
 
 /**
+ * Reads the language the page was asked for in its address, which overrides the one in the user's profile.
+ *
+ * Altinn's endpoints take the language as `language` or `lang` (`pdf/preview?lang=nn`, `process/next?lang=nb`), and
+ * when they render a pdf they open the frontend with it as `lang`: in the hash for app frontend v4
+ * (`#/instance/{partyId}/{instanceGuid}?pdf=1&lang=nn`), in the query for v9. Both are read, `language` before `lang`
+ * as Altinn reads them. Only a two or three letter code is taken, since it goes into the text resource address.
+ *
+ * @param location - Where the page is.
+ * @returns The language in lower case, or null when the address names none.
+ */
+export function getLanguageFromLocation(location: Location): string | null {
+    const hashQuery = location?.hash?.split("?").slice(1).join("?") ?? "";
+    for (const query of [new URLSearchParams(location?.search ?? ""), new URLSearchParams(hashQuery)]) {
+        const language = query.get("language") ?? query.get("lang");
+        if (language !== null && /^[a-z]{2,3}$/i.test(language)) {
+            return language.toLowerCase();
+        }
+    }
+    return null;
+}
+
+/**
  * Fetches the user's preferred language from the Altinn profile API.
  *
  * This function never throws. Any failure (network error, timeout, non-OK response such as HTTP 500,
@@ -185,7 +207,7 @@ async function fetchUserLanguage(
 }
 
 /**
- * Initializes custom components by fetching user profile data, determining language preferences, loading text resources, and dispatching a DOMContentLoaded event.
+ * Initializes custom components by determining the language (from the address, else the user profile), loading text resources, and dispatching a DOMContentLoaded event.
  * This function is intended to be called once when the application starts to set up the necessary environment for custom components to function correctly.
  *
  * Failures while determining the user's language or loading text resources are logged and do not abort initialization;
@@ -248,7 +270,11 @@ export default async function initCustomComponents() {
     try {
         updateBodyClassNamesForApplication(org, app);
 
-        selectedLanguage = (await fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCustomFields)) || fallbackLanguage;
+        // A language in the address is what the page was asked for, so the profile is not asked at all.
+        selectedLanguage =
+            getLanguageFromLocation(globalThis.location) ||
+            (await fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCustomFields)) ||
+            fallbackLanguage;
 
         // A reader in another language than nb also gets the nb texts, the app's and the package's, for a text missing
         // from those in their language: the components look there before showing a text's id.

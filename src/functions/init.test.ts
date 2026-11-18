@@ -5,7 +5,7 @@
 
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
-import initCustomComponents, { isAltinnAppOrigin } from "./init.ts";
+import initCustomComponents, { getLanguageFromLocation, isAltinnAppOrigin } from "./init.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
 import { defaultTextResourceLanguages } from "../constants/defaultTextResourceLanguages.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
@@ -350,6 +350,40 @@ describe("initCustomComponents", () => {
         });
     });
 
+    describe("a language in the address", () => {
+        const startUrl = globalThis.location.href;
+        const profileAsked = () => jest.mocked(fetchWithTimeoutAndClientLogger).mock.calls.some(([url]) => url === userProfileApiUrl);
+
+        afterEach(() => {
+            globalThis.history.replaceState(null, "", startUrl);
+        });
+
+        it("overrides the profile, which is then not asked, as when Altinn renders a pdf in nn", async () => {
+            globalThis.history.replaceState(null, "", `/${org}/${app}/#/instance/512345/abc-def?pdf=1&lang=nn`);
+
+            await initCustomComponents();
+
+            expect(profileAsked()).toBe(false);
+            expect(globalThis.selectedLanguage).toBe("nn");
+            expect(fetchTextResources).toHaveBeenCalledWith(origin, org, app, "nn", "nb", clientLogger, expect.any(Array));
+            expect(fetchDefaultTextResources).toHaveBeenCalledWith(origin, org, app, "nn", "nb", clientLogger, expect.any(Array));
+        });
+
+        it("leaves the profile to decide when the value is not a language code", async () => {
+            globalThis.history.replaceState(null, "", `/${org}/${app}/#/instance/512345/abc-def?lang=../../x`);
+            jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({
+                ok: true,
+                status: 200,
+                json: async () => ({ profileSettingPreference: { language: "en" } })
+            } as unknown as Response);
+
+            await initCustomComponents();
+
+            expect(profileAsked()).toBe(true);
+            expect(globalThis.selectedLanguage).toBe("en");
+        });
+    });
+
     describe("the instance id carried on every log entry", () => {
         const startUrl = globalThis.location.href;
         const instanceGuid = "0e9f1c3a-2b4d-4c5e-8f6a-7b8c9d0e1f2a";
@@ -383,6 +417,26 @@ describe("initCustomComponents", () => {
 
             expect(loggedInstanceId()).toBeUndefined();
         });
+    });
+});
+
+describe("getLanguageFromLocation", () => {
+    const at = (search: string, hash: string) => ({ search, hash }) as Location;
+    const cases: [where: string, location: Location, expected: string | null][] = [
+        ["the hash query, as app frontend v4 is opened for a pdf", at("", "#/instance/1/a?pdf=1&lang=nn"), "nn"],
+        ["the query, as app frontend v9 routes", at("?lang=en", ""), "en"],
+        ["language, Altinn's other name for it", at("?language=nn", ""), "nn"],
+        ["language before lang, as Altinn reads them", at("?lang=en&language=nn", ""), "nn"],
+        ["the query before the hash", at("?lang=en", "#/instance/1/a?lang=nn"), "en"],
+        ["a code in upper case, lowered", at("?lang=NB", ""), "nb"],
+        ["no language at all", at("", "#/instance/1/a?pdf=1"), null],
+        ["an empty value", at("?lang=", ""), null],
+        ["something that is not a language code", at("?lang=nb/../x", ""), null],
+        ["a hash with no query", at("", "#/instance/1/a"), null]
+    ];
+
+    it.each(cases)("reads %s", (_where, location, expected) => {
+        expect(getLanguageFromLocation(location)).toBe(expected);
     });
 });
 
