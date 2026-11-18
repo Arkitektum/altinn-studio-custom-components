@@ -364,8 +364,6 @@ export function filterTextResourcesBySelectedFilters(textResources: ApiValue) {
 function handleFilterChange(containerElement: HTMLElement, textResources: ApiValue) {
     const filteredResources = filterTextResourcesBySelectedFilters(textResources);
 
-    console.log(filteredResources);
-
     const existingListElement = containerElement.querySelector("#default-text-resources-list");
     if (existingListElement) {
         existingListElement.remove();
