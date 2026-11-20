@@ -10,6 +10,8 @@
         "./styles.css": "./dist/main.css",
         "./resources.json": "./dist/resources.json",
         "./resources/nb.json": "./dist/resource.nb.json",
+        "./resources/nn.json": "./dist/resource.nn.json",
+        "./resources/en.json": "./dist/resource.en.json",
         "./dataModelBindingKeys.json": "./dist/dataModelBindingKeys.json",
         "./layout.schema.json": "./dist/layout.schema.json",
         "./package.json": "./package.json",
