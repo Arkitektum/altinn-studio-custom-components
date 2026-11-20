@@ -145,7 +145,7 @@ describe("fetchDefaultTextResources", () => {
         jest.mocked(fetchWithTimeoutAndClientLogger).mockResolvedValueOnce({ ok: true, json: async () => data } as unknown as Response);
         const clientLogger = { postLogData: jest.fn() };
 
-        const result = await fetchDefaultTextResources(origin, org, app, "nn", "nb", clientLogger as never);
+        const result = await fetchDefaultTextResources(origin, org, app, "se", "nb", clientLogger as never);
 
         expect(result).toBe(data);
         expect(fetchWithTimeoutAndClientLogger).toHaveBeenCalledTimes(1);
