@@ -1,0 +1,1245 @@
+{
+    "language": "en",
+    "resources": [
+        {
+            "id": "resource.adresse.title",
+            "value": "Address"
+        },
+        {
+            "id": "resource.anleggstype.title",
+            "value": "Facility type"
+        },
+        {
+            "id": "resource.ansvarligForetak.title",
+            "value": "Responsible enterprise"
+        },
+        {
+            "id": "resource.ansvarsfordeling.title",
+            "value": "Allocation of responsibility"
+        },
+        {
+            "id": "resource.ansvarsomraade.title",
+            "value": "Area of responsibility"
+        },
+        {
+            "id": "resource.ansvarsomraader.title",
+            "value": "Areas of responsibility"
+        },
+        {
+            "id": "resource.ansvarsomraadeStatus.title",
+            "value": "Status of the work"
+        },
+        {
+            "id": "resource.ansvarsrettErklaeringTekst.title",
+            "value": "We are aware of the rules on penalties and sanctions in chapter 32 of the Planning and Building Act, and that providing incorrect information may lead to sanctions. We undertake to provide the appropriate competence in the building project, cf. SAK10 chapters 10 and 11."
+        },
+        {
+            "id": "resource.ansvarsrettKONTROLLTekst.title",
+            "value": "The responsible inspector declares independence, cf. SAK10 § 14-1, and will report any changes that may affect this independence, cf. SAK10 § 12-5."
+        },
+        {
+            "id": "resource.ansvarsrettPROTekst.title",
+            "value": "The responsible designer declares that the design will be planned, carried out and quality assured in accordance with the Planning and Building Act, cf. SAK10 § 12-3."
+        },
+        {
+            "id": "resource.ansvarsrettSOEKTekst.title",
+            "value": "The responsible applicant confirms that responsibility has been assigned for the entire project, and that it meets the requirements of the Planning and Building Act."
+        },
+        {
+            "id": "resource.ansvarsrettUTFTekst.title",
+            "value": "The responsible contractor declares that work will not start until quality-assured production documentation is available for the relevant part of the execution, cf. SAK10 § 12-4."
+        },
+        {
+            "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
+            "value": "Workplaces"
+        },
+        {
+            "id": "resource.arbeidsplasser.beroertAvTiltaket.title",
+            "value": "Affected by the project"
+        },
+        {
+            "id": "resource.arbeidsplasser.eksisterende.title",
+            "value": "Existing workplaces"
+        },
+        {
+            "id": "resource.arbeidsplasser.faste.title",
+            "value": "Permanent workplaces"
+        },
+        {
+            "id": "resource.arbeidsplasser.framtidige.title",
+            "value": "Future workplaces"
+        },
+        {
+            "id": "resource.arbeidsplasser.midlertidige.title",
+            "value": "Temporary workplaces"
+        },
+        {
+            "id": "resource.arbeidsplasser.title",
+            "value": "Which workplaces are affected by the project"
+        },
+        {
+            "id": "resource.arbeidsplasser.utleieBygg.title",
+            "value": "Rental building"
+        },
+        {
+            "id": "resource.avdekketArbeider.title",
+            "value": "We have not identified any remaining work within the area of responsibility that would prevent granting"
+        },
+        {
+            "id": "resource.avloep.title",
+            "value": "Wastewater"
+        },
+        {
+            "id": "resource.begrunnelse.fordeler.title",
+            "value": "List of advantages"
+        },
+        {
+            "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
+            "value": "Purpose of the provision"
+        },
+        {
+            "id": "resource.begrunnelse.samletBegrunnelse.title",
+            "value": "Overall justification"
+        },
+        {
+            "id": "resource.begrunnelse.title",
+            "value": "Justification"
+        },
+        {
+            "id": "resource.begrunnelse.ulemper.title",
+            "value": "List of disadvantages"
+        },
+        {
+            "id": "resource.begrunnelse.vurderingHensynBakBestemmelsen.title",
+            "value": "To what extent are the considerations behind the provision set aside by the dispensation?"
+        },
+        {
+            "id": "resource.begrunnelse.vurderingHensynOverordnet.title",
+            "value": "To what extent are the considerations in the purpose clause of the Act, or national or regional interests, set aside by the dispensation?"
+        },
+        {
+            "id": "resource.beregningsregelGradAvUtnytting.title",
+            "value": "Calculation rule for degree of utilisation"
+        },
+        {
+            "id": "resource.beroertePlaner.title",
+            "value": "Zoning plans affected by the plan proposal"
+        },
+        {
+            "id": "resource.beskrivelse.title",
+            "value": "Description"
+        },
+        {
+            "id": "resource.beskrivelseAvAnsvarsomraadet.title",
+            "value": "Description of the area of responsibility"
+        },
+        {
+            "id": "resource.beskrivelseAvFoelger.title",
+            "value": "Description of consequences"
+        },
+        {
+            "id": "resource.bestemmelse.title",
+            "value": "Provision"
+        },
+        {
+            "id": "resource.bestemmelsene.header",
+            "value": "These provisions regulate the property"
+        },
+        {
+            "id": "resource.bestemmelsestekst.title",
+            "value": "Provision text"
+        },
+        {
+            "id": "resource.bestemmelsestype.title",
+            "value": "Provision type"
+        },
+        {
+            "id": "resource.bestillerreferanse.title",
+            "value": "Customer reference"
+        },
+        {
+            "id": "resource.bygge-endre-rive.header",
+            "value": "Here we will build, demolish or alter"
+        },
+        {
+            "id": "resource.bygningstype.title",
+            "value": "Building type"
+        },
+        {
+            "id": "resource.componentRenderError",
+            "value": "This section could not be displayed."
+        },
+        {
+            "id": "resource.dato.title",
+            "value": "Date"
+        },
+        {
+            "id": "resource.datoAnsvarsrettErklaert.title",
+            "value": "Responsibility declared"
+        },
+        {
+            "id": "resource.datoFerdigattest.title",
+            "value": "Date of application for certificate of completion"
+        },
+        {
+            "id": "resource.dekkesOmraadeAvSentralGodkjenning.title",
+            "value": "Covered by central approval"
+        },
+        {
+            "id": "resource.detErVarsletOm.title",
+            "value": "Notification has been given of"
+        },
+        {
+            "id": "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
+            "value": "National land use plan ID"
+        },
+        {
+            "id": "resource.dispensasjonOversikt.dispensasjon.bestemmelserType.title",
+            "value": "Dispensation from"
+        },
+        {
+            "id": "resource.dispensasjonOversikt.dispensasjon.count.title",
+            "value": "Number of dispensation applications"
+        },
+        {
+            "id": "resource.dispensasjonOversikt.header",
+            "value": "Overview of dispensations applied for"
+        },
+        {
+            "id": "resource.dispensasjonsbeskrivelse.title",
+            "value": "Description of project"
+        },
+        {
+            "id": "resource.dispensasjonsreferanse.title",
+            "value": "Dispensation reference"
+        },
+        {
+            "id": "resource.dispensasjonssoeknad.annetTema.title",
+            "value": "Other"
+        },
+        {
+            "id": "resource.dispensasjonssoeknad.title",
+            "value": "Application for dispensation"
+        },
+        {
+            "id": "resource.dispensasjonsvarsel.bestemmelse.title",
+            "value": "Dispensation is sought from"
+        },
+        {
+            "id": "resource.dispensasjonsvarsel.dispVarselBeskrivelse.title",
+            "value": "Background for the dispensation application"
+        },
+        {
+            "id": "resource.dispensasjonsvarsel.spoersmaalOmDispensasjonssoeknaden.title",
+            "value": "Questions about the dispensation application should be directed to the contact person listed under \"Do you have questions about the neighbour notification?\""
+        },
+        {
+            "id": "resource.dispensasjonsvarsel.title",
+            "value": "Notification of dispensation application"
+        },
+        {
+            "id": "resource.eiendom.bolignummer.title",
+            "value": "Unit number"
+        },
+        {
+            "id": "resource.eiendom.bruksnummer.title",
+            "value": "Property unit number"
+        },
+        {
+            "id": "resource.eiendom.bygningsnummer.title",
+            "value": "Building number"
+        },
+        {
+            "id": "resource.eiendom.festenummer.title",
+            "value": "Leasehold number"
+        },
+        {
+            "id": "resource.eiendom.gaardsnummer.title",
+            "value": "Cadastral unit number"
+        },
+        {
+            "id": "resource.eiendom.seksjonsnummer.title",
+            "value": "Section number"
+        },
+        {
+            "id": "resource.eiendomByggested.eiendom.title",
+            "value": "Property/building site"
+        },
+        {
+            "id": "resource.eierFesterAvNaboeiendom.title",
+            "value": "Owner/leaseholder of neighbouring property"
+        },
+        {
+            "id": "resource.emne.title",
+            "value": "Subject"
+        },
+        {
+            "id": "resource.emptyFieldText.address",
+            "value": "(Address missing)"
+        },
+        {
+            "id": "resource.emptyFieldText.default",
+            "value": "-"
+        },
+        {
+            "id": "resource.emptyFieldText.zero",
+            "value": "0"
+        },
+        {
+            "id": "resource.endringAvRolleIByggesaken.gjelderFraDato.title",
+            "value": "The change applies from"
+        },
+        {
+            "id": "resource.endringAvRolleIByggesaken.title",
+            "value": "Change of role in the building case"
+        },
+        {
+            "id": "resource.endringenGjelder.endringstype.title",
+            "value": "Change types"
+        },
+        {
+            "id": "resource.endringenGjelder.title",
+            "value": "The change concerns"
+        },
+        {
+            "id": "resource.endringMeldtAv.title",
+            "value": "The change was reported by"
+        },
+        {
+            "id": "resource.energiforsyning.title",
+            "value": "Energy supply"
+        },
+        {
+            "id": "resource.epostadresse.title",
+            "value": "Email address"
+        },
+        {
+            "id": "resource.erAnsvarsomraadetAvsluttet.title",
+            "value": "Has the work been completed?"
+        },
+        {
+            "id": "resource.erDetFunnetAvvik.title",
+            "value": "Have any deviations been found, and have they been closed?"
+        },
+        {
+            "id": "resource.erklaering.title",
+            "value": "Declaration"
+        },
+        {
+            "id": "resource.ettersending.title",
+            "value": "Supplementary submission"
+        },
+        {
+            "id": "resource.fakturareferanse.title",
+            "value": "Invoice reference"
+        },
+        {
+            "id": "resource.falseText.default",
+            "value": "No"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleKontroll",
+            "value": "Planned declarations of inspection"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleMix",
+            "value": "Planned declarations of conformity/inspection"
+        },
+        {
+            "id": "resource.faseSamsvarKontroll.titleProUtf",
+            "value": "Planned declaration of conformity"
+        },
+        {
+            "id": "resource.FDV.paragraph.title",
+            "value": "FDV: It is confirmed that documentation on the management, operation and maintenance of the building has either been handed over to the owner of the building, or that this is not relevant."
+        },
+        {
+            "id": "resource.felt.title",
+            "value": "Field"
+        },
+        {
+            "id": "resource.ferdigattest.title",
+            "value": "Certificate of completion"
+        },
+        {
+            "id": "resource.foelgebrev.title",
+            "value": "Cover letter"
+        },
+        {
+            "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
+            "value": "Adjustments not requiring an application"
+        },
+        {
+            "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.title",
+            "value": "Have any adjustments been made to the permit that do not require an application for change?"
+        },
+        {
+            "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
+            "value": "\"As-built\" drawings and/or documentation of the project's location are attached to the application."
+        },
+        {
+            "id": "resource.formaal.title",
+            "value": "Purpose"
+        },
+        {
+            "id": "resource.forslagsstiller.title",
+            "value": "Plan proponent"
+        },
+        {
+            "id": "resource.ftpbReferanseId.title",
+            "value": "Submission reference"
+        },
+        {
+            "id": "resource.funksjon.title",
+            "value": "Function"
+        },
+        {
+            "id": "resource.generelleVilkaar.beroererArbeidsplasser.title",
+            "value": "Does the project affect existing or future workplaces?"
+        },
+        {
+            "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
+            "value": "The application and all relevant documentation are written in or translated into Norwegian, Swedish or Danish."
+        },
+        {
+            "id": "resource.gjennomfoeringsplan.description",
+            "value": "pursuant to the Building Application Regulations (SAK10) § 5-3"
+        },
+        {
+            "id": "resource.gjennomfoeringsplan.title",
+            "value": "Implementation plan"
+        },
+        {
+            "id": "resource.gjennomfoeringsplannummer.title",
+            "value": "Implementation plan number"
+        },
+        {
+            "id": "resource.gjenpartNabovarsel.description",
+            "value": "Pursuant to the Planning and Building Act § 21-3"
+        },
+        {
+            "id": "resource.gjenpartNabovarsel.title",
+            "value": "Information provided in the neighbour notification"
+        },
+        {
+            "id": "resource.gjenstaaendeArbeider.gjenstaaendeInnenfor.title",
+            "value": "Within the part of the project for which a temporary occupancy permit is sought, the following work of minor significance remains"
+        },
+        {
+            "id": "resource.gjenstaaendeArbeider.gjenstaaendeUtenfor.title",
+            "value": "A temporary occupancy permit is not being sought for these parts of the project at this time"
+        },
+        {
+            "id": "resource.gjenstaaendeArbeider.header",
+            "value": "Remaining work before certificate of completion"
+        },
+        {
+            "id": "resource.gjenstaaendeArbeider.title",
+            "value": "Remaining work"
+        },
+        {
+            "id": "resource.gradAvUtnytting.title",
+            "value": "New degree of utilisation"
+        },
+        {
+            "id": "resource.harAapneAvvik.title",
+            "value": "Open deviations have been reported to the municipality"
+        },
+        {
+            "id": "resource.harIngenAvvik.title",
+            "value": "No deviations have been found"
+        },
+        {
+            "id": "resource.harObserverteAvvik.title",
+            "value": "Observed deviations have been closed"
+        },
+        {
+            "id": "resource.harSentralGodkjenning.booleanText.title",
+            "value": "Does the enterprise have central approval?"
+        },
+        {
+            "id": "resource.hjemmesidePlanforslag.title",
+            "value": "The plan proposal is attached to this message. In addition, the full plan proposal is available online:"
+        },
+        {
+            "id": "resource.hvaSkjer.header",
+            "value": "What happens to your comments?"
+        },
+        {
+            "id": "resource.hvaSkjer.paragraph",
+            "value": "We who sent you the neighbour notification will submit the comments to the municipality together with the building application. We must describe how the comments have been assessed and explain what, if anything, has been done to take them into account. The municipality will assess whether the comments from you and other neighbours affect the project/building plans."
+        },
+        {
+            "id": "resource.hvaSkjer2.paragraph",
+            "value": "We may also choose to change the building project based on the comments. This may make it necessary to send you a new neighbour notification."
+        },
+        {
+            "id": "resource.igangsettingstillatelse.title",
+            "value": "Commencement permit"
+        },
+        {
+            "id": "resource.kartutsnittAvPlanomraadet.title",
+            "value": "Map extract of the plan area"
+        },
+        {
+            "id": "resource.kategori.title",
+            "value": "Category"
+        },
+        {
+            "id": "resource.kommentar.title",
+            "value": "Comment"
+        },
+        {
+            "id": "resource.kommune.title",
+            "value": "Municipality"
+        },
+        {
+            "id": "resource.kommunensSaksnummer.title",
+            "value": "Municipality's case number"
+        },
+        {
+            "id": "resource.konsekvensutredning.title",
+            "value": "Impact assessment"
+        },
+        {
+            "id": "resource.kontaktperson.title",
+            "value": "Contact person"
+        },
+        {
+            "id": "resource.kontaktpersonForNabovarselet.header",
+            "value": "Do you have questions about the neighbour notification?"
+        },
+        {
+            "id": "resource.kontaktpersonForNabovarselet.paragraph",
+            "value": "Questions about the content of the neighbour notification can be directed to:"
+        },
+        {
+            "id": "resource.kontaktpersonForNabovarselet.title",
+            "value": "Contact person for the neighbour notification"
+        },
+        {
+            "id": "resource.kontaktpersonForSoeker.title",
+            "value": "Contact person for the applicant"
+        },
+        {
+            "id": "resource.kontaktpersonForTiltakshaver.title",
+            "value": "Contact person for the developer"
+        },
+        {
+            "id": "resource.kontrollErklaeringTekst.title",
+            "value": "We are aware of the rules on penalties and sanctions in chapter 32 of the Planning and Building Act, and that providing incorrect information may lead to sanctions."
+        },
+        {
+            "id": "resource.kontrollKONTROLLTekst.title",
+            "value": "The responsible inspector confirms that the inspection has been carried out in accordance with the regulations, and that the inspecting enterprise is independent of the enterprises inspected."
+        },
+        {
+            "id": "resource.koordinater.title",
+            "value": "Coordinates"
+        },
+        {
+            "id": "resource.koordinatsystem.title",
+            "value": "Coordinate system"
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.description",
+            "value": "For the application to be processed automatically, it must meet the criteria for automated case processing. If one or more answers do not meet the criteria, or the municipality does not offer automated case processing, it will be processed manually."
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.sjekklistepunksvar.title",
+            "value": "Answer"
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.sjekklistepunkt.title",
+            "value": "Requirements for automated processing"
+        },
+        {
+            "id": "resource.krav.sjekklistekrav.title",
+            "value": "Answers to requirements for automated processing"
+        },
+        {
+            "id": "resource.kravFerdigattest.bekreftelseInnen.title",
+            "value": "We will send the municipality confirmation that the work has been completed by"
+        },
+        {
+            "id": "resource.kravFerdigattest.tilfredsstillerTiltaketKraveneFerdigattest.title",
+            "value": "Does the project meet the requirements for a certificate of completion?"
+        },
+        {
+            "id": "resource.kravFerdigattest.typeArbeider.title",
+            "value": "The following work of minor significance remains"
+        },
+        {
+            "id": "resource.kravFerdigattest.utfoertInnen.title",
+            "value": "The work will be completed by"
+        },
+        {
+            "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
+            "value": "Natural hazard"
+        },
+        {
+            "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.sikkerhetsklasse.title",
+            "value": "Safety class/project category"
+        },
+        {
+            "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
+            "value": "Overview of area risks where the building will be located"
+        },
+        {
+            "id": "resource.kravTilByggegrunn.title",
+            "value": "Ground requirements"
+        },
+        {
+            "id": "resource.merknaderNabovarsel.header",
+            "value": "Do you have comments on the neighbour notification?"
+        },
+        {
+            "id": "resource.merknaderNabovarsel.paragraph2",
+            "value": "Comments on the neighbour notification can be submitted via Altinn or sent to the applicant:"
+        },
+        {
+            "id": "resource.metadata.ftbId.title",
+            "value": "FtID"
+        },
+        {
+            "id": "resource.metadata.prosjekt.title",
+            "value": "Project"
+        },
+        {
+            "id": "resource.metadata.prosjektnavn",
+            "value": "Project name"
+        },
+        {
+            "id": "resource.midlertidigBrukstillatelse.title",
+            "value": "Temporary occupancy permit"
+        },
+        {
+            "id": "resource.mottakere.title",
+            "value": "Recipients"
+        },
+        {
+            "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
+            "value": "Neighbouring property"
+        },
+        {
+            "id": "resource.naboGjenboer.title",
+            "value": "Neighbour notification with attachments has been sent to the following neighbours"
+        },
+        {
+            "id": "resource.nabovarsling.title",
+            "value": "Neighbour notification"
+        },
+        {
+            "id": "resource.navn.title",
+            "value": "Name"
+        },
+        {
+            "id": "resource.nummer.short",
+            "value": "No."
+        },
+        {
+            "id": "resource.operator.equals",
+            "value": "="
+        },
+        {
+            "id": "resource.operator.minus",
+            "value": "-"
+        },
+        {
+            "id": "resource.operator.plus",
+            "value": "+"
+        },
+        {
+            "id": "resource.organisasjonsnummer.title",
+            "value": "Organisation number"
+        },
+        {
+            "id": "resource.overskrift.title",
+            "value": "Heading"
+        },
+        {
+            "id": "resource.overvann.title",
+            "value": "Surface water"
+        },
+        {
+            "id": "resource.planbestemmelse.title",
+            "value": "Plan provision"
+        },
+        {
+            "id": "resource.planenGjelder.title",
+            "value": "The plan concerns"
+        },
+        {
+            "id": "resource.planer.andrePlaner.plan.navn.title",
+            "value": "Plan name"
+        },
+        {
+            "id": "resource.planer.andrePlaner.plan.plantype.title",
+            "value": "Plan type"
+        },
+        {
+            "id": "resource.planer.andrePlaner.title",
+            "value": "Other plans"
+        },
+        {
+            "id": "resource.planer.andreRelevanteKrav.title",
+            "value": "Other relevant requirements"
+        },
+        {
+            "id": "resource.planer.gjeldendePlan.beregningsregelGradAvUtnytting.title",
+            "value": "Calculation rule specified in the applicable plan"
+        },
+        {
+            "id": "resource.planer.gjeldendePlan.formaal.title",
+            "value": "Zoning purpose"
+        },
+        {
+            "id": "resource.planer.gjeldendePlan.navn.title",
+            "value": "Plan name"
+        },
+        {
+            "id": "resource.planer.gjeldendePlan.plantype.title",
+            "value": "Plan type"
+        },
+        {
+            "id": "resource.planer.gjeldendePlan.title",
+            "value": "Applicable plan"
+        },
+        {
+            "id": "resource.planer.gjeldendePlan.utnyttingsgrad.title",
+            "value": "Degree of utilisation according to the applicable plan"
+        },
+        {
+            "id": "resource.planId.title",
+            "value": "Plan ID"
+        },
+        {
+            "id": "resource.plankonsulent.title",
+            "value": "Planning consultant"
+        },
+        {
+            "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
+            "value": "Planned"
+        },
+        {
+            "id": "resource.planlagteSamsvarKontrollErklaeringer.title",
+            "value": "Planned declaration of conformity/inspection with signing date, if any"
+        },
+        {
+            "id": "resource.plannavn.title",
+            "value": "Plan name"
+        },
+        {
+            "id": "resource.plantype.title",
+            "value": "Plan type"
+        },
+        {
+            "id": "resource.prosjektnummer.title",
+            "value": "Project number"
+        },
+        {
+            "id": "resource.rammebetingelser.adkomst.erNyEllerEndretAdkomst.title",
+            "value": "Will the project provide new or altered access?"
+        },
+        {
+            "id": "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
+            "value": "Has permission been granted for the change?"
+        },
+        {
+            "id": "resource.rammebetingelser.adkomst.title",
+            "value": "Access"
+        },
+        {
+            "id": "resource.rammebetingelser.adkomst.vegtype.title",
+            "value": "Road type"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.arealBebyggelseEksisterende.title",
+            "value": "Area of existing buildings"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.arealBebyggelseNytt.title",
+            "value": "Area of new buildings"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.arealBebyggelseSomSkalRives.title",
+            "value": "Area to be demolished"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.arealSumByggesak.title",
+            "value": "Total area"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.bebyggelsen.title",
+            "value": "Buildings"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.beregnetGradAvUtnytting.title",
+            "value": "Calculated degree of utilisation"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.beregnetMaksByggeareal.title",
+            "value": "Calculated maximum building area according to plan"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.gradAvUtnytting.title",
+            "value": "Degree of utilisation"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.parkeringsarealTerreng.title",
+            "value": "Parking area"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.title",
+            "value": "Plans and land use"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.tomtearealBeregnet.title",
+            "value": "Calculated plot area"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.tomtearealByggeomraade.title",
+            "value": "Building area/land property"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
+            "value": "Area to be added"
+        },
+        {
+            "id": "resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title",
+            "value": "Any area to be deducted according to calculation rules"
+        },
+        {
+            "id": "resource.rammebetingelser.avloep.harTinglystErklaering.title",
+            "value": "Is there a right established by a registered declaration?"
+        },
+        {
+            "id": "resource.rammebetingelser.avloep.harUtslippstillatelse.title",
+            "value": "Is there a discharge permit?"
+        },
+        {
+            "id": "resource.rammebetingelser.avloep.krysserAvloepAnnensGrunn.title",
+            "value": "Does the wastewater system cross another party's land?"
+        },
+        {
+            "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
+            "value": "Will a water closet be installed?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
+            "value": "Does the project affect buildings constructed before 1850?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.erAvhengigAvTillatelse.title",
+            "value": "Does the project depend on permission from another authority?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.erForhaandskonferanseAvholdt.title",
+            "value": "Has a pre-application meeting been held with the municipality?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.erPaalagtUavhengigKontroll.title",
+            "value": "Is independent inspection mandatory?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.oppfyllerVilkaarForTreukersfrist.title",
+            "value": "Does the application meet the conditions for a 3-week processing time?"
+        },
+        {
+            "id": "resource.rammebetingelser.generellInformasjon.skalUtarbeideAvfallsplan.title",
+            "value": "Will a waste management plan be prepared?"
+        },
+        {
+            "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
+            "value": "Does the project involve other natural conditions, cf. Planning and Building Act § 28-1?"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
+            "value": "Are there lifting devices in the building covered by TEK17?"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.planlagteLoefteinnretninger.title",
+            "value": "Planned lifting devices"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.planleggesHeis.title",
+            "value": "A lift is planned"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.planleggesLoefteinnretningIBygning.title",
+            "value": "Are lifting devices covered by TEK17 planned in the building?"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.planleggesLoefteplattform.title",
+            "value": "A lifting platform is planned"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.planleggesRulletrapp.title",
+            "value": "An escalator is planned"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title",
+            "value": "A stairlift is planned"
+        },
+        {
+            "id": "resource.rammebetingelser.loefteinnretninger.title",
+            "value": "Lifting devices"
+        },
+        {
+            "id": "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title",
+            "value": "Is roof water/surface water directed to a surface water drainage system?"
+        },
+        {
+            "id": "resource.rammebetingelser.overvann.ledesOvervannTilTerreng.title",
+            "value": "Is roof water/surface water directed to the terrain?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
+            "value": "Is the project within the building line?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.erKonfliktMedHoeyspentkraftlinje.title",
+            "value": "Is there a live power line/cable or substation/transformer in, above or near the project?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.erKonfliktMedVannOgAvloep.title",
+            "value": "Are water and wastewater pipes in conflict with the project?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandNabogrense.title",
+            "value": "What is the minimum distance to the property boundary?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilAnnenBygning.title",
+            "value": "What is the minimum distance to another building?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.minsteAvstandTilMidtenAvVei.title",
+            "value": "What is the minimum distance to the centre of the road?"
+        },
+        {
+            "id": "resource.rammebetingelser.plassering.title",
+            "value": "Location of the project"
+        },
+        {
+            "id": "resource.rammebetingelser.tilknytning.title",
+            "value": "Connection to road and utility networks"
+        },
+        {
+            "id": "resource.rammebetingelser.vannforsyning.harTinglystErklaering.title",
+            "value": "Is there a right established by a registered declaration?"
+        },
+        {
+            "id": "resource.rammebetingelser.vannforsyning.krysserVannforsyningAnnensGrunn.title",
+            "value": "Does the water supply cross another party's land?"
+        },
+        {
+            "id": "resource.rammesoeknad.title",
+            "value": "Application for outline permission"
+        },
+        {
+            "id": "resource.redegjoerelse.title",
+            "value": "Statement"
+        },
+        {
+            "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
+            "value": "No response"
+        },
+        {
+            "id": "resource.respons.erMerknadMottatt.trueText",
+            "value": "Comment"
+        },
+        {
+            "id": "resource.respons.erSamtykkeMottatt.trueText",
+            "value": "Consent"
+        },
+        {
+            "id": "resource.respons.merknadMottattDato.title",
+            "value": "Comment received"
+        },
+        {
+            "id": "resource.respons.nabovarselSendt.title",
+            "value": "Neighbour notification sent"
+        },
+        {
+            "id": "resource.respons.nabovarselSendtVia.title",
+            "value": "Neighbour notification sent via"
+        },
+        {
+            "id": "resource.respons.samtykkeMottattDato.title",
+            "value": "Consent received"
+        },
+        {
+            "id": "resource.rolleendringer.rolleendring.aktoerendring.title",
+            "value": "Change"
+        },
+        {
+            "id": "resource.rolleendringer.rolleendring.aktoertype.title",
+            "value": "Role"
+        },
+        {
+            "id": "resource.rolleendringer.rolleendring.erRolleendringErklaert.title",
+            "value": "Declared"
+        },
+        {
+            "id": "resource.rolleendringer.title",
+            "value": "Role changes"
+        },
+        {
+            "id": "resource.saksbehandler.title",
+            "value": "Case officer"
+        },
+        {
+            "id": "resource.samsvarErklaeringTekst.title",
+            "value": "We are aware of the rules on penalties and sanctions in chapter 32 of the Planning and Building Act, and that providing incorrect information may lead to sanctions. We confirm that quality assurance has been carried out and documented in accordance with the declaration of responsibility and the enterprise's quality assurance system."
+        },
+        {
+            "id": "resource.samsvarKontrollPlanlagtVedFerdigattest.title",
+            "value": "Application for certificate of completion"
+        },
+        {
+            "id": "resource.samsvarKontrollPlanlagtVedIgangsettingstillatelse.title",
+            "value": "One-step/commencement application"
+        },
+        {
+            "id": "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title",
+            "value": "Application for temporary occupancy permit"
+        },
+        {
+            "id": "resource.samsvarPROTekst.title",
+            "value": "The responsible designer confirms that the design complies with the performance requirements in TEK17 and pre-accepted performance levels (VTEK), or by analysis demonstrating that the functional requirements of the regulations (TEK17) are met."
+        },
+        {
+            "id": "resource.samsvarUTFTekst.title",
+            "value": "The responsible contractor confirms that the execution complies with the production documentation."
+        },
+        {
+            "id": "resource.sikkerhetsnivaa.bekreftelseInnen.title",
+            "value": "We will send the municipality confirmation that the project has an adequate safety level by"
+        },
+        {
+            "id": "resource.sikkerhetsnivaa.harTilstrekkeligSikkerhet.title",
+            "value": "Does the project have an adequate safety level to be taken into use today?"
+        },
+        {
+            "id": "resource.sikkerhetsnivaa.title",
+            "value": "Safety level"
+        },
+        {
+            "id": "resource.sikkerhetsNivaa.title",
+            "value": "Safety level and work to be carried out within 14 days"
+        },
+        {
+            "id": "resource.sikkerhetsnivaa.typeArbeider.title",
+            "value": "The following work remains for the project to have an adequate safety level"
+        },
+        {
+            "id": "resource.sikkerhetsnivaa.utfoertInnen.title",
+            "value": "The work to achieve an adequate safety level will be completed by"
+        },
+        {
+            "id": "resource.sluttrapport.title",
+            "value": "Final inspection report"
+        },
+        {
+            "id": "resource.soeker.title",
+            "value": "Applicant"
+        },
+        {
+            "id": "resource.soeknadensHjemmeside.header",
+            "value": "See also our website"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
+            "value": "Description of planned purpose"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal",
+            "value": "Description of previous purpose"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal.title",
+            "value": "Description of former purpose"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
+            "value": "Industry group"
+        },
+        {
+            "id": "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
+            "value": "Purpose of the project"
+        },
+        {
+            "id": "resource.soeknadGjelder.title",
+            "value": "The application concerns"
+        },
+        {
+            "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
+            "value": "Project type"
+        },
+        {
+            "id": "resource.soeknadGjelder.type.kode.title",
+            "value": "Project types in the building case"
+        },
+        {
+            "id": "resource.status.title",
+            "value": "Status"
+        },
+        {
+            "id": "resource.stedfesting.title",
+            "value": "Georeferencing"
+        },
+        {
+            "id": "resource.telefonnummer.title",
+            "value": "Phone number"
+        },
+        {
+            "id": "resource.tema.title",
+            "value": "Topic"
+        },
+        {
+            "id": "resource.tilknytning.title",
+            "value": "Connection"
+        },
+        {
+            "id": "resource.tillatelsedato.title",
+            "value": "Permit date"
+        },
+        {
+            "id": "resource.tilstrekkeligSikkerhet.title",
+            "value": "Does the project have an adequate safety level to be taken into use?"
+        },
+        {
+            "id": "resource.tiltakByggeplaner.title",
+            "value": "Project/ building plans"
+        },
+        {
+            "id": "resource.tiltakshaver.fakturamottaker.title",
+            "value": "Invoice address for the developer"
+        },
+        {
+            "id": "resource.tiltakshaver.title",
+            "value": "Developer"
+        },
+        {
+            "id": "resource.tiltaksklasse.title",
+            "value": "Project class"
+        },
+        {
+            "id": "resource.tiltakstyper.title",
+            "value": "Project types"
+        },
+        {
+            "id": "resource.tiltakstyper.type.kode.title",
+            "value": "Project types in application for dispensation"
+        },
+        {
+            "id": "resource.tomtearealet.title",
+            "value": "Plot area"
+        },
+        {
+            "id": "resource.trueText.default",
+            "value": "Yes"
+        },
+        {
+            "id": "resource.typeArbeider.title",
+            "value": "We will carry out the following work to achieve an adequate safety level"
+        },
+        {
+            "id": "resource.unit.meterSquared",
+            "value": "m²"
+        },
+        {
+            "id": "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
+            "value": "Will be answered later"
+        },
+        {
+            "id": "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
+            "value": "Answer submitted previously"
+        },
+        {
+            "id": "resource.utfallBesvarelse.utfallSvar.status",
+            "value": "Answered now"
+        },
+        {
+            "id": "resource.utfallBesvarelse.utfallSvar.title",
+            "value": "Response to deficiencies"
+        },
+        {
+            "id": "resource.utfoereInnen.title",
+            "value": "We will carry out the work by"
+        },
+        {
+            "id": "resource.vaarRef.title",
+            "value": "Our ref."
+        },
+        {
+            "id": "resource.vannforsyning.title",
+            "value": "Water supply"
+        },
+        {
+            "id": "resource.varighet.oenskesVarigDispensasjon.trueText",
+            "value": "Permanent dispensation requested"
+        },
+        {
+            "id": "resource.varighet.oensketVarighetTil.title",
+            "value": "Requested duration until"
+        },
+        {
+            "id": "resource.varighet.title",
+            "value": "Duration"
+        },
+        {
+            "id": "resource.varmefordeling.title",
+            "value": "Heat distribution"
+        },
+        {
+            "id": "resource.varmesystem.relevant.false.description",
+            "value": "Energy supply and heat distribution are not relevant to the project."
+        },
+        {
+            "id": "resource.varmesystem.title",
+            "value": "Heating system"
+        },
+        {
+            "id": "resource.varsler-herved.header",
+            "value": "We hereby give notice of"
+        },
+        {
+            "id": "resource.varsling.antallMerknader.title",
+            "value": "Number of comments from neighbours or opposite neighbours"
+        },
+        {
+            "id": "resource.varsling.fritattFraNabovarsling.title",
+            "value": "Have neighbours been notified of the project?"
+        },
+        {
+            "id": "resource.varsling.harPengeheftelser.title",
+            "value": "Have any holders of registered financial encumbrances on the property been notified?"
+        },
+        {
+            "id": "resource.varsling.soeknadensHjemmeside.title",
+            "value": "Application website"
+        },
+        {
+            "id": "resource.varsling.vurderingAvMerknader.title",
+            "value": "Applicant's assessment of the comments"
+        },
+        {
+            "id": "resource.vedlegg.title",
+            "value": "Attachments"
+        },
+        {
+            "id": "resource.vedtakOmOffentligEttersyn.title",
+            "value": "Decision on public consultation"
+        },
+        {
+            "id": "resource.verdi.title",
+            "value": "Value"
+        },
+        {
+            "id": "resource.vertikalnivaa.title",
+            "value": "Vertical level"
+        }
+    ]
+}

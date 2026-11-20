@@ -5,4 +5,4 @@
  * of requesting the file and logging the miss as an error. `resources.test.ts` checks this against the languages
  * `resources.json` actually holds, so adding values in a new language fails the tests until it is listed here.
  */
-export const defaultTextResourceLanguages: readonly string[] = Object.freeze(["nb"]);
+export const defaultTextResourceLanguages: readonly string[] = Object.freeze(["nb", "nn", "en"]);

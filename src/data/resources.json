@@ -2,1861 +2,2481 @@
     {
         "id": "resource.adresse.title",
         "values": {
-            "nb": "Adresse"
+            "nb": "Adresse",
+            "nn": "Adresse",
+            "en": "Address"
         }
     },
     {
         "id": "resource.anleggstype.title",
         "values": {
-            "nb": "Anleggstype"
+            "nb": "Anleggstype",
+            "nn": "Anleggstype",
+            "en": "Facility type"
         }
     },
     {
         "id": "resource.ansvarligForetak.title",
         "values": {
-            "nb": "Ansvarlig foretak"
+            "nb": "Ansvarlig foretak",
+            "nn": "Ansvarleg føretak",
+            "en": "Responsible enterprise"
         }
     },
     {
         "id": "resource.ansvarsfordeling.title",
         "values": {
-            "nb": "Ansvarsfordeling"
+            "nb": "Ansvarsfordeling",
+            "nn": "Ansvarsfordeling",
+            "en": "Allocation of responsibility"
         }
     },
     {
         "id": "resource.ansvarsomraade.title",
         "values": {
-            "nb": "Ansvarsområde"
+            "nb": "Ansvarsområde",
+            "nn": "Ansvarsområde",
+            "en": "Area of responsibility"
         }
     },
     {
         "id": "resource.ansvarsomraader.title",
         "values": {
-            "nb": "Ansvarsområder"
+            "nb": "Ansvarsområder",
+            "nn": "Ansvarsområde",
+            "en": "Areas of responsibility"
         }
     },
     {
         "id": "resource.ansvarsomraadeStatus.title",
         "values": {
-            "nb": "Status for arbeidene"
+            "nb": "Status for arbeidene",
+            "nn": "Status for arbeida",
+            "en": "Status of the work"
         }
     },
     {
         "id": "resource.ansvarsrettErklaeringTekst.title",
         "values": {
-            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss til å stille med riktig kompetanse i byggeprosjektet, jf. SAK10 kapittel 10 og 11."
+            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi forplikter oss til å stille med riktig kompetanse i byggeprosjektet, jf. SAK10 kapittel 10 og 11.",
+            "nn": "Vi kjenner til reglane om straff og sanksjonar i kapittel 32 i plan- og bygningslova, og at det kan føre til reaksjonar dersom vi gir uriktige opplysningar. Vi forpliktar oss til å stille med rett kompetanse i byggjeprosjektet, jf. SAK10 kapittel 10 og 11.",
+            "en": "We are aware of the rules on penalties and sanctions in chapter 32 of the Planning and Building Act, and that providing incorrect information may lead to sanctions. We undertake to provide the appropriate competence in the building project, cf. SAK10 chapters 10 and 11."
         }
     },
     {
         "id": "resource.ansvarsrettKONTROLLTekst.title",
         "values": {
-            "nb": "Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5."
+            "nb": "Ansvarlig kontrollerende erklærer uavhengighet, jf. SAK10 § 14-1, og vil redegjøre for endringer som kan påvirke uavhengigheten, jf. SAK10 § 12-5.",
+            "nn": "Ansvarleg kontrollerande erklærer uavhengigheit, jf. SAK10 § 14-1, og vil gjere greie for endringar som kan påverke uavhengigheita, jf. SAK10 § 12-5.",
+            "en": "The responsible inspector declares independence, cf. SAK10 § 14-1, and will report any changes that may affect this independence, cf. SAK10 § 12-5."
         }
     },
     {
         "id": "resource.ansvarsrettPROTekst.title",
         "values": {
-            "nb": "Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til plan- og bygningsloven, jf. SAK10 § 12-3."
+            "nb": "Ansvarlig prosjekterende erklærer at prosjekteringen skal være planlagt, gjennomført og kvalitetssikret i henhold til plan- og bygningsloven, jf. SAK10 § 12-3.",
+            "nn": "Ansvarleg prosjekterande erklærer at prosjekteringa skal vere planlagd, gjennomført og kvalitetssikra i samsvar med plan- og bygningslova, jf. SAK10 § 12-3.",
+            "en": "The responsible designer declares that the design will be planned, carried out and quality assured in accordance with the Planning and Building Act, cf. SAK10 § 12-3."
         }
     },
     {
         "id": "resource.ansvarsrettSOEKTekst.title",
         "values": {
-            "nb": "Ansvarlig søker bekrefter at hele tiltaket belegges med ansvar, og dekker kravene i plan- og bygningsloven."
+            "nb": "Ansvarlig søker bekrefter at hele tiltaket belegges med ansvar, og dekker kravene i plan- og bygningsloven.",
+            "nn": "Ansvarleg søkjar stadfestar at heile tiltaket er belagt med ansvar, og dekkjer krava i plan- og bygningslova.",
+            "en": "The responsible applicant confirms that responsibility has been assigned for the entire project, and that it meets the requirements of the Planning and Building Act."
         }
     },
     {
         "id": "resource.ansvarsrettUTFTekst.title",
         "values": {
-            "nb": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4."
+            "nb": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4.",
+            "nn": "Ansvarleg utførande erklærer at arbeidet ikkje skal starte før det ligg føre kvalitetssikra produksjonsunderlag for den aktuelle delen av utføringa, jf. SAK10 § 12-4.",
+            "en": "The responsible contractor declares that work will not start until quality-assured production documentation is available for the relevant part of the execution, cf. SAK10 § 12-4."
         }
     },
     {
         "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
         "values": {
-            "nb": "Arbeidsplasser"
+            "nb": "Arbeidsplasser",
+            "nn": "Arbeidsplassar",
+            "en": "Workplaces"
         }
     },
     {
         "id": "resource.arbeidsplasser.beroertAvTiltaket.title",
         "values": {
-            "nb": "Berørt av tiltaket"
+            "nb": "Berørt av tiltaket",
+            "nn": "Råka av tiltaket",
+            "en": "Affected by the project"
         }
     },
     {
         "id": "resource.arbeidsplasser.eksisterende.title",
         "values": {
-            "nb": "Eksisterende arbeidsplasser"
+            "nb": "Eksisterende arbeidsplasser",
+            "nn": "Eksisterande arbeidsplassar",
+            "en": "Existing workplaces"
         }
     },
     {
         "id": "resource.arbeidsplasser.faste.title",
         "values": {
-            "nb": "Faste arbeidsplasser"
+            "nb": "Faste arbeidsplasser",
+            "nn": "Faste arbeidsplassar",
+            "en": "Permanent workplaces"
         }
     },
     {
         "id": "resource.arbeidsplasser.framtidige.title",
         "values": {
-            "nb": "Framtidige arbeidsplasser"
+            "nb": "Framtidige arbeidsplasser",
+            "nn": "Framtidige arbeidsplassar",
+            "en": "Future workplaces"
         }
     },
     {
         "id": "resource.arbeidsplasser.midlertidige.title",
         "values": {
-            "nb": "Midlertidige arbeidsplasser"
+            "nb": "Midlertidige arbeidsplasser",
+            "nn": "Mellombelse arbeidsplassar",
+            "en": "Temporary workplaces"
         }
     },
     {
         "id": "resource.arbeidsplasser.title",
         "values": {
-            "nb": "Hvilke arbeidsplasser er berørt av tiltaket"
+            "nb": "Hvilke arbeidsplasser er berørt av tiltaket",
+            "nn": "Kva arbeidsplassar er råka av tiltaket",
+            "en": "Which workplaces are affected by the project"
         }
     },
     {
         "id": "resource.arbeidsplasser.utleieBygg.title",
         "values": {
-            "nb": "Utleiebygg"
+            "nb": "Utleiebygg",
+            "nn": "Utleigebygg",
+            "en": "Rental building"
         }
     },
     {
         "id": "resource.avdekketArbeider.title",
         "values": {
-            "nb": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi"
+            "nb": "Vi har ikke avdekket gjenstående arbeider innenfor ansvarsområdet som er til hinder for å gi",
+            "nn": "Vi har ikkje avdekt attståande arbeid innanfor ansvarsområdet som er til hinder for å gi",
+            "en": "We have not identified any remaining work within the area of responsibility that would prevent granting"
         }
     },
     {
         "id": "resource.avloep.title",
         "values": {
-            "nb": "Avløp"
+            "nb": "Avløp",
+            "nn": "Avløp",
+            "en": "Wastewater"
         }
     },
     {
         "id": "resource.begrunnelse.fordeler.title",
         "values": {
-            "nb": "Liste med fordeler"
+            "nb": "Liste med fordeler",
+            "nn": "Liste med fordelar",
+            "en": "List of advantages"
         }
     },
     {
         "id": "resource.begrunnelse.hensynBakBestemmelsen.title",
         "values": {
-            "nb": "Hensynet bak bestemmelse"
+            "nb": "Hensynet bak bestemmelse",
+            "nn": "Omsynet bak føresegna",
+            "en": "Purpose of the provision"
         }
     },
     {
         "id": "resource.begrunnelse.samletBegrunnelse.title",
         "values": {
-            "nb": "Samlet begrunnelse"
+            "nb": "Samlet begrunnelse",
+            "nn": "Samla grunngiving",
+            "en": "Overall justification"
         }
     },
     {
         "id": "resource.begrunnelse.title",
         "values": {
-            "nb": "Begrunnelse"
+            "nb": "Begrunnelse",
+            "nn": "Grunngiving",
+            "en": "Justification"
         }
     },
     {
         "id": "resource.begrunnelse.ulemper.title",
         "values": {
-            "nb": "Liste med ulemper"
+            "nb": "Liste med ulemper",
+            "nn": "Liste med ulemper",
+            "en": "List of disadvantages"
         }
     },
     {
         "id": "resource.begrunnelse.vurderingHensynBakBestemmelsen.title",
         "values": {
-            "nb": "I hvilken grad blir hensynene bak bestemmelsen tilsidesatt ved dispensasjon?"
+            "nb": "I hvilken grad blir hensynene bak bestemmelsen tilsidesatt ved dispensasjon?",
+            "nn": "I kva grad blir omsyna bak føresegna sette til side ved dispensasjon?",
+            "en": "To what extent are the considerations behind the provision set aside by the dispensation?"
         }
     },
     {
         "id": "resource.begrunnelse.vurderingHensynOverordnet.title",
         "values": {
-            "nb": "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?"
+            "nb": "I hvilken grad blir hensynene i lovens formålsbestemmelse eller nasjonale eller regionale interesser tilsidesatt ved dispensasjon?",
+            "nn": "I kva grad blir omsyna i formålsføresegna i lova eller nasjonale eller regionale interesser sette til side ved dispensasjon?",
+            "en": "To what extent are the considerations in the purpose clause of the Act, or national or regional interests, set aside by the dispensation?"
         }
     },
     {
         "id": "resource.beregningsregelGradAvUtnytting.title",
         "values": {
-            "nb": "Beregningsregel for grad av utnytting"
+            "nb": "Beregningsregel for grad av utnytting",
+            "nn": "Berekningsregel for grad av utnytting",
+            "en": "Calculation rule for degree of utilisation"
         }
     },
     {
         "id": "resource.beroertePlaner.title",
         "values": {
-            "nb": "Reguleringsplaner som berøres av planforslaget"
+            "nb": "Reguleringsplaner som berøres av planforslaget",
+            "nn": "Reguleringsplanar som blir råka av planforslaget",
+            "en": "Zoning plans affected by the plan proposal"
         }
     },
     {
         "id": "resource.beskrivelse.title",
         "values": {
-            "nb": "Beskrivelse"
+            "nb": "Beskrivelse",
+            "nn": "Skildring",
+            "en": "Description"
         }
     },
     {
         "id": "resource.beskrivelseAvAnsvarsomraadet.title",
         "values": {
-            "nb": "Beskrivelse av ansvarsområdet"
+            "nb": "Beskrivelse av ansvarsområdet",
+            "nn": "Skildring av ansvarsområdet",
+            "en": "Description of the area of responsibility"
         }
     },
     {
         "id": "resource.beskrivelseAvFoelger.title",
         "values": {
-            "nb": "Beskrivelse av følger"
+            "nb": "Beskrivelse av følger",
+            "nn": "Skildring av følgjer",
+            "en": "Description of consequences"
         }
     },
     {
         "id": "resource.bestemmelse.title",
         "values": {
-            "nb": "Bestemmelse"
+            "nb": "Bestemmelse",
+            "nn": "Føresegn",
+            "en": "Provision"
         }
     },
     {
         "id": "resource.bestemmelsene.header",
         "values": {
-            "nb": "Disse bestemmelsene regulerer eiendommen"
+            "nb": "Disse bestemmelsene regulerer eiendommen",
+            "nn": "Desse føresegnene regulerer eigedomen",
+            "en": "These provisions regulate the property"
         }
     },
     {
         "id": "resource.bestemmelsestekst.title",
         "values": {
-            "nb": "Bestemmelsestekst"
+            "nb": "Bestemmelsestekst",
+            "nn": "Føresegnstekst",
+            "en": "Provision text"
         }
     },
     {
         "id": "resource.bestemmelsestype.title",
         "values": {
-            "nb": "Bestemmelsestype"
+            "nb": "Bestemmelsestype",
+            "nn": "Føresegnstype",
+            "en": "Provision type"
         }
     },
     {
         "id": "resource.bestillerreferanse.title",
         "values": {
-            "nb": "Bestillerreferanse"
+            "nb": "Bestillerreferanse",
+            "nn": "Bestillarreferanse",
+            "en": "Customer reference"
         }
     },
     {
         "id": "resource.bygge-endre-rive.header",
         "values": {
-            "nb": "Her skal vi bygge, rive eller endre"
+            "nb": "Her skal vi bygge, rive eller endre",
+            "nn": "Her skal vi byggje, rive eller endre",
+            "en": "Here we will build, demolish or alter"
         }
     },
     {
         "id": "resource.bygningstype.title",
         "values": {
-            "nb": "Bygningstype"
+            "nb": "Bygningstype",
+            "nn": "Bygningstype",
+            "en": "Building type"
         }
     },
     {
         "id": "resource.componentRenderError",
         "values": {
-            "nb": "Denne delen kunne ikke vises."
+            "nb": "Denne delen kunne ikke vises.",
+            "nn": "Denne delen kunne ikkje visast.",
+            "en": "This section could not be displayed."
         }
     },
     {
         "id": "resource.dato.title",
         "values": {
-            "nb": "Dato"
+            "nb": "Dato",
+            "nn": "Dato",
+            "en": "Date"
         }
     },
     {
         "id": "resource.datoAnsvarsrettErklaert.title",
         "values": {
-            "nb": "Ansvarsrett ble erklært"
+            "nb": "Ansvarsrett ble erklært",
+            "nn": "Ansvarsrett vart erklært",
+            "en": "Responsibility declared"
         }
     },
     {
         "id": "resource.datoFerdigattest.title",
         "values": {
-            "nb": "Dato for søknad om ferdigattest"
+            "nb": "Dato for søknad om ferdigattest",
+            "nn": "Dato for søknad om ferdigattest",
+            "en": "Date of application for certificate of completion"
         }
     },
     {
         "id": "resource.dekkesOmraadeAvSentralGodkjenning.title",
         "values": {
-            "nb": "Dekkes av sentral godkjenning"
+            "nb": "Dekkes av sentral godkjenning",
+            "nn": "Dekt av sentral godkjenning",
+            "en": "Covered by central approval"
         }
     },
     {
         "id": "resource.detErVarsletOm.title",
         "values": {
-            "nb": "Det er varslet om"
+            "nb": "Det er varslet om",
+            "nn": "Det er varsla om",
+            "en": "Notification has been given of"
         }
     },
     {
         "id": "resource.dispensasjonFra.nasjonalArealplanId.planidentifikasjon.title",
         "values": {
-            "nb": "Nasjonal arealplan-ID"
+            "nb": "Nasjonal arealplan-ID",
+            "nn": "Nasjonal arealplan-ID",
+            "en": "National land use plan ID"
         }
     },
     {
         "id": "resource.dispensasjonOversikt.dispensasjon.bestemmelserType.title",
         "values": {
-            "nb": "Dispensasjon fra"
+            "nb": "Dispensasjon fra",
+            "nn": "Dispensasjon frå",
+            "en": "Dispensation from"
         }
     },
     {
         "id": "resource.dispensasjonOversikt.dispensasjon.count.title",
         "values": {
-            "nb": "Antall dispensasjonssøknader"
+            "nb": "Antall dispensasjonssøknader",
+            "nn": "Talet på dispensasjonssøknader",
+            "en": "Number of dispensation applications"
         }
     },
     {
         "id": "resource.dispensasjonOversikt.header",
         "values": {
-            "nb": "Oversikt over omsøkte dispensasjoner"
+            "nb": "Oversikt over omsøkte dispensasjoner",
+            "nn": "Oversikt over omsøkte dispensasjonar",
+            "en": "Overview of dispensations applied for"
         }
     },
     {
         "id": "resource.dispensasjonsbeskrivelse.title",
         "values": {
-            "nb": "Beskrivelse av tiltak"
+            "nb": "Beskrivelse av tiltak",
+            "nn": "Skildring av tiltak",
+            "en": "Description of project"
         }
     },
     {
         "id": "resource.dispensasjonsreferanse.title",
         "values": {
-            "nb": "Dispensasjonsreferanse"
+            "nb": "Dispensasjonsreferanse",
+            "nn": "Dispensasjonsreferanse",
+            "en": "Dispensation reference"
         }
     },
     {
         "id": "resource.dispensasjonssoeknad.annetTema.title",
         "values": {
-            "nb": "Annet"
+            "nb": "Annet",
+            "nn": "Anna",
+            "en": "Other"
         }
     },
     {
         "id": "resource.dispensasjonssoeknad.title",
         "values": {
-            "nb": "Dispensasjonssøknad"
+            "nb": "Dispensasjonssøknad",
+            "nn": "Dispensasjonssøknad",
+            "en": "Application for dispensation"
         }
     },
     {
         "id": "resource.dispensasjonsvarsel.bestemmelse.title",
         "values": {
-            "nb": "Dette søkes det dispensasjon fra"
+            "nb": "Dette søkes det dispensasjon fra",
+            "nn": "Det blir søkt om dispensasjon frå dette",
+            "en": "Dispensation is sought from"
         }
     },
     {
         "id": "resource.dispensasjonsvarsel.dispVarselBeskrivelse.title",
         "values": {
-            "nb": "Bakgrunn for dispensasjonssøknaden"
+            "nb": "Bakgrunn for dispensasjonssøknaden",
+            "nn": "Bakgrunn for dispensasjonssøknaden",
+            "en": "Background for the dispensation application"
         }
     },
     {
         "id": "resource.dispensasjonsvarsel.spoersmaalOmDispensasjonssoeknaden.title",
         "values": {
-            "nb": "Spørsmål om dispensasjonssøknaden må rettes til kontaktpersonen oppgitt under \"Har du spørsmål til nabovarselet?\""
+            "nb": "Spørsmål om dispensasjonssøknaden må rettes til kontaktpersonen oppgitt under \"Har du spørsmål til nabovarselet?\"",
+            "nn": "Spørsmål om dispensasjonssøknaden må rettast til kontaktpersonen som er oppgitt under \"Har du spørsmål til nabovarselet?\"",
+            "en": "Questions about the dispensation application should be directed to the contact person listed under \"Do you have questions about the neighbour notification?\""
         }
     },
     {
         "id": "resource.dispensasjonsvarsel.title",
         "values": {
-            "nb": "Varsel om dispensasjonssøknad"
+            "nb": "Varsel om dispensasjonssøknad",
+            "nn": "Varsel om dispensasjonssøknad",
+            "en": "Notification of dispensation application"
         }
     },
     {
         "id": "resource.eiendom.bolignummer.title",
         "values": {
-            "nb": "Bruksenhets-nummer"
+            "nb": "Bruksenhets-nummer",
+            "nn": "Bruksining-nummer",
+            "en": "Unit number"
         }
     },
     {
         "id": "resource.eiendom.bruksnummer.title",
         "values": {
-            "nb": "Bruks-nummer"
+            "nb": "Bruks-nummer",
+            "nn": "Bruks-nummer",
+            "en": "Property unit number"
         }
     },
     {
         "id": "resource.eiendom.bygningsnummer.title",
         "values": {
-            "nb": "Bygnings-nummer"
+            "nb": "Bygnings-nummer",
+            "nn": "Bygnings-nummer",
+            "en": "Building number"
         }
     },
     {
         "id": "resource.eiendom.festenummer.title",
         "values": {
-            "nb": "Feste-nummer"
+            "nb": "Feste-nummer",
+            "nn": "Feste-nummer",
+            "en": "Leasehold number"
         }
     },
     {
         "id": "resource.eiendom.gaardsnummer.title",
         "values": {
-            "nb": "Gårds-nummer"
+            "nb": "Gårds-nummer",
+            "nn": "Gards-nummer",
+            "en": "Cadastral unit number"
         }
     },
     {
         "id": "resource.eiendom.seksjonsnummer.title",
         "values": {
-            "nb": "Seksjons-nummer"
+            "nb": "Seksjons-nummer",
+            "nn": "Seksjons-nummer",
+            "en": "Section number"
         }
     },
     {
         "id": "resource.eiendomByggested.eiendom.title",
         "values": {
-            "nb": "Eiendom/byggested"
+            "nb": "Eiendom/byggested",
+            "nn": "Eigedom/byggjestad",
+            "en": "Property/building site"
         }
     },
     {
         "id": "resource.eierFesterAvNaboeiendom.title",
         "values": {
-            "nb": "Eier/fester av naboeiendom"
+            "nb": "Eier/fester av naboeiendom",
+            "nn": "Eigar/festar av naboeigedom",
+            "en": "Owner/leaseholder of neighbouring property"
         }
     },
     {
         "id": "resource.emne.title",
         "values": {
-            "nb": "Emne"
+            "nb": "Emne",
+            "nn": "Emne",
+            "en": "Subject"
         }
     },
     {
         "id": "resource.emptyFieldText.address",
         "values": {
-            "nb": "(Adresse mangler)"
+            "nb": "(Adresse mangler)",
+            "nn": "(Adresse manglar)",
+            "en": "(Address missing)"
         }
     },
     {
         "id": "resource.emptyFieldText.default",
         "values": {
-            "nb": "-"
+            "nb": "-",
+            "nn": "-",
+            "en": "-"
         }
     },
     {
         "id": "resource.emptyFieldText.zero",
         "values": {
-            "nb": "0"
+            "nb": "0",
+            "nn": "0",
+            "en": "0"
         }
     },
     {
         "id": "resource.endringAvRolleIByggesaken.gjelderFraDato.title",
         "values": {
-            "nb": "Endringen gjelder fra"
+            "nb": "Endringen gjelder fra",
+            "nn": "Endringa gjeld frå",
+            "en": "The change applies from"
         }
     },
     {
         "id": "resource.endringAvRolleIByggesaken.title",
         "values": {
-            "nb": "Endring av rolle i byggesaken"
+            "nb": "Endring av rolle i byggesaken",
+            "nn": "Endring av rolle i byggjesaka",
+            "en": "Change of role in the building case"
         }
     },
     {
         "id": "resource.endringenGjelder.endringstype.title",
         "values": {
-            "nb": "Endringstyper"
+            "nb": "Endringstyper",
+            "nn": "Endringstypar",
+            "en": "Change types"
         }
     },
     {
         "id": "resource.endringenGjelder.title",
         "values": {
-            "nb": "Endringen gjelder"
+            "nb": "Endringen gjelder",
+            "nn": "Endringa gjeld",
+            "en": "The change concerns"
         }
     },
     {
         "id": "resource.endringMeldtAv.title",
         "values": {
-            "nb": "Endringen er meldt av"
+            "nb": "Endringen er meldt av",
+            "nn": "Endringa er meld av",
+            "en": "The change was reported by"
         }
     },
     {
         "id": "resource.energiforsyning.title",
         "values": {
-            "nb": "Energiforsyning"
+            "nb": "Energiforsyning",
+            "nn": "Energiforsyning",
+            "en": "Energy supply"
         }
     },
     {
         "id": "resource.epostadresse.title",
         "values": {
-            "nb": "E-postadresse"
+            "nb": "E-postadresse",
+            "nn": "E-postadresse",
+            "en": "Email address"
         }
     },
     {
         "id": "resource.erAnsvarsomraadetAvsluttet.title",
         "values": {
-            "nb": "Er arbeidet avsluttet?"
+            "nb": "Er arbeidet avsluttet?",
+            "nn": "Er arbeidet avslutta?",
+            "en": "Has the work been completed?"
         }
     },
     {
         "id": "resource.erDetFunnetAvvik.title",
         "values": {
-            "nb": "Er det funnet avvik og er disse lukket?"
+            "nb": "Er det funnet avvik og er disse lukket?",
+            "nn": "Er det funne avvik, og er desse lukka?",
+            "en": "Have any deviations been found, and have they been closed?"
         }
     },
     {
         "id": "resource.erklaering.title",
         "values": {
-            "nb": "Erklæring"
+            "nb": "Erklæring",
+            "nn": "Erklæring",
+            "en": "Declaration"
         }
     },
     {
         "id": "resource.ettersending.title",
         "values": {
-            "nb": "Ettersending"
+            "nb": "Ettersending",
+            "nn": "Ettersending",
+            "en": "Supplementary submission"
         }
     },
     {
         "id": "resource.fakturareferanse.title",
         "values": {
-            "nb": "Fakturareferanse"
+            "nb": "Fakturareferanse",
+            "nn": "Fakturareferanse",
+            "en": "Invoice reference"
         }
     },
     {
         "id": "resource.falseText.default",
         "values": {
-            "nb": "Nei"
+            "nb": "Nei",
+            "nn": "Nei",
+            "en": "No"
         }
     },
     {
         "id": "resource.faseSamsvarKontroll.titleKontroll",
         "values": {
-            "nb": "Planlagt kontrollerklæringer"
+            "nb": "Planlagt kontrollerklæringer",
+            "nn": "Planlagde kontrollerklæringar",
+            "en": "Planned declarations of inspection"
         }
     },
     {
         "id": "resource.faseSamsvarKontroll.titleMix",
         "values": {
-            "nb": "Planlagt samsvars-/kontrollerklæringer"
+            "nb": "Planlagt samsvars-/kontrollerklæringer",
+            "nn": "Planlagde samsvars-/kontrollerklæringar",
+            "en": "Planned declarations of conformity/inspection"
         }
     },
     {
         "id": "resource.faseSamsvarKontroll.titleProUtf",
         "values": {
-            "nb": "Planlagt samsvarserklæring"
+            "nb": "Planlagt samsvarserklæring",
+            "nn": "Planlagd samsvarserklæring",
+            "en": "Planned declaration of conformity"
         }
     },
     {
         "id": "resource.FDV.paragraph.title",
         "values": {
-            "nb": "FDV: Det bekreftes at dokumentasjon om forvaltning, drift og vedlikehold av bygget enten er overlevert byggverkets eier, eller at dette ikke er relevant."
+            "nb": "FDV: Det bekreftes at dokumentasjon om forvaltning, drift og vedlikehold av bygget enten er overlevert byggverkets eier, eller at dette ikke er relevant.",
+            "nn": "FDV: Det blir stadfesta at dokumentasjon om forvaltning, drift og vedlikehald av bygget anten er overlevert til eigaren av byggverket, eller at dette ikkje er relevant.",
+            "en": "FDV: It is confirmed that documentation on the management, operation and maintenance of the building has either been handed over to the owner of the building, or that this is not relevant."
         }
     },
     {
         "id": "resource.felt.title",
         "values": {
-            "nb": "Felt"
+            "nb": "Felt",
+            "nn": "Felt",
+            "en": "Field"
         }
     },
     {
         "id": "resource.ferdigattest.title",
         "values": {
-            "nb": "Ferdigattest"
+            "nb": "Ferdigattest",
+            "nn": "Ferdigattest",
+            "en": "Certificate of completion"
         }
     },
     {
         "id": "resource.foelgebrev.title",
         "values": {
-            "nb": "Følgebrev"
+            "nb": "Følgebrev",
+            "nn": "Følgjebrev",
+            "en": "Cover letter"
         }
     },
     {
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
         "values": {
-            "nb": "Ikke-søknadspliktige justeringer"
+            "nb": "Ikke-søknadspliktige justeringer",
+            "nn": "Ikkje-søknadspliktige justeringar",
+            "en": "Adjustments not requiring an application"
         }
     },
     {
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.title",
         "values": {
-            "nb": "Er det foretatt justeringer fra tillatelsen som ikke krever endringssøknad?"
+            "nb": "Er det foretatt justeringer fra tillatelsen som ikke krever endringssøknad?",
+            "nn": "Er det gjort justeringar frå løyvet som ikkje krev endringssøknad?",
+            "en": "Have any adjustments been made to the permit that do not require an application for change?"
         }
     },
     {
         "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.true.description",
         "values": {
-            "nb": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden."
+            "nb": "\"Som-bygget\"-tegninger og/eller dokumentasjon om tiltakets plassering legges ved søknaden.",
+            "nn": "\"Som bygd\"-teikningar og/eller dokumentasjon om plasseringa av tiltaket blir lagde ved søknaden.",
+            "en": "\"As-built\" drawings and/or documentation of the project's location are attached to the application."
         }
     },
     {
         "id": "resource.formaal.title",
         "values": {
-            "nb": "Formål"
+            "nb": "Formål",
+            "nn": "Føremål",
+            "en": "Purpose"
         }
     },
     {
         "id": "resource.forslagsstiller.title",
         "values": {
-            "nb": "Forslagsstiller"
+            "nb": "Forslagsstiller",
+            "nn": "Forslagsstillar",
+            "en": "Plan proponent"
         }
     },
     {
         "id": "resource.ftpbReferanseId.title",
         "values": {
-            "nb": "Innsendingens referanse"
+            "nb": "Innsendingens referanse",
+            "nn": "Referansen til innsendinga",
+            "en": "Submission reference"
         }
     },
     {
         "id": "resource.funksjon.title",
         "values": {
-            "nb": "Funksjon"
+            "nb": "Funksjon",
+            "nn": "Funksjon",
+            "en": "Function"
         }
     },
     {
         "id": "resource.generelleVilkaar.beroererArbeidsplasser.title",
         "values": {
-            "nb": "Berører tiltaket eksisterende eller fremtidige arbeidsplasser?"
+            "nb": "Berører tiltaket eksisterende eller fremtidige arbeidsplasser?",
+            "nn": "Råkar tiltaket eksisterande eller framtidige arbeidsplassar?",
+            "en": "Does the project affect existing or future workplaces?"
         }
     },
     {
         "id": "resource.generelleVilkaar.norskSvenskDansk.true.title",
         "values": {
-            "nb": "Søknaden og all relevant dokumentasjon er skrevet/oversatt til norsk, svensk eller dansk."
+            "nb": "Søknaden og all relevant dokumentasjon er skrevet/oversatt til norsk, svensk eller dansk.",
+            "nn": "Søknaden og all relevant dokumentasjon er skriven/omsett til norsk, svensk eller dansk.",
+            "en": "The application and all relevant documentation are written in or translated into Norwegian, Swedish or Danish."
         }
     },
     {
         "id": "resource.gjennomfoeringsplan.description",
         "values": {
-            "nb": "etter saksforskriften § 5-3"
+            "nb": "etter saksforskriften § 5-3",
+            "nn": "etter saksforskrifta § 5-3",
+            "en": "pursuant to the Building Application Regulations (SAK10) § 5-3"
         }
     },
     {
         "id": "resource.gjennomfoeringsplan.title",
         "values": {
-            "nb": "Gjennomføringsplan"
+            "nb": "Gjennomføringsplan",
+            "nn": "Gjennomføringsplan",
+            "en": "Implementation plan"
         }
     },
     {
         "id": "resource.gjennomfoeringsplannummer.title",
         "values": {
-            "nb": "Gjennomføringsplannummer"
+            "nb": "Gjennomføringsplannummer",
+            "nn": "Gjennomføringsplannummer",
+            "en": "Implementation plan number"
         }
     },
     {
         "id": "resource.gjenpartNabovarsel.description",
         "values": {
-            "nb": "Etter pbl § 21-3"
+            "nb": "Etter pbl § 21-3",
+            "nn": "Etter pbl. § 21-3",
+            "en": "Pursuant to the Planning and Building Act § 21-3"
         }
     },
     {
         "id": "resource.gjenpartNabovarsel.title",
         "values": {
-            "nb": "Opplysninger gitt i nabovarsel"
+            "nb": "Opplysninger gitt i nabovarsel",
+            "nn": "Opplysningar gitt i nabovarsel",
+            "en": "Information provided in the neighbour notification"
         }
     },
     {
         "id": "resource.gjenstaaendeArbeider.gjenstaaendeInnenfor.title",
         "values": {
-            "nb": "Innenfor den delen av tiltaket det søkes midlertidig brukstillatelse for, gjenstår disse arbeidene av mindre vesentlig betydning"
+            "nb": "Innenfor den delen av tiltaket det søkes midlertidig brukstillatelse for, gjenstår disse arbeidene av mindre vesentlig betydning",
+            "nn": "Innanfor den delen av tiltaket det blir søkt om mellombels bruksløyve for, står desse arbeida av mindre vesentleg betydning att",
+            "en": "Within the part of the project for which a temporary occupancy permit is sought, the following work of minor significance remains"
         }
     },
     {
         "id": "resource.gjenstaaendeArbeider.gjenstaaendeUtenfor.title",
         "values": {
-            "nb": "Disse delene av tiltaket søkes det ikke om midlertidig brukstillatelse for nå"
+            "nb": "Disse delene av tiltaket søkes det ikke om midlertidig brukstillatelse for nå",
+            "nn": "Det blir ikkje søkt om mellombels bruksløyve for desse delane av tiltaket no",
+            "en": "A temporary occupancy permit is not being sought for these parts of the project at this time"
         }
     },
     {
         "id": "resource.gjenstaaendeArbeider.header",
         "values": {
-            "nb": "Gjenstående arbeider frem mot ferdigattest"
+            "nb": "Gjenstående arbeider frem mot ferdigattest",
+            "nn": "Attståande arbeid fram mot ferdigattest",
+            "en": "Remaining work before certificate of completion"
         }
     },
     {
         "id": "resource.gjenstaaendeArbeider.title",
         "values": {
-            "nb": "Gjenstående arbeider"
+            "nb": "Gjenstående arbeider",
+            "nn": "Attståande arbeid",
+            "en": "Remaining work"
         }
     },
     {
         "id": "resource.gradAvUtnytting.title",
         "values": {
-            "nb": "Ny grad av utnytting"
+            "nb": "Ny grad av utnytting",
+            "nn": "Ny grad av utnytting",
+            "en": "New degree of utilisation"
         }
     },
     {
         "id": "resource.harAapneAvvik.title",
         "values": {
-            "nb": "Åpne avvik er rapportert til kommunen"
+            "nb": "Åpne avvik er rapportert til kommunen",
+            "nn": "Opne avvik er rapporterte til kommunen",
+            "en": "Open deviations have been reported to the municipality"
         }
     },
     {
         "id": "resource.harIngenAvvik.title",
         "values": {
-            "nb": "Ingen avvik er funnet"
+            "nb": "Ingen avvik er funnet",
+            "nn": "Ingen avvik er funne",
+            "en": "No deviations have been found"
         }
     },
     {
         "id": "resource.harObserverteAvvik.title",
         "values": {
-            "nb": "Observerte avvik er lukket"
+            "nb": "Observerte avvik er lukket",
+            "nn": "Observerte avvik er lukka",
+            "en": "Observed deviations have been closed"
         }
     },
     {
         "id": "resource.harSentralGodkjenning.booleanText.title",
         "values": {
-            "nb": "Har foretaket sentral godkjenning?"
+            "nb": "Har foretaket sentral godkjenning?",
+            "nn": "Har føretaket sentral godkjenning?",
+            "en": "Does the enterprise have central approval?"
         }
     },
     {
         "id": "resource.hjemmesidePlanforslag.title",
         "values": {
-            "nb": "Planforslaget er vedlagt denne meldingen. I tillegg er hele planforslaget gjort tilgjengelig på internett:"
+            "nb": "Planforslaget er vedlagt denne meldingen. I tillegg er hele planforslaget gjort tilgjengelig på internett:",
+            "nn": "Planforslaget er vedlagt denne meldinga. I tillegg er heile planforslaget gjort tilgjengeleg på internett:",
+            "en": "The plan proposal is attached to this message. In addition, the full plan proposal is available online:"
         }
     },
     {
         "id": "resource.hvaSkjer.header",
         "values": {
-            "nb": "Hva skjer med merknadene dine?"
+            "nb": "Hva skjer med merknadene dine?",
+            "nn": "Kva skjer med merknadene dine?",
+            "en": "What happens to your comments?"
         }
     },
     {
         "id": "resource.hvaSkjer.paragraph",
         "values": {
-            "nb": "Vi som har sendt deg nabovarselet, skal sende inn merknadene til kommunen sammen med byggesøknaden. Vi må beskrive hvordan merknadene er vurdert, og forklare hva som eventuelt er gjort for å ta hensyn til disse. Kommunen vurderer om merknadene fra deg og andre naboer påvirker tiltaket/byggeplanene."
+            "nb": "Vi som har sendt deg nabovarselet, skal sende inn merknadene til kommunen sammen med byggesøknaden. Vi må beskrive hvordan merknadene er vurdert, og forklare hva som eventuelt er gjort for å ta hensyn til disse. Kommunen vurderer om merknadene fra deg og andre naboer påvirker tiltaket/byggeplanene.",
+            "nn": "Vi som har sendt deg nabovarselet, skal sende inn merknadene til kommunen saman med byggjesøknaden. Vi må gjere greie for korleis merknadene er vurderte, og forklare kva som eventuelt er gjort for å ta omsyn til dei. Kommunen vurderer om merknadene frå deg og andre naboar påverkar tiltaket/byggjeplanane.",
+            "en": "We who sent you the neighbour notification will submit the comments to the municipality together with the building application. We must describe how the comments have been assessed and explain what, if anything, has been done to take them into account. The municipality will assess whether the comments from you and other neighbours affect the project/building plans."
         }
     },
     {
         "id": "resource.hvaSkjer2.paragraph",
         "values": {
-            "nb": "Vi kan også velge å endre byggeprosjektet på bakgrunn av merknadene. Dette kan føre til at det blir nødvendig å sende deg et nytt nabovarsel."
+            "nb": "Vi kan også velge å endre byggeprosjektet på bakgrunn av merknadene. Dette kan føre til at det blir nødvendig å sende deg et nytt nabovarsel.",
+            "nn": "Vi kan også velje å endre byggjeprosjektet på bakgrunn av merknadene. Dette kan føre til at det blir naudsynt å sende deg eit nytt nabovarsel.",
+            "en": "We may also choose to change the building project based on the comments. This may make it necessary to send you a new neighbour notification."
         }
     },
     {
         "id": "resource.igangsettingstillatelse.title",
         "values": {
-            "nb": "Igangsettingstillatelse"
+            "nb": "Igangsettingstillatelse",
+            "nn": "Igangsetjingsløyve",
+            "en": "Commencement permit"
         }
     },
     {
         "id": "resource.kartutsnittAvPlanomraadet.title",
         "values": {
-            "nb": "Kartutsnitt av planområdet"
+            "nb": "Kartutsnitt av planområdet",
+            "nn": "Kartutsnitt av planområdet",
+            "en": "Map extract of the plan area"
         }
     },
     {
         "id": "resource.kategori.title",
         "values": {
-            "nb": "Kategori"
+            "nb": "Kategori",
+            "nn": "Kategori",
+            "en": "Category"
         }
     },
     {
         "id": "resource.kommentar.title",
         "values": {
-            "nb": "Kommentar"
+            "nb": "Kommentar",
+            "nn": "Kommentar",
+            "en": "Comment"
         }
     },
     {
         "id": "resource.kommune.title",
         "values": {
-            "nb": "Kommune"
+            "nb": "Kommune",
+            "nn": "Kommune",
+            "en": "Municipality"
         }
     },
     {
         "id": "resource.kommunensSaksnummer.title",
         "values": {
-            "nb": "Kommunens saksnummer"
+            "nb": "Kommunens saksnummer",
+            "nn": "Saksnummeret til kommunen",
+            "en": "Municipality's case number"
         }
     },
     {
         "id": "resource.konsekvensutredning.title",
         "values": {
-            "nb": "Konsekvensutredning"
+            "nb": "Konsekvensutredning",
+            "nn": "Konsekvensutgreiing",
+            "en": "Impact assessment"
         }
     },
     {
         "id": "resource.kontaktperson.title",
         "values": {
-            "nb": "Kontaktperson"
+            "nb": "Kontaktperson",
+            "nn": "Kontaktperson",
+            "en": "Contact person"
         }
     },
     {
         "id": "resource.kontaktpersonForNabovarselet.header",
         "values": {
-            "nb": "Har du spørsmål til nabovarselet?"
+            "nb": "Har du spørsmål til nabovarselet?",
+            "nn": "Har du spørsmål til nabovarselet?",
+            "en": "Do you have questions about the neighbour notification?"
         }
     },
     {
         "id": "resource.kontaktpersonForNabovarselet.paragraph",
         "values": {
-            "nb": "Spørsmål om innholdet i nabovarselet kan rettes til:"
+            "nb": "Spørsmål om innholdet i nabovarselet kan rettes til:",
+            "nn": "Spørsmål om innhaldet i nabovarselet kan rettast til:",
+            "en": "Questions about the content of the neighbour notification can be directed to:"
         }
     },
     {
         "id": "resource.kontaktpersonForNabovarselet.title",
         "values": {
-            "nb": "Kontaktperson for nabovarselet"
+            "nb": "Kontaktperson for nabovarselet",
+            "nn": "Kontaktperson for nabovarselet",
+            "en": "Contact person for the neighbour notification"
         }
     },
     {
         "id": "resource.kontaktpersonForSoeker.title",
         "values": {
-            "nb": "Kontaktperson for søker"
+            "nb": "Kontaktperson for søker",
+            "nn": "Kontaktperson for søkjar",
+            "en": "Contact person for the applicant"
         }
     },
     {
         "id": "resource.kontaktpersonForTiltakshaver.title",
         "values": {
-            "nb": "Kontaktperson for tiltakshaver"
+            "nb": "Kontaktperson for tiltakshaver",
+            "nn": "Kontaktperson for tiltakshavar",
+            "en": "Contact person for the developer"
         }
     },
     {
         "id": "resource.kontrollErklaeringTekst.title",
         "values": {
-            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger."
+            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger.",
+            "nn": "Vi kjenner til reglane om straff og sanksjonar i kapittel 32 i plan- og bygningslova, og at det kan føre til reaksjonar dersom vi gir uriktige opplysningar.",
+            "en": "We are aware of the rules on penalties and sanctions in chapter 32 of the Planning and Building Act, and that providing incorrect information may lead to sanctions."
         }
     },
     {
         "id": "resource.kontrollKONTROLLTekst.title",
         "values": {
-            "nb": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert."
+            "nb": "Ansvarlig kontrollerende bekrefter at kontrollen er gjennomført på en forskriftsmessig måte, og at kontrollforetaket er uavhengig av foretakene som er kontrollert.",
+            "nn": "Ansvarleg kontrollerande stadfestar at kontrollen er gjennomført på ein forskriftsmessig måte, og at kontrollføretaket er uavhengig av føretaka som er kontrollerte.",
+            "en": "The responsible inspector confirms that the inspection has been carried out in accordance with the regulations, and that the inspecting enterprise is independent of the enterprises inspected."
         }
     },
     {
         "id": "resource.koordinater.title",
         "values": {
-            "nb": "Koordinater"
+            "nb": "Koordinater",
+            "nn": "Koordinatar",
+            "en": "Coordinates"
         }
     },
     {
         "id": "resource.koordinatsystem.title",
         "values": {
-            "nb": "Koordinatsystem"
+            "nb": "Koordinatsystem",
+            "nn": "Koordinatsystem",
+            "en": "Coordinate system"
         }
     },
     {
         "id": "resource.krav.sjekklistekrav.description",
         "values": {
-            "nb": "For at søknaden skal behandles automatisk må den oppfylle kriteriene for automatisk saksbehandling. Dersom ett eller flere svar ikke oppfyller kriteriene, eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt."
+            "nb": "For at søknaden skal behandles automatisk må den oppfylle kriteriene for automatisk saksbehandling. Dersom ett eller flere svar ikke oppfyller kriteriene, eller kommunen ikke tilbyr automatisk saksbehandling, vil den bli saksbehandlet manuelt.",
+            "nn": "For at søknaden skal bli handsama automatisk, må han oppfylle kriteria for automatisk sakshandsaming. Dersom eitt eller fleire svar ikkje oppfyller kriteria, eller kommunen ikkje tilbyr automatisk sakshandsaming, vil han bli handsama manuelt.",
+            "en": "For the application to be processed automatically, it must meet the criteria for automated case processing. If one or more answers do not meet the criteria, or the municipality does not offer automated case processing, it will be processed manually."
         }
     },
     {
         "id": "resource.krav.sjekklistekrav.sjekklistepunksvar.title",
         "values": {
-            "nb": "Svar"
+            "nb": "Svar",
+            "nn": "Svar",
+            "en": "Answer"
         }
     },
     {
         "id": "resource.krav.sjekklistekrav.sjekklistepunkt.title",
         "values": {
-            "nb": "Krav til automatisert behandling"
+            "nb": "Krav til automatisert behandling",
+            "nn": "Krav til automatisert handsaming",
+            "en": "Requirements for automated processing"
         }
     },
     {
         "id": "resource.krav.sjekklistekrav.title",
         "values": {
-            "nb": "Svar på krav til automatisert behandling"
+            "nb": "Svar på krav til automatisert behandling",
+            "nn": "Svar på krav til automatisert handsaming",
+            "en": "Answers to requirements for automated processing"
         }
     },
     {
         "id": "resource.kravFerdigattest.bekreftelseInnen.title",
         "values": {
-            "nb": "Vi sender kommunen en bekreftelse på at arbeidene er utført innen"
+            "nb": "Vi sender kommunen en bekreftelse på at arbeidene er utført innen",
+            "nn": "Vi sender kommunen ei stadfesting på at arbeida er utførte innan",
+            "en": "We will send the municipality confirmation that the work has been completed by"
         }
     },
     {
         "id": "resource.kravFerdigattest.tilfredsstillerTiltaketKraveneFerdigattest.title",
         "values": {
-            "nb": "Tilfredsstiller tiltaket kravene til ferdigattest?"
+            "nb": "Tilfredsstiller tiltaket kravene til ferdigattest?",
+            "nn": "Oppfyller tiltaket krava til ferdigattest?",
+            "en": "Does the project meet the requirements for a certificate of completion?"
         }
     },
     {
         "id": "resource.kravFerdigattest.typeArbeider.title",
         "values": {
-            "nb": "Det gjenstår følgende arbeider av mindre vesentlig betydning"
+            "nb": "Det gjenstår følgende arbeider av mindre vesentlig betydning",
+            "nn": "Følgjande arbeid av mindre vesentleg betydning står att",
+            "en": "The following work of minor significance remains"
         }
     },
     {
         "id": "resource.kravFerdigattest.utfoertInnen.title",
         "values": {
-            "nb": "Arbeidene vil bli utført innen"
+            "nb": "Arbeidene vil bli utført innen",
+            "nn": "Arbeida vil bli utførte innan",
+            "en": "The work will be completed by"
         }
     },
     {
         "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.risikotype.title",
         "values": {
-            "nb": "Naturpåkjenning"
+            "nb": "Naturpåkjenning",
+            "nn": "Naturpåkjenning",
+            "en": "Natural hazard"
         }
     },
     {
         "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.sikkerhetsklasse.title",
         "values": {
-            "nb": "Sikkerhetsklasse/tiltakskategori"
+            "nb": "Sikkerhetsklasse/tiltakskategori",
+            "nn": "Tryggleiksklasse/tiltakskategori",
+            "en": "Safety class/project category"
         }
     },
     {
         "id": "resource.kravTilByggegrunn.muligeOmraadeRisikoer.omraadeRisiko.title",
         "values": {
-            "nb": "Oversikt over områderisikoer der byggverket skal plasseres"
+            "nb": "Oversikt over områderisikoer der byggverket skal plasseres",
+            "nn": "Oversikt over områderisikoar der byggverket skal plasserast",
+            "en": "Overview of area risks where the building will be located"
         }
     },
     {
         "id": "resource.kravTilByggegrunn.title",
         "values": {
-            "nb": "Krav til byggegrunn"
+            "nb": "Krav til byggegrunn",
+            "nn": "Krav til byggjegrunn",
+            "en": "Ground requirements"
         }
     },
     {
         "id": "resource.merknaderNabovarsel.header",
         "values": {
-            "nb": "Har du merknader til nabovarselet?"
+            "nb": "Har du merknader til nabovarselet?",
+            "nn": "Har du merknader til nabovarselet?",
+            "en": "Do you have comments on the neighbour notification?"
         }
     },
     {
         "id": "resource.merknaderNabovarsel.paragraph2",
         "values": {
-            "nb": "Merknader til nabovarselet kan leveres via Altinn eller sendes til søker:"
+            "nb": "Merknader til nabovarselet kan leveres via Altinn eller sendes til søker:",
+            "nn": "Merknader til nabovarselet kan leverast via Altinn eller sendast til søkjar:",
+            "en": "Comments on the neighbour notification can be submitted via Altinn or sent to the applicant:"
         }
     },
     {
         "id": "resource.metadata.ftbId.title",
         "values": {
-            "nb": "FtID"
+            "nb": "FtID",
+            "nn": "FtID",
+            "en": "FtID"
         }
     },
     {
         "id": "resource.metadata.prosjekt.title",
         "values": {
-            "nb": "Prosjekt"
+            "nb": "Prosjekt",
+            "nn": "Prosjekt",
+            "en": "Project"
         }
     },
     {
         "id": "resource.metadata.prosjektnavn",
         "values": {
-            "nb": "Prosjektnavn"
+            "nb": "Prosjektnavn",
+            "nn": "Prosjektnamn",
+            "en": "Project name"
         }
     },
     {
         "id": "resource.midlertidigBrukstillatelse.title",
         "values": {
-            "nb": "Midlertidig brukstillatelse"
+            "nb": "Midlertidig brukstillatelse",
+            "nn": "Mellombels bruksløyve",
+            "en": "Temporary occupancy permit"
         }
     },
     {
         "id": "resource.mottakere.title",
         "values": {
-            "nb": "Mottakere"
+            "nb": "Mottakere",
+            "nn": "Mottakarar",
+            "en": "Recipients"
         }
     },
     {
         "id": "resource.naboGjenboer.eiendommer.eiendom.matrikkelinformasjon.title",
         "values": {
-            "nb": "Naboeiendom"
+            "nb": "Naboeiendom",
+            "nn": "Naboeigedom",
+            "en": "Neighbouring property"
         }
     },
     {
         "id": "resource.naboGjenboer.title",
         "values": {
-            "nb": "Nabovarsel med vedlegg er sendt til følgende naboer"
+            "nb": "Nabovarsel med vedlegg er sendt til følgende naboer",
+            "nn": "Nabovarsel med vedlegg er sendt til følgjande naboar",
+            "en": "Neighbour notification with attachments has been sent to the following neighbours"
         }
     },
     {
         "id": "resource.nabovarsling.title",
         "values": {
-            "nb": "Nabovarsling"
+            "nb": "Nabovarsling",
+            "nn": "Nabovarsling",
+            "en": "Neighbour notification"
         }
     },
     {
         "id": "resource.navn.title",
         "values": {
-            "nb": "Navn"
+            "nb": "Navn",
+            "nn": "Namn",
+            "en": "Name"
         }
     },
     {
         "id": "resource.nummer.short",
         "values": {
-            "nb": "Nr."
+            "nb": "Nr.",
+            "nn": "Nr.",
+            "en": "No."
         }
     },
     {
         "id": "resource.operator.equals",
         "values": {
-            "nb": "="
+            "nb": "=",
+            "nn": "=",
+            "en": "="
         }
     },
     {
         "id": "resource.operator.minus",
         "values": {
-            "nb": "-"
+            "nb": "-",
+            "nn": "-",
+            "en": "-"
         }
     },
     {
         "id": "resource.operator.plus",
         "values": {
-            "nb": "+"
+            "nb": "+",
+            "nn": "+",
+            "en": "+"
         }
     },
     {
         "id": "resource.organisasjonsnummer.title",
         "values": {
-            "nb": "Organisasjonsnummer"
+            "nb": "Organisasjonsnummer",
+            "nn": "Organisasjonsnummer",
+            "en": "Organisation number"
         }
     },
     {
         "id": "resource.overskrift.title",
         "values": {
-            "nb": "Overskrift"
+            "nb": "Overskrift",
+            "nn": "Overskrift",
+            "en": "Heading"
         }
     },
     {
         "id": "resource.overvann.title",
         "values": {
-            "nb": "Overvann"
+            "nb": "Overvann",
+            "nn": "Overvatn",
+            "en": "Surface water"
         }
     },
     {
         "id": "resource.planbestemmelse.title",
         "values": {
-            "nb": "Planbestemmelse"
+            "nb": "Planbestemmelse",
+            "nn": "Planføresegn",
+            "en": "Plan provision"
         }
     },
     {
         "id": "resource.planenGjelder.title",
         "values": {
-            "nb": "Planen gjelder"
+            "nb": "Planen gjelder",
+            "nn": "Planen gjeld",
+            "en": "The plan concerns"
         }
     },
     {
         "id": "resource.planer.andrePlaner.plan.navn.title",
         "values": {
-            "nb": "Navn på plan"
+            "nb": "Navn på plan",
+            "nn": "Namn på plan",
+            "en": "Plan name"
         }
     },
     {
         "id": "resource.planer.andrePlaner.plan.plantype.title",
         "values": {
-            "nb": "Type plan"
+            "nb": "Type plan",
+            "nn": "Type plan",
+            "en": "Plan type"
         }
     },
     {
         "id": "resource.planer.andrePlaner.title",
         "values": {
-            "nb": "Andre planer"
+            "nb": "Andre planer",
+            "nn": "Andre planar",
+            "en": "Other plans"
         }
     },
     {
         "id": "resource.planer.andreRelevanteKrav.title",
         "values": {
-            "nb": "Andre relevante krav"
+            "nb": "Andre relevante krav",
+            "nn": "Andre relevante krav",
+            "en": "Other relevant requirements"
         }
     },
     {
         "id": "resource.planer.gjeldendePlan.beregningsregelGradAvUtnytting.title",
         "values": {
-            "nb": "Beregningsregel angitt i gjeldende plan"
+            "nb": "Beregningsregel angitt i gjeldende plan",
+            "nn": "Berekningsregel som er sett i gjeldande plan",
+            "en": "Calculation rule specified in the applicable plan"
         }
     },
     {
         "id": "resource.planer.gjeldendePlan.formaal.title",
         "values": {
-            "nb": "Reguleringsformål"
+            "nb": "Reguleringsformål",
+            "nn": "Reguleringsføremål",
+            "en": "Zoning purpose"
         }
     },
     {
         "id": "resource.planer.gjeldendePlan.navn.title",
         "values": {
-            "nb": "Navn på plan"
+            "nb": "Navn på plan",
+            "nn": "Namn på plan",
+            "en": "Plan name"
         }
     },
     {
         "id": "resource.planer.gjeldendePlan.plantype.title",
         "values": {
-            "nb": "Type plan"
+            "nb": "Type plan",
+            "nn": "Type plan",
+            "en": "Plan type"
         }
     },
     {
         "id": "resource.planer.gjeldendePlan.title",
         "values": {
-            "nb": "Gjeldende plan"
+            "nb": "Gjeldende plan",
+            "nn": "Gjeldande plan",
+            "en": "Applicable plan"
         }
     },
     {
         "id": "resource.planer.gjeldendePlan.utnyttingsgrad.title",
         "values": {
-            "nb": "Grad av utnytting i henhold til gjeldende plan"
+            "nb": "Grad av utnytting i henhold til gjeldende plan",
+            "nn": "Grad av utnytting etter gjeldande plan",
+            "en": "Degree of utilisation according to the applicable plan"
         }
     },
     {
         "id": "resource.planId.title",
         "values": {
-            "nb": "Plan-ID"
+            "nb": "Plan-ID",
+            "nn": "Plan-ID",
+            "en": "Plan ID"
         }
     },
     {
         "id": "resource.plankonsulent.title",
         "values": {
-            "nb": "Plankonsulent"
+            "nb": "Plankonsulent",
+            "nn": "Plankonsulent",
+            "en": "Planning consultant"
         }
     },
     {
         "id": "resource.planlagteSamsvarKontrollErklaeringer.emptyFieldText.default",
         "values": {
-            "nb": "Planlagt"
+            "nb": "Planlagt",
+            "nn": "Planlagd",
+            "en": "Planned"
         }
     },
     {
         "id": "resource.planlagteSamsvarKontrollErklaeringer.title",
         "values": {
-            "nb": "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato"
+            "nb": "Planlagt samsvars-/kontrollerklæring med eventuell signeringsdato",
+            "nn": "Planlagd samsvars-/kontrollerklæring med eventuell signeringsdato",
+            "en": "Planned declaration of conformity/inspection with signing date, if any"
         }
     },
     {
         "id": "resource.plannavn.title",
         "values": {
-            "nb": "Plannavn"
+            "nb": "Plannavn",
+            "nn": "Plannamn",
+            "en": "Plan name"
         }
     },
     {
         "id": "resource.plantype.title",
         "values": {
-            "nb": "Plantype"
+            "nb": "Plantype",
+            "nn": "Plantype",
+            "en": "Plan type"
         }
     },
     {
         "id": "resource.prosjektnummer.title",
         "values": {
-            "nb": "Prosjektnummer"
+            "nb": "Prosjektnummer",
+            "nn": "Prosjektnummer",
+            "en": "Project number"
         }
     },
     {
         "id": "resource.rammebetingelser.adkomst.erNyEllerEndretAdkomst.title",
         "values": {
-            "nb": "Skal tiltaket gi ny eller endret adkomst?"
+            "nb": "Skal tiltaket gi ny eller endret adkomst?",
+            "nn": "Skal tiltaket gi ny eller endra tilkomst?",
+            "en": "Will the project provide new or altered access?"
         }
     },
     {
         "id": "resource.rammebetingelser.adkomst.erTillatelseGitt.title",
         "values": {
-            "nb": "Er tillatelse gitt for endringen?"
+            "nb": "Er tillatelse gitt for endringen?",
+            "nn": "Er det gitt løyve til endringa?",
+            "en": "Has permission been granted for the change?"
         }
     },
     {
         "id": "resource.rammebetingelser.adkomst.title",
         "values": {
-            "nb": "Adkomst"
+            "nb": "Adkomst",
+            "nn": "Tilkomst",
+            "en": "Access"
         }
     },
     {
         "id": "resource.rammebetingelser.adkomst.vegtype.title",
         "values": {
-            "nb": "Veitype"
+            "nb": "Veitype",
+            "nn": "Vegtype",
+            "en": "Road type"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.arealBebyggelseEksisterende.title",
         "values": {
-            "nb": "Areal eksisterende bebyggelse"
+            "nb": "Areal eksisterende bebyggelse",
+            "nn": "Areal eksisterande busetnad",
+            "en": "Area of existing buildings"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.arealBebyggelseNytt.title",
         "values": {
-            "nb": "Areal ny bebyggelse"
+            "nb": "Areal ny bebyggelse",
+            "nn": "Areal ny busetnad",
+            "en": "Area of new buildings"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.arealBebyggelseSomSkalRives.title",
         "values": {
-            "nb": "Areal som skal rives"
+            "nb": "Areal som skal rives",
+            "nn": "Areal som skal rivast",
+            "en": "Area to be demolished"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.arealSumByggesak.title",
         "values": {
-            "nb": "Sum areal"
+            "nb": "Sum areal",
+            "nn": "Sum areal",
+            "en": "Total area"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.bebyggelsen.title",
         "values": {
-            "nb": "Bebyggelsen"
+            "nb": "Bebyggelsen",
+            "nn": "Busetnaden",
+            "en": "Buildings"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.beregnetGradAvUtnytting.title",
         "values": {
-            "nb": "Beregnet grad av utnytting"
+            "nb": "Beregnet grad av utnytting",
+            "nn": "Berekna grad av utnytting",
+            "en": "Calculated degree of utilisation"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.beregnetMaksByggeareal.title",
         "values": {
-            "nb": "Beregnet maksimalt byggeareal iht. plan"
+            "nb": "Beregnet maksimalt byggeareal iht. plan",
+            "nn": "Berekna maksimalt byggjeareal etter plan",
+            "en": "Calculated maximum building area according to plan"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.gradAvUtnytting.title",
         "values": {
-            "nb": "Grad av utnytting"
+            "nb": "Grad av utnytting",
+            "nn": "Grad av utnytting",
+            "en": "Degree of utilisation"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.parkeringsarealTerreng.title",
         "values": {
-            "nb": "Parkeringsareal"
+            "nb": "Parkeringsareal",
+            "nn": "Parkeringsareal",
+            "en": "Parking area"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.title",
         "values": {
-            "nb": "Planer og arealdisponering"
+            "nb": "Planer og arealdisponering",
+            "nn": "Planar og arealdisponering",
+            "en": "Plans and land use"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealBeregnet.title",
         "values": {
-            "nb": "Beregnet tomteareal"
+            "nb": "Beregnet tomteareal",
+            "nn": "Berekna tomteareal",
+            "en": "Calculated plot area"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealByggeomraade.title",
         "values": {
-            "nb": "Byggeområde/grunneiendom"
+            "nb": "Byggeområde/grunneiendom",
+            "nn": "Byggjeområde/grunneigedom",
+            "en": "Building area/land property"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealSomLeggesTil.title",
         "values": {
-            "nb": "Areal som legges til"
+            "nb": "Areal som legges til",
+            "nn": "Areal som blir lagt til",
+            "en": "Area to be added"
         }
     },
     {
         "id": "resource.rammebetingelser.arealdisponering.tomtearealSomTrekkesFra.title",
         "values": {
-            "nb": "Ev. areal som trekkes fra iht. beregningsregler"
+            "nb": "Ev. areal som trekkes fra iht. beregningsregler",
+            "nn": "Ev. areal som blir trekt frå etter berekningsreglar",
+            "en": "Any area to be deducted according to calculation rules"
         }
     },
     {
         "id": "resource.rammebetingelser.avloep.harTinglystErklaering.title",
         "values": {
-            "nb": "Foreligger rettighet ved tinglyst erklæring?"
+            "nb": "Foreligger rettighet ved tinglyst erklæring?",
+            "nn": "Ligg det føre rett ved tinglyst erklæring?",
+            "en": "Is there a right established by a registered declaration?"
         }
     },
     {
         "id": "resource.rammebetingelser.avloep.harUtslippstillatelse.title",
         "values": {
-            "nb": "Foreligger det en utslippstillatelse?"
+            "nb": "Foreligger det en utslippstillatelse?",
+            "nn": "Ligg det føre utsleppsløyve?",
+            "en": "Is there a discharge permit?"
         }
     },
     {
         "id": "resource.rammebetingelser.avloep.krysserAvloepAnnensGrunn.title",
         "values": {
-            "nb": "Krysser avløpsanlegg annens grunn?"
+            "nb": "Krysser avløpsanlegg annens grunn?",
+            "nn": "Kryssar avløpsanlegget grunnen til andre?",
+            "en": "Does the wastewater system cross another party's land?"
         }
     },
     {
         "id": "resource.rammebetingelser.avloep.skalInstallereVannklosett.title",
         "values": {
-            "nb": "Skal det installeres vannklosett?"
+            "nb": "Skal det installeres vannklosett?",
+            "nn": "Skal det installerast vassklosett?",
+            "en": "Will a water closet be installed?"
         }
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.beroererByggEldreEnn1850.title",
         "values": {
-            "nb": "Berører tiltaket byggverk oppført før 1850?"
+            "nb": "Berører tiltaket byggverk oppført før 1850?",
+            "nn": "Råkar tiltaket byggverk oppførte før 1850?",
+            "en": "Does the project affect buildings constructed before 1850?"
         }
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.erAvhengigAvTillatelse.title",
         "values": {
-            "nb": "Er tiltaket avhenging av tillatelse fra annen myndighet?"
+            "nb": "Er tiltaket avhenging av tillatelse fra annen myndighet?",
+            "nn": "Er tiltaket avhengig av løyve frå anna styresmakt?",
+            "en": "Does the project depend on permission from another authority?"
         }
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.erForhaandskonferanseAvholdt.title",
         "values": {
-            "nb": "Er det avholdt en forhåndskonferanse med kommunen?"
+            "nb": "Er det avholdt en forhåndskonferanse med kommunen?",
+            "nn": "Er det halde førehandskonferanse med kommunen?",
+            "en": "Has a pre-application meeting been held with the municipality?"
         }
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.erPaalagtUavhengigKontroll.title",
         "values": {
-            "nb": "Er det obligatorisk uavhengig kontroll?"
+            "nb": "Er det obligatorisk uavhengig kontroll?",
+            "nn": "Er det obligatorisk uavhengig kontroll?",
+            "en": "Is independent inspection mandatory?"
         }
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.oppfyllerVilkaarForTreukersfrist.title",
         "values": {
-            "nb": "Oppfyller søknaden vilkår for 3 ukers saksbehandling?"
+            "nb": "Oppfyller søknaden vilkår for 3 ukers saksbehandling?",
+            "nn": "Oppfyller søknaden vilkåra for tre vekers sakshandsaming?",
+            "en": "Does the application meet the conditions for a 3-week processing time?"
         }
     },
     {
         "id": "resource.rammebetingelser.generellInformasjon.skalUtarbeideAvfallsplan.title",
         "values": {
-            "nb": "Skal det utarbeides avfallsplan?"
+            "nb": "Skal det utarbeides avfallsplan?",
+            "nn": "Skal det utarbeidast avfallsplan?",
+            "en": "Will a waste management plan be prepared?"
         }
     },
     {
         "id": "resource.rammebetingelser.kravTilByggegrunn.harMiljoeforhold.title",
         "values": {
-            "nb": "Har tiltaket andre naturforhold jf. pbl §28-1?"
+            "nb": "Har tiltaket andre naturforhold jf. pbl §28-1?",
+            "nn": "Har tiltaket andre naturforhold, jf. pbl. § 28-1?",
+            "en": "Does the project involve other natural conditions, cf. Planning and Building Act § 28-1?"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.erLoefteinnretningIBygning.title",
         "values": {
-            "nb": "Er det løfteinnretninger som omfattes av TEK17 i bygningen?"
+            "nb": "Er det løfteinnretninger som omfattes av TEK17 i bygningen?",
+            "nn": "Er det løfteinnretningar i bygningen som er omfatta av TEK17?",
+            "en": "Are there lifting devices in the building covered by TEK17?"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planlagteLoefteinnretninger.title",
         "values": {
-            "nb": "Planlagte løfteinnretninger"
+            "nb": "Planlagte løfteinnretninger",
+            "nn": "Planlagde løfteinnretningar",
+            "en": "Planned lifting devices"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planleggesHeis.title",
         "values": {
-            "nb": "Det planlegges heis"
+            "nb": "Det planlegges heis",
+            "nn": "Det er planlagt heis",
+            "en": "A lift is planned"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planleggesLoefteinnretningIBygning.title",
         "values": {
-            "nb": "Planlegges løfteinnretninger som omfattes av TEK17 i bygningen?"
+            "nb": "Planlegges løfteinnretninger som omfattes av TEK17 i bygningen?",
+            "nn": "Er det planlagt løfteinnretningar i bygningen som er omfatta av TEK17?",
+            "en": "Are lifting devices covered by TEK17 planned in the building?"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planleggesLoefteplattform.title",
         "values": {
-            "nb": "Det planlegges løfteplattform"
+            "nb": "Det planlegges løfteplattform",
+            "nn": "Det er planlagt løfteplattform",
+            "en": "A lifting platform is planned"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planleggesRulletrapp.title",
         "values": {
-            "nb": "Det planlegges rulletrapp"
+            "nb": "Det planlegges rulletrapp",
+            "nn": "Det er planlagt rulletrapp",
+            "en": "An escalator is planned"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.planleggesTrappeheis.title",
         "values": {
-            "nb": "Det planlegges trappeheis"
+            "nb": "Det planlegges trappeheis",
+            "nn": "Det er planlagt trappeheis",
+            "en": "A stairlift is planned"
         }
     },
     {
         "id": "resource.rammebetingelser.loefteinnretninger.title",
         "values": {
-            "nb": "Løfteinnretninger"
+            "nb": "Løfteinnretninger",
+            "nn": "Løfteinnretningar",
+            "en": "Lifting devices"
         }
     },
     {
         "id": "resource.rammebetingelser.overvann.ledesOvervannTilAvloepssystem.title",
         "values": {
-            "nb": "Blir takvann/overvann ført til avløpssystem for overvann?"
+            "nb": "Blir takvann/overvann ført til avløpssystem for overvann?",
+            "nn": "Blir takvatn/overvatn ført til avløpssystem for overvatn?",
+            "en": "Is roof water/surface water directed to a surface water drainage system?"
         }
     },
     {
         "id": "resource.rammebetingelser.overvann.ledesOvervannTilTerreng.title",
         "values": {
-            "nb": "Blir takvann/overvann ført til terreng?"
+            "nb": "Blir takvann/overvann ført til terreng?",
+            "nn": "Blir takvatn/overvatn ført til terreng?",
+            "en": "Is roof water/surface water directed to the terrain?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.erBekreftetInnenforByggegrense.title",
         "values": {
-            "nb": "Er tiltaket innenfor byggegrensen?"
+            "nb": "Er tiltaket innenfor byggegrensen?",
+            "nn": "Er tiltaket innanfor byggjegrensa?",
+            "en": "Is the project within the building line?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.erKonfliktMedHoeyspentkraftlinje.title",
         "values": {
-            "nb": "Er det strømførende linje/kabel eller nettstasjon/transformator i, over eller i nærheten av tiltaket?"
+            "nb": "Er det strømførende linje/kabel eller nettstasjon/transformator i, over eller i nærheten av tiltaket?",
+            "nn": "Er det straumførande line/kabel eller nettstasjon/transformator i, over eller i nærleiken av tiltaket?",
+            "en": "Is there a live power line/cable or substation/transformer in, above or near the project?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.erKonfliktMedVannOgAvloep.title",
         "values": {
-            "nb": "Er vann- og avløpsledninger i konflikt med tiltaket?"
+            "nb": "Er vann- og avløpsledninger i konflikt med tiltaket?",
+            "nn": "Er vass- og avløpsleidningar i konflikt med tiltaket?",
+            "en": "Are water and wastewater pipes in conflict with the project?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.minsteAvstandNabogrense.title",
         "values": {
-            "nb": "Hva er minste avstand til nabogrense?"
+            "nb": "Hva er minste avstand til nabogrense?",
+            "nn": "Kva er minste avstand til nabogrensa?",
+            "en": "What is the minimum distance to the property boundary?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.minsteAvstandTilAnnenBygning.title",
         "values": {
-            "nb": "Hva er minste avstand til annen bygning?"
+            "nb": "Hva er minste avstand til annen bygning?",
+            "nn": "Kva er minste avstand til annan bygning?",
+            "en": "What is the minimum distance to another building?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.minsteAvstandTilMidtenAvVei.title",
         "values": {
-            "nb": "Hva er minste avstand til midten av vei?"
+            "nb": "Hva er minste avstand til midten av vei?",
+            "nn": "Kva er minste avstand til midten av vegen?",
+            "en": "What is the minimum distance to the centre of the road?"
         }
     },
     {
         "id": "resource.rammebetingelser.plassering.title",
         "values": {
-            "nb": "Plassering av tiltaket"
+            "nb": "Plassering av tiltaket",
+            "nn": "Plassering av tiltaket",
+            "en": "Location of the project"
         }
     },
     {
         "id": "resource.rammebetingelser.tilknytning.title",
         "values": {
-            "nb": "Tilknytning til vei og ledningsnett"
+            "nb": "Tilknytning til vei og ledningsnett",
+            "nn": "Tilknyting til veg og leidningsnett",
+            "en": "Connection to road and utility networks"
         }
     },
     {
         "id": "resource.rammebetingelser.vannforsyning.harTinglystErklaering.title",
         "values": {
-            "nb": "Foreligger rettighet ved tinglyst erklæring?"
+            "nb": "Foreligger rettighet ved tinglyst erklæring?",
+            "nn": "Ligg det føre rett ved tinglyst erklæring?",
+            "en": "Is there a right established by a registered declaration?"
         }
     },
     {
         "id": "resource.rammebetingelser.vannforsyning.krysserVannforsyningAnnensGrunn.title",
         "values": {
-            "nb": "Krysser vanntilførsel annens grunn?"
+            "nb": "Krysser vanntilførsel annens grunn?",
+            "nn": "Kryssar vasstilførselen grunnen til andre?",
+            "en": "Does the water supply cross another party's land?"
         }
     },
     {
         "id": "resource.rammesoeknad.title",
         "values": {
-            "nb": "Rammesøknad"
+            "nb": "Rammesøknad",
+            "nn": "Rammesøknad",
+            "en": "Application for outline permission"
         }
     },
     {
         "id": "resource.redegjoerelse.title",
         "values": {
-            "nb": "Redegjørelse"
+            "nb": "Redegjørelse",
+            "nn": "Utgreiing",
+            "en": "Statement"
         }
     },
     {
         "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
         "values": {
-            "nb": "Ikke svar"
+            "nb": "Ikke svar",
+            "nn": "Ikkje svar",
+            "en": "No response"
         }
     },
     {
         "id": "resource.respons.erMerknadMottatt.trueText",
         "values": {
-            "nb": "Merknad"
+            "nb": "Merknad",
+            "nn": "Merknad",
+            "en": "Comment"
         }
     },
     {
         "id": "resource.respons.erSamtykkeMottatt.trueText",
         "values": {
-            "nb": "Samtykke"
+            "nb": "Samtykke",
+            "nn": "Samtykke",
+            "en": "Consent"
         }
     },
     {
         "id": "resource.respons.merknadMottattDato.title",
         "values": {
-            "nb": "Mottatt merknad"
+            "nb": "Mottatt merknad",
+            "nn": "Motteken merknad",
+            "en": "Comment received"
         }
     },
     {
         "id": "resource.respons.nabovarselSendt.title",
         "values": {
-            "nb": "Nabovarsel sendt"
+            "nb": "Nabovarsel sendt",
+            "nn": "Nabovarsel sendt",
+            "en": "Neighbour notification sent"
         }
     },
     {
         "id": "resource.respons.nabovarselSendtVia.title",
         "values": {
-            "nb": "Nabovarsel sendt via"
+            "nb": "Nabovarsel sendt via",
+            "nn": "Nabovarsel sendt via",
+            "en": "Neighbour notification sent via"
         }
     },
     {
         "id": "resource.respons.samtykkeMottattDato.title",
         "values": {
-            "nb": "Mottatt samtykke"
+            "nb": "Mottatt samtykke",
+            "nn": "Motteke samtykke",
+            "en": "Consent received"
         }
     },
     {
         "id": "resource.rolleendringer.rolleendring.aktoerendring.title",
         "values": {
-            "nb": "Endring"
+            "nb": "Endring",
+            "nn": "Endring",
+            "en": "Change"
         }
     },
     {
         "id": "resource.rolleendringer.rolleendring.aktoertype.title",
         "values": {
-            "nb": "Rolle"
+            "nb": "Rolle",
+            "nn": "Rolle",
+            "en": "Role"
         }
     },
     {
         "id": "resource.rolleendringer.rolleendring.erRolleendringErklaert.title",
         "values": {
-            "nb": "Erklært"
+            "nb": "Erklært",
+            "nn": "Erklært",
+            "en": "Declared"
         }
     },
     {
         "id": "resource.rolleendringer.title",
         "values": {
-            "nb": "Rolleendringer"
+            "nb": "Rolleendringer",
+            "nn": "Rolleendringar",
+            "en": "Role changes"
         }
     },
     {
         "id": "resource.saksbehandler.title",
         "values": {
-            "nb": "Saksbehandler"
+            "nb": "Saksbehandler",
+            "nn": "Sakshandsamar",
+            "en": "Case officer"
         }
     },
     {
         "id": "resource.samsvarErklaeringTekst.title",
         "values": {
-            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi bekrefter at kvalitetssikring er utført og dokumentert i henhold til erklæring om ansvarsrett og foretakets kvalitetssikring."
+            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningslovens kapittel 32, og at det kan medføre reaksjoner dersom vi oppgir uriktige opplysninger. Vi bekrefter at kvalitetssikring er utført og dokumentert i henhold til erklæring om ansvarsrett og foretakets kvalitetssikring.",
+            "nn": "Vi kjenner til reglane om straff og sanksjonar i kapittel 32 i plan- og bygningslova, og at det kan føre til reaksjonar dersom vi gir uriktige opplysningar. Vi stadfestar at kvalitetssikring er utført og dokumentert i samsvar med erklæringa om ansvarsrett og kvalitetssikringa til føretaket.",
+            "en": "We are aware of the rules on penalties and sanctions in chapter 32 of the Planning and Building Act, and that providing incorrect information may lead to sanctions. We confirm that quality assurance has been carried out and documented in accordance with the declaration of responsibility and the enterprise's quality assurance system."
         }
     },
     {
         "id": "resource.samsvarKontrollPlanlagtVedFerdigattest.title",
         "values": {
-            "nb": "Søknad om ferdigattest"
+            "nb": "Søknad om ferdigattest",
+            "nn": "Søknad om ferdigattest",
+            "en": "Application for certificate of completion"
         }
     },
     {
         "id": "resource.samsvarKontrollPlanlagtVedIgangsettingstillatelse.title",
         "values": {
-            "nb": "Ettrinn-/igangsettings-søknad"
+            "nb": "Ettrinn-/igangsettings-søknad",
+            "nn": "Eittrinns-/igangsetjingssøknad",
+            "en": "One-step/commencement application"
         }
     },
     {
         "id": "resource.samsvarKontrollPlanlagtVedMidlertidigBrukstillatelse.title",
         "values": {
-            "nb": "Søknad om midlertidig brukstillatelse"
+            "nb": "Søknad om midlertidig brukstillatelse",
+            "nn": "Søknad om mellombels bruksløyve",
+            "en": "Application for temporary occupancy permit"
         }
     },
     {
         "id": "resource.samsvarPROTekst.title",
         "values": {
-            "nb": "Ansvarlig prosjekterende bekrefter at prosjekteringen er i samsvar med ytelser i TEK17 og preaksepterte ytelser (VTEK), eller ved analyse som viser at forskriftens (TEK17) funksjonkrav er oppfylt."
+            "nb": "Ansvarlig prosjekterende bekrefter at prosjekteringen er i samsvar med ytelser i TEK17 og preaksepterte ytelser (VTEK), eller ved analyse som viser at forskriftens (TEK17) funksjonkrav er oppfylt.",
+            "nn": "Ansvarleg prosjekterande stadfestar at prosjekteringa er i samsvar med ytingar i TEK17 og preaksepterte ytingar (VTEK), eller ved analyse som viser at funksjonskrava i forskrifta (TEK17) er oppfylte.",
+            "en": "The responsible designer confirms that the design complies with the performance requirements in TEK17 and pre-accepted performance levels (VTEK), or by analysis demonstrating that the functional requirements of the regulations (TEK17) are met."
         }
     },
     {
         "id": "resource.samsvarUTFTekst.title",
         "values": {
-            "nb": "Ansvarlig utførende bekrefter at utførelsen er i samsvar med produksjonsunderlaget."
+            "nb": "Ansvarlig utførende bekrefter at utførelsen er i samsvar med produksjonsunderlaget.",
+            "nn": "Ansvarleg utførande stadfestar at utføringa er i samsvar med produksjonsunderlaget.",
+            "en": "The responsible contractor confirms that the execution complies with the production documentation."
         }
     },
     {
         "id": "resource.sikkerhetsnivaa.bekreftelseInnen.title",
         "values": {
-            "nb": "Vi sender kommunen en bekreftelse på at tiltaket har tilstrekkelig sikkerhetsnivå innen"
+            "nb": "Vi sender kommunen en bekreftelse på at tiltaket har tilstrekkelig sikkerhetsnivå innen",
+            "nn": "Vi sender kommunen ei stadfesting på at tiltaket har tilstrekkeleg tryggleiksnivå innan",
+            "en": "We will send the municipality confirmation that the project has an adequate safety level by"
         }
     },
     {
         "id": "resource.sikkerhetsnivaa.harTilstrekkeligSikkerhet.title",
         "values": {
-            "nb": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk i dag?"
+            "nb": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk i dag?",
+            "nn": "Har tiltaket tilstrekkeleg tryggleiksnivå til å bli teke i bruk i dag?",
+            "en": "Does the project have an adequate safety level to be taken into use today?"
         }
     },
     {
         "id": "resource.sikkerhetsnivaa.title",
         "values": {
-            "nb": "Sikkerhetsnivå"
+            "nb": "Sikkerhetsnivå",
+            "nn": "Tryggleiksnivå",
+            "en": "Safety level"
         }
     },
     {
         "id": "resource.sikkerhetsNivaa.title",
         "values": {
-            "nb": "Sikkerhetsnivå og arbeider som vil utføres innen 14 dager"
+            "nb": "Sikkerhetsnivå og arbeider som vil utføres innen 14 dager",
+            "nn": "Tryggleiksnivå og arbeid som vil bli utført innan 14 dagar",
+            "en": "Safety level and work to be carried out within 14 days"
         }
     },
     {
         "id": "resource.sikkerhetsnivaa.typeArbeider.title",
         "values": {
-            "nb": "Disse arbeidene gjenstår for at tiltaket skal ha tilstrekkelig sikkerhetsnivå"
+            "nb": "Disse arbeidene gjenstår for at tiltaket skal ha tilstrekkelig sikkerhetsnivå",
+            "nn": "Desse arbeida står att for at tiltaket skal ha tilstrekkeleg tryggleiksnivå",
+            "en": "The following work remains for the project to have an adequate safety level"
         }
     },
     {
         "id": "resource.sikkerhetsnivaa.utfoertInnen.title",
         "values": {
-            "nb": "Arbeidene for å oppnå tilstrekkelig sikkerhetsnivå skal være ferdigstilt innen"
+            "nb": "Arbeidene for å oppnå tilstrekkelig sikkerhetsnivå skal være ferdigstilt innen",
+            "nn": "Arbeida for å oppnå tilstrekkeleg tryggleiksnivå skal vere ferdigstilte innan",
+            "en": "The work to achieve an adequate safety level will be completed by"
         }
     },
     {
         "id": "resource.sluttrapport.title",
         "values": {
-            "nb": "Sluttrapport for kontroll"
+            "nb": "Sluttrapport for kontroll",
+            "nn": "Sluttrapport for kontroll",
+            "en": "Final inspection report"
         }
     },
     {
         "id": "resource.soeker.title",
         "values": {
-            "nb": "Søker"
+            "nb": "Søker",
+            "nn": "Søkjar",
+            "en": "Applicant"
         }
     },
     {
         "id": "resource.soeknadensHjemmeside.header",
         "values": {
-            "nb": "Se også vår hjemmeside"
+            "nb": "Se også vår hjemmeside",
+            "nn": "Sjå også heimesida vår",
+            "en": "See also our website"
         }
     },
     {
         "id": "resource.soeknadGjelder.bruk.beskrivPlanlagtFormaal.title",
         "values": {
-            "nb": "Beskrivelse av planlagt formål"
+            "nb": "Beskrivelse av planlagt formål",
+            "nn": "Skildring av planlagt føremål",
+            "en": "Description of planned purpose"
         }
     },
     {
         "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal",
         "values": {
-            "nb": "Beskrivelse av tidligere formål"
+            "nb": "Beskrivelse av tidligere formål",
+            "nn": "Skildring av tidlegare føremål",
+            "en": "Description of previous purpose"
         }
     },
     {
         "id": "resource.soeknadGjelder.bruk.beskrivTidligereFormaal.title",
         "values": {
-            "nb": "Beskrivelse av gammelt formål"
+            "nb": "Beskrivelse av gammelt formål",
+            "nn": "Skildring av gammalt føremål",
+            "en": "Description of former purpose"
         }
     },
     {
         "id": "resource.soeknadGjelder.bruk.naeringsgruppe.title",
         "values": {
-            "nb": "Næringsgruppe"
+            "nb": "Næringsgruppe",
+            "nn": "Næringsgruppe",
+            "en": "Industry group"
         }
     },
     {
         "id": "resource.soeknadGjelder.bruk.tiltaksformaal.kode.kodebeskrivelse",
         "values": {
-            "nb": "Formål med tiltaket"
+            "nb": "Formål med tiltaket",
+            "nn": "Føremål med tiltaket",
+            "en": "Purpose of the project"
         }
     },
     {
         "id": "resource.soeknadGjelder.title",
         "values": {
-            "nb": "Søknaden gjelder"
+            "nb": "Søknaden gjelder",
+            "nn": "Søknaden gjeld",
+            "en": "The application concerns"
         }
     },
     {
         "id": "resource.soeknadGjelder.type.kode.kodebeskrivelse",
         "values": {
-            "nb": "Type tiltak"
+            "nb": "Type tiltak",
+            "nn": "Type tiltak",
+            "en": "Project type"
         }
     },
     {
         "id": "resource.soeknadGjelder.type.kode.title",
         "values": {
-            "nb": "Tiltakstyper i byggesaken"
+            "nb": "Tiltakstyper i byggesaken",
+            "nn": "Tiltakstypar i byggjesaka",
+            "en": "Project types in the building case"
         }
     },
     {
         "id": "resource.status.title",
         "values": {
-            "nb": "Status"
+            "nb": "Status",
+            "nn": "Status",
+            "en": "Status"
         }
     },
     {
         "id": "resource.stedfesting.title",
         "values": {
-            "nb": "Stedfesting"
+            "nb": "Stedfesting",
+            "nn": "Stadfesting",
+            "en": "Georeferencing"
         }
     },
     {
         "id": "resource.telefonnummer.title",
         "values": {
-            "nb": "Telefonnummer"
+            "nb": "Telefonnummer",
+            "nn": "Telefonnummer",
+            "en": "Phone number"
         }
     },
     {
         "id": "resource.tema.title",
         "values": {
-            "nb": "Tema"
+            "nb": "Tema",
+            "nn": "Tema",
+            "en": "Topic"
         }
     },
     {
         "id": "resource.tilknytning.title",
         "values": {
-            "nb": "Tilknytning"
+            "nb": "Tilknytning",
+            "nn": "Tilknyting",
+            "en": "Connection"
         }
     },
     {
         "id": "resource.tillatelsedato.title",
         "values": {
-            "nb": "Tillatelsedato"
+            "nb": "Tillatelsedato",
+            "nn": "Løyvedato",
+            "en": "Permit date"
         }
     },
     {
         "id": "resource.tilstrekkeligSikkerhet.title",
         "values": {
-            "nb": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?"
+            "nb": "Har tiltaket tilstrekkelig sikkerhetsnivå til å tas i bruk?",
+            "nn": "Har tiltaket tilstrekkeleg tryggleiksnivå til å bli teke i bruk?",
+            "en": "Does the project have an adequate safety level to be taken into use?"
         }
     },
     {
         "id": "resource.tiltakByggeplaner.title",
         "values": {
-            "nb": "Tiltak/ byggeplaner"
+            "nb": "Tiltak/ byggeplaner",
+            "nn": "Tiltak/ byggjeplanar",
+            "en": "Project/ building plans"
         }
     },
     {
         "id": "resource.tiltakshaver.fakturamottaker.title",
         "values": {
-            "nb": "Fakturaadresse for tiltakshaver"
+            "nb": "Fakturaadresse for tiltakshaver",
+            "nn": "Fakturaadresse for tiltakshavar",
+            "en": "Invoice address for the developer"
         }
     },
     {
         "id": "resource.tiltakshaver.title",
         "values": {
-            "nb": "Tiltakshaver"
+            "nb": "Tiltakshaver",
+            "nn": "Tiltakshavar",
+            "en": "Developer"
         }
     },
     {
         "id": "resource.tiltaksklasse.title",
         "values": {
-            "nb": "Tiltaksklasse"
+            "nb": "Tiltaksklasse",
+            "nn": "Tiltaksklasse",
+            "en": "Project class"
         }
     },
     {
         "id": "resource.tiltakstyper.title",
         "values": {
-            "nb": "Tiltakstyper"
+            "nb": "Tiltakstyper",
+            "nn": "Tiltakstypar",
+            "en": "Project types"
         }
     },
     {
         "id": "resource.tiltakstyper.type.kode.title",
         "values": {
-            "nb": "Tiltakstyper i søknad om dispensasjon"
+            "nb": "Tiltakstyper i søknad om dispensasjon",
+            "nn": "Tiltakstypar i søknad om dispensasjon",
+            "en": "Project types in application for dispensation"
         }
     },
     {
         "id": "resource.tomtearealet.title",
         "values": {
-            "nb": "Tomtearealet"
+            "nb": "Tomtearealet",
+            "nn": "Tomtearealet",
+            "en": "Plot area"
         }
     },
     {
         "id": "resource.trueText.default",
         "values": {
-            "nb": "Ja"
+            "nb": "Ja",
+            "nn": "Ja",
+            "en": "Yes"
         }
     },
     {
         "id": "resource.typeArbeider.title",
         "values": {
-            "nb": "Vi vil utføre følgende arbeid for å oppnå tilstrekkelig sikkerhetsnivå"
+            "nb": "Vi vil utføre følgende arbeid for å oppnå tilstrekkelig sikkerhetsnivå",
+            "nn": "Vi vil utføre følgjande arbeid for å oppnå tilstrekkeleg tryggleiksnivå",
+            "en": "We will carry out the following work to achieve an adequate safety level"
         }
     },
     {
         "id": "resource.unit.meterSquared",
         "values": {
-            "nb": "m²"
+            "nb": "m²",
+            "nn": "m²",
+            "en": "m²"
         }
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.erUtfallBesvaresSenere",
         "values": {
-            "nb": "Besvares senere"
+            "nb": "Besvares senere",
+            "nn": "Blir svart på seinare",
+            "en": "Will be answered later"
         }
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.erUtfallBesvart",
         "values": {
-            "nb": "Svar innsendt tidligere"
+            "nb": "Svar innsendt tidligere",
+            "nn": "Svar sendt inn tidlegare",
+            "en": "Answer submitted previously"
         }
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.status",
         "values": {
-            "nb": "Besvares nå"
+            "nb": "Besvares nå",
+            "nn": "Blir svart på no",
+            "en": "Answered now"
         }
     },
     {
         "id": "resource.utfallBesvarelse.utfallSvar.title",
         "values": {
-            "nb": "Svar på mangler"
+            "nb": "Svar på mangler",
+            "nn": "Svar på manglar",
+            "en": "Response to deficiencies"
         }
     },
     {
         "id": "resource.utfoereInnen.title",
         "values": {
-            "nb": "Vi vil utføre arbeidene innen"
+            "nb": "Vi vil utføre arbeidene innen",
+            "nn": "Vi vil utføre arbeida innan",
+            "en": "We will carry out the work by"
         }
     },
     {
         "id": "resource.vaarRef.title",
         "values": {
-            "nb": "Vår ref."
+            "nb": "Vår ref.",
+            "nn": "Vår ref.",
+            "en": "Our ref."
         }
     },
     {
         "id": "resource.vannforsyning.title",
         "values": {
-            "nb": "Vannforsyning"
+            "nb": "Vannforsyning",
+            "nn": "Vassforsyning",
+            "en": "Water supply"
         }
     },
     {
         "id": "resource.varighet.oenskesVarigDispensasjon.trueText",
         "values": {
-            "nb": "Ønskes permanent dispensasjon"
+            "nb": "Ønskes permanent dispensasjon",
+            "nn": "Ønskjer permanent dispensasjon",
+            "en": "Permanent dispensation requested"
         }
     },
     {
         "id": "resource.varighet.oensketVarighetTil.title",
         "values": {
-            "nb": "Ønskes varighet til"
+            "nb": "Ønskes varighet til",
+            "nn": "Ønskjer varigheit til",
+            "en": "Requested duration until"
         }
     },
     {
         "id": "resource.varighet.title",
         "values": {
-            "nb": "Varighet"
+            "nb": "Varighet",
+            "nn": "Varigheit",
+            "en": "Duration"
         }
     },
     {
         "id": "resource.varmefordeling.title",
         "values": {
-            "nb": "Varmefordeling"
+            "nb": "Varmefordeling",
+            "nn": "Varmefordeling",
+            "en": "Heat distribution"
         }
     },
     {
         "id": "resource.varmesystem.relevant.false.description",
         "values": {
-            "nb": "Energiforsyning og varmefordeling er ikke relevant for tiltaket."
+            "nb": "Energiforsyning og varmefordeling er ikke relevant for tiltaket.",
+            "nn": "Energiforsyning og varmefordeling er ikkje relevant for tiltaket.",
+            "en": "Energy supply and heat distribution are not relevant to the project."
         }
     },
     {
         "id": "resource.varmesystem.title",
         "values": {
-            "nb": "Varmesystem"
+            "nb": "Varmesystem",
+            "nn": "Varmesystem",
+            "en": "Heating system"
         }
     },
     {
         "id": "resource.varsler-herved.header",
         "values": {
-            "nb": "Vi varsler herved om"
+            "nb": "Vi varsler herved om",
+            "nn": "Vi varslar med dette om",
+            "en": "We hereby give notice of"
         }
     },
     {
         "id": "resource.varsling.antallMerknader.title",
         "values": {
-            "nb": "Antall merknader fra naboer eller gjenboere"
+            "nb": "Antall merknader fra naboer eller gjenboere",
+            "nn": "Talet på merknader frå naboar eller gjenbuarar",
+            "en": "Number of comments from neighbours or opposite neighbours"
         }
     },
     {
         "id": "resource.varsling.fritattFraNabovarsling.title",
         "values": {
-            "nb": "Er tiltaket nabovarslet?"
+            "nb": "Er tiltaket nabovarslet?",
+            "nn": "Er tiltaket nabovarsla?",
+            "en": "Have neighbours been notified of the project?"
         }
     },
     {
         "id": "resource.varsling.harPengeheftelser.title",
         "values": {
-            "nb": "Er de som eventuelt har tinglyste pengeheftelser på eiendommen blitt varslet?"
+            "nb": "Er de som eventuelt har tinglyste pengeheftelser på eiendommen blitt varslet?",
+            "nn": "Er dei som eventuelt har tinglyste pengeheftingar på eigedomen, blitt varsla?",
+            "en": "Have any holders of registered financial encumbrances on the property been notified?"
         }
     },
     {
         "id": "resource.varsling.soeknadensHjemmeside.title",
         "values": {
-            "nb": "Søknadens hjemmeside"
+            "nb": "Søknadens hjemmeside",
+            "nn": "Heimesida til søknaden",
+            "en": "Application website"
         }
     },
     {
         "id": "resource.varsling.vurderingAvMerknader.title",
         "values": {
-            "nb": "Søkers vurdering av merknadene"
+            "nb": "Søkers vurdering av merknadene",
+            "nn": "Vurderinga søkjaren har gjort av merknadene",
+            "en": "Applicant's assessment of the comments"
         }
     },
     {
         "id": "resource.vedlegg.title",
         "values": {
-            "nb": "Vedlegg"
+            "nb": "Vedlegg",
+            "nn": "Vedlegg",
+            "en": "Attachments"
         }
     },
     {
         "id": "resource.vedtakOmOffentligEttersyn.title",
         "values": {
-            "nb": "Vedtak om offentlig ettersyn"
+            "nb": "Vedtak om offentlig ettersyn",
+            "nn": "Vedtak om offentleg ettersyn",
+            "en": "Decision on public consultation"
         }
     },
     {
         "id": "resource.verdi.title",
         "values": {
-            "nb": "Verdi"
+            "nb": "Verdi",
+            "nn": "Verdi",
+            "en": "Value"
         }
     },
     {
         "id": "resource.vertikalnivaa.title",
         "values": {
-            "nb": "Vertikalnivå"
+            "nb": "Vertikalnivå",
+            "nn": "Vertikalnivå",
+            "en": "Vertical level"
         }
     }
 ]
