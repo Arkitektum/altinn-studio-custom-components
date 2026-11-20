@@ -43,4 +43,6 @@ function ensureFile(targetFromRoot, linkFromRoot) {
 }
 
 // Files
-ensureFile("src/data/resource.nb.json", "public/data/resource.nb.json");
+for (const language of ["nb", "nn", "en"]) {
+    ensureFile(`src/data/resource.${language}.json`, `public/data/resource.${language}.json`);
+}
