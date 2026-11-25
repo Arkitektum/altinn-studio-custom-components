@@ -83,7 +83,7 @@
         "id": "resource.ansvarsrettSOEKTekst.title",
         "values": {
             "nb": "Ansvarlig søker bekrefter at hele tiltaket belegges med ansvar, og dekker kravene i plan- og bygningsloven.",
-            "nn": "Ansvarleg søkjar stadfestar at heile tiltaket er belagt med ansvar, og dekkjer krava i plan- og bygningslova.",
+            "nn": "Ansvarleg søkar stadfestar at heile tiltaket er belagt med ansvar, og dekkjer krava i plan- og bygningslova.",
             "en": "The responsible applicant confirms that responsibility has been assigned for the entire project, and that it meets the requirements of the Planning and Building Act."
         }
     },
@@ -107,7 +107,7 @@
         "id": "resource.arbeidsplasser.beroertAvTiltaket.title",
         "values": {
             "nb": "Berørt av tiltaket",
-            "nn": "Råka av tiltaket",
+            "nn": "Påverka av tiltaket",
             "en": "Affected by the project"
         }
     },
@@ -139,7 +139,7 @@
         "id": "resource.arbeidsplasser.midlertidige.title",
         "values": {
             "nb": "Midlertidige arbeidsplasser",
-            "nn": "Mellombelse arbeidsplassar",
+            "nn": "Midlertidige arbeidsplassar",
             "en": "Temporary workplaces"
         }
     },
@@ -147,7 +147,7 @@
         "id": "resource.arbeidsplasser.title",
         "values": {
             "nb": "Hvilke arbeidsplasser er berørt av tiltaket",
-            "nn": "Kva arbeidsplassar er råka av tiltaket",
+            "nn": "Kva arbeidsplassar er påverka av tiltaket?",
             "en": "Which workplaces are affected by the project"
         }
     },
@@ -475,7 +475,7 @@
         "id": "resource.eiendom.bolignummer.title",
         "values": {
             "nb": "Bruksenhets-nummer",
-            "nn": "Bruksining-nummer",
+            "nn": "Brukseinings-nummer",
             "en": "Unit number"
         }
     },
@@ -523,7 +523,7 @@
         "id": "resource.eiendomByggested.eiendom.title",
         "values": {
             "nb": "Eiendom/byggested",
-            "nn": "Eigedom/byggjestad",
+            "nn": "Eigedom/byggestad",
             "en": "Property/building site"
         }
     },
@@ -651,7 +651,7 @@
         "id": "resource.erklaeringerOmAnsvarsrettFraAnsvarligSoeker.title",
         "values": {
             "nb": "Erklæring om ansvarsrett fra ansvarlig søker og signering",
-            "nn": "Erklæring om ansvarsrett frå ansvarleg søkjar og signering",
+            "nn": "Erklæring om ansvarsrett frå ansvarleg søkar og signering",
             "en": "Declaration of responsibility from the responsible applicant and signing"
         }
     },
@@ -1003,7 +1003,7 @@
         "id": "resource.kommunensSaksnummer.title",
         "values": {
             "nb": "Kommunens saksnummer",
-            "nn": "Saksnummeret til kommunen",
+            "nn": "Kommune sitt saksnummer",
             "en": "Municipality's case number"
         }
     },
@@ -1051,7 +1051,7 @@
         "id": "resource.kontaktpersonForSoeker.title",
         "values": {
             "nb": "Kontaktperson for søker",
-            "nn": "Kontaktperson for søkjar",
+            "nn": "Kontaktperson for søkar",
             "en": "Contact person for the applicant"
         }
     },
@@ -1123,7 +1123,7 @@
         "id": "resource.krav.sjekklistekrav.title",
         "values": {
             "nb": "Svar på krav til automatisert behandling",
-            "nn": "Svar på krav til automatisert handsaming",
+            "nn": "Svar på krav om automatisert behandling",
             "en": "Answers to requirements for automated processing"
         }
     },
@@ -1203,7 +1203,7 @@
         "id": "resource.merknaderNabovarsel.paragraph2",
         "values": {
             "nb": "Merknader til nabovarselet kan leveres via Altinn eller sendes til søker:",
-            "nn": "Merknader til nabovarselet kan leverast via Altinn eller sendast til søkjar:",
+            "nn": "Merknader til nabovarselet kan leverast via Altinn eller sendast til søkar:",
             "en": "Comments on the neighbour notification can be submitted via Altinn or sent to the applicant:"
         }
     },
@@ -2099,7 +2099,7 @@
         "id": "resource.soeker.title",
         "values": {
             "nb": "Søker",
-            "nn": "Søkjar",
+            "nn": "Søkar",
             "en": "Applicant"
         }
     },
@@ -2459,7 +2459,7 @@
         "id": "resource.varsling.vurderingAvMerknader.title",
         "values": {
             "nb": "Søkers vurdering av merknadene",
-            "nn": "Vurderinga søkjaren har gjort av merknadene",
+            "nn": "Vurderinga søkaren har gjort av merknadene",
             "en": "Applicant's assessment of the comments"
         }
     },

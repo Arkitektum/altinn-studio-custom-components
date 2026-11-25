@@ -43,7 +43,7 @@
         },
         {
             "id": "resource.ansvarsrettSOEKTekst.title",
-            "value": "Ansvarleg søkjar stadfestar at heile tiltaket er belagt med ansvar, og dekkjer krava i plan- og bygningslova."
+            "value": "Ansvarleg søkar stadfestar at heile tiltaket er belagt med ansvar, og dekkjer krava i plan- og bygningslova."
         },
         {
             "id": "resource.ansvarsrettUTFTekst.title",
@@ -55,7 +55,7 @@
         },
         {
             "id": "resource.arbeidsplasser.beroertAvTiltaket.title",
-            "value": "Råka av tiltaket"
+            "value": "Påverka av tiltaket"
         },
         {
             "id": "resource.arbeidsplasser.eksisterende.title",
@@ -71,11 +71,11 @@
         },
         {
             "id": "resource.arbeidsplasser.midlertidige.title",
-            "value": "Mellombelse arbeidsplassar"
+            "value": "Midlertidige arbeidsplassar"
         },
         {
             "id": "resource.arbeidsplasser.title",
-            "value": "Kva arbeidsplassar er råka av tiltaket"
+            "value": "Kva arbeidsplassar er påverka av tiltaket?"
         },
         {
             "id": "resource.arbeidsplasser.utleieBygg.title",
@@ -239,7 +239,7 @@
         },
         {
             "id": "resource.eiendom.bolignummer.title",
-            "value": "Bruksining-nummer"
+            "value": "Brukseinings-nummer"
         },
         {
             "id": "resource.eiendom.bruksnummer.title",
@@ -263,7 +263,7 @@
         },
         {
             "id": "resource.eiendomByggested.eiendom.title",
-            "value": "Eigedom/byggjestad"
+            "value": "Eigedom/byggestad"
         },
         {
             "id": "resource.eierFesterAvNaboeiendom.title",
@@ -327,7 +327,7 @@
         },
         {
             "id": "resource.erklaeringerOmAnsvarsrettFraAnsvarligSoeker.title",
-            "value": "Erklæring om ansvarsrett frå ansvarleg søkjar og signering"
+            "value": "Erklæring om ansvarsrett frå ansvarleg søkar og signering"
         },
         {
             "id": "resource.ettersending.title",
@@ -503,7 +503,7 @@
         },
         {
             "id": "resource.kommunensSaksnummer.title",
-            "value": "Saksnummeret til kommunen"
+            "value": "Kommune sitt saksnummer"
         },
         {
             "id": "resource.konsekvensutredning.title",
@@ -527,7 +527,7 @@
         },
         {
             "id": "resource.kontaktpersonForSoeker.title",
-            "value": "Kontaktperson for søkjar"
+            "value": "Kontaktperson for søkar"
         },
         {
             "id": "resource.kontaktpersonForTiltakshaver.title",
@@ -563,7 +563,7 @@
         },
         {
             "id": "resource.krav.sjekklistekrav.title",
-            "value": "Svar på krav til automatisert handsaming"
+            "value": "Svar på krav om automatisert behandling"
         },
         {
             "id": "resource.kravFerdigattest.bekreftelseInnen.title",
@@ -603,7 +603,7 @@
         },
         {
             "id": "resource.merknaderNabovarsel.paragraph2",
-            "value": "Merknader til nabovarselet kan leverast via Altinn eller sendast til søkjar:"
+            "value": "Merknader til nabovarselet kan leverast via Altinn eller sendast til søkar:"
         },
         {
             "id": "resource.metadata.ftbId.title",
@@ -1051,7 +1051,7 @@
         },
         {
             "id": "resource.soeker.title",
-            "value": "Søkjar"
+            "value": "Søkar"
         },
         {
             "id": "resource.soeknadensHjemmeside.header",
@@ -1231,7 +1231,7 @@
         },
         {
             "id": "resource.varsling.vurderingAvMerknader.title",
-            "value": "Vurderinga søkjaren har gjort av merknadene"
+            "value": "Vurderinga søkaren har gjort av merknadene"
         },
         {
             "id": "resource.vedlegg.title",
