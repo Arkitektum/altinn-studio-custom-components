@@ -326,6 +326,10 @@
             "value": "Declaration"
         },
         {
+            "id": "resource.erklaeringerOmAnsvarsrettFraAnsvarligSoeker.title",
+            "value": "Declaration of responsibility from the responsible applicant and signing"
+        },
+        {
             "id": "resource.ettersending.title",
             "value": "Supplementary submission"
         },
@@ -364,6 +368,10 @@
         {
             "id": "resource.foelgebrev.title",
             "value": "Cover letter"
+        },
+        {
+            "id": "resource.foreliggerSentralGodkjenning.title",
+            "value": "Central approval exists"
         },
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
@@ -1240,6 +1248,14 @@
         {
             "id": "resource.vertikalnivaa.title",
             "value": "Vertical level"
+        },
+        {
+            "id": "resource.viErKjentMedReglerOgStraff.title",
+            "value": "We are aware of the rules on penalties and sanctions in Chapter 32 of the Planning and Building Act and that incorrect information may lead to reactions."
+        },
+        {
+            "id": "resource.viForplikterKompetanse.title",
+            "value": "We commit to providing the necessary competence in the project, cf. the Planning and Building Regulations chapters 10 and 11."
         }
     ]
 }

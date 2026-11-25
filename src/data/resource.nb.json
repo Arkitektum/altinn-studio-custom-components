@@ -326,6 +326,10 @@
             "value": "Erklæring"
         },
         {
+            "id": "resource.erklaeringerOmAnsvarsrettFraAnsvarligSoeker.title",
+            "value": "Erklæring om ansvarsrett fra ansvarlig søker og signering"
+        },
+        {
             "id": "resource.ettersending.title",
             "value": "Ettersending"
         },
@@ -364,6 +368,10 @@
         {
             "id": "resource.foelgebrev.title",
             "value": "Følgebrev"
+        },
+        {
+            "id": "resource.foreliggerSentralGodkjenning.title",
+            "value": "Foreligger sentral godkjenning"
         },
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
@@ -1240,6 +1248,14 @@
         {
             "id": "resource.vertikalnivaa.title",
             "value": "Vertikalnivå"
+        },
+        {
+            "id": "resource.viErKjentMedReglerOgStraff.title",
+            "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32 og at uriktige opplysninger kan medføre reaksjoner."
+        },
+        {
+            "id": "resource.viForplikterKompetanse.title",
+            "value": "Vi forplikter oss til å stille med nødvendig kompentanse i tiltaket, jf. byggesaksforskriften kapittel 10 og 11."
         }
     ]
 }

@@ -648,6 +648,14 @@
         }
     },
     {
+        "id": "resource.erklaeringerOmAnsvarsrettFraAnsvarligSoeker.title",
+        "values": {
+            "nb": "Erklæring om ansvarsrett fra ansvarlig søker og signering",
+            "nn": "Erklæring om ansvarsrett frå ansvarleg søkjar og signering",
+            "en": "Declaration of responsibility from the responsible applicant and signing"
+        }
+    },
+    {
         "id": "resource.ettersending.title",
         "values": {
             "nb": "Ettersending",
@@ -725,6 +733,14 @@
             "nb": "Følgebrev",
             "nn": "Følgjebrev",
             "en": "Cover letter"
+        }
+    },
+    {
+        "id": "resource.foreliggerSentralGodkjenning.title",
+        "values": {
+            "nb": "Foreligger sentral godkjenning",
+            "nn": "Føreligg sentral godkjenning",
+            "en": "Central approval exists"
         }
     },
     {
@@ -2477,6 +2493,22 @@
             "nb": "Vertikalnivå",
             "nn": "Vertikalnivå",
             "en": "Vertical level"
+        }
+    },
+    {
+        "id": "resource.viErKjentMedReglerOgStraff.title",
+        "values": {
+            "nb": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32 og at uriktige opplysninger kan medføre reaksjoner.",
+            "nn": "Vi er kjende med reglane om straff og sanksjonar i plan- og bygningslova kapittel 32 og at uriktige opplysningar kan medføre reaksjonar.",
+            "en": "We are aware of the rules on penalties and sanctions in Chapter 32 of the Planning and Building Act and that incorrect information may lead to reactions."
+        }
+    },
+    {
+        "id": "resource.viForplikterKompetanse.title",
+        "values": {
+            "nb": "Vi forplikter oss til å stille med nødvendig kompentanse i tiltaket, jf. byggesaksforskriften kapittel 10 og 11.",
+            "nn": "Vi forpliktar oss til å stille med naudsynt kompetanse i tiltaket, jf. byggesaksforskrifta kapittel 10 og 11.",
+            "en": "We commit to providing the necessary competence in the project, cf. the Planning and Building Regulations chapters 10 and 11."
         }
     }
 ]
