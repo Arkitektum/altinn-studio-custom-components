@@ -24,6 +24,14 @@
         }
     },
     {
+        "id": "resource.ansvarligSoeker.title",
+        "values": {
+            "nb": "Ansvarlig søker",
+            "nn": "Ansvarleg søkar",
+            "en": "Responsible applicant"
+        }
+    },
+    {
         "id": "resource.ansvarsfordeling.title",
         "values": {
             "nb": "Ansvarsfordeling",
@@ -96,6 +104,22 @@
         }
     },
     {
+        "id": "resource.antallAnsatteTotalt.title",
+        "values": {
+            "nb": "Antall ansatte totalt",
+            "nn": "Antal tilsette totalt",
+            "en": "Total number of employees"
+        }
+    },
+    {
+        "id": "resource.antallVirksomheter.title",
+        "values": {
+            "nb": "Antall virksomheter",
+            "nn": "Antal verksemder",
+            "en": "Number of businesses"
+        }
+    },
+    {
         "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
         "values": {
             "nb": "Arbeidsplasser",
@@ -157,6 +181,14 @@
             "nb": "Utleiebygg",
             "nn": "Utleigebygg",
             "en": "Rental building"
+        }
+    },
+    {
+        "id": "resource.arbeidstilsynetsSaksnummer.title",
+        "values": {
+            "nb": "Arbeidstilsynets saksnummer",
+            "nn": "Arbeidstilsynet sitt saksnummer",
+            "en": "The Norwegian Labour Inspection Authority case number"
         }
     },
     {
@@ -664,6 +696,14 @@
         }
     },
     {
+        "id": "resource.fakturamottaker.title",
+        "values": {
+            "nb": "Fakturamottaker",
+            "nn": "Fakturamottakar",
+            "en": "Invoice recipient"
+        }
+    },
+    {
         "id": "resource.fakturareferanse.title",
         "values": {
             "nb": "Fakturareferanse",
@@ -1125,6 +1165,14 @@
             "nb": "Svar på krav til automatisert behandling",
             "nn": "Svar på krav om automatisert behandling",
             "en": "Answers to requirements for automated processing"
+        }
+    },
+    {
+        "id": "resource.krav.title",
+        "values": {
+            "nb": "Krav",
+            "nn": "Krav",
+            "en": "Requirements"
         }
     },
     {

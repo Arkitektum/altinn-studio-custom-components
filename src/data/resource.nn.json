@@ -14,6 +14,10 @@
             "value": "Ansvarleg føretak"
         },
         {
+            "id": "resource.ansvarligSoeker.title",
+            "value": "Ansvarleg søkar"
+        },
+        {
             "id": "resource.ansvarsfordeling.title",
             "value": "Ansvarsfordeling"
         },
@@ -50,6 +54,14 @@
             "value": "Ansvarleg utførande erklærer at arbeidet ikkje skal starte før det ligg føre kvalitetssikra produksjonsunderlag for den aktuelle delen av utføringa, jf. SAK10 § 12-4."
         },
         {
+            "id": "resource.antallAnsatteTotalt.title",
+            "value": "Antal tilsette totalt"
+        },
+        {
+            "id": "resource.antallVirksomheter.title",
+            "value": "Antal verksemder"
+        },
+        {
             "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
             "value": "Arbeidsplassar"
         },
@@ -80,6 +92,10 @@
         {
             "id": "resource.arbeidsplasser.utleieBygg.title",
             "value": "Utleigebygg"
+        },
+        {
+            "id": "resource.arbeidstilsynetsSaksnummer.title",
+            "value": "Arbeidstilsynet sitt saksnummer"
         },
         {
             "id": "resource.avdekketArbeider.title",
@@ -334,6 +350,10 @@
             "value": "Ettersending"
         },
         {
+            "id": "resource.fakturamottaker.title",
+            "value": "Fakturamottakar"
+        },
+        {
             "id": "resource.fakturareferanse.title",
             "value": "Fakturareferanse"
         },
@@ -564,6 +584,10 @@
         {
             "id": "resource.krav.sjekklistekrav.title",
             "value": "Svar på krav om automatisert behandling"
+        },
+        {
+            "id": "resource.krav.title",
+            "value": "Krav"
         },
         {
             "id": "resource.kravFerdigattest.bekreftelseInnen.title",

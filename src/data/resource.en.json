@@ -14,6 +14,10 @@
             "value": "Responsible enterprise"
         },
         {
+            "id": "resource.ansvarligSoeker.title",
+            "value": "Responsible applicant"
+        },
+        {
             "id": "resource.ansvarsfordeling.title",
             "value": "Allocation of responsibility"
         },
@@ -50,6 +54,14 @@
             "value": "The responsible contractor declares that work will not start until quality-assured production documentation is available for the relevant part of the execution, cf. SAK10 § 12-4."
         },
         {
+            "id": "resource.antallAnsatteTotalt.title",
+            "value": "Total number of employees"
+        },
+        {
+            "id": "resource.antallVirksomheter.title",
+            "value": "Number of businesses"
+        },
+        {
             "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
             "value": "Workplaces"
         },
@@ -80,6 +92,10 @@
         {
             "id": "resource.arbeidsplasser.utleieBygg.title",
             "value": "Rental building"
+        },
+        {
+            "id": "resource.arbeidstilsynetsSaksnummer.title",
+            "value": "The Norwegian Labour Inspection Authority case number"
         },
         {
             "id": "resource.avdekketArbeider.title",
@@ -334,6 +350,10 @@
             "value": "Supplementary submission"
         },
         {
+            "id": "resource.fakturamottaker.title",
+            "value": "Invoice recipient"
+        },
+        {
             "id": "resource.fakturareferanse.title",
             "value": "Invoice reference"
         },
@@ -564,6 +584,10 @@
         {
             "id": "resource.krav.sjekklistekrav.title",
             "value": "Answers to requirements for automated processing"
+        },
+        {
+            "id": "resource.krav.title",
+            "value": "Requirements"
         },
         {
             "id": "resource.kravFerdigattest.bekreftelseInnen.title",
