@@ -2,13 +2,11 @@
 
 ![CI](https://github.com/Arkitektum/altinn-studio-custom-components/actions/workflows/ci.yml/badge.svg) ![npm version](https://img.shields.io/npm/v/@arkitektum/altinn-studio-custom-components.svg)
 
-A collection of reusable custom components for **Altinn Studio**, designed to provide consistent, standardized presentation of various data types in digital public services.
+Custom web components for **Altinn Studio** apps that present form data in a consistent, standardized way, following the standards of **Direktoratet for byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
 
 ---
 
 ## Installation
-
-To integrate this package into your Altinn Studio application, follow the steps below.
 
 ### 1. Initialize npm
 
@@ -88,7 +86,7 @@ WORKDIR /App
 RUN apk add --no-cache npm
 ```
 
-After these steps, npm packages will be installed automatically during the build, and all assets will be copied into `wwwroot/altinn-studio-custom-components`.
+After these steps, npm packages are installed during the build, and all assets are copied into `wwwroot/altinn-studio-custom-components`. The components load their default text resources (`resource.<lang>.json`) from that folder at runtime, so the copy from step 3 is needed on v9 apps as well.
 
 ### 6. Optional: editor help for layout files
 
@@ -153,87 +151,30 @@ So always set `dataType` on components in subform layouts. Without it, a subform
 - **Only what is named is fetched.** The components fetch the instance's list of data elements, and the form data of the data types named on the page, with the user's own login. Other form data in the instance is never fetched.
 - **The PDF waits.** A component carries `data-loading` while it fetches, which holds back the PDF until it is drawn.
 - **Data is refreshed per page.** The data is fetched again after the user moves to another page, so a summary shows what the user just entered.
-- **v8 apps** still need `dataModelBindings`. There, `dataType` and `dataKey` are ignored.
+- **v8 apps** need `dataModelBindings`. There, `dataType` and `dataKey` are ignored.
 
 ---
 
 ## Available Components
 
-Components are grouped by category and tailored to display domain-specific data according to standards from **Direktoratet for Byggkvalitet (DiBK)** on the **Fellestjenester BYGG** platform.
-
-For a full list of available components and examples, see the documentation site:
+For the full list of components, with examples, see the documentation site:
 
 [Component Documentation & Gallery](https://arkitektum.github.io/altinn-studio-custom-components-docs/)
 
 ---
 
-## Development & Testing
+## Package contents
 
-> For a deeper look at how the package is structured and how it fits into the wider ecosystem, see [ARCHITECTURE.md](./ARCHITECTURE.md). For contribution guidelines (adding components, resources, releases), see [CONTRIBUTING.md](./CONTRIBUTING.md).
+`yarn build` writes these files to `dist/`, and the package exports them:
 
-### Prerequisites
+| File                                                                 | Exported as                                      | What it is for                                                                          |
+| -------------------------------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------- |
+| `main.js` and `main.css`                                             | `.` and `./styles.css`                           | The components, loaded by the app                                                       |
+| `resource.<lang>.json` for `nb`, `nn` and `en`, and `resources.json` | `./resources/<lang>.json` and `./resources.json` | The default text resources, per language and all languages in one file                  |
+| `dataModelBindingKeys.json`                                          | `./dataModelBindingKeys.json`                    | The `dataModelBindings` keys each component reads, see below                            |
+| `layout.schema.json`                                                 | `./layout.schema.json`                           | The schema for app layout files, see [step 6](#6-optional-editor-help-for-layout-files) |
 
-- **Node.js 24**
-- **Yarn 4** (managed via [Corepack](https://nodejs.org/api/corepack.html)). Enable it once with:
-
-    ```bash
-    corepack enable
-    ```
-
-    The correct Yarn version is then activated automatically from the `packageManager` field in `package.json`.
-
-### Development
-
-1. Clone the repository:
-
-    ```bash
-    git clone https://github.com/Arkitektum/altinn-studio-custom-components.git
-    ```
-
-2. Move into the project directory:
-
-    ```bash
-    cd altinn-studio-custom-components
-    ```
-
-3. Install dependencies:
-
-    ```bash
-    yarn install
-    ```
-
-4. Create a local environment file from the sample:
-
-    ```bash
-    cp .env.sample .env
-    ```
-
-    The dev server reads this file via `dotenv-webpack`. `PORT` sets the dev server port (default `9000`), while `API_PORT` is only needed for the Statistics dashboard (see below). The Gitea token the dashboard's data comes through belongs to the API, not to this app.
-
-5. Start the development server:
-
-    ```bash
-    yarn start
-    ```
-
-    Then open [http://localhost:9000](http://localhost:9000). The start page links to the Developer tools page and the Statistics page.
-
-### Building
-
-```bash
-yarn build
-```
-
-The build writes these files to `dist/`:
-
-| File                                 | Exported as                                  | What it is for                                                                          |
-| ------------------------------------ | -------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `main.js` and `main.css`             | `.` and `./styles.css`                       | The components, loaded by the app                                                       |
-| `resource.nb.json`, `resources.json` | `./resources/nb.json` and `./resources.json` | The default text resources                                                              |
-| `dataModelBindingKeys.json`          | `./dataModelBindingKeys.json`                | The `dataModelBindings` keys each component reads, see below                            |
-| `layout.schema.json`                 | `./layout.schema.json`                       | The schema for app layout files, see [step 6](#6-optional-editor-help-for-layout-files) |
-
-#### `dataModelBindingKeys.json`
+### `dataModelBindingKeys.json`
 
 One entry for each component that declares the keys it reads:
 
@@ -253,11 +194,11 @@ One entry for each component that declares the keys it reads:
 }
 ```
 
-The docs gallery checks its examples against it, and the Data model bindings page of the Statistics dashboard checks every app's layouts.
+The docs gallery checks its examples against it, and the Data model bindings page of the Statistics dashboard checks every app's layouts against the same keys.
 
-#### `layout.schema.json`
+### `layout.schema.json`
 
-Altinn's layout schema, with the definition of a custom component replaced. Altinn's own allows only Altinn's properties on a custom component, so an editor flags every attribute these components use.
+Altinn's layout schema, with the definition of a custom component replaced so that the attributes these components read are allowed.
 
 On a custom component, it checks:
 
@@ -265,7 +206,7 @@ On a custom component, it checks:
 - **`dataModelBindings`** against the same lists as `dataModelBindingKeys.json`
 - **`resourceBindings`** against the keys the component reads, found at build by constructing every component
 - **attributes**: the ones every component gets from the base class, such as `hideIfEmpty` and `size`, are allowed everywhere. The ones only some components read, such as `itemKey` and `tableColumns`, are allowed on those alone.
-- **expressions**, more lightly than Altinn's schema: an expression must name one of Altinn's functions at every level, but argument counts and types are not checked. Altinn's own expression checking freezes VS Code on real layouts.
+- **expressions**, more lightly than Altinn's schema: an expression must name one of Altinn's functions at every level. Argument counts and types are left to Altinn.
 
 It is built from copies of Altinn's layout and expression schemas in `src/data/altinn/`. To refresh them:
 
@@ -273,27 +214,17 @@ It is built from copies of Altinn's layout and expression schemas in `src/data/a
 yarn update-altinn-layout-schema
 ```
 
-### Testing
+---
 
-Run unit tests:
+## Development
 
-```bash
-yarn test
-```
-
-### Linting
-
-Check code style and lint rules:
-
-```bash
-yarn lint
-```
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for local setup, commands and how to add components and resources, and [ARCHITECTURE.md](./ARCHITECTURE.md) for how the package is structured.
 
 ---
 
 ## DevTools Mode
 
-DevTools mode adds inspection overlays to all custom components on the page, making it easier to debug and inspect component properties during development.
+DevTools mode adds an inspection overlay to every custom component on the page, showing the properties each component was given.
 
 ### Activating DevTools Mode
 
@@ -315,7 +246,7 @@ Components are color-coded by category:
 | **D** | Data     | Data components (green)    |
 | **L** | Layout   | Layout components (purple) |
 
-Components that are conditionally hidden are rendered as a visible placeholder (dashed border) with a **hidden** label instead of being invisible, so you can still inspect their properties.
+Components hidden because they are empty (`hideIfEmpty`) are drawn as a placeholder with a dashed border and a **hidden** label, so their properties can still be inspected.
 
 Clicking anywhere outside a panel closes it.
 
@@ -330,13 +261,12 @@ Clicking anywhere outside a panel closes it.
 - [Altinn Studio Documentation](https://docs.altinn.studio/)
 - [Altinn Studio GitHub Repository](https://github.com/Altinn/altinn-studio)
 - [Altinn Studio Custom Component Documentation](https://docs.altinn.studio/altinn-studio/reference/ux/components/custom/)
-- [POC: Use of third party components in apps](https://github.com/Altinn/altinn-studio/issues/8681)
 
 ---
 
 ## Changelog
 
-The [changelog](https://github.com/Arkitektum/altinn-studio-custom-components/releases) is regularly updated to reflect what's changed in each new release.
+See the [releases](https://github.com/Arkitektum/altinn-studio-custom-components/releases) for what changed in each version.
 
 ---
 

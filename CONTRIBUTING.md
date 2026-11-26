@@ -1,11 +1,6 @@
 # Contributing
 
-Thanks for contributing to `@arkitektum/altinn-studio-custom-components`!
-This guide covers local setup, the development workflow, and the conventions for adding components and resources.
-
-For a high-level picture of how the package and its sibling repositories fit together, read [ARCHITECTURE.md](./ARCHITECTURE.md) first.
-
----
+This guide covers local setup, the development workflow, and the conventions for adding components and resources to `@arkitektum/altinn-studio-custom-components`. For how the package and its related repositories fit together, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ## Prerequisites
 
@@ -16,10 +11,7 @@ For a high-level picture of how the package and its sibling repositories fit tog
     corepack enable
     ```
 
-    The correct Yarn version is then activated automatically from the `packageManager` field in `package.json`.
-    (The CI removes any preinstalled Yarn 1 and uses Corepack. Do the same locally if `yarn --version` does not report `4.x`.)
-
----
+    The Yarn version is then taken from the `packageManager` field in `package.json`. If `yarn --version` does not report `4.x`, remove any globally installed Yarn 1 and enable Corepack again.
 
 ## Getting started
 
@@ -38,14 +30,11 @@ For a high-level picture of how the package and its sibling repositories fit tog
     ```
 
     - `PORT`: dev server port (default `9000`).
-    - `API_PORT`: **only** needed for the local **Statistics** dashboard.
-      You can skip it for ordinary component work.
+    - `API_PORT`: the port of the API behind the **Statistics** pages (default `9001`). Not needed for ordinary component work.
 
-    The Statistics dashboard calls a separate backend, the [`altinn-studio-custom-components-api`](https://github.com/Arkitektum/altinn-studio-custom-components-api) repository, on `http://localhost:<API_PORT>` (default `9001`).
-    To use the dashboard you must also clone that repo and run it (`yarn start`) with a matching `API_PORT`.
-    Only the API reads Altinn Studio, so the Gitea token it needs goes in the API's environment, not this app's. Its README says how to create one and where to keep it.
+    The Statistics pages call the [`altinn-studio-custom-components-api`](https://github.com/Arkitektum/altinn-studio-custom-components-api) on `http://localhost:<API_PORT>`. To use them, clone that repository and run it (`yarn start`) with a matching port. The Gitea token it needs goes in the API's environment, not this repository's. Its README says how to create one.
 
-    > `.env` is git-ignored. Never commit tokens or secrets.
+    `.env` is git-ignored. Never commit tokens or secrets.
 
 3. **Start the dev server**
 
@@ -53,59 +42,35 @@ For a high-level picture of how the package and its sibling repositories fit tog
     yarn start
     ```
 
-    Open <http://localhost:9000>.
-    The start page links to the **Developer tools** page and the **Statistics** page.
-
----
+    Open <http://localhost:9000>. The start page links to the **Developer tools** page and the **Statistics** pages (see [ARCHITECTURE.md §7](./ARCHITECTURE.md#7-development-pages)).
 
 ## Everyday commands
 
-| Command             | What it does                               |
-| ------------------- | ------------------------------------------ |
-| `yarn start`        | Start the webpack dev server / playground. |
-| `yarn test`         | Run the Jest unit tests.                   |
-| `yarn lint`         | Run ESLint over the repository.            |
-| `yarn format:check` | Check formatting with Prettier.            |
-| `yarn typecheck`    | Type-check with `tsc --noEmit`.            |
-| `yarn build`        | Produce the publishable bundle in `dist/`. |
+| Command                             | What it does                                                                        |
+| ----------------------------------- | ----------------------------------------------------------------------------------- |
+| `yarn start`                        | Start the webpack dev server with the development pages.                            |
+| `yarn test`                         | Run the Jest unit tests.                                                            |
+| `yarn lint`                         | Run ESLint over the repository.                                                     |
+| `yarn format` / `yarn format:check` | Format with Prettier, or only check the formatting.                                 |
+| `yarn typecheck`                    | Type-check with `tsc --noEmit`.                                                     |
+| `yarn build`                        | Produce the publishable bundle in `dist/`.                                          |
+| `yarn update-altinn-layout-schema`  | Refresh the copies of Altinn's layout and expression schemas in `src/data/altinn/`. |
 
 Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test` and `yarn build` all pass. CI runs the same checks.
 
----
-
 ## Adding a new component
 
-1. **Create the element directory** under `src/components/<component-type>/<component-tag-name>/` and add the files it needs (`index.ts`, plus `README.md`, `styles.css`, etc. as appropriate).
-   `<component-type>` is one of:
-    - `base-components`: primitive building blocks; accept literal values; not bound to a data model or resources.
-    - `data-components`: bound to the data model and resources.
-      The first segment after `custom-` (`field`, `paragraph`, `table`, `group`, `grouplist`, …) signals the rendering shape; the suffix names the class/data type (or generic `data` / `text`).
-      Children may be base components or other data components.
-    - `layout-components`: a complete form layout composed of multiple data and base components.
+1. **Create the element directory** under `src/components/<component-type>/<component-tag-name>/`, with an `index.ts` and, as needed, `renderers.ts` and `styles.css`. `<component-type>` is `base-components`, `data-components` or `layout-components` (see [ARCHITECTURE.md §4](./ARCHITECTURE.md#component-model)).
 
 2. **Register the element** by importing it in `src/components/index.ts`.
 
-3. **Add the component class** in `src/classes/system-classes/component-classes/<ComponentTagName>.ts` (PascalCase), extending `CustomComponent`.
-   Data and layout components should implement:
+3. **Add the component class** in `src/classes/system-classes/component-classes/<ComponentTagName>.ts` (PascalCase), extending `CustomComponent`, and map the tag name to it in `componentMap` in `src/functions/componentHelpers.ts`. Data and layout components implement `getValueFromFormData`, `getResourceBindings`, `getComponentUsage`, `getValidationMessages` and `hasContent` (see the [table in ARCHITECTURE.md](./ARCHITECTURE.md#component-classes)). Every resource binding must have a default value and be overridable. `hasContent` returns `true` only if the component will render something. A component that reads `dataModelBindings` declares the keys in `static dataModelBindingKeys`.
 
-    - `getValueFromFormData`: resolve the value from `resourceValues` or the data-model binding; often instantiate a domain data class from `src/classes/data-classes` or `src/classes/system-classes/data-classes`.
-    - `getResourceBindings`: return all resource bindings; each must have a default value and be overridable.
-    - `getComponentUsage`: return the tag names of the component's direct children (used by the Statistics tool).
-    - `getValidationMessages`: return a `ValidationMessages` object (often via `hasMissingTextResources`, passing the bindings from `getResourceBindings`).
-    - `hasContent`: drive the `isEmpty` / `hideIfEmpty` behavior.
-      Return `true` **only** if the component will actually render something (e.g. if it has data but nothing is rendered, return `false`).
+4. **Register the tag name in the allow-list.** Add it to `customElementTagNames.ts` in [`altinn-studio-custom-components-utils`](https://github.com/Arkitektum/altinn-studio-custom-components-utils), release that package, and bump the dependency here. `createCustomElement` throws for any tag name not on the list, so the component does not render until then.
 
-4. **Register the tag name in the allow-list.**
-   Add the new tag name to `customElementTagNames.ts` in the [`altinn-studio-custom-components-utils`](https://github.com/Arkitektum/altinn-studio-custom-components-utils) package, then release it and bump the dependency here.
-   This is required for security reasons: `createCustomElement` throws for any tag name not on the list, so the component will not render until it is added (and the updated utils version is released and bumped here).
+5. **Add tests.** Place `*.test.ts` next to the class and functions you add.
 
-5. **Add tests.**
-   Place `*.test.ts` next to the class/functions you add and cover the logic with Jest.
-
-6. **Document it.**
-   Add an example with dummy data to the [`altinn-studio-custom-components-docs`](https://github.com/Arkitektum/altinn-studio-custom-components-docs) gallery.
-
----
+6. **Document it.** Add the component, with an example using dummy data, to the [`altinn-studio-custom-components-docs`](https://github.com/Arkitektum/altinn-studio-custom-components-docs) gallery.
 
 ## Adding, removing, or changing a resource
 
@@ -118,41 +83,31 @@ Before opening a pull request, make sure `yarn lint`, `yarn format:check`, `yarn
     }
     ```
 
-    To add a resource, append a new object with a unique `id` and a value per supported language.
-    While the dev server runs, saving the file re-sorts entries by `id` automatically.
+    To add a resource, append an object with a unique `id` and a value for each language. While the dev server runs, saving the file sorts the entries by `id`.
 
-- **Do not edit `src/data/resource.<lang>.json` by hand.**
-  Those per-language files are generated from `resources.json` and are regenerated on save / build.
+- **Do not edit `src/data/resource.<lang>.json` by hand.** They are generated from `resources.json` on save and on build.
 
-- **Overrides:** a consuming Altinn app may define the same `id` in its own `App/config/texts/resource.<lang>.json`; the app's local value takes precedence over the value shipped here.
-
----
+- A consuming app can override a resource by defining the same `id` in its own `App/config/texts/resource.<lang>.json` (see [ARCHITECTURE.md §5](./ARCHITECTURE.md#lookup-order-in-altinn-apps)).
 
 ## Coding conventions
 
-- **Web standards first**: components are native custom elements; there is no UI framework runtime.
-- **Thin elements, fat classes**: keep element `index.ts` files limited to registration and delegation; put logic in the component class.
+- **Web standards first**: components are native custom elements, with no UI framework runtime.
+- **Thin elements, fat classes**: keep element `index.ts` files limited to registration and delegation, and put logic in the component class.
 - **JSDoc** on classes and exported functions.
-- **Formatting & linting** via Prettier (`.prettierrc`) and ESLint (`eslint.config.mjs`).
-  Run `yarn lint` before pushing.
+- **Formatting and linting** via Prettier (`.prettierrc`) and ESLint (`eslint.config.mjs`).
 - **Tests** colocated as `*.test.ts` and run with Jest.
-
----
+- **Accessibility**: see [ACCESSIBILITY.md](./ACCESSIBILITY.md#for-contributors) when you change how a component renders.
 
 ## Pull requests
 
 1. Branch off `main`.
-2. Keep changes focused; update or add tests and documentation.
-3. Ensure `yarn lint`, `yarn format:check`, `yarn typecheck`, `yarn test` and `yarn build` pass locally.
+2. Keep changes focused, and update or add tests.
+3. Make sure the checks above pass locally.
 4. Open a PR against `main`. CI (`ci.yml`) must be green before merge.
 
----
+## Versioning and releases
 
-## Versioning & releases
-
-- Releases are **triggered by creating a GitHub Release**.
-  The publish workflows then install, typecheck, test, build, and publish to **npm** (with provenance) and to **GitHub Packages**.
-- The npm **dist-tag** is derived from the release tag: a tag containing a hyphen (e.g. `v1.2.3-beta.1`) is published under that prerelease tag; otherwise it goes to `latest`.
-- Bump the version in `package.json` as part of the change that warrants a release, following semantic versioning. The release tag must be that version with a `v` in front, or the publish workflows stop.
-
-> Only maintainers can publish releases.
+- Bump the version in `package.json` as part of the change that warrants a release, following semantic versioning.
+- A release is published by creating a GitHub Release. Its tag must be the version with a `v` in front (e.g. `v1.2.3`), or the publish workflows stop. They then install, typecheck, test, build, and publish to **npm** (with provenance) and to **GitHub Packages**.
+- The npm **dist-tag** follows the release tag: a tag containing a hyphen is published under the prerelease name (`v1.2.3-beta.1` under `beta`), any other under `latest`.
+- Only maintainers can publish releases.
