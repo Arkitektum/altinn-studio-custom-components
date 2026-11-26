@@ -5,7 +5,7 @@
 
 import { fetchDefaultTextResources, fetchTextResources } from "./textResourceHelpers.ts";
 import { fetchWithTimeoutAndClientLogger, getClientLoggerInstance } from "./clientLoggerHelpers.ts";
-import initCustomComponents, { getLanguageFromLocation, isAltinnAppOrigin } from "./init.ts";
+import initCustomComponents, { getLanguageFromLocation, getLanguageFromSelector, isAltinnAppOrigin, resolveLanguage } from "./init.ts";
 import type { ClientLogger } from "@arkitektum/client-logger";
 import { defaultTextResourceLanguages } from "../constants/defaultTextResourceLanguages.ts";
 import { updateBodyClassNamesForApplication } from "./htmlElementHelpers.ts";
@@ -40,6 +40,8 @@ describe("initCustomComponents", () => {
 
     beforeEach(() => {
         jest.clearAllMocks();
+        // Clearing leaves queued responses behind, and one left by a test would answer a request in the next.
+        jest.mocked(fetchWithTimeoutAndClientLogger).mockReset();
         errorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
         logSpy = jest.spyOn(console, "log").mockImplementation(() => {});
 
@@ -384,6 +386,112 @@ describe("initCustomComponents", () => {
         });
     });
 
+    describe("the languages the app has texts for", () => {
+        const startUrl = globalThis.location.href;
+        const appLanguagesApiUrl = `${origin}/${org}/${app}/api/v1/applicationlanguages`;
+        const userId = 1337;
+
+        // Answers the profile and the app's languages by address, and anything left out with a 404.
+        const respond = ({ profile, languages }: { profile?: object; languages?: string[] }) =>
+            jest.mocked(fetchWithTimeoutAndClientLogger).mockImplementation(async (url) => {
+                const body =
+                    url === userProfileApiUrl ? profile : url === appLanguagesApiUrl ? languages?.map((language) => ({ language })) : undefined;
+                return (body === undefined
+                    ? { ok: false, status: 404, statusText: "Not Found" }
+                    : { ok: true, status: 200, json: async () => body }) as unknown as Response;
+            });
+        const profileIn = (language: string) => ({ userId, profileSettingPreference: { language } });
+        const pickInSelector = (language: string, forUserId: number = userId) =>
+            globalThis.localStorage.setItem(`${org}/${app}/${forUserId}/selectedLanguage`, JSON.stringify(language));
+
+        afterEach(() => {
+            globalThis.localStorage.clear();
+            globalThis.history.replaceState(null, "", startUrl);
+        });
+
+        it("shows an nn reader an app that has only nb texts in nb, the package's texts included", async () => {
+            respond({ profile: profileIn("nn"), languages: ["nb"] });
+
+            await initCustomComponents();
+
+            expect(fetchWithTimeoutAndClientLogger).toHaveBeenCalledWith(appLanguagesApiUrl, {}, 5000, clientLogger, expect.any(Array));
+            expect(globalThis.selectedLanguage).toBe("nb");
+            expect(jest.mocked(fetchTextResources).mock.calls.map((call) => call[3])).toEqual(["nb"]);
+            expect(jest.mocked(fetchDefaultTextResources).mock.calls.map((call) => call[3])).toEqual(["nb"]);
+        });
+
+        it("shows an nn reader an app that has nn texts in nn", async () => {
+            respond({ profile: profileIn("nn"), languages: ["nb", "nn"] });
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nn");
+        });
+
+        it("takes the language picker's choice over the profile's", async () => {
+            respond({ profile: profileIn("en"), languages: ["nb", "nn", "en"] });
+            pickInSelector("nn");
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nn");
+        });
+
+        it("passes over a picker choice the app has no texts for", async () => {
+            respond({ profile: profileIn("nn"), languages: ["nb", "nn"] });
+            pickInSelector("en");
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nn");
+        });
+
+        it("does not read another user's picker choice", async () => {
+            respond({ profile: profileIn("nb"), languages: ["nb", "nn"] });
+            pickInSelector("nn", 42);
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nb");
+        });
+
+        it("keeps a language in the address to the app's languages, as when Altinn renders a pdf in nn of an nb app", async () => {
+            globalThis.history.replaceState(null, "", `/${org}/${app}/#/instance/512345/abc-def?pdf=1&lang=nn`);
+            respond({ languages: ["nb"] });
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nb");
+        });
+
+        it("falls back to a language the app has when it has no nb texts", async () => {
+            respond({ profile: profileIn("nb"), languages: ["en"] });
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("en");
+        });
+
+        it("takes the reader's language as it is when the app's languages cannot be fetched", async () => {
+            respond({ profile: profileIn("nn") });
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nn");
+            expect(clientLogger.postLogData).toHaveBeenCalledWith([
+                expect.objectContaining({ level: "Error", message: expect.stringContaining(appLanguagesApiUrl) })
+            ]);
+        });
+
+        it("takes the reader's language as it is when the app names no languages", async () => {
+            respond({ profile: profileIn("nn"), languages: [] });
+
+            await initCustomComponents();
+
+            expect(globalThis.selectedLanguage).toBe("nn");
+        });
+    });
+
     describe("the instance id carried on every log entry", () => {
         const startUrl = globalThis.location.href;
         const instanceGuid = "0e9f1c3a-2b4d-4c5e-8f6a-7b8c9d0e1f2a";
@@ -437,6 +545,56 @@ describe("getLanguageFromLocation", () => {
 
     it.each(cases)("reads %s", (_where, location, expected) => {
         expect(getLanguageFromLocation(location)).toBe(expected);
+    });
+});
+
+describe("resolveLanguage", () => {
+    it("takes the first wish the app has texts for", () => {
+        expect(resolveLanguage(["nb", "nn", "en"], [null, "en", "nn"])).toBe("en");
+    });
+
+    it("falls back to nb, then nn, then en, when the app has none of the wishes", () => {
+        expect(resolveLanguage(["en", "nn", "nb"], ["de"])).toBe("nb");
+        expect(resolveLanguage(["en", "nn"], ["de"])).toBe("nn");
+        expect(resolveLanguage(["de", "en"], [])).toBe("en");
+    });
+
+    it("falls back to the app's first language when it has neither nb, nn nor en", () => {
+        expect(resolveLanguage(["se", "de"], ["nn"])).toBe("se");
+    });
+
+    it("takes the first wish as it is when the app's languages are unknown", () => {
+        expect(resolveLanguage(null, [undefined, "", "nn", "en"])).toBe("nn");
+        expect(resolveLanguage(null, [null])).toBe("nb");
+    });
+});
+
+describe("getLanguageFromSelector", () => {
+    afterEach(() => {
+        globalThis.localStorage.clear();
+    });
+
+    it("reads the choice app frontend stored for the app and the user", () => {
+        globalThis.localStorage.setItem("dibk/app-v1/1337/selectedLanguage", JSON.stringify("NN"));
+
+        expect(getLanguageFromSelector("dibk", "app-v1", 1337)).toBe("nn");
+        expect(getLanguageFromSelector("dibk", "other-app-v1", 1337)).toBeNull();
+    });
+
+    it("reads the key without a user id when there is none, as app frontend writes it", () => {
+        globalThis.localStorage.setItem("dibk/app-v1/selectedLanguage", JSON.stringify("en"));
+
+        expect(getLanguageFromSelector("dibk", "app-v1", undefined)).toBe("en");
+    });
+
+    it("reads nothing from a value that is not a language code or not JSON", () => {
+        globalThis.localStorage.setItem("dibk/app-v1/1/selectedLanguage", JSON.stringify("../x"));
+        globalThis.localStorage.setItem("dibk/app-v1/2/selectedLanguage", "nn");
+        globalThis.localStorage.setItem("dibk/app-v1/3/selectedLanguage", "null");
+
+        expect(getLanguageFromSelector("dibk", "app-v1", 1)).toBeNull();
+        expect(getLanguageFromSelector("dibk", "app-v1", 2)).toBeNull();
+        expect(getLanguageFromSelector("dibk", "app-v1", 3)).toBeNull();
     });
 });
 

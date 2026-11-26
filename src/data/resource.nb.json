@@ -14,6 +14,10 @@
             "value": "Ansvarlig foretak"
         },
         {
+            "id": "resource.ansvarligSoeker.title",
+            "value": "Ansvarlig søker"
+        },
+        {
             "id": "resource.ansvarsfordeling.title",
             "value": "Ansvarsfordeling"
         },
@@ -50,6 +54,14 @@
             "value": "Ansvarlig utførende erklærer at arbeidet ikke skal starte før det foreligger kvalitetssikret produksjonsunderlag for respektive del av utførelsen, jf. SAK10, § 12-4."
         },
         {
+            "id": "resource.antallAnsatteTotalt.title",
+            "value": "Antall ansatte totalt"
+        },
+        {
+            "id": "resource.antallVirksomheter.title",
+            "value": "Antall virksomheter"
+        },
+        {
             "id": "resource.arbeidsplasser.arbeidsplasserKey.title",
             "value": "Arbeidsplasser"
         },
@@ -80,6 +92,10 @@
         {
             "id": "resource.arbeidsplasser.utleieBygg.title",
             "value": "Utleiebygg"
+        },
+        {
+            "id": "resource.arbeidstilsynetsSaksnummer.title",
+            "value": "Arbeidstilsynets saksnummer"
         },
         {
             "id": "resource.avdekketArbeider.title",
@@ -326,8 +342,16 @@
             "value": "Erklæring"
         },
         {
+            "id": "resource.erklaeringerOmAnsvarsrettFraAnsvarligSoeker.title",
+            "value": "Erklæring om ansvarsrett fra ansvarlig søker og signering"
+        },
+        {
             "id": "resource.ettersending.title",
             "value": "Ettersending"
+        },
+        {
+            "id": "resource.fakturamottaker.title",
+            "value": "Fakturamottaker"
         },
         {
             "id": "resource.fakturareferanse.title",
@@ -364,6 +388,10 @@
         {
             "id": "resource.foelgebrev.title",
             "value": "Følgebrev"
+        },
+        {
+            "id": "resource.foreliggerSentralGodkjenning.title",
+            "value": "Foreligger sentral godkjenning"
         },
         {
             "id": "resource.foretattIkkeSoeknadspliktigeJusteringer.header",
@@ -556,6 +584,10 @@
         {
             "id": "resource.krav.sjekklistekrav.title",
             "value": "Svar på krav til automatisert behandling"
+        },
+        {
+            "id": "resource.krav.title",
+            "value": "Krav"
         },
         {
             "id": "resource.kravFerdigattest.bekreftelseInnen.title",
@@ -1240,6 +1272,14 @@
         {
             "id": "resource.vertikalnivaa.title",
             "value": "Vertikalnivå"
+        },
+        {
+            "id": "resource.viErKjentMedReglerOgStraff.title",
+            "value": "Vi er kjent med reglene om straff og sanksjoner i plan- og bygningsloven kapittel 32 og at uriktige opplysninger kan medføre reaksjoner."
+        },
+        {
+            "id": "resource.viForplikterKompetanse.title",
+            "value": "Vi forplikter oss til å stille med nødvendig kompentanse i tiltaket, jf. byggesaksforskriften kapittel 10 og 11."
         }
     ]
 }

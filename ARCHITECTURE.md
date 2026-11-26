@@ -82,7 +82,7 @@ devTools and statistics are development surfaces (see §7).
 1. The app loads `main.css` and `main.js` from `wwwroot/altinn-studio-custom-components` (see the README installation steps).
 2. `src/functions/init.ts` (`initCustomComponents`) runs on startup. On a page that is not served from an Altinn app origin (`*.apps.altinn.no`, `*.apps.tt02.altinn.no` or `local.altinn.cloud`) it stops there, so a page that only renders the components, such as the docs site, boots nothing. Otherwise it:
     - derives `org`, `app`, and `instanceId` from the URL,
-    - fetches the user's profile to determine the preferred language (falling back to `nb`),
+    - determines the language the way app frontend does: a `lang` or `language` in the address, else the choice saved by app frontend's language picker, else the user's profile. It takes the first of these that the app has texts for, as listed by `api/v1/applicationlanguages` (one `App/config/texts/resource.<lang>.json` each). When there is none, it falls back to `nb`, `nn`, `en` or the app's first language, so an app with only bokmål texts is shown in `nb` even though this package ships `nn` and `en` too,
     - loads the app's **text resources** and **default text resources** and stores them on `globalThis` (`globalThis.textResources`, `globalThis.defaultTextResources`, `globalThis.selectedLanguage`),
     - dynamically loads the matching `altinn-app-frontend.js` bundle from the Altinn CDN (the version is read from a `meta[data-altinn-app-frontend-version]` tag, with a hard-coded fallback), and
     - dispatches a `DOMContentLoaded` event so the components and the Altinn frontend initialize.
