@@ -140,11 +140,40 @@ export function getLanguageFromLocation(location: Location): string | null {
 }
 
 /**
- * Fetches the user's preferred language from the Altinn profile API.
+ * What init needs from the user's Altinn profile.
+ */
+interface UserProfile {
+    /** The language the user prefers, or null when the profile names none. */
+    language: string | null;
+    /** The user's id, which app frontend keys the language picker's choice on. */
+    userId: number | string | undefined;
+}
+
+/**
+ * Posts an error to the client logger and the console.
+ *
+ * @param message - What went wrong.
+ * @param clientLogger - The client logger instance.
+ * @param clientLoggerCustomFields - Custom fields to include in the client logger.
+ */
+function logInitError(message: string, clientLogger: ClientLogger | null, clientLoggerCustomFields: LogCustomField[]): void {
+    clientLogger?.postLogData([
+        {
+            level: "Error",
+            message,
+            custom_fields: clientLoggerCustomFields
+        }
+    ]);
+    console.error(message);
+}
+
+/**
+ * Fetches the user's preferred language and user id from the Altinn profile API.
  *
  * This function never throws. Any failure (network error, timeout, non-OK response such as HTTP 500,
- * an unparsable response body, or a missing language preference) is logged and results in `null`,
- * so the caller can fall back to the default language instead of leaving the app unrendered.
+ * or an unparsable response body) is logged and results in `null`, and a missing language preference is logged
+ * and results in a null `language`, so the caller can fall back to the default language instead of leaving the
+ * app unrendered.
  *
  * @async
  * @param origin - The origin URL of the app.
@@ -152,26 +181,17 @@ export function getLanguageFromLocation(location: Location): string | null {
  * @param app - The application identifier.
  * @param clientLogger - The client logger instance.
  * @param clientLoggerCustomFields - Custom fields to include in the client logger.
- * @returns The user's language preference, or null if it could not be determined.
+ * @returns The user's language preference and user id, or null if the profile could not be read.
  */
-async function fetchUserLanguage(
+async function fetchUserProfile(
     origin: string,
     org: string,
     app: string,
     clientLogger: ClientLogger | null,
     clientLoggerCustomFields: LogCustomField[]
-): Promise<string | null> {
+): Promise<UserProfile | null> {
     const userProfileApiUrl = `${origin}/${org}/${app}/api/v1/profile/user`;
-    const logError = (message: string) => {
-        clientLogger?.postLogData([
-            {
-                level: "Error",
-                message,
-                custom_fields: clientLoggerCustomFields
-            }
-        ]);
-        console.error(message);
-    };
+    const logError = (message: string) => logInitError(message, clientLogger, clientLoggerCustomFields);
 
     let userProfileResponse;
     try {
@@ -200,14 +220,118 @@ async function fetchUserLanguage(
     const language = userProfileData?.profileSettingPreference?.language;
     if (!language) {
         logError("Could not determine the user's language preference.");
-        return null;
     }
 
-    return language;
+    return { language: language || null, userId: userProfileData?.userId };
 }
 
 /**
- * Initializes custom components by determining the language (from the address, else the user profile), loading text resources, and dispatching a DOMContentLoaded event.
+ * Fetches the languages the app has texts for: one `resource.<language>.json` in its `App/config/texts` each.
+ *
+ * This is what app frontend offers in its language picker and the only languages it will show the app in, so the
+ * components keep to the same list. An app that has only an nb resource file is shown in nb to every reader, even
+ * though this package ships its own texts in nn and en too.
+ *
+ * This function never throws. Any failure is logged and results in `null`, and so does an empty list, as a list
+ * that cannot be chosen from tells nothing.
+ *
+ * @async
+ * @param origin - The origin URL of the app.
+ * @param org - The organization identifier.
+ * @param app - The application identifier.
+ * @param clientLogger - The client logger instance.
+ * @param clientLoggerCustomFields - Custom fields to include in the client logger.
+ * @returns The app's language codes, or null when they could not be determined.
+ */
+async function fetchAppLanguages(
+    origin: string,
+    org: string,
+    app: string,
+    clientLogger: ClientLogger | null,
+    clientLoggerCustomFields: LogCustomField[]
+): Promise<string[] | null> {
+    const appLanguagesApiUrl = `${origin}/${org}/${app}/api/v1/applicationlanguages`;
+    const logError = (message: string) => logInitError(message, clientLogger, clientLoggerCustomFields);
+
+    let appLanguagesResponse;
+    try {
+        appLanguagesResponse = await fetchWithTimeoutAndClientLogger(appLanguagesApiUrl, {}, 5000, clientLogger, clientLoggerCustomFields);
+    } catch (error) {
+        logError(`Failed to fetch the app's languages from ${appLanguagesApiUrl}. Error: ${(error as Error)?.message}`);
+        return null;
+    }
+
+    if (!appLanguagesResponse?.ok) {
+        logError(
+            `Failed to fetch the app's languages from ${appLanguagesApiUrl}. ` +
+                `HTTP status: ${appLanguagesResponse?.status} (${appLanguagesResponse?.statusText})`
+        );
+        return null;
+    }
+
+    let appLanguagesData;
+    try {
+        appLanguagesData = await appLanguagesResponse.json();
+    } catch (error) {
+        logError(`Could not parse the app's languages from ${appLanguagesApiUrl}. Error: ${(error as Error)?.message}`);
+        return null;
+    }
+
+    const languages = Array.isArray(appLanguagesData)
+        ? appLanguagesData.map((entry) => entry?.language).filter((language): language is string => typeof language === "string" && language !== "")
+        : [];
+    if (languages.length === 0) {
+        logError(`Could not determine the app's languages from ${appLanguagesApiUrl}.`);
+        return null;
+    }
+
+    return languages;
+}
+
+/**
+ * Reads the language the user last chose in app frontend's language picker for this app.
+ *
+ * App frontend keeps it in local storage under `{org}/{app}/{userId}/selectedLanguage`, as a JSON string, and has
+ * done so since at least v4.20. Only a two or three letter code is taken, since it goes into the text resource address.
+ * Local storage can be unreadable (blocked by the browser, or a value that is not JSON), which reads as no choice.
+ *
+ * @param org - The organization identifier.
+ * @param app - The application identifier.
+ * @param userId - The user's id from the profile. App frontend leaves it out of the key when there is none.
+ * @returns The chosen language in lower case, or null when there is none.
+ */
+export function getLanguageFromSelector(org: string, app: string, userId: number | string | undefined): string | null {
+    const scope = [org, app, userId].filter((part) => part !== undefined && part !== null && part !== "");
+    try {
+        const stored = globalThis.localStorage?.getItem(`${scope.join("/")}/selectedLanguage`);
+        const language = stored ? JSON.parse(stored) : null;
+        return typeof language === "string" && /^[a-z]{2,3}$/i.test(language) ? language.toLowerCase() : null;
+    } catch {
+        return null;
+    }
+}
+
+/**
+ * Picks the language to show, the way app frontend does: the first of the reader's wishes the app has texts for, else
+ * nb, nn or en if the app has one of them, else the app's first language.
+ *
+ * When the app's languages are unknown, the reader's first wish is taken as it is, and nb when there is none.
+ *
+ * @param appLanguages - The languages the app has texts for, or null when they are unknown.
+ * @param wishes - The reader's wishes, most important first. Missing ones are skipped.
+ * @returns The language to show.
+ */
+export function resolveLanguage(appLanguages: readonly string[] | null, wishes: readonly (string | null | undefined)[]): string {
+    const given = wishes.filter((wish): wish is string => typeof wish === "string" && wish !== "");
+    if (appLanguages === null) {
+        return given[0] ?? "nb";
+    }
+    const supported = [...given, "nb", "nn", "en"].find((language) => appLanguages.includes(language));
+    return supported ?? (appLanguages[0] as string);
+}
+
+/**
+ * Initializes custom components by determining the language (from the address, else the language picker or the user profile, kept to the app's languages), loading text resources, and dispatching a DOMContentLoaded event.
  * This function is intended to be called once when the application starts to set up the necessary environment for custom components to function correctly.
  *
  * Failures while determining the user's language or loading text resources are logged and do not abort initialization;
@@ -270,11 +394,19 @@ export default async function initCustomComponents() {
     try {
         updateBodyClassNamesForApplication(org, app);
 
-        // A language in the address is what the page was asked for, so the profile is not asked at all.
-        selectedLanguage =
-            getLanguageFromLocation(globalThis.location) ||
-            (await fetchUserLanguage(origin, org, app, clientLogger, clientLoggerCustomFields)) ||
-            fallbackLanguage;
+        // A language in the address is what the page was asked for, so the profile is not asked at all. Otherwise the
+        // choice made in app frontend's language picker comes before the profile's, as it does in app frontend.
+        // Either way it is only taken if the app has texts in it, so the components show the language the app is shown in.
+        const addressLanguage = getLanguageFromLocation(globalThis.location);
+        const [userProfile, appLanguages] = await Promise.all([
+            addressLanguage ? null : fetchUserProfile(origin, org, app, clientLogger, clientLoggerCustomFields),
+            fetchAppLanguages(origin, org, app, clientLogger, clientLoggerCustomFields)
+        ]);
+        selectedLanguage = resolveLanguage(appLanguages, [
+            addressLanguage,
+            userProfile ? getLanguageFromSelector(org, app, userProfile.userId) : null,
+            userProfile?.language
+        ]);
 
         // A reader in another language than nb also gets the nb texts, the app's and the package's, for a text missing
         // from those in their language: the components look there before showing a text's id.
