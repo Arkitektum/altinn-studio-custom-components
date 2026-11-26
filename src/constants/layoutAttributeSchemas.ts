@@ -1,7 +1,7 @@
 /**
  * The attributes a layout can give any custom component, as JSON Schema, for the layout schema this package publishes.
  *
- * One list for every component: a component that ignores an attribute still accepts it. The names are the ones `getPropsFromElementAttributes` reads from an element, less the ones a parent component sets on its children, and layoutSchemaHelpers.test.ts fails when the two drift apart.
+ * layoutSchemaHelpers.ts allows an attribute that only some components read on those components alone, and the rest on every component. The names are the ones `getPropsFromElementAttributes` reads from an element, less the ones a parent component sets on its children, and layoutSchemaHelpers.test.ts fails when the two drift apart.
  */
 export const layoutAttributeSchemas: Record<string, object> = {
     resourceBindings: {

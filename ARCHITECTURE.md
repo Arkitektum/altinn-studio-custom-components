@@ -10,41 +10,40 @@ A collection of **custom HTML elements** (Web Components) for **Altinn Studio** 
 
 The package is distributed as static assets (`main.js`, `main.css` with the fonts embedded, generated resource files and two generated JSON files for tooling) that an Altinn app copies into its `wwwroot` and loads in the browser. Everything runs client-side, both in the interactive form and in the generated PDF.
 
-## 2. Related packages and applications
+## 2. Related repositories
 
-**Published libraries**
-
-| Package                                                       | Role                                                                                                                                                                                                                           |
-| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`@arkitektum/altinn-studio-custom-components`** (this repo) | The custom components.                                                                                                                                                                                                         |
-| **`@arkitektum/altinn-studio-custom-components-utils`**       | Shared functions and classes, most importantly `createCustomElement`, `CustomElementHtmlAttributes`, the text resource lookup, and the **allow-list of valid custom-element tag names**. A runtime dependency of this package. |
-| **`@arkitektum/client-logger`**                               | Helper functions and classes for logging to Elastic from the browser. A runtime dependency of this package.                                                                                                                    |
-
-**Applications** (not published)
-
-| Repository                                 | Role                                                                                                                                                               |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **`altinn-studio-custom-components-docs`** | A GitHub Pages app showing every component with example data. Consumes this package and `-utils` from npm.                                                         |
-| **`altinn-studio-custom-components-api`**  | A small Node API that runs on a developer's machine and serves the data for the local **Statistics** pages in this repository.                                     |
-| **Altinn apps**                            | The .NET Altinn applications that consume this package: they reference it in `App/package.json`, copy it into `App/wwwroot` at build time and use it in `App/ui/`. |
+Seven repositories work together. Two families of published packages, each with the applications that use them:
 
 ```text
-   client-logger      utils
-        │                │
-        ▼                ▼
-  ┌───────────────────────────────────────┐        ┌──────────────── Altinn Studio ─────────────┐
-  │   @arkitektum/altinn-studio-          │        │  Altinn app                                │
-  │   custom-components  (THIS PACKAGE) ──┼───────▶│   App/package.json  → dependency           │
-  └───────────────────────────────────────┘        │   App/wwwroot       → copied assets        │
-        │            │              │              │   App/ui/*.json     → component usage      │
-        ▼            ▼              ▼              │   App/config/texts/resource.<lang>.json    │
-   devTools.html  statistics.html  docs site       │     → app texts (override the package's)   │
-                          │           ▲            └────────────────────────────────────────────┘
-                       HTTP           └── depends on utils directly as well
-                          ▼
-                   localhost:9001
-              (custom-components-api)
+A ──▶ B   A depends on the published package B
+A ┄┄▶ B   A calls B over HTTP while running
+
+  altinn-studio-custom-components-docs ───────────────────────────┐
+         │                                                        │
+         ▼                                                        ▼
+  altinn-studio-custom-components ─────────────────▶ altinn-studio-custom-components-utils
+     ▲          ┆
+     │          ┆ Statistics page
+     │          ▼
+  Altinn apps   altinn-studio-custom-components-api ──┬──▶ ftpb-app-catalogue    ◀──┬── altinn-studio-api-tools
+                                                      └──▶ ftpb-testmotor-client ◀──┘
 ```
+
+| Repository                              | Published as                                        | Depends on                                                                 | Used by                                                                                                |
+| --------------------------------------- | --------------------------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `altinn-studio-custom-components-utils` | `@arkitektum/altinn-studio-custom-components-utils` |                                                                            | `altinn-studio-custom-components` (bundled into its `main.js`), `altinn-studio-custom-components-docs` |
+| `altinn-studio-custom-components`       | `@arkitektum/altinn-studio-custom-components`       | `altinn-studio-custom-components-utils`, `@arkitektum/client-logger`       | Altinn apps (copied into `App/wwwroot`), `altinn-studio-custom-components-docs`                        |
+| `altinn-studio-custom-components-docs`  | Not published, deployed to GitHub Pages             | `altinn-studio-custom-components`, `altinn-studio-custom-components-utils` |                                                                                                        |
+| `altinn-studio-custom-components-api`   | Not published, runs locally                         | `ftpb-app-catalogue`, `ftpb-testmotor-client`                              | The Statistics page in `altinn-studio-custom-components`, over HTTP                                    |
+| `altinn-studio-api-tools`               | Not published, runs locally                         | `ftpb-app-catalogue`, `ftpb-testmotor-client`                              |                                                                                                        |
+| `ftpb-app-catalogue`                    | `@arkitektum/ftpb-app-catalogue`                    |                                                                            | `altinn-studio-custom-components-api`, `altinn-studio-api-tools`                                       |
+| `ftpb-testmotor-client`                 | `@arkitektum/ftpb-testmotor-client`                 |                                                                            | `altinn-studio-custom-components-api`, `altinn-studio-api-tools`                                       |
+
+While running, `altinn-studio-custom-components-api` reads the Altinn apps' files from Altinn Studio and the components package's versions and files from npm, and `altinn-studio-api-tools` posts test data into Altinn apps running in LocalTest. Both read example data from the FtPB testmotor through `ftpb-testmotor-client`.
+
+Every dependency is installed from the registry, so a change that spans repositories is released in dependency order: `altinn-studio-custom-components-utils` before `altinn-studio-custom-components`, both before `altinn-studio-custom-components-docs`, and `ftpb-app-catalogue` or `ftpb-testmotor-client` before the two applications. Each consumer then takes the new version with `yarn up <package>`.
+
+An Altinn app references this package in `App/package.json`, copies it into `App/wwwroot` at build time and uses the components in `App/ui/`. Its texts in `App/config/texts/resource.<lang>.json` override the package's.
 
 ## 3. Runtime model
 
