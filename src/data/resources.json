@@ -1944,34 +1944,10 @@
         }
     },
     {
-        "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
-        "values": {
-            "nb": "Ikke svar",
-            "nn": "Ikkje svar",
-            "en": "No response"
-        }
-    },
-    {
-        "id": "resource.respons.erMerknadMottatt.trueText",
-        "values": {
-            "nb": "Merknad",
-            "nn": "Merknad",
-            "en": "Comment"
-        }
-    },
-    {
-        "id": "resource.respons.erSamtykkeMottatt.trueText",
-        "values": {
-            "nb": "Samtykke",
-            "nn": "Samtykke",
-            "en": "Consent"
-        }
-    },
-    {
         "id": "resource.respons.merknadMottattDato.title",
         "values": {
-            "nb": "Mottatt merknad",
-            "nn": "Motteken merknad",
+            "nb": "Merknad mottatt",
+            "nn": "Merknad motteken",
             "en": "Comment received"
         }
     },
@@ -1984,18 +1960,10 @@
         }
     },
     {
-        "id": "resource.respons.nabovarselSendtVia.title",
-        "values": {
-            "nb": "Nabovarsel sendt via",
-            "nn": "Nabovarsel sendt via",
-            "en": "Neighbour notification sent via"
-        }
-    },
-    {
         "id": "resource.respons.samtykkeMottattDato.title",
         "values": {
-            "nb": "Mottatt samtykke",
-            "nn": "Motteke samtykke",
+            "nb": "Samtykke mottatt",
+            "nn": "Samtykke motteke",
             "en": "Consent received"
         }
     },

@@ -974,32 +974,16 @@
             "value": "Redegjørelse"
         },
         {
-            "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
-            "value": "Ikke svar"
-        },
-        {
-            "id": "resource.respons.erMerknadMottatt.trueText",
-            "value": "Merknad"
-        },
-        {
-            "id": "resource.respons.erSamtykkeMottatt.trueText",
-            "value": "Samtykke"
-        },
-        {
             "id": "resource.respons.merknadMottattDato.title",
-            "value": "Mottatt merknad"
+            "value": "Merknad mottatt"
         },
         {
             "id": "resource.respons.nabovarselSendt.title",
             "value": "Nabovarsel sendt"
         },
         {
-            "id": "resource.respons.nabovarselSendtVia.title",
-            "value": "Nabovarsel sendt via"
-        },
-        {
             "id": "resource.respons.samtykkeMottattDato.title",
-            "value": "Mottatt samtykke"
+            "value": "Samtykke mottatt"
         },
         {
             "id": "resource.rolleendringer.rolleendring.aktoerendring.title",

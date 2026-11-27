@@ -974,28 +974,12 @@
             "value": "Statement"
         },
         {
-            "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
-            "value": "No response"
-        },
-        {
-            "id": "resource.respons.erMerknadMottatt.trueText",
-            "value": "Comment"
-        },
-        {
-            "id": "resource.respons.erSamtykkeMottatt.trueText",
-            "value": "Consent"
-        },
-        {
             "id": "resource.respons.merknadMottattDato.title",
             "value": "Comment received"
         },
         {
             "id": "resource.respons.nabovarselSendt.title",
             "value": "Neighbour notification sent"
-        },
-        {
-            "id": "resource.respons.nabovarselSendtVia.title",
-            "value": "Neighbour notification sent via"
         },
         {
             "id": "resource.respons.samtykkeMottattDato.title",

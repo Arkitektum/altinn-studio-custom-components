@@ -974,32 +974,16 @@
             "value": "Utgreiing"
         },
         {
-            "id": "resource.respons.erMerknadEllerSamtykkeMottatt.falseText",
-            "value": "Ikkje svar"
-        },
-        {
-            "id": "resource.respons.erMerknadMottatt.trueText",
-            "value": "Merknad"
-        },
-        {
-            "id": "resource.respons.erSamtykkeMottatt.trueText",
-            "value": "Samtykke"
-        },
-        {
             "id": "resource.respons.merknadMottattDato.title",
-            "value": "Motteken merknad"
+            "value": "Merknad motteken"
         },
         {
             "id": "resource.respons.nabovarselSendt.title",
             "value": "Nabovarsel sendt"
         },
         {
-            "id": "resource.respons.nabovarselSendtVia.title",
-            "value": "Nabovarsel sendt via"
-        },
-        {
             "id": "resource.respons.samtykkeMottattDato.title",
-            "value": "Motteke samtykke"
+            "value": "Samtykke motteke"
         },
         {
             "id": "resource.rolleendringer.rolleendring.aktoerendring.title",
