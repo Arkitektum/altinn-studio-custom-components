@@ -65,3 +65,55 @@ describe("CustomGrouplistNaboGjenboerEiendom.getValueFromFormData", () => {
         expect(result).toBeUndefined();
     });
 });
+
+describe("CustomGrouplistNaboGjenboerEiendom.getResourceBindings", () => {
+    it("defines the bindings its groups read, and no others", () => {
+        // The list hands its whole set to each custom-group-nabo-gjenboer-eiendom, so the two have to match.
+        const instance = Object.create(CustomGrouplistNaboGjenboerEiendom.prototype);
+        const result = instance.getResourceBindings({ hideTitle: true, hideIfEmpty: true });
+        expect(Object.keys(result).sort()).toEqual([
+            "eiendomMatrikkelinformasjon",
+            "eiendomMatrikkelinformasjonAdresse",
+            "eiendomMatrikkelinformasjonBolignummer",
+            "eiendomMatrikkelinformasjonBygningsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer",
+            "eier",
+            "responsErMerknadEllerSamtykkeMottatt",
+            "responsMerknadMottattDato",
+            "responsNabovarselSendt",
+            "responsSamtykkeMottattDato"
+        ]);
+    });
+});
+
+describe("CustomGrouplistNaboGjenboerEiendom resourceBindings handed to each group", () => {
+    it("holds the bindings the group reads, so an override of the status texts reaches it", () => {
+        const instance = new CustomGrouplistNaboGjenboerEiendom({
+            resourceBindings: {
+                responsMerknadMottattDato: { title: "custom.merknad" },
+                responsSamtykkeMottattDato: { title: "custom.samtykke" }
+            }
+        });
+        const result = instance.resourceBindings;
+        expect(result.responsMerknadMottattDato).toEqual({ title: "custom.merknad" });
+        expect(result.responsSamtykkeMottattDato).toEqual({ title: "custom.samtykke" });
+        expect(Object.keys(result).sort()).toEqual([
+            "eiendomMatrikkelinformasjon",
+            "eiendomMatrikkelinformasjonAdresse",
+            "eiendomMatrikkelinformasjonBolignummer",
+            "eiendomMatrikkelinformasjonBygningsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer",
+            "eier",
+            "responsErMerknadEllerSamtykkeMottatt",
+            "responsMerknadMottattDato",
+            "responsNabovarselSendt",
+            "responsSamtykkeMottattDato"
+        ]);
+    });
+});

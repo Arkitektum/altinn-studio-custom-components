@@ -105,7 +105,7 @@ describe("CustomGjenpartNabovarsel", () => {
         const result = instance.getResourceBindings({});
         expect(result.gjenpartNabovarsel.title).toBe("resource.gjenpartNabovarsel.title");
         expect(result.adresse.emptyFieldText).toBe("resource.emptyFieldText.address");
-        expect(result.eierNavn.title).toBe("resource.navn.title");
+        expect(result.eier.title).toBe("resource.eierFesterAvNaboeiendom.title");
     });
 
     it("should set hasValidationMessages based on hasValidationMessages()", () => {

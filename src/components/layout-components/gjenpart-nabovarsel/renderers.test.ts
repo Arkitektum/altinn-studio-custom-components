@@ -236,6 +236,37 @@ describe("the plans and the neighbours", () => {
         });
     });
 
+    it("hands the neighbour list the bindings its groups read, the status texts included", () => {
+        const binding = (name: string) => ({ title: name });
+        const names = [
+            "eiendomMatrikkelinformasjon",
+            "eiendomMatrikkelinformasjonAdresse",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer",
+            "eiendomMatrikkelinformasjonBolignummer",
+            "eiendomMatrikkelinformasjonBygningsnummer",
+            "eier",
+            "responsNabovarselSendt",
+            "responsErMerknadEllerSamtykkeMottatt",
+            "responsMerknadMottattDato",
+            "responsSamtykkeMottattDato"
+        ];
+        const withBindings = {
+            ...component,
+            resourceBindings: {
+                ...component.resourceBindings,
+                naboGjenboerEiendom: { title: "Naboer" },
+                ...Object.fromEntries(names.map((name) => [name, binding(name)]))
+            }
+        };
+        expect(attributes(renderNaboGjenboerEiendom(withBindings)).resourceBindings).toEqual({
+            title: "Naboer",
+            ...Object.fromEntries(names.map((name) => [name, binding(name)]))
+        });
+    });
+
     it("renders the neighbours from the list nested inside their container", () => {
         expect(attributes(renderNaboGjenboerEiendom(component))).toMatchObject({
             tagName: "custom-grouplist-nabo-gjenboer-eiendom",

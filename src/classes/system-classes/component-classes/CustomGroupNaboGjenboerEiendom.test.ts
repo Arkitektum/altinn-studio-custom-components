@@ -163,3 +163,44 @@ describe("CustomGroupNaboGjenboerEiendom overrides handed on by its list", () =>
         expect(result.eiendomMatrikkelinformasjonBygningsnummer.title).toBe("custom.bygning");
     });
 });
+
+describe("CustomGroupNaboGjenboerEiendom compact layout", () => {
+    it("defines bindings for the fields it draws and no others", () => {
+        const instance = Object.create(CustomGroupNaboGjenboerEiendom.prototype);
+        const result = instance.getResourceBindings({ hideIfEmpty: true });
+        expect(Object.keys(result).sort()).toEqual([
+            "eiendomMatrikkelinformasjon",
+            "eiendomMatrikkelinformasjonAdresse",
+            "eiendomMatrikkelinformasjonBolignummer",
+            "eiendomMatrikkelinformasjonBygningsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonBruksnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonFestenummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonGaardsnummer",
+            "eiendomMatrikkelinformasjonEiendomsidentifikasjonSeksjonsnummer",
+            "eier",
+            "responsErMerknadEllerSamtykkeMottatt",
+            "responsMerknadMottattDato",
+            "responsNabovarselSendt",
+            "responsSamtykkeMottattDato"
+        ]);
+    });
+
+    it("titles the status line, and uses the merknad and samtykke date titles as its texts", () => {
+        const instance = Object.create(CustomGroupNaboGjenboerEiendom.prototype);
+        const result = instance.getResourceBindings({});
+        expect(result.responsErMerknadEllerSamtykkeMottatt).toEqual({ title: "resource.status.title" });
+        expect(result.responsMerknadMottattDato).toEqual({ title: "resource.respons.merknadMottattDato.title" });
+        expect(result.responsSamtykkeMottattDato).toEqual({ title: "resource.respons.samtykkeMottattDato.title" });
+    });
+
+    it("lists the owner's name field among the components it uses, and no part table or address field", () => {
+        const instance = Object.create(CustomGroupNaboGjenboerEiendom.prototype);
+        expect(instance.getComponentUsage()).toEqual([
+            "custom-feedbacklist-validation-messages",
+            "custom-field-data",
+            "custom-field-part-navn",
+            "custom-paragraph",
+            "custom-table-nabo-gjenboer-eiendom"
+        ]);
+    });
+});

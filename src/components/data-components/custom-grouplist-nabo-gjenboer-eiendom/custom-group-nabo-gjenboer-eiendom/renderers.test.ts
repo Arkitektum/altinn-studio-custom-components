@@ -1,6 +1,6 @@
 import * as renderers from "./renderers.ts";
 
-/** The resource bindings one neighbour's entry reads, including the texts the response line chooses between. */
+/** The resource bindings one neighbour's entry reads, including the texts the status line chooses between. */
 const resourceBindings = {
     eiendomMatrikkelinformasjon: { title: "Eiendom" },
     eiendomMatrikkelinformasjonAdresse: { title: "Adresse", emptyFieldText: "Ingen adresse" },
@@ -11,15 +11,8 @@ const resourceBindings = {
     eiendomMatrikkelinformasjonBolignummer: { title: "Bolignr." },
     eiendomMatrikkelinformasjonBygningsnummer: { title: "Bygningsnr." },
     eier: { title: "Eier" },
-    eierNavn: { title: "Eiers navn", emptyFieldText: "Uten navn" },
-    eierTelefonnummer: { title: "Eiers telefon" },
-    eierEpost: { title: "Eiers e-post" },
-    eierAdresse: { title: "Adresse" },
-    responsNabovarselSendtVia: { title: "Sendt via" },
     responsNabovarselSendt: { title: "Varsel sendt" },
-    responsErMerknadEllerSamtykkeMottatt: { title: "Respons", falseText: "Ingen respons" },
-    responsErMerknadMottatt: { trueText: "Merknad mottatt" },
-    responsErSamtykkeMottatt: { trueText: "Samtykke mottatt" },
+    responsErMerknadEllerSamtykkeMottatt: { title: "Status" },
     responsMerknadMottattDato: { title: "Merknad mottatt" },
     responsSamtykkeMottattDato: { title: "Samtykke mottatt" }
 };
@@ -51,6 +44,7 @@ function attributes(rendered: HTMLElement) {
     return {
         tagName: target.tagName.toLowerCase(),
         format: read("format"),
+        hideIfEmpty: read("hideifempty"),
         isChildComponent: read("ischildcomponent"),
         resourceBindings: readJson("resourcebindings"),
         resourceValues: readJson("resourcevalues")
@@ -78,84 +72,78 @@ describe("the neighbour and the owner", () => {
         });
     });
 
-    it("renders the owner as a part, and the owner's address from within the owner", () => {
-        expect(attributes(renderers.renderEierPartElement(neighbour()))).toMatchObject({
-            tagName: "custom-table-part",
+    it("renders the owner by name alone, under the owner's title, handed the whole owner", () => {
+        expect(attributes(renderers.renderEierNavnElement(neighbour()))).toMatchObject({
+            tagName: "custom-field-part-navn",
+            hideIfEmpty: "true",
+            resourceBindings: { title: "Eier" },
             resourceValues: { data: { navn: "Kari Nordmann", adresse: { adresselinje1: "Storgata 3" } } }
         });
-        expect(attributes(renderers.renderEierAdresseElement(neighbour()))).toMatchObject({
-            tagName: "custom-field-adresse",
-            resourceValues: { data: { adresselinje1: "Storgata 3" } }
-        });
-    });
-
-    it("hands the owner's name, phone and e-mail overrides to the part table under the names it reads", () => {
-        expect(attributes(renderers.renderEierPartElement(neighbour())).resourceBindings).toEqual({
-            title: "Eier",
-            navn: { title: "Eiers navn", emptyFieldText: "Uten navn" },
-            telefonnummer: { title: "Eiers telefon" },
-            epost: { title: "Eiers e-post" }
-        });
     });
 });
 
-describe("how the notice was sent", () => {
-    it("shows the channel by its description, not its code", () => {
-        expect(attributes(renderers.renderResponsNabovarselSendtViaElement(neighbour())).resourceValues).toEqual({ data: "Digitalt" });
-    });
+describe("how and when the notice was sent", () => {
+    /** The value on the "sent" line for a given response. */
+    const sentText = (respons: Record<string, unknown>) =>
+        attributes(renderers.renderResponsNabovarselSendtElement(neighbour(respons))).resourceValues;
 
-    it("formats the date the notice went out as a date", () => {
-        const rendered = renderers.renderResponsNabovarselSendtElement(neighbour());
-
-        expect(attributes(rendered).resourceValues).toEqual({ data: "2026-09-01" });
-        expect(attributes(rendered).format).toBe("date");
-    });
-});
-
-describe("what the neighbour answered", () => {
-    /** The text shown on the response line. Text resources are not loaded in a test, so a binding resolves to itself. */
-    const responseText = (respons: Record<string, unknown>) =>
-        attributes(renderers.renderResponsErMerknadEllerSamtykkeMottattElement(neighbour(respons))).resourceValues;
-
-    it("says nothing was received when neither a remark nor a consent was", () => {
-        expect(responseText({})).toEqual({ data: "Ingen respons" });
-    });
-
-    it("names a remark, and names a consent, each by its own text", () => {
-        expect(responseText({ erMerknadMottatt: true })).toEqual({ data: "Merknad mottatt" });
-        expect(responseText({ erSamtykkeMottatt: true })).toEqual({ data: "Samtykke mottatt" });
-    });
-
-    it("says nothing at all when both were received", () => {
-        // There is no text for that combination, so the line renders empty rather than picking one of the two.
-        // Recorded as it stands: a neighbour who both consented and remarked shows no response text.
-        expect(responseText({ erMerknadMottatt: true, erSamtykkeMottatt: true })).toBeNull();
-    });
-});
-
-describe("when the neighbour answered", () => {
-    /** The date line, which takes its title from whichever of the two was received. */
-    const responseDate = (respons: Record<string, unknown>) =>
-        attributes(renderers.renderResponsSamtykkeEllerMerknadMottattElement(neighbour(respons)));
-
-    it("shows the remark date under the remark's own title", () => {
-        expect(responseDate({ erMerknadMottatt: true, merknadMottattDato: "2026-09-10" })).toMatchObject({
-            format: "date",
-            resourceBindings: { title: "Merknad mottatt" },
-            resourceValues: { data: "2026-09-10" }
+    it("shows the channel by its description and the date it went out, on one line under the sent title", () => {
+        expect(attributes(renderers.renderResponsNabovarselSendtElement(neighbour()))).toMatchObject({
+            tagName: "custom-field-data",
+            hideIfEmpty: "true",
+            resourceBindings: { title: "Varsel sendt" },
+            resourceValues: { data: "Digitalt, 01.09.2026" }
         });
     });
 
-    it("shows the consent date under the consent's own title", () => {
-        expect(responseDate({ erSamtykkeMottatt: true, samtykkeMottattDato: "2026-09-11" })).toMatchObject({
-            resourceBindings: { title: "Samtykke mottatt" },
-            resourceValues: { data: "2026-09-11" }
+    it("hands the field nothing but its title", () => {
+        expect(attributes(renderers.renderResponsNabovarselSendtElement(neighbour())).resourceBindings).toEqual({ title: "Varsel sendt" });
+    });
+
+    it("shows whichever of the two is there when the other is missing", () => {
+        expect(sentText({ nabovarselSendt: undefined })).toEqual({ data: "Digitalt" });
+        expect(sentText({ nabovarselSendtVia: undefined })).toEqual({ data: "01.09.2026" });
+    });
+
+    it("shows nothing, and hides, when neither is there", () => {
+        expect(sentText({ nabovarselSendt: undefined, nabovarselSendtVia: undefined })).toBeNull();
+    });
+});
+
+describe("what the neighbour answered, and when", () => {
+    /** The status line for a given response. Text resources are not loaded in a test, so a binding resolves to itself. */
+    const status = (respons: Record<string, unknown>) => attributes(renderers.renderResponsErMerknadEllerSamtykkeMottattElement(neighbour(respons)));
+
+    it("names a remark with its date, and a consent with its date, under the status title", () => {
+        expect(status({ erMerknadMottatt: true, merknadMottattDato: "2026-09-10", samtykkeMottattDato: "2026-09-11" })).toMatchObject({
+            tagName: "custom-field-data",
+            resourceBindings: { title: "Status" },
+            resourceValues: { data: "Merknad mottatt 10.09.2026" }
+        });
+        expect(status({ erSamtykkeMottatt: true, merknadMottattDato: "2026-09-10", samtykkeMottattDato: "2026-09-11" }).resourceValues).toEqual({
+            data: "Samtykke mottatt 11.09.2026"
         });
     });
 
-    it("shows no date when there was no response, and none when there were two", () => {
-        expect(responseDate({}).resourceValues).toBeNull();
-        expect(responseDate({ erMerknadMottatt: true, erSamtykkeMottatt: true }).resourceValues).toBeNull();
+    it("names the response alone when its date is missing", () => {
+        expect(status({ erMerknadMottatt: true }).resourceValues).toEqual({ data: "Merknad mottatt" });
+        expect(status({ erSamtykkeMottatt: true, erMerknadMottatt: false }).resourceValues).toEqual({ data: "Samtykke mottatt" });
+    });
+
+    it("shows nothing, and hides, when neither was received", () => {
+        const rendered = status({ erMerknadMottatt: false, erSamtykkeMottatt: false, merknadMottattDato: "2026-09-10" });
+
+        expect(rendered.hideIfEmpty).toBe("true");
+        expect(rendered.resourceValues).toBeNull();
+        expect(status({}).resourceValues).toBeNull();
+    });
+
+    it("shows nothing, and hides, when both were received", () => {
+        expect(status({ erMerknadMottatt: true, erSamtykkeMottatt: true, merknadMottattDato: "2026-09-10" }).resourceValues).toBeNull();
+    });
+
+    it("counts only true as received, not a truthy string", () => {
+        expect(status({ erMerknadMottatt: "true", merknadMottattDato: "2026-09-10" }).resourceValues).toBeNull();
     });
 });
 
