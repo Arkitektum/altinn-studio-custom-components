@@ -43,6 +43,17 @@ function settle() {
     return new Promise((resolve) => setTimeout(resolve, 20));
 }
 
+/**
+ * Waits until the condition holds, for a chain the test cannot await, such as the one a button's click handler starts.
+ * Gives up after two seconds so the assertion that follows reports what is missing.
+ */
+async function settleUntil(condition: () => boolean, timeout = 2000) {
+    const deadline = Date.now() + timeout;
+    while (!condition() && Date.now() < deadline) {
+        await settle();
+    }
+}
+
 describe("loadDevTools", () => {
     const originalFetch = globalThis.fetch;
     const originalConsoleError = console.error;
@@ -149,12 +160,12 @@ describe("loadDevTools", () => {
 
         bodies.packageVersions = [{ appOwner: "dibk", appName: "new-v1", packageVersions: { altinnStudioCustomComponents: "1.0.0" } }];
         try {
-            (
-                Array.from(document.querySelectorAll("#sidebar button")).find(
-                    (button) => button.textContent === "Synchronize data"
-                ) as HTMLButtonElement
-            ).click();
-            await settle();
+            const synchronizeButton = Array.from(document.querySelectorAll("#sidebar button")).find(
+                (button) => button.textContent === "Synchronize data"
+            ) as HTMLButtonElement;
+            synchronizeButton.click();
+            // The button stays disabled until the data has been stored, applied and the open page drawn again.
+            await settleUntil(() => !synchronizeButton.disabled);
         } finally {
             bodies.packageVersions = [];
         }
@@ -169,7 +180,8 @@ describe("loadDevTools", () => {
         stubApi();
 
         (document.querySelector(".no-data-message button") as HTMLButtonElement).click();
-        await settle();
+        // The retry reloads everything, storage and seven requests included, which a busy runner can take longer than one settle for.
+        await settleUntil(() => document.querySelector("#sidebar ul") !== null);
 
         expect(document.querySelector(".no-data-message")).toBeNull();
         expect(document.querySelector("#sidebar ul")).not.toBeNull();
@@ -182,12 +194,12 @@ describe("loadDevTools", () => {
 
         bodies.packageVersions = [{ appOwner: "dibk", appName: "new-v1", packageVersions: { altinnStudioCustomComponents: "1.0.0" } }];
         try {
-            (
-                Array.from(document.querySelectorAll("#sidebar button")).find(
-                    (button) => button.textContent === "Synchronize data"
-                ) as HTMLButtonElement
-            ).click();
-            await settle();
+            const synchronizeButton = Array.from(document.querySelectorAll("#sidebar button")).find(
+                (button) => button.textContent === "Synchronize data"
+            ) as HTMLButtonElement;
+            synchronizeButton.click();
+            // The button stays disabled until the data has been stored, applied and the open page drawn again.
+            await settleUntil(() => !synchronizeButton.disabled);
         } finally {
             bodies.packageVersions = [];
         }
