@@ -524,15 +524,10 @@ export function renderNaboGjenboerEiendom(component?: InstantiatedComponent | nu
             eiendomMatrikkelinformasjonBolignummer: component?.resourceBindings?.eiendomMatrikkelinformasjonBolignummer,
             eiendomMatrikkelinformasjonBygningsnummer: component?.resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer,
             eier: component?.resourceBindings?.eier,
-            eierNavn: component?.resourceBindings?.eierNavn,
-            eierTelefonnummer: component?.resourceBindings?.eierTelefonnummer,
-            eierEpost: component?.resourceBindings?.eierEpost,
-            eierAdresse: component?.resourceBindings?.eierAdresse,
-            responsNabovarselSendtVia: component?.resourceBindings?.responsNabovarselSendtVia,
             responsNabovarselSendt: component?.resourceBindings?.responsNabovarselSendt,
             responsErMerknadEllerSamtykkeMottatt: component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt,
-            responsErMerknadMottatt: component?.resourceBindings?.responsErMerknadMottatt,
-            responsErSamtykkeMottatt: component?.resourceBindings?.responsErSamtykkeMottatt
+            responsMerknadMottattDato: component?.resourceBindings?.responsMerknadMottattDato,
+            responsSamtykkeMottattDato: component?.resourceBindings?.responsSamtykkeMottattDato
         },
         resourceValues: {
             data: data?.naboGjenboerEiendommer?.naboGjenboerEiendom

@@ -5,8 +5,10 @@ import {
     CustomElementHtmlAttributes,
     addContainerElement,
     createCustomElement,
-    getTextResourceFromResourceBinding
+    getTextResourceFromResourceBinding,
+    hasValue
 } from "@arkitektum/altinn-studio-custom-components-utils";
+import { formatDate } from "../../../../functions/dataFormatHelpers.ts";
 
 /**
  * Renders a custom element for displaying "Nabo Gjenboer Eiendom" data.
@@ -17,7 +19,7 @@ import {
  * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
  * @param {Object} [component?.resourceBindings.eiendomMatrikkelinformasjon] - The bindings for the table's title.
  * @param {Object} [component?.resourceBindings.eiendomMatrikkelinformasjonAdresse] - The bindings for the address column, and likewise for the other eiendomMatrikkelinformasjon* columns.
- * @returns {HTMLElement} The rendered custom table element wrapped in a container.
+ * @returns {HTMLElement} The rendered custom table element.
  */
 export function renderNaboGjenboerEiendomElement(component?: InstantiatedComponent | null) {
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
@@ -42,206 +44,95 @@ export function renderNaboGjenboerEiendomElement(component?: InstantiatedCompone
             data: data?.eiendommer?.eiendom
         }
     });
-    return addContainerElement(createCustomElement("custom-table-nabo-gjenboer-eiendom", htmlAttributes));
+    return createCustomElement("custom-table-nabo-gjenboer-eiendom", htmlAttributes);
 }
 
 /**
- * Renders a custom table part element for "eier" (owner) part type.
+ * Renders the name of the "eier" (owner) as a single field, in place of a full part table.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component?.resourceValues - The resource values associated with the component.
- * @param {Object} component?.resourceValues.data - The data object containing "eier" information.
- * @param {Object} component?.resourceBindings - The resource bindings for the component.
- * @param {Object} component?.resourceBindings.eier - The resource bindings specific to "eier".
- * @param {string} component?.resourceBindings.eier.title - The title for the "eier" part.
- * @param {Object} [component?.resourceBindings.eierNavn] - Handed to the part table as its "navn" bindings.
- * @param {Object} [component?.resourceBindings.eierTelefonnummer] - Handed to the part table as its "telefonnummer" bindings.
- * @param {Object} [component?.resourceBindings.eierEpost] - Handed to the part table as its "epost" bindings.
- * @returns {HTMLElement} The rendered custom table part element wrapped in a container.
+ * @param {Object} [component?.resourceValues.data] - The data object containing "eier" information.
+ * @param {Object} [component?.resourceBindings.eier] - The resource binding for the field.
+ * @param {string} [component?.resourceBindings.eier.title] - The title for the field.
+ * @returns {HTMLElement} The rendered custom field element wrapped in a container.
  */
-export function renderEierPartElement(component?: InstantiatedComponent | null) {
+export function renderEierNavnElement(component?: InstantiatedComponent | null) {
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
     const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        hideTitle: false,
-        size: component?.size || "h4",
         resourceBindings: {
-            title: component?.resourceBindings?.eier?.title,
-            navn: component?.resourceBindings?.eierNavn,
-            telefonnummer: component?.resourceBindings?.eierTelefonnummer,
-            epost: component?.resourceBindings?.eierEpost
+            title: component?.resourceBindings?.eier?.title
         },
         resourceValues: {
             data: data?.eier
         }
     });
-    return addContainerElement(createCustomElement("custom-table-part", htmlAttributes));
+    return addContainerElement(createCustomElement("custom-field-part-navn", htmlAttributes));
 }
 
 /**
- * Renders a custom address element for the "eier" (owner) within a group component.
+ * Renders the "Nabovarsel sendt" field, combining how and when the notification was sent into one value,
+ * as "<via>, <date>", or whichever of the two is present.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component?.resourceValues] - The resource values for the component.
- * @param {Object} [component?.resourceValues.data] - The data object containing "eier" information.
- * @param {Object} [component?.resourceValues.data.eier] - The "eier" (owner) object.
- * @param {string} [component?.resourceValues.data.eier.adresse] - The address of the "eier".
- * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component?.resourceBindings.eierAdresse] - The resource binding for the address.
- * @param {string} [component?.resourceBindings.eierAdresse.title] - The title for the address field.
- * @returns {HTMLElement} The rendered custom address element wrapped in a container.
- */
-export function renderEierAdresseElement(component?: InstantiatedComponent | null) {
-    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
-    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: true,
-        resourceBindings: {
-            title: component?.resourceBindings?.eierAdresse?.title
-        },
-        resourceValues: {
-            data: data?.eier?.adresse
-        }
-    });
-    return addContainerElement(createCustomElement("custom-field-adresse", htmlAttributes));
-}
-
-/**
- * Renders a custom element displaying the "Respons Nabovarsel Sendt Via" field.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} [component?.resourceValues] - The resource values for the component.
  * @param {Object} [component?.resourceValues.data] - The data object containing response information.
- * @param {Object} [component?.resourceBindings] - The resource bindings for the component.
- * @param {Object} [component?.resourceBindings.responsNabovarselSendtVia] - The resource binding for the title.
- * @param {string} [component?.resourceBindings.responsNabovarselSendtVia.title] - The title for the field.
- * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
- */
-export function renderResponsNabovarselSendtViaElement(component?: InstantiatedComponent | null) {
-    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
-    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        hideIfEmpty: true,
-        resourceBindings: {
-            title: component?.resourceBindings?.responsNabovarselSendtVia?.title
-        },
-        resourceValues: {
-            data: data?.respons?.nabovarselSendtVia?.kodebeskrivelse
-        }
-    });
-    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
-}
-
-/**
- * Renders a custom field data element for "responsNabovarselSendt".
- *
- * This function creates a custom element with specific HTML attributes,
- * including formatting as a date and resource bindings for the title and data.
- * The element is wrapped in a container element before being returned.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component?.resourceValues - The resource values for the component.
- * @param {Object} component?.resourceValues.data - The data object containing "respons".
- * @param {Object} component?.resourceBindings - The resource bindings for the component.
- * @param {Object} component?.resourceBindings.responsNabovarselSendt - The resource binding for the title.
+ * @param {Object} [component?.resourceBindings.responsNabovarselSendt] - The resource binding for the field.
+ * @param {string} [component?.resourceBindings.responsNabovarselSendt.title] - The title for the field.
  * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsNabovarselSendtElement(component?: InstantiatedComponent | null) {
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
     const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
+    const dateValue = hasValue(data?.respons?.nabovarselSendt) ? formatDate(data?.respons?.nabovarselSendt) : undefined;
+    const viaValue = hasValue(data?.respons?.nabovarselSendtVia?.kodebeskrivelse) ? data?.respons?.nabovarselSendtVia?.kodebeskrivelse : undefined;
+    const combinedValue = viaValue && dateValue ? `${viaValue}, ${dateValue}` : viaValue || dateValue;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        format: "date",
         resourceBindings: {
             title: component?.resourceBindings?.responsNabovarselSendt?.title
         },
         resourceValues: {
-            data: data?.respons?.nabovarselSendt
+            data: combinedValue
         }
     });
     return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
 }
 
 /**
- * Renders a custom element displaying the response status for "Merknad" (remark) or "Samtykke" (consent) received.
- *
- * Determines which text resource to display based on the values of `erMerknadMottatt` and `erSamtykkeMottatt`
- * from the component's resource values. It then creates a custom element with the appropriate attributes and data.
+ * Renders the response status, shown only when exactly one of `erMerknadMottatt` and `erSamtykkeMottatt` is true.
+ * The value is the matching "merknad" or "samtykke" text followed by its date, or the text alone when there is no date.
+ * When neither or both are true the field is left empty and hidden.
  *
  * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component?.resourceValues - The resource values, including response data.
- * @param {Object} component?.resourceValues.data - The data object containing response flags.
- * @param {Object} component?.resourceBindings - The resource bindings for text resources.
- * @returns {HTMLElement} The custom element representing the response status.
+ * @param {Object} [component?.resourceValues.data] - The data object containing the response flags and dates.
+ * @param {Object} [component?.resourceBindings.responsErMerknadEllerSamtykkeMottatt] - The resource binding for the field's title.
+ * @param {Object} [component?.resourceBindings.responsMerknadMottattDato] - Its title is the status text when a "merknad" was received.
+ * @param {Object} [component?.resourceBindings.responsSamtykkeMottattDato] - Its title is the status text when a "samtykke" was received.
+ * @returns {HTMLElement} The rendered custom field data element wrapped in a container.
  */
 export function renderResponsErMerknadEllerSamtykkeMottattElement(component?: InstantiatedComponent | null) {
     // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
     const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
-    const erMerknadMottatt = data?.respons?.erMerknadMottatt;
-    const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
-    let value: string | undefined = "";
-    if (erMerknadMottatt !== true && erSamtykkeMottatt !== true) {
-        value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.falseText);
-    } else if (erMerknadMottatt === true && erSamtykkeMottatt !== true) {
-        value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErMerknadMottatt?.trueText);
-    } else if (erMerknadMottatt !== true && erSamtykkeMottatt === true) {
-        value = getTextResourceFromResourceBinding(component?.resourceBindings?.responsErSamtykkeMottatt?.trueText);
+    const erMerknadMottatt = data?.respons?.erMerknadMottatt === true;
+    const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt === true;
+    let statusValue: string | undefined;
+    let dateValue: string | undefined;
+    if (erMerknadMottatt && !erSamtykkeMottatt) {
+        statusValue = getTextResourceFromResourceBinding(component?.resourceBindings?.responsMerknadMottattDato?.title);
+        dateValue = formatDate(data?.respons?.merknadMottattDato);
+    } else if (erSamtykkeMottatt && !erMerknadMottatt) {
+        statusValue = getTextResourceFromResourceBinding(component?.resourceBindings?.responsSamtykkeMottattDato?.title);
+        dateValue = formatDate(data?.respons?.samtykkeMottattDato);
     }
-    const htmlAttributes = new CustomElementHtmlAttributes({
-        isChildComponent: true,
-        resourceBindings: {
-            title: component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title
-        },
-        resourceValues: {
-            data: value
-        }
-    });
-    return addContainerElement(createCustomElement("custom-field-data", htmlAttributes));
-}
-
-/**
- * Renders a custom element displaying either the date a remark ("merknad") or consent ("samtykke") was received,
- * based on the provided component's data. The function determines which date and title to use depending on the
- * response flags in the component's resource values.
- *
- * @param {Object} component - The component object containing resource values and bindings.
- * @param {Object} component?.resourceValues - Contains the data for the component.
- * @param {Object} component?.resourceValues.data - The data object with response information.
- * @param {Object} component?.resourceValues.data.respons - The response object.
- * @param {boolean} component?.resourceValues.data.respons.erMerknadMottatt - Indicates if a remark was received (true/false/null).
- * @param {boolean} component?.resourceValues.data.respons.erSamtykkeMottatt - Indicates if consent was received (true/false/null).
- * @param {string} [component?.resourceValues.data.respons.merknadMottattDato] - The date a remark was received.
- * @param {string} [component?.resourceValues.data.respons.samtykkeMottattDato] - The date consent was received.
- * @param {Object} component?.resourceBindings - Contains title bindings for the fields.
- * @param {string} [component?.resourceBindings.responsMerknadMottattDato.title] - The title for the remark received date.
- * @param {string} [component?.resourceBindings.responsSamtykkeMottattDato.title] - The title for the consent received date.
- * @returns {HTMLElement} The rendered custom element wrapped in a container.
- */
-export function renderResponsSamtykkeEllerMerknadMottattElement(component?: InstantiatedComponent | null) {
-    // Drawn only on the non-empty branch, where the data is the model rather than the empty-field text.
-    const data = component?.resourceValues?.data as NaboGjenboerEiendom | undefined;
-    const erMerknadMottatt = data?.respons?.erMerknadMottatt;
-    const erSamtykkeMottatt = data?.respons?.erSamtykkeMottatt;
-    let value;
-    let title;
-    if (erMerknadMottatt === true && erSamtykkeMottatt !== true) {
-        value = data?.respons?.merknadMottattDato;
-        title = component?.resourceBindings?.responsMerknadMottattDato?.title;
-    } else if (erMerknadMottatt !== true && erSamtykkeMottatt === true) {
-        value = data?.respons?.samtykkeMottattDato;
-        title = component?.resourceBindings?.responsSamtykkeMottattDato?.title;
-    }
+    const value = hasValue(statusValue) && hasValue(dateValue) ? `${statusValue} ${dateValue}` : statusValue;
     const htmlAttributes = new CustomElementHtmlAttributes({
         isChildComponent: true,
         hideIfEmpty: true,
-        format: "date",
         resourceBindings: {
-            title
+            title: component?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title
         },
         resourceValues: {
             data: value

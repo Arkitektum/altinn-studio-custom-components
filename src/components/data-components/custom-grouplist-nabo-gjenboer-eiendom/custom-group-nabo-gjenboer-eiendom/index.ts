@@ -4,14 +4,11 @@ import { renderFeedbackListElement } from "../../../../functions/feedbackHelpers
 
 // Local functions
 import {
-    renderEierAdresseElement,
-    renderEierPartElement,
+    renderEierNavnElement,
     renderEmptyFieldText,
     renderNaboGjenboerEiendomElement,
     renderResponsErMerknadEllerSamtykkeMottattElement,
-    renderResponsNabovarselSendtElement,
-    renderResponsNabovarselSendtViaElement,
-    renderResponsSamtykkeEllerMerknadMottattElement
+    renderResponsNabovarselSendtElement
 } from "./renderers.ts";
 
 export default customElements.define(
@@ -29,12 +26,9 @@ export default customElements.define(
                     } else {
                         const containerElement = document.createElement("div");
                         containerElement.appendChild(renderNaboGjenboerEiendomElement(component));
-                        containerElement.appendChild(renderEierPartElement(component));
-                        containerElement.appendChild(renderEierAdresseElement(component));
-                        containerElement.appendChild(renderResponsNabovarselSendtViaElement(component));
+                        containerElement.appendChild(renderEierNavnElement(component));
                         containerElement.appendChild(renderResponsNabovarselSendtElement(component));
                         containerElement.appendChild(renderResponsErMerknadEllerSamtykkeMottattElement(component));
-                        containerElement.appendChild(renderResponsSamtykkeEllerMerknadMottattElement(component));
                         host.appendChild(containerElement);
 
                         const feedbackListElement = component!.hasValidationMessages && renderFeedbackListElement(component?.validationMessages);
