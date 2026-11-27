@@ -60,15 +60,10 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
             eiendomMatrikkelinformasjonBolignummer: resourceBindings?.eiendomMatrikkelinformasjonBolignummer,
             eiendomMatrikkelinformasjonBygningsnummer: resourceBindings?.eiendomMatrikkelinformasjonBygningsnummer,
             eier: resourceBindings?.eier,
-            eierNavn: resourceBindings?.eierNavn,
-            eierTelefonnummer: resourceBindings?.eierTelefonnummer,
-            eierEpost: resourceBindings?.eierEpost,
-            eierAdresse: resourceBindings?.eierAdresse,
-            responsNabovarselSendtVia: resourceBindings?.responsNabovarselSendtVia,
             responsNabovarselSendt: resourceBindings?.responsNabovarselSendt,
             responsErMerknadEllerSamtykkeMottatt: resourceBindings?.responsErMerknadEllerSamtykkeMottatt,
-            responsErMerknadMottatt: resourceBindings?.responsErMerknadMottatt,
-            responsErSamtykkeMottatt: resourceBindings?.responsErSamtykkeMottatt
+            responsMerknadMottattDato: resourceBindings?.responsMerknadMottattDato,
+            responsSamtykkeMottattDato: resourceBindings?.responsSamtykkeMottattDato
         };
         this.resourceValues = {
             title: getTextResourceFromResourceBinding(resourceBindings?.naboGjenboerEiendom?.title),
@@ -156,40 +151,12 @@ export default class CustomGrouplistNaboGjenboerEiendom extends CustomComponent 
             eier: {
                 title: props?.resourceBindings?.eier?.title || "resource.eierFesterAvNaboeiendom.title"
             },
-            eierNavn: {
-                title: props?.resourceBindings?.eierNavn?.title || "resource.navn.title",
-                emptyFieldText: props?.resourceBindings?.eierNavn?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            eierTelefonnummer: {
-                title: props?.resourceBindings?.eierTelefonnummer?.title || "resource.telefonnummer.title",
-                emptyFieldText: props?.resourceBindings?.eierTelefonnummer?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            eierEpost: {
-                title: props?.resourceBindings?.eierEpost?.title || "resource.epostadresse.title",
-                emptyFieldText: props?.resourceBindings?.eierEpost?.emptyFieldText || "resource.emptyFieldText.default"
-            },
-            eierAdresse: {
-                title: props?.resourceBindings?.eierAdresse?.title || "resource.adresse.title"
-            },
-            responsNabovarselSendtVia: {
-                title: props?.resourceBindings?.responsNabovarselSendtVia?.title || "resource.respons.nabovarselSendtVia.title",
-                emptyFieldText: props?.resourceBindings?.responsNabovarselSendtVia?.emptyFieldText || "resource.emptyFieldText.default"
-            },
             responsNabovarselSendt: {
                 title: props?.resourceBindings?.responsNabovarselSendt?.title || "resource.respons.nabovarselSendt.title",
                 emptyFieldText: props?.resourceBindings?.responsNabovarselSendt?.emptyFieldText || "resource.emptyFieldText.default"
             },
             responsErMerknadEllerSamtykkeMottatt: {
-                title: props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title || "resource.status.title",
-                falseText:
-                    props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.falseText ||
-                    "resource.respons.erMerknadEllerSamtykkeMottatt.falseText"
-            },
-            responsErMerknadMottatt: {
-                trueText: props?.resourceBindings?.responsErMerknadMottatt?.trueText || "resource.respons.erMerknadMottatt.trueText"
-            },
-            responsErSamtykkeMottatt: {
-                trueText: props?.resourceBindings?.responsErSamtykkeMottatt?.trueText || "resource.respons.erSamtykkeMottatt.trueText"
+                title: props?.resourceBindings?.responsErMerknadEllerSamtykkeMottatt?.title || "resource.status.title"
             },
             responsMerknadMottattDato: {
                 title: props?.resourceBindings?.responsMerknadMottattDato?.title || "resource.respons.merknadMottattDato.title"
